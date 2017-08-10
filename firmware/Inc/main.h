@@ -60,6 +60,8 @@
 #define USER_LED_GPIO_Port GPIOC
 #define USER_BUTTON_Pin GPIO_PIN_9
 #define USER_BUTTON_GPIO_Port GPIOC
+#define WS_EN_Pin GPIO_PIN_10
+#define WS_EN_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
 

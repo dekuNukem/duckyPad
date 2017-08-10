@@ -33,6 +33,8 @@ lul\usbd_ioreq.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pcd.h
 lul\usbd_ioreq.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pcd_ex.h
 lul\usbd_ioreq.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr.h
 lul\usbd_ioreq.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr_ex.h
+lul\usbd_ioreq.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_spi.h
+lul\usbd_ioreq.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_spi_ex.h
 lul\usbd_ioreq.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h
 lul\usbd_ioreq.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h
 lul\usbd_ioreq.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h

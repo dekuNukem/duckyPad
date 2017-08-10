@@ -1,4 +1,10 @@
-ssd1306_Fill(Black);
+  HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_RESET);
+  HAL_Delay(100);
+  HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_SET);
+  HAL_Delay(100);
+  ssd1306_Init();
+
+  ssd1306_Fill(Black);
   ssd1306_SetCursor(0,20);
   ssd1306_WriteString("Profile 1",Font_11x18,White);
   ssd1306_UpdateScreen();
@@ -10,11 +16,11 @@ ssd1306_Fill(Black);
   ssd1306_SetCursor(0,10);
   ssd1306_WriteString("jumps over the lazy",Font_7x10,White);
   ssd1306_SetCursor(0,21);
-  ssd1306_WriteString("doge",Font_7x10,White);
+  ssd1306_WriteString("doge much better",Font_7x10,White);
   ssd1306_SetCursor(0,32);
   ssd1306_WriteString("1234 1234 1234 1234 5678",Font_7x10,White);
   ssd1306_UpdateScreen();
-
+  printf("ready\n");
 
     ssd1306_Fill(Black);
     ssd1306_SetCursor(0,20);

@@ -29,6 +29,8 @@ lul\usb_device.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pcd.h
 lul\usb_device.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pcd_ex.h
 lul\usb_device.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr.h
 lul\usb_device.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr_ex.h
+lul\usb_device.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_spi.h
+lul\usb_device.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_spi_ex.h
 lul\usb_device.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h
 lul\usb_device.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h
 lul\usb_device.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h

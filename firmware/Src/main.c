@@ -54,16 +54,31 @@
 #include "usbd_hid.h"
 #include "ssd1306.h"
 #include "fonts.h"
+#define WS_BIT_0 0xc0
+#define WS_BIT_1 0xf8
+/*
+1
+#define WS_BIT_0 0x80
+#define WS_BIT_1 0xfe
+2
+#define WS_BIT_0 0xc0
+#define WS_BIT_1 0xfc
+3
+#define WS_BIT_0 0xe0
+#define WS_BIT_1 0xf8
+*/
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
 I2C_HandleTypeDef hi2c1;
 
+SPI_HandleTypeDef hspi1;
+
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
+uint8_t ws_reset_buf[50];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -71,6 +86,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_I2C1_Init(void);
+static void MX_SPI1_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
@@ -82,6 +98,31 @@ int fputc(int ch, FILE *f)
 {
     HAL_UART_Transmit(&huart1, (unsigned char *)&ch, 1, 100);
     return ch;
+}
+
+void led_test(void)
+{
+  uint8_t spi_buf[24*3 + 1] = {
+    WS_BIT_1, WS_BIT_0, WS_BIT_1, WS_BIT_0, WS_BIT_1, WS_BIT_0, WS_BIT_1, WS_BIT_0,
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+    WS_BIT_1, WS_BIT_0, WS_BIT_1, WS_BIT_0, WS_BIT_1, WS_BIT_0, WS_BIT_1, WS_BIT_0,
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+    WS_BIT_1, WS_BIT_0, WS_BIT_1, WS_BIT_0, WS_BIT_1, WS_BIT_0, WS_BIT_1, WS_BIT_0
+
+    , 0
+  };
+  HAL_GPIO_WritePin(WS_EN_GPIO_Port, WS_EN_Pin, GPIO_PIN_SET);
+  // 80us reset
+  HAL_SPI_Transmit(&hspi1, ws_reset_buf, 10, 500);
+  HAL_SPI_Transmit(&hspi1, spi_buf, 24*3 + 1, 500);
+  HAL_SPI_Transmit(&hspi1, ws_reset_buf, 10, 500);
+  HAL_GPIO_WritePin(WS_EN_GPIO_Port, WS_EN_Pin, GPIO_PIN_RESET);
 }
 /* USER CODE END 0 */
 
@@ -113,6 +154,7 @@ int main(void)
   MX_USB_DEVICE_Init();
   MX_USART1_UART_Init();
   MX_I2C1_Init();
+  MX_SPI1_Init();
 
   /* USER CODE BEGIN 2 */
 
@@ -120,38 +162,16 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  // HAL_NVIC_SetPriority(EXTI4_15_IRQn, 0, 0);
-  // HAL_NVIC_EnableIRQ(EXTI4_15_IRQn);
-  HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_RESET);
-  HAL_Delay(100);
-  HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_SET);
-  HAL_Delay(100);
-  ssd1306_Init();
-
-  ssd1306_Fill(Black);
-  ssd1306_SetCursor(0,20);
-  ssd1306_WriteString("Profile 1",Font_11x18,White);
-  ssd1306_UpdateScreen();
-  HAL_Delay(1000);
-
-  ssd1306_Fill(Black);
-  ssd1306_SetCursor(0,0);
-  ssd1306_WriteString("The quick brown fox",Font_7x10,White);
-  ssd1306_SetCursor(0,10);
-  ssd1306_WriteString("jumps over the lazy",Font_7x10,White);
-  ssd1306_SetCursor(0,21);
-  ssd1306_WriteString("doge much better",Font_7x10,White);
-  ssd1306_SetCursor(0,32);
-  ssd1306_WriteString("1234 1234 1234 1234 5678",Font_7x10,White);
-  ssd1306_UpdateScreen();
-  printf("ready\n");
+  
   while (1)
   {
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-  	// printf("pin: %d\n", HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_10));
-  	HAL_Delay(500);
+    printf("hello world\n");
+    HAL_GPIO_TogglePin(USER_LED_GPIO_Port, USER_LED_Pin);
+    led_test();
+    HAL_Delay(500);
   }
   /* USER CODE END 3 */
 
@@ -172,7 +192,10 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
   RCC_OscInitStruct.HSICalibrationValue = 16;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL5;
+  RCC_OscInitStruct.PLL.PREDIV = RCC_PREDIV_DIV1;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
@@ -182,7 +205,7 @@ void SystemClock_Config(void)
     */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI48;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
 
@@ -193,8 +216,8 @@ void SystemClock_Config(void)
 
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USB|RCC_PERIPHCLK_USART1
                               |RCC_PERIPHCLK_I2C1;
-  PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK1;
-  PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_HSI;
+  PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_SYSCLK;
+  PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_SYSCLK;
   PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_HSI48;
 
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
@@ -219,7 +242,7 @@ static void MX_I2C1_Init(void)
 {
 
   hi2c1.Instance = I2C1;
-  hi2c1.Init.Timing = 0x0000020B;
+  hi2c1.Init.Timing = 0x00301347;
   hi2c1.Init.OwnAddress1 = 0;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
@@ -242,6 +265,31 @@ static void MX_I2C1_Init(void)
     /**Configure Digital filter 
     */
   if (HAL_I2CEx_ConfigDigitalFilter(&hi2c1, 0) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+}
+
+/* SPI1 init function */
+static void MX_SPI1_Init(void)
+{
+
+  hspi1.Instance = SPI1;
+  hspi1.Init.Mode = SPI_MODE_MASTER;
+  hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi1.Init.NSS = SPI_NSS_SOFT;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
+  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi1.Init.CRCPolynomial = 7;
+  hspi1.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
+  hspi1.Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
+  if (HAL_SPI_Init(&hspi1) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -282,12 +330,15 @@ static void MX_GPIO_Init(void)
   GPIO_InitTypeDef GPIO_InitStruct;
 
   /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(WS_EN_GPIO_Port, WS_EN_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : USER_LED_Pin */
   GPIO_InitStruct.Pin = USER_LED_Pin;
@@ -302,22 +353,19 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(USER_BUTTON_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PA8 PA10 */
-  GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_10;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /* EXTI interrupt init*/
-  HAL_NVIC_SetPriority(EXTI4_15_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(EXTI4_15_IRQn);
+  /*Configure GPIO pin : WS_EN_Pin */
+  GPIO_InitStruct.Pin = WS_EN_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(WS_EN_GPIO_Port, &GPIO_InitStruct);
 
 }
 
 /* USER CODE BEGIN 4 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-	printf("aha\n");
+  printf("aha\n");
 }
 /* USER CODE END 4 */
 
