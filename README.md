@@ -6,3 +6,5 @@ interrupt add to event queue
 main loop get rid of queue item
 
 tangentbord
+
+TODO: TEST 5V LEVEL TRANSLATION OF 74LV125
