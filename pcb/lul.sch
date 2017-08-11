@@ -181,245 +181,6 @@ We've spent an enormous amount of time creating and checking these footprints an
 &lt;br&gt;
 You are welcome to use this library for commercial purposes. For attribution, we ask that when you begin to sell your device using our footprint, you email us with a link to the product being sold. We want bragging rights that we helped (in a very small part) to create your 8th world wonder. We would like the opportunity to feature your device on our homepage.</description>
 <packages>
-<package name="TACTILE_SWITCH_LED_PTH_12MM">
-<description>&lt;h3&gt;Momentary Switch (Pushbutton) - SPST - w/ LED - PTH&lt;/h3&gt;
-&lt;p&gt;Normally-open (NO) SPST momentary switches (buttons, pushbuttons), with a built-in LED.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://www.sparkfun.com/datasheets/Components/General/TSD1265.png"&gt;Dimensional Drawing&lt;/a&gt;&lt;/p&gt;</description>
-<wire x1="5" y1="-1.3" x2="5" y2="-0.7" width="0.2032" layer="51"/>
-<wire x1="5" y1="-0.7" x2="4.5" y2="-0.2" width="0.2032" layer="51"/>
-<wire x1="5" y1="0.2" x2="5" y2="1" width="0.2032" layer="51"/>
-<wire x1="-6" y1="4" x2="-6" y2="4.85" width="0.2032" layer="21"/>
-<wire x1="-4.85" y1="6" x2="4.85" y2="6" width="0.2032" layer="21"/>
-<wire x1="6" y1="4.85" x2="6" y2="4" width="0.2032" layer="21"/>
-<wire x1="6" y1="1" x2="6" y2="-1" width="0.2032" layer="21"/>
-<wire x1="6" y1="-4" x2="6" y2="-4.85" width="0.2032" layer="21"/>
-<wire x1="4.85" y1="-6" x2="-4.85" y2="-6" width="0.2032" layer="21"/>
-<wire x1="-6" y1="-4.85" x2="-6" y2="-4" width="0.2032" layer="21"/>
-<wire x1="-6" y1="-1" x2="-6" y2="1" width="0.2032" layer="21"/>
-<wire x1="4.85" y1="6" x2="6" y2="4.85" width="0.2032" layer="21"/>
-<wire x1="-6" y1="4.85" x2="-4.85" y2="6" width="0.2032" layer="21"/>
-<wire x1="-4.85" y1="-6" x2="-6" y2="-4.85" width="0.2032" layer="21"/>
-<wire x1="6" y1="-4.85" x2="4.85" y2="-6" width="0.2032" layer="21"/>
-<wire x1="6" y1="1" x2="5" y2="1" width="0.2032" layer="21"/>
-<wire x1="5" y1="1" x2="5" y2="4" width="0.2032" layer="21"/>
-<wire x1="5" y1="4" x2="6" y2="4" width="0.2032" layer="21"/>
-<wire x1="6" y1="-1" x2="5" y2="-1" width="0.2032" layer="21"/>
-<wire x1="5" y1="-1" x2="5" y2="-4" width="0.2032" layer="21"/>
-<wire x1="5" y1="-4" x2="6" y2="-4" width="0.2032" layer="21"/>
-<wire x1="0.635" y1="0.635" x2="-0.635" y2="0.635" width="0.3048" layer="21"/>
-<wire x1="-0.635" y1="0.635" x2="0" y2="-0.635" width="0.3048" layer="21"/>
-<wire x1="0" y1="-0.635" x2="0.635" y2="0.635" width="0.3048" layer="21"/>
-<wire x1="0.635" y1="-0.635" x2="0" y2="-0.635" width="0.3048" layer="21"/>
-<wire x1="0" y1="-0.635" x2="-0.635" y2="-0.635" width="0.3048" layer="21"/>
-<circle x="0" y="0" radius="3.5" width="0.2032" layer="21"/>
-<circle x="-4" y="4" radius="0.4" width="0.9" layer="21"/>
-<circle x="4" y="4" radius="0.4" width="0.9" layer="21"/>
-<circle x="4" y="-4" radius="0.4" width="0.9" layer="21"/>
-<circle x="-4" y="-4" radius="0.4" width="0.9" layer="21"/>
-<pad name="1" x="-6.25" y="2.5" drill="1.2" diameter="2.159"/>
-<pad name="2" x="6.25" y="2.5" drill="1.2" diameter="2.159"/>
-<pad name="3" x="-6.25" y="-2.5" drill="1.2" diameter="2.159"/>
-<pad name="4" x="6.25" y="-2.5" drill="1.2" diameter="2.159"/>
-<pad name="A" x="0" y="6.75" drill="0.8" diameter="1.6764"/>
-<pad name="C" x="0" y="-6.75" drill="0.8" diameter="1.6764"/>
-<text x="-4.8" y="2" size="1.016" layer="21" font="vector" ratio="15">1</text>
-<text x="4" y="2" size="1.016" layer="21" font="vector" ratio="15">2</text>
-<text x="-4.8" y="-3" size="1.016" layer="21" font="vector" ratio="15">3</text>
-<text x="4" y="-3" size="1.016" layer="21" font="vector" ratio="15">4</text>
-<text x="1.2573" y="3.5052" size="2.1844" layer="21" font="vector" ratio="15" rot="R180">+</text>
-<text x="1.2065" y="-1.2954" size="2.1844" layer="21" font="vector" ratio="15" rot="R180">-</text>
-<hole x="0" y="4.5" drill="1.6"/>
-<hole x="0" y="-4.5" drill="1.6"/>
-<text x="3.81" y="6.35" size="0.6096" layer="25" font="vector" ratio="20" align="bottom-center">&gt;Name</text>
-<text x="3.81" y="-6.35" size="0.6096" layer="27" font="vector" ratio="20" align="top-center">&gt;Value</text>
-</package>
-<package name="TACTILE_SWITCH_LED_PTH_12MM_KIT">
-<description>&lt;h3&gt;Momentary Switch (Pushbutton) - SPST - w/ LED - PTH, KIT Variant&lt;/h3&gt;
-&lt;p&gt;Normally-open (NO) SPST momentary switches (buttons, pushbuttons), with a built-in LED.&lt;/p&gt;
-&lt;p&gt;KIT variant is for soldering kits. There is no tStop (covering up the top side of the pads with mask). This helps the beginner see which side they should be soldering too.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://www.sparkfun.com/datasheets/Components/General/TSD1265.png"&gt;Dimensional Drawing&lt;/a&gt;&lt;/p&gt;</description>
-<wire x1="5" y1="-1.3" x2="5" y2="-0.7" width="0.2032" layer="51"/>
-<wire x1="5" y1="-0.7" x2="4.5" y2="-0.2" width="0.2032" layer="51"/>
-<wire x1="5" y1="0.2" x2="5" y2="1" width="0.2032" layer="51"/>
-<wire x1="-6" y1="4" x2="-6" y2="4.85" width="0.2032" layer="21"/>
-<wire x1="-4.85" y1="6" x2="-1.27" y2="6" width="0.2032" layer="21"/>
-<wire x1="-1.27" y1="6" x2="-1.27" y2="8.128" width="0.2032" layer="21"/>
-<wire x1="-1.27" y1="8.128" x2="1.27" y2="8.128" width="0.2032" layer="21"/>
-<wire x1="1.27" y1="8.128" x2="1.27" y2="6" width="0.2032" layer="21"/>
-<wire x1="1.27" y1="6" x2="4.85" y2="6" width="0.2032" layer="21"/>
-<wire x1="6" y1="4.85" x2="6" y2="4" width="0.2032" layer="21"/>
-<wire x1="6" y1="1" x2="6" y2="-1" width="0.2032" layer="21"/>
-<wire x1="6" y1="-4" x2="6" y2="-4.85" width="0.2032" layer="21"/>
-<wire x1="4.85" y1="-6" x2="1.27" y2="-6" width="0.2032" layer="21"/>
-<wire x1="1.27" y1="-6" x2="1.27" y2="-8.128" width="0.2032" layer="21"/>
-<wire x1="1.27" y1="-8.128" x2="-1.27" y2="-8.128" width="0.2032" layer="21"/>
-<wire x1="-1.27" y1="-8.128" x2="-1.27" y2="-6" width="0.2032" layer="21"/>
-<wire x1="-1.27" y1="-6" x2="-4.85" y2="-6" width="0.2032" layer="21"/>
-<wire x1="-6" y1="-4.85" x2="-6" y2="-4" width="0.2032" layer="21"/>
-<wire x1="-6" y1="-1" x2="-6" y2="1" width="0.2032" layer="21"/>
-<wire x1="4.85" y1="6" x2="6" y2="4.85" width="0.2032" layer="21"/>
-<wire x1="-6" y1="4.85" x2="-4.85" y2="6" width="0.2032" layer="21"/>
-<wire x1="-4.85" y1="-6" x2="-6" y2="-4.85" width="0.2032" layer="21"/>
-<wire x1="6" y1="-4.85" x2="4.85" y2="-6" width="0.2032" layer="21"/>
-<wire x1="6" y1="1" x2="5" y2="1" width="0.2032" layer="21"/>
-<wire x1="5" y1="1" x2="5" y2="4" width="0.2032" layer="21"/>
-<wire x1="5" y1="4" x2="6" y2="4" width="0.2032" layer="21"/>
-<wire x1="6" y1="-1" x2="5" y2="-1" width="0.2032" layer="21"/>
-<wire x1="5" y1="-1" x2="5" y2="-4" width="0.2032" layer="21"/>
-<wire x1="5" y1="-4" x2="6" y2="-4" width="0.2032" layer="21"/>
-<wire x1="0.635" y1="0.635" x2="-0.635" y2="0.635" width="0.2032" layer="21"/>
-<wire x1="-0.635" y1="0.635" x2="0" y2="-0.635" width="0.2032" layer="21"/>
-<wire x1="0" y1="-0.635" x2="0.635" y2="0.635" width="0.2032" layer="21"/>
-<wire x1="0.635" y1="-0.635" x2="0" y2="-0.635" width="0.2032" layer="21"/>
-<wire x1="0" y1="-0.635" x2="-0.635" y2="-0.635" width="0.2032" layer="21"/>
-<circle x="0" y="0" radius="3.5" width="0.2032" layer="21"/>
-<circle x="-4" y="4" radius="0.4" width="0.9" layer="21"/>
-<circle x="4" y="4" radius="0.4" width="0.9" layer="21"/>
-<circle x="4" y="-4" radius="0.4" width="0.9" layer="21"/>
-<circle x="-4" y="-4" radius="0.4" width="0.9" layer="21"/>
-<pad name="1" x="-6.25" y="2.5" drill="1.2" diameter="2.159" stop="no"/>
-<pad name="2" x="6.25" y="2.5" drill="1.2" diameter="2.159" stop="no"/>
-<pad name="3" x="-6.25" y="-2.5" drill="1.2" diameter="2.159" stop="no"/>
-<pad name="4" x="6.25" y="-2.5" drill="1.2" diameter="2.159" stop="no"/>
-<pad name="A" x="0" y="6.75" drill="0.8" diameter="1.6764" stop="no"/>
-<pad name="C" x="0" y="-6.75" drill="0.8" diameter="1.6764" stop="no"/>
-<text x="-4.8" y="2" size="1.016" layer="21" font="vector" ratio="15">1</text>
-<text x="4" y="2" size="1.016" layer="21" font="vector" ratio="15">2</text>
-<text x="-4.8" y="-3" size="1.016" layer="21" font="vector" ratio="15">3</text>
-<text x="4" y="-3" size="1.016" layer="21" font="vector" ratio="15">4</text>
-<text x="0.8573" y="3.5052" size="2.1844" layer="21" font="vector" ratio="15" rot="SR180">+</text>
-<text x="0.8065" y="-1.6954" size="2.1844" layer="21" font="vector" ratio="15" rot="SR180">-</text>
-<hole x="0" y="4.5" drill="1.6"/>
-<hole x="0" y="-4.5" drill="1.6"/>
-<polygon width="0.127" layer="30">
-<vertex x="0" y="5.9182" curve="90"/>
-<vertex x="0.8382" y="6.731" curve="90"/>
-<vertex x="0" y="7.5946" curve="90"/>
-<vertex x="-0.8382" y="6.731" curve="90"/>
-</polygon>
-<polygon width="0.127" layer="30">
-<vertex x="0" y="-7.5946" curve="90"/>
-<vertex x="0.8382" y="-6.7818" curve="90"/>
-<vertex x="0" y="-5.9182" curve="90"/>
-<vertex x="-0.8382" y="-6.7818" curve="90"/>
-</polygon>
-<polygon width="0.127" layer="30">
-<vertex x="-6.2484" y="1.4478" curve="90"/>
-<vertex x="-5.1816" y="2.5146" curve="90"/>
-<vertex x="-6.2484" y="3.556" curve="90"/>
-<vertex x="-7.3152" y="2.5146" curve="90"/>
-</polygon>
-<polygon width="0.127" layer="30">
-<vertex x="-6.2484" y="-3.556" curve="90"/>
-<vertex x="-5.1816" y="-2.4892" curve="90"/>
-<vertex x="-6.2484" y="-1.4478" curve="90"/>
-<vertex x="-7.3152" y="-2.4892" curve="90"/>
-</polygon>
-<polygon width="0.127" layer="30">
-<vertex x="6.2484" y="1.4478" curve="90"/>
-<vertex x="7.3152" y="2.5146" curve="90"/>
-<vertex x="6.2484" y="3.556" curve="90"/>
-<vertex x="5.1816" y="2.5146" curve="90"/>
-</polygon>
-<polygon width="0.127" layer="30">
-<vertex x="6.2484" y="-3.556" curve="90"/>
-<vertex x="7.3152" y="-2.4892" curve="90"/>
-<vertex x="6.2484" y="-1.4478" curve="90"/>
-<vertex x="5.1816" y="-2.4892" curve="90"/>
-</polygon>
-<polygon width="0.127" layer="29">
-<vertex x="0" y="6.4262" curve="90"/>
-<vertex x="0.3302" y="6.7564" curve="90"/>
-<vertex x="0" y="7.0866" curve="90"/>
-<vertex x="-0.3302" y="6.731" curve="90"/>
-</polygon>
-<polygon width="0.127" layer="29">
-<vertex x="0" y="-7.07898125" curve="90"/>
-<vertex x="0.3302" y="-6.74878125" curve="90"/>
-<vertex x="0" y="-6.41858125" curve="90"/>
-<vertex x="-0.3302" y="-6.77418125" curve="90"/>
-</polygon>
-<polygon width="0.127" layer="29">
-<vertex x="-6.25348125" y="-3.02514375" curve="90"/>
-<vertex x="-5.7277" y="-2.47904375" curve="90"/>
-<vertex x="-6.253478125" y="-1.968503125" curve="90"/>
-<vertex x="-6.7818" y="-2.51968125" curve="90"/>
-</polygon>
-<polygon width="0.127" layer="29">
-<vertex x="-6.250940625" y="1.96595625" curve="90"/>
-<vertex x="-5.725159375" y="2.51205625" curve="90"/>
-<vertex x="-6.2509375" y="3.022596875" curve="90"/>
-<vertex x="-6.779259375" y="2.47141875" curve="90"/>
-</polygon>
-<polygon width="0.127" layer="29">
-<vertex x="6.25601875" y="-3.030225" curve="90"/>
-<vertex x="6.7818" y="-2.484125" curve="90"/>
-<vertex x="6.256021875" y="-1.973584375" curve="90"/>
-<vertex x="5.7277" y="-2.5247625" curve="90"/>
-</polygon>
-<polygon width="0.127" layer="29">
-<vertex x="6.2509375" y="1.968496875" curve="90"/>
-<vertex x="6.77671875" y="2.514596875" curve="90"/>
-<vertex x="6.250940625" y="3.0251375" curve="90"/>
-<vertex x="5.72261875" y="2.473959375" curve="90"/>
-</polygon>
-<text x="1.6427" y="5.9948" size="2.1844" layer="21" font="vector" ratio="15" rot="SR0">+</text>
-<text x="0" y="8.382" size="0.6096" layer="25" font="vector" ratio="20" align="bottom-center">&gt;Name</text>
-<text x="0" y="-8.255" size="0.6096" layer="27" font="vector" ratio="20" align="top-center">&gt;Value</text>
-</package>
-<package name="CHERRY-MX-LED">
-<description>&lt;h3&gt;Cherry MX Switch - Electromechanical Swith w/ LED&lt;/h3&gt;
-
-&lt;p&gt;Cherry MX Keyswitches are top-of-the-line mechanical keyboard switches. They’re satisfyingly “clicky”, reliable up to tens-of-millions of key presses, and a standard in gaming and programming keyboards across the globe. This ‘blue’ version Cherry MX Switch is favored by most due to its secondary internal actuator making it less likely to “double-tap.” If you are looking for a noticeably audible and high-quality key switch, this is the perfect option for you!&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="https://www.sparkfun.com/products/13834"&gt;SparkFun Product Link&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://cdn.sparkfun.com/datasheets/Components/Switches/MX%20Series.pdf"&gt;Datasheet&lt;/a&gt;&lt;/p&gt;</description>
-<hole x="0" y="0" drill="4.0894"/>
-<hole x="-5.08" y="0" drill="1.70688125"/>
-<hole x="5.08" y="0" drill="1.70688125"/>
-<pad name="A" x="-1.27" y="-5.08" drill="1.0922" diameter="2.032"/>
-<pad name="K" x="1.27" y="-5.08" drill="1.0922" diameter="2.032"/>
-<pad name="S1" x="-3.81" y="2.54" drill="1.7526" diameter="3.2258"/>
-<pad name="S2" x="2.54" y="5.08" drill="1.7526" diameter="3.2258"/>
-<text x="-2.159" y="-5.08" size="1.524" layer="21" font="vector" ratio="15" align="center-right">+</text>
-<text x="2.54" y="-5.08" size="1.524" layer="21" font="vector" ratio="15" align="center-left">-</text>
-<wire x1="-6.731" y1="6.731" x2="-7.747" y2="6.731" width="0.254" layer="51"/>
-<wire x1="-7.747" y1="6.731" x2="-6.731" y2="7.747" width="0.254" layer="51" curve="-90"/>
-<wire x1="-6.731" y1="7.747" x2="-3.175" y2="7.747" width="0.254" layer="51"/>
-<wire x1="-3.175" y1="7.747" x2="-3.175" y2="6.731" width="0.254" layer="51"/>
-<wire x1="3.175" y1="7.747" x2="3.175" y2="6.731" width="0.254" layer="51"/>
-<wire x1="6.731" y1="6.731" x2="7.747" y2="6.731" width="0.254" layer="51"/>
-<wire x1="7.747" y1="6.731" x2="6.731" y2="7.747" width="0.254" layer="51" curve="90"/>
-<wire x1="6.731" y1="7.747" x2="3.175" y2="7.747" width="0.254" layer="51"/>
-<wire x1="6.731" y1="6.731" x2="6.731" y2="-6.731" width="0.254" layer="51"/>
-<wire x1="6.731" y1="-6.731" x2="7.747" y2="-6.731" width="0.254" layer="51"/>
-<wire x1="7.747" y1="-6.731" x2="6.731" y2="-7.747" width="0.254" layer="51" curve="-90"/>
-<wire x1="6.731" y1="-7.747" x2="3.175" y2="-7.747" width="0.254" layer="51"/>
-<wire x1="3.175" y1="-7.747" x2="3.175" y2="-6.731" width="0.254" layer="51"/>
-<wire x1="-3.175" y1="-7.747" x2="-3.175" y2="-6.731" width="0.254" layer="51"/>
-<wire x1="-6.731" y1="-7.747" x2="-3.175" y2="-7.747" width="0.254" layer="51"/>
-<wire x1="-7.747" y1="-6.731" x2="-6.731" y2="-7.747" width="0.254" layer="51" curve="90"/>
-<wire x1="-6.731" y1="-6.731" x2="-7.747" y2="-6.731" width="0.254" layer="51"/>
-<wire x1="-6.731" y1="-6.731" x2="-6.731" y2="6.731" width="0.254" layer="51"/>
-<wire x1="-3.175" y1="6.731" x2="-0.762" y2="6.731" width="0.254" layer="51"/>
-<wire x1="-0.762" y1="6.731" x2="-0.762" y2="7.747" width="0.254" layer="51"/>
-<wire x1="-0.762" y1="7.747" x2="0.762" y2="7.747" width="0.254" layer="51"/>
-<wire x1="0.762" y1="7.747" x2="0.762" y2="6.731" width="0.254" layer="51"/>
-<wire x1="0.762" y1="6.731" x2="3.175" y2="6.731" width="0.254" layer="51"/>
-<wire x1="3.175" y1="-6.731" x2="0.762" y2="-6.731" width="0.254" layer="51"/>
-<wire x1="0.762" y1="-6.731" x2="0.762" y2="-7.747" width="0.254" layer="51"/>
-<wire x1="-0.762" y1="-7.747" x2="-0.762" y2="-6.731" width="0.254" layer="51"/>
-<wire x1="0.762" y1="-7.747" x2="-0.762" y2="-7.747" width="0.254" layer="51"/>
-<wire x1="-0.762" y1="-6.731" x2="-3.175" y2="-6.731" width="0.254" layer="51"/>
-<wire x1="-3.81" y1="2.54" x2="-1.27" y2="5.08" width="0.2032" layer="21"/>
-<wire x1="2.54" y1="5.08" x2="-0.762" y2="3.81" width="0.2032" layer="21"/>
-<wire x1="-6.096" y1="6.731" x2="6.096" y2="6.731" width="0.2032" layer="21"/>
-<wire x1="6.096" y1="6.731" x2="6.096" y2="-6.731" width="0.2032" layer="21"/>
-<wire x1="6.096" y1="-6.731" x2="-6.096" y2="-6.731" width="0.2032" layer="21"/>
-<wire x1="-6.096" y1="-6.731" x2="-6.096" y2="6.731" width="0.2032" layer="21"/>
-<text x="-6.985" y="0" size="0.6096" layer="25" font="vector" ratio="20" rot="R90" align="bottom-center">&gt;Name</text>
-<text x="6.985" y="0" size="0.6096" layer="27" font="vector" ratio="20" rot="R90" align="top-center">&gt;Value</text>
-</package>
 <package name="ROTARY_ENC_PLAIN">
 <description>&lt;h3&gt;Rotary Encoder w/ Select Switch&lt;/h3&gt;
 &lt;p&gt;Encoders rotate similarly to potentiometers, but they’re different from potentiometers in that an encoder has full rotation without limits. They output gray code so that you can tell how much and in which direction the encoder has been turned.&lt;/p&gt;
@@ -445,49 +206,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </package>
 </packages>
 <symbols>
-<symbol name="SWITCH-MOMENTARY-LED">
-<description>&lt;h3&gt;Momentary Switch (Pushbutton) - SPST - w/ LED&lt;/h3&gt;
-&lt;p&gt;Normally-open (NO) SPST momentary switches (buttons, pushbuttons), with a built-in LED.&lt;/p&gt;</description>
-<pin name="1" x="-7.62" y="2.54" visible="off" length="short" direction="pas" swaplevel="2"/>
-<pin name="2" x="7.62" y="2.54" visible="off" length="short" direction="pas" swaplevel="1" rot="R180"/>
-<pin name="A" x="-7.62" y="-2.54" visible="off" length="short" direction="pas"/>
-<pin name="C" x="7.62" y="-2.54" visible="off" length="short" direction="pas" rot="R180"/>
-<wire x1="-2.54" y1="2.54" x2="1.905" y2="3.81" width="0.1524" layer="94"/>
-<wire x1="-1.27" y1="-3.81" x2="1.27" y2="-2.54" width="0.254" layer="94"/>
-<wire x1="1.27" y1="-2.54" x2="-1.27" y2="-1.27" width="0.254" layer="94"/>
-<wire x1="1.27" y1="-3.81" x2="1.27" y2="-2.54" width="0.254" layer="94"/>
-<wire x1="1.27" y1="-2.54" x2="1.27" y2="-1.27" width="0.254" layer="94"/>
-<wire x1="-1.27" y1="-3.81" x2="-1.27" y2="-2.54" width="0.254" layer="94"/>
-<wire x1="-1.27" y1="-2.54" x2="-1.27" y2="-1.27" width="0.254" layer="94"/>
-<wire x1="-0.508" y1="-0.508" x2="0.889" y2="0.889" width="0.1524" layer="94"/>
-<wire x1="0.635" y1="-0.635" x2="2.032" y2="0.762" width="0.1524" layer="94"/>
-<circle x="-2.54" y="2.54" radius="0.127" width="0.4064" layer="94"/>
-<circle x="2.54" y="2.54" radius="0.127" width="0.4064" layer="94"/>
-<text x="0" y="5.334" size="1.778" layer="95" font="vector" align="bottom-center">&gt;NAME</text>
-<text x="0" y="-5.334" size="1.778" layer="96" font="vector" align="top-center">&gt;VALUE</text>
-<polygon width="0.1524" layer="94">
-<vertex x="0.889" y="0.889"/>
-<vertex x="0" y="0.508"/>
-<vertex x="0.508" y="0"/>
-</polygon>
-<polygon width="0.1524" layer="94">
-<vertex x="2.032" y="0.762"/>
-<vertex x="1.143" y="0.381"/>
-<vertex x="1.651" y="-0.127"/>
-</polygon>
-<wire x1="-5.08" y1="5.08" x2="-5.08" y2="2.54" width="0.254" layer="94"/>
-<wire x1="-5.08" y1="2.54" x2="-5.08" y2="-2.54" width="0.254" layer="94"/>
-<wire x1="-5.08" y1="-2.54" x2="-5.08" y2="-5.08" width="0.254" layer="94"/>
-<wire x1="-5.08" y1="-5.08" x2="5.08" y2="-5.08" width="0.254" layer="94"/>
-<wire x1="5.08" y1="-5.08" x2="5.08" y2="-2.54" width="0.254" layer="94"/>
-<wire x1="5.08" y1="-2.54" x2="5.08" y2="2.54" width="0.254" layer="94"/>
-<wire x1="5.08" y1="2.54" x2="5.08" y2="5.08" width="0.254" layer="94"/>
-<wire x1="5.08" y1="5.08" x2="-5.08" y2="5.08" width="0.254" layer="94"/>
-<wire x1="-5.08" y1="2.54" x2="-2.54" y2="2.54" width="0.1524" layer="94"/>
-<wire x1="1.905" y1="2.54" x2="5.08" y2="2.54" width="0.1524" layer="94"/>
-<wire x1="-5.08" y1="-2.54" x2="-1.27" y2="-2.54" width="0.1524" layer="94"/>
-<wire x1="1.27" y1="-2.54" x2="5.08" y2="-2.54" width="0.1524" layer="94"/>
-</symbol>
 <symbol name="ROT_ENCODER">
 <description>&lt;h3&gt;Rotary Encoder w/ Select Switch&lt;/h3&gt;
 &lt;p&gt;Encoders rotate similarly to potentiometers, but they’re different from potentiometers in that an encoder has full rotation without limits. They output gray code so that you can tell how much and in which direction the encoder has been turned.&lt;/p&gt;</description>
@@ -510,73 +228,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </symbol>
 </symbols>
 <devicesets>
-<deviceset name="MOMENTARY-SWITCH-SPST-LED" prefix="S">
-<description>&lt;h3&gt;Momentary Switch (Pushbutton) - SPST - w/ LED&lt;/h3&gt;
-&lt;p&gt;Normally-open (NO) SPST momentary switches (buttons, pushbuttons), with a built-in LED.&lt;/p&gt;
-&lt;h4&gt;Variants&lt;/h4&gt;
-&lt;h5&gt;PTH-CHERRY - Cherry MX Switch&lt;/h5&gt;
-&lt;p&gt;Cherry MX Keyswitches are top-of-the-line mechanical keyboard switches. They’re satisfyingly “clicky”, reliable up to tens-of-millions of key presses, and a standard in gaming and programming keyboards across the globe. This ‘blue’ version Cherry MX Switch is favored by most due to its secondary internal actuator making it less likely to “double-tap.” If you are looking for a noticeably audible and high-quality key switch, this is the perfect option for you!&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://www.sparkfun.com/products/13834"&gt;Cherry MX Switch&lt;/a&gt; (COM-13834)&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://www.sparkfun.com/products/13773"&gt;Cherry MX Switch Breakout&lt;/a&gt; (BOB-13773)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h5&gt;PTH-12MM and PTH-12MM-KIT - 12mm Illuminated LED&lt;/h5&gt;
-&lt;p&gt;KIT variant is for soldering kits. There is no tStop (covering up the top side of the pads with mask). This helps the beginner see which side they should be soldering too.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://www.sparkfun.com/products/10467"&gt;LED Tactile Button Breakout&lt;/a&gt; (BOB-10467)&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://www.sparkfun.com/products/10442"&gt;LED Tactile Button - Red&lt;/a&gt; (COM-10442)&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://www.sparkfun.com/products/10443"&gt;LED Tactile Button - Blue&lt;/a&gt; (COM-10443)&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://www.sparkfun.com/products/10440"&gt;LED Tactile Button - Green&lt;/a&gt; (COM-10440)&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://www.sparkfun.com/products/10441"&gt;LED Tactile Button - Orange&lt;/a&gt; (COM-10441)&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://www.sparkfun.com/products/10439"&gt;LED Tactile Button - White&lt;/a&gt; (COM-10439)&lt;/li&gt;
-&lt;/ul&gt;</description>
-<gates>
-<gate name="G$1" symbol="SWITCH-MOMENTARY-LED" x="0" y="0"/>
-</gates>
-<devices>
-<device name="-PTH-12MM" package="TACTILE_SWITCH_LED_PTH_12MM">
-<connects>
-<connect gate="G$1" pin="1" pad="4"/>
-<connect gate="G$1" pin="2" pad="2"/>
-<connect gate="G$1" pin="A" pad="A"/>
-<connect gate="G$1" pin="C" pad="C"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="PROD_ID" value="SWCH-11758"/>
-<attribute name="SF_SKU" value="COM-10442"/>
-</technology>
-</technologies>
-</device>
-<device name="-PTH-12MM-KIT" package="TACTILE_SWITCH_LED_PTH_12MM_KIT">
-<connects>
-<connect gate="G$1" pin="1" pad="4"/>
-<connect gate="G$1" pin="2" pad="2"/>
-<connect gate="G$1" pin="A" pad="A"/>
-<connect gate="G$1" pin="C" pad="C"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="PROD_ID" value="SWCH-11758"/>
-<attribute name="SF_SKU" value="COM-10442"/>
-</technology>
-</technologies>
-</device>
-<device name="-PTH-CHERRY" package="CHERRY-MX-LED">
-<connects>
-<connect gate="G$1" pin="1" pad="S1"/>
-<connect gate="G$1" pin="2" pad="S2"/>
-<connect gate="G$1" pin="A" pad="A"/>
-<connect gate="G$1" pin="C" pad="K"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="SF_ID" value="COM-13834" constant="no"/>
-</technology>
-</technologies>
-</device>
-</devices>
-</deviceset>
 <deviceset name="ENCODER-SWITCH" prefix="S">
 <description>&lt;h3&gt;Rotary Encoder w/ Select Switch&lt;/h3&gt;
 &lt;p&gt;Encoders rotate similarly to potentiometers, but they’re different from potentiometers in that an encoder has full rotation without limits. They output gray code so that you can tell how much and in which direction the encoder has been turned.&lt;/p&gt;
@@ -3040,91 +2691,6 @@ Standard 0603 ceramic capacitor, and 0.1" leaded capacitor.</description>
 </deviceset>
 </devicesets>
 </library>
-<library name="basicBoard">
-<description>Generated from &lt;b&gt;basicBoard.sch&lt;/b&gt;&lt;p&gt;
-by exp-lbrs.ulp</description>
-<packages>
-<package name="SOT23-3">
-<wire x1="-1.4224" y1="-0.3" x2="-1.4224" y2="0.6604" width="0.1524" layer="21"/>
-<wire x1="-1.4224" y1="0.6604" x2="-0.6576" y2="0.6604" width="0.1524" layer="21"/>
-<wire x1="1.4224" y1="0.6604" x2="1.4224" y2="-0.3" width="0.1524" layer="21"/>
-<wire x1="0.6326" y1="0.6604" x2="1.4224" y2="0.6604" width="0.1524" layer="21"/>
-<smd name="1" x="-0.95" y="-1" dx="0.8" dy="0.9" layer="1"/>
-<smd name="2" x="0.95" y="-1" dx="0.8" dy="0.9" layer="1"/>
-<smd name="3" x="0" y="1" dx="0.8" dy="0.9" layer="1"/>
-<text x="-1.905" y="1.905" size="1.27" layer="25">&gt;NAME</text>
-<text x="-1.905" y="-3.175" size="1.27" layer="27">&gt;VALUE</text>
-</package>
-</packages>
-<symbols>
-<symbol name="N-CHANNEL-MOSFET">
-<wire x1="-2.54" y1="-2.54" x2="-1.2192" y2="-2.54" width="0.1524" layer="94"/>
-<wire x1="0" y1="0.762" x2="0" y2="0" width="0.254" layer="94"/>
-<wire x1="0" y1="0" x2="0" y2="-0.762" width="0.254" layer="94"/>
-<wire x1="0" y1="3.683" x2="0" y2="2.54" width="0.254" layer="94"/>
-<wire x1="0" y1="2.54" x2="0" y2="1.397" width="0.254" layer="94"/>
-<wire x1="1.905" y1="0.635" x2="0.635" y2="0" width="0.254" layer="94"/>
-<wire x1="1.905" y1="-0.635" x2="0.635" y2="0" width="0.254" layer="94"/>
-<wire x1="0" y1="0" x2="0.635" y2="0" width="0.1524" layer="94"/>
-<wire x1="0.635" y1="0" x2="2.54" y2="0" width="0.1524" layer="94"/>
-<wire x1="2.54" y1="0" x2="2.54" y2="-2.54" width="0.1524" layer="94"/>
-<wire x1="0" y1="-1.397" x2="0" y2="-2.54" width="0.254" layer="94"/>
-<wire x1="0" y1="-2.54" x2="0" y2="-3.683" width="0.254" layer="94"/>
-<wire x1="-1.143" y1="2.54" x2="-1.143" y2="-2.54" width="0.254" layer="94"/>
-<wire x1="0" y1="-2.54" x2="2.54" y2="-2.54" width="0.1524" layer="94"/>
-<wire x1="2.54" y1="-2.54" x2="2.54" y2="-3.81" width="0.1524" layer="94"/>
-<wire x1="0" y1="2.54" x2="2.54" y2="2.54" width="0.1524" layer="94"/>
-<wire x1="2.54" y1="2.54" x2="2.54" y2="3.81" width="0.1524" layer="94"/>
-<wire x1="3.81" y1="1.27" x2="5.08" y2="1.27" width="0.1524" layer="94"/>
-<wire x1="5.08" y1="1.27" x2="6.35" y2="1.27" width="0.1524" layer="94"/>
-<wire x1="5.08" y1="1.27" x2="5.08" y2="3.81" width="0.1524" layer="94"/>
-<wire x1="5.08" y1="3.81" x2="2.54" y2="3.81" width="0.1524" layer="94"/>
-<wire x1="5.08" y1="0" x2="5.08" y2="-3.81" width="0.1524" layer="94"/>
-<wire x1="5.08" y1="-3.81" x2="2.54" y2="-3.81" width="0.1524" layer="94"/>
-<wire x1="2.54" y1="5.08" x2="2.54" y2="3.81" width="0.1524" layer="94"/>
-<wire x1="2.54" y1="-5.08" x2="2.54" y2="-3.81" width="0.1524" layer="94"/>
-<pin name="D" x="2.54" y="7.62" visible="off" length="short" direction="pas" rot="R270"/>
-<pin name="G" x="-5.08" y="-2.54" visible="off" length="short" direction="pas"/>
-<pin name="S" x="2.54" y="-7.62" visible="off" length="short" direction="pas" rot="R90"/>
-<text x="-12.7" y="0" size="1.778" layer="96">&gt;VALUE</text>
-<text x="-12.7" y="2.54" size="1.778" layer="95">&gt;NAME</text>
-<text x="-3.81" y="-3.81" size="0.8128" layer="94">G</text>
-<text x="1.27" y="-5.08" size="0.8128" layer="94">S</text>
-<text x="1.27" y="5.08" size="0.8128" layer="94">D</text>
-<polygon width="0.1524" layer="94">
-<vertex x="5.08" y="1.27"/>
-<vertex x="3.81" y="0"/>
-<vertex x="6.35" y="0"/>
-</polygon>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="N-CHANNEL-MOSFET">
-<description>N-Channel MOSFET Mode Field Effect Transistor</description>
-<gates>
-<gate name="G$1" symbol="N-CHANNEL-MOSFET" x="0" y="0"/>
-</gates>
-<devices>
-<device name="-BSS138" package="SOT23-3">
-<connects>
-<connect gate="G$1" pin="D" pad="3"/>
-<connect gate="G$1" pin="G" pad="1"/>
-<connect gate="G$1" pin="S" pad="2"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="DATASHEET" value="http://www.fairchildsemi.com/ds/BS/BSS138.pdf" constant="no"/>
-<attribute name="DIGIKEY" value="BSS138TR-ND" constant="no"/>
-<attribute name="ELEMENT14" value="2323154" constant="no"/>
-<attribute name="OTHER" value="" constant="no"/>
-<attribute name="URL" value="http://au.element14.com/fairchild-semiconductor/bss138/mosfet-n-ch-50v-220ma-sot-23/dp/2323154" constant="no"/>
-</technology>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
 <library name="backplane">
 <description>Generated from &lt;b&gt;backplane.sch&lt;/b&gt;&lt;p&gt;
 by exp-lbrs.ulp</description>
@@ -3394,6 +2960,125 @@ Simple light detection sensor. Output varies with light intensity input. Spark F
 </deviceset>
 </devicesets>
 </library>
+<library name="lul">
+<description>Generated from &lt;b&gt;lul.sch&lt;/b&gt;&lt;p&gt;
+by exp-lbrs.ulp</description>
+<packages>
+<package name="CHERRY-MX-LED">
+<description>&lt;h3&gt;Cherry MX Switch - Electromechanical Swith w/ LED&lt;/h3&gt;
+
+&lt;p&gt;Cherry MX Keyswitches are top-of-the-line mechanical keyboard switches. Theyre satisfyingly clicky, reliable up to tens-of-millions of key presses, and a standard in gaming and programming keyboards across the globe. This blue version Cherry MX Switch is favored by most due to its secondary internal actuator making it less likely to double-tap. If you are looking for a noticeably audible and high-quality key switch, this is the perfect option for you!&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://www.sparkfun.com/products/13834"&gt;SparkFun Product Link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://cdn.sparkfun.com/datasheets/Components/Switches/MX%20Series.pdf"&gt;Datasheet&lt;/a&gt;&lt;/p&gt;</description>
+<wire x1="-6.731" y1="6.731" x2="-7.747" y2="6.731" width="0.254" layer="51"/>
+<wire x1="-7.747" y1="6.731" x2="-6.731" y2="7.747" width="0.254" layer="51" curve="-90"/>
+<wire x1="-6.731" y1="7.747" x2="-3.175" y2="7.747" width="0.254" layer="51"/>
+<wire x1="-3.175" y1="7.747" x2="-3.175" y2="6.731" width="0.254" layer="51"/>
+<wire x1="3.175" y1="7.747" x2="3.175" y2="6.731" width="0.254" layer="51"/>
+<wire x1="6.731" y1="6.731" x2="7.747" y2="6.731" width="0.254" layer="51"/>
+<wire x1="7.747" y1="6.731" x2="6.731" y2="7.747" width="0.254" layer="51" curve="90"/>
+<wire x1="6.731" y1="7.747" x2="3.175" y2="7.747" width="0.254" layer="51"/>
+<wire x1="6.731" y1="6.731" x2="6.731" y2="-6.731" width="0.254" layer="51"/>
+<wire x1="6.731" y1="-6.731" x2="7.747" y2="-6.731" width="0.254" layer="51"/>
+<wire x1="7.747" y1="-6.731" x2="6.731" y2="-7.747" width="0.254" layer="51" curve="-90"/>
+<wire x1="6.731" y1="-7.747" x2="3.175" y2="-7.747" width="0.254" layer="51"/>
+<wire x1="3.175" y1="-7.747" x2="3.175" y2="-6.731" width="0.254" layer="51"/>
+<wire x1="-3.175" y1="-7.747" x2="-3.175" y2="-6.731" width="0.254" layer="51"/>
+<wire x1="-6.731" y1="-7.747" x2="-3.175" y2="-7.747" width="0.254" layer="51"/>
+<wire x1="-7.747" y1="-6.731" x2="-6.731" y2="-7.747" width="0.254" layer="51" curve="90"/>
+<wire x1="-6.731" y1="-6.731" x2="-7.747" y2="-6.731" width="0.254" layer="51"/>
+<wire x1="-6.731" y1="-6.731" x2="-6.731" y2="6.731" width="0.254" layer="51"/>
+<wire x1="-3.175" y1="6.731" x2="-0.762" y2="6.731" width="0.254" layer="51"/>
+<wire x1="-0.762" y1="6.731" x2="-0.762" y2="7.747" width="0.254" layer="51"/>
+<wire x1="-0.762" y1="7.747" x2="0.762" y2="7.747" width="0.254" layer="51"/>
+<wire x1="0.762" y1="7.747" x2="0.762" y2="6.731" width="0.254" layer="51"/>
+<wire x1="0.762" y1="6.731" x2="3.175" y2="6.731" width="0.254" layer="51"/>
+<wire x1="3.175" y1="-6.731" x2="0.762" y2="-6.731" width="0.254" layer="51"/>
+<wire x1="0.762" y1="-6.731" x2="0.762" y2="-7.747" width="0.254" layer="51"/>
+<wire x1="-0.762" y1="-7.747" x2="-0.762" y2="-6.731" width="0.254" layer="51"/>
+<wire x1="0.762" y1="-7.747" x2="-0.762" y2="-7.747" width="0.254" layer="51"/>
+<wire x1="-0.762" y1="-6.731" x2="-3.175" y2="-6.731" width="0.254" layer="51"/>
+<wire x1="-3.81" y1="2.54" x2="-1.27" y2="5.08" width="0.2032" layer="21"/>
+<wire x1="2.54" y1="5.08" x2="-0.762" y2="3.81" width="0.2032" layer="21"/>
+<wire x1="-6.096" y1="6.731" x2="6.096" y2="6.731" width="0.2032" layer="21"/>
+<wire x1="6.096" y1="6.731" x2="6.096" y2="-6.731" width="0.2032" layer="21"/>
+<wire x1="6.096" y1="-6.731" x2="-6.096" y2="-6.731" width="0.2032" layer="21"/>
+<wire x1="-6.096" y1="-6.731" x2="-6.096" y2="6.731" width="0.2032" layer="21"/>
+<pad name="S1" x="-3.81" y="2.54" drill="1.7526" diameter="3.2258"/>
+<pad name="S2" x="2.54" y="5.08" drill="1.7526" diameter="3.2258"/>
+<text x="-6.985" y="0" size="0.6096" layer="25" font="vector" ratio="20" rot="R90" align="bottom-center">&gt;Name</text>
+<text x="6.985" y="0" size="0.6096" layer="27" font="vector" ratio="20" rot="R90" align="top-center">&gt;Value</text>
+<hole x="0" y="0" drill="4.0894"/>
+<hole x="-5.08" y="0" drill="1.70688125"/>
+<hole x="5.08" y="0" drill="1.70688125"/>
+<wire x1="-1" y1="-4" x2="1" y2="-4" width="0.127" layer="51"/>
+<wire x1="1" y1="-4" x2="1" y2="-6" width="0.127" layer="51"/>
+<wire x1="1" y1="-6" x2="-1" y2="-6" width="0.127" layer="51"/>
+<wire x1="-1" y1="-6" x2="-1" y2="-4" width="0.127" layer="51"/>
+</package>
+</packages>
+<symbols>
+<symbol name="SWITCH-MOMENTARY-LED">
+<description>&lt;h3&gt;Momentary Switch (Pushbutton) - SPST - w/ LED&lt;/h3&gt;
+&lt;p&gt;Normally-open (NO) SPST momentary switches (buttons, pushbuttons), with a built-in LED.&lt;/p&gt;</description>
+<circle x="-2.54" y="2.54" radius="0.127" width="0.4064" layer="94"/>
+<circle x="2.54" y="2.54" radius="0.127" width="0.4064" layer="94"/>
+<wire x1="-2.54" y1="2.54" x2="1.905" y2="3.81" width="0.1524" layer="94"/>
+<wire x1="-5.08" y1="5.08" x2="-5.08" y2="2.54" width="0.254" layer="94"/>
+<wire x1="-5.08" y1="2.54" x2="-5.08" y2="0" width="0.254" layer="94"/>
+<wire x1="-5.08" y1="0" x2="5.08" y2="0" width="0.254" layer="94"/>
+<wire x1="5.08" y1="0" x2="5.08" y2="2.54" width="0.254" layer="94"/>
+<wire x1="5.08" y1="2.54" x2="5.08" y2="5.08" width="0.254" layer="94"/>
+<wire x1="5.08" y1="5.08" x2="-5.08" y2="5.08" width="0.254" layer="94"/>
+<wire x1="-5.08" y1="2.54" x2="-2.54" y2="2.54" width="0.1524" layer="94"/>
+<wire x1="1.905" y1="2.54" x2="5.08" y2="2.54" width="0.1524" layer="94"/>
+<pin name="1" x="-7.62" y="2.54" visible="off" length="short" direction="pas" swaplevel="2"/>
+<pin name="2" x="7.62" y="2.54" visible="off" length="short" direction="pas" swaplevel="1" rot="R180"/>
+<text x="0" y="5.334" size="1.778" layer="95" font="vector" align="bottom-center">&gt;NAME</text>
+<text x="0" y="-0.254" size="1.778" layer="96" font="vector" align="top-center">&gt;VALUE</text>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="MOMENTARY-SWITCH-SPST-LED" prefix="S">
+<description>&lt;h3&gt;Momentary Switch (Pushbutton) - SPST - w/ LED&lt;/h3&gt;
+&lt;p&gt;Normally-open (NO) SPST momentary switches (buttons, pushbuttons), with a built-in LED.&lt;/p&gt;
+&lt;h4&gt;Variants&lt;/h4&gt;
+&lt;h5&gt;PTH-CHERRY - Cherry MX Switch&lt;/h5&gt;
+&lt;p&gt;Cherry MX Keyswitches are top-of-the-line mechanical keyboard switches. Theyre satisfyingly clicky, reliable up to tens-of-millions of key presses, and a standard in gaming and programming keyboards across the globe. This blue version Cherry MX Switch is favored by most due to its secondary internal actuator making it less likely to double-tap. If you are looking for a noticeably audible and high-quality key switch, this is the perfect option for you!&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://www.sparkfun.com/products/13834"&gt;Cherry MX Switch&lt;/a&gt; (COM-13834)&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.sparkfun.com/products/13773"&gt;Cherry MX Switch Breakout&lt;/a&gt; (BOB-13773)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;PTH-12MM and PTH-12MM-KIT - 12mm Illuminated LED&lt;/h5&gt;
+&lt;p&gt;KIT variant is for soldering kits. There is no tStop (covering up the top side of the pads with mask). This helps the beginner see which side they should be soldering too.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://www.sparkfun.com/products/10467"&gt;LED Tactile Button Breakout&lt;/a&gt; (BOB-10467)&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.sparkfun.com/products/10442"&gt;LED Tactile Button - Red&lt;/a&gt; (COM-10442)&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.sparkfun.com/products/10443"&gt;LED Tactile Button - Blue&lt;/a&gt; (COM-10443)&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.sparkfun.com/products/10440"&gt;LED Tactile Button - Green&lt;/a&gt; (COM-10440)&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.sparkfun.com/products/10441"&gt;LED Tactile Button - Orange&lt;/a&gt; (COM-10441)&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.sparkfun.com/products/10439"&gt;LED Tactile Button - White&lt;/a&gt; (COM-10439)&lt;/li&gt;
+&lt;/ul&gt;</description>
+<gates>
+<gate name="G$1" symbol="SWITCH-MOMENTARY-LED" x="0" y="0"/>
+</gates>
+<devices>
+<device name="-PTH-CHERRY" package="CHERRY-MX-LED">
+<connects>
+<connect gate="G$1" pin="1" pad="S1"/>
+<connect gate="G$1" pin="2" pad="S2"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="SF_ID" value="COM-13834" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -3404,28 +3089,27 @@ Simple light detection sensor. Output varies with light intensity input. Spark F
 </class>
 </classes>
 <parts>
-<part name="S1" library="SparkFun-Switches" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value=""/>
-<part name="S2" library="SparkFun-Switches" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value=""/>
-<part name="S3" library="SparkFun-Switches" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value=""/>
-<part name="S4" library="SparkFun-Switches" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value=""/>
+<part name="S1" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
+<part name="S2" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
+<part name="S3" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
+<part name="S4" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
 <part name="GND1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="S17" library="SparkFun-Switches" deviceset="ENCODER-SWITCH" device=""/>
 <part name="GND6" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND8" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="S5" library="SparkFun-Switches" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value=""/>
-<part name="S6" library="SparkFun-Switches" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value=""/>
-<part name="S7" library="SparkFun-Switches" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value=""/>
-<part name="S8" library="SparkFun-Switches" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value=""/>
+<part name="S5" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
+<part name="S6" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
+<part name="S7" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
+<part name="S8" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
 <part name="GND2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="S9" library="SparkFun-Switches" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value=""/>
-<part name="S10" library="SparkFun-Switches" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value=""/>
-<part name="S11" library="SparkFun-Switches" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value=""/>
-<part name="S12" library="SparkFun-Switches" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value=""/>
+<part name="S9" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
+<part name="S10" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
+<part name="S11" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
+<part name="S12" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
 <part name="GND3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="S13" library="SparkFun-Switches" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value=""/>
-<part name="S14" library="SparkFun-Switches" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value=""/>
-<part name="S15" library="SparkFun-Switches" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value=""/>
-<part name="GND4" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="S13" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
+<part name="S14" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
+<part name="S15" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
 <part name="U1" library="microbuilder" deviceset="DISP_OLED_UG-2864HSWEG01" device="0.96&quot;" value="UG-2864HSWEG01"/>
 <part name="U$2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="R3" library="clock" deviceset="RESISTOR" device="0805-RES" value="390K"/>
@@ -3467,27 +3151,6 @@ Simple light detection sensor. Output varies with light intensity input. Spark F
 <part name="GND13" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND14" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="+3V10" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
-<part name="U$1" library="basicBoard" deviceset="N-CHANNEL-MOSFET" device="-BSS138"/>
-<part name="+3V11" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
-<part name="+3V12" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
-<part name="+3V13" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
-<part name="R5" library="clock" deviceset="RESISTOR" device="0805-RES" value="330"/>
-<part name="R6" library="clock" deviceset="RESISTOR" device="0805-RES" value="330"/>
-<part name="R7" library="clock" deviceset="RESISTOR" device="0805-RES" value="330"/>
-<part name="R8" library="clock" deviceset="RESISTOR" device="0805-RES" value="330"/>
-<part name="R9" library="clock" deviceset="RESISTOR" device="0805-RES" value="330"/>
-<part name="R10" library="clock" deviceset="RESISTOR" device="0805-RES" value="330"/>
-<part name="R11" library="clock" deviceset="RESISTOR" device="0805-RES" value="330"/>
-<part name="R12" library="clock" deviceset="RESISTOR" device="0805-RES" value="330"/>
-<part name="R13" library="clock" deviceset="RESISTOR" device="0805-RES" value="330"/>
-<part name="R14" library="clock" deviceset="RESISTOR" device="0805-RES" value="330"/>
-<part name="R15" library="clock" deviceset="RESISTOR" device="0805-RES" value="330"/>
-<part name="R16" library="clock" deviceset="RESISTOR" device="0805-RES" value="330"/>
-<part name="R19" library="clock" deviceset="RESISTOR" device="0805-RES" value="330"/>
-<part name="R20" library="clock" deviceset="RESISTOR" device="0805-RES" value="330"/>
-<part name="R21" library="clock" deviceset="RESISTOR" device="0805-RES" value="330"/>
-<part name="GND15" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="R22" library="clock" deviceset="RESISTOR" device="0805-RES" value="10k"/>
 <part name="GND16" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND17" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND18" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
@@ -3531,7 +3194,6 @@ Simple light detection sensor. Output varies with light intensity input. Spark F
 <instance part="S13" gate="G$1" x="12.7" y="-55.88"/>
 <instance part="S14" gate="G$1" x="71.12" y="-55.88"/>
 <instance part="S15" gate="G$1" x="132.08" y="-55.88"/>
-<instance part="GND4" gate="1" x="203.2" y="-45.72"/>
 <instance part="U1" gate="G$1" x="388.62" y="35.56"/>
 <instance part="U$2" gate="1" x="327.66" y="38.1"/>
 <instance part="R3" gate="G$1" x="353.06" y="7.62"/>
@@ -3581,27 +3243,6 @@ Simple light detection sensor. Output varies with light intensity input. Spark F
 <instance part="GND13" gate="1" x="294.64" y="-81.28"/>
 <instance part="GND14" gate="1" x="314.96" y="-182.88"/>
 <instance part="+3V10" gate="G$1" x="302.26" y="-157.48"/>
-<instance part="U$1" gate="G$1" x="187.96" y="-93.98"/>
-<instance part="+3V11" gate="G$1" x="-17.78" y="40.64"/>
-<instance part="+3V12" gate="G$1" x="40.64" y="40.64"/>
-<instance part="+3V13" gate="G$1" x="96.52" y="40.64"/>
-<instance part="R5" gate="G$1" x="-7.62" y="22.86" rot="R180"/>
-<instance part="R6" gate="G$1" x="48.26" y="22.86" rot="R180"/>
-<instance part="R7" gate="G$1" x="106.68" y="22.86" rot="R180"/>
-<instance part="R8" gate="G$1" x="-7.62" y="2.54" rot="R180"/>
-<instance part="R9" gate="G$1" x="48.26" y="2.54" rot="R180"/>
-<instance part="R10" gate="G$1" x="106.68" y="2.54" rot="R180"/>
-<instance part="R11" gate="G$1" x="-7.62" y="-17.78" rot="R180"/>
-<instance part="R12" gate="G$1" x="48.26" y="-17.78" rot="R180"/>
-<instance part="R13" gate="G$1" x="106.68" y="-17.78" rot="R180"/>
-<instance part="R14" gate="G$1" x="-7.62" y="-38.1" rot="R180"/>
-<instance part="R15" gate="G$1" x="48.26" y="-38.1" rot="R180"/>
-<instance part="R16" gate="G$1" x="106.68" y="-38.1" rot="R180"/>
-<instance part="R19" gate="G$1" x="-7.62" y="-58.42" rot="R180"/>
-<instance part="R20" gate="G$1" x="48.26" y="-58.42" rot="R180"/>
-<instance part="R21" gate="G$1" x="106.68" y="-58.42" rot="R180"/>
-<instance part="GND15" gate="1" x="190.5" y="-111.76"/>
-<instance part="R22" gate="G$1" x="177.8" y="-101.6" rot="R90"/>
 <instance part="GND16" gate="1" x="175.26" y="60.96"/>
 <instance part="GND17" gate="1" x="132.08" y="60.96"/>
 <instance part="GND18" gate="1" x="368.3" y="-190.5"/>
@@ -3811,15 +3452,6 @@ Simple light detection sensor. Output varies with light intensity input. Spark F
 <pinref part="S15" gate="G$1" pin="1"/>
 <wire x1="124.46" y1="-53.34" x2="119.38" y2="-53.34" width="0.1524" layer="91"/>
 <junction x="119.38" y="-53.34"/>
-</segment>
-<segment>
-<pinref part="U$1" gate="G$1" pin="S"/>
-<pinref part="GND15" gate="1" pin="GND"/>
-<wire x1="190.5" y1="-109.22" x2="190.5" y2="-106.68" width="0.1524" layer="91"/>
-<pinref part="R22" gate="G$1" pin="1"/>
-<wire x1="190.5" y1="-106.68" x2="190.5" y2="-101.6" width="0.1524" layer="91"/>
-<wire x1="177.8" y1="-106.68" x2="190.5" y2="-106.68" width="0.1524" layer="91"/>
-<junction x="190.5" y="-106.68"/>
 </segment>
 <segment>
 <pinref part="GND17" gate="1" pin="GND"/>
@@ -4051,72 +3683,6 @@ Simple light detection sensor. Output varies with light intensity input. Spark F
 <wire x1="302.26" y1="-160.02" x2="332.74" y2="-160.02" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="+3V11" gate="G$1" pin="+3V3"/>
-<wire x1="-17.78" y1="38.1" x2="-17.78" y2="22.86" width="0.1524" layer="91"/>
-<pinref part="R19" gate="G$1" pin="2"/>
-<wire x1="-17.78" y1="22.86" x2="-17.78" y2="2.54" width="0.1524" layer="91"/>
-<wire x1="-17.78" y1="2.54" x2="-17.78" y2="-17.78" width="0.1524" layer="91"/>
-<wire x1="-17.78" y1="-17.78" x2="-17.78" y2="-38.1" width="0.1524" layer="91"/>
-<wire x1="-17.78" y1="-38.1" x2="-17.78" y2="-58.42" width="0.1524" layer="91"/>
-<wire x1="-17.78" y1="-58.42" x2="-12.7" y2="-58.42" width="0.1524" layer="91"/>
-<pinref part="R14" gate="G$1" pin="2"/>
-<wire x1="-12.7" y1="-38.1" x2="-17.78" y2="-38.1" width="0.1524" layer="91"/>
-<junction x="-17.78" y="-38.1"/>
-<pinref part="R11" gate="G$1" pin="2"/>
-<wire x1="-12.7" y1="-17.78" x2="-17.78" y2="-17.78" width="0.1524" layer="91"/>
-<junction x="-17.78" y="-17.78"/>
-<pinref part="R8" gate="G$1" pin="2"/>
-<wire x1="-12.7" y1="2.54" x2="-17.78" y2="2.54" width="0.1524" layer="91"/>
-<junction x="-17.78" y="2.54"/>
-<junction x="-17.78" y="22.86"/>
-<pinref part="R5" gate="G$1" pin="2"/>
-<wire x1="-17.78" y1="22.86" x2="-12.7" y2="22.86" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="+3V12" gate="G$1" pin="+3V3"/>
-<pinref part="R20" gate="G$1" pin="2"/>
-<wire x1="40.64" y1="38.1" x2="40.64" y2="22.86" width="0.1524" layer="91"/>
-<wire x1="40.64" y1="22.86" x2="40.64" y2="2.54" width="0.1524" layer="91"/>
-<wire x1="40.64" y1="2.54" x2="40.64" y2="-17.78" width="0.1524" layer="91"/>
-<wire x1="40.64" y1="-17.78" x2="40.64" y2="-38.1" width="0.1524" layer="91"/>
-<wire x1="40.64" y1="-38.1" x2="40.64" y2="-58.42" width="0.1524" layer="91"/>
-<wire x1="40.64" y1="-58.42" x2="43.18" y2="-58.42" width="0.1524" layer="91"/>
-<pinref part="R6" gate="G$1" pin="2"/>
-<wire x1="43.18" y1="22.86" x2="40.64" y2="22.86" width="0.1524" layer="91"/>
-<junction x="40.64" y="22.86"/>
-<pinref part="R9" gate="G$1" pin="2"/>
-<wire x1="43.18" y1="2.54" x2="40.64" y2="2.54" width="0.1524" layer="91"/>
-<junction x="40.64" y="2.54"/>
-<pinref part="R12" gate="G$1" pin="2"/>
-<wire x1="43.18" y1="-17.78" x2="40.64" y2="-17.78" width="0.1524" layer="91"/>
-<junction x="40.64" y="-17.78"/>
-<pinref part="R15" gate="G$1" pin="2"/>
-<wire x1="43.18" y1="-38.1" x2="40.64" y2="-38.1" width="0.1524" layer="91"/>
-<junction x="40.64" y="-38.1"/>
-</segment>
-<segment>
-<pinref part="+3V13" gate="G$1" pin="+3V3"/>
-<wire x1="96.52" y1="38.1" x2="96.52" y2="22.86" width="0.1524" layer="91"/>
-<pinref part="R21" gate="G$1" pin="2"/>
-<wire x1="96.52" y1="22.86" x2="96.52" y2="2.54" width="0.1524" layer="91"/>
-<wire x1="96.52" y1="2.54" x2="96.52" y2="-17.78" width="0.1524" layer="91"/>
-<wire x1="96.52" y1="-17.78" x2="96.52" y2="-38.1" width="0.1524" layer="91"/>
-<wire x1="96.52" y1="-38.1" x2="96.52" y2="-58.42" width="0.1524" layer="91"/>
-<wire x1="96.52" y1="-58.42" x2="101.6" y2="-58.42" width="0.1524" layer="91"/>
-<pinref part="R16" gate="G$1" pin="2"/>
-<wire x1="101.6" y1="-38.1" x2="96.52" y2="-38.1" width="0.1524" layer="91"/>
-<junction x="96.52" y="-38.1"/>
-<pinref part="R13" gate="G$1" pin="2"/>
-<wire x1="101.6" y1="-17.78" x2="96.52" y2="-17.78" width="0.1524" layer="91"/>
-<junction x="96.52" y="-17.78"/>
-<pinref part="R10" gate="G$1" pin="2"/>
-<wire x1="101.6" y1="2.54" x2="96.52" y2="2.54" width="0.1524" layer="91"/>
-<junction x="96.52" y="2.54"/>
-<pinref part="R7" gate="G$1" pin="2"/>
-<wire x1="101.6" y1="22.86" x2="96.52" y2="22.86" width="0.1524" layer="91"/>
-<junction x="96.52" y="22.86"/>
-</segment>
-<segment>
 <pinref part="S22" gate="S" pin="3"/>
 <pinref part="+3V7" gate="G$1" pin="+3V3"/>
 <wire x1="248.92" y1="-190.5" x2="259.08" y2="-190.5" width="0.1524" layer="91"/>
@@ -4256,187 +3822,7 @@ Simple light detection sensor. Output varies with light intensity input. Spark F
 <wire x1="332.74" y1="-175.26" x2="332.74" y2="-172.72" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$15" class="0">
-<segment>
-<pinref part="R5" gate="G$1" pin="1"/>
-<pinref part="S1" gate="G$1" pin="A"/>
-<wire x1="-2.54" y1="22.86" x2="5.08" y2="22.86" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$16" class="0">
-<segment>
-<pinref part="R8" gate="G$1" pin="1"/>
-<wire x1="-2.54" y1="2.54" x2="5.08" y2="2.54" width="0.1524" layer="91"/>
-<pinref part="S4" gate="G$1" pin="A"/>
-</segment>
-</net>
-<net name="N$17" class="0">
-<segment>
-<pinref part="R11" gate="G$1" pin="1"/>
-<pinref part="S7" gate="G$1" pin="A"/>
-<wire x1="-2.54" y1="-17.78" x2="5.08" y2="-17.78" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$18" class="0">
-<segment>
-<pinref part="R14" gate="G$1" pin="1"/>
-<pinref part="S10" gate="G$1" pin="A"/>
-<wire x1="-2.54" y1="-38.1" x2="5.08" y2="-38.1" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$19" class="0">
-<segment>
-<pinref part="R19" gate="G$1" pin="1"/>
-<pinref part="S13" gate="G$1" pin="A"/>
-<wire x1="-2.54" y1="-58.42" x2="5.08" y2="-58.42" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$20" class="0">
-<segment>
-<pinref part="S2" gate="G$1" pin="A"/>
-<wire x1="63.5" y1="22.86" x2="53.34" y2="22.86" width="0.1524" layer="91"/>
-<pinref part="R6" gate="G$1" pin="1"/>
-</segment>
-</net>
-<net name="N$21" class="0">
-<segment>
-<pinref part="S5" gate="G$1" pin="A"/>
-<pinref part="R9" gate="G$1" pin="1"/>
-<wire x1="63.5" y1="2.54" x2="53.34" y2="2.54" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$22" class="0">
-<segment>
-<pinref part="S8" gate="G$1" pin="A"/>
-<pinref part="R12" gate="G$1" pin="1"/>
-<wire x1="63.5" y1="-17.78" x2="53.34" y2="-17.78" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$23" class="0">
-<segment>
-<pinref part="S11" gate="G$1" pin="A"/>
-<pinref part="R15" gate="G$1" pin="1"/>
-<wire x1="63.5" y1="-38.1" x2="53.34" y2="-38.1" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$24" class="0">
-<segment>
-<pinref part="S14" gate="G$1" pin="A"/>
-<pinref part="R20" gate="G$1" pin="1"/>
-<wire x1="63.5" y1="-58.42" x2="53.34" y2="-58.42" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$25" class="0">
-<segment>
-<pinref part="R7" gate="G$1" pin="1"/>
-<pinref part="S3" gate="G$1" pin="A"/>
-<wire x1="111.76" y1="22.86" x2="124.46" y2="22.86" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$26" class="0">
-<segment>
-<pinref part="S6" gate="G$1" pin="A"/>
-<wire x1="111.76" y1="2.54" x2="124.46" y2="2.54" width="0.1524" layer="91"/>
-<pinref part="R10" gate="G$1" pin="1"/>
-</segment>
-</net>
-<net name="N$27" class="0">
-<segment>
-<pinref part="R13" gate="G$1" pin="1"/>
-<pinref part="S9" gate="G$1" pin="A"/>
-<wire x1="111.76" y1="-17.78" x2="124.46" y2="-17.78" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$28" class="0">
-<segment>
-<pinref part="R16" gate="G$1" pin="1"/>
-<wire x1="111.76" y1="-38.1" x2="124.46" y2="-38.1" width="0.1524" layer="91"/>
-<pinref part="S12" gate="G$1" pin="A"/>
-</segment>
-</net>
-<net name="N$29" class="0">
-<segment>
-<pinref part="R21" gate="G$1" pin="1"/>
-<pinref part="S15" gate="G$1" pin="A"/>
-<wire x1="111.76" y1="-58.42" x2="124.46" y2="-58.42" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$30" class="0">
-<segment>
-<pinref part="S1" gate="G$1" pin="C"/>
-<wire x1="20.32" y1="22.86" x2="27.94" y2="22.86" width="0.1524" layer="91"/>
-<wire x1="27.94" y1="22.86" x2="27.94" y2="2.54" width="0.1524" layer="91"/>
-<wire x1="27.94" y1="2.54" x2="27.94" y2="-17.78" width="0.1524" layer="91"/>
-<wire x1="27.94" y1="-17.78" x2="27.94" y2="-38.1" width="0.1524" layer="91"/>
-<wire x1="27.94" y1="-38.1" x2="27.94" y2="-58.42" width="0.1524" layer="91"/>
-<wire x1="27.94" y1="-58.42" x2="27.94" y2="-86.36" width="0.1524" layer="91"/>
-<wire x1="27.94" y1="-86.36" x2="88.9" y2="-86.36" width="0.1524" layer="91"/>
-<pinref part="S4" gate="G$1" pin="C"/>
-<wire x1="88.9" y1="-86.36" x2="152.4" y2="-86.36" width="0.1524" layer="91"/>
-<wire x1="152.4" y1="-86.36" x2="190.5" y2="-86.36" width="0.1524" layer="91"/>
-<wire x1="20.32" y1="2.54" x2="27.94" y2="2.54" width="0.1524" layer="91"/>
-<junction x="27.94" y="2.54"/>
-<pinref part="S7" gate="G$1" pin="C"/>
-<wire x1="20.32" y1="-17.78" x2="27.94" y2="-17.78" width="0.1524" layer="91"/>
-<junction x="27.94" y="-17.78"/>
-<pinref part="S10" gate="G$1" pin="C"/>
-<wire x1="20.32" y1="-38.1" x2="27.94" y2="-38.1" width="0.1524" layer="91"/>
-<junction x="27.94" y="-38.1"/>
-<pinref part="S13" gate="G$1" pin="C"/>
-<wire x1="20.32" y1="-58.42" x2="27.94" y2="-58.42" width="0.1524" layer="91"/>
-<junction x="27.94" y="-58.42"/>
-<pinref part="S2" gate="G$1" pin="C"/>
-<wire x1="78.74" y1="22.86" x2="88.9" y2="22.86" width="0.1524" layer="91"/>
-<wire x1="88.9" y1="22.86" x2="88.9" y2="2.54" width="0.1524" layer="91"/>
-<junction x="88.9" y="-86.36"/>
-<pinref part="S5" gate="G$1" pin="C"/>
-<wire x1="88.9" y1="2.54" x2="88.9" y2="-17.78" width="0.1524" layer="91"/>
-<wire x1="88.9" y1="-17.78" x2="88.9" y2="-38.1" width="0.1524" layer="91"/>
-<wire x1="88.9" y1="-38.1" x2="88.9" y2="-58.42" width="0.1524" layer="91"/>
-<wire x1="88.9" y1="-58.42" x2="88.9" y2="-86.36" width="0.1524" layer="91"/>
-<wire x1="78.74" y1="2.54" x2="88.9" y2="2.54" width="0.1524" layer="91"/>
-<junction x="88.9" y="2.54"/>
-<pinref part="S8" gate="G$1" pin="C"/>
-<wire x1="78.74" y1="-17.78" x2="88.9" y2="-17.78" width="0.1524" layer="91"/>
-<junction x="88.9" y="-17.78"/>
-<pinref part="S11" gate="G$1" pin="C"/>
-<wire x1="78.74" y1="-38.1" x2="88.9" y2="-38.1" width="0.1524" layer="91"/>
-<junction x="88.9" y="-38.1"/>
-<pinref part="S14" gate="G$1" pin="C"/>
-<wire x1="78.74" y1="-58.42" x2="88.9" y2="-58.42" width="0.1524" layer="91"/>
-<junction x="88.9" y="-58.42"/>
-<pinref part="S3" gate="G$1" pin="C"/>
-<wire x1="139.7" y1="22.86" x2="152.4" y2="22.86" width="0.1524" layer="91"/>
-<wire x1="152.4" y1="22.86" x2="152.4" y2="2.54" width="0.1524" layer="91"/>
-<junction x="152.4" y="-86.36"/>
-<pinref part="S6" gate="G$1" pin="C"/>
-<wire x1="152.4" y1="2.54" x2="152.4" y2="-17.78" width="0.1524" layer="91"/>
-<wire x1="152.4" y1="-17.78" x2="152.4" y2="-38.1" width="0.1524" layer="91"/>
-<wire x1="152.4" y1="-38.1" x2="152.4" y2="-58.42" width="0.1524" layer="91"/>
-<wire x1="152.4" y1="-58.42" x2="152.4" y2="-86.36" width="0.1524" layer="91"/>
-<wire x1="139.7" y1="2.54" x2="152.4" y2="2.54" width="0.1524" layer="91"/>
-<junction x="152.4" y="2.54"/>
-<pinref part="S9" gate="G$1" pin="C"/>
-<wire x1="139.7" y1="-17.78" x2="152.4" y2="-17.78" width="0.1524" layer="91"/>
-<junction x="152.4" y="-17.78"/>
-<pinref part="S12" gate="G$1" pin="C"/>
-<wire x1="139.7" y1="-38.1" x2="152.4" y2="-38.1" width="0.1524" layer="91"/>
-<junction x="152.4" y="-38.1"/>
-<pinref part="S15" gate="G$1" pin="C"/>
-<wire x1="139.7" y1="-58.42" x2="152.4" y2="-58.42" width="0.1524" layer="91"/>
-<junction x="152.4" y="-58.42"/>
-<pinref part="U$1" gate="G$1" pin="D"/>
-</segment>
-</net>
 <net name="BACK_LIGHT" class="0">
-<segment>
-<pinref part="R22" gate="G$1" pin="2"/>
-<pinref part="U$1" gate="G$1" pin="G"/>
-<wire x1="177.8" y1="-96.52" x2="182.88" y2="-96.52" width="0.1524" layer="91"/>
-<wire x1="160.02" y1="-96.52" x2="177.8" y2="-96.52" width="0.1524" layer="91"/>
-<junction x="177.8" y="-96.52"/>
-<label x="160.02" y="-96.52" size="1.778" layer="95"/>
-</segment>
 <segment>
 <pinref part="IC1" gate="PORTA_H" pin="PA10"/>
 <wire x1="378.46" y1="-187.96" x2="391.16" y2="-187.96" width="0.1524" layer="91"/>
@@ -4482,7 +3868,7 @@ Simple light detection sensor. Output varies with light intensity input. Spark F
 <net name="SW15" class="0">
 <segment>
 <pinref part="S15" gate="G$1" pin="2"/>
-<wire x1="149.86" y1="-53.34" x2="139.7" y2="-53.34" width="0.1524" layer="91"/>
+<wire x1="157.48" y1="-53.34" x2="139.7" y2="-53.34" width="0.1524" layer="91"/>
 <label x="142.24" y="-53.34" size="1.778" layer="95"/>
 </segment>
 <segment>
@@ -4494,7 +3880,7 @@ Simple light detection sensor. Output varies with light intensity input. Spark F
 <net name="SW14" class="0">
 <segment>
 <pinref part="S14" gate="G$1" pin="2"/>
-<wire x1="86.36" y1="-53.34" x2="78.74" y2="-53.34" width="0.1524" layer="91"/>
+<wire x1="91.44" y1="-53.34" x2="78.74" y2="-53.34" width="0.1524" layer="91"/>
 <label x="81.28" y="-53.34" size="1.778" layer="95"/>
 </segment>
 <segment>
@@ -4506,7 +3892,7 @@ Simple light detection sensor. Output varies with light intensity input. Spark F
 <net name="SW13" class="0">
 <segment>
 <pinref part="S13" gate="G$1" pin="2"/>
-<wire x1="25.4" y1="-53.34" x2="20.32" y2="-53.34" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="-53.34" x2="20.32" y2="-53.34" width="0.1524" layer="91"/>
 <label x="22.86" y="-53.34" size="1.778" layer="95"/>
 </segment>
 <segment>
@@ -4523,7 +3909,7 @@ Simple light detection sensor. Output varies with light intensity input. Spark F
 </segment>
 <segment>
 <pinref part="S11" gate="G$1" pin="2"/>
-<wire x1="86.36" y1="-33.02" x2="78.74" y2="-33.02" width="0.1524" layer="91"/>
+<wire x1="91.44" y1="-33.02" x2="78.74" y2="-33.02" width="0.1524" layer="91"/>
 <label x="81.28" y="-33.02" size="1.778" layer="95"/>
 </segment>
 </net>
@@ -4535,14 +3921,14 @@ Simple light detection sensor. Output varies with light intensity input. Spark F
 </segment>
 <segment>
 <pinref part="S12" gate="G$1" pin="2"/>
-<wire x1="149.86" y1="-33.02" x2="139.7" y2="-33.02" width="0.1524" layer="91"/>
+<wire x1="157.48" y1="-33.02" x2="139.7" y2="-33.02" width="0.1524" layer="91"/>
 <label x="142.24" y="-33.02" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="SW10" class="0">
 <segment>
 <pinref part="S10" gate="G$1" pin="2"/>
-<wire x1="25.4" y1="-33.02" x2="20.32" y2="-33.02" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="-33.02" x2="20.32" y2="-33.02" width="0.1524" layer="91"/>
 <label x="22.86" y="-33.02" size="1.778" layer="95"/>
 </segment>
 <segment>
@@ -4559,7 +3945,7 @@ Simple light detection sensor. Output varies with light intensity input. Spark F
 </segment>
 <segment>
 <pinref part="S9" gate="G$1" pin="2"/>
-<wire x1="149.86" y1="-12.7" x2="139.7" y2="-12.7" width="0.1524" layer="91"/>
+<wire x1="157.48" y1="-12.7" x2="139.7" y2="-12.7" width="0.1524" layer="91"/>
 <label x="142.24" y="-12.7" size="1.778" layer="95"/>
 </segment>
 </net>
@@ -4571,7 +3957,7 @@ Simple light detection sensor. Output varies with light intensity input. Spark F
 </segment>
 <segment>
 <pinref part="S8" gate="G$1" pin="2"/>
-<wire x1="86.36" y1="-12.7" x2="78.74" y2="-12.7" width="0.1524" layer="91"/>
+<wire x1="91.44" y1="-12.7" x2="78.74" y2="-12.7" width="0.1524" layer="91"/>
 <label x="81.28" y="-12.7" size="1.778" layer="95"/>
 </segment>
 </net>
@@ -4583,13 +3969,13 @@ Simple light detection sensor. Output varies with light intensity input. Spark F
 </segment>
 <segment>
 <pinref part="S7" gate="G$1" pin="2"/>
-<wire x1="25.4" y1="-12.7" x2="20.32" y2="-12.7" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="-12.7" x2="20.32" y2="-12.7" width="0.1524" layer="91"/>
 <label x="22.86" y="-12.7" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="SW6" class="0">
 <segment>
-<wire x1="149.86" y1="7.62" x2="139.7" y2="7.62" width="0.1524" layer="91"/>
+<wire x1="157.48" y1="7.62" x2="139.7" y2="7.62" width="0.1524" layer="91"/>
 <pinref part="S6" gate="G$1" pin="2"/>
 <label x="142.24" y="7.62" size="1.778" layer="95"/>
 </segment>
@@ -4602,7 +3988,7 @@ Simple light detection sensor. Output varies with light intensity input. Spark F
 <net name="SW5" class="0">
 <segment>
 <pinref part="S5" gate="G$1" pin="2"/>
-<wire x1="86.36" y1="7.62" x2="78.74" y2="7.62" width="0.1524" layer="91"/>
+<wire x1="91.44" y1="7.62" x2="78.74" y2="7.62" width="0.1524" layer="91"/>
 <label x="81.28" y="7.62" size="1.778" layer="95"/>
 </segment>
 <segment>
@@ -4614,7 +4000,7 @@ Simple light detection sensor. Output varies with light intensity input. Spark F
 <net name="SW4" class="0">
 <segment>
 <pinref part="S4" gate="G$1" pin="2"/>
-<wire x1="25.4" y1="7.62" x2="20.32" y2="7.62" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="7.62" x2="20.32" y2="7.62" width="0.1524" layer="91"/>
 <label x="22.86" y="7.62" size="1.778" layer="95"/>
 </segment>
 <segment>
@@ -4691,7 +4077,7 @@ Simple light detection sensor. Output varies with light intensity input. Spark F
 <segment>
 <pinref part="S3" gate="G$1" pin="2"/>
 <wire x1="157.48" y1="27.94" x2="139.7" y2="27.94" width="0.1524" layer="91"/>
-<label x="144.78" y="27.94" size="1.778" layer="95"/>
+<label x="142.24" y="27.94" size="1.778" layer="95"/>
 </segment>
 <segment>
 <wire x1="449.58" y1="-195.58" x2="434.34" y2="-195.58" width="0.1524" layer="91"/>
