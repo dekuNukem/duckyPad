@@ -2888,6 +2888,22 @@ chip</description>
 <text x="-1.905" y="3.683" size="1.27" layer="25">&gt;NAME</text>
 <text x="-1.905" y="-4.826" size="1.27" layer="27">&gt;VALUE</text>
 </package>
+<package name="PAD.02X.02">
+<smd name="P$1" x="0" y="0" dx="0.508" dy="0.508" layer="1"/>
+</package>
+<package name="PAD.03X.03">
+<smd name="P$1" x="0" y="0" dx="0.762" dy="0.762" layer="1" roundness="100" cream="no"/>
+</package>
+<package name="PAD.03X.04">
+<smd name="P$1" x="0" y="0" dx="1.016" dy="1.016" layer="1" roundness="100" cream="no"/>
+</package>
+<package name="PAD.03X.05">
+<smd name="P$1" x="0" y="0" dx="1.27" dy="1.27" layer="1" roundness="100" cream="no"/>
+</package>
+<package name="TP_15TH">
+<circle x="0" y="0" radius="0.381" width="0" layer="30"/>
+<pad name="P$1" x="0" y="0" drill="0.381" diameter="0.6096" stop="no"/>
+</package>
 </packages>
 <symbols>
 <symbol name="BAT_AN_M">
@@ -3092,6 +3108,13 @@ chip</description>
 <pin name="2" x="0" y="-5.08" visible="off" length="short" direction="pas" swaplevel="1" rot="R90"/>
 <text x="1.016" y="0.635" size="1.778" layer="95">&gt;NAME</text>
 <text x="1.016" y="-4.191" size="1.778" layer="96">&gt;VALUE</text>
+</symbol>
+<symbol name="TEST-POINT">
+<wire x1="2.54" y1="0" x2="0" y2="0" width="0.1524" layer="94"/>
+<wire x1="3.302" y1="0.762" x2="3.302" y2="-0.762" width="0.1524" layer="94" curve="180"/>
+<pin name="1" x="0" y="0" visible="off" length="point" rot="R180"/>
+<text x="-2.54" y="2.54" size="1.778" layer="95">&gt;Name</text>
+<text x="-2.54" y="-2.54" size="1.778" layer="96">&gt;Value</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -4421,6 +4444,54 @@ Standard 0603 ceramic capacitor, and 0.1" leaded capacitor.</description>
 </device>
 </devices>
 </deviceset>
+<deviceset name="TEST-POINT" prefix="TP">
+<description>Bare copper test points for troubleshooting or ICT</description>
+<gates>
+<gate name="G$1" symbol="TEST-POINT" x="0" y="0"/>
+</gates>
+<devices>
+<device name="2" package="PAD.02X.02">
+<connects>
+<connect gate="G$1" pin="1" pad="P$1"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="3" package="PAD.03X.03">
+<connects>
+<connect gate="G$1" pin="1" pad="P$1"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="3X4" package="PAD.03X.04">
+<connects>
+<connect gate="G$1" pin="1" pad="P$1"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="3X5" package="PAD.03X.05">
+<connects>
+<connect gate="G$1" pin="1" pad="P$1"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="TP_15TH_THRU" package="TP_15TH">
+<connects>
+<connect gate="G$1" pin="1" pad="P$1"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
 </devicesets>
 </library>
 <library name="supply1" urn="urn:adsk.eagle:library:371">
@@ -5579,6 +5650,8 @@ Source: http://www.semiconductors.philips.com/acrobat_download/datasheets/74HC_H
 <part name="GND32" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="+3V32" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="C27" library="clock" deviceset="C-US" device="C1210"/>
+<part name="TP1" library="clock" deviceset="TEST-POINT" device="3X5"/>
+<part name="TP2" library="clock" deviceset="TEST-POINT" device="3X5"/>
 </parts>
 <sheets>
 <sheet>
@@ -5746,6 +5819,8 @@ Source: http://www.semiconductors.philips.com/acrobat_download/datasheets/74HC_H
 <instance part="GND32" gate="1" x="-50.8" y="30.48"/>
 <instance part="+3V32" gate="G$1" x="-50.8" y="50.8" rot="MR0"/>
 <instance part="C27" gate="G$1" x="-238.76" y="-35.56"/>
+<instance part="TP1" gate="G$1" x="-73.66" y="30.48" smashed="yes" rot="R90"/>
+<instance part="TP2" gate="G$1" x="-40.64" y="30.48" smashed="yes" rot="R90"/>
 </instances>
 <busses>
 </busses>
@@ -5804,6 +5879,34 @@ Source: http://www.semiconductors.philips.com/acrobat_download/datasheets/74HC_H
 <pinref part="C5" gate="G$1" pin="1"/>
 <pinref part="C8" gate="G$1" pin="1"/>
 <pinref part="U$21" gate="1" pin="GND"/>
+<pinref part="U1" gate="G$1" pin="D3"/>
+<wire x1="363.22" y1="20.32" x2="325.12" y2="20.32" width="0.1524" layer="91"/>
+<wire x1="325.12" y1="20.32" x2="325.12" y2="17.78" width="0.1524" layer="91"/>
+<junction x="325.12" y="7.62"/>
+<pinref part="U1" gate="G$1" pin="D4"/>
+<wire x1="325.12" y1="17.78" x2="325.12" y2="15.24" width="0.1524" layer="91"/>
+<wire x1="325.12" y1="15.24" x2="325.12" y2="12.7" width="0.1524" layer="91"/>
+<wire x1="325.12" y1="12.7" x2="325.12" y2="10.16" width="0.1524" layer="91"/>
+<wire x1="325.12" y1="10.16" x2="325.12" y2="7.62" width="0.1524" layer="91"/>
+<wire x1="363.22" y1="17.78" x2="325.12" y2="17.78" width="0.1524" layer="91"/>
+<junction x="325.12" y="17.78"/>
+<pinref part="U1" gate="G$1" pin="D5"/>
+<wire x1="363.22" y1="15.24" x2="325.12" y2="15.24" width="0.1524" layer="91"/>
+<junction x="325.12" y="15.24"/>
+<pinref part="U1" gate="G$1" pin="D6"/>
+<wire x1="363.22" y1="12.7" x2="325.12" y2="12.7" width="0.1524" layer="91"/>
+<junction x="325.12" y="12.7"/>
+<pinref part="U1" gate="G$1" pin="D7"/>
+<wire x1="363.22" y1="10.16" x2="325.12" y2="10.16" width="0.1524" layer="91"/>
+<junction x="325.12" y="10.16"/>
+<pinref part="U1" gate="G$1" pin="E/RD"/>
+<wire x1="363.22" y1="30.48" x2="325.12" y2="30.48" width="0.1524" layer="91"/>
+<wire x1="325.12" y1="30.48" x2="325.12" y2="20.32" width="0.1524" layer="91"/>
+<junction x="325.12" y="20.32"/>
+<pinref part="U1" gate="G$1" pin="R/W"/>
+<wire x1="363.22" y1="33.02" x2="325.12" y2="33.02" width="0.1524" layer="91"/>
+<wire x1="325.12" y1="33.02" x2="325.12" y2="30.48" width="0.1524" layer="91"/>
+<junction x="325.12" y="30.48"/>
 </segment>
 <segment>
 <wire x1="363.22" y1="53.34" x2="337.82" y2="53.34" width="0.1524" layer="91"/>
@@ -6972,6 +7075,8 @@ Source: http://www.semiconductors.philips.com/acrobat_download/datasheets/74HC_H
 <pinref part="R1" gate="G$1" pin="2"/>
 <wire x1="-73.66" y1="22.86" x2="-68.58" y2="22.86" width="0.1524" layer="91"/>
 <junction x="-73.66" y="22.86"/>
+<pinref part="TP1" gate="G$1" pin="1"/>
+<wire x1="-73.66" y1="30.48" x2="-73.66" y2="22.86" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="SPI_MOSI" class="0">
@@ -6979,6 +7084,8 @@ Source: http://www.semiconductors.philips.com/acrobat_download/datasheets/74HC_H
 <pinref part="IC3" gate="A" pin="I"/>
 <wire x1="-40.64" y1="22.86" x2="-55.88" y2="22.86" width="0.1524" layer="91"/>
 <label x="-53.34" y="22.86" size="1.778" layer="95"/>
+<pinref part="TP2" gate="G$1" pin="1"/>
+<wire x1="-40.64" y1="30.48" x2="-40.64" y2="22.86" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <wire x1="340.36" y1="-172.72" x2="340.36" y2="-157.48" width="0.1524" layer="91"/>
