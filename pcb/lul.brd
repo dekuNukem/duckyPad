@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="5" unitdist="mil" unit="mil" style="lines" multiple="1" display="yes" altdistance="5" altunitdist="mil" altunit="mil"/>
+<grid distance="20" unitdist="mil" unit="mil" style="lines" multiple="1" display="yes" altdistance="5" altunitdist="mil" altunit="mil"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -536,6 +536,11 @@ chip</description>
 </package>
 <package name="PAD.03X.05">
 <smd name="P$1" x="0" y="0" dx="1.27" dy="1.27" layer="1" roundness="100" cream="no"/>
+</package>
+<package name="M3_MOUNTING_HOLE_PACK">
+<circle x="0" y="0" radius="2" width="0" layer="41"/>
+<circle x="0" y="0" radius="2" width="0" layer="42"/>
+<hole x="0" y="0" drill="3.2"/>
 </package>
 </packages>
 </library>
@@ -1100,50 +1105,50 @@ These rules have been curated by SparkFuns DFM commitee. After doing much resear
 <element name="R6" library="clock" package="0805" value="300" x="71.882" y="65.151" smashed="yes" rot="R45">
 <attribute name="NAME" x="70.694096875" y="65.475428125" size="0.8128" layer="25" rot="R45"/>
 </element>
-<element name="C11" library="clock" package="0805@1" value="0.1uF" x="29" y="36.5" smashed="yes" rot="R180">
-<attribute name="NAME" x="30.143" y="38.3415" size="0.8128" layer="25" rot="R180"/>
+<element name="C11" library="clock" package="0805@1" value="0.1uF" x="29" y="37.008" smashed="yes" rot="R180">
+<attribute name="NAME" x="30.143" y="38.8495" size="0.8128" layer="25" rot="R180"/>
 </element>
-<element name="C12" library="clock" package="0805@1" value="0.1uF" x="48" y="36.5" smashed="yes" rot="R180">
-<attribute name="NAME" x="49.143" y="38.3415" size="0.8128" layer="25" rot="R180"/>
+<element name="C12" library="clock" package="0805@1" value="0.1uF" x="48" y="37.008" smashed="yes" rot="R180">
+<attribute name="NAME" x="49.143" y="38.8495" size="0.8128" layer="25" rot="R180"/>
 </element>
-<element name="C13" library="clock" package="0805@1" value="0.1uF" x="10" y="17.5" smashed="yes">
-<attribute name="NAME" x="6.063" y="17.1825" size="0.8128" layer="25"/>
+<element name="C13" library="clock" package="0805@1" value="0.1uF" x="10" y="18.008" smashed="yes">
+<attribute name="NAME" x="6.063" y="17.6905" size="0.8128" layer="25"/>
 </element>
-<element name="C14" library="clock" package="0805@1" value="0.1uF" x="29" y="17.5" smashed="yes">
-<attribute name="NAME" x="27.984" y="18.4525" size="0.8128" layer="25"/>
+<element name="C14" library="clock" package="0805@1" value="0.1uF" x="29" y="18.008" smashed="yes">
+<attribute name="NAME" x="27.984" y="18.9605" size="0.8128" layer="25"/>
 </element>
-<element name="C15" library="clock" package="0805@1" value="0.1uF" x="48" y="17.5" smashed="yes">
-<attribute name="NAME" x="46.984" y="18.4525" size="0.8128" layer="25"/>
+<element name="C15" library="clock" package="0805@1" value="0.1uF" x="48" y="18.008" smashed="yes">
+<attribute name="NAME" x="46.984" y="18.9605" size="0.8128" layer="25"/>
 </element>
-<element name="C16" library="clock" package="0805@1" value="0.1uF" x="10" y="93.5" smashed="yes">
-<attribute name="NAME" x="8.984" y="94.4525" size="0.8128" layer="25"/>
+<element name="C16" library="clock" package="0805@1" value="0.1uF" x="10" y="94.008" smashed="yes">
+<attribute name="NAME" x="8.984" y="94.9605" size="0.8128" layer="25"/>
 </element>
-<element name="C17" library="clock" package="0805@1" value="0.1uF" x="29" y="93.5" smashed="yes">
-<attribute name="NAME" x="27.984" y="94.4525" size="0.8128" layer="25"/>
+<element name="C17" library="clock" package="0805@1" value="0.1uF" x="29" y="94.008" smashed="yes">
+<attribute name="NAME" x="27.984" y="94.9605" size="0.8128" layer="25"/>
 </element>
-<element name="C18" library="clock" package="0805@1" value="0.1uF" x="48" y="93.5" smashed="yes">
-<attribute name="NAME" x="46.984" y="94.4525" size="0.8128" layer="25"/>
+<element name="C18" library="clock" package="0805@1" value="0.1uF" x="48" y="94.008" smashed="yes">
+<attribute name="NAME" x="46.984" y="94.9605" size="0.8128" layer="25"/>
 </element>
-<element name="C19" library="clock" package="0805@1" value="0.1uF" x="10" y="74.5" smashed="yes" rot="R180">
-<attribute name="NAME" x="11.143" y="76.2145" size="0.8128" layer="25" rot="R180"/>
+<element name="C19" library="clock" package="0805@1" value="0.1uF" x="10" y="75.008" smashed="yes" rot="R180">
+<attribute name="NAME" x="11.143" y="76.7225" size="0.8128" layer="25" rot="R180"/>
 </element>
-<element name="C20" library="clock" package="0805@1" value="0.1uF" x="29" y="74.5" smashed="yes" rot="R180">
-<attribute name="NAME" x="30.143" y="76.2145" size="0.8128" layer="25" rot="R180"/>
+<element name="C20" library="clock" package="0805@1" value="0.1uF" x="29" y="75.008" smashed="yes" rot="R180">
+<attribute name="NAME" x="30.143" y="76.7225" size="0.8128" layer="25" rot="R180"/>
 </element>
-<element name="C21" library="clock" package="0805@1" value="0.1uF" x="48" y="74.5" smashed="yes" rot="R180">
-<attribute name="NAME" x="49.143" y="76.3415" size="0.8128" layer="25" rot="R180"/>
+<element name="C21" library="clock" package="0805@1" value="0.1uF" x="48" y="75.008" smashed="yes" rot="R180">
+<attribute name="NAME" x="49.143" y="76.8495" size="0.8128" layer="25" rot="R180"/>
 </element>
-<element name="C22" library="clock" package="0805@1" value="0.1uF" x="10" y="55.5" smashed="yes">
-<attribute name="NAME" x="8.984" y="56.4525" size="0.8128" layer="25"/>
+<element name="C22" library="clock" package="0805@1" value="0.1uF" x="10" y="56.008" smashed="yes">
+<attribute name="NAME" x="8.984" y="56.9605" size="0.8128" layer="25"/>
 </element>
-<element name="C23" library="clock" package="0805@1" value="0.1uF" x="29" y="55.5" smashed="yes">
-<attribute name="NAME" x="27.984" y="56.4525" size="0.8128" layer="25"/>
+<element name="C23" library="clock" package="0805@1" value="0.1uF" x="29" y="56.008" smashed="yes">
+<attribute name="NAME" x="27.984" y="56.9605" size="0.8128" layer="25"/>
 </element>
-<element name="C24" library="clock" package="0805@1" value="0.1uF" x="48" y="55.5" smashed="yes">
-<attribute name="NAME" x="46.984" y="56.4525" size="0.8128" layer="25"/>
+<element name="C24" library="clock" package="0805@1" value="0.1uF" x="48" y="56.008" smashed="yes">
+<attribute name="NAME" x="46.984" y="56.9605" size="0.8128" layer="25"/>
 </element>
-<element name="C25" library="clock" package="0805@1" value="0.1uF" x="10" y="36.5" smashed="yes" rot="R180">
-<attribute name="NAME" x="14.064" y="36.9445" size="0.8128" layer="25" rot="R180"/>
+<element name="C25" library="clock" package="0805@1" value="0.1uF" x="10" y="37.008" smashed="yes" rot="R180">
+<attribute name="NAME" x="14.064" y="37.4525" size="0.8128" layer="25" rot="R180"/>
 </element>
 <element name="IC3" library="74xx-little-de" library_urn="urn:adsk.eagle:library:86" package="SOT23-5" value="74LVC1G125DBV" x="56.9976" y="88.9762" smashed="yes"/>
 <element name="R1" library="clock" package="0805" value="10k" x="57.912" y="92.71" smashed="yes" rot="R270">
@@ -1157,6 +1162,13 @@ These rules have been curated by SparkFuns DFM commitee. After doing much resear
 </element>
 <element name="TP1" library="clock" package="PAD.03X.05" value="TEST-POINT3X5" x="59.817" y="89.281" rot="R90"/>
 <element name="TP2" library="clock" package="PAD.03X.05" value="TEST-POINT3X5" x="57.15" y="85.09" smashed="yes"/>
+<element name="U$7" library="clock" package="M3_MOUNTING_HOLE_PACK" value="M3_MOUNTING_HOLE" x="19.05" y="19.431"/>
+<element name="U$9" library="clock" package="M3_MOUNTING_HOLE_PACK" value="M3_MOUNTING_HOLE" x="70.104" y="42.418"/>
+<element name="U$10" library="clock" package="M3_MOUNTING_HOLE_PACK" value="M3_MOUNTING_HOLE" x="87.122" y="77.216"/>
+<element name="U$11" library="clock" package="M3_MOUNTING_HOLE_PACK" value="M3_MOUNTING_HOLE" x="19.558" y="77.089"/>
+<element name="U$12" library="clock" package="M3_MOUNTING_HOLE_PACK" value="M3_MOUNTING_HOLE" x="38.227" y="19.431"/>
+<element name="U$13" library="clock" package="M3_MOUNTING_HOLE_PACK" value="M3_MOUNTING_HOLE" x="38.481" y="77.089"/>
+<element name="U$14" library="clock" package="M3_MOUNTING_HOLE_PACK" value="M3_MOUNTING_HOLE" x="85.725" y="3.175"/>
 </elements>
 <signals>
 <signal name="GND">
@@ -1512,75 +1524,75 @@ These rules have been curated by SparkFuns DFM commitee. After doing much resear
 <contactref element="C23" pad="2"/>
 <contactref element="C24" pad="2"/>
 <contactref element="C25" pad="2"/>
-<via x="45.5" y="36.5" extent="1-16" drill="0.5"/>
-<via x="26" y="36.5" extent="1-16" drill="0.5"/>
-<via x="7.5" y="36.5" extent="1-16" drill="0.5"/>
-<via x="12.5" y="55.5" extent="1-16" drill="0.5"/>
-<via x="31.5" y="55.5" extent="1-16" drill="0.5"/>
-<via x="50.5" y="55.5" extent="1-16" drill="0.5"/>
-<via x="45.5" y="74.5" extent="1-16" drill="0.5"/>
-<via x="26.5" y="74.5" extent="1-16" drill="0.5"/>
-<via x="7.5" y="74.5" extent="1-16" drill="0.5"/>
-<via x="12.5" y="93.5" extent="1-16" drill="0.5"/>
-<via x="31.5" y="93.5" extent="1-16" drill="0.5"/>
-<via x="50.5" y="93.5" extent="1-16" drill="0.5"/>
-<via x="12.5" y="17.5" extent="1-16" drill="0.5"/>
-<via x="31.5" y="17.5" extent="1-16" drill="0.5"/>
-<via x="50.5" y="17.5" extent="1-16" drill="0.5"/>
-<wire x1="11.75" y1="17.5" x2="10.9" y2="17.5" width="0.3048" layer="1"/>
-<wire x1="11.75" y1="17.5" x2="12.5" y2="17.5" width="0.3048" layer="1"/>
-<wire x1="11.75" y1="15.875" x2="11.75" y2="17.5" width="0.3048" layer="1"/>
-<wire x1="30.75" y1="17.5" x2="29.9" y2="17.5" width="0.3048" layer="1"/>
-<wire x1="30.75" y1="17.5" x2="31.5" y2="17.5" width="0.3048" layer="1"/>
-<wire x1="30.75" y1="15.875" x2="30.75" y2="17.5" width="0.3048" layer="1"/>
-<wire x1="49.75" y1="17.5" x2="48.9" y2="17.5" width="0.3048" layer="1"/>
-<wire x1="49.75" y1="17.5" x2="50.5" y2="17.5" width="0.3048" layer="1"/>
-<wire x1="49.75" y1="15.875" x2="49.75" y2="17.5" width="0.3048" layer="1"/>
-<wire x1="7.5" y1="74.5" x2="9.1" y2="74.5" width="0.3048" layer="1"/>
-<wire x1="9.5" y1="74.5" x2="9.1" y2="74.5" width="0.3048" layer="1"/>
+<via x="45.5" y="37.008" extent="1-16" drill="0.5"/>
+<via x="26" y="37.008" extent="1-16" drill="0.5"/>
+<via x="7.5" y="37.008" extent="1-16" drill="0.5"/>
+<via x="12.5" y="56.008" extent="1-16" drill="0.5"/>
+<via x="31.5" y="56.008" extent="1-16" drill="0.5"/>
+<via x="50.5" y="56.008" extent="1-16" drill="0.5"/>
+<via x="45.5" y="75.008" extent="1-16" drill="0.5"/>
+<via x="26.5" y="75.008" extent="1-16" drill="0.5"/>
+<via x="7.5" y="75.008" extent="1-16" drill="0.5"/>
+<via x="12.5" y="94.008" extent="1-16" drill="0.5"/>
+<via x="31.5" y="94.008" extent="1-16" drill="0.5"/>
+<via x="50.5" y="94.008" extent="1-16" drill="0.5"/>
+<via x="12.5" y="18.008" extent="1-16" drill="0.5"/>
+<via x="31.5" y="18.008" extent="1-16" drill="0.5"/>
+<via x="50.5" y="18.008" extent="1-16" drill="0.5"/>
+<wire x1="11.75" y1="18.008" x2="10.9" y2="18.008" width="0.3048" layer="1"/>
+<wire x1="11.75" y1="18.008" x2="12.5" y2="18.008" width="0.3048" layer="1"/>
+<wire x1="11.75" y1="15.875" x2="11.75" y2="18.008" width="0.3048" layer="1"/>
+<wire x1="30.75" y1="18.008" x2="29.9" y2="18.008" width="0.3048" layer="1"/>
+<wire x1="30.75" y1="18.008" x2="31.5" y2="18.008" width="0.3048" layer="1"/>
+<wire x1="30.75" y1="15.875" x2="30.75" y2="18.008" width="0.3048" layer="1"/>
+<wire x1="49.75" y1="18.008" x2="48.9" y2="18.008" width="0.3048" layer="1"/>
+<wire x1="49.75" y1="18.008" x2="50.5" y2="18.008" width="0.3048" layer="1"/>
+<wire x1="49.75" y1="15.875" x2="49.75" y2="18.008" width="0.3048" layer="1"/>
+<wire x1="7.5" y1="75.008" x2="9.1" y2="75.008" width="0.3048" layer="1"/>
+<wire x1="9.5" y1="75.008" x2="9.1" y2="75.008" width="0.3048" layer="1"/>
 <wire x1="8.25" y1="71.125" x2="9.5" y2="71.125" width="0.3048" layer="1"/>
-<wire x1="9.5" y1="71.125" x2="9.5" y2="74.5" width="0.3048" layer="1"/>
-<wire x1="26.5" y1="74.5" x2="28.1" y2="74.5" width="0.3048" layer="1"/>
+<wire x1="9.5" y1="71.125" x2="9.5" y2="75.008" width="0.3048" layer="1"/>
+<wire x1="26.5" y1="75.008" x2="28.1" y2="75.008" width="0.3048" layer="1"/>
 <wire x1="28.5" y1="71.125" x2="27.25" y2="71.125" width="0.3048" layer="1"/>
-<wire x1="28.1" y1="74.5" x2="28.5" y2="74.5" width="0.3048" layer="1"/>
-<wire x1="28.5" y1="74.5" x2="28.5" y2="71.125" width="0.3048" layer="1"/>
-<wire x1="47.1" y1="74.5" x2="45.5" y2="74.5" width="0.3048" layer="1"/>
+<wire x1="28.1" y1="75.008" x2="28.5" y2="75.008" width="0.3048" layer="1"/>
+<wire x1="28.5" y1="75.008" x2="28.5" y2="71.125" width="0.3048" layer="1"/>
+<wire x1="47.1" y1="75.008" x2="45.5" y2="75.008" width="0.3048" layer="1"/>
 <wire x1="46.25" y1="71.125" x2="46.487" y2="71.125" width="0.3048" layer="1"/>
 <wire x1="46.487" y1="71.125" x2="47.625" y2="72.263" width="0.3048" layer="1"/>
-<wire x1="47.625" y1="72.263" x2="47.625" y2="73.975" width="0.3048" layer="1"/>
-<wire x1="47.625" y1="73.975" x2="47.1" y2="74.5" width="0.3048" layer="1"/>
+<wire x1="47.625" y1="72.263" x2="47.625" y2="74.483" width="0.3048" layer="1"/>
+<wire x1="47.625" y1="74.483" x2="47.1" y2="75.008" width="0.3048" layer="1"/>
 <wire x1="46.25" y1="33.125" x2="46.714" y2="33.125" width="0.3048" layer="1"/>
 <wire x1="46.714" y1="33.125" x2="47.371" y2="33.782" width="0.3048" layer="1"/>
-<wire x1="47.371" y1="33.782" x2="47.371" y2="36.229" width="0.3048" layer="1"/>
-<wire x1="47.371" y1="36.229" x2="47.1" y2="36.5" width="0.3048" layer="1"/>
-<wire x1="9.1" y1="36.5" x2="7.5" y2="36.5" width="0.3048" layer="1"/>
+<wire x1="47.371" y1="33.782" x2="47.371" y2="36.737" width="0.3048" layer="1"/>
+<wire x1="47.371" y1="36.737" x2="47.1" y2="37.008" width="0.3048" layer="1"/>
+<wire x1="9.1" y1="37.008" x2="7.5" y2="37.008" width="0.3048" layer="1"/>
 <wire x1="8.25" y1="33.125" x2="8.25" y2="33" width="0.3048" layer="1"/>
 <wire x1="8.25" y1="33" x2="9.5" y2="33" width="0.3048" layer="1"/>
-<wire x1="9.5" y1="33" x2="9.5" y2="36.5" width="0.3048" layer="1"/>
-<wire x1="9.5" y1="36.5" x2="9.1" y2="36.5" width="0.3048" layer="1"/>
-<wire x1="28.1" y1="36.5" x2="26" y2="36.5" width="0.3048" layer="1"/>
+<wire x1="9.5" y1="33" x2="9.5" y2="37.008" width="0.3048" layer="1"/>
+<wire x1="9.5" y1="37.008" x2="9.1" y2="37.008" width="0.3048" layer="1"/>
+<wire x1="28.1" y1="37.008" x2="26" y2="37.008" width="0.3048" layer="1"/>
 <wire x1="27.25" y1="33.125" x2="27.25" y2="33" width="0.3048" layer="1"/>
 <wire x1="27.25" y1="33" x2="28.5" y2="33" width="0.3048" layer="1"/>
-<wire x1="28.5" y1="33" x2="28.5" y2="36.5" width="0.3048" layer="1"/>
-<wire x1="28.5" y1="36.5" x2="28.1" y2="36.5" width="0.3048" layer="1"/>
-<wire x1="11.75" y1="93.5" x2="10.9" y2="93.5" width="0.3048" layer="1"/>
-<wire x1="11.75" y1="93.5" x2="12.5" y2="93.5" width="0.3048" layer="1"/>
-<wire x1="11.75" y1="91.875" x2="11.75" y2="93.5" width="0.3048" layer="1"/>
-<wire x1="30.75" y1="93.5" x2="29.9" y2="93.5" width="0.3048" layer="1"/>
-<wire x1="30.75" y1="93.5" x2="31.5" y2="93.5" width="0.3048" layer="1"/>
-<wire x1="30.75" y1="91.875" x2="30.75" y2="93.5" width="0.3048" layer="1"/>
-<wire x1="49.75" y1="93.5" x2="48.9" y2="93.5" width="0.3048" layer="1"/>
-<wire x1="49.75" y1="93.5" x2="50.5" y2="93.5" width="0.3048" layer="1"/>
-<wire x1="49.75" y1="91.875" x2="49.75" y2="93.5" width="0.3048" layer="1"/>
-<wire x1="11.75" y1="55.5" x2="10.9" y2="55.5" width="0.3048" layer="1"/>
-<wire x1="11.75" y1="55.5" x2="12.5" y2="55.5" width="0.3048" layer="1"/>
-<wire x1="11.75" y1="53.875" x2="11.75" y2="55.5" width="0.3048" layer="1"/>
-<wire x1="30.75" y1="55.5" x2="29.9" y2="55.5" width="0.3048" layer="1"/>
-<wire x1="30.75" y1="55.5" x2="31.5" y2="55.5" width="0.3048" layer="1"/>
-<wire x1="30.75" y1="53.875" x2="30.75" y2="55.5" width="0.3048" layer="1"/>
-<wire x1="49.75" y1="55.5" x2="48.9" y2="55.5" width="0.3048" layer="1"/>
-<wire x1="49.75" y1="55.5" x2="50.5" y2="55.5" width="0.3048" layer="1"/>
-<wire x1="49.75" y1="53.875" x2="49.75" y2="55.5" width="0.3048" layer="1"/>
+<wire x1="28.5" y1="33" x2="28.5" y2="37.008" width="0.3048" layer="1"/>
+<wire x1="28.5" y1="37.008" x2="28.1" y2="37.008" width="0.3048" layer="1"/>
+<wire x1="11.75" y1="94.008" x2="10.9" y2="94.008" width="0.3048" layer="1"/>
+<wire x1="11.75" y1="94.008" x2="12.5" y2="94.008" width="0.3048" layer="1"/>
+<wire x1="11.75" y1="91.875" x2="11.75" y2="94.008" width="0.3048" layer="1"/>
+<wire x1="30.75" y1="94.008" x2="29.9" y2="94.008" width="0.3048" layer="1"/>
+<wire x1="30.75" y1="94.008" x2="31.5" y2="94.008" width="0.3048" layer="1"/>
+<wire x1="30.75" y1="91.875" x2="30.75" y2="94.008" width="0.3048" layer="1"/>
+<wire x1="49.75" y1="94.008" x2="48.9" y2="94.008" width="0.3048" layer="1"/>
+<wire x1="49.75" y1="94.008" x2="50.5" y2="94.008" width="0.3048" layer="1"/>
+<wire x1="49.75" y1="91.875" x2="49.75" y2="94.008" width="0.3048" layer="1"/>
+<wire x1="11.75" y1="56.008" x2="10.9" y2="56.008" width="0.3048" layer="1"/>
+<wire x1="11.75" y1="56.008" x2="12.5" y2="56.008" width="0.3048" layer="1"/>
+<wire x1="11.75" y1="53.875" x2="11.75" y2="56.008" width="0.3048" layer="1"/>
+<wire x1="30.75" y1="56.008" x2="29.9" y2="56.008" width="0.3048" layer="1"/>
+<wire x1="30.75" y1="56.008" x2="31.5" y2="56.008" width="0.3048" layer="1"/>
+<wire x1="30.75" y1="53.875" x2="30.75" y2="56.008" width="0.3048" layer="1"/>
+<wire x1="49.75" y1="56.008" x2="48.9" y2="56.008" width="0.3048" layer="1"/>
+<wire x1="49.75" y1="56.008" x2="50.5" y2="56.008" width="0.3048" layer="1"/>
+<wire x1="49.75" y1="53.875" x2="49.75" y2="56.008" width="0.3048" layer="1"/>
 <wire x1="74.38" y1="65.9" x2="76.187" y2="65.9" width="0.2032" layer="1"/>
 <wire x1="76.187" y1="65.9" x2="76.2" y2="65.913" width="0.2032" layer="1"/>
 <wire x1="61.206" y1="42.095" x2="61.214" y2="42.103" width="0.2032" layer="1"/>
@@ -1593,7 +1605,7 @@ These rules have been curated by SparkFuns DFM commitee. After doing much resear
 <contactref element="IC3" pad="5"/>
 <wire x1="56.007" y1="91.694" x2="56.0476" y2="91.6534" width="0.2032" layer="1"/>
 <wire x1="56.0476" y1="91.6534" x2="56.0476" y2="90.2762" width="0.2032" layer="1"/>
-<wire x1="47.1" y1="36.5" x2="45.5" y2="36.5" width="0.2032" layer="1"/>
+<wire x1="47.1" y1="37.008" x2="45.5" y2="37.008" width="0.2032" layer="1"/>
 <contactref element="C27" pad="1"/>
 <via x="59.944" y="82.169" extent="1-16" drill="0.5"/>
 <via x="64.262" y="85.09" extent="1-16" drill="0.5"/>

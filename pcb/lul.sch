@@ -2904,6 +2904,11 @@ chip</description>
 <circle x="0" y="0" radius="0.381" width="0" layer="30"/>
 <pad name="P$1" x="0" y="0" drill="0.381" diameter="0.6096" stop="no"/>
 </package>
+<package name="M3_MOUNTING_HOLE_PACK">
+<circle x="0" y="0" radius="2" width="0" layer="41"/>
+<circle x="0" y="0" radius="2" width="0" layer="42"/>
+<hole x="0" y="0" drill="3.2"/>
+</package>
 </packages>
 <symbols>
 <symbol name="BAT_AN_M">
@@ -3115,6 +3120,10 @@ chip</description>
 <pin name="1" x="0" y="0" visible="off" length="point" rot="R180"/>
 <text x="-2.54" y="2.54" size="1.778" layer="95">&gt;Name</text>
 <text x="-2.54" y="-2.54" size="1.778" layer="96">&gt;Value</text>
+</symbol>
+<symbol name="M3_MOUNTING_HOLE_SYM">
+<circle x="0" y="0" radius="3.5921" width="0.254" layer="94"/>
+<text x="5.08" y="0" size="1.778" layer="94">M3 hole</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -4492,6 +4501,18 @@ Standard 0603 ceramic capacitor, and 0.1" leaded capacitor.</description>
 </device>
 </devices>
 </deviceset>
+<deviceset name="M3_MOUNTING_HOLE">
+<gates>
+<gate name="G$1" symbol="M3_MOUNTING_HOLE_SYM" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="M3_MOUNTING_HOLE_PACK">
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
 </devicesets>
 </library>
 <library name="supply1" urn="urn:adsk.eagle:library:371">
@@ -5652,6 +5673,13 @@ Source: http://www.semiconductors.philips.com/acrobat_download/datasheets/74HC_H
 <part name="C27" library="clock" deviceset="C-US" device="C1210"/>
 <part name="TP1" library="clock" deviceset="TEST-POINT" device="3X5"/>
 <part name="TP2" library="clock" deviceset="TEST-POINT" device="3X5"/>
+<part name="U$7" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
+<part name="U$9" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
+<part name="U$10" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
+<part name="U$11" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
+<part name="U$12" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
+<part name="U$13" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
+<part name="U$14" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -5821,6 +5849,13 @@ Source: http://www.semiconductors.philips.com/acrobat_download/datasheets/74HC_H
 <instance part="C27" gate="G$1" x="-238.76" y="-35.56"/>
 <instance part="TP1" gate="G$1" x="-73.66" y="30.48" smashed="yes" rot="R90"/>
 <instance part="TP2" gate="G$1" x="-40.64" y="30.48" smashed="yes" rot="R90"/>
+<instance part="U$7" gate="G$1" x="474.98" y="38.1"/>
+<instance part="U$9" gate="G$1" x="515.62" y="35.56"/>
+<instance part="U$10" gate="G$1" x="464.82" y="12.7"/>
+<instance part="U$11" gate="G$1" x="528.32" y="10.16"/>
+<instance part="U$12" gate="G$1" x="497.84" y="-5.08"/>
+<instance part="U$13" gate="G$1" x="485.14" y="25.4"/>
+<instance part="U$14" gate="G$1" x="472.44" y="-5.08"/>
 </instances>
 <busses>
 </busses>
