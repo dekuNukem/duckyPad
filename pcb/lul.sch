@@ -5680,6 +5680,8 @@ Source: http://www.semiconductors.philips.com/acrobat_download/datasheets/74HC_H
 <part name="U$12" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
 <part name="U$13" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
 <part name="U$14" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
+<part name="U$15" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
+<part name="U$16" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -5856,6 +5858,8 @@ Source: http://www.semiconductors.philips.com/acrobat_download/datasheets/74HC_H
 <instance part="U$12" gate="G$1" x="497.84" y="-5.08"/>
 <instance part="U$13" gate="G$1" x="485.14" y="25.4"/>
 <instance part="U$14" gate="G$1" x="472.44" y="-5.08"/>
+<instance part="U$15" gate="G$1" x="482.6" y="27.94"/>
+<instance part="U$16" gate="G$1" x="500.38" y="10.16"/>
 </instances>
 <busses>
 </busses>
