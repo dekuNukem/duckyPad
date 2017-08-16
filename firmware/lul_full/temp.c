@@ -1,3 +1,6 @@
+interrupt A on both edges, on high save timestamp, on low if idled long enough trigger event
+save timestamp on both edge, trigger event if last ts was mre than  20ms ago
+
 CW:
 A: 0 B:1
 A: 0 B:0
