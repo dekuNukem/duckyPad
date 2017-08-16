@@ -1,0 +1,1 @@
+cat 6x13.bdf | ./bdf2c -b -C font.h > font.c

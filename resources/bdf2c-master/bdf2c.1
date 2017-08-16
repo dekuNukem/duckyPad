@@ -1,0 +1,64 @@
+.\"
+.\"	bdf2c.1		 	bdf2c - bdf to c convertor man page
+.\"
+.\"	Copyright (c) 2009, 2010 by Lutz Sammer.  All Rights Reserved.
+.\"
+.\"	Contributor(s):
+.\"
+.\"	License: AGPLv3
+.\"
+.\"	This program is free software: you can redistribute it and/or modify
+.\"	it under the terms of the GNU Affero General Public License as
+.\"	published by the Free Software Foundation, either version 3 of the
+.\"	License.
+.\"
+.\"	This program is distributed in the hope that it will be useful,
+.\"	but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\"	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\"	GNU Affero General Public License for more details.
+.\"
+.\"	$Id$
+.\" ------------------------------------------------------------------------
+.TH "bdf2c" 1 "2010-24-10" "1" "bdf2c Manual"
+
+.SH NAME
+bdf2c \- converts bdf font files into C include files
+
+.SH SYNOPSIS
+.B bdf2c
+.BI [\-?|\-h]
+.BI [\-b]
+.BI [\-c]
+.BI [\-C \ file]
+.BI [\-n \ name]
+.BI [\-O]
+
+.SH DESCRIPTION
+
+bdf2c creates C source and C header file from bdf font files.  Which can be
+used to embed fonts into the executable.
+
+.SH OPTIONS
+.TP
+.B \-?|\-h
+Show short help and exit.  The help is printed to stdout.  A note to all
+developers: please print to stdout!
+.TP
+.BI \-c
+Create C header file on stdout.
+.TP
+.BI \-C \ file
+Creates C header file 'file'.
+.TP
+.BI \-b
+Read and convert bdf font from stdin to stdout.
+.TP
+.BI \-n \ name
+Name of the C font structure. 'name' should contain only valid identifier
+characters.  f.e. font9x15b
+.TP
+.BI \-O
+Create outline of the font.
+
+.SH AUTHOR
+Copyright (C) 2009, 2010 Lutz Sammer.  License: AGPLv3
