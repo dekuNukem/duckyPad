@@ -26,5 +26,17 @@ lul\main.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_i2c.h
 lul\main.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_i2c_ex.h
 lul\main.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr.h
 lul\main.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr_ex.h
+lul\main.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_spi.h
+lul\main.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_spi_ex.h
 lul\main.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h
 lul\main.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h
+lul\main.o: ../Inc/fatfs.h
+lul\main.o: ../Middlewares/Third_Party/FatFs/src/ff.h
+lul\main.o: ../Middlewares/Third_Party/FatFs/src/integer.h
+lul\main.o: ../Inc/ffconf.h
+lul\main.o: ../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h
+lul\main.o: ../Middlewares/Third_Party/FatFs/src/diskio.h
+lul\main.o: ../Inc/user_diskio.h
+lul\main.o: ../Inc/ssd1306.h
+lul\main.o: ../Inc/fonts.h
+lul\main.o: ../Inc/fonts.h

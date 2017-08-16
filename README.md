@@ -10,3 +10,5 @@ tangentbord
 TODO: TEST 5V LEVEL TRANSLATION OF 74LV125
 
 oh shit the switches might be upside down
+
+card_present low when card is inserted

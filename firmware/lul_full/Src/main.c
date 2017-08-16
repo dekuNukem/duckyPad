@@ -3,58 +3,145 @@
   * File Name          : main.c
   * Description        : Main program body
   ******************************************************************************
-  ** This notice applies to any and all portions of this file
+  * This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
   * USER CODE END. Other portions of this file, whether 
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
-  * COPYRIGHT(c) 2017 STMicroelectronics
+  * Copyright (c) 2017 STMicroelectronics International N.V. 
+  * All rights reserved.
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
+  * Redistribution and use in source and binary forms, with or without 
+  * modification, are permitted, provided that the following conditions are met:
   *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * 1. Redistribution of source code must retain the above copyright notice, 
+  *    this list of conditions and the following disclaimer.
+  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  *    this list of conditions and the following disclaimer in the documentation
+  *    and/or other materials provided with the distribution.
+  * 3. Neither the name of STMicroelectronics nor the names of other 
+  *    contributors to this software may be used to endorse or promote products 
+  *    derived from this software without specific written permission.
+  * 4. This software, including modifications and/or derivative works of this 
+  *    software, must execute solely and exclusively on microcontroller or
+  *    microprocessor devices manufactured by or for STMicroelectronics.
+  * 5. Redistribution and use of this software other than as permitted under 
+  *    this license is void and will automatically terminate your rights under 
+  *    this license. 
+  *
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
   */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f0xx_hal.h"
+#include "fatfs.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "ssd1306.h"
+#include "fonts.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
+I2C_HandleTypeDef hi2c1;
+
+SPI_HandleTypeDef hspi1;
+
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
+FRESULT sd_fresult;
+FATFS sd_fs;
+FIL sd_file;
 
+#define PIXEL_COUNT 15
+#define WS_BIT_0 0xc0
+#define WS_BIT_1 0xf8
+
+uint8_t ws_reset_buf[50];
+uint8_t spi_buf[24*PIXEL_COUNT] = {
+    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
+
+    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
+
+    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
+
+    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
+
+    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
+    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1
+  };
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
+static void MX_SPI1_Init(void);
+static void MX_I2C1_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
@@ -66,6 +153,15 @@ int fputc(int ch, FILE *f)
 {
     HAL_UART_Transmit(&huart1, (unsigned char *)&ch, 1, 100);
     return ch;
+}
+
+void led_test(void)
+{
+  HAL_GPIO_WritePin(LED_DATA_EN_GPIO_Port, LED_DATA_EN_Pin, GPIO_PIN_SET);
+  HAL_SPI_Transmit(&hspi1, ws_reset_buf, 50, 500);
+  HAL_SPI_Transmit(&hspi1, spi_buf, 24*PIXEL_COUNT, 500);
+  HAL_SPI_Transmit(&hspi1, ws_reset_buf, 50, 500);
+  HAL_GPIO_WritePin(LED_DATA_EN_GPIO_Port, LED_DATA_EN_Pin, GPIO_PIN_RESET);
 }
 /* USER CODE END 0 */
 
@@ -95,21 +191,42 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART1_UART_Init();
-	
+  MX_SPI1_Init();
+  MX_FATFS_Init();
+  MX_I2C1_Init();
 
   /* USER CODE BEGIN 2 */
-
+  printf("\nmounting SD card...\n");
+  int32_t mount_result = f_mount(&sd_fs, "", 1);
+  printf("result: %d\n", mount_result);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  ssd1306_Init();
+  ssd1306_Fill(Black);
+  ssd1306_SetCursor(0,20);
+  ssd1306_WriteString("Profile 1",Font_11x18,White);
+  ssd1306_UpdateScreen();
+  HAL_Delay(1000);
+  ssd1306_Fill(Black);
+  ssd1306_SetCursor(0,0);
+  ssd1306_WriteString("The quick brown fox",Font_7x10,White);
+  ssd1306_SetCursor(0,10);
+  ssd1306_WriteString("jumps over the lazy",Font_7x10,White);
+  ssd1306_SetCursor(0,21);
+  ssd1306_WriteString("doge much better",Font_7x10,White);
+  ssd1306_SetCursor(0,32);
+  ssd1306_WriteString("1234 1234 1234 1234 5678",Font_7x10,White);
+  ssd1306_UpdateScreen();
+  led_test();
   while (1)
   {
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
   	HAL_Delay(500);
-  	printf("hellow\n");
+  	printf("CARD_PRESENT: %d\n", HAL_GPIO_ReadPin(CARD_PRESENT_GPIO_Port, CARD_PRESENT_Pin));
   }
   /* USER CODE END 3 */
 
@@ -126,9 +243,13 @@ void SystemClock_Config(void)
 
     /**Initializes the CPU, AHB and APB busses clocks 
     */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48;
-  RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.HSICalibrationValue = 16;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL5;
+  RCC_OscInitStruct.PLL.PREDIV = RCC_PREDIV_DIV1;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
@@ -138,7 +259,7 @@ void SystemClock_Config(void)
     */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI48;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
 
@@ -147,8 +268,9 @@ void SystemClock_Config(void)
     _Error_Handler(__FILE__, __LINE__);
   }
 
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1|RCC_PERIPHCLK_I2C1;
   PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_SYSCLK;
+  PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_HSI;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
@@ -164,6 +286,65 @@ void SystemClock_Config(void)
 
   /* SysTick_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
+}
+
+/* I2C1 init function */
+static void MX_I2C1_Init(void)
+{
+
+  hi2c1.Instance = I2C1;
+  hi2c1.Init.Timing = 0x2000090E;
+  hi2c1.Init.OwnAddress1 = 0;
+  hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c1.Init.OwnAddress2 = 0;
+  hi2c1.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
+  hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  if (HAL_I2C_Init(&hi2c1) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+    /**Configure Analogue filter 
+    */
+  if (HAL_I2CEx_ConfigAnalogFilter(&hi2c1, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+    /**Configure Digital filter 
+    */
+  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c1, 0) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+}
+
+/* SPI1 init function */
+static void MX_SPI1_Init(void)
+{
+
+  hspi1.Instance = SPI1;
+  hspi1.Init.Mode = SPI_MODE_MASTER;
+  hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi1.Init.NSS = SPI_NSS_SOFT;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
+  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi1.Init.CRCPolynomial = 7;
+  hspi1.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
+  hspi1.Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
+  if (HAL_SPI_Init(&hspi1) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
 }
 
 /* USART1 init function */
@@ -223,14 +404,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : E2B_Pin E2A_Pin E2_SW_Pin SW4_Pin */
-  GPIO_InitStruct.Pin = E2B_Pin|E2A_Pin|E2_SW_Pin|SW4_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : CARD_PRESENT_Pin SW5_Pin */
-  GPIO_InitStruct.Pin = CARD_PRESENT_Pin|SW5_Pin;
+  /*Configure GPIO pins : E2B_Pin E2A_Pin E2_SW_Pin CARD_PRESENT_Pin 
+                           SW4_Pin SW5_Pin */
+  GPIO_InitStruct.Pin = E2B_Pin|E2A_Pin|E2_SW_Pin|CARD_PRESENT_Pin 
+                          |SW4_Pin|SW5_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -242,18 +419,14 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(SD_CS_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : E1_SW_Pin E1A_Pin E1B_Pin SW1_Pin 
-                           SW2_Pin SW3_Pin */
-  GPIO_InitStruct.Pin = E1_SW_Pin|E1A_Pin|E1B_Pin|SW1_Pin 
-                          |SW2_Pin|SW3_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : BUTTON_2_Pin BUTTON_1_Pin SW6_Pin SW7_Pin 
-                           SW8_Pin SW9_Pin SW10_Pin */
-  GPIO_InitStruct.Pin = BUTTON_2_Pin|BUTTON_1_Pin|SW6_Pin|SW7_Pin 
-                          |SW8_Pin|SW9_Pin|SW10_Pin;
+  /*Configure GPIO pins : E1_SW_Pin E1A_Pin E1B_Pin BUTTON_2_Pin 
+                           BUTTON_1_Pin SW1_Pin SW2_Pin SW3_Pin 
+                           SW6_Pin SW7_Pin SW8_Pin SW9_Pin 
+                           SW10_Pin */
+  GPIO_InitStruct.Pin = E1_SW_Pin|E1A_Pin|E1B_Pin|BUTTON_2_Pin 
+                          |BUTTON_1_Pin|SW1_Pin|SW2_Pin|SW3_Pin 
+                          |SW6_Pin|SW7_Pin|SW8_Pin|SW9_Pin 
+                          |SW10_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);

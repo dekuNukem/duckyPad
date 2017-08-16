@@ -164,11 +164,10 @@ int fputc(int ch, FILE *f)
 
 void led_test(void)
 {
-  
   HAL_GPIO_WritePin(WS_EN_GPIO_Port, WS_EN_Pin, GPIO_PIN_RESET);
-  HAL_SPI_Transmit(&hspi1, ws_reset_buf, 10, 500);
+  HAL_SPI_Transmit(&hspi1, ws_reset_buf, 50, 500);
   HAL_SPI_Transmit(&hspi1, spi_buf, 24*PIXEL_COUNT, 500);
-  HAL_SPI_Transmit(&hspi1, ws_reset_buf, 10, 500);
+  HAL_SPI_Transmit(&hspi1, ws_reset_buf, 50, 500);
   HAL_GPIO_WritePin(WS_EN_GPIO_Port, WS_EN_Pin, GPIO_PIN_SET);
 }
 /* USER CODE END 0 */
