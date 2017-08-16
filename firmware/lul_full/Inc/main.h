@@ -66,10 +66,11 @@
 #define SW14_GPIO_Port GPIOF
 #define SW15_Pin GPIO_PIN_1
 #define SW15_GPIO_Port GPIOF
-#define E2B_Pin GPIO_PIN_0
-#define E2B_GPIO_Port GPIOA
-#define E2A_Pin GPIO_PIN_1
+#define E2A_Pin GPIO_PIN_0
 #define E2A_GPIO_Port GPIOA
+#define E2A_EXTI_IRQn EXTI0_1_IRQn
+#define E2B_Pin GPIO_PIN_1
+#define E2B_GPIO_Port GPIOA
 #define E2_SW_Pin GPIO_PIN_3
 #define E2_SW_GPIO_Port GPIOA
 #define CARD_PRESENT_Pin GPIO_PIN_4
@@ -78,10 +79,6 @@
 #define SD_CS_GPIO_Port GPIOB
 #define E1_SW_Pin GPIO_PIN_1
 #define E1_SW_GPIO_Port GPIOB
-#define E1A_Pin GPIO_PIN_2
-#define E1A_GPIO_Port GPIOB
-#define E1B_Pin GPIO_PIN_10
-#define E1B_GPIO_Port GPIOB
 #define BUTTON_2_Pin GPIO_PIN_11
 #define BUTTON_2_GPIO_Port GPIOB
 #define BUTTON_1_Pin GPIO_PIN_12

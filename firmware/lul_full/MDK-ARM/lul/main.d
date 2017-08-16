@@ -37,6 +37,9 @@ lul\main.o: ../Inc/ffconf.h
 lul\main.o: ../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h
 lul\main.o: ../Middlewares/Third_Party/FatFs/src/diskio.h
 lul\main.o: ../Inc/user_diskio.h
+lul\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 lul\main.o: ../Inc/ssd1306.h
 lul\main.o: ../Inc/fonts.h
 lul\main.o: ../Inc/fonts.h
+lul\main.o: ../Inc/neopixel.h
+lul\main.o: ../Inc/buttons.h

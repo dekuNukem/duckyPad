@@ -51,8 +51,12 @@
 #include "fatfs.h"
 
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
+#include <string.h>
 #include "ssd1306.h"
 #include "fonts.h"
+#include "neopixel.h"
+#include "buttons.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -68,72 +72,6 @@ FRESULT sd_fresult;
 FATFS sd_fs;
 FIL sd_file;
 
-#define PIXEL_COUNT 15
-#define WS_BIT_0 0xc0
-#define WS_BIT_1 0xf8
-
-uint8_t ws_reset_buf[50];
-uint8_t spi_buf[24*PIXEL_COUNT] = {
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1
-  };
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -155,14 +93,7 @@ int fputc(int ch, FILE *f)
     return ch;
 }
 
-void led_test(void)
-{
-  HAL_GPIO_WritePin(LED_DATA_EN_GPIO_Port, LED_DATA_EN_Pin, GPIO_PIN_SET);
-  HAL_SPI_Transmit(&hspi1, ws_reset_buf, 50, 500);
-  HAL_SPI_Transmit(&hspi1, spi_buf, 24*PIXEL_COUNT, 500);
-  HAL_SPI_Transmit(&hspi1, ws_reset_buf, 50, 500);
-  HAL_GPIO_WritePin(LED_DATA_EN_GPIO_Port, LED_DATA_EN_Pin, GPIO_PIN_RESET);
-}
+
 /* USER CODE END 0 */
 
 int main(void)
@@ -203,30 +134,20 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  ssd1306_Init();
-  ssd1306_Fill(Black);
-  ssd1306_SetCursor(0,20);
-  ssd1306_WriteString("Profile 1",Font_11x18,White);
-  ssd1306_UpdateScreen();
-  HAL_Delay(1000);
-  ssd1306_Fill(Black);
-  ssd1306_SetCursor(0,0);
-  ssd1306_WriteString("The quick brown fox",Font_7x10,White);
-  ssd1306_SetCursor(0,10);
-  ssd1306_WriteString("jumps over the lazy",Font_7x10,White);
-  ssd1306_SetCursor(0,21);
-  ssd1306_WriteString("doge much better",Font_7x10,White);
-  ssd1306_SetCursor(0,32);
-  ssd1306_WriteString("1234 1234 1234 1234 5678",Font_7x10,White);
-  ssd1306_UpdateScreen();
-  led_test();
+  uint8_t red_test[NEOPIXEL_COUNT];
+  uint8_t green_test[NEOPIXEL_COUNT];
+  uint8_t blue_test[NEOPIXEL_COUNT];
+  memset(red_test, 0x04, NEOPIXEL_COUNT);
+  memset(green_test, 0x19, NEOPIXEL_COUNT);
+  memset(blue_test, 0x78, NEOPIXEL_COUNT);
+  neopixel_show(red_test, green_test, blue_test);
+
   while (1)
   {
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
   	HAL_Delay(500);
-  	printf("CARD_PRESENT: %d\n", HAL_GPIO_ReadPin(CARD_PRESENT_GPIO_Port, CARD_PRESENT_Pin));
   }
   /* USER CODE END 3 */
 
@@ -404,10 +325,16 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : E2B_Pin E2A_Pin E2_SW_Pin CARD_PRESENT_Pin 
-                           SW4_Pin SW5_Pin */
-  GPIO_InitStruct.Pin = E2B_Pin|E2A_Pin|E2_SW_Pin|CARD_PRESENT_Pin 
-                          |SW4_Pin|SW5_Pin;
+  /*Configure GPIO pin : E2A_Pin */
+  GPIO_InitStruct.Pin = E2A_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(E2A_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : E2B_Pin E2_SW_Pin CARD_PRESENT_Pin SW4_Pin 
+                           SW5_Pin */
+  GPIO_InitStruct.Pin = E2B_Pin|E2_SW_Pin|CARD_PRESENT_Pin|SW4_Pin 
+                          |SW5_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -419,14 +346,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(SD_CS_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : E1_SW_Pin E1A_Pin E1B_Pin BUTTON_2_Pin 
-                           BUTTON_1_Pin SW1_Pin SW2_Pin SW3_Pin 
-                           SW6_Pin SW7_Pin SW8_Pin SW9_Pin 
-                           SW10_Pin */
-  GPIO_InitStruct.Pin = E1_SW_Pin|E1A_Pin|E1B_Pin|BUTTON_2_Pin 
-                          |BUTTON_1_Pin|SW1_Pin|SW2_Pin|SW3_Pin 
-                          |SW6_Pin|SW7_Pin|SW8_Pin|SW9_Pin 
-                          |SW10_Pin;
+  /*Configure GPIO pins : E1_SW_Pin BUTTON_2_Pin BUTTON_1_Pin SW1_Pin 
+                           SW2_Pin SW3_Pin SW6_Pin SW7_Pin 
+                           SW8_Pin SW9_Pin SW10_Pin */
+  GPIO_InitStruct.Pin = E1_SW_Pin|BUTTON_2_Pin|BUTTON_1_Pin|SW1_Pin 
+                          |SW2_Pin|SW3_Pin|SW6_Pin|SW7_Pin 
+                          |SW8_Pin|SW9_Pin|SW10_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
@@ -437,6 +362,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LED_DATA_EN_GPIO_Port, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI0_1_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI0_1_IRQn);
 
 }
 
