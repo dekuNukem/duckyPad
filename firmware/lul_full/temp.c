@@ -1,3 +1,17 @@
+if(button_event[KEY_ROT2A_CW])
+    {
+      printf("rot2 cw\n");
+      button_event[KEY_ROT2A_CW] = 0;
+    }
+
+    if(button_event[KEY_ROT2B_CCW])
+    {
+      printf("rot2 ccw\n");
+      button_event[KEY_ROT2B_CCW] = 0;
+    }
+
+
+
 CW:
 A: 0 B:1
 A: 0 B:0
@@ -16,6 +30,12 @@ uint8_t aaa = HAL_GPIO_ReadPin(E2A_GPIO_Port, E2A_Pin);
     HAL_Delay(30);
 
 printf("A: %d B:%d\n", aaa, bbb);
+
+  last_activity = HAL_GetTick();
+  if(HAL_GPIO_ReadPin(E2B_GPIO_Port, E2B_Pin) == GPIO_PIN_SET)
+    printf("ccw\n");
+  else
+    printf("cw\n");
 
 typedef struct
 {

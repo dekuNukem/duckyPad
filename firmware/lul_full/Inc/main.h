@@ -79,6 +79,11 @@
 #define SD_CS_GPIO_Port GPIOB
 #define E1_SW_Pin GPIO_PIN_1
 #define E1_SW_GPIO_Port GPIOB
+#define E1A_Pin GPIO_PIN_2
+#define E1A_GPIO_Port GPIOB
+#define E1A_EXTI_IRQn EXTI2_3_IRQn
+#define E1B_Pin GPIO_PIN_10
+#define E1B_GPIO_Port GPIOB
 #define BUTTON_2_Pin GPIO_PIN_11
 #define BUTTON_2_GPIO_Port GPIOB
 #define BUTTON_1_Pin GPIO_PIN_12

@@ -31,8 +31,21 @@
 #define KEY_ROT2B_CCW 20
 #define KEY_BUTTON1 21
 #define KEY_BUTTON2 22
+#define ROT_CW 0
+#define ROT_CCW 1
+#define ROT_DEBOUNCE_DELAY_MS 25
+#define ROT_DIR_DELAY_MS 250
 
+typedef struct
+{
+  int32_t last_pinchange;
+  int32_t last_rotation_dir;
+  int32_t last_rotation_ts;
+  int32_t A_status;
+  int32_t B_status;
+} re_status;
 
+extern uint8_t button_event[KEY_COUNT];
 
 #ifdef __cplusplus
 }

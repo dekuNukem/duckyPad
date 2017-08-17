@@ -147,7 +147,29 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-  	HAL_Delay(500);
+  	if(button_event[KEY_ROT2A_CW])
+    {
+      printf("rot2 cw\n");
+      button_event[KEY_ROT2A_CW] = 0;
+    }
+
+    if(button_event[KEY_ROT2B_CCW])
+    {
+      printf("rot2 ccw\n");
+      button_event[KEY_ROT2B_CCW] = 0;
+    }
+
+    if(button_event[KEY_ROT1A_CW])
+    {
+      printf("rot1 cw\n");
+      button_event[KEY_ROT1A_CW] = 0;
+    }
+
+    if(button_event[KEY_ROT1B_CCW])
+    {
+      printf("rot1 ccw\n");
+      button_event[KEY_ROT1B_CCW] = 0;
+    }
   }
   /* USER CODE END 3 */
 
@@ -327,7 +349,7 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin : E2A_Pin */
   GPIO_InitStruct.Pin = E2A_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(E2A_GPIO_Port, &GPIO_InitStruct);
 
@@ -346,15 +368,21 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(SD_CS_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : E1_SW_Pin BUTTON_2_Pin BUTTON_1_Pin SW1_Pin 
-                           SW2_Pin SW3_Pin SW6_Pin SW7_Pin 
-                           SW8_Pin SW9_Pin SW10_Pin */
-  GPIO_InitStruct.Pin = E1_SW_Pin|BUTTON_2_Pin|BUTTON_1_Pin|SW1_Pin 
-                          |SW2_Pin|SW3_Pin|SW6_Pin|SW7_Pin 
-                          |SW8_Pin|SW9_Pin|SW10_Pin;
+  /*Configure GPIO pins : E1_SW_Pin E1B_Pin BUTTON_2_Pin BUTTON_1_Pin 
+                           SW1_Pin SW2_Pin SW3_Pin SW6_Pin 
+                           SW7_Pin SW8_Pin SW9_Pin SW10_Pin */
+  GPIO_InitStruct.Pin = E1_SW_Pin|E1B_Pin|BUTTON_2_Pin|BUTTON_1_Pin 
+                          |SW1_Pin|SW2_Pin|SW3_Pin|SW6_Pin 
+                          |SW7_Pin|SW8_Pin|SW9_Pin|SW10_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : E1A_Pin */
+  GPIO_InitStruct.Pin = E1A_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(E1A_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : LED_DATA_EN_Pin */
   GPIO_InitStruct.Pin = LED_DATA_EN_Pin;
@@ -366,6 +394,9 @@ static void MX_GPIO_Init(void)
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI0_1_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(EXTI0_1_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI2_3_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI2_3_IRQn);
 
 }
 
