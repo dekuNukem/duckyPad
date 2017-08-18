@@ -64,8 +64,8 @@ uint8_t other[24*3] = {
   mouseHID.wheel = 0;
 
 uint8_t buf[4] = {0, 10, 0, 0};
-      // uint8_t result = USBD_HID_SendReport(&hUsbDeviceFS, buf, 4);
-    // printf("result: %d\n", result);
+    uint8_t result = USBD_HID_SendReport(&hUsbDeviceFS, buf, 4);
+    printf("result: %d\n", result);
 
 
     // ssd1306_Init();

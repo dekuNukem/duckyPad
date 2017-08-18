@@ -144,7 +144,6 @@ int main(void)
   memset(green_test, 0x19, NEOPIXEL_COUNT);
   memset(blue_test, 0x78, NEOPIXEL_COUNT);
   neopixel_show(red_test, green_test, blue_test);
-  // uint8_t keyboard_buf[4] = {1, 0x08, 0x07, 0};
   while (1)
   {
   /* USER CODE END WHILE */
@@ -158,7 +157,7 @@ int main(void)
         printf("%d\n", i);
         if(i == 0)
         {
-          uint8_t keyboard_buf[5] = {2, 0x08, 0x07, 0, 0};
+          uint8_t keyboard_buf[5] = {1, 0x2, 0x07, 0, 0};
           USBD_HID_SendReport(&hUsbDeviceFS, keyboard_buf, 5);
           HAL_Delay(50);
           keyboard_buf[1] = 0;
