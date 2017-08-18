@@ -1,3 +1,30 @@
+printf("usage_id: 0x%x\n", usage_id);
+  keyboard_press('a');
+  HAL_Delay(50);
+  keyboard_press('H');
+  HAL_Delay(50);
+  keyboard_release('a');
+  HAL_Delay(50);
+  keyboard_release('H');
+  hello UPPERCASE
+  // release_all();
+void keyboard_release(uint8_t k)
+{
+  if(k == 0)
+    return;
+
+  if(k & 0x80)
+  {
+    kb_buf[1] &= ~(0x02);
+    k &= 0x7f;
+  }
+  for (int i = 2; i < 5; ++i)
+    if(kb_buf[i] == k)
+      kb_buf[i] = 0;
+  USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, 5);
+}
+hello UPPERCASE
+
     keyboard_update();
 
     if(is_fresh_pressed(&button_status[KEY_ROT2A_CW]))
@@ -50,7 +77,7 @@ A: 0 B:1
 A: 0 B:0
 A: 1 B:0
 A: 1 B:1
-
+kkkkkkkk
 falling edge on A, if B is low CW, otherwise ccw
 delay 20ms
 
@@ -61,7 +88,7 @@ uint8_t aaa = HAL_GPIO_ReadPin(E2A_GPIO_Port, E2A_Pin);
 
     printf("A: %d   B:%d\n", HAL_GPIO_ReadPin(E2A_GPIO_Port, E2A_Pin), HAL_GPIO_ReadPin(E2B_GPIO_Port, E2B_Pin));
     HAL_Delay(30);
-
+hhhhhhhhhhhhhhhhhhh
 printf("A: %d B:%d\n", aaa, bbb);
 
   last_activity = HAL_GetTick();
