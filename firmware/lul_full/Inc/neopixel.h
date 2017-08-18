@@ -14,6 +14,7 @@
 #define WS_BIT_1 0xf8
 
 void neopixel_show(uint8_t* red, uint8_t* green, uint8_t* blue);
+void spi_set_speed_neopixel(void);
 
 #ifdef __cplusplus
 }

@@ -1,3 +1,25 @@
+mount_result = f_mount(&sd_fs, "", 1);
+  if(mount_result != 0)
+    spi_set_speed_neopixel();
+
+void parser_test(void)
+{
+  if(mount_result != 0)
+    return;
+  printf("looking for profile1 folder...\n");
+  sd_fresult = f_stat("profile1", NULL);
+  if(sd_fresult != 0)
+    return;
+  printf("entering profile1 folder...\n");
+  f_chdir("/dir1");
+  printf("sd_fresult: %d\n", sd_fresult);
+}
+
+
+printf("\nmounting SD card...\n");
+  int32_t mount_result = f_mount(&sd_fs, "", 1);
+  printf("result: %d\n", mount_result);
+
 void keyboard_release(uint8_t k)
 {
   if(k > 127)

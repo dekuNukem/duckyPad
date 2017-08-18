@@ -60,6 +60,8 @@
 #include "neopixel.h"
 #include "buttons.h"
 #include "keyboard.h"
+#include "parser.h"
+
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -74,6 +76,7 @@ UART_HandleTypeDef huart1;
 FRESULT sd_fresult;
 FATFS sd_fs;
 FIL sd_file;
+uint8_t mount_result;
 
 /* USER CODE END PV */
 
@@ -131,20 +134,19 @@ int main(void)
   MX_USB_DEVICE_Init();
 
   /* USER CODE BEGIN 2 */
-  printf("\nmounting SD card...\n");
-  int32_t mount_result = f_mount(&sd_fs, "", 1);
-  printf("result: %d\n", mount_result);
+  uint8_t red_test[NEOPIXEL_COUNT];
+  uint8_t green_test[NEOPIXEL_COUNT];
+  uint8_t blue_test[NEOPIXEL_COUNT];
+  memset(red_test, 0, NEOPIXEL_COUNT);
+  memset(green_test, 16, NEOPIXEL_COUNT);
+  memset(blue_test, 32, NEOPIXEL_COUNT);
+  neopixel_show(red_test, green_test, blue_test);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  uint8_t red_test[NEOPIXEL_COUNT];
-  uint8_t green_test[NEOPIXEL_COUNT];
-  uint8_t blue_test[NEOPIXEL_COUNT];
-  memset(red_test, 0x04, NEOPIXEL_COUNT);
-  memset(green_test, 0x19, NEOPIXEL_COUNT);
-  memset(blue_test, 0x78, NEOPIXEL_COUNT);
-  neopixel_show(red_test, green_test, blue_test);
+  mount_result = f_mount(&sd_fs, "", 1);
+  
   while (1)
   {
   /* USER CODE END WHILE */
@@ -156,8 +158,8 @@ int main(void)
     	if(is_fresh_pressed(&button_status[i]))
       {
         printf("%d\n", i);
-        if(i == 0)
-          kb_test();
+        if(i == 7)
+          parser_test();
         service_fresh_press(&button_status[i]);
       }
       
