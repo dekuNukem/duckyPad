@@ -59,6 +59,7 @@
 #include "fonts.h"
 #include "neopixel.h"
 #include "buttons.h"
+#include "keyboard.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -156,14 +157,7 @@ int main(void)
       {
         printf("%d\n", i);
         if(i == 0)
-        {
-          uint8_t keyboard_buf[5] = {1, 0x2, 0x07, 0, 0};
-          USBD_HID_SendReport(&hUsbDeviceFS, keyboard_buf, 5);
-          HAL_Delay(50);
-          keyboard_buf[1] = 0;
-          keyboard_buf[2] = 0;
-          USBD_HID_SendReport(&hUsbDeviceFS, keyboard_buf, 5);
-        }
+          kb_test();
         service_fresh_press(&button_status[i]);
       }
       

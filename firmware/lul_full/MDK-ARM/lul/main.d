@@ -55,3 +55,4 @@ lul\main.o: ../Inc/fonts.h
 lul\main.o: ../Inc/fonts.h
 lul\main.o: ../Inc/neopixel.h
 lul\main.o: ../Inc/buttons.h
+lul\main.o: ../Inc/keyboard.h
