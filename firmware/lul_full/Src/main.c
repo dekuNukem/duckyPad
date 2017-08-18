@@ -158,7 +158,9 @@ int main(void)
     	if(is_fresh_pressed(&button_status[i]))
       {
         printf("%d\n", i);
-        if(i == 7)
+        if(i == 0)
+          kb_test();
+        else if(i == 7)
           parser_test();
         service_fresh_press(&button_status[i]);
       }
