@@ -1,3 +1,21 @@
+void keyboard_release(uint8_t k)
+{
+  if(k > 127)
+    return;
+  uint8_t usage_id = _asciimap[k];
+  if(usage_id & 0x80)
+    kb_buf[1] &= ~(0x02);
+  usage_id = usage_id & 0x7f;
+
+  for (int i = 2; i < KB_BUF_SIZE; ++i)
+    if(kb_buf[i] == usage_id)
+      kb_buf[i] = 0;
+
+  // print_kb_buf();
+  USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, KB_BUF_SIZE);
+}
+
+
 printf("usage_id: 0x%x\n", usage_id);
   keyboard_press('a');
   HAL_Delay(50);
@@ -7,7 +25,7 @@ printf("usage_id: 0x%x\n", usage_id);
   HAL_Delay(50);
   keyboard_release('H');
   hello UPPERCASE
-  // release_all();
+  // release_all();hello worldhello world
 void keyboard_release(uint8_t k)
 {
   if(k == 0)
@@ -24,6 +42,7 @@ void keyboard_release(uint8_t k)
   USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, 5);
 }
 hello UPPERCASE
+
 
     keyboard_update();
 

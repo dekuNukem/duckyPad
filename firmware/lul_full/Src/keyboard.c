@@ -159,9 +159,17 @@ void release_all(void)
 
 void keyboard_press(uint8_t k)
 {
-  if(k > 127)
-    return;
-  uint8_t usage_id = _asciimap[k];
+  uint8_t usage_id;
+  if(k >= 0x88)
+    usage_id = k - 0x88;
+  else if(k >= 0x80)
+  {
+    kb_buf[1] |= (1<<(k-0x80));
+    usage_id = 0;
+  }
+  else
+    usage_id = _asciimap[k];
+
   if(usage_id & 0x80)
     kb_buf[1] |= 0x2;
   usage_id = usage_id & 0x7f;
@@ -174,15 +182,22 @@ void keyboard_press(uint8_t k)
         break;
       }
   }
-  // print_kb_buf();
   USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, KB_BUF_SIZE);
 }
 
 void keyboard_release(uint8_t k)
 {
-  if(k > 127)
-    return;
-  uint8_t usage_id = _asciimap[k];
+  uint8_t usage_id;
+  if(k >= 0x88)
+    usage_id = k - 0x88;
+  else if(k >= 0x80)
+  {
+    kb_buf[1] &= ~(1<<(k-0x80));
+    usage_id = 0;
+  }
+  else
+    usage_id = _asciimap[k];
+
   if(usage_id & 0x80)
     kb_buf[1] &= ~(0x02);
   usage_id = usage_id & 0x7f;
@@ -191,7 +206,6 @@ void keyboard_release(uint8_t k)
     if(kb_buf[i] == usage_id)
       kb_buf[i] = 0;
 
-  // print_kb_buf();
   USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, KB_BUF_SIZE);
 }
 
@@ -209,5 +223,9 @@ void kb_print(char* msg)
 
 void kb_test(void)
 {
-  kb_print("hello UPPERCASE");
+  keyboard_press(KEY_LEFT_GUI);
+  HAL_Delay(50);
+  keyboard_press('d');
+  HAL_Delay(50);
+  release_all();
 }
