@@ -49,10 +49,12 @@
 #include "main.h"
 #include "stm32f0xx_hal.h"
 #include "fatfs.h"
+#include "usb_device.h"
 
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include <string.h>
+#include "usbd_hid.h"
 #include "ssd1306.h"
 #include "fonts.h"
 #include "neopixel.h"
@@ -125,6 +127,7 @@ int main(void)
   MX_SPI1_Init();
   MX_FATFS_Init();
   MX_I2C1_Init();
+  MX_USB_DEVICE_Init();
 
   /* USER CODE BEGIN 2 */
   printf("\nmounting SD card...\n");
@@ -141,7 +144,7 @@ int main(void)
   memset(green_test, 0x19, NEOPIXEL_COUNT);
   memset(blue_test, 0x78, NEOPIXEL_COUNT);
   neopixel_show(red_test, green_test, blue_test);
-
+  // uint8_t keyboard_buf[4] = {1, 0x08, 0x07, 0};
   while (1)
   {
   /* USER CODE END WHILE */
@@ -153,6 +156,15 @@ int main(void)
     	if(is_fresh_pressed(&button_status[i]))
       {
         printf("%d\n", i);
+        if(i == 0)
+        {
+          uint8_t keyboard_buf[5] = {2, 0x08, 0x07, 0, 0};
+          USBD_HID_SendReport(&hUsbDeviceFS, keyboard_buf, 5);
+          HAL_Delay(50);
+          keyboard_buf[1] = 0;
+          keyboard_buf[2] = 0;
+          USBD_HID_SendReport(&hUsbDeviceFS, keyboard_buf, 5);
+        }
         service_fresh_press(&button_status[i]);
       }
       
@@ -173,8 +185,9 @@ void SystemClock_Config(void)
 
     /**Initializes the CPU, AHB and APB busses clocks 
     */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_HSI48;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
   RCC_OscInitStruct.HSICalibrationValue = 16;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
@@ -198,9 +211,12 @@ void SystemClock_Config(void)
     _Error_Handler(__FILE__, __LINE__);
   }
 
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1|RCC_PERIPHCLK_I2C1;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USB|RCC_PERIPHCLK_USART1
+                              |RCC_PERIPHCLK_I2C1;
   PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_SYSCLK;
   PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_HSI;
+  PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_HSI48;
+
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);

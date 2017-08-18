@@ -335,7 +335,7 @@
               <MiscControls>--C99</MiscControls>
               <Define>USE_HAL_DRIVER,STM32F072xB</Define>
               <Undefine />
-              <IncludePath>../Inc;                ../Drivers/STM32F0xx_HAL_Driver/Inc;                ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy;                ../Drivers/CMSIS/Device/ST/STM32F0xx/Include;                ../Drivers/CMSIS/Include;             ../Middlewares/Third_Party/FatFs/src</IncludePath>
+              <IncludePath>../Inc;                 ../Drivers/STM32F0xx_HAL_Driver/Inc;                 ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy;                 ../Drivers/CMSIS/Device/ST/STM32F0xx/Include;                 ../Drivers/CMSIS/Include;              ../Middlewares/Third_Party/FatFs/src;../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -479,7 +479,19 @@
               <FileType>1</FileType>
               <FilePath>..\Src\buttons.c</FilePath>
             </File>
-          </Files>
+          <File>
+              <FileName>usb_device.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Src/usb_device.c</FilePath>
+            </File><File>
+              <FileName>usbd_conf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Src/usbd_conf.c</FilePath>
+            </File><File>
+              <FileName>usbd_desc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Src/usbd_desc.c</FilePath>
+            </File></Files>
         </Group>
         <Group>
           <GroupName>Drivers/STM32F0xx_HAL_Driver</GroupName>
@@ -574,7 +586,15 @@
               <FileType>1</FileType>
               <FilePath>../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_spi.c</FilePath>
             </File>
-          </Files>
+          <File>
+              <FileName>stm32f0xx_hal_pcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pcd.c</FilePath>
+            </File><File>
+              <FileName>stm32f0xx_hal_pcd_ex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pcd_ex.c</FilePath>
+            </File></Files>
         </Group>
         <Group>
           <GroupName>Application/MDK-ARM</GroupName>
@@ -614,7 +634,30 @@
         <Group>
           <GroupName>::CMSIS</GroupName>
         </Group>
-      </Groups>
+      <Group>
+          <GroupName>Middlewares/USB_Device_Library</GroupName>
+          
+          <Files>
+          
+          <File>
+              <FileName>usbd_ioreq.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c</FilePath>
+              
+            </File><File>
+              <FileName>usbd_ctlreq.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c</FilePath>
+            </File><File>
+              <FileName>usbd_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c</FilePath>
+            </File><File>
+              <FileName>usbd_hid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c</FilePath>
+            </File></Files>
+        </Group></Groups>
     </Target>
   </Targets>
 

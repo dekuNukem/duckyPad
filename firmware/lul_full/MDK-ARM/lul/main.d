@@ -24,6 +24,8 @@ lul\main.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_flash.h
 lul\main.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_flash_ex.h
 lul\main.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_i2c.h
 lul\main.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_i2c_ex.h
+lul\main.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pcd.h
+lul\main.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pcd_ex.h
 lul\main.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr.h
 lul\main.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr_ex.h
 lul\main.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_spi.h
@@ -37,7 +39,17 @@ lul\main.o: ../Inc/ffconf.h
 lul\main.o: ../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h
 lul\main.o: ../Middlewares/Third_Party/FatFs/src/diskio.h
 lul\main.o: ../Inc/user_diskio.h
+lul\main.o: ../Inc/usb_device.h
+lul\main.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
+lul\main.o: ../Inc/usbd_conf.h
+lul\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 lul\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+lul\main.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
+lul\main.o: ../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc/usbd_hid.h
+lul\main.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
+lul\main.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h
+lul\main.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
+lul\main.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h
 lul\main.o: ../Inc/ssd1306.h
 lul\main.o: ../Inc/fonts.h
 lul\main.o: ../Inc/fonts.h
