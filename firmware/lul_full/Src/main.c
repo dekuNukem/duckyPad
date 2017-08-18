@@ -147,29 +147,16 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-  	if(button_event[KEY_ROT2A_CW])
-    {
-      printf("rot2 cw\n");
-      button_event[KEY_ROT2A_CW] = 0;
-    }
+    keyboard_update();
 
-    if(button_event[KEY_ROT2B_CCW])
-    {
-      printf("rot2 ccw\n");
-      button_event[KEY_ROT2B_CCW] = 0;
-    }
-
-    if(button_event[KEY_ROT1A_CW])
-    {
-      printf("rot1 cw\n");
-      button_event[KEY_ROT1A_CW] = 0;
-    }
-
-    if(button_event[KEY_ROT1B_CCW])
-    {
-      printf("rot1 ccw\n");
-      button_event[KEY_ROT1B_CCW] = 0;
-    }
+    for (int i = 0; i < KEY_COUNT; ++i)
+    	if(is_fresh_pressed(&button_status[i]))
+      {
+        printf("%d\n", i);
+        service_fresh_press(&button_status[i]);
+      }
+      
+    HAL_Delay(30);
   }
   /* USER CODE END 3 */
 

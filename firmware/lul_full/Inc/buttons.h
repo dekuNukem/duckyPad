@@ -33,19 +33,35 @@
 #define KEY_BUTTON2 22
 #define ROT_CW 0
 #define ROT_CCW 1
-#define ROT_DEBOUNCE_DELAY_MS 25
-#define ROT_DIR_DELAY_MS 250
+#define ROT_DEBOUNCE_DELAY_MS 40
+#define ROT_DIR_DELAY_MS 400
+#define BUTTON_SERVICE_UNSERVICED 0
+#define BUTTON_SERVICE_FRESH 1
+#define BUTTON_SERVICE_REPEAT 2
+#define BUTTON_RELEASED 0   
+#define BUTTON_PRESSED 1
+typedef struct
+{
+  uint32_t last_pinchange;
+  uint32_t last_rotation_dir;
+  uint32_t last_rotation_ts;
+  uint32_t A_status;
+  uint32_t B_status;
+} re_status;
 
 typedef struct
 {
-  int32_t last_pinchange;
-  int32_t last_rotation_dir;
-  int32_t last_rotation_ts;
-  int32_t A_status;
-  int32_t B_status;
-} re_status;
+  uint8_t prev_state;
+  uint8_t button_state; // pressed or unpressed
+  uint8_t service_status; 
+  uint32_t last_service;
+} but_status;
 
-extern uint8_t button_event[KEY_COUNT];
+extern but_status button_status[KEY_COUNT];
+
+uint8_t is_fresh_pressed(but_status* butt);
+void service_fresh_press(but_status* butt);
+void keyboard_update(void);
 
 #ifdef __cplusplus
 }

@@ -1,3 +1,32 @@
+    keyboard_update();
+
+    if(is_fresh_pressed(&button_status[KEY_ROT2A_CW]))
+    {
+      printf("rot2 cw\n");
+      service_fresh_press(&button_status[KEY_ROT2A_CW]);
+    }
+
+    if(is_fresh_pressed(&button_status[KEY_ROT2B_CCW]))
+    {
+      printf("rot2 ccw\n");
+      service_fresh_press(&button_status[KEY_ROT2B_CCW]);
+    }
+
+    if(is_fresh_pressed(&button_status[KEY_0]))
+    {
+      printf("key0\n");
+      service_fresh_press(&button_status[KEY_0]);
+    }
+
+    HAL_Delay(30);
+
+button_status[KEY_0].button_state = 1 - HAL_GPIO_ReadPin(SW1_GPIO_Port, SW1_Pin);
+  if(button_status[KEY_0].prev_state == BUTTON_RELEASED && button_status[KEY_0].button_state == BUTTON_PRESSED)
+    fresh_pressed(&button_status[KEY_0]);
+  else if(button_status[KEY_0].prev_state == BUTTON_PRESSED && button_status[KEY_0].button_state == BUTTON_RELEASED)
+    button_status[KEY_0].service_status = BUTTON_SERVICE_UNSERVICED;
+
+<<<<<<< HEAD
 if(button_event[KEY_ROT2A_CW])
     {
       printf("rot2 cw\n");
@@ -11,6 +40,10 @@ if(button_event[KEY_ROT2A_CW])
     }
 
 
+=======
+interrupt A on both edges, on high save timestamp, on low if idled long enough trigger event
+save timestamp on both edge, trigger event if last ts was mre than  20ms ago
+>>>>>>> 9b77f36630b4bb392fecc9a195f6ead5bb813dc4
 
 CW:
 A: 0 B:1
