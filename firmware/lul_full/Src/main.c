@@ -61,6 +61,7 @@
 #include "buttons.h"
 #include "keyboard.h"
 #include "parser.h"
+#include "shared.h"
 
 /* USER CODE END Includes */
 
@@ -148,14 +149,42 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   ssd1306_Init();
   ssd1306_Fill(Black);
-  ssd1306_SetCursor(0,0);
-  ssd1306_WriteString("The quick brown fox",Font_7x10,White);
-  ssd1306_SetCursor(0,10);
-  ssd1306_WriteString("jumps over the lazy",Font_7x10,White);
-  ssd1306_SetCursor(0,21);
-  ssd1306_WriteString("doge much better",Font_7x10,White);
-  ssd1306_SetCursor(0,32);
-  ssd1306_WriteString("1234 1234 1234 1234 5678",Font_7x10,White);
+  ssd1306_SetCursor(COL_1_X, ROW_1_Y);
+  ssd1306_WriteString("key001",Font_6x10,White);
+  ssd1306_SetCursor(COL_2_X, ROW_1_Y);
+  ssd1306_WriteString("key002",Font_6x10,White);
+  ssd1306_SetCursor(COL_3_X, ROW_1_Y);
+  ssd1306_WriteString("key003",Font_6x10,White);
+
+  ssd1306_SetCursor(COL_1_X, ROW_2_Y);
+  ssd1306_WriteString("key004",Font_6x10,White);
+  ssd1306_SetCursor(COL_2_X, ROW_2_Y);
+  ssd1306_WriteString("key005",Font_6x10,White);
+  ssd1306_SetCursor(COL_3_X, ROW_2_Y);
+  ssd1306_WriteString("key006",Font_6x10,White);
+
+  ssd1306_SetCursor(COL_1_X, ROW_3_Y);
+  ssd1306_WriteString("key007",Font_6x10,White);
+  ssd1306_SetCursor(COL_2_X, ROW_3_Y);
+  ssd1306_WriteString("key008",Font_6x10,White);
+  ssd1306_SetCursor(COL_3_X, ROW_3_Y);
+  ssd1306_WriteString("key009",Font_6x10,White);
+
+  ssd1306_SetCursor(COL_1_X, ROW_4_Y);
+  ssd1306_WriteString("key010",Font_6x10,White);
+  ssd1306_SetCursor(COL_2_X, ROW_4_Y);
+  ssd1306_WriteString("key011",Font_6x10,White);
+  ssd1306_SetCursor(COL_3_X, ROW_4_Y);
+  ssd1306_WriteString("key012",Font_6x10,White);
+
+  ssd1306_SetCursor(COL_1_X, ROW_5_Y);
+  ssd1306_WriteString("key013",Font_6x10,White);
+  ssd1306_SetCursor(COL_2_X, ROW_5_Y);
+  ssd1306_WriteString("key014",Font_6x10,White);
+  ssd1306_SetCursor(COL_3_X, ROW_5_Y);
+  ssd1306_WriteString("key015",Font_6x10,White);
+
+
   ssd1306_UpdateScreen();
   
   while (1)

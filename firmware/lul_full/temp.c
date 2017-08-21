@@ -2,6 +2,11 @@
 void parser_test(void)
 {
   char* ddddd = find_profile(1);
+  find_keys(ddddd, 1);
+  find_keys(ddddd, 2);
+  find_keys(ddddd, 3);
+  find_keys(ddddd, 4);
+  find_keys(ddddd, 5);
   for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
     find_keys(ddddd, i);
 }

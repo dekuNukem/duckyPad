@@ -3,7 +3,7 @@
 
 // Dit zijn de bitmaps voor de 3 verschillende fonts
 
-static const uint16_t Font7x10 [] = {
+static const uint16_t Font6x10 [] = {
 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,  // sp
 0x1000, 0x1000, 0x1000, 0x1000, 0x1000, 0x1000, 0x0000, 0x1000, 0x0000, 0x0000,  // !
 0x2800, 0x2800, 0x2800, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,  // "
@@ -301,6 +301,6 @@ static const uint16_t Font16x26 [] = {
 //
 //	De typedefs voor de 3 fonts
 //
-FontDef Font_7x10 = {6,10,Font7x10};
+FontDef Font_6x10 = {6,10,Font6x10};
 FontDef Font_11x18 = {11,18,Font11x18};
 FontDef Font_16x26 = {16,26,Font16x26};
