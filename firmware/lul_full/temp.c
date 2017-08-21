@@ -1,3 +1,149 @@
+void parser_test(void)
+{
+  for (int i = 0; i < 16; ++i)
+  {
+    char* result = find_profile(i);
+    if(result == NULL)
+      printf("profile %d not found\n", i);
+    else
+      printf("%s\n", result);
+  }
+}
+  
+void parser_test(void)
+{
+  if (f_opendir(&dir, "/") != FR_OK)
+    return;
+  char* result
+  uint32_t now = HAL_GetTick();
+  for (int i = 0; i < 255; ++i)
+    find_profile(i);
+  f_closedir(&dir);
+  printf("took %dms\n", HAL_GetTick() - now);
+}
+  void parser_test(void)
+{
+  if (f_opendir(&dir, "/") != FR_OK)
+    return;
+  for (int i = 0; i < 255; ++i)
+  {
+    char* result = find_profile(i);
+  }
+  f_closedir(&dir);
+}
+void parser_test(void)
+{
+  uint32_t now = HAL_GetTick();
+  for (int i = 0; i < 32; ++i)
+    find_profile(i);
+  printf("took %dms\n", HAL_GetTick() - now);
+}
+  
+char* find_profile(uint8_t pid)
+{
+  fno.lfname = lfn_buf; 
+  fno.lfsize = LFN_SIZE - 1;
+
+  if (f_opendir(&dir, "/") != FR_OK)
+    return NULL;
+
+  memset(temp_buf, 0, LFN_SIZE);
+  sprintf(temp_buf, "profile%d_", pid);
+  while(1)
+  {
+    memset(lfn_buf, 0, LFN_SIZE);
+    if (f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)
+      break;
+    if (fno.fattrib & AM_DIR)
+    {
+      filename = fno.lfname[0] ? fno.lfname : fno.fname;
+      if(strncmp(temp_buf, filename, strlen(temp_buf)) == 0)
+      {
+        printf("%s\n", filename);
+        return filename;
+      }
+    }
+  }
+  f_closedir(&dir);
+  return NULL;
+}
+  
+uint8_t find_profile(uint8_t pid)
+{
+  fno.lfname = lfn_buf; 
+  fno.lfsize = LFN_SIZE - 1;
+
+  sd_fresult = f_opendir(&dir, "/");
+  if (sd_fresult != FR_OK)
+    return sd_fresult;
+
+  memset(temp_buf, 0, LFN_SIZE);
+  sprintf(temp_buf, "profile%d_", pid);
+  while(1)
+  {
+    memset(lfn_buf, 0, LFN_SIZE);
+    sd_fresult = f_readdir(&dir, &fno);
+    if (sd_fresult != FR_OK || fno.fname[0] == 0)
+      break;
+    if (fno.fattrib & AM_DIR)
+    {
+      filename = fno.lfname[0] ? fno.lfname : fno.fname;
+      printf("%s\n", filename);
+      if(strncmp(temp_buf, filename, strlen(temp_buf)) == 0)
+        printf("found\n");
+    }
+  }
+  f_closedir(&dir);
+  return sd_fresult;
+}
+
+
+void parser_test(void)
+{
+  DIR dj;
+  FILINFO fno;
+  sd_fresult = f_findfirst(&dj, &fno, "", "profile1_*");
+  if(sd_fresult == 0 && fno.fname[0])
+    printf("%s\n", fno.fname);
+}
+char filename[] = "/profile1/key1.txt";
+
+WCHAR ff_convert (WCHAR wch, UINT dir) 
+{ 
+    if (wch < 0x80)
+      return wch;
+    return 0; 
+}
+
+WCHAR ff_wtoupper (WCHAR wch) 
+{ 
+    if (wch >= 0x80)
+      return 0; 
+
+  if (wch >= 'a' && wch <= 'z')
+    wch &= ~0x20; 
+  return wch; 
+}
+
+void parser_test(void)
+{
+  if(f_stat(filename, NULL) != 0)
+    return;
+  if(f_open(&sd_file, filename, FA_READ) != 0)
+    return;
+
+  while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file))
+  {
+    printf(">>>>%s\n", read_buffer);
+  }
+
+  f_close(&sd_file);
+}
+
+
+
+
+
 mount_result = f_mount(&sd_fs, "", 1);
   if(mount_result != 0)
     spi_set_speed_neopixel();

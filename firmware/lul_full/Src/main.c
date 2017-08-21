@@ -73,10 +73,7 @@ UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-FRESULT sd_fresult;
-FATFS sd_fs;
-FIL sd_file;
-uint8_t mount_result;
+
 
 /* USER CODE END PV */
 
@@ -145,8 +142,18 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  ssd1306_Init();
+  ssd1306_Fill(Black);
+  ssd1306_SetCursor(0,0);
+  ssd1306_WriteString("The quick brown fox",Font_7x10,White);
+  ssd1306_SetCursor(0,10);
+  ssd1306_WriteString("jumps over the lazy",Font_7x10,White);
+  ssd1306_SetCursor(0,21);
+  ssd1306_WriteString("doge much better",Font_7x10,White);
+  ssd1306_SetCursor(0,32);
+  ssd1306_WriteString("1234 1234 1234 1234 5678",Font_7x10,White);
+  ssd1306_UpdateScreen();
   mount_result = f_mount(&sd_fs, "", 1);
-  
   while (1)
   {
   /* USER CODE END WHILE */

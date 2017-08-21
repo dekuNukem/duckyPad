@@ -8,6 +8,7 @@
 #include "stm32f0xx_hal.h"
 
 #define KEY_COUNT 23
+#define MAPPABLE_KEY_COUNT 15
 #define KEY_0 0
 #define KEY_1 1
 #define KEY_2 2

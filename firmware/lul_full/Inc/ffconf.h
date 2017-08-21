@@ -92,7 +92,7 @@
 /* This option switches filtered directory read feature and related functions,
 /  f_findfirst() and f_findnext(). (0:Disable or 1:Enable) */
 
-#define _USE_MKFS            1
+#define _USE_MKFS            0
 /* This option switches f_mkfs() function. (0:Disable or 1:Enable) */
 
 #define _USE_FASTSEEK        1
@@ -110,7 +110,7 @@
 / Locale and Namespace Configurations
 /-----------------------------------------------------------------------------*/
 
-#define _CODE_PAGE         1
+#define _CODE_PAGE         1252
 /* This option specifies the OEM code page to be used on the target system.
 /  Incorrect setting of the code page can cause a file open failure.
 /
@@ -141,8 +141,8 @@
 /   874  - Thai (OEM, Windows)
 /   1    - ASCII (No extended character. Valid for only non-LFN configuration.) */
 
-#define _USE_LFN     0    /* 0 to 3 */
-#define _MAX_LFN     255  /* Maximum LFN length to handle (12 to 255) */
+#define _USE_LFN     1    /* 0 to 3 */
+#define _MAX_LFN     64  /* Maximum LFN length to handle (12 to 255) */
 /* The _USE_LFN option switches the LFN feature.
 /
 /   0: Disable LFN feature. _MAX_LFN has no effect.
