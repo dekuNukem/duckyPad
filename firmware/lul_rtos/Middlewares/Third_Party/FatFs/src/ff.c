@@ -569,7 +569,22 @@ FRESULT put_fat (FATFS* fs,	DWORD clst,	DWORD val);
 static void gen_numname (BYTE* dst, const BYTE* src, const WCHAR* lfn, UINT seq);
 #endif /* !_USE_LFN */
 
+WCHAR ff_convert (WCHAR wch, UINT dir) 
+{ 
+    if (wch < 0x80)
+      return wch;
+    return 0; 
+}
 
+WCHAR ff_wtoupper (WCHAR wch) 
+{ 
+    if (wch >= 0x80)
+      return 0; 
+
+  if (wch >= 'a' && wch <= 'z')
+    wch &= ~0x20; 
+  return wch; 
+}
 
 /*-----------------------------------------------------------------------*/
 /* String functions                                                      */

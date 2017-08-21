@@ -17,12 +17,14 @@
 #ifndef ssd1306
 #define ssd1306
 
+#define X_OFFSET 2
+
 // i2c port naam in main programma gegenereerd door cube
 #define SSD1306_I2C_PORT		hi2c1
 // I2C address 
 #define SSD1306_I2C_ADDR        0x78
 // SSD1306 width in pixels
-#define SSD1306_WIDTH           128
+#define SSD1306_WIDTH           (128 + X_OFFSET)
 // SSD1306 LCD height in pixels
 #define SSD1306_HEIGHT          64
 

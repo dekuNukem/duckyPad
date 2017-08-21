@@ -113,6 +113,7 @@ void ssd1306_UpdateScreen(void)
 //
 void ssd1306_DrawPixel(uint8_t x, uint8_t y, SSD1306_COLOR color)
 {
+	x += X_OFFSET;
 	if (x >= SSD1306_WIDTH || y >= SSD1306_HEIGHT) 
 	{
 		// We gaan niet buiten het scherm schrijven

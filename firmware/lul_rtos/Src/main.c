@@ -50,10 +50,21 @@
 #include "stm32f0xx_hal.h"
 #include "cmsis_os.h"
 #include "fatfs.h"
+#include "usb_device.h"
 
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
+#include <string.h>
+#include "usbd_hid.h"
 #include "ssd1306.h"
 #include "fonts.h"
+#include "neopixel.h"
+#include "buttons.h"
+#include "keyboard.h"
+#include "parser.h"
+#include "shared.h"
+#include "helpers.h"
+
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -67,76 +78,10 @@ osThreadId defaultTaskHandle;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-FRESULT sd_fresult;
-FATFS sd_fs;
-FIL sd_file;
-
-#define PIXEL_COUNT 15
-#define WS_BIT_0 0xc0
-#define WS_BIT_1 0xf8
-
-uint8_t ws_reset_buf[50];
-uint8_t spi_buf[24*PIXEL_COUNT] = {
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0, WS_BIT_0,
-    WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1, WS_BIT_1
-  };
+char no_sd[] = "Please Insert SD card";
+uint8_t red_test[NEOPIXEL_COUNT];
+uint8_t green_test[NEOPIXEL_COUNT];
+uint8_t blue_test[NEOPIXEL_COUNT];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -157,15 +102,6 @@ int fputc(int ch, FILE *f)
 {
     HAL_UART_Transmit(&huart1, (unsigned char *)&ch, 1, 100);
     return ch;
-}
-
-void led_test(void)
-{
-  HAL_GPIO_WritePin(LED_DATA_EN_GPIO_Port, LED_DATA_EN_Pin, GPIO_PIN_SET);
-  HAL_SPI_Transmit(&hspi1, ws_reset_buf, 50, 500);
-  HAL_SPI_Transmit(&hspi1, spi_buf, 24*PIXEL_COUNT, 500);
-  HAL_SPI_Transmit(&hspi1, ws_reset_buf, 50, 500);
-  HAL_GPIO_WritePin(LED_DATA_EN_GPIO_Port, LED_DATA_EN_Pin, GPIO_PIN_RESET);
 }
 /* USER CODE END 0 */
 
@@ -215,7 +151,7 @@ int main(void)
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 256);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
@@ -234,6 +170,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  
   while (1)
   {
   /* USER CODE END WHILE */
@@ -255,8 +192,9 @@ void SystemClock_Config(void)
 
     /**Initializes the CPU, AHB and APB busses clocks 
     */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_HSI48;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
   RCC_OscInitStruct.HSICalibrationValue = 16;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
@@ -280,9 +218,12 @@ void SystemClock_Config(void)
     _Error_Handler(__FILE__, __LINE__);
   }
 
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1|RCC_PERIPHCLK_I2C1;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USB|RCC_PERIPHCLK_USART1
+                              |RCC_PERIPHCLK_I2C1;
   PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_SYSCLK;
   PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_HSI;
+  PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_HSI48;
+
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
@@ -305,7 +246,7 @@ static void MX_I2C1_Init(void)
 {
 
   hi2c1.Instance = I2C1;
-  hi2c1.Init.Timing = 0x2000090E;
+  hi2c1.Init.Timing = 0x0000020B;
   hi2c1.Init.OwnAddress1 = 0;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
@@ -416,14 +357,16 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : E1A_Pin E2A_Pin */
-  GPIO_InitStruct.Pin = E1A_Pin|E2A_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  /*Configure GPIO pin : E2A_Pin */
+  GPIO_InitStruct.Pin = E2A_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  HAL_GPIO_Init(E2A_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : E2_SW_Pin CARD_PRESENT_Pin SW4_Pin SW5_Pin */
-  GPIO_InitStruct.Pin = E2_SW_Pin|CARD_PRESENT_Pin|SW4_Pin|SW5_Pin;
+  /*Configure GPIO pins : E2B_Pin E2_SW_Pin CARD_PRESENT_Pin SW4_Pin 
+                           SW5_Pin */
+  GPIO_InitStruct.Pin = E2B_Pin|E2_SW_Pin|CARD_PRESENT_Pin|SW4_Pin 
+                          |SW5_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -435,21 +378,21 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(SD_CS_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : E1_SW_Pin BUTTON_2_Pin BUTTON_1_Pin SW1_Pin 
-                           SW2_Pin SW3_Pin SW6_Pin SW7_Pin 
-                           SW8_Pin SW9_Pin SW10_Pin */
-  GPIO_InitStruct.Pin = E1_SW_Pin|BUTTON_2_Pin|BUTTON_1_Pin|SW1_Pin 
-                          |SW2_Pin|SW3_Pin|SW6_Pin|SW7_Pin 
-                          |SW8_Pin|SW9_Pin|SW10_Pin;
+  /*Configure GPIO pins : E1_SW_Pin E1B_Pin BUTTON_2_Pin BUTTON_1_Pin 
+                           SW1_Pin SW2_Pin SW3_Pin SW6_Pin 
+                           SW7_Pin SW8_Pin SW9_Pin SW10_Pin */
+  GPIO_InitStruct.Pin = E1_SW_Pin|E1B_Pin|BUTTON_2_Pin|BUTTON_1_Pin 
+                          |SW1_Pin|SW2_Pin|SW3_Pin|SW6_Pin 
+                          |SW7_Pin|SW8_Pin|SW9_Pin|SW10_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : E1AB2_Pin E1B_Pin */
-  GPIO_InitStruct.Pin = E1AB2_Pin|E1B_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  /*Configure GPIO pin : E1A_Pin */
+  GPIO_InitStruct.Pin = E1A_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  HAL_GPIO_Init(E1A_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : LED_DATA_EN_Pin */
   GPIO_InitStruct.Pin = LED_DATA_EN_Pin;
@@ -457,6 +400,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LED_DATA_EN_GPIO_Port, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI0_1_IRQn, 3, 0);
+  HAL_NVIC_EnableIRQ(EXTI0_1_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI2_3_IRQn, 3, 0);
+  HAL_NVIC_EnableIRQ(EXTI2_3_IRQn);
 
 }
 
@@ -470,11 +420,51 @@ void StartDefaultTask(void const * argument)
   /* init code for FATFS */
   MX_FATFS_Init();
 
+  /* init code for USB_DEVICE */
+  MX_USB_DEVICE_Init();
+
   /* USER CODE BEGIN 5 */
+  mount_result = f_mount(&sd_fs, "", 1);
+  if(mount_result != 0)
+    spi_set_speed_neopixel();
+  memset(red_test, 0, NEOPIXEL_COUNT);
+  memset(green_test, 16, NEOPIXEL_COUNT);
+  memset(blue_test, 32, NEOPIXEL_COUNT);
+  neopixel_show(red_test, green_test, blue_test);
+  ssd1306_Init();
+  if(mount_result)
+  {
+    ssd1306_Fill(Black);
+    ssd1306_SetCursor(2, 32);
+    ssd1306_WriteString(no_sd,Font_6x10,White);
+    ssd1306_UpdateScreen();
+    taskENTER_CRITICAL();
+    while(1);
+  }
+  change_profile(NEXT_PROFILE);
+
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    keyboard_update();
+
+    for (int i = 0; i < KEY_COUNT; ++i)
+      if(is_fresh_pressed(&button_status[i]))
+      {
+        printf("%d\n", i);
+        if(i == 0)
+          kb_test();
+        else if(i == 7)
+          parser_test();
+        else if(i == 21) // -
+          change_profile(PREV_PROFILE);
+        else if(i == 22) // +
+          change_profile(NEXT_PROFILE);
+
+        service_fresh_press(&button_status[i]);
+      }
+      
+    osDelay(30);
   }
   /* USER CODE END 5 */ 
 }
