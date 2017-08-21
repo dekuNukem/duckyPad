@@ -77,3 +77,4 @@ lul\main.o: ../Inc/keyboard.h
 lul\main.o: ../Inc/parser.h
 lul\main.o: ../Inc/shared.h
 lul\main.o: ../Inc/helpers.h
+lul\main.o: ../Inc/my_tasks.h

@@ -64,6 +64,7 @@
 #include "parser.h"
 #include "shared.h"
 #include "helpers.h"
+#include "my_tasks.h"
 
 /* USER CODE END Includes */
 
@@ -74,7 +75,7 @@ SPI_HandleTypeDef hspi1;
 
 UART_HandleTypeDef huart1;
 
-osThreadId defaultTaskHandle;
+osThreadId kb_scanHandle;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
@@ -90,7 +91,7 @@ static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_I2C1_Init(void);
-void StartDefaultTask(void const * argument);
+void kb_scan_task(void const * argument);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
@@ -150,12 +151,14 @@ int main(void)
   /* USER CODE END RTOS_TIMERS */
 
   /* Create the thread(s) */
-  /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 256);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+  /* definition and creation of kb_scan */
+  osThreadDef(kb_scan, kb_scan_task, osPriorityNormal, 0, 256);
+  kb_scanHandle = osThreadCreate(osThread(kb_scan), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
+  osThreadDef(keypress_task, keypress_task_start, osPriorityNormal, 0, 128);
+  osThreadCreate(osThread(keypress_task), NULL);
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
@@ -414,8 +417,8 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE END 4 */
 
-/* StartDefaultTask function */
-void StartDefaultTask(void const * argument)
+/* kb_scan_task function */
+void kb_scan_task(void const * argument)
 {
   /* init code for FATFS */
   MX_FATFS_Init();
@@ -428,8 +431,9 @@ void StartDefaultTask(void const * argument)
   if(mount_result != 0)
     spi_set_speed_neopixel();
   memset(red_test, 0, NEOPIXEL_COUNT);
-  memset(green_test, 16, NEOPIXEL_COUNT);
-  memset(blue_test, 32, NEOPIXEL_COUNT);
+  memset(green_test, 32, NEOPIXEL_COUNT);
+  memset(blue_test, 64, NEOPIXEL_COUNT);
+  neopixel_show(red_test, green_test, blue_test);
   neopixel_show(red_test, green_test, blue_test);
   ssd1306_Init();
   if(mount_result)
@@ -442,28 +446,12 @@ void StartDefaultTask(void const * argument)
     while(1);
   }
   change_profile(NEXT_PROFILE);
+  init_complete = 1;
 
   /* Infinite loop */
   for(;;)
   {
     keyboard_update();
-
-    for (int i = 0; i < KEY_COUNT; ++i)
-      if(is_fresh_pressed(&button_status[i]))
-      {
-        printf("%d\n", i);
-        if(i == 0)
-          kb_test();
-        else if(i == 7)
-          parser_test();
-        else if(i == 21) // -
-          change_profile(PREV_PROFILE);
-        else if(i == 22) // +
-          change_profile(NEXT_PROFILE);
-
-        service_fresh_press(&button_status[i]);
-      }
-      
     osDelay(30);
   }
   /* USER CODE END 5 */ 

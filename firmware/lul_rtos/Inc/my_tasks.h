@@ -1,0 +1,20 @@
+#ifndef __MY_TASKS_H
+#define __MY_TASKS_H
+
+#ifdef __cplusplus
+ extern "C" {
+#endif 
+
+#include "stm32f0xx_hal.h"
+
+extern uint32_t init_complete;
+
+void keypress_task_start(void const * argument);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif
+
+

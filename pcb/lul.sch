@@ -5540,16 +5540,16 @@ Source: http://www.semiconductors.philips.com/acrobat_download/datasheets/74HC_H
 <part name="U1" library="lul" deviceset="DISP_OLED_UG-2864HSWEG01" device="0.96&quot;" value="UG-2864HSWEG01"/>
 <part name="U$2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="R3" library="clock" deviceset="RESISTOR" device="0805-RES" value="390K"/>
-<part name="C3" library="clock" deviceset="CAP" device="0805" value="1uF"/>
-<part name="C4" library="clock" deviceset="CAP" device="0805" value="1uF"/>
+<part name="C3" library="clock" deviceset="CAP" device="0805" value="2.2uF"/>
+<part name="C4" library="clock" deviceset="CAP" device="0805" value="2.2uF"/>
 <part name="U$18" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="U$19" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="C5" library="clock" deviceset="CAP" device="0805" value="10uF"/>
 <part name="U$20" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="C7" library="clock" deviceset="CAP" device="0805" value="1uF"/>
+<part name="C7" library="clock" deviceset="CAP" device="0805" value="2.2uF"/>
 <part name="C8" library="clock" deviceset="CAP" device="0805" value="2.2uF/16V"/>
 <part name="U$21" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="C6" library="clock" deviceset="CAP" device="0805" value="1uF"/>
+<part name="C6" library="clock" deviceset="CAP" device="0805" value="2.2uF"/>
 <part name="IC1" library="clock" deviceset="STM32F072C8T6" device=""/>
 <part name="SD1" library="clock" deviceset="TF-HOLDER" device=""/>
 <part name="JP1" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-1X5" device=""/>
@@ -5686,6 +5686,8 @@ Source: http://www.semiconductors.philips.com/acrobat_download/datasheets/74HC_H
 <sheets>
 <sheet>
 <plain>
+<text x="297.18" y="63.5" size="1.778" layer="97">1uF for 0.96 inch
+2.2uF for 1.3 inch </text>
 </plain>
 <instances>
 <instance part="S1" gate="G$1" x="58.42" y="25.4"/>
@@ -7141,6 +7143,10 @@ Source: http://www.semiconductors.philips.com/acrobat_download/datasheets/74HC_H
 </schematic>
 </drawing>
 <compatibility>
+<note version="6.3" minversion="6.2.2" severity="warning">
+Since Version 6.2.2 text objects can contain more than one line,
+which will not be processed correctly with this version.
+</note>
 <note version="8.2" severity="warning">
 Since Version 8.2, Eagle supports online libraries. The ids
 of those online libraries will not be understood (or retained)
