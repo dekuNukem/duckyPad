@@ -47,30 +47,34 @@ char* find_profile(uint8_t pid)
   return NULL;
 }
 
-char ffffff[] = "/profile1_twitch/key1.txt";
-
-void find_keys(char* pf_fn)
+uint8_t find_keys(char* pf_fn, uint8_t key_num)
 {
   if(pf_fn == NULL)
-    return;
-  uint32_t now = HAL_GetTick();
-  for (int i = 1; i <= MAPPABLE_KEY_COUNT; ++i)
+    return PARSE_ERROR;
+
+  memset(temp_buf, 0, LFN_SIZE);
+  sprintf(temp_buf, "/%s/key%d.txt", pf_fn, key_num);
+  if(f_open(&sd_file, temp_buf, FA_READ) != 0)
   {
-    memset(temp_buf, 0, LFN_SIZE);
-    sprintf(temp_buf, "/%s/key%d.txt", pf_fn, i);
-    if(f_open(&sd_file, temp_buf, FA_READ) != 0)
-      continue;
-    printf("%s\n", temp_buf);
-    memset(read_buffer, 0, READ_BUF_SIZE);
-    f_gets(read_buffer, READ_BUF_SIZE, &sd_file);
-    printf(">>>>%s\n", read_buffer);
+    f_close(&sd_file);
+    return PARSE_ERROR;
   }
-  printf("took %dms\n", HAL_GetTick() - now);
+  printf("%s\n", temp_buf);
+  memset(read_buffer, 0, READ_BUF_SIZE);
+  while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file))
+    printf(">>>>%s\n", read_buffer);
+  f_close(&sd_file);
+  return PARSE_OK;
 }
 
 void parser_test(void)
 {
-  find_keys(find_profile(1));
+  char* ddddd = find_profile(1);
+  find_keys(ddddd, 1);
+  find_keys(ddddd, 2);
+  find_keys(ddddd, 3);
+  find_keys(ddddd, 4);
+  find_keys(ddddd, 5);
 }
   
   
