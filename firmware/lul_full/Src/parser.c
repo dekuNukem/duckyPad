@@ -47,8 +47,12 @@ char* find_profile(uint8_t pid)
   return NULL;
 }
 
+char ffffff[] = "/profile1_twitch/key1.txt";
+
 void find_keys(char* pf_fn)
 {
+  if(pf_fn == NULL)
+    return;
   uint32_t now = HAL_GetTick();
   for (int i = 1; i <= MAPPABLE_KEY_COUNT; ++i)
   {
@@ -57,23 +61,16 @@ void find_keys(char* pf_fn)
     if(f_open(&sd_file, temp_buf, FA_READ) != 0)
       continue;
     printf("%s\n", temp_buf);
-    while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file))
-      printf(">>>>%s\n", read_buffer);
+    memset(read_buffer, 0, READ_BUF_SIZE);
+    f_gets(read_buffer, READ_BUF_SIZE, &sd_file);
+    printf(">>>>%s\n", read_buffer);
   }
   printf("took %dms\n", HAL_GetTick() - now);
 }
 
 void parser_test(void)
 {
-  
-  for (int i = 0; i < 8; ++i)
-  {
-    char* result = find_profile(i);
-    if(result == NULL)
-      continue;
-    find_keys(result);
-  }
-  
+  find_keys(find_profile(1));
 }
   
   

@@ -131,6 +131,10 @@ int main(void)
   MX_USB_DEVICE_Init();
 
   /* USER CODE BEGIN 2 */
+  mount_result = f_mount(&sd_fs, "", 1);
+
+  if(mount_result != 0)
+    spi_set_speed_neopixel();
   uint8_t red_test[NEOPIXEL_COUNT];
   uint8_t green_test[NEOPIXEL_COUNT];
   uint8_t blue_test[NEOPIXEL_COUNT];
@@ -153,7 +157,7 @@ int main(void)
   ssd1306_SetCursor(0,32);
   ssd1306_WriteString("1234 1234 1234 1234 5678",Font_7x10,White);
   ssd1306_UpdateScreen();
-  mount_result = f_mount(&sd_fs, "", 1);
+  
   while (1)
   {
   /* USER CODE END WHILE */
@@ -195,7 +199,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSICalibrationValue = 16;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL5;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL4;
   RCC_OscInitStruct.PLL.PREDIV = RCC_PREDIV_DIV1;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
