@@ -41,3 +41,5 @@ lul\parser.o: ../Middlewares/Third_Party/FatFs/src/integer.h
 lul\parser.o: ../Inc/ffconf.h
 lul\parser.o: ../Inc/buttons.h
 lul\parser.o: ../Inc/parser.h
+lul\parser.o: ../Inc/ssd1306.h
+lul\parser.o: ../Inc/fonts.h

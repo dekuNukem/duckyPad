@@ -62,6 +62,7 @@
 #include "keyboard.h"
 #include "parser.h"
 #include "shared.h"
+#include "helpers.h"
 
 /* USER CODE END Includes */
 
@@ -74,7 +75,7 @@ UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
+char no_sd[] = "Please Insert SD card";
 
 /* USER CODE END PV */
 
@@ -96,8 +97,6 @@ int fputc(int ch, FILE *f)
     HAL_UART_Transmit(&huart1, (unsigned char *)&ch, 1, 100);
     return ch;
 }
-
-
 /* USER CODE END 0 */
 
 int main(void)
@@ -148,45 +147,15 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   ssd1306_Init();
-  ssd1306_Fill(Black);
-  ssd1306_SetCursor(COL_1_X, ROW_1_Y);
-  ssd1306_WriteString("key001",Font_6x10,White);
-  ssd1306_SetCursor(COL_2_X, ROW_1_Y);
-  ssd1306_WriteString("key002",Font_6x10,White);
-  ssd1306_SetCursor(COL_3_X, ROW_1_Y);
-  ssd1306_WriteString("key003",Font_6x10,White);
-
-  ssd1306_SetCursor(COL_1_X, ROW_2_Y);
-  ssd1306_WriteString("key004",Font_6x10,White);
-  ssd1306_SetCursor(COL_2_X, ROW_2_Y);
-  ssd1306_WriteString("key005",Font_6x10,White);
-  ssd1306_SetCursor(COL_3_X, ROW_2_Y);
-  ssd1306_WriteString("key006",Font_6x10,White);
-
-  ssd1306_SetCursor(COL_1_X, ROW_3_Y);
-  ssd1306_WriteString("key007",Font_6x10,White);
-  ssd1306_SetCursor(COL_2_X, ROW_3_Y);
-  ssd1306_WriteString("key008",Font_6x10,White);
-  ssd1306_SetCursor(COL_3_X, ROW_3_Y);
-  ssd1306_WriteString("key009",Font_6x10,White);
-
-  ssd1306_SetCursor(COL_1_X, ROW_4_Y);
-  ssd1306_WriteString("key010",Font_6x10,White);
-  ssd1306_SetCursor(COL_2_X, ROW_4_Y);
-  ssd1306_WriteString("key011",Font_6x10,White);
-  ssd1306_SetCursor(COL_3_X, ROW_4_Y);
-  ssd1306_WriteString("key012",Font_6x10,White);
-
-  ssd1306_SetCursor(COL_1_X, ROW_5_Y);
-  ssd1306_WriteString("key013",Font_6x10,White);
-  ssd1306_SetCursor(COL_2_X, ROW_5_Y);
-  ssd1306_WriteString("key014",Font_6x10,White);
-  ssd1306_SetCursor(COL_3_X, ROW_5_Y);
-  ssd1306_WriteString("key015",Font_6x10,White);
-
-
-  ssd1306_UpdateScreen();
-  
+  if(mount_result)
+  {
+    ssd1306_Fill(Black);
+    ssd1306_SetCursor(2, 32);
+    ssd1306_WriteString(no_sd,Font_6x10,White);
+    ssd1306_UpdateScreen();
+    while(1);
+  }
+  change_profile(NEXT_PROFILE);
   while (1)
   {
   /* USER CODE END WHILE */
@@ -202,6 +171,11 @@ int main(void)
           kb_test();
         else if(i == 7)
           parser_test();
+        else if(i == 21) // -
+          change_profile(PREV_PROFILE);
+        else if(i == 22) // +
+          change_profile(NEXT_PROFILE);
+
         service_fresh_press(&button_status[i]);
       }
       
@@ -228,7 +202,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSICalibrationValue = 16;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL4;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL5;
   RCC_OscInitStruct.PLL.PREDIV = RCC_PREDIV_DIV1;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
@@ -276,7 +250,7 @@ static void MX_I2C1_Init(void)
 {
 
   hi2c1.Instance = I2C1;
-  hi2c1.Init.Timing = 0x2000090E;
+  hi2c1.Init.Timing = 0x0000020B;
   hi2c1.Init.OwnAddress1 = 0;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;

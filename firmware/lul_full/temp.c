@@ -1,4 +1,144 @@
+  printf("pf_name %s\n", pf_name);
+  printf("%s\n", temp_buf);
+Program Size: Code=29790 RO-data=3646 RW-data=444 ZI-data=7396  
+void print_keyname(char* keyname, uint8_t keynum)
+{
+  if(strlen(keyname) > 7)
+    keyname[7] = 0;
+  uint8_t row = keynum / 3;
+  uint8_t col = keynum - row * 3;
+  uint8_t x_start = col_lookup[strlen(keyname) - 1][col];
+  printf("pk %d %d %d %d %s\n", keynum, col, row, x_start, keyname);
+  ssd1306_SetCursor(x_start, row * 10);
+  ssd1306_WriteString(keyname, Font_6x10,White);
+}
+void parser_test(void)
+{
+  char* ddddd = find_profile(3);
+  print_legend(3, ddddd);
+}
 
+uint8_t find_keys(char* pf_fn, uint8_t keynum)
+{
+  if(pf_fn == NULL)
+    return PARSE_ERROR;
+
+  memset(temp_buf, 0, LFN_SIZE);
+  sprintf(temp_buf, "/%s/key%d.txt", pf_fn, keynum);
+  if(f_open(&sd_file, temp_buf, FA_READ) != 0)
+  {
+    f_close(&sd_file);
+    return PARSE_ERROR;
+  }
+  printf("%s\n", temp_buf);
+  memset(read_buffer, 0, READ_BUF_SIZE);
+  while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file))
+    printf(">>>>%s\n", read_buffer);
+  f_close(&sd_file);
+  return PARSE_OK;
+}
+
+
+void key_display_test(void)
+{
+  ssd1306_Fill(Black);
+  ssd1306_SetCursor(COL_1_X, ROW_1_Y);
+  ssd1306_WriteString("key001",Font_6x10,White);
+  ssd1306_SetCursor(COL_2_X, ROW_1_Y);
+  ssd1306_WriteString("key002",Font_6x10,White);
+  ssd1306_SetCursor(COL_3_X, ROW_1_Y);
+  ssd1306_WriteString("key003",Font_6x10,White);
+
+  ssd1306_SetCursor(COL_1_X, ROW_2_Y);
+  ssd1306_WriteString("key004",Font_6x10,White);
+  ssd1306_SetCursor(COL_2_X, ROW_2_Y);
+  ssd1306_WriteString("key005",Font_6x10,White);
+  ssd1306_SetCursor(COL_3_X, ROW_2_Y);
+  ssd1306_WriteString("key006",Font_6x10,White);
+
+  ssd1306_SetCursor(COL_1_X, ROW_3_Y);
+  ssd1306_WriteString("key007",Font_6x10,White);
+  ssd1306_SetCursor(COL_2_X, ROW_3_Y);
+  ssd1306_WriteString("key008",Font_6x10,White);
+  ssd1306_SetCursor(COL_3_X, ROW_3_Y);
+  ssd1306_WriteString("key009",Font_6x10,White);
+
+  ssd1306_SetCursor(COL_1_X, ROW_4_Y);
+  ssd1306_WriteString("key010",Font_6x10,White);
+  ssd1306_SetCursor(COL_2_X, ROW_4_Y);
+  ssd1306_WriteString("key011",Font_6x10,White);
+  ssd1306_SetCursor(COL_3_X, ROW_4_Y);
+  ssd1306_WriteString("key012",Font_6x10,White);
+
+  ssd1306_SetCursor(COL_1_X, ROW_5_Y);
+  ssd1306_WriteString("key013",Font_6x10,White);
+  ssd1306_SetCursor(COL_2_X, ROW_5_Y);
+  ssd1306_WriteString("key014",Font_6x10,White);
+  ssd1306_SetCursor(COL_3_X, ROW_5_Y);
+  ssd1306_WriteString("key015",Font_6x10,White);
+  ssd1306_UpdateScreen();
+}
+
+
+ 
+    // printf("key %d not found\n", keynum);
+  // printf("key %d has no name\n", keynum);
+    // printf("%d: %s\n", i, keyname);
+
+uint8_t get_keyname(char* pf_fn, uint8_t key_num)
+{
+  if(pf_fn == NULL)
+    return PARSE_ERROR;
+  for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+  {
+    memset(temp_buf, 0, LFN_SIZE);
+    sprintf(temp_buf, "/%s/key%d.txt", pf_fn, i+1);
+    if(f_open(&sd_file, temp_buf, FA_READ) != 0)
+    {
+      f_close(&sd_file);
+      continue;
+    }
+    printf("%s\n", temp_buf);
+    memset(read_buffer, 0, READ_BUF_SIZE);
+    f_gets(read_buffer, READ_BUF_SIZE, &sd_file);
+    printf(">>>>%s\n", read_buffer);
+    f_close(&sd_file);
+  }
+  return PARSE_OK;
+}
+
+void parser_test(void)
+{
+  char* ddddd = find_profile(1);
+  // for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+  //   find_keys(ddddd, i);
+  print_legend(ddddd);
+}
+  
+  
+
+
+uint8_t print_legend(char* pf_fn)
+{
+  if(pf_fn == NULL)
+    return PARSE_ERROR;
+  for (int i = 1; i <= MAPPABLE_KEY_COUNT; ++i)
+  {
+    memset(temp_buf, 0, LFN_SIZE);
+    sprintf(temp_buf, "/%s/key%d.txt", pf_fn, i);
+    printf("%s\n", temp_buf);
+    if(f_open(&sd_file, temp_buf, FA_READ) != 0)
+    {
+      f_close(&sd_file);
+      continue;
+    }
+    memset(read_buffer, 0, READ_BUF_SIZE);
+    f_gets(read_buffer, READ_BUF_SIZE, &sd_file);
+    printf(">>>>%s\n", read_buffer);
+    f_close(&sd_file);
+  }
+  return PARSE_OK;
+}
 void parser_test(void)
 {
   char* ddddd = find_profile(1);
