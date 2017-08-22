@@ -214,7 +214,6 @@ void keypress_task_start(void const * argument)
     osDelay(30);
   }
 }
-
 void handle_keypress(uint8_t keynum)
 {
   char* profile_name = find_profile(current_profile);

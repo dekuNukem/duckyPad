@@ -16,3 +16,5 @@ card_present low when card is inserted
 delay 100ms then reset when card_present changes
 
 need to copy hid.c and 2 functions in ff.c
+
+cache profile filename and key filename during load profile
