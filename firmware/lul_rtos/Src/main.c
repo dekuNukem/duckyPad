@@ -157,7 +157,7 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
-  osThreadDef(keypress_task, keypress_task_start, osPriorityAboveNormal, 0, 512);
+  osThreadDef(keypress_task, keypress_task_start, osPriorityAboveNormal, 0, 600);
   osThreadCreate(osThread(keypress_task), NULL);
   /* USER CODE END RTOS_THREADS */
 
@@ -445,7 +445,7 @@ void kb_scan_task(void const * argument)
     taskENTER_CRITICAL();
     while(1);
   }
-  // change_profile(NEXT_PROFILE);
+  change_profile(NEXT_PROFILE);
   init_complete = 1;
 
   /* Infinite loop */

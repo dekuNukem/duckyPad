@@ -23,8 +23,12 @@ void keypress_task_start(void const * argument)
       if(is_fresh_pressed(&button_status[i]))
       {
         printf("%d\n", i);
-        if(i == 14)
-          parser_test();
+        if(i < 15)
+          handle_keypress(i);
+        else if(i == 21) // -
+          change_profile(PREV_PROFILE);
+        else if(i == 22) // +
+          change_profile(NEXT_PROFILE);
         service_fresh_press(&button_status[i]);
       }
     osDelay(30);

@@ -1,3 +1,83 @@
+void handle_keypress(uint8_t keynum)
+{
+  char* profile_name = find_profile(current_profile);
+  if(profile_name == NULL)
+    return;
+  char* keyfile_name = find_key(profile_name, keynum + 1);
+  if(keyfile_name == NULL)
+    return;
+  memset(temp_buf, 0, LFN_SIZE);
+  sprintf(temp_buf, "/%s/%s", profile_name, keyfile_name);
+  if(f_open(&sd_file, temp_buf, FA_READ) != 0)
+    goto end;
+  printf("opened %s\n", temp_buf);
+  while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
+  {
+    parse_line(read_buffer);
+    memset(read_buffer, 0, READ_BUF_SIZE);
+  }
+  end:
+  f_close(&sd_file);
+  return;
+}
+
+
+
+
+void change_profile(uint8_t dir)
+{
+  uint16_t count = 0;
+  while(1)
+  {
+    count++;
+    if(dir == NEXT_PROFILE)
+      current_profile++;
+    else
+      current_profile--;
+    if(current_profile > 16)
+      current_profile = 0;
+    char* ddddd = find_profile(current_profile);
+    if(ddddd != NULL)
+    {
+      print_legend(current_profile, ddddd);
+      return;
+    }
+    else if(count > 16)
+    {
+      ssd1306_Fill(Black);
+      ssd1306_SetCursor(0, 0);
+      ssd1306_WriteString("no valid profiles!",Font_6x10,White);
+      ssd1306_UpdateScreen();
+      return;
+    }
+  }
+}
+void change_profile(uint8_t dir)
+{
+  uint16_t count = 0;
+  while(1)
+  {
+    count++;
+    if(dir == NEXT_PROFILE)
+      current_profile++;
+    else
+      current_profile--;
+    char* ddddd = find_profile(current_profile);
+    if(ddddd != NULL)
+    {
+      print_legend(current_profile, ddddd);
+      return;
+    }
+    else if(count > 255)
+    {
+      ssd1306_Fill(Black);
+      ssd1306_SetCursor(0, 0);
+      ssd1306_WriteString("no valid profiles!",Font_6x10,White);
+      ssd1306_UpdateScreen();
+      return;
+    }
+  }
+}
 void parser_test(void)
 {
   for (int i = 0; i < 4; ++i)
@@ -135,6 +215,32 @@ void keypress_task_start(void const * argument)
   }
 }
 
+void handle_keypress(uint8_t keynum)
+{
+  char* profile_name = find_profile(current_profile);
+  if(profile_name == NULL)
+    return;
+  char* keyfile_name = find_key(profile_name, keynum + 1);
+  if(keyfile_name == NULL)
+    return;
+  memset(temp_buf, 0, LFN_SIZE);
+  sprintf(temp_buf, "/%s/%s", profile_name, keyfile_name);
+  printf("%s\n", temp_buf);
+  uint8_t bbbbb = f_open(&sd_file, temp_buf, FA_READ);
+  if(bbbbb != 0)
+  {
+    printf("bbbbb %d\n", bbbbb);
+    goto end;
+  }
+  while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
+  {
+    parse_line(read_buffer);
+    memset(read_buffer, 0, READ_BUF_SIZE);
+  }
+  end:
+  f_close(&sd_file);
+  return;
+}
 
 
 

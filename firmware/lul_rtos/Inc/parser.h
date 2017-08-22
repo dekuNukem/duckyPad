@@ -7,7 +7,7 @@
 
 #include "stm32f0xx_hal.h"
 
-#define LFN_SIZE 32
+#define LFN_SIZE 64
 #define PARSE_OK 0
 #define PARSE_ERROR 1
 #define PARSE_NOT_FOUND 2

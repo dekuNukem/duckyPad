@@ -31,6 +31,7 @@ uint8_t mount_result;
 uint16_t cmd_delay, char_delay;
 
 char* profile_fn;
+char* key_fn;
 uint8_t current_profile;
 char temp_buf[LFN_SIZE];
 char pf_lfn_buf[LFN_SIZE];
@@ -48,6 +49,7 @@ const char syntax_DEFAULTCHARDELAY[] = "DEFAULTCHARDELAY ";
 const char syntax_DELAY[] = "DELAY ";
 const char syntax_STRING[] = "STRING ";
 const char syntax_ENTER[] = "ENTER";
+const char syntax_ESC[] = "ESCAPE";
 const char syntax_[] = " ";
 
 char* find_profile(uint8_t pid)
@@ -92,7 +94,7 @@ char* get_keyname(char* pf_fn, uint8_t keynum)
   if (f_opendir(&dir, temp_buf) != FR_OK)
     return ret;
   memset(temp_buf, 0, LFN_SIZE);
-  sprintf(temp_buf, "key%d_", keynum);
+  sprintf(temp_buf, "key%d_", keynum + 1);
   while(1)
   {
     memset(key_lfn_buf, 0, LFN_SIZE);
@@ -142,13 +144,13 @@ void print_legend(uint8_t pf_num, char* pf_fn)
   ssd1306_UpdateScreen();
 }
 
-void change_profile(uint8_t dir)
+void change_profile(uint8_t direction)
 {
   uint16_t count = 0;
   while(1)
   {
     count++;
-    if(dir == NEXT_PROFILE)
+    if(direction == NEXT_PROFILE)
       current_profile++;
     else
       current_profile--;
@@ -156,22 +158,24 @@ void change_profile(uint8_t dir)
     if(ddddd != NULL)
     {
       print_legend(current_profile, ddddd);
-      return;
+      break;
     }
     else if(count > 255)
     {
       ssd1306_Fill(Black);
-      ssd1306_SetCursor(0, 0);
+      ssd1306_SetCursor(32, 0);
       ssd1306_WriteString("no valid profiles!",Font_6x10,White);
       ssd1306_UpdateScreen();
-      return;
+      break;
     }
   }
+  f_closedir(&dir);
+  f_close(&sd_file);
 }
 
 void parser_test(void)
 {
-  change_profile(NEXT_PROFILE);
+  ;
 }
 
 char* goto_next_arg(char* buf)
@@ -198,7 +202,6 @@ uint8_t parse_line(char* line)
   for (int i = 0; i < strlen(line); ++i)
     if(line[i] == '\r' || line[i] == '\n')
       line[i] = 0;
-  printf(">> %s\n", line);
 
   if(strncmp(syntax_NAME, line, strlen(syntax_NAME)) == 0)
     ;
@@ -209,42 +212,74 @@ uint8_t parse_line(char* line)
   else if(strncmp(syntax_STRING, line, strlen(syntax_STRING)) == 0)
     kb_print(line + strlen(syntax_STRING), char_delay);
   else if(strncmp(syntax_ENTER, line, strlen(syntax_ENTER)) == 0)
-    {
-      keyboard_press(KEY_RETURN);
-      osDelay(char_delay);
-      keyboard_release_all();
-      osDelay(char_delay);
-    }
+  {
+    keyboard_press(KEY_RETURN);
+    osDelay(char_delay);
+    keyboard_release_all();
+    osDelay(char_delay);
+  }
+  else if(strncmp(syntax_ESC, line, strlen(syntax_ESC)) == 0)
+  {
+    keyboard_press(KEY_ESC);
+    osDelay(char_delay);
+    keyboard_release_all();
+    osDelay(char_delay);
+  }
   else if(goto_next_arg(line) == NULL || strlen(goto_next_arg(line)) <= 3)
     ;
   else
-  {
     result = PARSE_ERROR;
-  }
   if(result == PARSE_OK)
     osDelay(cmd_delay);
   return result;
 }
-  
-void handle_keypress(uint8_t key_num)
+
+char* find_key(char* pf_fn, uint8_t keynum)
 {
-  char* ddddd = find_profile(current_profile);
-  if(ddddd == NULL)
+  char* key_fn;
+  if(pf_fn == NULL)
+    return NULL;
+
+  fno.lfname = key_lfn_buf; 
+  fno.lfsize = LFN_SIZE - 1;
+  memset(temp_buf, 0, LFN_SIZE);
+  sprintf(temp_buf, "/%s", pf_fn);
+  if (f_opendir(&dir, temp_buf) != FR_OK)
+    return NULL;
+  memset(temp_buf, 0, LFN_SIZE);
+  sprintf(temp_buf, "key%d_", keynum);
+  while(1)
+  {
+    memset(key_lfn_buf, 0, LFN_SIZE);
+    if (f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)
+      break;
+    key_fn = fno.lfname[0] ? fno.lfname : fno.fname;
+    if(strncmp(temp_buf, key_fn, strlen(temp_buf)) == 0)
+      return key_fn;
+  }
+  f_closedir(&dir);
+  return NULL;
+}
+
+void handle_keypress(uint8_t keynum)
+{
+  char* profile_name = find_profile(current_profile);
+  if(profile_name == NULL)
+    return;
+  char* keyfile_name = find_key(profile_name, keynum + 1);
+  if(keyfile_name == NULL)
     return;
   memset(temp_buf, 0, LFN_SIZE);
-  sprintf(temp_buf, "/%s/key%d.txt", ddddd, key_num+1);
+  sprintf(temp_buf, "/%s/%s", profile_name, keyfile_name);
+  printf("%s\n", temp_buf);
   if(f_open(&sd_file, temp_buf, FA_READ) != 0)
-  {
-    f_close(&sd_file);
-    return;
-  }
-  printf("opened %s\n", temp_buf);
+    goto end;
   while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
   {
     parse_line(read_buffer);
     memset(read_buffer, 0, READ_BUF_SIZE);
   }
+  end:
   f_close(&sd_file);
   return;
 }
-
