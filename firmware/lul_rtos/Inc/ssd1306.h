@@ -17,7 +17,7 @@
 #ifndef ssd1306
 #define ssd1306
 
-#define X_OFFSET 2
+#define X_OFFSET 0
 
 // i2c port naam in main programma gegenereerd door cube
 #define SSD1306_I2C_PORT		hi2c1

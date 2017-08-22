@@ -439,7 +439,7 @@ void kb_scan_task(void const * argument)
   if(mount_result)
   {
     ssd1306_Fill(Black);
-    ssd1306_SetCursor(2, 32);
+    ssd1306_SetCursor(0, 32);
     ssd1306_WriteString(no_sd,Font_6x10,White);
     ssd1306_UpdateScreen();
     taskENTER_CRITICAL();
