@@ -33,7 +33,9 @@ uint16_t cmd_delay, char_delay;
 char* profile_fn;
 uint8_t current_profile;
 char temp_buf[LFN_SIZE];
-char lfn_buf[LFN_SIZE];
+char pf_lfn_buf[LFN_SIZE];
+char key_lfn_buf[LFN_SIZE];
+char key_name_buf[LFN_SIZE];
 char read_buffer[READ_BUF_SIZE];
 char unnamed_keyname[] = "???";
 char nonexistent_keyname[] = "-";
@@ -50,7 +52,7 @@ const char syntax_[] = " ";
 
 char* find_profile(uint8_t pid)
 {
-  fno.lfname = lfn_buf; 
+  fno.lfname = pf_lfn_buf; 
   fno.lfsize = LFN_SIZE - 1;
 
   if (f_opendir(&dir, "/") != FR_OK)
@@ -60,7 +62,7 @@ char* find_profile(uint8_t pid)
   sprintf(temp_buf, "profile%d_", pid);
   while(1)
   {
-    memset(lfn_buf, 0, LFN_SIZE);
+    memset(pf_lfn_buf, 0, LFN_SIZE);
     if (f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)
       break;
     if (fno.fattrib & AM_DIR)
@@ -76,24 +78,39 @@ char* find_profile(uint8_t pid)
 
 char* get_keyname(char* pf_fn, uint8_t keynum)
 {
+  char* key_fn;
+  char* start;
+  char* end;
+  char* ret = nonexistent_keyname;
   if(pf_fn == NULL)
-    return nonexistent_keyname;
+    return ret;
+
+  fno.lfname = key_lfn_buf; 
+  fno.lfsize = LFN_SIZE - 1;
   memset(temp_buf, 0, LFN_SIZE);
-  sprintf(temp_buf, "/%s/key%d.txt", pf_fn, keynum + 1);
-  if(f_open(&sd_file, temp_buf, FA_READ) != 0)
+  sprintf(temp_buf, "/%s", pf_fn);
+  if (f_opendir(&dir, temp_buf) != FR_OK)
+    return ret;
+  memset(temp_buf, 0, LFN_SIZE);
+  sprintf(temp_buf, "key%d_", keynum);
+  while(1)
   {
-    f_close(&sd_file);
-    return nonexistent_keyname;
+    memset(key_lfn_buf, 0, LFN_SIZE);
+    if (f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)
+      break;
+    key_fn = fno.lfname[0] ? fno.lfname : fno.fname;
+    if(strncmp(temp_buf, key_fn, strlen(temp_buf)) == 0)
+    {
+      start = key_fn + strlen(temp_buf);
+      end = strstr(start, ".txt");
+      memset(key_name_buf, 0, LFN_SIZE);
+      strncpy(key_name_buf, start, end - start);
+      ret = key_name_buf;
+      break;
+    }
   }
-  memset(read_buffer, 0, READ_BUF_SIZE);
-  f_gets(read_buffer, READ_BUF_SIZE, &sd_file);
-  f_close(&sd_file);
-  for (int i = 0; i < READ_BUF_SIZE; ++i)
-    if(read_buffer[i] == '\r' || read_buffer[i] == '\n')
-      read_buffer[i] = 0;
-  if(strncmp(syntax_NAME, read_buffer, strlen(syntax_NAME)) == 0)
-    return read_buffer + strlen(syntax_NAME);
-  return unnamed_keyname;
+  f_closedir(&dir);
+  return ret;
 }
 
 void print_keyname(char* keyname, uint8_t keynum)
@@ -154,7 +171,7 @@ void change_profile(uint8_t dir)
 
 void parser_test(void)
 {
-  ;
+  change_profile(NEXT_PROFILE);
 }
 
 char* goto_next_arg(char* buf)

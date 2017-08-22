@@ -445,7 +445,7 @@ void kb_scan_task(void const * argument)
     taskENTER_CRITICAL();
     while(1);
   }
-  change_profile(NEXT_PROFILE);
+  // change_profile(NEXT_PROFILE);
   init_complete = 1;
 
   /* Infinite loop */

@@ -1,3 +1,144 @@
+void parser_test(void)
+{
+  for (int i = 0; i < 4; ++i)
+  {
+    printf(">>>profile%d\n", i);
+    char* ddddd = find_profile(i);
+    if(ddddd == NULL)
+      continue;
+    for (int j = 1; j <= 15; ++j)
+      printf("%s\n", get_keyname(ddddd, j));
+  }
+}
+
+char* get_keyname(char* pf_fn, uint8_t keynum)
+{
+  char* key_fn;
+  char* start;
+  char* end;
+  char* ret = nonexistent_keyname;
+  if(pf_fn == NULL)
+    return ret;
+
+  printf("pffn: %s\n", pf_fn);
+  fno.lfname = key_lfn_buf; 
+  fno.lfsize = LFN_SIZE - 1;
+  memset(temp_buf, 0, LFN_SIZE);
+  sprintf(temp_buf, "/%s", pf_fn);
+  if (f_opendir(&dir, temp_buf) != FR_OK)
+    return ret;
+  memset(temp_buf, 0, LFN_SIZE);
+  sprintf(temp_buf, "key%d_", keynum);
+  printf("needle: %s\n", temp_buf);
+  while(1)
+  {
+    memset(key_lfn_buf, 0, LFN_SIZE);
+    if (f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)
+      break;
+    key_fn = fno.lfname[0] ? fno.lfname : fno.fname;
+    printf("%s\n", key_fn);
+    if(strncmp(temp_buf, key_fn, strlen(temp_buf)) == 0)
+    {
+      start = key_fn + strlen(temp_buf);
+      end = strstr(start, ".txt");
+      memset(key_name_buf, 0, LFN_SIZE);
+      strncpy(key_name_buf, start, end - start);
+      ret = key_name_buf;
+      // printf("ret %s\n", ret);
+      break;
+    }
+  }
+  f_closedir(&dir);
+  return ret;
+}
+
+void parser_test(void)
+{
+  for (int i = 0; i < 4; ++i)
+  {
+    char* ddddd = find_profile(i);
+    if(ddddd == NULL)
+      continue;
+    for (int j = 1; j <= 15; ++j)
+      get_keyname(ddddd, j);
+  }
+}
+
+char* get_keyname(char* pf_fn, uint8_t keynum)
+{
+  if(pf_fn == NULL)
+    return nonexistent_keyname;
+  memset(temp_buf, 0, LFN_SIZE);
+  sprintf(temp_buf, "/%s/key%d.txt", pf_fn, keynum + 1);
+  if(f_open(&sd_file, temp_buf, FA_READ) != 0)
+  {
+    f_close(&sd_file);
+    return nonexistent_keyname;
+  }
+  memset(read_buffer, 0, READ_BUF_SIZE);
+  f_gets(read_buffer, READ_BUF_SIZE, &sd_file);
+  f_close(&sd_file);
+  for (int i = 0; i < READ_BUF_SIZE; ++i)
+    if(read_buffer[i] == '\r' || read_buffer[i] == '\n')
+      read_buffer[i] = 0;
+  if(strncmp(syntax_NAME, read_buffer, strlen(syntax_NAME)) == 0)
+    return read_buffer + strlen(syntax_NAME);
+  return unnamed_keyname;
+}
+  printf("%s\n", temp_buf);
+
+char* find_profile(uint8_t pid)
+{
+  fno.lfname = lfn_buf; 
+  fno.lfsize = LFN_SIZE - 1;
+
+  if (f_opendir(&dir, "/") != FR_OK)
+    return NULL;
+
+  memset(temp_buf, 0, LFN_SIZE);
+  sprintf(temp_buf, "profile%d_", pid);
+  while(1)
+  {
+    memset(lfn_buf, 0, LFN_SIZE);
+    if (f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)
+      break;
+    if (fno.fattrib & AM_DIR)
+    {
+      profile_fn = fno.lfname[0] ? fno.lfname : fno.fname;
+      if(strncmp(temp_buf, profile_fn, strlen(temp_buf)) == 0)
+        return profile_fn;
+    }
+  }
+  f_closedir(&dir);
+  return NULL;
+}
+
+void keypress_task_start(void const * argument)
+{
+  while(init_complete == 0)
+    osDelay(10);
+  for(;;)
+  {
+    for (int i = 0; i < KEY_COUNT; ++i)
+      if(is_fresh_pressed(&button_status[i]))
+      {
+        printf("%d\n", i);
+        if(i < 15)
+          handle_keypress(i);
+        else if(i == 21) // -
+          change_profile(PREV_PROFILE);
+        else if(i == 22) // +
+          change_profile(NEXT_PROFILE);
+        service_fresh_press(&button_status[i]);
+      }
+    osDelay(30);
+  }
+}
+
+
+
+
+
 const char syntax_GUI[] = "GUI ";
 const char syntax_SHIFT[] = "SHIFT ";
 const char syntax_ALT[] = "ALT ";
