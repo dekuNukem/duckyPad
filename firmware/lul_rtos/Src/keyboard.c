@@ -150,7 +150,7 @@ void print_kb_buf(void)
   printf("\n");
 }
 
-void release_all(void)
+void keyboard_release_all(void)
 {
   for (int i = 1; i < KB_BUF_SIZE; ++i)
     kb_buf[i] = 0;
@@ -209,23 +209,18 @@ void keyboard_release(uint8_t k)
   USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, KB_BUF_SIZE);
 }
 
-void kb_print(char* msg)
+void kb_print(char* msg, uint16_t chardelay)
 {
-  uint32_t len = strlen(msg);
-  for (int i = 0; i < len; ++i)
+  for (int i = 0; i < strlen(msg); ++i)
   {
     keyboard_press(msg[i]);
-    HAL_Delay(10);
+    osDelay(chardelay);
     keyboard_release(msg[i]);
-    HAL_Delay(10);
+    osDelay(chardelay);
   }
 }
 
 void kb_test(void)
 {
-  keyboard_press(KEY_LEFT_GUI);
-  HAL_Delay(50);
-  keyboard_press('d');
-  HAL_Delay(50);
-  release_all();
+  ;
 }

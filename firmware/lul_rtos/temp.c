@@ -1,3 +1,58 @@
+const char syntax_GUI[] = "GUI ";
+const char syntax_SHIFT[] = "SHIFT ";
+const char syntax_ALT[] = "ALT ";
+const char syntax_CONTROL[] = "CONTROL ";
+void kb_test(void)
+{
+  keyboard_press(KEY_LEFT_GUI);
+  HAL_Delay(50);
+  keyboard_press('d');
+  HAL_Delay(50);
+  release_all();
+}
+
+char* goto_next_arg(char* buf)
+{
+  char* curr = buf;
+  if(curr == NULL)
+    return NULL;
+  char* buf_end = curr + strlen(curr);
+  if(curr >= buf_end)
+    return NULL;
+  while(curr < buf_end && *curr != ' ')
+      curr++;
+  while(curr < buf_end && *curr == ' ')
+      curr++;
+  if(curr >= buf_end)
+    return NULL;
+  return curr;
+}
+void keypress_task_start(void const * argument)
+{
+  while(init_complete == 0)
+    osDelay(10);
+  for(;;)
+  {
+    for (int i = 0; i < KEY_COUNT; ++i)
+      if(is_fresh_pressed(&button_status[i]))
+      {
+        printf("%d\n", i);
+        if(i == 0)
+          kb_test();
+        else if(i == 7)
+          parser_test();
+        else if(i == 21) // -
+          change_profile(PREV_PROFILE);
+        else if(i == 22) // +
+          change_profile(NEXT_PROFILE);
+        service_fresh_press(&button_status[i]);
+      }
+    osDelay(30);
+  }
+}
+
+
+
   printf("pf_name %s\n", pf_name);
   printf("%s\n", temp_buf);
 Program Size: Code=29790 RO-data=3646 RW-data=444 ZI-data=7396  

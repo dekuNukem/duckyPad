@@ -7,7 +7,7 @@
 
 #include "stm32f0xx_hal.h"
 
-#define LFN_SIZE 64
+#define LFN_SIZE 32
 #define PARSE_OK 0
 #define PARSE_ERROR 1
 #define PARSE_NOT_FOUND 2
@@ -24,6 +24,7 @@ extern uint8_t current_profile;
 
 void parser_test(void);
 void change_profile(uint8_t dir);
+void handle_keypress(uint8_t key_num);
 
 #ifdef __cplusplus
 }

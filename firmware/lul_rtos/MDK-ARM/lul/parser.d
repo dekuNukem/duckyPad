@@ -60,3 +60,4 @@ lul\parser.o: ../Inc/buttons.h
 lul\parser.o: ../Inc/parser.h
 lul\parser.o: ../Inc/ssd1306.h
 lul\parser.o: ../Inc/fonts.h
+lul\parser.o: ../Inc/keyboard.h

@@ -157,7 +157,7 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
-  osThreadDef(keypress_task, keypress_task_start, osPriorityNormal, 0, 128);
+  osThreadDef(keypress_task, keypress_task_start, osPriorityAboveNormal, 0, 512);
   osThreadCreate(osThread(keypress_task), NULL);
   /* USER CODE END RTOS_THREADS */
 

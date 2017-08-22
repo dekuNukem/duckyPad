@@ -6,8 +6,11 @@
 #include "buttons.h"
 #include "parser.h"
 #include "ssd1306.h"
+#include "keyboard.h"
 
 #define READ_BUF_SIZE 256
+#define DEFAULT_CMD_DELAY_MS 15
+#define DEFAULT_CHAR_DELAY_MS 15
 
 uint8_t col_lookup[7][3] = {  
    {18, 60, 103},
@@ -25,6 +28,7 @@ FIL sd_file;
 DIR dir;
 FILINFO fno;
 uint8_t mount_result;
+uint16_t cmd_delay, char_delay;
 
 char* profile_fn;
 uint8_t current_profile;
@@ -32,8 +36,17 @@ char temp_buf[LFN_SIZE];
 char lfn_buf[LFN_SIZE];
 char read_buffer[READ_BUF_SIZE];
 char unnamed_keyname[] = "???";
-char undefined_keyname[] = "-";
-const char name_label[] = "NAME ";
+char nonexistent_keyname[] = "-";
+
+const char syntax_NAME[] = "NAME ";
+const char syntax_REM[] = "REM ";
+const char syntax_C_COMMENT[] = "// ";
+const char syntax_DEFAULTDELAY[] = "DEFAULTDELAY ";
+const char syntax_DEFAULTCHARDELAY[] = "DEFAULTCHARDELAY ";
+const char syntax_DELAY[] = "DELAY ";
+const char syntax_STRING[] = "STRING ";
+const char syntax_ENTER[] = "ENTER";
+const char syntax_[] = " ";
 
 char* find_profile(uint8_t pid)
 {
@@ -64,13 +77,13 @@ char* find_profile(uint8_t pid)
 char* get_keyname(char* pf_fn, uint8_t keynum)
 {
   if(pf_fn == NULL)
-    return undefined_keyname;
+    return nonexistent_keyname;
   memset(temp_buf, 0, LFN_SIZE);
   sprintf(temp_buf, "/%s/key%d.txt", pf_fn, keynum + 1);
   if(f_open(&sd_file, temp_buf, FA_READ) != 0)
   {
     f_close(&sd_file);
-    return undefined_keyname;
+    return nonexistent_keyname;
   }
   memset(read_buffer, 0, READ_BUF_SIZE);
   f_gets(read_buffer, READ_BUF_SIZE, &sd_file);
@@ -78,8 +91,8 @@ char* get_keyname(char* pf_fn, uint8_t keynum)
   for (int i = 0; i < READ_BUF_SIZE; ++i)
     if(read_buffer[i] == '\r' || read_buffer[i] == '\n')
       read_buffer[i] = 0;
-  if(strncmp(name_label, read_buffer, strlen(name_label)) == 0)
-    return read_buffer + strlen(name_label);
+  if(strncmp(syntax_NAME, read_buffer, strlen(syntax_NAME)) == 0)
+    return read_buffer + strlen(syntax_NAME);
   return unnamed_keyname;
 }
 
@@ -143,6 +156,78 @@ void parser_test(void)
 {
   ;
 }
+
+char* goto_next_arg(char* buf)
+{
+  char* curr = buf;
+  char* buf_end = curr + strlen(curr);
+  if(curr >= buf_end)
+    return NULL;
+  while(curr < buf_end && *curr != ' ')
+      curr++;
+  while(curr < buf_end && *curr == ' ')
+      curr++;
+  if(curr >= buf_end)
+    return NULL;
+  return curr;
+}
+
+uint8_t parse_line(char* line)
+{
+  uint8_t result = PARSE_OK;
+  cmd_delay = DEFAULT_CMD_DELAY_MS;
+  char_delay = DEFAULT_CHAR_DELAY_MS;
+
+  for (int i = 0; i < strlen(line); ++i)
+    if(line[i] == '\r' || line[i] == '\n')
+      line[i] = 0;
+  printf(">> %s\n", line);
+
+  if(strncmp(syntax_NAME, line, strlen(syntax_NAME)) == 0)
+    ;
+  else if(strncmp(syntax_REM, line, strlen(syntax_REM)) == 0)
+    ;
+  else if(strncmp(syntax_C_COMMENT, line, strlen(syntax_C_COMMENT)) == 0)
+    ;
+  else if(strncmp(syntax_STRING, line, strlen(syntax_STRING)) == 0)
+    kb_print(line + strlen(syntax_STRING), char_delay);
+  else if(strncmp(syntax_ENTER, line, strlen(syntax_ENTER)) == 0)
+    {
+      keyboard_press(KEY_RETURN);
+      osDelay(char_delay);
+      keyboard_release_all();
+      osDelay(char_delay);
+    }
+  else if(goto_next_arg(line) == NULL || strlen(goto_next_arg(line)) <= 3)
+    ;
+  else
+  {
+    result = PARSE_ERROR;
+  }
+  if(result == PARSE_OK)
+    osDelay(cmd_delay);
+  return result;
+}
   
-  
+void handle_keypress(uint8_t key_num)
+{
+  char* ddddd = find_profile(current_profile);
+  if(ddddd == NULL)
+    return;
+  memset(temp_buf, 0, LFN_SIZE);
+  sprintf(temp_buf, "/%s/key%d.txt", ddddd, key_num+1);
+  if(f_open(&sd_file, temp_buf, FA_READ) != 0)
+  {
+    f_close(&sd_file);
+    return;
+  }
+  printf("opened %s\n", temp_buf);
+  while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
+  {
+    parse_line(read_buffer);
+    memset(read_buffer, 0, READ_BUF_SIZE);
+  }
+  f_close(&sd_file);
+  return;
+}
 
