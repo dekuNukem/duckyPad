@@ -157,7 +157,7 @@ void keyboard_release_all(void)
   USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, KB_BUF_SIZE);
 }
 
-void keyboard_press(uint8_t k)
+void keyboard_press(uint8_t k, uint8_t use_mod)
 {
   uint8_t usage_id;
   if(k >= 0x88)
@@ -170,7 +170,7 @@ void keyboard_press(uint8_t k)
   else
     usage_id = _asciimap[k];
 
-  if(usage_id & 0x80)
+  if(use_mod && (usage_id & 0x80))
     kb_buf[1] |= 0x2;
   usage_id = usage_id & 0x7f;
   if(kb_buf[2] != usage_id && kb_buf[3] != usage_id && kb_buf[4] != usage_id)
@@ -213,7 +213,7 @@ void kb_print(char* msg, uint16_t chardelay)
 {
   for (int i = 0; i < strlen(msg); ++i)
   {
-    keyboard_press(msg[i]);
+    keyboard_press(msg[i], 1);
     osDelay(chardelay);
     keyboard_release(msg[i]);
     osDelay(chardelay);

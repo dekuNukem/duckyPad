@@ -18,3 +18,8 @@ delay 100ms then reset when card_present changes
 need to copy hid.c and 2 functions in ff.c
 
 cache profile filename and key filename during load profile
+
+save last profile number to sd card
+write led animation
+print parse error to oled
+write repeat command

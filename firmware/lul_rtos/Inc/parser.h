@@ -29,7 +29,7 @@ typedef struct
 {
   uint8_t current_profile;
   char profile_fn[FILENAME_SIZE];
-  char key_fn[MAPPABLE_KEY_COUNT][KEYNAME_SIZE];
+  char key_fn[MAPPABLE_KEY_COUNT][FILENAME_SIZE];
 } profile_cache;
 
 void parser_test(void);

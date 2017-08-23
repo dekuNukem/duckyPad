@@ -52,7 +52,7 @@
 void kb_test(void);
 void kb_print(char* msg, uint16_t chardelay);
 void keyboard_release(uint8_t k);
-void keyboard_press(uint8_t k);
+void keyboard_press(uint8_t k, uint8_t use_mod);
 void keyboard_release_all(void);
 
 #ifdef __cplusplus

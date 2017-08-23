@@ -1,3 +1,18 @@
+  else if(strncmp(cmd_ENTER, line, strlen(cmd_ENTER)) == 0)
+  {
+    keyboard_press(KEY_RETURN, 1);
+    osDelay(char_delay);
+    keyboard_release_all();
+    osDelay(char_delay);
+  }
+
+else if(strncmp(cmd_ESC, line, strlen(cmd_ESC)) == 0)
+  {
+    keyboard_press(KEY_ESC, 1);
+    osDelay(char_delay);
+    keyboard_release_all();
+    osDelay(char_delay);
+  }
 char* find_profile(uint8_t pid)
 {
   char* profile_fn;
@@ -24,7 +39,7 @@ char* find_profile(uint8_t pid)
   f_closedir(&dir);
   return NULL;
 }
-
+LUL LUL TriHard ANELE 
 void parser_test(void)
 {
   scan_profiles(MAX_PROFILES, available_profile);
@@ -73,6 +88,8 @@ void keypress_task_start(void const * argument)
     osDelay(30);
   }
 }
+
+
 for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
   {
     printf("%d: %s\n", i, get_keyname(p_cache.profile_fn, i));
