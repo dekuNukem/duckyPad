@@ -1,3 +1,85 @@
+char* find_profile(uint8_t pid)
+{
+  char* profile_fn;
+  fno.lfname = lfn_buf; 
+  fno.lfsize = FILENAME_SIZE - 1;
+
+  if (f_opendir(&dir, "/") != FR_OK)
+    return NULL;
+
+  memset(temp_buf, 0, FILENAME_SIZE);
+  sprintf(temp_buf, "profile%d_", pid);
+  while(1)
+  {
+    memset(lfn_buf, 0, FILENAME_SIZE);
+    if (f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)
+      break;
+    if (fno.fattrib & AM_DIR)
+    {
+      profile_fn = fno.lfname[0] ? fno.lfname : fno.fname;
+      if(strncmp(temp_buf, profile_fn, strlen(temp_buf)) == 0)
+        return profile_fn;
+    }
+  }
+  f_closedir(&dir);
+  return NULL;
+}
+
+void parser_test(void)
+{
+  scan_profiles(MAX_PROFILES, available_profile);
+  for (int i = 0; i < MAX_PROFILES; ++i)
+    if(available_profile[i])
+      printf("profile %d\n", i);
+}
+
+
+void parser_test(void)
+{
+  char* ppppp = find_profile(3);
+  if(ppppp == NULL)
+    return;
+  memset(p_cache.profile_fn, 0, FILENAME_SIZE);
+  strcpy(p_cache.profile_fn, ppppp);
+  printf("%s\n", p_cache.profile_fn);
+  for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+  {
+    memset(p_cache.key_fn[i], 0, KEYNAME_SIZE);
+    strcpy(p_cache.key_fn[i], get_keyname(p_cache.profile_fn, i));
+  }
+  for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+    printf("%d: %s\n", i, get_keyname(p_cache.profile_fn, i));
+}
+
+
+void keypress_task_start(void const * argument)
+{
+  while(init_complete == 0)
+    osDelay(10);
+  for(;;)
+  {
+    for (int i = 0; i < KEY_COUNT; ++i)
+      if(is_fresh_pressed(&button_status[i]))
+      {
+        printf("%d\n", i);
+        if(i < 15)
+          handle_keypress(i);
+        else if(i == 21) // -
+          change_profile(PREV_PROFILE);
+        else if(i == 22) // +
+          change_profile(NEXT_PROFILE);
+        service_fresh_press(&button_status[i]);
+      }
+    osDelay(30);
+  }
+}
+for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+  {
+    printf("%d: %s\n", i, get_keyname(p_cache.profile_fn, i));
+  }
+Program Size: Code=28544 RO-data=3436 RW-data=508 ZI-data=10228  
+Program Size: Code=32416 RO-data=3576 RW-data=528 ZI-data=12440  
+
 void handle_keypress(uint8_t keynum)
 {
   char* profile_name = find_profile(current_profile);

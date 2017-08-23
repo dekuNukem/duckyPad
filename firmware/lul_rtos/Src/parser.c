@@ -30,16 +30,14 @@ FILINFO fno;
 uint8_t mount_result;
 uint16_t cmd_delay, char_delay;
 
-char* profile_fn;
-char* key_fn;
-uint8_t current_profile;
-char temp_buf[LFN_SIZE];
-char pf_lfn_buf[LFN_SIZE];
-char key_lfn_buf[LFN_SIZE];
-char key_name_buf[LFN_SIZE];
+uint8_t available_profile[MAX_PROFILES];
+char temp_buf[PATH_SIZE];
+char lfn_buf[FILENAME_SIZE];
+char key_name_buf[FILENAME_SIZE];
 char read_buffer[READ_BUF_SIZE];
-char unnamed_keyname[] = "???";
 char nonexistent_keyname[] = "-";
+
+profile_cache p_cache;
 
 const char syntax_NAME[] = "NAME ";
 const char syntax_REM[] = "REM ";
@@ -54,17 +52,18 @@ const char syntax_[] = " ";
 
 char* find_profile(uint8_t pid)
 {
-  fno.lfname = pf_lfn_buf; 
-  fno.lfsize = LFN_SIZE - 1;
+  char* profile_fn;
+  fno.lfname = lfn_buf; 
+  fno.lfsize = FILENAME_SIZE - 1;
 
   if (f_opendir(&dir, "/") != FR_OK)
     return NULL;
 
-  memset(temp_buf, 0, LFN_SIZE);
+  memset(temp_buf, 0, PATH_SIZE);
   sprintf(temp_buf, "profile%d_", pid);
   while(1)
   {
-    memset(pf_lfn_buf, 0, LFN_SIZE);
+    memset(lfn_buf, 0, FILENAME_SIZE);
     if (f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)
       break;
     if (fno.fattrib & AM_DIR)
@@ -87,17 +86,17 @@ char* get_keyname(char* pf_fn, uint8_t keynum)
   if(pf_fn == NULL)
     return ret;
 
-  fno.lfname = key_lfn_buf; 
-  fno.lfsize = LFN_SIZE - 1;
-  memset(temp_buf, 0, LFN_SIZE);
+  fno.lfname = lfn_buf; 
+  fno.lfsize = FILENAME_SIZE - 1;
+  memset(temp_buf, 0, PATH_SIZE);
   sprintf(temp_buf, "/%s", pf_fn);
   if (f_opendir(&dir, temp_buf) != FR_OK)
     return ret;
-  memset(temp_buf, 0, LFN_SIZE);
+  memset(temp_buf, 0, PATH_SIZE);
   sprintf(temp_buf, "key%d_", keynum + 1);
   while(1)
   {
-    memset(key_lfn_buf, 0, LFN_SIZE);
+    memset(lfn_buf, 0, FILENAME_SIZE);
     if (f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)
       break;
     key_fn = fno.lfname[0] ? fno.lfname : fno.fname;
@@ -105,14 +104,63 @@ char* get_keyname(char* pf_fn, uint8_t keynum)
     {
       start = key_fn + strlen(temp_buf);
       end = strstr(start, ".txt");
-      memset(key_name_buf, 0, LFN_SIZE);
-      strncpy(key_name_buf, start, end - start);
+      memset(key_name_buf, 0, FILENAME_SIZE);
+      strncpy(key_name_buf, start, end - start > (KEYNAME_SIZE - 1) ? (KEYNAME_SIZE - 1) : end - start);
       ret = key_name_buf;
       break;
     }
   }
   f_closedir(&dir);
   return ret;
+}
+
+void scan_profiles(void)
+{
+  char* profile_fn;
+  fno.lfname = lfn_buf; 
+  fno.lfsize = FILENAME_SIZE - 1;
+  memset(available_profile, 0, MAX_PROFILES);
+
+  if (f_opendir(&dir, "/") != FR_OK)
+    return;
+
+  memset(temp_buf, 0, PATH_SIZE);
+  sprintf(temp_buf, "profile");
+  while(1)
+  {
+    memset(lfn_buf, 0, FILENAME_SIZE);
+    if (f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)
+      break;
+    if (fno.fattrib & AM_DIR)
+    {
+      profile_fn = fno.lfname[0] ? fno.lfname : fno.fname;
+      if(strncmp(temp_buf, profile_fn, strlen(temp_buf)) == 0)
+      {
+        uint8_t num = atoi(profile_fn + strlen(temp_buf));
+        if(num == 0)
+          continue;
+        if(num < MAX_PROFILES)
+          available_profile[num] = 1;
+      }
+    }
+  }
+  f_closedir(&dir);
+  return;
+}
+
+void load_profile(uint8_t pid)
+{
+  char* ppppp = find_profile(pid);
+  if(ppppp == NULL)
+    return;
+  memset(p_cache.profile_fn, 0, FILENAME_SIZE);
+  strcpy(p_cache.profile_fn, ppppp);
+  for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+  {
+    memset(p_cache.key_fn[i], 0, KEYNAME_SIZE);
+    strcpy(p_cache.key_fn[i], get_keyname(p_cache.profile_fn, i));
+  }
+  p_cache.current_profile = pid;
 }
 
 void print_keyname(char* keyname, uint8_t keynum)
@@ -126,151 +174,68 @@ void print_keyname(char* keyname, uint8_t keynum)
   ssd1306_WriteString(keyname, Font_6x10,White);
 }
 
-void print_legend(uint8_t pf_num, char* pf_fn)
+// print current profile
+void print_legend(void)
 {
   ssd1306_Fill(Black);
-  memset(temp_buf, 0, LFN_SIZE);
-  sprintf(temp_buf, "profile%d_", pf_num);
-  char* pf_name = pf_fn + strlen(temp_buf);
-  memset(temp_buf, 0, LFN_SIZE);
-  sprintf(temp_buf, "P%d: %s", pf_num, pf_name);
+  memset(temp_buf, 0, PATH_SIZE);
+  sprintf(temp_buf, "profile%d_", p_cache.current_profile);
+  char* pf_name = p_cache.profile_fn + strlen(temp_buf);
+  memset(temp_buf, 0, PATH_SIZE);
+  sprintf(temp_buf, "P%d: %s", p_cache.current_profile, pf_name);
   if(strlen(temp_buf) > 21)
     temp_buf[21] = 0;
   uint8_t x_start = (21 - strlen(temp_buf)) * 3;
   ssd1306_SetCursor(x_start, 0);
   ssd1306_WriteString(temp_buf, Font_6x10,White);
   for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
-    print_keyname(get_keyname(pf_fn, i), i);
+    print_keyname(p_cache.key_fn[i], i);
   ssd1306_UpdateScreen();
 }
 
 void change_profile(uint8_t direction)
 {
-  uint16_t count = 0;
+  uint8_t is_all_empty = 1;
+  uint8_t next_profile = p_cache.current_profile;
+
+  for (int i = 0; i < MAX_PROFILES; ++i)
+    if(available_profile[i])
+      is_all_empty = 0;
+
+  if(is_all_empty)
+  {
+    ssd1306_Fill(Black);
+    ssd1306_SetCursor(32, 0);
+    ssd1306_WriteString("no valid profiles!",Font_6x10,White);
+    ssd1306_UpdateScreen();
+    return;
+  }
+
   while(1)
   {
-    count++;
     if(direction == NEXT_PROFILE)
-      current_profile++;
+      next_profile = next_profile + 1 > MAX_PROFILES - 1 ? 0 : next_profile + 1;
     else
-      current_profile--;
-    char* ddddd = find_profile(current_profile);
-    if(ddddd != NULL)
-    {
-      print_legend(current_profile, ddddd);
+      next_profile = next_profile - 1 > MAX_PROFILES - 1 ? MAX_PROFILES - 1 : next_profile - 1;
+    if(available_profile[next_profile])
       break;
-    }
-    else if(count > 255)
-    {
-      ssd1306_Fill(Black);
-      ssd1306_SetCursor(32, 0);
-      ssd1306_WriteString("no valid profiles!",Font_6x10,White);
-      ssd1306_UpdateScreen();
-      break;
-    }
   }
+  load_profile(next_profile);
+  print_legend();
   f_closedir(&dir);
   f_close(&sd_file);
 }
 
-void parser_test(void)
-{
-  ;
-}
-
-char* goto_next_arg(char* buf)
-{
-  char* curr = buf;
-  char* buf_end = curr + strlen(curr);
-  if(curr >= buf_end)
-    return NULL;
-  while(curr < buf_end && *curr != ' ')
-      curr++;
-  while(curr < buf_end && *curr == ' ')
-      curr++;
-  if(curr >= buf_end)
-    return NULL;
-  return curr;
-}
-
 uint8_t parse_line(char* line)
 {
-  uint8_t result = PARSE_OK;
-  cmd_delay = DEFAULT_CMD_DELAY_MS;
-  char_delay = DEFAULT_CHAR_DELAY_MS;
-
-  for (int i = 0; i < strlen(line); ++i)
-    if(line[i] == '\r' || line[i] == '\n')
-      line[i] = 0;
-
-  if(strncmp(syntax_NAME, line, strlen(syntax_NAME)) == 0)
-    ;
-  else if(strncmp(syntax_REM, line, strlen(syntax_REM)) == 0)
-    ;
-  else if(strncmp(syntax_C_COMMENT, line, strlen(syntax_C_COMMENT)) == 0)
-    ;
-  else if(strncmp(syntax_STRING, line, strlen(syntax_STRING)) == 0)
-    kb_print(line + strlen(syntax_STRING), char_delay);
-  else if(strncmp(syntax_ENTER, line, strlen(syntax_ENTER)) == 0)
-  {
-    keyboard_press(KEY_RETURN);
-    osDelay(char_delay);
-    keyboard_release_all();
-    osDelay(char_delay);
-  }
-  else if(strncmp(syntax_ESC, line, strlen(syntax_ESC)) == 0)
-  {
-    keyboard_press(KEY_ESC);
-    osDelay(char_delay);
-    keyboard_release_all();
-    osDelay(char_delay);
-  }
-  else if(goto_next_arg(line) == NULL || strlen(goto_next_arg(line)) <= 3)
-    ;
-  else
-    result = PARSE_ERROR;
-  if(result == PARSE_OK)
-    osDelay(cmd_delay);
-  return result;
-}
-
-char* find_key(char* pf_fn, uint8_t keynum)
-{
-  char* key_fn;
-  if(pf_fn == NULL)
-    return NULL;
-
-  fno.lfname = key_lfn_buf; 
-  fno.lfsize = LFN_SIZE - 1;
-  memset(temp_buf, 0, LFN_SIZE);
-  sprintf(temp_buf, "/%s", pf_fn);
-  if (f_opendir(&dir, temp_buf) != FR_OK)
-    return NULL;
-  memset(temp_buf, 0, LFN_SIZE);
-  sprintf(temp_buf, "key%d_", keynum);
-  while(1)
-  {
-    memset(key_lfn_buf, 0, LFN_SIZE);
-    if (f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)
-      break;
-    key_fn = fno.lfname[0] ? fno.lfname : fno.fname;
-    if(strncmp(temp_buf, key_fn, strlen(temp_buf)) == 0)
-      return key_fn;
-  }
-  f_closedir(&dir);
-  return NULL;
+  printf(">> %s\n", line);
+  return 0;
 }
 
 void handle_keypress(uint8_t keynum)
 {
-  char* profile_name = find_profile(current_profile);
-  if(profile_name == NULL)
-    return;
-  char* keyfile_name = find_key(profile_name, keynum + 1);
-  if(keyfile_name == NULL)
-    return;
-  memset(temp_buf, 0, LFN_SIZE);
-  sprintf(temp_buf, "/%s/%s", profile_name, keyfile_name);
+  memset(temp_buf, 0, PATH_SIZE);
+  sprintf(temp_buf, "/%s/%s", p_cache.profile_fn, p_cache.key_fn[keynum]);
   printf("%s\n", temp_buf);
   if(f_open(&sd_file, temp_buf, FA_READ) != 0)
     goto end;
@@ -281,5 +246,10 @@ void handle_keypress(uint8_t keynum)
   }
   end:
   f_close(&sd_file);
-  return;
+}
+
+
+void parser_test(void)
+{
+  ;
 }
