@@ -7,7 +7,7 @@
 #include "ssd1306.h"
 #include "keyboard.h"
 
-#define READ_BUF_SIZE 256
+#define READ_BUF_SIZE 200
 #define DEFAULT_CMD_DELAY_MS 10
 #define DEFAULT_CHAR_DELAY_MS 10
 
@@ -34,10 +34,12 @@ char temp_buf[PATH_SIZE];
 char lfn_buf[FILENAME_SIZE];
 char key_name_buf[FILENAME_SIZE];
 char read_buffer[READ_BUF_SIZE];
+char prev_line[READ_BUF_SIZE];
 char nonexistent_keyname[] = "-";
 profile_cache p_cache;
 
 const char cmd_NAME[] = "NAME ";
+const char cmd_REPLAY[] = "REPLAY ";
 const char cmd_REM[] = "REM ";
 const char cmd_C_COMMENT[] = "// ";
 const char cmd_DEFAULTDELAY[] = "DEFAULTDELAY ";
@@ -79,6 +81,10 @@ const char cmd_PAGEDOWN[] = "PAGEDOWN";
 const char cmd_DELETE[] = "DELETE";
 const char cmd_END[] = "END";
 const char cmd_SPACE[] = "SPACE";
+const char cmd_SHIFT_NOSPACE[] = "SHIFT";
+const char cmd_ALT_NOSPACE[] = "ALT";
+// const char cmd_GUI_NOSPACE[] = "GUI";
+// const char cmd_CONTROL_NOSPACE[] = "CONTROL";
 
 char* find_profile(uint8_t pid)
 {
@@ -343,6 +349,14 @@ uint8_t parse_special_key(char* msg)
     return KEY_DELETE;
   else if(strncmp(msg, cmd_END, strlen(cmd_END)) == 0)
     return KEY_END;
+  else if(strncmp(msg, cmd_SHIFT_NOSPACE, strlen(cmd_SHIFT_NOSPACE)) == 0)
+    return KEY_LEFT_SHIFT;
+  else if(strncmp(msg, cmd_ALT_NOSPACE, strlen(cmd_ALT_NOSPACE)) == 0)
+    return KEY_LEFT_ALT;
+  // else if(strncmp(msg, cmd_GUI_NOSPACE, strlen(cmd_GUI_NOSPACE)) == 0)
+  //   return KEY_LEFT_GUI;
+  // else if(strncmp(msg, cmd_CONTROL_NOSPACE, strlen(cmd_CONTROL_NOSPACE)) == 0)
+  //   return KEY_LEFT_CTRL;
   else if(strncmp(msg, cmd_SPACE, strlen(cmd_SPACE)) == 0)
     return ' ';
   return 0;
@@ -350,27 +364,47 @@ uint8_t parse_special_key(char* msg)
 
 uint8_t mod_combo(char* line, uint8_t key)
 {
+  uint8_t spk1, spk2;
+  char *arg1, *arg2;
   char* line_end = line + strlen(line);
-  char* arg = goto_next_arg(line, line_end);
-  if(arg == NULL)
+  arg1 = goto_next_arg(line, line_end);
+  if(arg1 == NULL)
     return PARSE_ERROR;
-  uint8_t spk = parse_special_key(arg);
-  if(spk == 0)
-    spk = arg[0];
+  arg2 = goto_next_arg(arg1, line_end);
+
+  spk1 = parse_special_key(arg1);
+  if(spk1 == 0)
+    spk1 = arg1[0];
+  spk2 = parse_special_key(arg2);
+  if(spk2 == 0)
+    spk2 = arg1[0];
+  
   keyboard_press(key, 1);
   osDelay(char_delay);
-  keyboard_press(spk, 0);
+  keyboard_press(spk1, 0);
   osDelay(char_delay);
+  if(arg2 != NULL)
+  {
+    keyboard_press(spk2, 0);
+    osDelay(char_delay);
+  }
   keyboard_release_all();
   osDelay(char_delay);
+  
   return PARSE_OK;
+}
+
+uint16_t get_arg(char* line)
+{
+  char* arg = goto_next_arg(line, line + strlen(line));
+  if(arg == NULL)
+    return PARSE_ERROR;
+  return atoi(arg);
 }
 
 uint8_t parse_line(char* line)
 {
   uint8_t result = PARSE_OK;
-  cmd_delay = DEFAULT_CMD_DELAY_MS;
-  char_delay = DEFAULT_CHAR_DELAY_MS;
 
   for (int i = 0; i < strlen(line); ++i)
     if(line[i] == '\r' || line[i] == '\n')
@@ -428,22 +462,36 @@ uint8_t parse_line(char* line)
   }
   else if(strncmp(cmd_DELAY, line, strlen(cmd_DELAY)) == 0)
   {
-    char* arg = goto_next_arg(line, line_end);
-    if(arg == NULL)
+    uint16_t argg = get_arg(line);
+    if(argg == 0)
     {
       result = PARSE_ERROR;
       goto parse_end;
     }
-    uint16_t delay = atoi(arg);
-    if(delay == 0)
+    osDelay(argg);
+  }
+  else if(strncmp(cmd_DEFAULTDELAY, line, strlen(cmd_DEFAULTDELAY)) == 0)
+  {
+    uint16_t argg = get_arg(line);
+    if(argg == 0)
     {
       result = PARSE_ERROR;
       goto parse_end;
     }
-    osDelay(delay);
+    cmd_delay = argg;
+  }
+  else if(strncmp(cmd_DEFAULTCHARDELAY, line, strlen(cmd_DEFAULTCHARDELAY)) == 0)
+  {
+    uint16_t argg = get_arg(line);
+    if(argg == 0)
+    {
+      result = PARSE_ERROR;
+      goto parse_end;
+    }
+    char_delay = argg;
   }
   else if(goto_next_arg(line, line_end) == NULL || strlen(goto_next_arg(line, line_end)) <= 3)
-    ;
+    result = PARSE_EMPTY_LINE;
   else
     result = PARSE_ERROR;
 
@@ -455,22 +503,32 @@ uint8_t parse_line(char* line)
 
 void handle_keypress(uint8_t keynum)
 {
+  uint8_t result;
   memset(temp_buf, 0, PATH_SIZE);
   sprintf(temp_buf, "/%s/%s", p_cache.profile_fn, p_cache.key_fn[keynum]);
   if(f_open(&sd_file, temp_buf, FA_READ) != 0)
     goto kp_end;
-  // printf("%s\n", temp_buf);
+
+  cmd_delay = DEFAULT_CMD_DELAY_MS;
+  char_delay = DEFAULT_CHAR_DELAY_MS;
   while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
   {
-    if(parse_line(read_buffer) == PARSE_ERROR)
+    if(strncmp(cmd_REPLAY, read_buffer, strlen(cmd_REPLAY)) == 0)
+    {
+      uint8_t repeats = atoi(goto_next_arg(read_buffer, read_buffer + strlen(read_buffer)));
+      for (int i = 0; i < repeats; ++i)
+        parse_line(prev_line);
+    }
+    result = parse_line(read_buffer);
+    if(result == PARSE_ERROR)
       printf("ERR: %s\n", read_buffer);
+    else if(result == PARSE_OK)
+    {
+      memset(prev_line, 0, READ_BUF_SIZE);
+      strcpy(prev_line, read_buffer);
+    }
     memset(read_buffer, 0, READ_BUF_SIZE);
   }
   kp_end:
   f_close(&sd_file);
-}
-
-void parser_test(void)
-{
-  ;
 }

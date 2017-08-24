@@ -22,4 +22,3 @@ void spi_set_speed_neopixel(void);
 
 #endif
 
-

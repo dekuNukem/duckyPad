@@ -1,3 +1,35 @@
+  printf("1: %s\n2:%s\n", arg1, arg2);
+  printf("1: %d\n2:%d\n", spk1, spk2);
+
+else if(strncmp(cmd_DELAY, line, strlen(cmd_DELAY)) == 0)
+  {
+    char* arg = goto_next_arg(line, line_end);
+    if(arg == NULL)
+    {
+      result = PARSE_ERROR;
+      goto parse_end;
+    }
+    uint16_t delay = atoi(arg);
+    if(delay == 0)
+    {
+      result = PARSE_ERROR;
+      goto parse_end;
+    }
+    osDelay(delay);
+  }
+  // printf("1: %s\n2:%s", arg1, arg2);
+
+    printf("new char_delay is: %d\n", argg);
+
+uint16_t get_arg(char* line)
+{
+  char* arg = goto_next_arg(line, strlen(line));
+  if(arg == NULL)
+    return PARSE_ERROR;
+  return atoi(arg);
+}
+
+
 uint8_t bg_color[THREE] = {16, 64, 128};
 uint8_t bg_color[THREE] = {80, 0, 200};
 
