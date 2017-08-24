@@ -36,11 +36,13 @@ void keypress_task_start(void const * argument)
   }
 }
 
+
 void animation_task_start(void const * argument)
 {
+  anime_init();
   for(;;)
   {
-    printf("animation\n");
-    osDelay(1000);
+    animation_test();
+    osDelay(500);
   }
 }

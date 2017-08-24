@@ -37,6 +37,7 @@ lul\animations.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim.h
 lul\animations.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim_ex.h
 lul\animations.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h
 lul\animations.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h
+lul\animations.o: ../Inc/neopixel.h
 lul\animations.o: ../Inc/shared.h
 lul\animations.o: ../Middlewares/Third_Party/FatFs/src/ff.h
 lul\animations.o: ../Middlewares/Third_Party/FatFs/src/integer.h

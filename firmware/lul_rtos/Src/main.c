@@ -55,6 +55,7 @@
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "usbd_hid.h"
 #include "ssd1306.h"
 #include "fonts.h"
@@ -80,9 +81,6 @@ osThreadId kb_scanHandle;
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 char no_sd[] = "Please Insert SD card";
-uint8_t red_test[NEOPIXEL_COUNT];
-uint8_t green_test[NEOPIXEL_COUNT];
-uint8_t blue_test[NEOPIXEL_COUNT];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -160,7 +158,7 @@ int main(void)
   // kb_scan_task should have 256 byte
   osThreadDef(keypress_task, keypress_task_start, osPriorityAboveNormal, 0, 512);
   osThreadCreate(osThread(keypress_task), NULL);
-  osThreadDef(animation_task, animation_task_start, osPriorityNormal, 0, 256);
+  osThreadDef(animation_task, animation_task_start, osPriorityBelowNormal, 0, 256);
   osThreadCreate(osThread(animation_task), NULL);
   /* USER CODE END RTOS_THREADS */
 
@@ -431,13 +429,6 @@ void kb_scan_task(void const * argument)
 
   /* USER CODE BEGIN 5 */
   mount_result = f_mount(&sd_fs, "", 1);
-  if(mount_result != 0)
-    spi_set_speed_neopixel();
-  memset(red_test, 0, NEOPIXEL_COUNT);
-  memset(green_test, 32, NEOPIXEL_COUNT);
-  memset(blue_test, 64, NEOPIXEL_COUNT);
-  neopixel_show(red_test, green_test, blue_test);
-  neopixel_show(red_test, green_test, blue_test);
   ssd1306_Init();
   if(mount_result)
   {
@@ -445,18 +436,21 @@ void kb_scan_task(void const * argument)
     ssd1306_SetCursor(0, 32);
     ssd1306_WriteString(no_sd,Font_6x10,White);
     ssd1306_UpdateScreen();
-    taskENTER_CRITICAL();
-    while(1);
+    spi_set_speed_neopixel();
+    while(1)
+	  osDelay(30);
   }
   
   scan_profiles();
   change_profile(NEXT_PROFILE);
+  srand(HAL_GetTick());
   init_complete = 1;
 
   /* Infinite loop */
   for(;;)
   {
     keyboard_update();
+    led_animation_handler();
     osDelay(30);
   }
   /* USER CODE END 5 */ 

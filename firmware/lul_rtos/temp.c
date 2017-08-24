@@ -1,6 +1,140 @@
+// this runs every single frame
+void led_animation_handler(void)
+{
+  frame_counter++;
+  for (int kkkk = 0; kkkk < NEOPIXEL_COUNT; ++kkkk)
+  {
+    printf("kkkk %d\n", kkkk);
+    uint32_t current_frame = frame_counter - neo_anime[kkkk].animation_start;
+    if(neo_anime[kkkk].animation_type == ANIMATION_NO_ANIMATION)
+      return;
+    else if(neo_anime[kkkk].animation_type == ANIMATION_FULLY_ON)
+      set_pixel_index(neo_anime[kkkk].index, neo_anime[kkkk].target_color[0], neo_anime[kkkk].target_color[1], neo_anime[kkkk].target_color[2]);
+    else if(neo_anime[kkkk].animation_type == ANIMATION_CROSS_FADE)
+    {
+      if(current_frame <= neo_anime[kkkk].animation_duration)
+      {
+        for (int i = 0; i < THREE; ++i)
+        {
+          neo_anime[kkkk].current_color[i] += neo_anime[kkkk].step[i];
+          if(neo_anime[kkkk].current_color[i] > 255)
+            neo_anime[kkkk].current_color[i] = 255;
+          if(neo_anime[kkkk].current_color[i] < 0)
+            neo_anime[kkkk].current_color[i] = 0;
+        }
+      }
+      else
+      {
+        for (int i = 0; i < THREE; ++i)
+          neo_anime[kkkk].current_color[i] = neo_anime[kkkk].target_color[i];
+      }
+      set_pixel_index(neo_anime[kkkk].index, neo_anime[kkkk].current_color[0], neo_anime[kkkk].current_color[1], neo_anime[kkkk].current_color[2]);
+    }
+  }
+
+  taskENTER_CRITICAL();
+  neopixel_show(red_buf, green_buf, blue_buf);
+  taskEXIT_CRITICAL();
+}
+
+void animation_test(void)
+{
+  uint8_t red, green, blue;
+  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+  {
+    randcolor(&red, &green, &blue);
+    set_pixel_index(i, red, green, blue);
+  }
+  taskENTER_CRITICAL();
+  neopixel_show(red_buf, green_buf, blue_buf);
+  taskEXIT_CRITICAL();
+  printf("fc: %d\n", frame_counter);
+}
 
 
+  // printf("rgb %d %d %d\n", *red, *blue, *green);
+// use this to draw 2D heat map thing
+// (0, 0) top left, (2, 0) top right
+// (0, 4) bottom left, (2, 4) bottom right
+void set_pixel_xy(uint8_t x, uint8_t y, uint8_t r, uint8_t g, uint8_t b)
+{
+  uint8_t index = x + y * 3;
+  red_buf[pixel_map[index]] = r;
+  green_buf[pixel_map[index]] = g;
+  blue_buf[pixel_map[index]] = b;
+}
 
+
+void rand256(uint8_t* rrrr, uint8_t* gggg, uint8_t* bbbb)
+void animation_test(void)
+{
+  count = (count + 1) % NEOPIXEL_COUNT;
+  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+  {
+    if(i == count)
+      set_pixel_index(i, 128, 128, 128);
+    else
+      set_pixel_index(i, 16, 32, 128);
+  }
+  taskENTER_CRITICAL();
+  neopixel_show(red_buf, green_buf, blue_buf);
+  taskEXIT_CRITICAL();
+}
+
+
+void animation_show(void)
+{
+  ;
+}
+void animation_test(void)
+{
+  count = (count + 1) % NEOPIXEL_COUNT;
+  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+  {
+    if(i == count)
+      set_pixel_index(i, 128, 128, 128);
+    else
+      set_pixel_index(i, 16, 32, 128);
+  }
+  neopixel_show(red_buf, green_buf, blue_buf);
+}
+uint8_t red_io[NEOPIXEL_COUNT];
+uint8_t green_io[NEOPIXEL_COUNT];
+uint8_t blue_io[NEOPIXEL_COUNT];
+void animation_test(void)
+{
+  for (int i = 0; i < NEOPIXEL_COUNT; i+=3)
+  {
+    set_pixel(i, 128, 0, 0);
+    set_pixel(i+1, 0, 128, 0);
+    set_pixel(i+2, 0, 0, 128);
+  }
+  neopixel_show(red_buf, green_buf, blue_buf);
+}
+
+
+typedef struct
+{
+  uint8_t red;
+  uint8_t green;
+  uint8_t blue;
+} onepixel;
+onepixel pixel_list[NEOPIXEL_COUNT];
+void set_pixel(uint8_t which, uint8_t r, uint8_t g, uint8_t b)
+{
+  pixel_list[which].red = r;
+  pixel_list[which].green = g;
+  pixel_list[which].blue = b;
+}
+
+uint8_t red_test[NEOPIXEL_COUNT];
+uint8_t green_test[NEOPIXEL_COUNT];
+uint8_t blue_test[NEOPIXEL_COUNT];
+memset(red_test, 0, NEOPIXEL_COUNT);
+  memset(green_test, 32, NEOPIXEL_COUNT);
+  memset(blue_test, 64, NEOPIXEL_COUNT);
+  neopixel_show(red_test, green_test, blue_test);
+  neopixel_show(red_test, green_test, blue_test);
   else if(strncmp(cmd_ENTER, line, strlen(cmd_ENTER)) == 0)
   {
     keyboard_press(KEY_RETURN, 1);
@@ -8,7 +142,7 @@
     keyboard_release_all();
     osDelay(char_delay);
   }
-
+Code=37588 RO-data=4096 RW-data=552 ZI-data=14224  
 else if(strncmp(cmd_ESC, line, strlen(cmd_ESC)) == 0)
   {
     keyboard_press(KEY_ESC, 1);
