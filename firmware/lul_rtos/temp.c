@@ -1,3 +1,20 @@
+
+
+
+
+
+
+void animation_test(void)
+{
+  uint8_t colors[THREE];
+  randcolor(&colors[0], &colors[1], &colors[2]);
+  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+  {
+    led_start_animation(&neo_anime[i], colors, ANIMATION_CROSS_FADE, ANIME_FPS * 5);
+    // osDelay(50);
+  }
+}
+
 // this runs every single frame
 void led_animation_handler(void)
 {

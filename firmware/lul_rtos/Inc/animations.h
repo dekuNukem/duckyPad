@@ -12,6 +12,10 @@
 #define ANIMATION_NO_ANIMATION 0
 #define ANIMATION_CROSS_FADE 1
 #define ANIMATION_FULLY_ON 2
+#define ANIMATION_MY_RAND 3
+#define ANIME_HOLD 0
+#define ANIME_INCREASE 1
+#define ANIME_DECREASE 2
 
 typedef struct
 {
@@ -22,6 +26,7 @@ typedef struct
 	uint8_t target_color[THREE];
 	double current_color[THREE];
 	double step[THREE];
+	uint8_t action[THREE];
 } led_animation;
 
 void led_animation_handler(void);

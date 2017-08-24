@@ -62,6 +62,20 @@ void led_animation_handler(void)
       }
       set_pixel_index(neo_anime[hhhhhh].index, neo_anime[hhhhhh].current_color[0], neo_anime[hhhhhh].current_color[1], neo_anime[hhhhhh].current_color[2]);
     }
+    else if(neo_anime[hhhhhh].animation_type == ANIMATION_MY_RAND)
+    {
+      if(current_frame % (ANIME_FPS * 5) == 0)
+        for (int i = 0; i < THREE; ++i)
+          neo_anime[hhhhhh].action[i] = rand() % 3;
+      for (int i = 0; i < THREE; ++i)
+      {
+        if(neo_anime[hhhhhh].action[i] == ANIME_INCREASE && neo_anime[hhhhhh].target_color[i] < 255)
+          neo_anime[hhhhhh].target_color[i]++;
+        else if(neo_anime[hhhhhh].action[i] == ANIME_DECREASE && neo_anime[hhhhhh].target_color[i] > 0)
+          neo_anime[hhhhhh].target_color[i]--;
+      }
+      set_pixel_index(neo_anime[hhhhhh].index, neo_anime[hhhhhh].target_color[0], neo_anime[hhhhhh].target_color[1], neo_anime[hhhhhh].target_color[2]);
+    }
   }
   taskENTER_CRITICAL();
   neopixel_show(red_buf, green_buf, blue_buf);
@@ -70,13 +84,7 @@ void led_animation_handler(void)
 
 void animation_test(void)
 {
-  uint8_t colors[THREE];
-  randcolor(&colors[0], &colors[1], &colors[2]);
-  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
-  {
-    led_start_animation(&neo_anime[i], colors, ANIMATION_CROSS_FADE, ANIME_FPS * 5);
-    // osDelay(50);
-  }
+  ;
 }
 
 void led_animation_init(led_animation* anime_struct, uint8_t index)
@@ -86,6 +94,7 @@ void led_animation_init(led_animation* anime_struct, uint8_t index)
     anime_struct->current_color[i] = 0;
     anime_struct->step[i] = 0;
     anime_struct->target_color[i] = 0;
+    anime_struct->action[i] = rand() % 3;
   }
   anime_struct->animation_start = 0;
   anime_struct->animation_duration = 0;
@@ -95,8 +104,11 @@ void led_animation_init(led_animation* anime_struct, uint8_t index)
 
 void anime_init(void)
 {
+  uint8_t colors[THREE] = {64, 64, 64};
+  // randcolor(&colors[0], &colors[1], &colors[2]);
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
     led_animation_init(&neo_anime[i], i);
+  led_start_animation(&neo_anime[0], colors, ANIMATION_MY_RAND, 0);
 }
 
 void led_start_animation(led_animation* anime_struct, uint8_t dest_color[THREE], uint8_t anime_type, uint8_t durations_frames)
