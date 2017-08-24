@@ -157,7 +157,8 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
-  osThreadDef(keypress_task, keypress_task_start, osPriorityAboveNormal, 0, 600);
+  // kb_scan_task should have 256 byte
+  osThreadDef(keypress_task, keypress_task_start, osPriorityAboveNormal, 0, 512);
   osThreadCreate(osThread(keypress_task), NULL);
   osThreadDef(animation_task, animation_task_start, osPriorityNormal, 0, 256);
   osThreadCreate(osThread(animation_task), NULL);
