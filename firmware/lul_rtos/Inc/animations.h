@@ -1,5 +1,5 @@
-#ifndef __HELPERS_H
-#define __HELPERS_H
+#ifndef __ANIMATIONS_H
+#define __ANIMATIONS_H
 
 #ifdef __cplusplus
  extern "C" {

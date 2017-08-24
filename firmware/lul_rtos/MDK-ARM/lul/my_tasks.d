@@ -71,3 +71,4 @@ lul\my_tasks.o: ../Inc/neopixel.h
 lul\my_tasks.o: ../Inc/buttons.h
 lul\my_tasks.o: ../Inc/keyboard.h
 lul\my_tasks.o: ../Inc/parser.h
+lul\my_tasks.o: ../Inc/animations.h

@@ -10,6 +10,7 @@
 #include "buttons.h"
 #include "keyboard.h"
 #include "parser.h"
+#include "animations.h"
 
 uint32_t init_complete;
 
@@ -35,3 +36,11 @@ void keypress_task_start(void const * argument)
   }
 }
 
+void animation_task_start(void const * argument)
+{
+  for(;;)
+  {
+    printf("animation\n");
+    osDelay(1000);
+  }
+}

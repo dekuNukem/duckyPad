@@ -10,6 +10,7 @@
 extern uint32_t init_complete;
 
 void keypress_task_start(void const * argument);
+void animation_task_start(void const * argument);
 
 #ifdef __cplusplus
 }

@@ -45,7 +45,6 @@ lul\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
 lul\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h
 lul\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
 lul\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h
-lul\keyboard.o: ../Inc/helpers.h
 lul\keyboard.o: ../Inc/shared.h
 lul\keyboard.o: ../Middlewares/Third_Party/FatFs/src/ff.h
 lul\keyboard.o: ../Middlewares/Third_Party/FatFs/src/integer.h

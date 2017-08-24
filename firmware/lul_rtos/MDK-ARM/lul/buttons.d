@@ -2,7 +2,10 @@ lul\buttons.o: ..\Src\buttons.c
 lul\buttons.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 lul\buttons.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 lul\buttons.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-lul\buttons.o: ../Inc/helpers.h
+lul\buttons.o: ../Inc/shared.h
+lul\buttons.o: ../Middlewares/Third_Party/FatFs/src/ff.h
+lul\buttons.o: ../Middlewares/Third_Party/FatFs/src/integer.h
+lul\buttons.o: ../Inc/ffconf.h
 lul\buttons.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h
 lul\buttons.o: ../Inc/stm32f0xx_hal_conf.h
 lul\buttons.o: ../Inc/main.h
@@ -37,10 +40,6 @@ lul\buttons.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim.h
 lul\buttons.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim_ex.h
 lul\buttons.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h
 lul\buttons.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h
-lul\buttons.o: ../Inc/shared.h
-lul\buttons.o: ../Middlewares/Third_Party/FatFs/src/ff.h
-lul\buttons.o: ../Middlewares/Third_Party/FatFs/src/integer.h
-lul\buttons.o: ../Inc/ffconf.h
 lul\buttons.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 lul\buttons.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 lul\buttons.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h

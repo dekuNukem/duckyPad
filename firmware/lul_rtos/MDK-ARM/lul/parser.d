@@ -2,7 +2,10 @@ lul\parser.o: ..\Src\parser.c
 lul\parser.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 lul\parser.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 lul\parser.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-lul\parser.o: ../Inc/helpers.h
+lul\parser.o: ../Inc/shared.h
+lul\parser.o: ../Middlewares/Third_Party/FatFs/src/ff.h
+lul\parser.o: ../Middlewares/Third_Party/FatFs/src/integer.h
+lul\parser.o: ../Inc/ffconf.h
 lul\parser.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h
 lul\parser.o: ../Inc/stm32f0xx_hal_conf.h
 lul\parser.o: ../Inc/main.h
@@ -37,10 +40,6 @@ lul\parser.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim.h
 lul\parser.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim_ex.h
 lul\parser.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h
 lul\parser.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h
-lul\parser.o: ../Inc/shared.h
-lul\parser.o: ../Middlewares/Third_Party/FatFs/src/ff.h
-lul\parser.o: ../Middlewares/Third_Party/FatFs/src/integer.h
-lul\parser.o: ../Inc/ffconf.h
 lul\parser.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 lul\parser.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 lul\parser.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h

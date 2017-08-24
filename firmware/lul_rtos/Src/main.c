@@ -63,8 +63,8 @@
 #include "keyboard.h"
 #include "parser.h"
 #include "shared.h"
-#include "helpers.h"
 #include "my_tasks.h"
+#include "animations.h"
 
 /* USER CODE END Includes */
 
@@ -159,6 +159,8 @@ int main(void)
   /* add threads, ... */
   osThreadDef(keypress_task, keypress_task_start, osPriorityAboveNormal, 0, 600);
   osThreadCreate(osThread(keypress_task), NULL);
+  osThreadDef(animation_task, animation_task_start, osPriorityNormal, 0, 256);
+  osThreadCreate(osThread(animation_task), NULL);
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_QUEUES */

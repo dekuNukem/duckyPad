@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include "usb_device.h"
 #include "usbd_hid.h"
-#include "helpers.h"
 #include "shared.h"
 #include "keyboard.h"
 

@@ -2,7 +2,10 @@ lul\neopixel.o: ..\Src\neopixel.c
 lul\neopixel.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 lul\neopixel.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 lul\neopixel.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-lul\neopixel.o: ../Inc/helpers.h
+lul\neopixel.o: ../Inc/shared.h
+lul\neopixel.o: ../Middlewares/Third_Party/FatFs/src/ff.h
+lul\neopixel.o: ../Middlewares/Third_Party/FatFs/src/integer.h
+lul\neopixel.o: ../Inc/ffconf.h
 lul\neopixel.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h
 lul\neopixel.o: ../Inc/stm32f0xx_hal_conf.h
 lul\neopixel.o: ../Inc/main.h
@@ -37,10 +40,6 @@ lul\neopixel.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim.h
 lul\neopixel.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim_ex.h
 lul\neopixel.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h
 lul\neopixel.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h
-lul\neopixel.o: ../Inc/shared.h
-lul\neopixel.o: ../Middlewares/Third_Party/FatFs/src/ff.h
-lul\neopixel.o: ../Middlewares/Third_Party/FatFs/src/integer.h
-lul\neopixel.o: ../Inc/ffconf.h
 lul\neopixel.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 lul\neopixel.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 lul\neopixel.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
