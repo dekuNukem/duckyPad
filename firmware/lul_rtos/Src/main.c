@@ -450,7 +450,6 @@ void kb_scan_task(void const * argument)
   for(;;)
   {
     keyboard_update();
-    led_animation_handler();
     osDelay(30);
   }
   /* USER CODE END 5 */ 

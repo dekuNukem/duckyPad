@@ -25,7 +25,10 @@ void keypress_task_start(void const * argument)
       {
         printf("%d\n", i);
         if(i < 15)
+        {
           handle_keypress(i);
+          keypress_anime_handler(i);
+        }
         else if(i == 21) // -
           change_profile(PREV_PROFILE);
         else if(i == 22) // +
@@ -42,7 +45,7 @@ void animation_task_start(void const * argument)
   anime_init();
   for(;;)
   {
-    animation_test();
-    osDelay(5000);
+    led_animation_handler();
+    osDelay(30);
   }
 }

@@ -1,7 +1,118 @@
+void animation_test(void)
+{
+  uint8_t colors[THREE];
+  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+    led_start_animation(&neo_anime[i], colors, ANIMATION_MY_RAND, 30);
+}
+void randcolor(uint8_t* red, uint8_t* blue, uint8_t* green)
+{
+  while(1) 
+  {
+    *red = rand() % 256;
+    *blue = rand() % (256 - *red);
+    *green = 256 - *red - *blue;
+    if(*red <= 50 || *green <= 50 || *blue <= 50)
+      return;
+  }
+}
+void animation_task_start(void const * argument)
+{
+  uint32_t now = HAL_GetTick();
+  uint8_t ddddd = 0;
+  anime_init();
+  for(;;)
+  {
+    if(ddddd == 0 && HAL_GetTick() - now > 2000)
+    {
+      animation_test();
+      ddddd = 1;
+    }
+    led_animation_handler();
+    osDelay(30);
+  }
+}
 
 
 
+uint8_t action[THREE];
+#define ANIMATION_MY_RAND 3
+#define ANIME_INCREASE 0
+#define ANIME_DECREASE 1
+#define ANIME_HOLD 2
+else if(neo_anime[idx].animation_type == ANIMATION_MY_RAND)
+    {
+      if(current_frame % (ANIME_FPS * 5) == 0)
+        for (int i = 0; i < THREE; ++i)
+          action[i] = rand() % 2;
+      for (int i = 0; i < THREE; ++i)
+      {
+        if(action[i] == ANIME_INCREASE && neo_anime[idx].target_color[i] < 255)
+          neo_anime[idx].target_color[i]+=1;
+        else if(action[i] == ANIME_DECREASE && neo_anime[idx].target_color[i] > 1)
+          neo_anime[idx].target_color[i]-=1;
+      }
+      set_pixel_index(neo_anime[idx].index, neo_anime[idx].target_color[0], neo_anime[idx].target_color[1], neo_anime[idx].target_color[2]);
+    }
 
+
+
+void led_animation_handler(void)
+{
+  frame_counter++;
+  for (int hhhhhh = 0; hhhhhh < NEOPIXEL_COUNT; ++hhhhhh)
+  {
+    uint32_t current_frame = frame_counter - neo_anime[hhhhhh].animation_start;
+    if(neo_anime[hhhhhh].animation_type == ANIMATION_NO_ANIMATION)
+      continue;
+    else if(neo_anime[hhhhhh].animation_type == ANIMATION_FULLY_ON)
+      set_pixel_index(neo_anime[hhhhhh].index, neo_anime[hhhhhh].target_color[0], neo_anime[hhhhhh].target_color[1], neo_anime[hhhhhh].target_color[2]);
+    else if(neo_anime[hhhhhh].animation_type == ANIMATION_CROSS_FADE)
+    {
+      if(current_frame <= neo_anime[hhhhhh].animation_duration)
+      {
+        for (int i = 0; i < THREE; ++i)
+        {
+          neo_anime[hhhhhh].current_color[i] += neo_anime[hhhhhh].step[i];
+          if(neo_anime[hhhhhh].current_color[i] > 255)
+            neo_anime[hhhhhh].current_color[i] = 255;
+          if(neo_anime[hhhhhh].current_color[i] < 0)
+            neo_anime[hhhhhh].current_color[i] = 0;
+        }
+      }
+      else
+      {
+         for (int i = 0; i < THREE; ++i)
+          neo_anime[hhhhhh].current_color[i] = neo_anime[hhhhhh].target_color[i];
+      }
+      set_pixel_index(neo_anime[hhhhhh].index, neo_anime[hhhhhh].current_color[0], neo_anime[hhhhhh].current_color[1], neo_anime[hhhhhh].current_color[2]);
+    }
+    else if(neo_anime[hhhhhh].animation_type == ANIMATION_MY_RAND)
+    {
+      if(current_frame % (ANIME_FPS * 5) == 0)
+        for (int i = 0; i < THREE; ++i)
+          neo_anime[hhhhhh].action[i] = rand() % 3;
+      for (int i = 0; i < THREE; ++i)
+      {
+        if(neo_anime[hhhhhh].action[i] == ANIME_INCREASE && neo_anime[hhhhhh].target_color[i] < 255)
+          neo_anime[hhhhhh].target_color[i]++;
+        else if(neo_anime[hhhhhh].action[i] == ANIME_DECREASE && neo_anime[hhhhhh].target_color[i] > 0)
+          neo_anime[hhhhhh].target_color[i]--;
+      }
+      set_pixel_index(neo_anime[hhhhhh].index, neo_anime[hhhhhh].target_color[0], neo_anime[hhhhhh].target_color[1], neo_anime[hhhhhh].target_color[2]);
+    }
+  }
+  taskENTER_CRITICAL();
+  neopixel_show(red_buf, green_buf, blue_buf);
+  taskEXIT_CRITICAL();
+}
+void anime_init(void)
+{
+  uint8_t colors[THREE] = {64, 64, 64};
+  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+    led_animation_init(&neo_anime[i], i);
+  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+    led_start_animation(&neo_anime[i], colors, ANIMATION_MY_RAND, 0);
+}
 
 
 void animation_test(void)
