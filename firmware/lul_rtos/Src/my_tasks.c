@@ -46,6 +46,6 @@ void animation_task_start(void const * argument)
   for(;;)
   {
     led_animation_handler();
-    osDelay(30);
+    osDelay(33);
   }
 }

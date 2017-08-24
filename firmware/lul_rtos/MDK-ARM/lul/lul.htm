@@ -3,7 +3,7 @@
 <title>Static Call Graph - [lul\lul.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image lul\lul.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Thu Aug 24 21:59:58 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Thu Aug 24 23:06:02 2017
 <BR><P>
 <H3>Maximum Stack Usage =        840 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -233,7 +233,6 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = __aeabi_uidivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
-<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_animation_handler
 <LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_InitTick
 <LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_keyname
 <LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_DataInStage
@@ -254,7 +253,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
-<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;randcolor
+<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shuffle
 </UL>
 
 <P><STRONG><a name="[57]"></a>__aeabi_llsr</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, llushr.o(.text))
@@ -267,8 +266,8 @@ Global Symbols
 
 <P><STRONG><a name="[1ae]"></a>_ll_ushift_r</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, llushr.o(.text), UNUSED)
 
-<P><STRONG><a name="[188]"></a>rand</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rand.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;randcolor
+<P><STRONG><a name="[193]"></a>rand</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rand.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shuffle
 </UL>
 
 <P><STRONG><a name="[14d]"></a>srand</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, rand.o(.text))
@@ -397,8 +396,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_anime_handler
-<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_start_animation
+<BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_start_animation
 </UL>
 
 <P><STRONG><a name="[53]"></a>__aeabi_drsub</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, dadd.o(.text), UNUSED)
@@ -428,7 +426,6 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_llsr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_animation_handler
-<LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_anime_handler
 </UL>
 
 <P><STRONG><a name="[1b5]"></a>__aeabi_cdcmpeq</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, cdcmple.o(.text), UNUSED)
@@ -604,8 +601,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[b3]"></a>HAL_GPIO_WritePin</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32f0xx_hal_gpio.o(i.HAL_GPIO_WritePin))
-<BR><BR>[Called By]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
-<LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_readsector
+<BR><BR>[Called By]<UL><LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
+<LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_readsector
 <LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_status
 <LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_csd
 <LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_cid
@@ -987,7 +984,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_EndRxTxTransaction
 </UL>
-<BR>[Called By]<UL><LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_txrx
+<BR>[Called By]<UL><LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_txrx
 </UL>
 
 <P><STRONG><a name="[c3]"></a>HAL_SYSTICK_CLKSourceConfig</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, stm32f0xx_hal_cortex.o(i.HAL_SYSTICK_CLKSourceConfig))
@@ -1594,13 +1591,13 @@ Global Symbols
 <P><STRONG><a name="[141]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf8.o(i.__0printf$8))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
-<LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_readsector
+<BR>[Called By]<UL><LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
+<LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_readsector
 <LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_status
 <LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_csd
 <LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_cid
 <LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
-<LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_data
+<LI><a href="#[18b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_data
 <LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_r1
 <LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_write
 <LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read
@@ -1652,7 +1649,7 @@ Global Symbols
 <P><STRONG><a name="[1c1]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 
 <P><STRONG><a name="[41]"></a>animation_task_start</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, my_tasks.o(i.animation_task_start))
-<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = animation_task_start &rArr; led_animation_handler &rArr; led_start_animation &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; __aeabi_llsl
+<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = animation_task_start &rArr; anime_init &rArr; led_start_animation &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; __aeabi_llsl
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_animation_handler
@@ -1660,10 +1657,10 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(.constdata)
 </UL>
-<P><STRONG><a name="[f0]"></a>anime_init</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, animations.o(i.anime_init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = anime_init &rArr; led_start_animation &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; __aeabi_llsl
+<P><STRONG><a name="[f0]"></a>anime_init</STRONG> (Thumb, 76 bytes, Stack size 24 bytes, animations.o(i.anime_init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = anime_init &rArr; led_start_animation &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; __aeabi_llsl
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;randcolor
+<BR>[Calls]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shuffle
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_start_animation
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_animation_init
 </UL>
@@ -1692,11 +1689,11 @@ Global Symbols
 <LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
 </UL>
 
-<P><STRONG><a name="[18d]"></a>crc16</STRONG> (Thumb, 46 bytes, Stack size 12 bytes, sd_util.o(i.crc16))
+<P><STRONG><a name="[18c]"></a>crc16</STRONG> (Thumb, 46 bytes, Stack size 12 bytes, sd_util.o(i.crc16))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = crc16
 </UL>
-<BR>[Called By]<UL><LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_put_data
-<LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_data
+<BR>[Called By]<UL><LI><a href="#[190]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_put_data
+<LI><a href="#[18b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_data
 </UL>
 
 <P><STRONG><a name="[13c]"></a>disk_initialize</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, diskio.o(i.disk_initialize))
@@ -1778,8 +1775,7 @@ Global Symbols
 <P><STRONG><a name="[120]"></a>f_open</STRONG> (Thumb, 406 bytes, Stack size 608 bytes, ff.o(i.f_open))
 <BR><BR>[Stack]<UL><LI>Max Depth = 832<LI>Call Chain = f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;st_clust
-<LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remove_chain
+<BR>[Calls]<UL><LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remove_chain
 <LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_window
 <LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ld_clust
 <LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;follow_path
@@ -1788,6 +1784,7 @@ Global Symbols
 <LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ff_memfree
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ff_memalloc
 <LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;unlock_fs
+<LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;st_clust
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uread4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_keypress
@@ -1844,12 +1841,12 @@ Global Symbols
 <P><STRONG><a name="[116]"></a>f_sync</STRONG> (Thumb, 184 bytes, Stack size 16 bytes, ff.o(i.f_sync))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = f_sync &rArr; validate &rArr; lock_fs &rArr; ff_req_grant &rArr; osSemaphoreWait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;st_clust
-<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_window
+<BR>[Calls]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_window
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_write
 <LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validate
 <LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;unlock_fs
 <LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sync_fs
+<LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;st_clust
 </UL>
 <BR>[Called By]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
 </UL>
@@ -2073,12 +2070,10 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_scan_task
 </UL>
 
-<P><STRONG><a name="[150]"></a>keypress_anime_handler</STRONG> (Thumb, 76 bytes, Stack size 24 bytes, animations.o(i.keypress_anime_handler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = keypress_anime_handler &rArr; led_start_animation &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; __aeabi_llsl
+<P><STRONG><a name="[150]"></a>keypress_anime_handler</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, animations.o(i.keypress_anime_handler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = keypress_anime_handler &rArr; led_start_animation &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; __aeabi_llsl
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
-<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
-<LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2uiz
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_start_animation
 </UL>
 <BR>[Called By]<UL><LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_task_start
@@ -2097,8 +2092,8 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(.constdata)
 </UL>
-<P><STRONG><a name="[f1]"></a>led_animation_handler</STRONG> (Thumb, 268 bytes, Stack size 24 bytes, animations.o(i.led_animation_handler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = led_animation_handler &rArr; led_start_animation &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; __aeabi_llsl
+<P><STRONG><a name="[f1]"></a>led_animation_handler</STRONG> (Thumb, 226 bytes, Stack size 24 bytes, animations.o(i.led_animation_handler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = led_animation_handler &rArr; neopixel_show &rArr; HAL_SPI_Transmit &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;neopixel_show
 <LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
@@ -2109,9 +2104,6 @@ Global Symbols
 <LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
 <LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
 <LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_pixel_index
-<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;randcolor
-<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_start_animation
-<LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animation_task_start
 </UL>
@@ -2130,8 +2122,7 @@ Global Symbols
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_animation_handler
-<LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_anime_handler
+<BR>[Called By]<UL><LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_anime_handler
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anime_init
 </UL>
 
@@ -2354,16 +2345,6 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInitialiseNewTask
 </UL>
 
-<P><STRONG><a name="[f3]"></a>randcolor</STRONG> (Thumb, 42 bytes, Stack size 24 bytes, animations.o(i.randcolor))
-<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = randcolor &rArr; __aeabi_idivmod &rArr; __aeabi_uidivmod
-</UL>
-<BR>[Calls]<UL><LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rand
-<LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
-</UL>
-<BR>[Called By]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_animation_handler
-<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anime_init
-</UL>
-
 <P><STRONG><a name="[14c]"></a>scan_profiles</STRONG> (Thumb, 164 bytes, Stack size 16 bytes, parser.o(i.scan_profiles))
 <BR><BR>[Stack]<UL><LI>Max Depth = 272<LI>Call Chain = scan_profiles &rArr; f_opendir &rArr; follow_path &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
@@ -2382,7 +2363,7 @@ Global Symbols
 <P><STRONG><a name="[e9]"></a>sd_read</STRONG> (Thumb, 66 bytes, Stack size 32 bytes, sd_util.o(i.sd_read))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = sd_read &rArr; sd_init &rArr; sd_get_r7 &rArr; sd_get_r1 &rArr; spi_txrx &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_readsector
+<BR>[Calls]<UL><LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_readsector
 <LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_status
 <LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
 <LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
@@ -2393,7 +2374,7 @@ Global Symbols
 <P><STRONG><a name="[ea]"></a>sd_write</STRONG> (Thumb, 66 bytes, Stack size 32 bytes, sd_util.o(i.sd_write))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = sd_write &rArr; sd_writesector &rArr; sd_put_data &rArr; spi_txrx &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
+<BR>[Calls]<UL><LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
 <LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_status
 <LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
 <LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
@@ -2409,10 +2390,19 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_task_start
 </UL>
 
-<P><STRONG><a name="[155]"></a>set_pixel_index</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, animations.o(i.set_pixel_index))
+<P><STRONG><a name="[155]"></a>set_pixel_index</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, animations.o(i.set_pixel_index))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = set_pixel_index
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_animation_handler
+</UL>
+
+<P><STRONG><a name="[f3]"></a>shuffle</STRONG> (Thumb, 40 bytes, Stack size 16 bytes, animations.o(i.shuffle))
+<BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = shuffle &rArr; __aeabi_idivmod &rArr; __aeabi_uidivmod
+</UL>
+<BR>[Calls]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rand
+<LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
+</UL>
+<BR>[Called By]<UL><LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anime_init
 </UL>
 
 <P><STRONG><a name="[14b]"></a>spi_set_speed_neopixel</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, neopixel.o(i.spi_set_speed_neopixel))
@@ -2874,8 +2864,8 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[18b]"></a>crc7_one</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, sd_util.o(i.crc7_one))
-<BR><BR>[Called By]<UL><LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_cmd
+<P><STRONG><a name="[18a]"></a>crc7_one</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, sd_util.o(i.crc7_one))
+<BR><BR>[Called By]<UL><LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_cmd
 </UL>
 
 <P><STRONG><a name="[170]"></a>print_r1</STRONG> (Thumb, 44 bytes, Stack size 24 bytes, sd_util.o(i.print_r1))
@@ -2883,57 +2873,57 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
-<LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_readsector
+<BR>[Called By]<UL><LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
+<LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_readsector
 <LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_csd
 <LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_cid
 <LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
 </UL>
 
-<P><STRONG><a name="[189]"></a>sd_cmd</STRONG> (Thumb, 104 bytes, Stack size 16 bytes, sd_util.o(i.sd_cmd))
+<P><STRONG><a name="[188]"></a>sd_cmd</STRONG> (Thumb, 104 bytes, Stack size 16 bytes, sd_util.o(i.sd_cmd))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = sd_cmd &rArr; spi_txrx &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_txrx
-<LI><a href="#[18b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;crc7_one
+<BR>[Calls]<UL><LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_txrx
+<LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;crc7_one
 </UL>
-<BR>[Called By]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
-<LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_readsector
+<BR>[Called By]<UL><LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
+<LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_readsector
 <LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_status
 <LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_csd
 <LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_cid
 <LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
 </UL>
 
-<P><STRONG><a name="[18c]"></a>sd_get_data</STRONG> (Thumb, 104 bytes, Stack size 24 bytes, sd_util.o(i.sd_get_data))
+<P><STRONG><a name="[18b]"></a>sd_get_data</STRONG> (Thumb, 104 bytes, Stack size 24 bytes, sd_util.o(i.sd_get_data))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = sd_get_data &rArr; spi_txrx &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;crc16
-<LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_txrx
+<BR>[Calls]<UL><LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;crc16
+<LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_txrx
 <LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_readsector
+<BR>[Called By]<UL><LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_readsector
 <LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_csd
 <LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_cid
 </UL>
 
-<P><STRONG><a name="[18e]"></a>sd_get_r1</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, sd_util.o(i.sd_get_r1))
+<P><STRONG><a name="[18d]"></a>sd_get_r1</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, sd_util.o(i.sd_get_r1))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = sd_get_r1 &rArr; spi_txrx &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_txrx
+<BR>[Calls]<UL><LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_txrx
 </UL>
-<BR>[Called By]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
-<LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_readsector
+<BR>[Called By]<UL><LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
+<LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_readsector
 <LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_csd
 <LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_cid
 <LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
-<LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r7
+<LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r7
 </UL>
 
-<P><STRONG><a name="[18f]"></a>sd_get_r7</STRONG> (Thumb, 54 bytes, Stack size 16 bytes, sd_util.o(i.sd_get_r7))
+<P><STRONG><a name="[18e]"></a>sd_get_r7</STRONG> (Thumb, 54 bytes, Stack size 16 bytes, sd_util.o(i.sd_get_r7))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = sd_get_r7 &rArr; sd_get_r1 &rArr; spi_txrx &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_txrx
-<LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r1
+<BR>[Calls]<UL><LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_txrx
+<LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r1
 </UL>
 <BR>[Called By]<UL><LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
 </UL>
@@ -2941,12 +2931,12 @@ Local Symbols
 <P><STRONG><a name="[143]"></a>sd_init</STRONG> (Thumb, 850 bytes, Stack size 48 bytes, sd_util.o(i.sd_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = sd_init &rArr; sd_get_r7 &rArr; sd_get_r1 &rArr; spi_txrx &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_txrx
+<BR>[Calls]<UL><LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_txrx
 <LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_set_speed
-<LI><a href="#[190]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_nec
-<LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r7
-<LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r1
-<LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_cmd
+<LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_nec
+<LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r7
+<LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r1
+<LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_cmd
 <LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_r1
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 <LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
@@ -2957,35 +2947,35 @@ Local Symbols
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hwif_init
 </UL>
 
-<P><STRONG><a name="[190]"></a>sd_nec</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, sd_util.o(i.sd_nec))
+<P><STRONG><a name="[18f]"></a>sd_nec</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, sd_util.o(i.sd_nec))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = sd_nec &rArr; spi_txrx &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_txrx
+<BR>[Calls]<UL><LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_txrx
 </UL>
-<BR>[Called By]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
-<LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_readsector
+<BR>[Called By]<UL><LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
+<LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_readsector
 <LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_status
 <LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_csd
 <LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_cid
 <LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
 </UL>
 
-<P><STRONG><a name="[191]"></a>sd_put_data</STRONG> (Thumb, 132 bytes, Stack size 40 bytes, sd_util.o(i.sd_put_data))
+<P><STRONG><a name="[190]"></a>sd_put_data</STRONG> (Thumb, 132 bytes, Stack size 40 bytes, sd_util.o(i.sd_put_data))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = sd_put_data &rArr; spi_txrx &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;crc16
-<LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_txrx
+<BR>[Calls]<UL><LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;crc16
+<LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_txrx
 </UL>
-<BR>[Called By]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
+<BR>[Called By]<UL><LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
 </UL>
 
 <P><STRONG><a name="[145]"></a>sd_read_cid</STRONG> (Thumb, 232 bytes, Stack size 88 bytes, sd_util.o(i.sd_read_cid))
 <BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = sd_read_cid &rArr; sd_get_data &rArr; spi_txrx &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[190]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_nec
-<LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r1
-<LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_data
-<LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_cmd
+<BR>[Calls]<UL><LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_nec
+<LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r1
+<LI><a href="#[18b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_data
+<LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_cmd
 <LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_r1
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 <LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
@@ -2996,10 +2986,10 @@ Local Symbols
 <P><STRONG><a name="[146]"></a>sd_read_csd</STRONG> (Thumb, 722 bytes, Stack size 144 bytes, sd_util.o(i.sd_read_csd))
 <BR><BR>[Stack]<UL><LI>Max Depth = 280<LI>Call Chain = sd_read_csd &rArr; sd_get_data &rArr; spi_txrx &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[190]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_nec
-<LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r1
-<LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_data
-<LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_cmd
+<BR>[Calls]<UL><LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_nec
+<LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r1
+<LI><a href="#[18b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_data
+<LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_cmd
 <LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_r1
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 <LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
@@ -3010,9 +3000,9 @@ Local Symbols
 <P><STRONG><a name="[144]"></a>sd_read_status</STRONG> (Thumb, 136 bytes, Stack size 24 bytes, sd_util.o(i.sd_read_status))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = sd_read_status &rArr; sd_cmd &rArr; spi_txrx &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_txrx
-<LI><a href="#[190]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_nec
-<LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_cmd
+<BR>[Calls]<UL><LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_txrx
+<LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_nec
+<LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_cmd
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 <LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
@@ -3021,13 +3011,13 @@ Local Symbols
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hwif_init
 </UL>
 
-<P><STRONG><a name="[192]"></a>sd_readsector</STRONG> (Thumb, 152 bytes, Stack size 32 bytes, sd_util.o(i.sd_readsector))
+<P><STRONG><a name="[191]"></a>sd_readsector</STRONG> (Thumb, 152 bytes, Stack size 32 bytes, sd_util.o(i.sd_readsector))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = sd_readsector &rArr; sd_get_data &rArr; spi_txrx &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[190]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_nec
-<LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r1
-<LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_data
-<LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_cmd
+<BR>[Calls]<UL><LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_nec
+<LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r1
+<LI><a href="#[18b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_data
+<LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_cmd
 <LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_r1
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 <LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
@@ -3035,14 +3025,14 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read
 </UL>
 
-<P><STRONG><a name="[193]"></a>sd_writesector</STRONG> (Thumb, 166 bytes, Stack size 32 bytes, sd_util.o(i.sd_writesector))
+<P><STRONG><a name="[192]"></a>sd_writesector</STRONG> (Thumb, 166 bytes, Stack size 32 bytes, sd_util.o(i.sd_writesector))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = sd_writesector &rArr; sd_put_data &rArr; spi_txrx &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_txrx
-<LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_put_data
-<LI><a href="#[190]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_nec
-<LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r1
-<LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_cmd
+<BR>[Calls]<UL><LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_txrx
+<LI><a href="#[190]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_put_data
+<LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_nec
+<LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r1
+<LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_cmd
 <LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_r1
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 <LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
@@ -3062,20 +3052,20 @@ Local Symbols
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hwif_init
 </UL>
 
-<P><STRONG><a name="[18a]"></a>spi_txrx</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, sd_util.o(i.spi_txrx))
+<P><STRONG><a name="[189]"></a>spi_txrx</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, sd_util.o(i.spi_txrx))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = spi_txrx &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
 </UL>
-<BR>[Called By]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
+<BR>[Called By]<UL><LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
 <LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_status
-<LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_put_data
-<LI><a href="#[190]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_nec
+<LI><a href="#[190]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_put_data
+<LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_nec
 <LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
-<LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r7
-<LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r1
-<LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_data
-<LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_cmd
+<LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r7
+<LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r1
+<LI><a href="#[18b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_data
+<LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_cmd
 </UL>
 
 <P><STRONG><a name="[194]"></a>ssd1306_WriteCommand</STRONG> (Thumb, 32 bytes, Stack size 24 bytes, ssd1306.o(i.ssd1306_WriteCommand))

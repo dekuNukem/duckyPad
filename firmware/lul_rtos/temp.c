@@ -1,3 +1,119 @@
+uint8_t bg_color[THREE] = {16, 64, 128};
+uint8_t bg_color[THREE] = {80, 0, 200};
+
+void get_random_unique_arr(void)
+{
+  memset(rand_order_buf, 0, 255);
+  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+  {
+    uint8_t exist = 0;
+    while(1)
+    {
+      uint8_t this_rand = rand() % NEOPIXEL_COUNT;
+      for (int jjj = 0; jjj < NEOPIXEL_COUNT; ++jjj)
+        if(this_rand == rand_order_buf[jjj])
+        {
+          exist = 1;
+          break;
+        }
+    }
+    
+
+  }
+}
+
+
+void animation_task_start(void const * argument)
+{
+  uint32_t once = 0;
+  anime_init();
+  for(;;)
+  {
+    if(once == 0)
+    {
+      boot_animation();
+      once = 1;
+    }
+    led_animation_handler();
+    osDelay(33);
+  }  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+    rand_order_buf[i] = i;
+  shuffle(rand_order_buf, NEOPIXEL_COUNT);
+  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+    printf("%d: %d\n", i, rand_order_buf[i]);
+}uint8_t is_used[NEOPIXEL_COUNT];
+
+void get_random_unique_arr(void)
+{
+  srand(HAL_GetTick());
+  memset(is_used, 0, 0);
+  memset(rand_order_buf, 0, 0);
+  uint8_t im = 0;
+  for (int in = 0; in < NEOPIXEL_COUNT && im < NEOPIXEL_COUNT; ++in) 
+  {
+    uint8_t r = rand() % (in + 1); /* generate a random number 'r' */
+
+    if (is_used[r])
+      /* we already have 'r' */
+      r = in; /* use 'in' instead of the generated number */
+
+    rand_order_buf[im++] = r; /* +1 since your range begins from 1 */
+    is_used[r] = 1;
+  }
+  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+    printf("%d: %d\n", i, rand_order_buf[i]);
+}
+void get_random_unique_arr(void)
+{
+  uint8_t in;
+  uint8_t im = 0;
+  for (in = 0; in < NEOPIXEL_COUNT && im < NEOPIXEL_COUNT; ++in)
+  {
+    int rn = NEOPIXEL_COUNT - in;
+    int rm = NEOPIXEL_COUNT - im;
+    if (rand() % rn < rm)    
+      rand_order_buf[im++] = in;
+  }
+  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+    printf("%d: %d\n", i, rand_order_buf[i]);
+}
+void keypress_anime_handler(uint8_t idx)
+{
+  uint8_t colors[THREE] = {255, 0, 0};
+  // for (int i = 0; i < THREE; ++i)
+  //   colors[i] = 255 - bg_color[i];
+  led_start_animation(&neo_anime[idx], colors, ANIMATION_CROSS_FADE, 3);
+  osDelay(90);
+  led_start_animation(&neo_anime[idx], bg_color, ANIMATION_CROSS_FADE, 20);
+}
+
+void animation_test(void)
+{
+  ;
+}
+
+void randcolor(uint8_t* red, uint8_t* blue, uint8_t* green)
+{
+  *red = rand() % 256;
+  *blue = rand() % (256 - *red);
+  *green = 256 - *red - *blue;
+}
+
+if(frame_counter % (ANIME_FPS * 5) == 0)
+  {
+    randcolor(&bg_color[0], &bg_color[1], &bg_color[2]);
+    for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+      led_start_animation(&neo_anime[i], bg_color, ANIMATION_CROSS_FADE, (ANIME_FPS * 5));
+  }
+  void anime_init(void)
+{
+  uint8_t colors[THREE];
+  randcolor(&colors[0], &colors[1], &colors[2]);
+  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+    led_animation_init(&neo_anime[i], i);
+  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+    led_start_animation(&neo_anime[i], colors, ANIMATION_CROSS_FADE, (ANIME_FPS * 2));
+}
 void animation_test(void)
 {
   uint8_t colors[THREE];

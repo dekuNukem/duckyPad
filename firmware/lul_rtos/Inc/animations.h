@@ -12,7 +12,7 @@
 #define ANIMATION_NO_ANIMATION 0
 #define ANIMATION_CROSS_FADE 1
 #define ANIMATION_FULLY_ON 2
- 	
+
 typedef struct
 {
 	uint32_t animation_start;
@@ -25,10 +25,9 @@ typedef struct
 } led_animation;
 
 void led_animation_handler(void);
-void animation_test(void);
 void anime_init(void);
-void led_start_animation(led_animation* anime_struct, uint8_t dest_color[THREE], uint8_t anime_type, uint8_t durations_frames);
 void keypress_anime_handler(uint8_t idx);
+void boot_animation(void);
 
 #ifdef __cplusplus
 }

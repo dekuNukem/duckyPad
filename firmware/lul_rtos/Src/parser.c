@@ -35,7 +35,6 @@ char lfn_buf[FILENAME_SIZE];
 char key_name_buf[FILENAME_SIZE];
 char read_buffer[READ_BUF_SIZE];
 char nonexistent_keyname[] = "-";
-
 profile_cache p_cache;
 
 const char cmd_NAME[] = "NAME ";
