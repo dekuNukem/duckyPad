@@ -43,6 +43,6 @@ void animation_task_start(void const * argument)
   for(;;)
   {
     animation_test();
-    osDelay(500);
+    osDelay(5000);
   }
 }

@@ -8,6 +8,7 @@
 #include "stm32f0xx_hal.h"
 
 #define THREE 3
+#define ANIME_FPS 30
 #define ANIMATION_NO_ANIMATION 0
 #define ANIMATION_CROSS_FADE 1
 #define ANIMATION_FULLY_ON 2

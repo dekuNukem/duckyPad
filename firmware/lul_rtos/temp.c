@@ -36,6 +36,34 @@ void led_animation_handler(void)
   neopixel_show(red_buf, green_buf, blue_buf);
   taskEXIT_CRITICAL();
 }
+void randcolor(uint8_t* red, uint8_t* blue, uint8_t* green)
+{
+  while(1) 
+  {
+    *red = rand() % 256;
+    *blue = rand() % (256 - *red);
+    *green = 256 - *red - *blue;
+    // if(*red <= 200 && *green <= 200 && *blue <= 200)
+      return;
+  }
+}
+void animation_test(void)
+{
+  uint8_t colors[THREE];
+  randcolor(&colors[0], &colors[1], &colors[2]);
+  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+  {
+    led_start_animation(&neo_anime[i], colors, ANIMATION_CROSS_FADE, 30);
+    osDelay(rand() % 200);
+  }
+}
+
+void randcolor(uint8_t* red, uint8_t* blue, uint8_t* green)
+{
+  *red = rand() % 256;
+  *blue = rand() % (256 - *red);
+  *green = 256 - *red - *blue;
+}
 
 void animation_test(void)
 {
