@@ -27,7 +27,7 @@ typedef struct
 void led_animation_handler(void);
 void anime_init(void);
 void keypress_anime_handler(uint8_t idx);
-void boot_animation(void);
+void error_animation(uint8_t stage);
 
 #ifdef __cplusplus
 }

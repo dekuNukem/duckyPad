@@ -6,8 +6,8 @@
 #include "parser.h"
 #include "ssd1306.h"
 #include "keyboard.h"
+#include "animations.h"
 
-#define READ_BUF_SIZE 200
 #define DEFAULT_CMD_DELAY_MS 10
 #define DEFAULT_CHAR_DELAY_MS 10
 
@@ -46,10 +46,6 @@ const char cmd_DEFAULTDELAY[] = "DEFAULTDELAY ";
 const char cmd_DEFAULTCHARDELAY[] = "DEFAULTCHARDELAY ";
 const char cmd_DELAY[] = "DELAY ";
 const char cmd_STRING[] = "STRING ";
-const char cmd_GUI[] = "GUI ";
-const char cmd_CONTROL[] = "CONTROL ";
-const char cmd_SHIFT[] = "SHIFT ";
-const char cmd_ALT[] = "ALT ";
 const char cmd_ESC[] = "ESCAPE";
 const char cmd_ENTER[] = "ENTER";
 const char cmd_UPARROW[] = "UP";
@@ -81,10 +77,10 @@ const char cmd_PAGEDOWN[] = "PAGEDOWN";
 const char cmd_DELETE[] = "DELETE";
 const char cmd_END[] = "END";
 const char cmd_SPACE[] = "SPACE";
-const char cmd_SHIFT_NOSPACE[] = "SHIFT";
-const char cmd_ALT_NOSPACE[] = "ALT";
-// const char cmd_GUI_NOSPACE[] = "GUI";
-// const char cmd_CONTROL_NOSPACE[] = "CONTROL";
+const char cmd_SHIFT[] = "SHIFT";
+const char cmd_ALT[] = "ALT";
+const char cmd_GUI[] = "GUI";
+const char cmd_CONTROL[] = "CONTROL";
 
 char* find_profile(uint8_t pid)
 {
@@ -145,6 +141,11 @@ char* get_keyname(char* pf_fn, uint8_t keynum)
   f_closedir(&dir);
   return ret;
 }
+
+// char* load_colors(char* pf_fn, uint8_t keynum)
+// {
+//   return NULL;
+// }
 
 void scan_profiles(void)
 {
@@ -274,7 +275,7 @@ void change_profile(uint8_t direction)
 char* goto_next_arg(char* buf, char* buf_end)
 {
   char* curr = buf;
-  if(curr >= buf_end)
+  if(buf == NULL || curr >= buf_end)
     return NULL;
   while(curr < buf_end && *curr != ' ')
       curr++;
@@ -349,40 +350,42 @@ uint8_t parse_special_key(char* msg)
     return KEY_DELETE;
   else if(strncmp(msg, cmd_END, strlen(cmd_END)) == 0)
     return KEY_END;
-  else if(strncmp(msg, cmd_SHIFT_NOSPACE, strlen(cmd_SHIFT_NOSPACE)) == 0)
+  else if(strncmp(msg, cmd_SHIFT, strlen(cmd_SHIFT)) == 0)
     return KEY_LEFT_SHIFT;
-  else if(strncmp(msg, cmd_ALT_NOSPACE, strlen(cmd_ALT_NOSPACE)) == 0)
+  else if(strncmp(msg, cmd_ALT, strlen(cmd_ALT)) == 0)
     return KEY_LEFT_ALT;
-  // else if(strncmp(msg, cmd_GUI_NOSPACE, strlen(cmd_GUI_NOSPACE)) == 0)
-  //   return KEY_LEFT_GUI;
-  // else if(strncmp(msg, cmd_CONTROL_NOSPACE, strlen(cmd_CONTROL_NOSPACE)) == 0)
-  //   return KEY_LEFT_CTRL;
+  else if(strncmp(msg, cmd_GUI, strlen(cmd_GUI)) == 0)
+    return KEY_LEFT_GUI;
+  else if(strncmp(msg, cmd_CONTROL, strlen(cmd_CONTROL)) == 0)
+    return KEY_LEFT_CTRL;
   else if(strncmp(msg, cmd_SPACE, strlen(cmd_SPACE)) == 0)
     return ' ';
   return 0;
 }
 
-uint8_t mod_combo(char* line, uint8_t key)
+void parse_combo(char* line, uint8_t key)
 {
-  uint8_t spk1, spk2;
-  char *arg1, *arg2;
+  uint8_t spk1 = 0;
+  uint8_t spk2 = 0;
   char* line_end = line + strlen(line);
-  arg1 = goto_next_arg(line, line_end);
-  if(arg1 == NULL)
-    return PARSE_ERROR;
-  arg2 = goto_next_arg(arg1, line_end);
+  char *arg1 = goto_next_arg(line, line_end);
+  char *arg2 = goto_next_arg(arg1, line_end);
 
   spk1 = parse_special_key(arg1);
-  if(spk1 == 0)
+  if(arg1 != NULL && spk1 == 0)
     spk1 = arg1[0];
+
   spk2 = parse_special_key(arg2);
-  if(spk2 == 0)
-    spk2 = arg1[0];
-  
+  if(arg2 != NULL && spk2 == 0)
+    spk2 = arg2[0];
+
   keyboard_press(key, 1);
   osDelay(char_delay);
-  keyboard_press(spk1, 0);
-  osDelay(char_delay);
+  if(arg1 != NULL)
+  {
+    keyboard_press(spk1, 0);
+    osDelay(char_delay);
+  }
   if(arg2 != NULL)
   {
     keyboard_press(spk2, 0);
@@ -390,8 +393,6 @@ uint8_t mod_combo(char* line, uint8_t key)
   }
   keyboard_release_all();
   osDelay(char_delay);
-  
-  return PARSE_OK;
 }
 
 uint16_t get_arg(char* line)
@@ -414,12 +415,7 @@ uint8_t parse_line(char* line)
   char spk = parse_special_key(line);
 
   if(spk != 0)
-  {
-    keyboard_press(spk, 1);
-    osDelay(char_delay);
-    keyboard_release_all();
-    osDelay(char_delay);
-  }
+    parse_combo(line, spk);
   else if(strncmp(cmd_NAME, line, strlen(cmd_NAME)) == 0)
     ;
   else if(strncmp(cmd_REM, line, strlen(cmd_REM)) == 0)
@@ -428,38 +424,6 @@ uint8_t parse_line(char* line)
     ;
   else if(strncmp(cmd_STRING, line, strlen(cmd_STRING)) == 0)
     kb_print(line + strlen(cmd_STRING), char_delay);
-  else if(strncmp(cmd_GUI, line, strlen(cmd_GUI)) == 0)
-  {
-    if(mod_combo(line, KEY_LEFT_GUI) == PARSE_ERROR)
-    {
-      result = PARSE_ERROR;
-      goto parse_end;
-    }
-  }
-  else if(strncmp(cmd_CONTROL, line, strlen(cmd_CONTROL)) == 0)
-  {
-    if(mod_combo(line, KEY_LEFT_CTRL) == PARSE_ERROR)
-    {
-      result = PARSE_ERROR;
-      goto parse_end;
-    }
-  }
-  else if(strncmp(cmd_SHIFT, line, strlen(cmd_SHIFT)) == 0)
-  {
-    if(mod_combo(line, KEY_LEFT_SHIFT) == PARSE_ERROR)
-    {
-      result = PARSE_ERROR;
-      goto parse_end;
-    }
-  }
-  else if(strncmp(cmd_ALT, line, strlen(cmd_ALT)) == 0)
-  {
-    if(mod_combo(line, KEY_LEFT_ALT) == PARSE_ERROR)
-    {
-      result = PARSE_ERROR;
-      goto parse_end;
-    }
-  }
   else if(strncmp(cmd_DELAY, line, strlen(cmd_DELAY)) == 0)
   {
     uint16_t argg = get_arg(line);
@@ -490,7 +454,7 @@ uint8_t parse_line(char* line)
     }
     char_delay = argg;
   }
-  else if(goto_next_arg(line, line_end) == NULL || strlen(goto_next_arg(line, line_end)) <= 3)
+  else if(strlen(line) <= 2)
     result = PARSE_EMPTY_LINE;
   else
     result = PARSE_ERROR;
@@ -498,11 +462,13 @@ uint8_t parse_line(char* line)
   parse_end:
   if(result == PARSE_OK)
     osDelay(cmd_delay);
+  printf("%d >> %s\n", result, line);
   return result;
 }
 
 void handle_keypress(uint8_t keynum)
 {
+  uint16_t line_num = 0;
   uint8_t result;
   memset(temp_buf, 0, PATH_SIZE);
   sprintf(temp_buf, "/%s/%s", p_cache.profile_fn, p_cache.key_fn[keynum]);
@@ -513,15 +479,38 @@ void handle_keypress(uint8_t keynum)
   char_delay = DEFAULT_CHAR_DELAY_MS;
   while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
   {
+    line_num++;
     if(strncmp(cmd_REPLAY, read_buffer, strlen(cmd_REPLAY)) == 0)
     {
       uint8_t repeats = atoi(goto_next_arg(read_buffer, read_buffer + strlen(read_buffer)));
       for (int i = 0; i < repeats; ++i)
         parse_line(prev_line);
+      continue;
     }
     result = parse_line(read_buffer);
     if(result == PARSE_ERROR)
-      printf("ERR: %s\n", read_buffer);
+    {
+      error_animation(0);
+      ssd1306_Fill(Black);
+      ssd1306_SetCursor(0, 0);
+      ssd1306_WriteString("Parse error in", Font_6x10,White);
+      ssd1306_SetCursor(0, 12);
+      ssd1306_WriteString(p_cache.profile_fn, Font_6x10,White);
+      ssd1306_SetCursor(0, 24);
+      ssd1306_WriteString(p_cache.key_fn[keynum], Font_6x10,White);
+      memset(temp_buf, 0, PATH_SIZE);
+      sprintf(temp_buf, "line %d:", line_num);
+      ssd1306_SetCursor(0, 40);
+      ssd1306_WriteString(temp_buf, Font_6x10,White);
+      read_buffer[21] = 0;
+      ssd1306_SetCursor(0, 52);
+      ssd1306_WriteString(read_buffer, Font_6x10,White);
+      ssd1306_UpdateScreen();
+      osDelay(5000);
+      error_animation(1);
+      print_legend();
+      goto kp_end;
+    }
     else if(result == PARSE_OK)
     {
       memset(prev_line, 0, READ_BUF_SIZE);

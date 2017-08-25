@@ -20,4 +20,4 @@ need to copy hid.c and 2 functions in ff.c
 cache profile filename and key filename during load profile
 
 save last profile number to sd card
-print parse error to oled
+each key has its own color?

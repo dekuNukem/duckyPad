@@ -12,7 +12,8 @@ uint8_t green_buf[NEOPIXEL_COUNT];
 uint8_t blue_buf[NEOPIXEL_COUNT];
 led_animation neo_anime[NEOPIXEL_COUNT];
 uint8_t bg_color[THREE] = {16, 64, 128};
-uint8_t keydown_color[THREE] = {255, 0, 0};
+uint8_t keydown_color[THREE] = {255, 255, 255};
+uint8_t error_color[THREE] = {255, 0, 0};
 uint8_t rand_order_buf[NEOPIXEL_COUNT];
 
 void shuffle(uint8_t *array, uint8_t array_size)
@@ -23,10 +24,10 @@ void shuffle(uint8_t *array, uint8_t array_size)
     uint8_t t = array[j];
     array[j] = array[i];
     array[i] = t;
-  }   
-}   
+  }
+}
 
-void set_pixel_index(uint8_t which, uint8_t r, uint8_t g, uint8_t b)
+void set_pixel_color(uint8_t which, uint8_t r, uint8_t g, uint8_t b)
 {
   red_buf[pixel_map[which]] = r;
   green_buf[pixel_map[which]] = g;
@@ -45,7 +46,7 @@ void led_animation_handler(void)
     if(neo_anime[idx].animation_type == ANIMATION_NO_ANIMATION)
       continue;
     else if(neo_anime[idx].animation_type == ANIMATION_FULLY_ON)
-      set_pixel_index(neo_anime[idx].index, neo_anime[idx].target_color[0], neo_anime[idx].target_color[1], neo_anime[idx].target_color[2]);
+      set_pixel_color(neo_anime[idx].index, neo_anime[idx].target_color[0], neo_anime[idx].target_color[1], neo_anime[idx].target_color[2]);
     else if(neo_anime[idx].animation_type == ANIMATION_CROSS_FADE)
     {
       if(current_frame <= neo_anime[idx].animation_duration)
@@ -64,7 +65,7 @@ void led_animation_handler(void)
          for (int i = 0; i < THREE; ++i)
           neo_anime[idx].current_color[i] = neo_anime[idx].target_color[i];
       }
-      set_pixel_index(neo_anime[idx].index, neo_anime[idx].current_color[0], neo_anime[idx].current_color[1], neo_anime[idx].current_color[2]);
+      set_pixel_color(neo_anime[idx].index, neo_anime[idx].current_color[0], neo_anime[idx].current_color[1], neo_anime[idx].current_color[2]);
     }  
   }
   taskENTER_CRITICAL();
@@ -111,9 +112,14 @@ void anime_init(void)
   }
 }
 
-void boot_animation(void)
+void error_animation(uint8_t stage)
 {
-  ;
+  if(stage == 0)
+    for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+      led_start_animation(&neo_anime[i], error_color, ANIMATION_CROSS_FADE, 3);
+  else
+    for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+      led_start_animation(&neo_anime[i], bg_color, ANIMATION_CROSS_FADE, 20);
 }
 
 void keypress_anime_handler(uint8_t idx)

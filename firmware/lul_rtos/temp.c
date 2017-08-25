@@ -1,3 +1,88 @@
+
+
+
+
+
+
+char* line_end = line + strlen(line);
+  char spk = parse_special_key(line);
+uint8_t mod_combo(char* line, uint8_t key)
+{
+  uint8_t spk1, spk2;
+  char *arg1, *arg2;
+  char* line_end = line + strlen(line);
+  arg1 = goto_next_arg(line, line_end);
+  if(arg1 == NULL)
+    return PARSE_ERROR;
+  arg2 = goto_next_arg(arg1, line_end);
+
+  spk1 = pecial_key(arg1);
+  if(spk1 == 0)
+    spk1 = arg1[0];
+  spk2 = parse_special_key(arg2);
+  if(spk2 == 0)
+    spk2 = arg1[0];
+      spk2 = arg1[0];
+printf("arg1: %s\n", arg1);
+printf("arg1: %s\n", arg1);
+  keyboard_press(key, 1);
+  osDelay(char_delay);
+  keyboard_press(spk1, 0);
+  osDelay(char_delay);
+  if(arg2 != NULL)
+  {
+    keyboard_press(spk2, 0);
+    osDelay(char_delay);
+  }
+  keyboard_release_all();
+  osDelay(char_delay);
+  
+  return PARSE_OK;
+}
+  if(spk != 0)
+  {
+    keyboard_press(spk, 1);
+    osDelay(char_delay);
+    keyboard_release_all();
+    osDelay(char_delay);
+  }
+
+else if(strncmp(cmd_GUI, line, strlen(cmd_GUI)) == 0)
+  {
+    if(mod_combo(line, KEY_LEFT_GUI) == PARSE_ERROR)
+    {
+      result = PARSE_ERROR;
+      goto parse_end;
+    }
+  }
+  else if(strncmp(cmd_CONTROL, line, strlen(cmd_CONTROL)) == 0)
+  {
+    if(mod_combo(line, KEY_LEFT_CTRL) == PARSE_ERROR)
+    {
+      result = PARSE_ERROR;
+      goto parse_end;
+    }
+  }
+  else if(strncmp(cmd_SHIFT, line, strlen(cmd_SHIFT)) == 0)
+  {
+    if(mod_combo(line, KEY_LEFT_SHIFT) == PARSE_ERROR)
+    {
+      result = PARSE_ERROR;
+      goto parse_end;
+    }
+  }
+  else if(strncmp(cmd_ALT, line, strlen(cmd_ALT)) == 0)
+  {
+    if(mod_combo(line, KEY_LEFT_ALT) == PARSE_ERROR)
+    {
+      result = PARSE_ERROR;
+      goto parse_end;
+    }
+  }
+
+
+
+
   printf("1: %s\n2:%s\n", arg1, arg2);
   printf("1: %d\n2:%d\n", spk1, spk2);
 
