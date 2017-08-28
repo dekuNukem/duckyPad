@@ -486,7 +486,7 @@ void kb_scan_task(void const * argument)
     while(1)
 	  osDelay(30);
   }
-  
+
   scan_profiles();
   change_profile(NEXT_PROFILE);
   init_complete = 1;

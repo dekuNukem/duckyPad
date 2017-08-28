@@ -11,8 +11,8 @@ uint8_t red_buf[NEOPIXEL_COUNT];
 uint8_t green_buf[NEOPIXEL_COUNT];
 uint8_t blue_buf[NEOPIXEL_COUNT];
 led_animation neo_anime[NEOPIXEL_COUNT];
-uint8_t bg_color[THREE] = {12, 64, 128};
-uint8_t keydown_color[THREE] = {255, 0, 255};
+uint8_t bg_color[THREE];
+uint8_t keydown_color[THREE];
 uint8_t error_color[THREE] = {255, 0, 0};
 uint8_t rand_order_buf[NEOPIXEL_COUNT];
 
@@ -111,17 +111,20 @@ void led_start_animation(led_animation* anime_struct, uint8_t dest_color[THREE],
 void anime_init(void)
 {
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+    led_animation_init(&neo_anime[i], i);
+  change_bg();
+}
+
+void change_bg(void)
+{
+  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
     rand_order_buf[i] = i;
   shuffle(rand_order_buf, NEOPIXEL_COUNT);
-  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
-    printf("%d: %d\n", i, rand_order_buf[i]);
 
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
-    led_animation_init(&neo_anime[i], i);
-  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
   {
-    led_start_animation(&neo_anime[i], bg_color, ANIMATION_CROSS_FADE, (ANIME_FPS * 1));
-    neo_anime[i].animation_start += 2 * rand_order_buf[i];
+    led_start_animation(&neo_anime[i], bg_color, ANIMATION_CROSS_FADE, (10));
+    neo_anime[i].animation_start += 1.5 * rand_order_buf[i];
   }
 }
 
@@ -138,7 +141,7 @@ void error_animation(uint8_t stage)
 void keypress_anime_handler(uint8_t idx)
 {
   led_start_animation(&neo_anime[idx], keydown_color, ANIMATION_CROSS_FADE, 3);
-  osDelay(90);
+  osDelay(99);
   led_start_animation(&neo_anime[idx], bg_color, ANIMATION_CROSS_FADE, 25);
 }
 

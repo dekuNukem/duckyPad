@@ -1,3 +1,27 @@
+for (int i = 0; i < 3; ++i)
+      {
+        curr = goto_next_arg(curr, msg_end);
+        printf("%d\n", atoi(curr));
+      }
+
+  for (int i = 0; i < 5; ++i)
+  {
+    ret = f_open(&sd_file, temp_buf, FA_READ);
+    if(ret == 4)
+    {
+      f_close(&sd_file);
+      osDelay(10);
+      continue;
+    }
+    else
+      break;
+  }
+
+  if(ret != 0)
+    goto color_end;
+  printf("%d\n", ret);
+  for (int i = 0; i < 3; ++i)
+    printf("%d\n", bg_color[i]);
 Program Size: Code=39636 RO-data=4132 RW-data=588 ZI-data=15308  
 void shuffle(uint8_t *array, uint8_t array_size)
 {
@@ -13,6 +37,7 @@ void shuffle(uint8_t *array, uint8_t array_size)
     array[i] = t;
   }
 }
+  // printf("%s\n", temp_buf);
 
 ssd1306_command(SSD1306_DISPLAYOFF);                    // 0xAE
 ssd1306_command(SSD1306_SETDISPLAYCLOCKDIV);            // 0xD5

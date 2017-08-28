@@ -42,6 +42,8 @@ void keypress_task_start(void const * argument)
 
 void animation_task_start(void const * argument)
 {
+  while(init_complete == 0)
+    osDelay(33);
   anime_init();
   for(;;)
   {

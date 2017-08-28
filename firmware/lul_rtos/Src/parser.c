@@ -81,6 +81,22 @@ const char cmd_SHIFT[] = "SHIFT";
 const char cmd_ALT[] = "ALT";
 const char cmd_GUI[] = "GUI";
 const char cmd_CONTROL[] = "CONTROL";
+const char cmd_BG_COLOR[] = "BG_COLOR ";
+const char cmd_KD_COLOR[] = "KEYDOWN_COLOR ";
+
+char* goto_next_arg(char* buf, char* buf_end)
+{
+  char* curr = buf;
+  if(buf == NULL || curr >= buf_end)
+    return NULL;
+  while(curr < buf_end && *curr != ' ')
+      curr++;
+  while(curr < buf_end && *curr == ' ')
+      curr++;
+  if(curr >= buf_end)
+    return NULL;
+  return curr;
+}
 
 char* find_profile(uint8_t pid)
 {
@@ -142,10 +158,53 @@ char* get_keyname(char* pf_fn, uint8_t keynum)
   return ret;
 }
 
-// char* load_colors(char* pf_fn, uint8_t keynum)
-// {
-//   return NULL;
-// }
+uint8_t load_colors(char* pf_fn)
+{
+  char *curr, *msg_end;
+  uint8_t ret;
+
+  bg_color[0] = DEFAULT_BG_RED;
+  bg_color[1] = DEFAULT_BG_GREEN;
+  bg_color[2] = DEFAULT_BG_BLUE;
+  keydown_color[0] = DEFAULT_KD_RED;
+  keydown_color[1] = DEFAULT_KD_GREEN;
+  keydown_color[2] =DEFAULT_KD_BLUE;
+
+  memset(temp_buf, 0, PATH_SIZE);
+  sprintf(temp_buf, "/%s/config.txt", pf_fn);
+
+  ret = f_open(&sd_file, temp_buf, FA_READ);
+  if(ret != 0)
+    goto color_end;
+
+  while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
+  {
+    curr = read_buffer;
+    msg_end = curr + strlen(read_buffer);
+    if(strncmp(cmd_BG_COLOR, read_buffer, strlen(cmd_BG_COLOR)) == 0)
+    {
+      curr = goto_next_arg(curr, msg_end);
+      bg_color[0] = atoi(curr);
+      curr = goto_next_arg(curr, msg_end);
+      bg_color[1] = atoi(curr);
+      curr = goto_next_arg(curr, msg_end);
+      bg_color[2] = atoi(curr);
+    }
+    if(strncmp(cmd_KD_COLOR, read_buffer, strlen(cmd_KD_COLOR)) == 0)
+    {
+      curr = goto_next_arg(curr, msg_end);
+      keydown_color[0] = atoi(curr);
+      curr = goto_next_arg(curr, msg_end);
+      keydown_color[1] = atoi(curr);
+      curr = goto_next_arg(curr, msg_end);
+      keydown_color[2] = atoi(curr);
+    }
+  }
+  ret = PARSE_OK;
+  color_end:
+  f_close(&sd_file);
+  return ret;
+}
 
 void scan_profiles(void)
 {
@@ -193,6 +252,8 @@ void load_profile(uint8_t pid)
     memset(p_cache.key_fn[i], 0, FILENAME_SIZE);
     strcpy(p_cache.key_fn[i], get_keyname(p_cache.profile_fn, i));
   }
+  load_colors(p_cache.profile_fn);
+  change_bg();
   p_cache.current_profile = pid;
 }
 
@@ -220,7 +281,6 @@ void print_keyname(char* keyname, uint8_t keynum)
   ssd1306_WriteString(key_name_buf, Font_6x10,White);
 }
 
-// print current profile
 void print_legend(void)
 {
   ssd1306_Fill(Black);
@@ -270,20 +330,6 @@ void change_profile(uint8_t direction)
   print_legend();
   f_closedir(&dir);
   f_close(&sd_file);
-}
-
-char* goto_next_arg(char* buf, char* buf_end)
-{
-  char* curr = buf;
-  if(buf == NULL || curr >= buf_end)
-    return NULL;
-  while(curr < buf_end && *curr != ' ')
-      curr++;
-  while(curr < buf_end && *curr == ' ')
-      curr++;
-  if(curr >= buf_end)
-    return NULL;
-  return curr;
 }
 
 uint8_t parse_special_key(char* msg)
