@@ -74,6 +74,8 @@ ADC_HandleTypeDef hadc;
 
 I2C_HandleTypeDef hi2c1;
 
+IWDG_HandleTypeDef hiwdg;
+
 SPI_HandleTypeDef hspi1;
 
 UART_HandleTypeDef huart1;
@@ -92,6 +94,7 @@ static void MX_USART1_UART_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_ADC_Init(void);
+static void MX_IWDG_Init(void);
 void kb_scan_task(void const * argument);
 
 /* USER CODE BEGIN PFP */
@@ -136,6 +139,7 @@ int main(void)
   MX_SPI1_Init();
   MX_I2C1_Init();
   MX_ADC_Init();
+  MX_IWDG_Init();
 
   /* USER CODE BEGIN 2 */
   /* USER CODE END 2 */
@@ -201,12 +205,13 @@ void SystemClock_Config(void)
     /**Initializes the CPU, AHB and APB busses clocks 
     */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_HSI14
-                              |RCC_OSCILLATORTYPE_HSI48;
+                              |RCC_OSCILLATORTYPE_HSI48|RCC_OSCILLATORTYPE_LSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
   RCC_OscInitStruct.HSI14State = RCC_HSI14_ON;
   RCC_OscInitStruct.HSICalibrationValue = 16;
   RCC_OscInitStruct.HSI14CalibrationValue = 16;
+  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL5;
@@ -319,6 +324,21 @@ static void MX_I2C1_Init(void)
     /**Configure Digital filter 
     */
   if (HAL_I2CEx_ConfigDigitalFilter(&hi2c1, 0) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+}
+
+/* IWDG init function */
+static void MX_IWDG_Init(void)
+{
+
+  hiwdg.Instance = IWDG;
+  hiwdg.Init.Prescaler = IWDG_PRESCALER_32;
+  hiwdg.Init.Window = 2000;
+  hiwdg.Init.Reload = 2000;
+  if (HAL_IWDG_Init(&hiwdg) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -484,16 +504,18 @@ void kb_scan_task(void const * argument)
     ssd1306_UpdateScreen();
     spi_set_speed_neopixel();
     while(1)
-	  osDelay(30);
+    {
+      HAL_IWDG_Refresh(&hiwdg);
+      osDelay(30);
+    }
   }
-
   scan_profiles();
   change_profile(NEXT_PROFILE);
   init_complete = 1;
-
   /* Infinite loop */
   for(;;)
   {
+    HAL_IWDG_Refresh(&hiwdg);
     keyboard_update();
     osDelay(30);
   }
