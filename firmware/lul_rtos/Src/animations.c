@@ -16,12 +16,19 @@ uint8_t keydown_color[THREE] = {255, 0, 255};
 uint8_t error_color[THREE] = {255, 0, 0};
 uint8_t rand_order_buf[NEOPIXEL_COUNT];
 
+uint32_t get_adc_reading(void)
+{
+  uint32_t result = 0;
+  HAL_ADC_Start(&hadc);
+  if(HAL_ADC_PollForConversion(&hadc, 100) == HAL_OK)
+    result = HAL_ADC_GetValue(&hadc);
+  HAL_ADC_Stop(&hadc);
+  return result;
+}
+
 void shuffle(uint8_t *array, uint8_t array_size)
 {
-  osDelay(2);
-  uint16_t rrrr = htim7.Instance->CNT;
-  printf("t16: %d\n", rrrr);
-  srand(rrrr);
+  srand(get_adc_reading());
   for (uint8_t i = 0; i < array_size; i++) 
   {   
     uint8_t j = rand() % array_size; 

@@ -1,3 +1,18 @@
+Program Size: Code=39636 RO-data=4132 RW-data=588 ZI-data=15308  
+void shuffle(uint8_t *array, uint8_t array_size)
+{
+  osDelay(2);
+  uint16_t rrrr = htim7.Instance->CNT;
+  printf("t16: %d\n", rrrr);
+  srand(rrrr);
+  for (uint8_t i = 0; i < array_size; i++) 
+  {   
+    uint8_t j = rand() % array_size; 
+    uint8_t t = array[j];
+    array[j] = array[i];
+    array[i] = t;
+  }
+}
 
 ssd1306_command(SSD1306_DISPLAYOFF);                    // 0xAE
 ssd1306_command(SSD1306_SETDISPLAYCLOCKDIV);            // 0xD5
