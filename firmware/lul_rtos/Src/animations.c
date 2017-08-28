@@ -11,13 +11,17 @@ uint8_t red_buf[NEOPIXEL_COUNT];
 uint8_t green_buf[NEOPIXEL_COUNT];
 uint8_t blue_buf[NEOPIXEL_COUNT];
 led_animation neo_anime[NEOPIXEL_COUNT];
-uint8_t bg_color[THREE] = {16, 64, 128};
-uint8_t keydown_color[THREE] = {255, 255, 255};
+uint8_t bg_color[THREE] = {12, 64, 128};
+uint8_t keydown_color[THREE] = {255, 0, 255};
 uint8_t error_color[THREE] = {255, 0, 0};
 uint8_t rand_order_buf[NEOPIXEL_COUNT];
 
 void shuffle(uint8_t *array, uint8_t array_size)
-{   
+{
+  osDelay(2);
+  uint16_t rrrr = htim7.Instance->CNT;
+  printf("t16: %d\n", rrrr);
+  srand(rrrr);
   for (uint8_t i = 0; i < array_size; i++) 
   {   
     uint8_t j = rand() % array_size; 
@@ -102,6 +106,8 @@ void anime_init(void)
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
     rand_order_buf[i] = i;
   shuffle(rand_order_buf, NEOPIXEL_COUNT);
+  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+    printf("%d: %d\n", i, rand_order_buf[i]);
 
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
     led_animation_init(&neo_anime[i], i);

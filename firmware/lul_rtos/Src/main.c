@@ -473,7 +473,6 @@ void kb_scan_task(void const * argument)
   
   scan_profiles();
   change_profile(NEXT_PROFILE);
-  srand(htim7.Instance->CNT);
   init_complete = 1;
 
   /* Infinite loop */

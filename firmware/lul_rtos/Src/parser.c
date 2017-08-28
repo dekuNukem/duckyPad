@@ -251,7 +251,7 @@ void change_profile(uint8_t direction)
   if(is_all_empty)
   {
     ssd1306_Fill(Black);
-    ssd1306_SetCursor(32, 0);
+    ssd1306_SetCursor(0, 32);
     ssd1306_WriteString("no valid profiles!",Font_6x10,White);
     ssd1306_UpdateScreen();
     return;
@@ -462,7 +462,6 @@ uint8_t parse_line(char* line)
   parse_end:
   if(result == PARSE_OK)
     osDelay(cmd_delay);
-  printf("%d >> %s\n", result, line);
   return result;
 }
 
