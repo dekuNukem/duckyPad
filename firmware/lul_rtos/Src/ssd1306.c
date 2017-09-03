@@ -72,11 +72,11 @@ uint8_t ssd1306_Init(void)
 	ssd1306_WriteCommand(SSD1306_SETCOMPINS);                    // 0xDA
 	ssd1306_WriteCommand(0x12);
 	ssd1306_WriteCommand(SSD1306_SETCONTRAST);                   // 0x81
-	ssd1306_WriteCommand(0xCF);
+	ssd1306_WriteCommand(0x70); // CF
 	ssd1306_WriteCommand(SSD1306_SETPRECHARGE);                  // 0xd9
 	ssd1306_WriteCommand(0x22); // F1, try 22?
-	// ssd1306_WriteCommand(SSD1306_SETVCOMDETECT);                 // 0xDB
-	// ssd1306_WriteCommand(0x40);
+	ssd1306_WriteCommand(SSD1306_SETVCOMDETECT);                 // 0xDB
+	ssd1306_WriteCommand(0x40);
 	ssd1306_WriteCommand(SSD1306_DISPLAYALLON_RESUME);           // 0xA4
 	ssd1306_WriteCommand(SSD1306_NORMALDISPLAY);                 // 0xA6
 	ssd1306_WriteCommand(SSD1306_DEACTIVATE_SCROLL);

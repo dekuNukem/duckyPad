@@ -29,9 +29,9 @@ void keypress_task_start(void const * argument)
           keypress_anime_handler(i);
           handle_keypress(i);
         }
-        else if(i == 21) // -
+        else if(i == 21 || i == 20) // -
           change_profile(PREV_PROFILE);
-        else if(i == 22) // +
+        else if(i == 22 || i == 19) // +
           change_profile(NEXT_PROFILE);
         service_fresh_press(&button_status[i]);
       }
