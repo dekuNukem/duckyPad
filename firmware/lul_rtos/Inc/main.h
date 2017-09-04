@@ -71,6 +71,8 @@
 #define E2A_EXTI_IRQn EXTI0_1_IRQn
 #define E2B_Pin GPIO_PIN_1
 #define E2B_GPIO_Port GPIOA
+#define OLED_RESET_Pin GPIO_PIN_2
+#define OLED_RESET_GPIO_Port GPIOA
 #define E2_SW_Pin GPIO_PIN_3
 #define E2_SW_GPIO_Port GPIOA
 #define CARD_PRESENT_Pin GPIO_PIN_4

@@ -42,7 +42,8 @@ static SSD1306_t SSD1306;
 //
 static void ssd1306_WriteCommand(uint8_t command)
 {
-	HAL_I2C_Mem_Write(&hi2c1,SSD1306_I2C_ADDR,0x00,1,&command,1,1);
+	// HAL_I2C_Mem_Write(&hi2c1,SSD1306_I2C_ADDR,0x00,1,&command,1,65535);
+	// HAL_I2C_Master_Transmit(&hi2c1,SSD1306_I2C_ADDR,&command,1,65535);
 }
 
 
@@ -51,9 +52,6 @@ static void ssd1306_WriteCommand(uint8_t command)
 //
 uint8_t ssd1306_Init(void)
 {	
-	// Even wachten zodat het scherm zeker opgestart is
-	HAL_Delay(100);
-	
 	/* Init LCD */
 	ssd1306_WriteCommand(SSD1306_DISPLAYOFF);                    // 0xAE
 	ssd1306_WriteCommand(SSD1306_SETDISPLAYCLOCKDIV);            // 0xD5
