@@ -13,7 +13,6 @@ oh shit the switches might be upside down
 
 card_present low when card is inserted
 
-delay 100ms then reset when card_present changes
 
 need to copy hid.c and 2 functions in ff.c
 
@@ -21,3 +20,12 @@ cache profile filename and key filename during load profile
 
 save last profile number to sd card
 each key has its own color?
+
+pin 7 should connect to GND
+pin 11 BS1 should be high with a resistor
+pin 13 15 to GND
+add pullup on I2C lines
+reset pulled low with resistor
+
+dont forget to add idwg back after everything's done
+delay 100ms then reset when card_present changes

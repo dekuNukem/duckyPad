@@ -476,7 +476,7 @@ void kb_scan_task(void const * argument)
   /* USER CODE BEGIN 5 */
   mount_result = f_mount(&sd_fs, "", 1);
   HAL_GPIO_WritePin(OLED_RESET_GPIO_Port, OLED_RESET_Pin, GPIO_PIN_RESET);
-  HAL_Delay(100);
+  HAL_Delay(10);
   HAL_GPIO_WritePin(OLED_RESET_GPIO_Port, OLED_RESET_Pin, GPIO_PIN_SET);
   HAL_Delay(100);
   ssd1306_Init();

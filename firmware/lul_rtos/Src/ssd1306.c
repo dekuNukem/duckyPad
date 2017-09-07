@@ -42,8 +42,7 @@ static SSD1306_t SSD1306;
 //
 static void ssd1306_WriteCommand(uint8_t command)
 {
-	// HAL_I2C_Mem_Write(&hi2c1,SSD1306_I2C_ADDR,0x00,1,&command,1,65535);
-	// HAL_I2C_Master_Transmit(&hi2c1,SSD1306_I2C_ADDR,&command,1,65535);
+	HAL_I2C_Mem_Write(&hi2c1,SSD1306_I2C_ADDR,0x00,1,&command,1,65535);
 }
 
 
@@ -62,7 +61,9 @@ uint8_t ssd1306_Init(void)
 	ssd1306_WriteCommand(0x0);                                   // no offset
 	ssd1306_WriteCommand(SSD1306_SETSTARTLINE | 0x0);            // line #0
 	ssd1306_WriteCommand(SSD1306_CHARGEPUMP);                    // 0x8D
+	HAL_Delay(150);
 	ssd1306_WriteCommand(0x14);
+	HAL_Delay(150);
 	ssd1306_WriteCommand(SSD1306_MEMORYMODE);                    // 0x20
 	ssd1306_WriteCommand(0x00);                                  // 0x0 act like ks0108
 	ssd1306_WriteCommand(SSD1306_SEGREMAP | 0x1);
@@ -79,7 +80,8 @@ uint8_t ssd1306_Init(void)
 	ssd1306_WriteCommand(SSD1306_NORMALDISPLAY);                 // 0xA6
 	ssd1306_WriteCommand(SSD1306_DEACTIVATE_SCROLL);
 	ssd1306_WriteCommand(SSD1306_DISPLAYON);//--turn on oled panel
-	
+	HAL_Delay(150);
+
 	/* Clearen scherm */
 	ssd1306_Fill(Black);
 	
