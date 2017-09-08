@@ -63,7 +63,7 @@ uint8_t ssd1306_Init(void)
 	ssd1306_WriteCommand(SSD1306_CHARGEPUMP);                    // 0x8D
 	HAL_Delay(150);
 	ssd1306_WriteCommand(0x14);
-	HAL_Delay(150);
+	// HAL_Delay(150);
 	ssd1306_WriteCommand(SSD1306_MEMORYMODE);                    // 0x20
 	ssd1306_WriteCommand(0x00);                                  // 0x0 act like ks0108
 	ssd1306_WriteCommand(SSD1306_SEGREMAP | 0x1);
@@ -71,7 +71,7 @@ uint8_t ssd1306_Init(void)
 	ssd1306_WriteCommand(SSD1306_SETCOMPINS);                    // 0xDA
 	ssd1306_WriteCommand(0x12);
 	ssd1306_WriteCommand(SSD1306_SETCONTRAST);                   // 0x81
-	ssd1306_WriteCommand(0x70); // CF
+	ssd1306_WriteCommand(0x70); // CF 70
 	ssd1306_WriteCommand(SSD1306_SETPRECHARGE);                  // 0xd9
 	ssd1306_WriteCommand(0x22); // F1, try 22?
 	ssd1306_WriteCommand(SSD1306_SETVCOMDETECT);                 // 0xDB

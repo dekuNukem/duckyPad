@@ -29,3 +29,7 @@ reset pulled low with resistor
 
 dont forget to add idwg back after everything's done
 delay 100ms then reset when card_present changes
+tin the under side of the oled ribbon cable
+
+looks like all the probroems were from inconsistent connection between ribbon cable and pcb, tin the pcb thinly as well as the ribbon cable before soldering, use plenty of flux
+line up the holes on the pcb with the holes on the ribbon cable, use a small pcb to hold it in place, like exixe 12
