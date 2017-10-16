@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="8.2.2">
+<eagle version="8.3.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="yes"/>
+<setting keepoldvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
 <grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
@@ -5382,7 +5383,7 @@ Source: http://www.semiconductors.philips.com/acrobat_download/datasheets/74HC_H
 <part name="C4" library="clock" deviceset="CAP" device="0805" value="1uF"/>
 <part name="U$18" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="U$19" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="C5" library="clock" deviceset="CAP" device="0805" value="2.2+1uF"/>
+<part name="C5" library="clock" deviceset="CAP" device="0805" value="2.2uF"/>
 <part name="U$20" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="C7" library="clock" deviceset="CAP" device="0805" value="1uF"/>
 <part name="C8" library="clock" deviceset="CAP" device="0805" value="2.2uF/16V"/>
@@ -5620,21 +5621,21 @@ Source: http://www.semiconductors.philips.com/acrobat_download/datasheets/74HC_H
 <instance part="LED13" gate="G$1" x="-185.42" y="-121.92" rot="MR0"/>
 <instance part="LED14" gate="G$1" x="-137.16" y="-121.92" rot="MR0"/>
 <instance part="LED15" gate="G$1" x="-96.52" y="-121.92" rot="MR0"/>
-<instance part="+3V11" gate="G$1" x="-180.34" y="43.18" rot="MR0"/>
-<instance part="+3V12" gate="G$1" x="-132.08" y="43.18" rot="MR0"/>
-<instance part="+3V13" gate="G$1" x="-88.9" y="43.18" rot="MR0"/>
+<instance part="+3V11" gate="G$1" x="-190.5" y="43.18" rot="MR0"/>
+<instance part="+3V12" gate="G$1" x="-142.24" y="43.18" rot="MR0"/>
+<instance part="+3V13" gate="G$1" x="-99.06" y="43.18" rot="MR0"/>
 <instance part="+3V14" gate="G$1" x="-88.9" y="7.62" rot="MR0"/>
 <instance part="+3V15" gate="G$1" x="-132.08" y="7.62" rot="MR0"/>
 <instance part="+3V16" gate="G$1" x="-180.34" y="7.62" rot="MR0"/>
-<instance part="+3V17" gate="G$1" x="-180.34" y="-30.48" rot="MR0"/>
-<instance part="+3V18" gate="G$1" x="-132.08" y="-30.48" rot="MR0"/>
-<instance part="+3V19" gate="G$1" x="-88.9" y="-30.48" rot="MR0"/>
+<instance part="+3V17" gate="G$1" x="-190.5" y="-30.48" rot="MR0"/>
+<instance part="+3V18" gate="G$1" x="-142.24" y="-30.48" rot="MR0"/>
+<instance part="+3V19" gate="G$1" x="-99.06" y="-30.48" rot="MR0"/>
 <instance part="+3V20" gate="G$1" x="-88.9" y="-71.12" rot="MR0"/>
 <instance part="+3V21" gate="G$1" x="-132.08" y="-71.12" rot="MR0"/>
 <instance part="+3V22" gate="G$1" x="-180.34" y="-71.12" rot="MR0"/>
-<instance part="+3V23" gate="G$1" x="-180.34" y="-104.14" rot="MR0"/>
-<instance part="+3V24" gate="G$1" x="-132.08" y="-104.14" rot="MR0"/>
-<instance part="+3V25" gate="G$1" x="-91.44" y="-104.14" rot="MR0"/>
+<instance part="+3V23" gate="G$1" x="-190.5" y="-104.14" rot="MR0"/>
+<instance part="+3V24" gate="G$1" x="-142.24" y="-104.14" rot="MR0"/>
+<instance part="+3V25" gate="G$1" x="-101.6" y="-104.14" rot="MR0"/>
 <instance part="GND2" gate="1" x="-96.52" y="-134.62"/>
 <instance part="GND3" gate="1" x="-137.16" y="-134.62"/>
 <instance part="GND4" gate="1" x="-185.42" y="-134.62"/>
@@ -5678,15 +5679,15 @@ Source: http://www.semiconductors.philips.com/acrobat_download/datasheets/74HC_H
 <instance part="GND32" gate="1" x="-63.5" y="38.1"/>
 <instance part="+3V32" gate="G$1" x="-63.5" y="63.5" rot="MR0"/>
 <instance part="C27" gate="G$1" x="-238.76" y="-35.56"/>
-<instance part="U$7" gate="G$1" x="474.98" y="38.1"/>
-<instance part="U$9" gate="G$1" x="515.62" y="35.56"/>
-<instance part="U$10" gate="G$1" x="464.82" y="12.7"/>
-<instance part="U$11" gate="G$1" x="528.32" y="10.16"/>
-<instance part="U$12" gate="G$1" x="497.84" y="-5.08"/>
-<instance part="U$13" gate="G$1" x="485.14" y="25.4"/>
-<instance part="U$14" gate="G$1" x="472.44" y="-5.08"/>
-<instance part="U$15" gate="G$1" x="482.6" y="27.94"/>
-<instance part="U$16" gate="G$1" x="500.38" y="10.16"/>
+<instance part="U$7" gate="G$1" x="467.36" y="48.26"/>
+<instance part="U$9" gate="G$1" x="495.3" y="15.24"/>
+<instance part="U$10" gate="G$1" x="467.36" y="33.02"/>
+<instance part="U$11" gate="G$1" x="523.24" y="33.02"/>
+<instance part="U$12" gate="G$1" x="523.24" y="15.24"/>
+<instance part="U$13" gate="G$1" x="495.3" y="33.02"/>
+<instance part="U$14" gate="G$1" x="467.36" y="15.24"/>
+<instance part="U$15" gate="G$1" x="495.3" y="48.26"/>
+<instance part="U$16" gate="G$1" x="523.24" y="48.26"/>
 <instance part="R7" gate="G$1" x="299.72" y="33.02" rot="R90"/>
 <instance part="R8" gate="G$1" x="292.1" y="30.48" rot="R90"/>
 <instance part="+3V27" gate="G$1" x="299.72" y="40.64"/>
@@ -6313,17 +6314,14 @@ Source: http://www.semiconductors.philips.com/acrobat_download/datasheets/74HC_H
 <segment>
 <pinref part="LED1" gate="G$1" pin="VDD"/>
 <pinref part="+3V11" gate="G$1" pin="+3V3"/>
-<wire x1="-190.5" y1="40.64" x2="-180.34" y2="40.64" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="LED2" gate="G$1" pin="VDD"/>
 <pinref part="+3V12" gate="G$1" pin="+3V3"/>
-<wire x1="-142.24" y1="40.64" x2="-132.08" y2="40.64" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="LED3" gate="G$1" pin="VDD"/>
 <pinref part="+3V13" gate="G$1" pin="+3V3"/>
-<wire x1="-99.06" y1="40.64" x2="-88.9" y2="40.64" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="LED6" gate="G$1" pin="VDD"/>
@@ -6340,17 +6338,14 @@ Source: http://www.semiconductors.philips.com/acrobat_download/datasheets/74HC_H
 <segment>
 <pinref part="LED7" gate="G$1" pin="VDD"/>
 <pinref part="+3V17" gate="G$1" pin="+3V3"/>
-<wire x1="-190.5" y1="-33.02" x2="-180.34" y2="-33.02" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="LED8" gate="G$1" pin="VDD"/>
 <pinref part="+3V18" gate="G$1" pin="+3V3"/>
-<wire x1="-142.24" y1="-33.02" x2="-132.08" y2="-33.02" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="LED9" gate="G$1" pin="VDD"/>
 <pinref part="+3V19" gate="G$1" pin="+3V3"/>
-<wire x1="-99.06" y1="-33.02" x2="-88.9" y2="-33.02" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="LED12" gate="G$1" pin="VDD"/>
@@ -6367,17 +6362,14 @@ Source: http://www.semiconductors.philips.com/acrobat_download/datasheets/74HC_H
 <segment>
 <pinref part="LED13" gate="G$1" pin="VDD"/>
 <pinref part="+3V23" gate="G$1" pin="+3V3"/>
-<wire x1="-190.5" y1="-106.68" x2="-180.34" y2="-106.68" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="LED14" gate="G$1" pin="VDD"/>
 <pinref part="+3V24" gate="G$1" pin="+3V3"/>
-<wire x1="-142.24" y1="-106.68" x2="-132.08" y2="-106.68" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="LED15" gate="G$1" pin="VDD"/>
 <pinref part="+3V25" gate="G$1" pin="+3V3"/>
-<wire x1="-101.6" y1="-106.68" x2="-91.44" y2="-106.68" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="C11" gate="G$1" pin="2"/>
@@ -6981,7 +6973,7 @@ Source: http://www.semiconductors.philips.com/acrobat_download/datasheets/74HC_H
 </drawing>
 <compatibility>
 <note version="8.2" severity="warning">
-Since Version 8.2, Eagle supports online libraries. The ids
+Since Version 8.2, EAGLE supports online libraries. The ids
 of those online libraries will not be understood (or retained)
 with this version.
 </note>
