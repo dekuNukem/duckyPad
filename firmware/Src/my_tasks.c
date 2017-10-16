@@ -21,19 +21,19 @@ void keypress_task_start(void const * argument)
   for(;;)
   {
     for (int i = 0; i < KEY_COUNT; ++i)
-      if(is_fresh_pressed(&button_status[i]))
+      if(is_pressed(&button_status[i]))
       {
-        printf("%d\n", i);
+        // printf("%d\n", i);
         if(i < 15)
         {
           keypress_anime_handler(i);
           handle_keypress(i);
         }
-        else if(i == 21 || i == 20) // -
+        else if(i == 21) // -
           change_profile(PREV_PROFILE);
-        else if(i == 22 || i == 19) // +
+        else if(i == 22) // +
           change_profile(NEXT_PROFILE);
-        service_fresh_press(&button_status[i]);
+        service_press(&button_status[i]);
       }
     osDelay(30);
   }

@@ -549,6 +549,22 @@ static const BYTE ExCvt[] = _EXCVT;	/* Upper conversion table for extended chara
 #endif
 
 
+WCHAR ff_convert (WCHAR wch, UINT dir) 
+{ 
+    if (wch < 0x80)
+      return wch;
+    return 0; 
+}
+
+WCHAR ff_wtoupper (WCHAR wch) 
+{ 
+    if (wch >= 0x80)
+      return 0; 
+
+  if (wch >= 'a' && wch <= 'z')
+    wch &= ~0x20; 
+  return wch; 
+}
 
 
 

@@ -80,7 +80,7 @@ uint8_t ssd1306_Init(void)
 	ssd1306_WriteCommand(SSD1306_NORMALDISPLAY);                 // 0xA6
 	ssd1306_WriteCommand(SSD1306_DEACTIVATE_SCROLL);
 	ssd1306_WriteCommand(SSD1306_DISPLAYON);//--turn on oled panel
-	HAL_Delay(150);
+	HAL_Delay(10);
 
 	/* Clearen scherm */
 	ssd1306_Fill(Black);
