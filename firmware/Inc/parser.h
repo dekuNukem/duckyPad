@@ -8,7 +8,7 @@
 #include "stm32f0xx_hal.h"
 #include "buttons.h"
 
-#define READ_BUF_SIZE 200
+#define READ_BUF_SIZE 256
 #define MAX_PROFILES 16
 #define PATH_SIZE 40
 #define FILENAME_SIZE 24
