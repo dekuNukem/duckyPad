@@ -19,7 +19,7 @@ Multiple profiles are supported, for different programs/environments.
 
 ## Questions?
 
-Feel free to ask in the issue section, or email me at `dekunukem__mail__com`.
+Feel free to ask in the issue section, or email me at `dekunukem__gmail__com`.
 
 ## Usage
 
