@@ -5427,7 +5427,7 @@ Source: http://www.semiconductors.philips.com/acrobat_download/datasheets/74HC_H
 <part name="C10" library="clock" deviceset="CAP" device="0805" value="0.1uF"/>
 <part name="U$3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="+3V2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
-<part name="R17" library="clock" deviceset="RESISTOR" device="0805-RES"/>
+<part name="R17" library="clock" deviceset="RESISTOR" device="0805-RES" value="10K"/>
 <part name="GND45" library="backplane" deviceset="GND" device=""/>
 <part name="GND19" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="LED1" library="lul" deviceset="WS2812B" device="3535"/>
@@ -5503,7 +5503,7 @@ Source: http://www.semiconductors.philips.com/acrobat_download/datasheets/74HC_H
 <part name="R5" library="clock" deviceset="RESISTOR" device="0805-RES" value="10k"/>
 <part name="GND32" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="+3V32" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
-<part name="C27" library="clock" deviceset="C-US" device="C1210"/>
+<part name="C27" library="clock" deviceset="C-US" device="C1210" value="47uF"/>
 <part name="U$7" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
 <part name="U$9" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
 <part name="U$10" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>

@@ -1,10 +1,10 @@
 # kbord: Programmable Mechanical Keypad with RGB Backlight
 
-![Alt text](https://i.imgur.com/f72OBPf.jpg)
+![Alt text](pics/title.jpg)
 
 kbord is a programmable keypad with 15 mechanical keys, each of which can be set to execute a script when pressed.
 
-The script can be as simple as shortcut keys like ctrl+c, or as complex as one that creates root backdoors or grabbing passwords.
+The script can be as simple as shortcut keys like ctrl+c, or as complex as [creating root backdoors](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---OSX-Root-Backdoor) or [grabbing passwords](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---download-mimikatz%2C-grab-passwords-and-email-them-via-gmail). Anything that can be done on keyboard can be written in the script.
 
 Multiple profiles are supported, for different programs/environments.
 
@@ -74,6 +74,42 @@ Press + - button on the lower right to change profiles.
 
 ## Making one yourself
 
-Here are some notes for the one who want to make:
+Here are some things to keep in mind if you're making one yourself:
 
-* Under construction...
+### Circuit board
+
+The board is a simple 2-layer board with a cutout for the OLED screen in the milling layer, some board fabs might ignore that layer, so be careful.
+
+![Alt text](pics/pcb.jpg)
+
+Getting a stencil is strongly recommended, because the RGB LED used here WILL melt if you try to solder it with a regular soldering iron. It's best to use a stencil and then reflow it in an oven.
+
+Speaking of which...
+
+### RGB LED
+
+The RGB LED is the trusty WS2812 that's thrown into every single RGB project these days, except it isn't: What I used is SK6812 which is a compatible clone with allegedly better performance. It is also the smaller 3535 package, not the regular 5050 kind, so do watch out for that.
+
+![Alt text](pics/led.jpg)
+
+I haven't tested WS2812 with the design, it should work on paper, but I suggest just get some 3535 SK6812 and be done with it.
+
+### Switches
+
+In theory you can use any cherry MX style 3-pin switches you like, however, because there are backlights underneath, you need to find one that has an opening for the LED, and has a clear case to let the light shine through.
+
+I used Gateron RGB switches, it's perfectly designed for this kind of usage, translucent case with a large opening for LED. I used greens but there are other colors to choose from as well.
+
+![Alt text](pics/gateron.jpg)
+
+A switch plate is strongly recommended as well, I had mine laser cut with a diffuser material for a smooth backlight.
+
+![Alt text](pics/plate.jpg)
+
+### Keycaps
+
+I bought some blank white keycaps, just make sure it won't block the backlight.
+
+### Misc
+
+Remember to make sure the entire board is working, as well as install the standoffs before you solder the switches in place, otherwise it would be almost impossible to get them off again.
