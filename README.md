@@ -17,6 +17,10 @@ Multiple profiles are supported, for different programs/environments.
 * Standard duckyscript parsed onboard
 * Multiple profiles supported
 
+## Questions?
+
+Feel free to ask in the issue section, or email me at `dekunukem__mail__com`.
+
 ## Usage
 
 ### Step 1: Preparing profiles
@@ -98,17 +102,17 @@ I haven't tested WS2812 with the design, it should work on paper, but I suggest 
 
 In theory you can use any cherry MX style 3-pin switches you like, however, because there are backlights underneath, you need to find one that has an opening for the LED, and has a clear case to let the light shine through.
 
-I used Gateron RGB switches, it's perfectly designed for this kind of usage, translucent case with a large opening for LED. I used greens but there are other colors to choose from as well.
+I used Gateron RGB switches, they are perfectly designed for this kind of usage, translucent case with a large opening for LED. I used greens but there are other colors to choose from as well.
 
 ![Alt text](pics/gateron.jpg)
 
-A switch plate is strongly recommended as well, I had mine laser cut with a diffuser material for a smooth backlight.
+A switch plate is strongly recommended, to improve stability and even out the backlight. I had mine laser cut with a diffuser material.
 
 ![Alt text](pics/plate.jpg)
 
 ### Keycaps
 
-I bought some blank white keycaps, just make sure it won't block the backlight.
+I bought some blank white keycaps, just make sure they don't block the backlight.
 
 ### Misc
 
