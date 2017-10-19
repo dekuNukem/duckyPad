@@ -17,6 +17,12 @@ Multiple profiles are supported, for different programs/environments.
 * Standard duckyscript parsed onboard
 * Multiple profiles supported
 
+## Video
+
+Here's a silly video showing kbord in action, as well as the timelapse of me building it.
+
+https://www.youtube.com/watch?v=EGLLCtRuEuM
+
 ## Questions?
 
 Feel free to ask in the issue section, or email me at `dekunukem__gmail__com`.
@@ -76,6 +82,14 @@ Press + - button on the lower right to change profiles.
 
 [See here](sample_SD_card) for some profiles that has been already set up. You can start from there and make changes to suit your need.
 
+## Technical notes
+
+The microcontroller used here is a STM32F072C8T6, my to-go chip when doing not-too-demanding projects like this. It costs less than a dollar, and has more peripherals and faster than any old aduinos can dream of, plenty of pins, and ST provides a free Keil MDK license with no code size limit. There are completely open source toolchains like arm-gcc as well.
+
+Since there are only 15 buttons, I didn't use matrix scanning and just hooked them all up to the microcontroller. I also included 2 rotary encoders, but they turned out to be not really useful for me so I didn't solder them on.
+
+One interesting design decision is about the RGB LED. The WS2812(and its clones) requires a rather high data rate, around 800KHz if I recall correctly. Arduino library achieve this by bitbanging in assembly because of the predictive instruction execution time in the 8-bit microprocessors. However the ARM processor in STM32 have some funky pipeline and caches, making asm timing somewhat unreliable. As a result I turned to SPI for LED control. By sending 0xf8 on MOSI at 8MHz, it appears to be a bit 1 in WS2812 protocol, likewise sending 0xc0 results in a bit 0. Since SPI is also used by SD card, an AND gate is added between MOSI and WS2812 input so the LED command is insulated from SPI when it's used for SD card.
+
 ## Making one yourself
 
 Here are some things to keep in mind if you're making one yourself:
@@ -117,3 +131,4 @@ I bought some blank white keycaps, just make sure they don't block the backlight
 ### Misc
 
 Remember to make sure the entire board is working, as well as install the standoffs before you solder the switches in place, otherwise it would be almost impossible to get them off again.
+
