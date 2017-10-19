@@ -88,7 +88,7 @@ Speaking of which...
 
 ### RGB LED
 
-The RGB LED is the trusty WS2812 that's thrown into every single RGB project these days, except it isn't: What I used is SK6812 which is a compatible clone with allegedly better performance. It is also the smaller 3535 package, not the regular 5050 kind, so do watch out for that.
+The RGB LED is the trusty WS2812 that's thrown into every single RGB project these days, except it isn't: What I used is SK6812 which is a compatible clone with [allegedly better performance](https://hackaday.com/2017/01/25/ws2812b-led-clones-work-better-than-originals/). It is also the smaller 3535 package, not the regular 5050 kind, so do watch out for that.
 
 ![Alt text](pics/led.jpg)
 
