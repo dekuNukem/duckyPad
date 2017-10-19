@@ -25,11 +25,11 @@ https://www.youtube.com/watch?v=EGLLCtRuEuM
 
 ## Technical notes
 
-The microcontroller used here is a STM32F072C8T6, my to-go chip when doing not-too-demanding projects like this. It costs less than a dollar, and has more peripherals and faster than any old aduinos can dream of, plenty of pins, and ST provides a free Keil MDK license with no code size limit. There are completely open source toolchains like arm-gcc as well.
+The microcontroller used here is a STM32F072C8T6, my go-to chip when doing not-too-demanding projects like this. It costs less than a dollar, has more peripherals, plenty of pins, and is faster than any old aduinos can dream of. ST provides a free Keil MDK license with no code size limit for all F0 parts too. There are also completely open source toolchains like arm-gcc.
 
 Since there are only 15 buttons, I didn't use matrix scanning and just hooked them all up to the microcontroller. I also included 2 rotary encoders, but they turned out to be not really useful for me so I didn't solder them on.
 
-One interesting design decision is about the RGB LED. The WS2812(and its clones) requires a rather high data rate, around 800KHz if I recall correctly. Arduino library achieve this by bitbanging in assembly because of the predictive instruction execution time in the 8-bit microprocessors. However the ARM processor in STM32 have some funky pipeline and caches, making asm timing somewhat unreliable. As a result I turned to SPI for LED control. By sending 0xf8 on MOSI at 8MHz, it appears to be a bit 1 in WS2812 protocol, likewise sending 0xc0 results in a bit 0. Since SPI is also used by SD card, an AND gate is added between MOSI and WS2812 input so the LED command is insulated from SPI when it's used for SD card.
+One interesting design detail is about the RGB LED. The WS2812(and its clones) requires a rather high data rate, around 800KHz if I recall correctly. Arduino library achieve this by bitbanging in assembly because of the predictive instruction execution time in the 8-bit microprocessors. However the ARM processor in STM32 have some funky pipeline and caches, making asm timing somewhat unreliable. As a result I turned to SPI for LED control. By selecting the right speed and carefully timing what data you send on the MISO line, you can have the waveform look exactly like what WS2812 requires. In this case sending 0xf8 at 8MHz is bit 1, and sending 0xc0 results in a bit 0. Since SPI is also used by SD card, an AND gate is added between MOSI and WS2812 input so the LED command is insulated from SPI when it's used for SD card.
 
 ## Questions?
 
