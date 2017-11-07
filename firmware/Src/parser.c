@@ -83,6 +83,10 @@ const char cmd_GUI[] = "GUI";
 const char cmd_CONTROL[] = "CONTROL";
 const char cmd_BG_COLOR[] = "BG_COLOR ";
 const char cmd_KD_COLOR[] = "KEYDOWN_COLOR ";
+const char cmd_VOLUP[] = "VOLUP";
+const char cmd_VOLDOWN[] = "VOLDOWN";
+const char cmd_VOLMUTE[] = "MUTE";
+
 
 char* goto_next_arg(char* buf, char* buf_end)
 {
@@ -406,6 +410,12 @@ uint8_t parse_special_key(char* msg)
     return KEY_LEFT_CTRL;
   else if(strncmp(msg, cmd_SPACE, strlen(cmd_SPACE)) == 0)
     return ' ';
+  else if(strncmp(msg, cmd_VOLUP, strlen(cmd_VOLUP)) == 0)
+    return KEY_VOL_UP;
+  else if(strncmp(msg, cmd_VOLDOWN, strlen(cmd_VOLDOWN)) == 0)
+    return KEY_VOL_DOWN;
+  else if(strncmp(msg, cmd_VOLMUTE, strlen(cmd_VOLMUTE)) == 0)
+    return KEY_VOL_MUTE;
   return 0;
 }
 

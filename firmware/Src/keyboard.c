@@ -156,9 +156,37 @@ void keyboard_release_all(void)
   USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, KB_BUF_SIZE);
 }
 
+uint8_t is_media_key(uint8_t k)
+{
+  return k == KEY_VOL_UP || k == KEY_VOL_DOWN || k == KEY_VOL_MUTE;
+}
+
+void media_key_press(uint8_t k)
+{
+  uint8_t usage_id = 0;
+  if(k == KEY_VOL_UP)
+    usage_id = 0x80;
+  else if(k == KEY_VOL_DOWN)
+    usage_id = 0x81;
+  else if(k == KEY_VOL_MUTE)
+    usage_id = 0x7f;
+
+  for (int i = 1; i < KB_BUF_SIZE; ++i)
+    kb_buf[i] = 0;
+  kb_buf[2] = usage_id;
+  USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, KB_BUF_SIZE);
+}
+
 void keyboard_press(uint8_t k, uint8_t use_mod)
 {
   uint8_t usage_id;
+
+  if(is_media_key(k))
+  {
+    media_key_press(k);
+    return;
+  }
+
   if(k >= 0x88)
     usage_id = k - 0x88;
   else if(k >= 0x80)
@@ -187,6 +215,13 @@ void keyboard_press(uint8_t k, uint8_t use_mod)
 void keyboard_release(uint8_t k)
 {
   uint8_t usage_id;
+
+  if(is_media_key(k))
+  {
+    keyboard_release_all();
+    return;
+  }
+
   if(k >= 0x88)
     usage_id = k - 0x88;
   else if(k >= 0x80)

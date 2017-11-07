@@ -47,6 +47,10 @@
 #define KEY_DOWN_ARROW (0X51+0x88)
 #define KEY_UP_ARROW (0X52+0x88)
 
+#define KEY_VOL_UP 0xff
+#define KEY_VOL_DOWN 0xfe
+#define KEY_VOL_MUTE 0xfd
+
 #define KB_BUF_SIZE 5
 
 void kb_test(void);
