@@ -42,7 +42,7 @@ static SSD1306_t SSD1306;
 //
 static void ssd1306_WriteCommand(uint8_t command)
 {
-	HAL_I2C_Mem_Write(&hi2c1,SSD1306_I2C_ADDR,0x00,1,&command,1,65535);
+	HAL_I2C_Mem_Write(&hi2c1,SSD1306_I2C_ADDR,0x00,1,&command,1,1);
 }
 
 
