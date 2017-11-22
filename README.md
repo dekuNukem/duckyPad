@@ -92,6 +92,8 @@ Press + - button on the lower right to change profiles.
 
 ## Making one yourself
 
+BOM is [here](/resources/kbord_bom.xlsx), build process is [here](https://www.youtube.com/watch?v=EGLLCtRuEuM)
+
 Here are some things to keep in mind if you're making one yourself:
 
 ### Circuit board
