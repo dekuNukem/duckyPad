@@ -35,6 +35,7 @@ static uint8_t SSD1306_Buffer[SSD1306_WIDTH * SSD1306_HEIGHT / 8];
 // Een scherm-object om lokaal in te werken
 static SSD1306_t SSD1306;
 
+uint8_t i2c_status;
 
 //
 //	Een byte sturen naar het commando register
@@ -42,7 +43,8 @@ static SSD1306_t SSD1306;
 //
 static void ssd1306_WriteCommand(uint8_t command)
 {
-	HAL_I2C_Mem_Write(&hi2c1,SSD1306_I2C_ADDR,0x00,1,&command,1,1);
+	if(i2c_status == HAL_OK)
+		HAL_I2C_Mem_Write(&hi2c1,SSD1306_I2C_ADDR,0x00,1,&command,1,1);
 }
 
 
@@ -51,6 +53,7 @@ static void ssd1306_WriteCommand(uint8_t command)
 //
 uint8_t ssd1306_Init(void)
 {	
+	i2c_status = HAL_I2C_IsDeviceReady(&hi2c1, SSD1306_I2C_ADDR, 1, 100);
 	/* Init LCD */
 	ssd1306_WriteCommand(SSD1306_DISPLAYOFF);                    // 0xAE
 	ssd1306_WriteCommand(SSD1306_SETDISPLAYCLOCKDIV);            // 0xD5
@@ -127,7 +130,8 @@ void ssd1306_UpdateScreen(void)
 		ssd1306_WriteCommand(0x10);
 
 		// We schrijven alles map per map weg
-		HAL_I2C_Mem_Write(&hi2c1,SSD1306_I2C_ADDR,0x40,1,&SSD1306_Buffer[SSD1306_WIDTH * i],SSD1306_WIDTH,100);
+		if(i2c_status == HAL_OK)
+			HAL_I2C_Mem_Write(&hi2c1,SSD1306_I2C_ADDR,0x40,1,&SSD1306_Buffer[SSD1306_WIDTH * i],SSD1306_WIDTH,100);
 	}
 }
 
