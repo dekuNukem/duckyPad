@@ -5261,6 +5261,68 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 </deviceset>
 </devicesets>
 </library>
+<library name="3pos_slide_switch">
+<packages>
+<package name="342_SWICH_FOOT">
+<smd name="P$1" x="-2.05" y="-0.825" dx="1.4" dy="1.15" layer="1" thermals="no"/>
+<smd name="P$2" x="-2.05" y="0.825" dx="1.4" dy="1.15" layer="1" thermals="no"/>
+<smd name="P$3" x="2.05" y="0.825" dx="1.4" dy="1.15" layer="1" thermals="no"/>
+<smd name="P$4" x="2.05" y="-0.825" dx="1.4" dy="1.15" layer="1" thermals="no"/>
+</package>
+<package name="342_SWICH_FOOT_HOLE">
+<smd name="P$1" x="-2.05" y="-0.825" dx="1.4" dy="1.15" layer="1" thermals="no"/>
+<smd name="P$2" x="-2.05" y="0.825" dx="1.4" dy="1.15" layer="1" thermals="no"/>
+<smd name="P$3" x="2.05" y="0.825" dx="1.4" dy="1.15" layer="1" thermals="no"/>
+<smd name="P$4" x="2.05" y="-0.825" dx="1.4" dy="1.15" layer="1" thermals="no"/>
+<hole x="0" y="0.9" drill="0.7"/>
+<hole x="0" y="-0.9" drill="0.7"/>
+</package>
+</packages>
+<symbols>
+<symbol name="342_SWITCH_SYM">
+<wire x1="-7.62" y1="7.62" x2="10.16" y2="7.62" width="0.254" layer="94"/>
+<wire x1="10.16" y1="7.62" x2="10.16" y2="-5.08" width="0.254" layer="94"/>
+<wire x1="10.16" y1="-5.08" x2="-10.16" y2="-5.08" width="0.254" layer="94"/>
+<wire x1="-10.16" y1="-5.08" x2="-10.16" y2="7.62" width="0.254" layer="94"/>
+<wire x1="-10.16" y1="7.62" x2="-7.62" y2="7.62" width="0.254" layer="94"/>
+<pin name="2" x="-15.24" y="5.08" length="middle"/>
+<pin name="1" x="-15.24" y="-2.54" length="middle"/>
+<pin name="3" x="15.24" y="5.08" length="middle" rot="R180"/>
+<pin name="4" x="15.24" y="-2.54" length="middle" rot="R180"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="324_SW">
+<gates>
+<gate name="G$1" symbol="342_SWITCH_SYM" x="-33.02" y="0"/>
+</gates>
+<devices>
+<device name="" package="342_SWICH_FOOT">
+<connects>
+<connect gate="G$1" pin="1" pad="P$1"/>
+<connect gate="G$1" pin="2" pad="P$2"/>
+<connect gate="G$1" pin="3" pad="P$3"/>
+<connect gate="G$1" pin="4" pad="P$4"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="324_SWITCH_FOOT_HOLE" package="342_SWICH_FOOT_HOLE">
+<connects>
+<connect gate="G$1" pin="1" pad="P$1"/>
+<connect gate="G$1" pin="2" pad="P$2"/>
+<connect gate="G$1" pin="3" pad="P$3"/>
+<connect gate="G$1" pin="4" pad="P$4"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -5304,8 +5366,6 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <part name="JP1" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-1X5" device=""/>
 <part name="S19" library="clock" deviceset="TAC_SWITCH" device="SMD" value="TAC_SWITCHSMD"/>
 <part name="S20" library="clock" deviceset="TAC_SWITCH" device="SMD" value="TAC_SWITCHSMD"/>
-<part name="S21" library="clock" deviceset="TAC_SWITCH" device="SMD" value="TAC_SWITCHSMD"/>
-<part name="S22" library="clock" deviceset="TAC_SWITCH" device="SMD" value="TAC_SWITCHSMD"/>
 <part name="IC2" library="clock" deviceset="REG1117" device=""/>
 <part name="+3V3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="+3V4" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
@@ -5429,6 +5489,9 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <part name="R9" library="joyAnalog" deviceset="RESISTOR" device="0805-RES" value="5.1K"/>
 <part name="C26" library="clock" deviceset="C-US" device="C1210" value="47uF"/>
 <part name="GND5" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="GND8" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="SW2" library="3pos_slide_switch" deviceset="324_SW" device="324_SWITCH_FOOT_HOLE" value="324_SW324_SWITCH_FOOT_HOLE"/>
+<part name="SW1" library="3pos_slide_switch" deviceset="324_SW" device="324_SWITCH_FOOT_HOLE" value="324_SW324_SWITCH_FOOT_HOLE"/>
 </parts>
 <sheets>
 <sheet>
@@ -5476,8 +5539,6 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <instance part="JP1" gate="A" x="358.14" y="-193.04" rot="R180"/>
 <instance part="S19" gate="S" x="144.78" y="-170.18"/>
 <instance part="S20" gate="S" x="144.78" y="-193.04"/>
-<instance part="S21" gate="S" x="241.3" y="-170.18"/>
-<instance part="S22" gate="S" x="243.84" y="-190.5"/>
 <instance part="IC2" gate="G$1" x="109.22" y="-144.78"/>
 <instance part="+3V3" gate="G$1" x="353.06" y="76.2"/>
 <instance part="+3V4" gate="G$1" x="320.04" y="48.26"/>
@@ -5602,6 +5663,9 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <instance part="R9" gate="G$1" x="-5.08" y="-149.86" rot="MR0"/>
 <instance part="C26" gate="G$1" x="86.36" y="-147.32"/>
 <instance part="GND5" gate="1" x="86.36" y="-154.94"/>
+<instance part="GND8" gate="1" x="276.86" y="-213.36"/>
+<instance part="SW2" gate="G$1" x="241.3" y="-157.48" rot="MR90"/>
+<instance part="SW1" gate="G$1" x="243.84" y="-205.74" rot="MR270"/>
 </instances>
 <busses>
 </busses>
@@ -5755,11 +5819,6 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <wire x1="337.82" y1="-165.1" x2="337.82" y2="-180.34" width="0.1524" layer="91"/>
 <wire x1="337.82" y1="-180.34" x2="322.58" y2="-180.34" width="0.1524" layer="91"/>
 <junction x="322.58" y="-180.34"/>
-</segment>
-<segment>
-<pinref part="S21" gate="S" pin="4"/>
-<pinref part="GND10" gate="1" pin="GND"/>
-<wire x1="246.38" y1="-172.72" x2="254" y2="-172.72" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="JP1" gate="A" pin="5"/>
@@ -6008,6 +6067,14 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <pinref part="C26" gate="G$1" pin="2"/>
 <pinref part="GND5" gate="1" pin="GND"/>
 </segment>
+<segment>
+<pinref part="SW2" gate="G$1" pin="2"/>
+<pinref part="GND10" gate="1" pin="GND"/>
+<wire x1="246.38" y1="-172.72" x2="254" y2="-172.72" width="0.1524" layer="91"/>
+<pinref part="SW2" gate="G$1" pin="3"/>
+<wire x1="246.38" y1="-142.24" x2="246.38" y2="-172.72" width="0.1524" layer="91"/>
+<junction x="246.38" y="-172.72"/>
+</segment>
 </net>
 <net name="SCL" class="0">
 <segment>
@@ -6147,10 +6214,14 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <wire x1="302.26" y1="-160.02" x2="332.74" y2="-160.02" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="S22" gate="S" pin="3"/>
 <pinref part="+3V7" gate="G$1" pin="+3V3"/>
 <wire x1="248.92" y1="-190.5" x2="259.08" y2="-190.5" width="0.1524" layer="91"/>
 <wire x1="259.08" y1="-190.5" x2="259.08" y2="-182.88" width="0.1524" layer="91"/>
+<pinref part="SW1" gate="G$1" pin="1"/>
+<wire x1="248.92" y1="-190.5" x2="246.38" y2="-190.5" width="0.1524" layer="91"/>
+<pinref part="SW1" gate="G$1" pin="4"/>
+<wire x1="246.38" y1="-190.5" x2="246.38" y2="-220.98" width="0.1524" layer="91"/>
+<junction x="246.38" y="-190.5"/>
 </segment>
 <segment>
 <pinref part="+3V1" gate="G$1" pin="+3V3"/>
@@ -6328,8 +6399,11 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <wire x1="226.06" y1="-182.88" x2="233.68" y2="-182.88" width="0.1524" layer="91"/>
 <wire x1="233.68" y1="-182.88" x2="233.68" y2="-190.5" width="0.1524" layer="91"/>
 <junction x="226.06" y="-182.88"/>
-<pinref part="S22" gate="S" pin="1"/>
 <wire x1="233.68" y1="-190.5" x2="238.76" y2="-190.5" width="0.1524" layer="91"/>
+<pinref part="SW1" gate="G$1" pin="2"/>
+<pinref part="SW1" gate="G$1" pin="3"/>
+<wire x1="238.76" y1="-190.5" x2="238.76" y2="-220.98" width="0.1524" layer="91"/>
+<junction x="238.76" y="-190.5"/>
 </segment>
 </net>
 <net name="RST" class="0">
@@ -6337,11 +6411,14 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <pinref part="IC1" gate="RESET" pin="NRST"/>
 <pinref part="R4" gate="G$1" pin="1"/>
 <wire x1="220.98" y1="-177.8" x2="226.06" y2="-177.8" width="0.1524" layer="91"/>
-<pinref part="S21" gate="S" pin="2"/>
-<wire x1="226.06" y1="-177.8" x2="236.22" y2="-177.8" width="0.1524" layer="91"/>
-<wire x1="236.22" y1="-177.8" x2="236.22" y2="-172.72" width="0.1524" layer="91"/>
+<wire x1="226.06" y1="-177.8" x2="238.76" y2="-177.8" width="0.1524" layer="91"/>
 <junction x="226.06" y="-177.8"/>
 <label x="228.6" y="-180.34" size="1.778" layer="95"/>
+<pinref part="SW2" gate="G$1" pin="1"/>
+<wire x1="238.76" y1="-177.8" x2="238.76" y2="-172.72" width="0.1524" layer="91"/>
+<pinref part="SW2" gate="G$1" pin="4"/>
+<wire x1="238.76" y1="-142.24" x2="238.76" y2="-172.72" width="0.1524" layer="91"/>
+<junction x="238.76" y="-172.72"/>
 </segment>
 </net>
 <net name="N$8" class="0">
