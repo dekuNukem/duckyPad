@@ -3,7 +3,7 @@
 <title>Static Call Graph - [lul\lul.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image lul\lul.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Fri Feb 23 10:40:50 2018
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue May 14 13:25:17 2019
 <BR><P>
 <H3>Maximum Stack Usage =        896 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -586,7 +586,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_adc_reading
 </UL>
 
-<P><STRONG><a name="[67]"></a>HAL_ADC_Init</STRONG> (Thumb, 362 bytes, Stack size 24 bytes, stm32f0xx_hal_adc.o(i.HAL_ADC_Init))
+<P><STRONG><a name="[67]"></a>HAL_ADC_Init</STRONG> (Thumb, 364 bytes, Stack size 24 bytes, stm32f0xx_hal_adc.o(i.HAL_ADC_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = HAL_ADC_Init &rArr; HAL_ADC_MspInit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_MspInit
@@ -2222,7 +2222,7 @@ Global Symbols
 <LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_release
 </UL>
 
-<P><STRONG><a name="[161]"></a>keyboard_update</STRONG> (Thumb, 718 bytes, Stack size 24 bytes, buttons.o(i.keyboard_update))
+<P><STRONG><a name="[161]"></a>keyboard_update</STRONG> (Thumb, 724 bytes, Stack size 24 bytes, buttons.o(i.keyboard_update))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = keyboard_update
 </UL>
 <BR>[Calls]<UL><LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_ReadPin
@@ -3459,7 +3459,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;follow_path
 </UL>
 
-<P><STRONG><a name="[119]"></a>dir_find</STRONG> (Thumb, 216 bytes, Stack size 32 bytes, ff.o(i.dir_find))
+<P><STRONG><a name="[119]"></a>dir_find</STRONG> (Thumb, 214 bytes, Stack size 32 bytes, ff.o(i.dir_find))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sum_sfn
@@ -3487,7 +3487,7 @@ Local Symbols
 <LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_find
 </UL>
 
-<P><STRONG><a name="[11f]"></a>dir_read</STRONG> (Thumb, 266 bytes, Stack size 32 bytes, ff.o(i.dir_read))
+<P><STRONG><a name="[11f]"></a>dir_read</STRONG> (Thumb, 264 bytes, Stack size 32 bytes, ff.o(i.dir_read))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = dir_read &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sum_sfn
