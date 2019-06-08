@@ -4141,107 +4141,41 @@ by exp-lbrs.ulp</description>
 <smd name="4-DIN" x="-2.35" y="-1.65" dx="1.3" dy="1.2" layer="1" rot="R180"/>
 <text x="3.4925" y="1.5875" size="0.8128" layer="25" ratio="10" rot="R270">&gt;NAME</text>
 </package>
-<package name="UG-2864HSWEG01_0.96IN_WRAPAROUND">
-<wire x1="-13.353" y1="14.36" x2="13.35" y2="14.36" width="0.127" layer="21"/>
-<wire x1="13.35" y1="14.36" x2="13.35" y2="-4.9" width="0.127" layer="21"/>
-<wire x1="13.35" y1="-4.9" x2="-13.35" y2="-4.9" width="0.127" layer="21"/>
-<wire x1="-13.35" y1="-4.9" x2="-13.353" y2="14.36" width="0.127" layer="21"/>
-<wire x1="-10.872" y1="12.26" x2="10.872" y2="12.26" width="0.127" layer="51"/>
-<wire x1="10.872" y1="12.26" x2="10.872" y2="1.396" width="0.127" layer="51"/>
-<wire x1="10.872" y1="1.396" x2="-10.872" y2="1.396" width="0.127" layer="51"/>
-<wire x1="-10.872" y1="1.396" x2="-10.872" y2="12.26" width="0.127" layer="51"/>
-<wire x1="13.35" y1="-7.5" x2="-13.35" y2="-7.5" width="0.127" layer="51"/>
-<smd name="1" x="-10.15" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="2" x="-9.45" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="3" x="-8.75" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="4" x="-8.05" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="5" x="-7.35" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="6" x="-6.65" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="7" x="-5.95" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="8" x="-5.25" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="9" x="-4.55" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="10" x="-3.85" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="11" x="-3.15" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="12" x="-2.45" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="13" x="-1.75" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="14" x="-1.05" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="15" x="-0.35" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="16" x="0.35" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="17" x="1.05" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="18" x="1.75" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="19" x="2.45" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="20" x="3.15" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="21" x="3.85" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="22" x="4.55" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="23" x="5.25" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="24" x="5.95" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="25" x="6.65" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="26" x="7.35" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="27" x="8.05" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="28" x="8.75" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="29" x="9.45" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="30" x="10.15" y="-1.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<text x="-10.585" y="1.274" size="1.27" layer="26" font="vector" rot="MR90">1</text>
-<text x="-4.285" y="1.301" size="1.27" layer="26" font="vector" rot="MR90">10</text>
-<text x="2.665" y="1.301" size="1.27" layer="26" font="vector" rot="MR90">20</text>
-<text x="9.434" y="1.301" size="1.27" layer="26" font="vector" rot="MR90">30</text>
-<text x="-13.09" y="15.69" size="0.8128" layer="25">&gt;NAME</text>
-<text x="-5.2" y="-7" size="0.8128" layer="51">PCB EDGE (1.6mm)</text>
-<hole x="-8" y="-5.45" drill="0.4"/>
-<hole x="8" y="-5.45" drill="0.4"/>
-<text x="-9.91" y="0.972" size="0.8128" layer="26" font="vector" rot="R180">|</text>
-<text x="-3.56" y="0.972" size="0.8128" layer="26" font="vector" rot="R180">|</text>
-<text x="3.425" y="0.972" size="0.8128" layer="26" font="vector" rot="R180">|</text>
-<text x="10.41" y="0.972" size="0.8128" layer="26" font="vector" rot="R180">|</text>
-</package>
-<package name="UG-2864HSWEG01_1.3_WRAPAROUND">
-<wire x1="-17.25" y1="15.5" x2="17.25" y2="15.5" width="0.127" layer="21"/>
-<wire x1="17.25" y1="15.5" x2="17.25" y2="-7.5" width="0.127" layer="21"/>
-<wire x1="17.25" y1="-7.5" x2="-17.25" y2="-7.5" width="0.127" layer="21"/>
-<wire x1="-17.25" y1="-7.5" x2="-17.25" y2="15.5" width="0.127" layer="21"/>
-<wire x1="-14.7" y1="13.4" x2="14.7" y2="13.4" width="0.127" layer="51"/>
-<wire x1="14.7" y1="13.4" x2="14.7" y2="-1.3" width="0.127" layer="51"/>
-<wire x1="14.7" y1="-1.3" x2="-14.7" y2="-1.3" width="0.127" layer="51"/>
-<wire x1="-14.7" y1="-1.3" x2="-14.7" y2="13.4" width="0.127" layer="51"/>
-<smd name="1" x="-10.15" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="2" x="-9.45" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="3" x="-8.75" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="4" x="-8.05" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="5" x="-7.35" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="6" x="-6.65" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="7" x="-5.95" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="8" x="-5.25" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="9" x="-4.55" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="10" x="-3.85" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="11" x="-3.15" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="12" x="-2.45" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="13" x="-1.75" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="14" x="-1.05" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="15" x="-0.35" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="16" x="0.35" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="17" x="1.05" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="18" x="1.75" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="19" x="2.45" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="20" x="3.15" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="21" x="3.85" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="22" x="4.55" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="23" x="5.25" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="24" x="5.95" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="25" x="6.65" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="26" x="7.35" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="27" x="8.05" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="28" x="8.75" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="29" x="9.45" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<smd name="30" x="10.15" y="-0.2" dx="2.2" dy="0.35" layer="16" rot="R90"/>
-<text x="-9.95" y="1.512" size="0.8128" layer="52" font="vector" rot="R90">1</text>
-<text x="-3.65" y="1.412" size="0.8128" layer="52" font="vector" rot="R90">10</text>
-<text x="3.3" y="1.412" size="0.8128" layer="52" font="vector" rot="R90">20</text>
-<text x="10.45" y="1.412" size="0.8128" layer="52" font="vector" rot="R90">30</text>
-<text x="-16.9" y="16.9" size="0.8128" layer="25">&gt;NAME</text>
-<text x="-16.9" y="-9.1" size="0.8128" layer="27">&gt;VALUE</text>
-<text x="-2.6" y="-7" size="0.8128" layer="51">PCB EDGE</text>
-<hole x="-8" y="-4.45" drill="0.4"/>
-<hole x="8" y="-4.45" drill="0.4"/>
+<package name="LUL_UG-2864HSWEG01_1.3_WRAPAROUND">
+<smd name="1" x="-7.25" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="2" x="-6.75" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="3" x="-6.25" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="4" x="-5.75" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="5" x="-5.25" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="6" x="-4.75" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="7" x="-4.25" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="8" x="-3.75" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="9" x="-3.25" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="10" x="-2.75" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="11" x="-2.25" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="12" x="-1.75" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="13" x="-1.25" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="14" x="-0.75" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="15" x="-0.25" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="16" x="0.25" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="17" x="0.75" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="18" x="1.25" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="19" x="1.75" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="20" x="2.25" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="21" x="2.75" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="22" x="3.25" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="23" x="3.75" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="24" x="4.25" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="25" x="4.75" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="26" x="5.25" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="27" x="5.75" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="28" x="6.25" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="29" x="6.75" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<smd name="30" x="7.25" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
+<text x="-7.25" y="1.016" size="0.8128" layer="52" font="vector" rot="R90">1</text>
+<text x="7.99" y="1.016" size="0.8128" layer="52" font="vector" rot="R90">30</text>
+<smd name="31" x="-9.45" y="-2.24" dx="3" dy="3.5" layer="16" rot="R90"/>
+<smd name="32" x="9.4" y="-2.24" dx="3" dy="3.5" layer="16" rot="R90"/>
 </package>
 </packages>
 <symbols>
@@ -4307,7 +4241,7 @@ by exp-lbrs.ulp</description>
 <pin name="VDD" x="5.08" y="15.24" visible="pin" length="middle" direction="pwr" rot="R270"/>
 <text x="-4.064" y="8.382" size="1.27" layer="94">WS2812B</text>
 </symbol>
-<symbol name="UG-2864HSWEG01">
+<symbol name="LUL_UG-2864HSWEG01">
 <wire x1="-22.86" y1="38.1" x2="21.59" y2="38.1" width="0.254" layer="94"/>
 <wire x1="21.59" y1="38.1" x2="21.59" y2="-40.64" width="0.254" layer="94"/>
 <wire x1="21.59" y1="-40.64" x2="-22.86" y2="-40.64" width="0.254" layer="94"/>
@@ -4449,14 +4383,14 @@ by exp-lbrs.ulp</description>
 </device>
 </devices>
 </deviceset>
-<deviceset name="DISP_OLED_UG-2864HSWEG01" prefix="U" uservalue="yes">
+<deviceset name="LUL_DISP_OLED_UG-2864HSWEG01" prefix="U" uservalue="yes">
 <description>UG-2864HSWEG01 OLED display
 &lt;p&gt;Both 1.3" and 0.96" models share the same FPC tab footprint, only the screen dimensions vary.&lt;/p&gt;</description>
 <gates>
-<gate name="G$1" symbol="UG-2864HSWEG01" x="0" y="0"/>
+<gate name="G$1" symbol="LUL_UG-2864HSWEG01" x="0" y="0"/>
 </gates>
 <devices>
-<device name="" package="UG-2864HSWEG01_1.3_WRAPAROUND">
+<device name="" package="LUL_UG-2864HSWEG01_1.3_WRAPAROUND">
 <connects>
 <connect gate="G$1" pin="/CS" pad="13"/>
 <connect gate="G$1" pin="/RES" pad="14"/>
@@ -4487,44 +4421,7 @@ by exp-lbrs.ulp</description>
 <connect gate="G$1" pin="VCOMH" pad="27"/>
 <connect gate="G$1" pin="VDD" pad="9"/>
 <connect gate="G$1" pin="VLSS" pad="29"/>
-<connect gate="G$1" pin="VSS" pad="8"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-<device name="0.96&quot;" package="UG-2864HSWEG01_0.96IN_WRAPAROUND">
-<connects>
-<connect gate="G$1" pin="/CS" pad="13"/>
-<connect gate="G$1" pin="/RES" pad="14"/>
-<connect gate="G$1" pin="BS0" pad="10"/>
-<connect gate="G$1" pin="BS1" pad="11"/>
-<connect gate="G$1" pin="BS2" pad="12"/>
-<connect gate="G$1" pin="C1N" pad="5"/>
-<connect gate="G$1" pin="C1P" pad="4"/>
-<connect gate="G$1" pin="C2N" pad="3"/>
-<connect gate="G$1" pin="C2P" pad="2"/>
-<connect gate="G$1" pin="D0/SPI_SCLK/I2C_SCK" pad="18"/>
-<connect gate="G$1" pin="D1/SPI_SDIN/I2C_SDA" pad="19"/>
-<connect gate="G$1" pin="D2/I2C_SDA" pad="20"/>
-<connect gate="G$1" pin="D3" pad="21"/>
-<connect gate="G$1" pin="D4" pad="22"/>
-<connect gate="G$1" pin="D5" pad="23"/>
-<connect gate="G$1" pin="D6" pad="24"/>
-<connect gate="G$1" pin="D7" pad="25"/>
-<connect gate="G$1" pin="DC/I2C_SA0" pad="15"/>
-<connect gate="G$1" pin="E/RD" pad="17"/>
-<connect gate="G$1" pin="IREF" pad="26"/>
-<connect gate="G$1" pin="NC" pad="7"/>
-<connect gate="G$1" pin="NC(GND)@1" pad="1"/>
-<connect gate="G$1" pin="NC(GND)@2" pad="30"/>
-<connect gate="G$1" pin="R/W" pad="16"/>
-<connect gate="G$1" pin="VBAT" pad="6"/>
-<connect gate="G$1" pin="VCC" pad="28"/>
-<connect gate="G$1" pin="VCOMH" pad="27"/>
-<connect gate="G$1" pin="VDD" pad="9"/>
-<connect gate="G$1" pin="VLSS" pad="29"/>
-<connect gate="G$1" pin="VSS" pad="8"/>
+<connect gate="G$1" pin="VSS" pad="8 31 32"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -5348,7 +5245,7 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <part name="S13" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
 <part name="S14" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
 <part name="S15" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
-<part name="U1" library="lul" deviceset="DISP_OLED_UG-2864HSWEG01" device="0.96&quot;" value="UG-2864HSWEG01"/>
+<part name="U1" library="lul" deviceset="LUL_DISP_OLED_UG-2864HSWEG01" device="" value="UG-2864HSWEG01"/>
 <part name="U$2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="R3" library="clock" deviceset="RESISTOR" device="0805-RES" value="560K"/>
 <part name="C3" library="clock" deviceset="CAP" device="0805" value="1uF"/>
@@ -5357,7 +5254,7 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <part name="U$19" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="C5" library="clock" deviceset="CAP" device="0805" value="2.2uF"/>
 <part name="U$20" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="C7" library="clock" deviceset="CAP" device="0805" value="1uF"/>
+<part name="C7" library="clock" deviceset="CAP" device="0805" value="2.2uF"/>
 <part name="C8" library="clock" deviceset="CAP" device="0805" value="2.2uF/16V"/>
 <part name="U$21" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="C6" library="clock" deviceset="CAP" device="0805" value="1uF"/>
@@ -5492,6 +5389,7 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <part name="GND8" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="SW2" library="3pos_slide_switch" deviceset="324_SW" device="324_SWITCH_FOOT_HOLE" value="324_SW324_SWITCH_FOOT_HOLE"/>
 <part name="SW1" library="3pos_slide_switch" deviceset="324_SW" device="324_SWITCH_FOOT_HOLE" value="324_SW324_SWITCH_FOOT_HOLE"/>
+<part name="C28" library="clock" deviceset="CAP" device="0805" value="1uF"/>
 </parts>
 <sheets>
 <sheet>
@@ -5666,6 +5564,7 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <instance part="GND8" gate="1" x="276.86" y="-213.36"/>
 <instance part="SW2" gate="G$1" x="241.3" y="-157.48" rot="MR90"/>
 <instance part="SW1" gate="G$1" x="243.84" y="-205.74" rot="MR270"/>
+<instance part="C28" gate="G$1" x="335.28" y="-2.54" rot="R90"/>
 </instances>
 <busses>
 </busses>
@@ -5705,23 +5604,23 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <pinref part="U$19" gate="1" pin="GND"/>
 </segment>
 <segment>
-<wire x1="363.22" y1="0" x2="325.12" y2="0" width="0.1524" layer="91"/>
+<wire x1="363.22" y1="0" x2="353.06" y2="0" width="0.1524" layer="91"/>
 <wire x1="325.12" y1="0" x2="325.12" y2="2.54" width="0.1524" layer="91"/>
 <wire x1="325.12" y1="2.54" x2="325.12" y2="5.08" width="0.1524" layer="91"/>
 <wire x1="325.12" y1="5.08" x2="325.12" y2="7.62" width="0.1524" layer="91"/>
 <wire x1="325.12" y1="7.62" x2="347.98" y2="7.62" width="0.1524" layer="91"/>
 <wire x1="330.2" y1="2.54" x2="325.12" y2="2.54" width="0.1524" layer="91"/>
 <wire x1="337.82" y1="5.08" x2="325.12" y2="5.08" width="0.1524" layer="91"/>
-<wire x1="325.12" y1="0" x2="325.12" y2="-5.08" width="0.1524" layer="91"/>
+<wire x1="325.12" y1="0" x2="325.12" y2="-2.54" width="0.1524" layer="91"/>
 <junction x="325.12" y="2.54"/>
 <junction x="325.12" y="5.08"/>
-<junction x="325.12" y="0"/>
 <pinref part="U1" gate="G$1" pin="VLSS"/>
 <pinref part="R3" gate="G$1" pin="1"/>
 <pinref part="C5" gate="G$1" pin="1"/>
 <pinref part="C8" gate="G$1" pin="1"/>
 <pinref part="U$21" gate="1" pin="GND"/>
 <pinref part="U1" gate="G$1" pin="D3"/>
+<wire x1="325.12" y1="-2.54" x2="325.12" y2="-5.08" width="0.1524" layer="91"/>
 <wire x1="363.22" y1="20.32" x2="325.12" y2="20.32" width="0.1524" layer="91"/>
 <wire x1="325.12" y1="20.32" x2="325.12" y2="17.78" width="0.1524" layer="91"/>
 <junction x="325.12" y="7.62"/>
@@ -5749,6 +5648,12 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <wire x1="363.22" y1="33.02" x2="325.12" y2="33.02" width="0.1524" layer="91"/>
 <wire x1="325.12" y1="33.02" x2="325.12" y2="30.48" width="0.1524" layer="91"/>
 <junction x="325.12" y="30.48"/>
+<wire x1="325.12" y1="-5.08" x2="353.06" y2="-5.08" width="0.1524" layer="91"/>
+<junction x="325.12" y="-5.08"/>
+<wire x1="353.06" y1="-5.08" x2="353.06" y2="0" width="0.1524" layer="91"/>
+<pinref part="C28" gate="G$1" pin="1"/>
+<wire x1="330.2" y1="-2.54" x2="325.12" y2="-2.54" width="0.1524" layer="91"/>
+<junction x="325.12" y="-2.54"/>
 </segment>
 <segment>
 <wire x1="363.22" y1="53.34" x2="358.14" y2="53.34" width="0.1524" layer="91"/>
@@ -6148,9 +6053,14 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 </net>
 <net name="N$11" class="0">
 <segment>
-<wire x1="363.22" y1="2.54" x2="337.82" y2="2.54" width="0.1524" layer="91"/>
+<wire x1="363.22" y1="2.54" x2="340.36" y2="2.54" width="0.1524" layer="91"/>
 <pinref part="U1" gate="G$1" pin="VCC"/>
 <pinref part="C5" gate="G$1" pin="2"/>
+<wire x1="340.36" y1="2.54" x2="337.82" y2="2.54" width="0.1524" layer="91"/>
+<wire x1="340.36" y1="2.54" x2="340.36" y2="-2.54" width="0.1524" layer="91"/>
+<junction x="340.36" y="2.54"/>
+<pinref part="C28" gate="G$1" pin="2"/>
+<wire x1="340.36" y1="-2.54" x2="337.82" y2="-2.54" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$12" class="0">
@@ -6835,12 +6745,14 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 </net>
 <net name="OLED_RESET" class="0">
 <segment>
-<pinref part="IC1" gate="PORTA_L" pin="PA2"/>
-<wire x1="363.22" y1="-160.02" x2="391.16" y2="-160.02" width="0.1524" layer="91"/>
-<label x="365.76" y="-160.02" size="1.778" layer="95"/>
+<label x="365.76" y="-154.94" size="1.778" layer="95"/>
+<pinref part="IC1" gate="PORTA_L" pin="PA0"/>
+<wire x1="363.22" y1="-154.94" x2="391.16" y2="-154.94" width="0.1524" layer="91"/>
 <pinref part="R17" gate="G$1" pin="2"/>
-<wire x1="391.16" y1="-160.02" x2="408.94" y2="-160.02" width="0.1524" layer="91"/>
-<junction x="391.16" y="-160.02"/>
+<wire x1="408.94" y1="-160.02" x2="408.94" y2="-157.48" width="0.1524" layer="91"/>
+<wire x1="408.94" y1="-157.48" x2="408.94" y2="-154.94" width="0.1524" layer="91"/>
+<wire x1="408.94" y1="-154.94" x2="391.16" y2="-154.94" width="0.1524" layer="91"/>
+<junction x="391.16" y="-154.94"/>
 </segment>
 <segment>
 <pinref part="U1" gate="G$1" pin="/RES"/>
