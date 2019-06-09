@@ -311,66 +311,6 @@ Surface Mounting type.</description>
 <hole x="-3.1" y="3.25" drill="1.25"/>
 <hole x="4.9" y="3.25" drill="1.25"/>
 </package>
-<package name="KSA_SEALED_TAC_SWITCH">
-<wire x1="0" y1="1.27" x2="0" y2="-1.27" width="0.127" layer="21"/>
-<wire x1="-1.27" y1="0" x2="1.27" y2="0" width="0.127" layer="21"/>
-<wire x1="-5.08" y1="3.81" x2="5.08" y2="3.81" width="0.127" layer="21"/>
-<wire x1="5.08" y1="3.81" x2="5.08" y2="-3.81" width="0.127" layer="21"/>
-<wire x1="5.08" y1="-3.81" x2="-5.08" y2="-3.81" width="0.127" layer="21"/>
-<wire x1="-5.08" y1="-3.81" x2="-5.08" y2="3.81" width="0.127" layer="21"/>
-<pad name="P$1" x="-3.81" y="2.54" drill="1" shape="square"/>
-<pad name="P$2" x="3.81" y="2.54" drill="1" shape="square"/>
-<pad name="P$3" x="-3.81" y="-2.54" drill="1" shape="square"/>
-<pad name="P$4" x="3.81" y="-2.54" drill="1" shape="square"/>
-</package>
-<package name="TACTILE-PTH">
-<description>&lt;b&gt;OMRON SWITCH&lt;/b&gt;</description>
-<circle x="0" y="0" radius="1.778" width="0.2032" layer="21"/>
-<wire x1="3.048" y1="1.016" x2="3.048" y2="2.54" width="0.2032" layer="51"/>
-<wire x1="3.048" y1="2.54" x2="2.54" y2="3.048" width="0.2032" layer="51"/>
-<wire x1="2.54" y1="-3.048" x2="3.048" y2="-2.54" width="0.2032" layer="51"/>
-<wire x1="3.048" y1="-2.54" x2="3.048" y2="-1.016" width="0.2032" layer="51"/>
-<wire x1="-2.54" y1="3.048" x2="-3.048" y2="2.54" width="0.2032" layer="51"/>
-<wire x1="-3.048" y1="2.54" x2="-3.048" y2="1.016" width="0.2032" layer="51"/>
-<wire x1="-2.54" y1="-3.048" x2="-3.048" y2="-2.54" width="0.2032" layer="51"/>
-<wire x1="-3.048" y1="-2.54" x2="-3.048" y2="-1.016" width="0.2032" layer="51"/>
-<wire x1="2.54" y1="-3.048" x2="2.159" y2="-3.048" width="0.2032" layer="51"/>
-<wire x1="-2.54" y1="-3.048" x2="-2.159" y2="-3.048" width="0.2032" layer="51"/>
-<wire x1="-2.54" y1="3.048" x2="-2.159" y2="3.048" width="0.2032" layer="51"/>
-<wire x1="2.54" y1="3.048" x2="2.159" y2="3.048" width="0.2032" layer="51"/>
-<wire x1="2.159" y1="3.048" x2="-2.159" y2="3.048" width="0.2032" layer="21"/>
-<wire x1="-2.159" y1="-3.048" x2="2.159" y2="-3.048" width="0.2032" layer="21"/>
-<wire x1="3.048" y1="0.998" x2="3.048" y2="-1.016" width="0.2032" layer="21"/>
-<wire x1="-3.048" y1="1.028" x2="-3.048" y2="-1.016" width="0.2032" layer="21"/>
-<wire x1="-2.54" y1="1.27" x2="-2.54" y2="0.508" width="0.2032" layer="51"/>
-<wire x1="-2.54" y1="-0.508" x2="-2.54" y2="-1.27" width="0.2032" layer="51"/>
-<wire x1="-2.54" y1="0.508" x2="-2.159" y2="-0.381" width="0.2032" layer="51"/>
-<pad name="1" x="-3.2512" y="2.2606" drill="1.016" diameter="1.8796"/>
-<pad name="2" x="3.2512" y="2.2606" drill="1.016" diameter="1.8796"/>
-<pad name="3" x="-3.2512" y="-2.2606" drill="1.016" diameter="1.8796"/>
-<pad name="4" x="3.2512" y="-2.2606" drill="1.016" diameter="1.8796"/>
-<text x="-2.54" y="3.81" size="1.27" layer="25" ratio="10">&gt;NAME</text>
-</package>
-<package name="TACTILE-SWITCH-SMD">
-<circle x="0" y="0" radius="1.27" width="0.2032" layer="21"/>
-<wire x1="-1.54" y1="-2.54" x2="-2.54" y2="-1.54" width="0.2032" layer="51"/>
-<wire x1="-2.54" y1="-1.24" x2="-2.54" y2="1.27" width="0.2032" layer="21"/>
-<wire x1="-2.54" y1="1.54" x2="-1.54" y2="2.54" width="0.2032" layer="51"/>
-<wire x1="-1.54" y1="2.54" x2="1.54" y2="2.54" width="0.2032" layer="21"/>
-<wire x1="1.54" y1="2.54" x2="2.54" y2="1.54" width="0.2032" layer="51"/>
-<wire x1="2.54" y1="1.24" x2="2.54" y2="-1.24" width="0.2032" layer="21"/>
-<wire x1="2.54" y1="-1.54" x2="1.54" y2="-2.54" width="0.2032" layer="51"/>
-<wire x1="1.54" y1="-2.54" x2="-1.54" y2="-2.54" width="0.2032" layer="21"/>
-<wire x1="1.905" y1="1.27" x2="1.905" y2="0.445" width="0.127" layer="51"/>
-<wire x1="1.905" y1="0.445" x2="2.16" y2="-0.01" width="0.127" layer="51"/>
-<wire x1="1.905" y1="-0.23" x2="1.905" y2="-1.115" width="0.127" layer="51"/>
-<smd name="1" x="-2.794" y="1.905" dx="0.762" dy="1.524" layer="1" rot="R90"/>
-<smd name="2" x="2.794" y="1.905" dx="0.762" dy="1.524" layer="1" rot="R90"/>
-<smd name="3" x="-2.794" y="-1.905" dx="0.762" dy="1.524" layer="1" rot="R90"/>
-<smd name="4" x="2.794" y="-1.905" dx="0.762" dy="1.524" layer="1" rot="R90"/>
-<text x="-0.889" y="1.778" size="0.4064" layer="25">&gt;NAME</text>
-<text x="-0.889" y="-2.032" size="0.4064" layer="27">&gt;Value</text>
-</package>
 <package name="SOT223">
 <description>&lt;b&gt;Smal Outline Transistor&lt;/b&gt;</description>
 <wire x1="-3.124" y1="1.731" x2="-3.124" y2="-1.729" width="0.1524" layer="21"/>
@@ -2523,27 +2463,6 @@ chip</description>
 <text x="10.668" y="10.16" size="1.6764" layer="96" rot="R270">&gt;VALUE</text>
 <text x="9.398" y="-12.192" size="1.016" layer="97" rot="R90">TransFlash holder</text>
 </symbol>
-<symbol name="SWITCH-MOMENTARY">
-<circle x="-2.54" y="0" radius="0.127" width="0.4064" layer="94"/>
-<circle x="2.54" y="0" radius="0.127" width="0.4064" layer="94"/>
-<wire x1="1.905" y1="0" x2="2.54" y2="0" width="0.254" layer="94"/>
-<wire x1="1.905" y1="4.445" x2="1.905" y2="3.175" width="0.254" layer="94"/>
-<wire x1="-1.905" y1="4.445" x2="-1.905" y2="3.175" width="0.254" layer="94"/>
-<wire x1="1.905" y1="4.445" x2="0" y2="4.445" width="0.254" layer="94"/>
-<wire x1="0" y1="4.445" x2="-1.905" y2="4.445" width="0.254" layer="94"/>
-<wire x1="0" y1="2.54" x2="0" y2="1.905" width="0.1524" layer="94"/>
-<wire x1="0" y1="1.27" x2="0" y2="0.635" width="0.1524" layer="94"/>
-<wire x1="0" y1="4.445" x2="0" y2="3.175" width="0.1524" layer="94"/>
-<wire x1="2.54" y1="-2.54" x2="2.54" y2="0" width="0.1524" layer="94"/>
-<wire x1="-2.54" y1="-2.54" x2="-2.54" y2="0" width="0.1524" layer="94"/>
-<wire x1="-2.54" y1="0" x2="1.905" y2="1.27" width="0.254" layer="94"/>
-<pin name="1" x="-5.08" y="0" visible="pad" length="short" direction="pas" swaplevel="2"/>
-<pin name="2" x="-5.08" y="-2.54" visible="pad" length="short" direction="pas" swaplevel="2"/>
-<pin name="3" x="5.08" y="0" visible="pad" length="short" direction="pas" swaplevel="1" rot="R180"/>
-<pin name="4" x="5.08" y="-2.54" visible="pad" length="short" direction="pas" swaplevel="1" rot="R180"/>
-<text x="-2.54" y="6.35" size="1.778" layer="95">&gt;NAME</text>
-<text x="-2.54" y="-6.35" size="1.778" layer="96">&gt;VALUE</text>
-</symbol>
 <symbol name="REG1118">
 <wire x1="-7.62" y1="-7.62" x2="7.62" y2="-7.62" width="0.4064" layer="94"/>
 <wire x1="7.62" y1="-7.62" x2="7.62" y2="5.08" width="0.4064" layer="94"/>
@@ -2694,53 +2613,6 @@ Surface Mounting type.</description>
 </connects>
 <technologies>
 <technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-<deviceset name="TAC_SWITCH" prefix="S" uservalue="yes">
-<description>&lt;b&gt;Momentary Switch&lt;/b&gt;&lt;br&gt;
-Button commonly used for reset or general input.&lt;br&gt;
-Spark Fun Electronics SKU : COM-00097&lt;br&gt;
-SMT- SWCH-08247</description>
-<gates>
-<gate name="S" symbol="SWITCH-MOMENTARY" x="0" y="0"/>
-</gates>
-<devices>
-<device name="KSA_SEALED" package="KSA_SEALED_TAC_SWITCH">
-<connects>
-<connect gate="S" pin="1" pad="P$1"/>
-<connect gate="S" pin="2" pad="P$2"/>
-<connect gate="S" pin="3" pad="P$3"/>
-<connect gate="S" pin="4" pad="P$4"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-<device name="PTH" package="TACTILE-PTH">
-<connects>
-<connect gate="S" pin="1" pad="1"/>
-<connect gate="S" pin="2" pad="2"/>
-<connect gate="S" pin="3" pad="3"/>
-<connect gate="S" pin="4" pad="4"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-<device name="SMD" package="TACTILE-SWITCH-SMD">
-<connects>
-<connect gate="S" pin="1" pad="1"/>
-<connect gate="S" pin="2" pad="2"/>
-<connect gate="S" pin="3" pad="3"/>
-<connect gate="S" pin="4" pad="4"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="PROD_ID" value="SWCH-08247"/>
-<attribute name="VALUE" value="TAC_SWITCHSMD"/>
-</technology>
 </technologies>
 </device>
 </devices>
@@ -4177,6 +4049,15 @@ by exp-lbrs.ulp</description>
 <smd name="31" x="-9.45" y="-2.24" dx="3" dy="3.5" layer="16" rot="R90"/>
 <smd name="32" x="9.4" y="-2.24" dx="3" dy="3.5" layer="16" rot="R90"/>
 </package>
+<package name="6X6_SW_FOOT">
+<smd name="P$1" x="-3" y="0" dx="2" dy="2" layer="1"/>
+<smd name="P$2" x="3" y="0" dx="2" dy="2" layer="1"/>
+<wire x1="-3" y1="3" x2="3" y2="3" width="0.127" layer="21"/>
+<wire x1="3" y1="3" x2="3" y2="-3" width="0.127" layer="21"/>
+<wire x1="3" y1="-3" x2="-3" y2="-3" width="0.127" layer="21"/>
+<wire x1="-3" y1="-3" x2="-3" y2="3" width="0.127" layer="21"/>
+<text x="-2.921" y="-4.191" size="1.016" layer="25">&gt;Name</text>
+</package>
 </packages>
 <symbols>
 <symbol name="SWITCH-MOMENTARY-LED">
@@ -4304,6 +4185,13 @@ by exp-lbrs.ulp</description>
 <text x="12.7" y="12.065" size="1.778" layer="97">0</text>
 <text x="12.7" y="6.985" size="1.778" layer="97">0</text>
 </symbol>
+<symbol name="6X6_SW_SYM">
+<wire x1="-7.62" y1="0" x2="-2.54" y2="0" width="0.254" layer="94"/>
+<wire x1="-2.54" y1="0" x2="0" y2="2.54" width="0.254" layer="94"/>
+<wire x1="2.54" y1="0" x2="7.62" y2="0" width="0.254" layer="94"/>
+<pin name="1" x="-12.7" y="0" length="middle"/>
+<pin name="2" x="12.7" y="0" length="middle" rot="R180"/>
+</symbol>
 </symbols>
 <devicesets>
 <deviceset name="MOMENTARY-SWITCH-SPST-LED" prefix="S">
@@ -4422,6 +4310,22 @@ by exp-lbrs.ulp</description>
 <connect gate="G$1" pin="VDD" pad="9"/>
 <connect gate="G$1" pin="VLSS" pad="29"/>
 <connect gate="G$1" pin="VSS" pad="8 31 32"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="6X6_SW" prefix="SW">
+<gates>
+<gate name="G$1" symbol="6X6_SW_SYM" x="-5.08" y="7.62"/>
+</gates>
+<devices>
+<device name="" package="6X6_SW_FOOT">
+<connects>
+<connect gate="G$1" pin="1" pad="P$1"/>
+<connect gate="G$1" pin="2" pad="P$2"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -5261,8 +5165,6 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <part name="IC1" library="clock" deviceset="STM32F072C8T6" device=""/>
 <part name="SD1" library="clock" deviceset="TF-HOLDER" device=""/>
 <part name="JP1" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-1X5" device=""/>
-<part name="S19" library="clock" deviceset="TAC_SWITCH" device="SMD" value="TAC_SWITCHSMD"/>
-<part name="S20" library="clock" deviceset="TAC_SWITCH" device="SMD" value="TAC_SWITCHSMD"/>
 <part name="IC2" library="clock" deviceset="REG1117" device=""/>
 <part name="+3V3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="+3V4" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
@@ -5369,8 +5271,6 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <part name="U$9" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
 <part name="U$10" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
 <part name="U$11" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
-<part name="U$12" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
-<part name="U$13" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
 <part name="U$14" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
 <part name="U$15" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
 <part name="U$16" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
@@ -5390,6 +5290,8 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <part name="SW2" library="3pos_slide_switch" deviceset="324_SW" device="324_SWITCH_FOOT_HOLE" value="324_SW324_SWITCH_FOOT_HOLE"/>
 <part name="SW1" library="3pos_slide_switch" deviceset="324_SW" device="324_SWITCH_FOOT_HOLE" value="324_SW324_SWITCH_FOOT_HOLE"/>
 <part name="C28" library="clock" deviceset="CAP" device="0805" value="1uF"/>
+<part name="SW3" library="lul" deviceset="6X6_SW" device=""/>
+<part name="SW4" library="lul" deviceset="6X6_SW" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -5435,8 +5337,6 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <instance part="IC1" gate="RESET" x="210.82" y="-180.34"/>
 <instance part="SD1" gate="G$1" x="320.04" y="-162.56" rot="MR0"/>
 <instance part="JP1" gate="A" x="358.14" y="-193.04" rot="R180"/>
-<instance part="S19" gate="S" x="144.78" y="-170.18"/>
-<instance part="S20" gate="S" x="144.78" y="-193.04"/>
 <instance part="IC2" gate="G$1" x="109.22" y="-144.78"/>
 <instance part="+3V3" gate="G$1" x="353.06" y="76.2"/>
 <instance part="+3V4" gate="G$1" x="320.04" y="48.26"/>
@@ -5448,7 +5348,7 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <instance part="+3V6" gate="G$1" x="226.06" y="-165.1" rot="MR0"/>
 <instance part="+3V7" gate="G$1" x="259.08" y="-180.34" rot="MR0"/>
 <instance part="GND10" gate="1" x="254" y="-175.26"/>
-<instance part="GND11" gate="1" x="157.48" y="-175.26"/>
+<instance part="GND11" gate="1" x="172.72" y="-175.26"/>
 <instance part="+3V8" gate="G$1" x="294.64" y="-86.36"/>
 <instance part="GND12" gate="1" x="294.64" y="-121.92"/>
 <instance part="+3V9" gate="G$1" x="294.64" y="-66.04"/>
@@ -5465,7 +5365,7 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <instance part="+3V2" gate="G$1" x="297.18" y="-20.32"/>
 <instance part="R17" gate="G$1" x="408.94" y="-165.1" rot="R90"/>
 <instance part="GND45" gate="1" x="408.94" y="-175.26"/>
-<instance part="GND19" gate="1" x="154.94" y="-198.12"/>
+<instance part="GND19" gate="1" x="175.26" y="-198.12"/>
 <instance part="LED1" gate="G$1" x="-185.42" y="25.4" rot="MR0"/>
 <instance part="GND1" gate="1" x="139.7" y="-68.58"/>
 <instance part="LED2" gate="G$1" x="-137.16" y="25.4" rot="MR0"/>
@@ -5543,8 +5443,6 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <instance part="U$9" gate="G$1" x="495.3" y="15.24"/>
 <instance part="U$10" gate="G$1" x="467.36" y="33.02"/>
 <instance part="U$11" gate="G$1" x="523.24" y="33.02"/>
-<instance part="U$12" gate="G$1" x="523.24" y="15.24"/>
-<instance part="U$13" gate="G$1" x="495.3" y="33.02"/>
 <instance part="U$14" gate="G$1" x="467.36" y="15.24"/>
 <instance part="U$15" gate="G$1" x="495.3" y="48.26"/>
 <instance part="U$16" gate="G$1" x="523.24" y="48.26"/>
@@ -5565,6 +5463,8 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <instance part="SW2" gate="G$1" x="241.3" y="-157.48" rot="MR90"/>
 <instance part="SW1" gate="G$1" x="243.84" y="-205.74" rot="MR270"/>
 <instance part="C28" gate="G$1" x="335.28" y="-2.54" rot="R90"/>
+<instance part="SW3" gate="G$1" x="154.94" y="-172.72"/>
+<instance part="SW4" gate="G$1" x="152.4" y="-195.58"/>
 </instances>
 <busses>
 </busses>
@@ -5743,22 +5643,6 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <junction x="292.1" y="-30.48"/>
 <pinref part="U$3" gate="1" pin="GND"/>
 <junction x="297.18" y="-30.48"/>
-</segment>
-<segment>
-<pinref part="S19" gate="S" pin="4"/>
-<wire x1="149.86" y1="-172.72" x2="157.48" y2="-172.72" width="0.1524" layer="91"/>
-<pinref part="GND11" gate="1" pin="GND"/>
-<pinref part="S19" gate="S" pin="3"/>
-<wire x1="149.86" y1="-170.18" x2="149.86" y2="-172.72" width="0.1524" layer="91"/>
-<junction x="149.86" y="-172.72"/>
-</segment>
-<segment>
-<pinref part="S20" gate="S" pin="3"/>
-<pinref part="S20" gate="S" pin="4"/>
-<wire x1="149.86" y1="-193.04" x2="149.86" y2="-195.58" width="0.1524" layer="91"/>
-<pinref part="GND19" gate="1" pin="GND"/>
-<wire x1="149.86" y1="-195.58" x2="154.94" y2="-195.58" width="0.1524" layer="91"/>
-<junction x="149.86" y="-195.58"/>
 </segment>
 <segment>
 <pinref part="S1" gate="G$1" pin="2"/>
@@ -5979,6 +5863,16 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <pinref part="SW2" gate="G$1" pin="3"/>
 <wire x1="246.38" y1="-142.24" x2="246.38" y2="-172.72" width="0.1524" layer="91"/>
 <junction x="246.38" y="-172.72"/>
+</segment>
+<segment>
+<pinref part="GND11" gate="1" pin="GND"/>
+<pinref part="SW3" gate="G$1" pin="2"/>
+<wire x1="167.64" y1="-172.72" x2="172.72" y2="-172.72" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="GND19" gate="1" pin="GND"/>
+<pinref part="SW4" gate="G$1" pin="2"/>
+<wire x1="165.1" y1="-195.58" x2="175.26" y2="-195.58" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="SCL" class="0">
@@ -6592,32 +6486,26 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 </net>
 <net name="BUTTON1" class="0">
 <segment>
-<pinref part="S19" gate="S" pin="2"/>
-<wire x1="127" y1="-172.72" x2="139.7" y2="-172.72" width="0.1524" layer="91"/>
-<pinref part="S19" gate="S" pin="1"/>
-<wire x1="139.7" y1="-170.18" x2="139.7" y2="-172.72" width="0.1524" layer="91"/>
-<junction x="139.7" y="-172.72"/>
+<wire x1="127" y1="-172.72" x2="142.24" y2="-172.72" width="0.1524" layer="91"/>
 <label x="127" y="-172.72" size="1.778" layer="95"/>
+<pinref part="SW3" gate="G$1" pin="1"/>
 </segment>
 <segment>
-<pinref part="IC1" gate="PORTB_H" pin="PB12"/>
-<wire x1="449.58" y1="-193.04" x2="434.34" y2="-193.04" width="0.1524" layer="91"/>
-<label x="439.42" y="-193.04" size="1.778" layer="95"/>
+<pinref part="IC1" gate="PORTA_L" pin="PA1"/>
+<wire x1="363.22" y1="-157.48" x2="391.16" y2="-157.48" width="0.1524" layer="91"/>
+<label x="365.76" y="-157.48" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="BUTTON2" class="0">
 <segment>
-<pinref part="S20" gate="S" pin="2"/>
 <wire x1="124.46" y1="-195.58" x2="139.7" y2="-195.58" width="0.1524" layer="91"/>
-<pinref part="S20" gate="S" pin="1"/>
-<wire x1="139.7" y1="-193.04" x2="139.7" y2="-195.58" width="0.1524" layer="91"/>
-<junction x="139.7" y="-195.58"/>
 <label x="124.46" y="-195.58" size="1.778" layer="95"/>
+<pinref part="SW4" gate="G$1" pin="1"/>
 </segment>
 <segment>
-<pinref part="IC1" gate="PORTB_H" pin="PB11"/>
-<wire x1="449.58" y1="-190.5" x2="434.34" y2="-190.5" width="0.1524" layer="91"/>
-<label x="439.42" y="-190.5" size="1.778" layer="95"/>
+<pinref part="IC1" gate="PORTA_L" pin="PA2"/>
+<wire x1="363.22" y1="-160.02" x2="391.16" y2="-160.02" width="0.1524" layer="91"/>
+<label x="365.76" y="-160.02" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$9" class="0">
