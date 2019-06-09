@@ -3917,51 +3917,6 @@ by exp-lbrs.ulp</description>
 <description>Generated from &lt;b&gt;lul.sch&lt;/b&gt;&lt;p&gt;
 by exp-lbrs.ulp</description>
 <packages>
-<package name="CHERRY-MX-LED">
-<description>&lt;h3&gt;Cherry MX Switch - Electromechanical Swith w/ LED&lt;/h3&gt;
-
-&lt;p&gt;Cherry MX Keyswitches are top-of-the-line mechanical keyboard switches. Theyre satisfyingly clicky, reliable up to tens-of-millions of key presses, and a standard in gaming and programming keyboards across the globe. This blue version Cherry MX Switch is favored by most due to its secondary internal actuator making it less likely to double-tap. If you are looking for a noticeably audible and high-quality key switch, this is the perfect option for you!&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="https://www.sparkfun.com/products/13834"&gt;SparkFun Product Link&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://cdn.sparkfun.com/datasheets/Components/Switches/MX%20Series.pdf"&gt;Datasheet&lt;/a&gt;&lt;/p&gt;</description>
-<wire x1="-6.731" y1="6.731" x2="-7.747" y2="6.731" width="0.254" layer="51"/>
-<wire x1="-7.747" y1="6.731" x2="-6.731" y2="7.747" width="0.254" layer="51" curve="-90"/>
-<wire x1="-6.731" y1="7.747" x2="-3.175" y2="7.747" width="0.254" layer="51"/>
-<wire x1="-3.175" y1="7.747" x2="-3.175" y2="6.731" width="0.254" layer="51"/>
-<wire x1="3.175" y1="7.747" x2="3.175" y2="6.731" width="0.254" layer="51"/>
-<wire x1="6.731" y1="6.731" x2="7.747" y2="6.731" width="0.254" layer="51"/>
-<wire x1="7.747" y1="6.731" x2="6.731" y2="7.747" width="0.254" layer="51" curve="90"/>
-<wire x1="6.731" y1="7.747" x2="3.175" y2="7.747" width="0.254" layer="51"/>
-<wire x1="6.731" y1="6.731" x2="6.731" y2="-6.731" width="0.254" layer="51"/>
-<wire x1="6.731" y1="-6.731" x2="7.747" y2="-6.731" width="0.254" layer="51"/>
-<wire x1="7.747" y1="-6.731" x2="6.731" y2="-7.747" width="0.254" layer="51" curve="-90"/>
-<wire x1="-7.747" y1="-6.731" x2="-6.731" y2="-7.747" width="0.254" layer="51" curve="90"/>
-<wire x1="-6.731" y1="-6.731" x2="-7.747" y2="-6.731" width="0.254" layer="51"/>
-<wire x1="-6.731" y1="-6.731" x2="-6.731" y2="6.731" width="0.254" layer="51"/>
-<wire x1="-3.175" y1="6.731" x2="-0.762" y2="6.731" width="0.254" layer="51"/>
-<wire x1="-0.762" y1="6.731" x2="-0.762" y2="7.747" width="0.254" layer="51"/>
-<wire x1="-0.762" y1="7.747" x2="0.762" y2="7.747" width="0.254" layer="51"/>
-<wire x1="0.762" y1="7.747" x2="0.762" y2="6.731" width="0.254" layer="51"/>
-<wire x1="0.762" y1="6.731" x2="3.175" y2="6.731" width="0.254" layer="51"/>
-<wire x1="-3.81" y1="2.54" x2="-1.27" y2="5.08" width="0.2032" layer="51"/>
-<wire x1="2.54" y1="5.08" x2="-0.762" y2="3.81" width="0.2032" layer="51"/>
-<wire x1="-6.096" y1="6.731" x2="6.096" y2="6.731" width="0.2032" layer="21"/>
-<wire x1="6.096" y1="6.731" x2="6.096" y2="-6.731" width="0.2032" layer="21"/>
-<wire x1="-6.096" y1="-6.731" x2="-6.096" y2="6.731" width="0.2032" layer="21"/>
-<pad name="S1" x="-3.81" y="2.54" drill="1.7526" diameter="3.2258"/>
-<pad name="S2" x="2.54" y="5.08" drill="1.7526" diameter="3.2258"/>
-<text x="-7.366" y="0" size="1.016" layer="25" font="vector" ratio="10" rot="R90" align="bottom-center">&gt;Name</text>
-<hole x="0" y="0" drill="4.0894"/>
-<wire x1="-2" y1="-2.5" x2="2" y2="-2.5" width="0.127" layer="51"/>
-<wire x1="2" y1="-2.5" x2="2" y2="-3.5" width="0.127" layer="51"/>
-<wire x1="2" y1="-3.5" x2="4.5" y2="-3.5" width="0.127" layer="51"/>
-<wire x1="4.5" y1="-3.5" x2="4.5" y2="-6.5" width="0.127" layer="51"/>
-<wire x1="-2" y1="-2.5" x2="-2" y2="-3.5" width="0.127" layer="51"/>
-<wire x1="-2" y1="-3.5" x2="-4.5" y2="-3.5" width="0.127" layer="51"/>
-<wire x1="-4.5" y1="-3.5" x2="-4.5" y2="-6.5" width="0.127" layer="51"/>
-<wire x1="-6.096" y1="-6.731" x2="6.096" y2="-6.731" width="0.2032" layer="21"/>
-<wire x1="-6.731" y1="-7.747" x2="6.731" y2="-7.747" width="0.254" layer="51"/>
-</package>
 <package name="LED3535">
 <circle x="0" y="0" radius="1.4" width="0.127" layer="51"/>
 <wire x1="-1.75" y1="1.75" x2="1.75" y2="1.75" width="0.127" layer="21"/>
@@ -4060,25 +4015,6 @@ by exp-lbrs.ulp</description>
 </package>
 </packages>
 <symbols>
-<symbol name="SWITCH-MOMENTARY-LED">
-<description>&lt;h3&gt;Momentary Switch (Pushbutton) - SPST - w/ LED&lt;/h3&gt;
-&lt;p&gt;Normally-open (NO) SPST momentary switches (buttons, pushbuttons), with a built-in LED.&lt;/p&gt;</description>
-<circle x="-2.54" y="2.54" radius="0.127" width="0.4064" layer="94"/>
-<circle x="2.54" y="2.54" radius="0.127" width="0.4064" layer="94"/>
-<wire x1="-2.54" y1="2.54" x2="1.905" y2="3.81" width="0.1524" layer="94"/>
-<wire x1="-5.08" y1="5.08" x2="-5.08" y2="2.54" width="0.254" layer="94"/>
-<wire x1="-5.08" y1="2.54" x2="-5.08" y2="0" width="0.254" layer="94"/>
-<wire x1="-5.08" y1="0" x2="5.08" y2="0" width="0.254" layer="94"/>
-<wire x1="5.08" y1="0" x2="5.08" y2="2.54" width="0.254" layer="94"/>
-<wire x1="5.08" y1="2.54" x2="5.08" y2="5.08" width="0.254" layer="94"/>
-<wire x1="5.08" y1="5.08" x2="-5.08" y2="5.08" width="0.254" layer="94"/>
-<wire x1="-5.08" y1="2.54" x2="-2.54" y2="2.54" width="0.1524" layer="94"/>
-<wire x1="1.905" y1="2.54" x2="5.08" y2="2.54" width="0.1524" layer="94"/>
-<pin name="1" x="-7.62" y="2.54" visible="off" length="short" direction="pas" swaplevel="2"/>
-<pin name="2" x="7.62" y="2.54" visible="off" length="short" direction="pas" swaplevel="1" rot="R180"/>
-<text x="0" y="5.334" size="1.778" layer="95" font="vector" align="bottom-center">&gt;NAME</text>
-<text x="0" y="-0.254" size="1.778" layer="96" font="vector" align="top-center">&gt;VALUE</text>
-</symbol>
 <symbol name="WS2812BLED">
 <wire x1="-7.62" y1="10.16" x2="-7.62" y2="-5.08" width="0.254" layer="94"/>
 <wire x1="-7.62" y1="-5.08" x2="0" y2="-5.08" width="0.254" layer="94"/>
@@ -4194,43 +4130,6 @@ by exp-lbrs.ulp</description>
 </symbol>
 </symbols>
 <devicesets>
-<deviceset name="MOMENTARY-SWITCH-SPST-LED" prefix="S">
-<description>&lt;h3&gt;Momentary Switch (Pushbutton) - SPST - w/ LED&lt;/h3&gt;
-&lt;p&gt;Normally-open (NO) SPST momentary switches (buttons, pushbuttons), with a built-in LED.&lt;/p&gt;
-&lt;h4&gt;Variants&lt;/h4&gt;
-&lt;h5&gt;PTH-CHERRY - Cherry MX Switch&lt;/h5&gt;
-&lt;p&gt;Cherry MX Keyswitches are top-of-the-line mechanical keyboard switches. Theyre satisfyingly clicky, reliable up to tens-of-millions of key presses, and a standard in gaming and programming keyboards across the globe. This blue version Cherry MX Switch is favored by most due to its secondary internal actuator making it less likely to double-tap. If you are looking for a noticeably audible and high-quality key switch, this is the perfect option for you!&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://www.sparkfun.com/products/13834"&gt;Cherry MX Switch&lt;/a&gt; (COM-13834)&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://www.sparkfun.com/products/13773"&gt;Cherry MX Switch Breakout&lt;/a&gt; (BOB-13773)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h5&gt;PTH-12MM and PTH-12MM-KIT - 12mm Illuminated LED&lt;/h5&gt;
-&lt;p&gt;KIT variant is for soldering kits. There is no tStop (covering up the top side of the pads with mask). This helps the beginner see which side they should be soldering too.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://www.sparkfun.com/products/10467"&gt;LED Tactile Button Breakout&lt;/a&gt; (BOB-10467)&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://www.sparkfun.com/products/10442"&gt;LED Tactile Button - Red&lt;/a&gt; (COM-10442)&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://www.sparkfun.com/products/10443"&gt;LED Tactile Button - Blue&lt;/a&gt; (COM-10443)&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://www.sparkfun.com/products/10440"&gt;LED Tactile Button - Green&lt;/a&gt; (COM-10440)&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://www.sparkfun.com/products/10441"&gt;LED Tactile Button - Orange&lt;/a&gt; (COM-10441)&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://www.sparkfun.com/products/10439"&gt;LED Tactile Button - White&lt;/a&gt; (COM-10439)&lt;/li&gt;
-&lt;/ul&gt;</description>
-<gates>
-<gate name="G$1" symbol="SWITCH-MOMENTARY-LED" x="0" y="0"/>
-</gates>
-<devices>
-<device name="-PTH-CHERRY" package="CHERRY-MX-LED">
-<connects>
-<connect gate="G$1" pin="1" pad="S1"/>
-<connect gate="G$1" pin="2" pad="S2"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="SF_ID" value="COM-13834" constant="no"/>
-</technology>
-</technologies>
-</device>
-</devices>
-</deviceset>
 <deviceset name="WS2812B" prefix="LED">
 <gates>
 <gate name="G$1" symbol="WS2812BLED" x="0" y="-2.54"/>
@@ -4917,69 +4816,69 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <library name="my_usbc_16p">
 <packages>
 <package name="USBC_16P_FOOT">
-<smd name="A1B12" x="0" y="0" dx="1.45" dy="0.6" layer="1" rot="R90"/>
-<smd name="A4B9" x="0.8" y="0" dx="1.45" dy="0.6" layer="1" rot="R90"/>
-<smd name="A6" x="2.975" y="0" dx="1.45" dy="0.3" layer="1" rot="R90"/>
-<smd name="B7" x="2.475" y="0" dx="1.45" dy="0.3" layer="1" rot="R90"/>
-<smd name="A5" x="1.975" y="0" dx="1.45" dy="0.3" layer="1" rot="R90"/>
-<smd name="B8" x="1.475" y="0" dx="1.45" dy="0.3" layer="1" rot="R90"/>
-<smd name="A7" x="3.475" y="0" dx="1.45" dy="0.3" layer="1" rot="R90"/>
-<smd name="B6" x="3.975" y="0" dx="1.45" dy="0.3" layer="1" rot="R90"/>
-<smd name="A8" x="4.475" y="0" dx="1.45" dy="0.3" layer="1" rot="R90"/>
-<smd name="B5" x="4.975" y="0" dx="1.45" dy="0.3" layer="1" rot="R90"/>
-<smd name="B4A9" x="5.65" y="0" dx="1.45" dy="0.6" layer="1" rot="R90"/>
-<smd name="B11A12" x="6.45" y="0" dx="1.45" dy="0.6" layer="1" rot="R90"/>
-<hole x="0.335" y="-1.445" drill="0.65"/>
-<hole x="6.115" y="-1.445" drill="0.65"/>
-<pad name="P$13" x="-1.095" y="-0.915" drill="0.6" diameter="1" shape="long" rot="R90" thermals="no"/>
-<pad name="P$14" x="7.545" y="-0.915" drill="0.6" diameter="1" shape="long" rot="R90" thermals="no"/>
-<pad name="P$15" x="-1.095" y="-5.095" drill="0.6" diameter="1" shape="long" rot="R90" thermals="no"/>
-<pad name="P$16" x="7.545" y="-5.095" drill="0.6" diameter="1" shape="long" rot="R90" thermals="no"/>
-<wire x1="-1.5" y1="-7.695" x2="8" y2="-7.695" width="0.127" layer="51"/>
+<smd name="A1B12" x="-3.225" y="3.8475" dx="1.45" dy="0.6" layer="1" rot="R90"/>
+<smd name="A4B9" x="-2.425" y="3.8475" dx="1.45" dy="0.6" layer="1" rot="R90"/>
+<smd name="A6" x="-0.25" y="3.8475" dx="1.45" dy="0.3" layer="1" rot="R90"/>
+<smd name="B7" x="-0.75" y="3.8475" dx="1.45" dy="0.3" layer="1" rot="R90"/>
+<smd name="A5" x="-1.25" y="3.8475" dx="1.45" dy="0.3" layer="1" rot="R90"/>
+<smd name="B8" x="-1.75" y="3.8475" dx="1.45" dy="0.3" layer="1" rot="R90"/>
+<smd name="A7" x="0.25" y="3.8475" dx="1.45" dy="0.3" layer="1" rot="R90"/>
+<smd name="B6" x="0.75" y="3.8475" dx="1.45" dy="0.3" layer="1" rot="R90"/>
+<smd name="A8" x="1.25" y="3.8475" dx="1.45" dy="0.3" layer="1" rot="R90"/>
+<smd name="B5" x="1.75" y="3.8475" dx="1.45" dy="0.3" layer="1" rot="R90"/>
+<smd name="B4A9" x="2.425" y="3.8475" dx="1.45" dy="0.6" layer="1" rot="R90"/>
+<smd name="B11A12" x="3.225" y="3.8475" dx="1.45" dy="0.6" layer="1" rot="R90"/>
+<hole x="-2.89" y="2.4025" drill="0.65"/>
+<hole x="2.89" y="2.4025" drill="0.65"/>
+<pad name="P$13" x="-4.32" y="2.9325" drill="0.6" diameter="1" shape="long" rot="R90" thermals="no"/>
+<pad name="P$14" x="4.32" y="2.9325" drill="0.6" diameter="1" shape="long" rot="R90" thermals="no"/>
+<pad name="P$15" x="-4.32" y="-1.2475" drill="0.6" diameter="1" shape="long" rot="R90" thermals="no"/>
+<pad name="P$16" x="4.32" y="-1.2475" drill="0.6" diameter="1" shape="long" rot="R90" thermals="no"/>
+<wire x1="-4.725" y1="-3.8475" x2="4.775" y2="-3.8475" width="0.127" layer="51"/>
 <polygon width="0.1524" layer="46">
-<vertex x="7.25013125" y="-1.38884375"/>
-<vertex x="7.25013125" y="-0.40884375" curve="-90"/>
-<vertex x="7.45013125" y="-0.14884375"/>
-<vertex x="7.59013125" y="-0.14884375" curve="-90"/>
-<vertex x="7.85013125" y="-0.40884375"/>
-<vertex x="7.85013125" y="-1.42884375" curve="-90"/>
-<vertex x="7.57013125" y="-1.66884375"/>
-<vertex x="7.47013125" y="-1.66884375" curve="-90"/>
+<vertex x="4.07593125" y="2.45865625"/>
+<vertex x="4.07593125" y="3.43865625" curve="-90"/>
+<vertex x="4.22513125" y="3.64785625"/>
+<vertex x="4.36513125" y="3.64785625" curve="-90"/>
+<vertex x="4.57433125" y="3.43865625"/>
+<vertex x="4.57433125" y="2.41865625" curve="-90"/>
+<vertex x="4.37053125" y="2.22945625"/>
+<vertex x="4.27053125" y="2.22945625" curve="-90"/>
 </polygon>
 <polygon width="0.1524" layer="46">
-<vertex x="-1.38986875" y="-1.40884375"/>
-<vertex x="-1.38986875" y="-0.42884375" curve="-90"/>
-<vertex x="-1.18986875" y="-0.16884375"/>
-<vertex x="-1.04986875" y="-0.16884375" curve="-90"/>
-<vertex x="-0.78986875" y="-0.42884375"/>
-<vertex x="-0.78986875" y="-1.44884375" curve="-90"/>
-<vertex x="-1.06986875" y="-1.68884375"/>
-<vertex x="-1.16986875" y="-1.68884375" curve="-90"/>
+<vertex x="-4.56406875" y="2.41325625"/>
+<vertex x="-4.56406875" y="3.39325625" curve="-90"/>
+<vertex x="-4.41486875" y="3.62785625"/>
+<vertex x="-4.27486875" y="3.62785625" curve="-90"/>
+<vertex x="-4.06566875" y="3.41865625"/>
+<vertex x="-4.06566875" y="2.39865625" curve="-90"/>
+<vertex x="-4.29486875" y="2.20945625"/>
+<vertex x="-4.39486875" y="2.20945625" curve="-90"/>
 </polygon>
 <polygon width="0.1524" layer="46">
-<vertex x="7.25013125" y="-5.56884375"/>
-<vertex x="7.25013125" y="-4.58884375" curve="-90"/>
-<vertex x="7.45013125" y="-4.32884375"/>
-<vertex x="7.59013125" y="-4.32884375" curve="-90"/>
-<vertex x="7.85013125" y="-4.58884375"/>
-<vertex x="7.85013125" y="-5.60884375" curve="-90"/>
-<vertex x="7.57013125" y="-5.84884375"/>
-<vertex x="7.47013125" y="-5.84884375" curve="-90"/>
+<vertex x="4.07593125" y="-1.74674375"/>
+<vertex x="4.07593125" y="-0.76674375" curve="-90"/>
+<vertex x="4.22513125" y="-0.53214375"/>
+<vertex x="4.36513125" y="-0.53214375" curve="-90"/>
+<vertex x="4.57433125" y="-0.74134375"/>
+<vertex x="4.57433125" y="-1.76134375" curve="-90"/>
+<vertex x="4.31973125" y="-1.95054375"/>
+<vertex x="4.21973125" y="-1.95054375" curve="-90"/>
 </polygon>
 <polygon width="0.1524" layer="46">
-<vertex x="-1.38986875" y="-5.56884375"/>
-<vertex x="-1.38986875" y="-4.58884375" curve="-90"/>
-<vertex x="-1.18986875" y="-4.32884375"/>
-<vertex x="-1.04986875" y="-4.32884375" curve="-90"/>
-<vertex x="-0.78986875" y="-4.58884375"/>
-<vertex x="-0.78986875" y="-5.60884375" curve="-90"/>
-<vertex x="-1.06986875" y="-5.84884375"/>
-<vertex x="-1.16986875" y="-5.84884375" curve="-90"/>
+<vertex x="-4.56406875" y="-1.72134375"/>
+<vertex x="-4.56406875" y="-0.74134375" curve="-90"/>
+<vertex x="-4.41486875" y="-0.53214375"/>
+<vertex x="-4.27486875" y="-0.53214375" curve="-90"/>
+<vertex x="-4.06566875" y="-0.74134375"/>
+<vertex x="-4.06566875" y="-1.76134375" curve="-90"/>
+<vertex x="-4.29486875" y="-1.95054375"/>
+<vertex x="-4.39486875" y="-1.95054375" curve="-90"/>
 </polygon>
-<rectangle x1="-1.5748" y1="-1.8796" x2="-0.6096" y2="0.0508" layer="31"/>
-<rectangle x1="-1.5748" y1="-6.0452" x2="-0.6096" y2="-4.1148" layer="31"/>
-<rectangle x1="7.0612" y1="-6.0452" x2="8.0264" y2="-4.1148" layer="31"/>
-<rectangle x1="7.0612" y1="-1.8796" x2="8.0264" y2="0.0508" layer="31"/>
+<rectangle x1="-4.7998" y1="1.9679" x2="-3.8346" y2="3.8983" layer="31"/>
+<rectangle x1="-4.7998" y1="-2.1977" x2="-3.8346" y2="-0.2673" layer="31"/>
+<rectangle x1="3.8362" y1="-2.1977" x2="4.8014" y2="-0.2673" layer="31"/>
+<rectangle x1="3.8362" y1="1.9679" x2="4.8014" y2="3.8983" layer="31"/>
 </package>
 </packages>
 <symbols>
@@ -5124,6 +5023,89 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 </deviceset>
 </devicesets>
 </library>
+<library name="SparkFun-Cherry-MX-Switch-Breakout">
+<description>Generated from &lt;b&gt;SparkFun-Cherry-MX-Switch-Breakout.sch&lt;/b&gt;&lt;p&gt;
+by exp-lbrs.ulp</description>
+<packages>
+<package name="CHERRY-MX-LED">
+<wire x1="-6.731" y1="6.731" x2="-7.747" y2="6.731" width="0.254" layer="51"/>
+<wire x1="-7.747" y1="6.731" x2="-6.731" y2="7.747" width="0.254" layer="51" curve="-90"/>
+<wire x1="-6.731" y1="7.747" x2="-3.175" y2="7.747" width="0.254" layer="51"/>
+<wire x1="-3.175" y1="7.747" x2="-3.175" y2="6.731" width="0.254" layer="51"/>
+<wire x1="3.175" y1="7.747" x2="3.175" y2="6.731" width="0.254" layer="51"/>
+<wire x1="6.731" y1="6.731" x2="7.747" y2="6.731" width="0.254" layer="51"/>
+<wire x1="7.747" y1="6.731" x2="6.731" y2="7.747" width="0.254" layer="51" curve="90"/>
+<wire x1="6.731" y1="7.747" x2="3.175" y2="7.747" width="0.254" layer="51"/>
+<wire x1="6.731" y1="6.731" x2="6.731" y2="-6.731" width="0.254" layer="51"/>
+<wire x1="6.731" y1="-6.731" x2="7.747" y2="-6.731" width="0.254" layer="51"/>
+<wire x1="7.747" y1="-6.731" x2="6.731" y2="-7.747" width="0.254" layer="51" curve="-90"/>
+<wire x1="6.731" y1="-7.747" x2="3.175" y2="-7.747" width="0.254" layer="51"/>
+<wire x1="3.175" y1="-7.747" x2="3.175" y2="-6.731" width="0.254" layer="51"/>
+<wire x1="-3.175" y1="-7.747" x2="-3.175" y2="-6.731" width="0.254" layer="51"/>
+<wire x1="-6.731" y1="-7.747" x2="-3.175" y2="-7.747" width="0.254" layer="51"/>
+<wire x1="-7.747" y1="-6.731" x2="-6.731" y2="-7.747" width="0.254" layer="51" curve="90"/>
+<wire x1="-6.731" y1="-6.731" x2="-7.747" y2="-6.731" width="0.254" layer="51"/>
+<wire x1="-6.731" y1="-6.731" x2="-6.731" y2="6.731" width="0.254" layer="51"/>
+<wire x1="-3.175" y1="6.731" x2="-0.762" y2="6.731" width="0.254" layer="51"/>
+<wire x1="-0.762" y1="6.731" x2="-0.762" y2="7.747" width="0.254" layer="51"/>
+<wire x1="-0.762" y1="7.747" x2="0.762" y2="7.747" width="0.254" layer="51"/>
+<wire x1="0.762" y1="7.747" x2="0.762" y2="6.731" width="0.254" layer="51"/>
+<wire x1="0.762" y1="6.731" x2="3.175" y2="6.731" width="0.254" layer="51"/>
+<wire x1="3.175" y1="-6.731" x2="0.762" y2="-6.731" width="0.254" layer="51"/>
+<wire x1="0.762" y1="-6.731" x2="0.762" y2="-7.747" width="0.254" layer="51"/>
+<wire x1="-0.762" y1="-7.747" x2="-0.762" y2="-6.731" width="0.254" layer="51"/>
+<wire x1="0.762" y1="-7.747" x2="-0.762" y2="-7.747" width="0.254" layer="51"/>
+<wire x1="-0.762" y1="-6.731" x2="-3.175" y2="-6.731" width="0.254" layer="51"/>
+<wire x1="-3.81" y1="2.54" x2="-1.27" y2="5.08" width="0.254" layer="21"/>
+<wire x1="2.54" y1="5.08" x2="-0.762" y2="3.81" width="0.254" layer="21"/>
+<wire x1="-6.096" y1="6.731" x2="6.096" y2="6.731" width="0.254" layer="21"/>
+<wire x1="6.096" y1="6.731" x2="6.096" y2="-6.731" width="0.254" layer="21"/>
+<wire x1="6.096" y1="-6.731" x2="-6.096" y2="-6.731" width="0.254" layer="21"/>
+<wire x1="-6.096" y1="-6.731" x2="-6.096" y2="6.731" width="0.254" layer="21"/>
+<pad name="S1" x="-3.81" y="2.54" drill="1.7526" diameter="3.2258"/>
+<pad name="S2" x="2.54" y="5.08" drill="1.7526" diameter="3.2258"/>
+<hole x="0" y="0" drill="4.0894"/>
+<hole x="-5.08" y="0" drill="1.70688125"/>
+<hole x="5.08" y="0" drill="1.70688125"/>
+</package>
+</packages>
+<symbols>
+<symbol name="CHERRY-MX-LED">
+<circle x="-2.54" y="2.54" radius="0.127" width="0.4064" layer="94"/>
+<circle x="2.54" y="2.54" radius="0.127" width="0.4064" layer="94"/>
+<wire x1="-2.54" y1="2.54" x2="1.905" y2="3.81" width="0.254" layer="94"/>
+<wire x1="-5.08" y1="5.08" x2="-5.08" y2="2.54" width="0.254" layer="94"/>
+<wire x1="-5.08" y1="2.54" x2="-5.08" y2="0" width="0.254" layer="94"/>
+<wire x1="-5.08" y1="0" x2="5.08" y2="0" width="0.254" layer="94"/>
+<wire x1="5.08" y1="0" x2="5.08" y2="2.54" width="0.254" layer="94"/>
+<wire x1="5.08" y1="2.54" x2="5.08" y2="5.08" width="0.254" layer="94"/>
+<wire x1="5.08" y1="5.08" x2="-5.08" y2="5.08" width="0.254" layer="94"/>
+<wire x1="-5.08" y1="2.54" x2="-2.54" y2="2.54" width="0.1524" layer="94"/>
+<wire x1="1.905" y1="2.54" x2="5.08" y2="2.54" width="0.1524" layer="94"/>
+<pin name="S1" x="-7.62" y="2.54" visible="off" length="short" direction="pas" swaplevel="2"/>
+<pin name="S2" x="7.62" y="2.54" visible="off" length="short" direction="pas" swaplevel="1" rot="R180"/>
+<text x="0" y="5.334" size="1.778" layer="95" align="bottom-center">&gt;NAME</text>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="CHERRY-MX-LED" prefix="S">
+<gates>
+<gate name="G$1" symbol="CHERRY-MX-LED" x="0" y="2.54"/>
+</gates>
+<devices>
+<device name="" package="CHERRY-MX-LED">
+<connects>
+<connect gate="G$1" pin="S1" pad="S1"/>
+<connect gate="G$1" pin="S2" pad="S2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -5134,21 +5116,21 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 </class>
 </classes>
 <parts>
-<part name="S1" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
-<part name="S2" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
-<part name="S3" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
-<part name="S4" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
-<part name="S5" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
-<part name="S6" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
-<part name="S7" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
-<part name="S8" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
-<part name="S9" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
-<part name="S10" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
-<part name="S11" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
-<part name="S12" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
-<part name="S13" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
-<part name="S14" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
-<part name="S15" library="lul" deviceset="MOMENTARY-SWITCH-SPST-LED" device="-PTH-CHERRY" value="MOMENTARY-SWITCH-SPST-LED-PTH-CHERRY"/>
+<part name="S1" library="SparkFun-Cherry-MX-Switch-Breakout" deviceset="CHERRY-MX-LED" device="" value="CHERRY-MX-LED"/>
+<part name="S2" library="SparkFun-Cherry-MX-Switch-Breakout" deviceset="CHERRY-MX-LED" device="" value="CHERRY-MX-LED"/>
+<part name="S3" library="SparkFun-Cherry-MX-Switch-Breakout" deviceset="CHERRY-MX-LED" device="" value="CHERRY-MX-LED"/>
+<part name="S4" library="SparkFun-Cherry-MX-Switch-Breakout" deviceset="CHERRY-MX-LED" device="" value="CHERRY-MX-LED"/>
+<part name="S5" library="SparkFun-Cherry-MX-Switch-Breakout" deviceset="CHERRY-MX-LED" device="" value="CHERRY-MX-LED"/>
+<part name="S6" library="SparkFun-Cherry-MX-Switch-Breakout" deviceset="CHERRY-MX-LED" device="" value="CHERRY-MX-LED"/>
+<part name="S7" library="SparkFun-Cherry-MX-Switch-Breakout" deviceset="CHERRY-MX-LED" device="" value="CHERRY-MX-LED"/>
+<part name="S8" library="SparkFun-Cherry-MX-Switch-Breakout" deviceset="CHERRY-MX-LED" device="" value="CHERRY-MX-LED"/>
+<part name="S9" library="SparkFun-Cherry-MX-Switch-Breakout" deviceset="CHERRY-MX-LED" device="" value="CHERRY-MX-LED"/>
+<part name="S10" library="SparkFun-Cherry-MX-Switch-Breakout" deviceset="CHERRY-MX-LED" device="" value="CHERRY-MX-LED"/>
+<part name="S11" library="SparkFun-Cherry-MX-Switch-Breakout" deviceset="CHERRY-MX-LED" device="" value="CHERRY-MX-LED"/>
+<part name="S12" library="SparkFun-Cherry-MX-Switch-Breakout" deviceset="CHERRY-MX-LED" device="" value="CHERRY-MX-LED"/>
+<part name="S13" library="SparkFun-Cherry-MX-Switch-Breakout" deviceset="CHERRY-MX-LED" device="" value="CHERRY-MX-LED"/>
+<part name="S14" library="SparkFun-Cherry-MX-Switch-Breakout" deviceset="CHERRY-MX-LED" device="" value="CHERRY-MX-LED"/>
+<part name="S15" library="SparkFun-Cherry-MX-Switch-Breakout" deviceset="CHERRY-MX-LED" device="" value="CHERRY-MX-LED"/>
 <part name="U1" library="lul" deviceset="LUL_DISP_OLED_UG-2864HSWEG01" device="" value="UG-2864HSWEG01"/>
 <part name="U$2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="R3" library="clock" deviceset="RESISTOR" device="0805-RES" value="560K"/>
@@ -5159,7 +5141,7 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <part name="C5" library="clock" deviceset="CAP" device="0805" value="2.2uF"/>
 <part name="U$20" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="C7" library="clock" deviceset="CAP" device="0805" value="2.2uF"/>
-<part name="C8" library="clock" deviceset="CAP" device="0805" value="2.2uF/16V"/>
+<part name="C8" library="clock" deviceset="CAP" device="0805" value="2.2uF"/>
 <part name="U$21" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="C6" library="clock" deviceset="CAP" device="0805" value="1uF"/>
 <part name="IC1" library="clock" deviceset="STM32F072C8T6" device=""/>
@@ -5170,8 +5152,8 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <part name="+3V4" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="GND7" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="+3V5" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
-<part name="R2" library="clock" deviceset="RESISTOR" device="0805-RES" value="10k"/>
-<part name="R4" library="clock" deviceset="RESISTOR" device="0805-RES" value="10k"/>
+<part name="R2" library="clock" deviceset="RESISTOR" device="0805-RES" value="10K"/>
+<part name="R4" library="clock" deviceset="RESISTOR" device="0805-RES" value="10K"/>
 <part name="GND9" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="+3V6" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="+3V7" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
@@ -5185,10 +5167,10 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <part name="+3V10" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="GND18" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="+3V1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
-<part name="C1" library="clock" deviceset="CAP" device="0805" value="0.1uF"/>
-<part name="C2" library="clock" deviceset="CAP" device="0805" value="0.1uF"/>
-<part name="C9" library="clock" deviceset="CAP" device="0805" value="0.1uF"/>
-<part name="C10" library="clock" deviceset="CAP" device="0805" value="0.1uF"/>
+<part name="C1" library="clock" deviceset="CAP" device="0805" value="100nF"/>
+<part name="C2" library="clock" deviceset="CAP" device="0805" value="100nF"/>
+<part name="C9" library="clock" deviceset="CAP" device="0805" value="100nF"/>
+<part name="C10" library="clock" deviceset="CAP" device="0805" value="100nF"/>
 <part name="U$3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="+3V2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="R17" library="clock" deviceset="RESISTOR" device="0805-RES" value="10K"/>
@@ -5240,30 +5222,30 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <part name="GND28" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND29" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND30" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="C11" library="clock" deviceset="CAP" device="0805" value="0.1uF"/>
-<part name="C12" library="clock" deviceset="CAP" device="0805" value="0.1uF"/>
-<part name="C13" library="clock" deviceset="CAP" device="0805" value="0.1uF"/>
-<part name="C14" library="clock" deviceset="CAP" device="0805" value="0.1uF"/>
+<part name="C11" library="clock" deviceset="CAP" device="0805" value="100nF"/>
+<part name="C12" library="clock" deviceset="CAP" device="0805" value="100nF"/>
+<part name="C13" library="clock" deviceset="CAP" device="0805" value="100nF"/>
+<part name="C14" library="clock" deviceset="CAP" device="0805" value="100nF"/>
 <part name="U$1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="+3V26" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
-<part name="C15" library="clock" deviceset="CAP" device="0805" value="0.1uF"/>
-<part name="C16" library="clock" deviceset="CAP" device="0805" value="0.1uF"/>
-<part name="C17" library="clock" deviceset="CAP" device="0805" value="0.1uF"/>
-<part name="C18" library="clock" deviceset="CAP" device="0805" value="0.1uF"/>
+<part name="C15" library="clock" deviceset="CAP" device="0805" value="100nF"/>
+<part name="C16" library="clock" deviceset="CAP" device="0805" value="100nF"/>
+<part name="C17" library="clock" deviceset="CAP" device="0805" value="100nF"/>
+<part name="C18" library="clock" deviceset="CAP" device="0805" value="100nF"/>
 <part name="U$4" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="+3V28" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
-<part name="C19" library="clock" deviceset="CAP" device="0805" value="0.1uF"/>
-<part name="C20" library="clock" deviceset="CAP" device="0805" value="0.1uF"/>
-<part name="C21" library="clock" deviceset="CAP" device="0805" value="0.1uF"/>
-<part name="C22" library="clock" deviceset="CAP" device="0805" value="0.1uF"/>
+<part name="C19" library="clock" deviceset="CAP" device="0805" value="100nF"/>
+<part name="C20" library="clock" deviceset="CAP" device="0805" value="100nF"/>
+<part name="C21" library="clock" deviceset="CAP" device="0805" value="100nF"/>
+<part name="C22" library="clock" deviceset="CAP" device="0805" value="100nF"/>
 <part name="U$5" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="+3V29" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
-<part name="C23" library="clock" deviceset="CAP" device="0805" value="0.1uF"/>
-<part name="C24" library="clock" deviceset="CAP" device="0805" value="0.1uF"/>
-<part name="C25" library="clock" deviceset="CAP" device="0805" value="0.1uF"/>
+<part name="C23" library="clock" deviceset="CAP" device="0805" value="100nF"/>
+<part name="C24" library="clock" deviceset="CAP" device="0805" value="100nF"/>
+<part name="C25" library="clock" deviceset="CAP" device="0805" value="100nF"/>
 <part name="U$6" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="+3V30" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
-<part name="R5" library="clock" deviceset="RESISTOR" device="0805-RES" value="10k"/>
+<part name="R5" library="clock" deviceset="RESISTOR" device="0805-RES" value="10K"/>
 <part name="GND32" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="+3V32" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="C27" library="clock" deviceset="C-US" device="C1210" value="47uF"/>
@@ -5274,8 +5256,8 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <part name="U$14" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
 <part name="U$15" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
 <part name="U$16" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
-<part name="R7" library="clock" deviceset="RESISTOR" device="0805-RES" value="4K7"/>
-<part name="R8" library="clock" deviceset="RESISTOR" device="0805-RES" value="4K7"/>
+<part name="R7" library="clock" deviceset="RESISTOR" device="0805-RES" value="5.1K"/>
+<part name="R8" library="clock" deviceset="RESISTOR" device="0805-RES" value="5.1K"/>
 <part name="+3V27" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="+3V33" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="IC3" library="74xx-little-de" library_urn="urn:adsk.eagle:library:86" deviceset="74*1G08" device="DBV" technology="AHCT"/>
@@ -5645,7 +5627,7 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <junction x="297.18" y="-30.48"/>
 </segment>
 <segment>
-<pinref part="S1" gate="G$1" pin="2"/>
+<pinref part="S1" gate="G$1" pin="S2"/>
 <wire x1="66.04" y1="27.94" x2="76.2" y2="27.94" width="0.1524" layer="91"/>
 <wire x1="76.2" y1="27.94" x2="76.2" y2="7.62" width="0.1524" layer="91"/>
 <wire x1="76.2" y1="7.62" x2="76.2" y2="-12.7" width="0.1524" layer="91"/>
@@ -5660,49 +5642,49 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <wire x1="200.66" y1="-12.7" x2="200.66" y2="7.62" width="0.1524" layer="91"/>
 <wire x1="200.66" y1="7.62" x2="200.66" y2="27.94" width="0.1524" layer="91"/>
 <wire x1="200.66" y1="27.94" x2="185.42" y2="27.94" width="0.1524" layer="91"/>
-<pinref part="S3" gate="G$1" pin="2"/>
-<pinref part="S6" gate="G$1" pin="2"/>
+<pinref part="S3" gate="G$1" pin="S2"/>
+<pinref part="S6" gate="G$1" pin="S2"/>
 <wire x1="185.42" y1="7.62" x2="200.66" y2="7.62" width="0.1524" layer="91"/>
 <junction x="200.66" y="7.62"/>
-<pinref part="S9" gate="G$1" pin="2"/>
+<pinref part="S9" gate="G$1" pin="S2"/>
 <wire x1="185.42" y1="-12.7" x2="200.66" y2="-12.7" width="0.1524" layer="91"/>
 <junction x="200.66" y="-12.7"/>
-<pinref part="S12" gate="G$1" pin="2"/>
+<pinref part="S12" gate="G$1" pin="S2"/>
 <wire x1="185.42" y1="-33.02" x2="200.66" y2="-33.02" width="0.1524" layer="91"/>
 <junction x="200.66" y="-33.02"/>
-<pinref part="S15" gate="G$1" pin="2"/>
+<pinref part="S15" gate="G$1" pin="S2"/>
 <wire x1="185.42" y1="-53.34" x2="200.66" y2="-53.34" width="0.1524" layer="91"/>
 <junction x="200.66" y="-53.34"/>
-<pinref part="S2" gate="G$1" pin="2"/>
+<pinref part="S2" gate="G$1" pin="S2"/>
 <wire x1="124.46" y1="27.94" x2="139.7" y2="27.94" width="0.1524" layer="91"/>
 <wire x1="139.7" y1="27.94" x2="139.7" y2="7.62" width="0.1524" layer="91"/>
 <junction x="139.7" y="-66.04"/>
-<pinref part="S5" gate="G$1" pin="2"/>
+<pinref part="S5" gate="G$1" pin="S2"/>
 <wire x1="139.7" y1="7.62" x2="139.7" y2="-12.7" width="0.1524" layer="91"/>
 <wire x1="139.7" y1="-12.7" x2="139.7" y2="-33.02" width="0.1524" layer="91"/>
 <wire x1="139.7" y1="-33.02" x2="139.7" y2="-53.34" width="0.1524" layer="91"/>
 <wire x1="139.7" y1="-53.34" x2="139.7" y2="-66.04" width="0.1524" layer="91"/>
 <wire x1="124.46" y1="7.62" x2="139.7" y2="7.62" width="0.1524" layer="91"/>
 <junction x="139.7" y="7.62"/>
-<pinref part="S8" gate="G$1" pin="2"/>
+<pinref part="S8" gate="G$1" pin="S2"/>
 <wire x1="124.46" y1="-12.7" x2="139.7" y2="-12.7" width="0.1524" layer="91"/>
 <junction x="139.7" y="-12.7"/>
-<pinref part="S11" gate="G$1" pin="2"/>
+<pinref part="S11" gate="G$1" pin="S2"/>
 <wire x1="124.46" y1="-33.02" x2="139.7" y2="-33.02" width="0.1524" layer="91"/>
 <junction x="139.7" y="-33.02"/>
-<pinref part="S14" gate="G$1" pin="2"/>
+<pinref part="S14" gate="G$1" pin="S2"/>
 <wire x1="124.46" y1="-53.34" x2="139.7" y2="-53.34" width="0.1524" layer="91"/>
 <junction x="139.7" y="-53.34"/>
-<pinref part="S4" gate="G$1" pin="2"/>
+<pinref part="S4" gate="G$1" pin="S2"/>
 <wire x1="66.04" y1="7.62" x2="76.2" y2="7.62" width="0.1524" layer="91"/>
 <junction x="76.2" y="7.62"/>
-<pinref part="S7" gate="G$1" pin="2"/>
+<pinref part="S7" gate="G$1" pin="S2"/>
 <wire x1="66.04" y1="-12.7" x2="76.2" y2="-12.7" width="0.1524" layer="91"/>
 <junction x="76.2" y="-12.7"/>
-<pinref part="S10" gate="G$1" pin="2"/>
+<pinref part="S10" gate="G$1" pin="S2"/>
 <wire x1="66.04" y1="-33.02" x2="76.2" y2="-33.02" width="0.1524" layer="91"/>
 <junction x="76.2" y="-33.02"/>
-<pinref part="S13" gate="G$1" pin="2"/>
+<pinref part="S13" gate="G$1" pin="S2"/>
 <wire x1="66.04" y1="-53.34" x2="76.2" y2="-53.34" width="0.1524" layer="91"/>
 <junction x="76.2" y="-53.34"/>
 <pinref part="GND1" gate="1" pin="GND"/>
@@ -6287,7 +6269,7 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <label x="411.48" y="-116.84" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="S15" gate="G$1" pin="1"/>
+<pinref part="S15" gate="G$1" pin="S1"/>
 <wire x1="149.86" y1="-53.34" x2="170.18" y2="-53.34" width="0.1524" layer="91"/>
 <label x="154.94" y="-53.34" size="1.778" layer="95"/>
 </segment>
@@ -6299,7 +6281,7 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <label x="411.48" y="-119.38" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="S14" gate="G$1" pin="1"/>
+<pinref part="S14" gate="G$1" pin="S1"/>
 <wire x1="88.9" y1="-53.34" x2="109.22" y2="-53.34" width="0.1524" layer="91"/>
 <label x="91.44" y="-53.34" size="1.778" layer="95"/>
 </segment>
@@ -6311,7 +6293,7 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <label x="411.48" y="-137.16" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="S13" gate="G$1" pin="1"/>
+<pinref part="S13" gate="G$1" pin="S1"/>
 <wire x1="30.48" y1="-53.34" x2="50.8" y2="-53.34" width="0.1524" layer="91"/>
 <label x="30.48" y="-53.34" size="1.778" layer="95"/>
 </segment>
@@ -6324,7 +6306,7 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 </segment>
 <segment>
 <wire x1="88.9" y1="-33.02" x2="109.22" y2="-33.02" width="0.1524" layer="91"/>
-<pinref part="S11" gate="G$1" pin="1"/>
+<pinref part="S11" gate="G$1" pin="S1"/>
 <label x="91.44" y="-33.02" size="1.778" layer="95"/>
 </segment>
 </net>
@@ -6335,7 +6317,7 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <label x="411.48" y="-134.62" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="S12" gate="G$1" pin="1"/>
+<pinref part="S12" gate="G$1" pin="S1"/>
 <wire x1="149.86" y1="-33.02" x2="170.18" y2="-33.02" width="0.1524" layer="91"/>
 <label x="154.94" y="-33.02" size="1.778" layer="95"/>
 </segment>
@@ -6347,7 +6329,7 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <label x="439.42" y="-172.72" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="S10" gate="G$1" pin="1"/>
+<pinref part="S10" gate="G$1" pin="S1"/>
 <wire x1="30.48" y1="-33.02" x2="50.8" y2="-33.02" width="0.1524" layer="91"/>
 <label x="30.48" y="-33.02" size="1.778" layer="95"/>
 </segment>
@@ -6359,7 +6341,7 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <label x="439.42" y="-170.18" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="S9" gate="G$1" pin="1"/>
+<pinref part="S9" gate="G$1" pin="S1"/>
 <wire x1="149.86" y1="-12.7" x2="170.18" y2="-12.7" width="0.1524" layer="91"/>
 <label x="154.94" y="-12.7" size="1.778" layer="95"/>
 </segment>
@@ -6371,7 +6353,7 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <label x="439.42" y="-167.64" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="S8" gate="G$1" pin="1"/>
+<pinref part="S8" gate="G$1" pin="S1"/>
 <wire x1="86.36" y1="-12.7" x2="109.22" y2="-12.7" width="0.1524" layer="91"/>
 <label x="88.9" y="-12.7" size="1.778" layer="95"/>
 </segment>
@@ -6383,7 +6365,7 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <label x="439.42" y="-165.1" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="S7" gate="G$1" pin="1"/>
+<pinref part="S7" gate="G$1" pin="S1"/>
 <wire x1="30.48" y1="-12.7" x2="50.8" y2="-12.7" width="0.1524" layer="91"/>
 <label x="30.48" y="-12.7" size="1.778" layer="95"/>
 </segment>
@@ -6395,7 +6377,7 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <label x="439.42" y="-162.56" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="S6" gate="G$1" pin="1"/>
+<pinref part="S6" gate="G$1" pin="S1"/>
 <wire x1="149.86" y1="7.62" x2="170.18" y2="7.62" width="0.1524" layer="91"/>
 <label x="154.94" y="7.62" size="1.778" layer="95"/>
 </segment>
@@ -6407,7 +6389,7 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <label x="378.46" y="-200.66" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="S5" gate="G$1" pin="1"/>
+<pinref part="S5" gate="G$1" pin="S1"/>
 <wire x1="86.36" y1="7.62" x2="109.22" y2="7.62" width="0.1524" layer="91"/>
 <label x="88.9" y="7.62" size="1.778" layer="95"/>
 </segment>
@@ -6419,7 +6401,7 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <label x="378.46" y="-182.88" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="S4" gate="G$1" pin="1"/>
+<pinref part="S4" gate="G$1" pin="S1"/>
 <wire x1="30.48" y1="7.62" x2="50.8" y2="7.62" width="0.1524" layer="91"/>
 <label x="30.48" y="7.62" size="1.778" layer="95"/>
 </segment>
@@ -6450,7 +6432,7 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 </net>
 <net name="SW1" class="0">
 <segment>
-<pinref part="S1" gate="G$1" pin="1"/>
+<pinref part="S1" gate="G$1" pin="S1"/>
 <wire x1="30.48" y1="27.94" x2="50.8" y2="27.94" width="0.1524" layer="91"/>
 <label x="30.48" y="27.94" size="1.778" layer="95"/>
 </segment>
@@ -6467,14 +6449,14 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <label x="439.42" y="-198.12" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="S2" gate="G$1" pin="1"/>
+<pinref part="S2" gate="G$1" pin="S1"/>
 <wire x1="88.9" y1="27.94" x2="109.22" y2="27.94" width="0.1524" layer="91"/>
 <label x="91.44" y="27.94" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="SW3" class="0">
 <segment>
-<pinref part="S3" gate="G$1" pin="1"/>
+<pinref part="S3" gate="G$1" pin="S1"/>
 <wire x1="149.86" y1="27.94" x2="170.18" y2="27.94" width="0.1524" layer="91"/>
 <label x="154.94" y="27.94" size="1.778" layer="95"/>
 </segment>

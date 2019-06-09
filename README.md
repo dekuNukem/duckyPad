@@ -1,6 +1,6 @@
 # kbord: Programmable Mechanical Keypad with RGB Backlight
 
-![Alt text](pics/title.jpg)
+![Alt text](resources/pics/title.jpg)
 
 kbord is a programmable keypad with 15 mechanical keys, each of which can be set to execute a script when pressed.
 
@@ -41,7 +41,7 @@ Feel free to ask in the issue section, or email me at `dekunukem__gmail__com`.
 
 Profiles are created as folders, with naming conventions like `profile#_name`, where `#` is the profile number, and `name` being the name of the profile. Here are some examples:
 
-![Alt text](pics/profile_examples.png)
+![Alt text](resources/pics/profile_examples.png)
 
 ### Step 2: Preparing scripts
 
@@ -51,7 +51,7 @@ Each key has its own script file, named like `key#_name.txt`, where `#` is the k
 
 Here are some examples:
 
-![Alt text](pics/key_scripts.png)
+![Alt text](resources/pics/key_scripts.png)
 
 The screen will only display the first 7 characters of the key name, so keep it short!
 
@@ -70,7 +70,7 @@ Similarly, KEYDOWN_COLOR is the color for the key to change to when you press it
 
 The content of the profile folder should now look like this:
 
-![Alt text](pics/config.png)
+![Alt text](resources/pics/config.png)
 
 If you skip this step the default backlight color would be light blue.
 
@@ -80,7 +80,7 @@ Format a SD card in FAT32, put all the profile folders in the root of the SD car
 
 kbord should start up with the first profile, displaying the profile names and key names, as well as the background color:
 
-![Alt text](pics/firefox_example.JPG)
+![Alt text](resources/pics/firefox_example.JPG)
 
 Press the corresponding keys to execute their scripts, if there is an error it will show up on the screen.
 
@@ -100,7 +100,7 @@ Here are some things to keep in mind if you're making one yourself:
 
 The board is a simple 2-layer board with a cutout for the OLED screen in the milling layer, some board fabs might ignore that layer, so be careful.
 
-![Alt text](pics/pcb.jpg)
+![Alt text](resources/pics/pcb.jpg)
 
 Getting a stencil is strongly recommended, because the RGB LED used here WILL melt if you try to solder it with a regular soldering iron. It's best to use a stencil and then reflow it in an oven.
 
@@ -110,7 +110,7 @@ Speaking of which...
 
 The RGB LED is the trusty WS2812 that's thrown into every single RGB project these days, except it isn't: What I used is SK6812 which is a compatible clone with [allegedly better performance](https://hackaday.com/2017/01/25/ws2812b-led-clones-work-better-than-originals/). It is also the smaller 3535 package, not the regular 5050 kind, so do watch out for that.
 
-![Alt text](pics/led.jpg)
+![Alt text](resources/pics/led.jpg)
 
 I haven't tested WS2812 with the design, it should work on paper, but I suggest just get some 3535 SK6812 and be done with it.
 
@@ -120,11 +120,11 @@ In theory you can use any cherry MX style 3-pin switches you like, however, beca
 
 I used Gateron RGB switches, they are perfectly designed for this kind of usage, translucent case with a large opening for LED. I used greens but there are other colors to choose from as well.
 
-![Alt text](pics/gateron.jpg)
+![Alt text](resources/pics/gateron.jpg)
 
 A switch plate is strongly recommended, to improve stability and even out the backlight. I had mine laser cut with a diffuser material.
 
-![Alt text](pics/plate.jpg)
+![Alt text](resources/pics/plate.jpg)
 
 ### Keycaps
 
