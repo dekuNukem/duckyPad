@@ -4,7 +4,7 @@
 
 kbord is a programmable keypad with 15 mechanical keys, each of which can execute a script when pressed.
 
-The script can be as simple as shortcut keys like `ctrl+c`, or as complex as [creating root backdoors](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---OSX-Root-Backdoor) or [grabbing passwords](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---download-mimikatz%2C-grab-passwords-and-email-them-via-gmail).
+The script can be as simple as shortcuts like `ctrl+c`, or as complex as [creating root backdoors](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---OSX-Root-Backdoor) or [grabbing passwords](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---download-mimikatz%2C-grab-passwords-and-email-them-via-gmail).
 
 Multiple profiles are supported, for different programs/environments.
 
@@ -49,18 +49,17 @@ The screen will only display the first 7 characters of the key name, so keep it 
 
 ### Step 3: (OPTIONAL) Set backlight color
 
-This step is optional, but who would want to pass that? It's RGB after all.
+Create a file named `config.txt` in a profile folder, and set its content like this 
 
-Just create file named `config.txt` and set its content like this 
 ```
 BG_COLOR 255 100 0
 KEYDOWN_COLOR 100 0 255
 ```
-BG_COLOR is the background color, the following numbers are value of the color that you can change, between 0 and 255, in the order of R-G-B.
+BG_COLOR is the background color between 0 and 255, in the order of R-G-B.
 
 Similarly, KEYDOWN_COLOR is the color for the key to change to when you press it down.
 
-The content of the profile folder should now look like this:
+The profile folder should now look like this:
 
 ![Alt text](resources/pics/config.png)
 
@@ -76,11 +75,11 @@ kbord should start up with the first profile, displaying the profile names and k
 
 Press the corresponding keys to execute their scripts, if there is an error it will show up on the screen.
 
-Press + - button on the lower right to change profiles.
+Press +/- button on the lower right to change profiles.
 
 ### More examples!
 
-[See here](sample_SD_card) for some profiles that has been already set up. You can start from there and make changes to suit your need.
+[Click here](sample_SD_card) for some sample profiles. You can start from there and make changes to suit your need.
 
 ## Making one yourself
 
@@ -90,17 +89,17 @@ Here are some things to keep in mind if you're making one yourself:
 
 ### Circuit board
 
-The board is a simple 2-layer board with a cutout for the OLED screen in the milling layer, some board fabs might ignore that layer, so be careful.
+The board is a simple 2-layer board. Don't forget the cutout for the OLED screen in the milling layer!
 
 ![Alt text](resources/pics/pcb.jpg)
 
-Getting a stencil is strongly recommended, because the RGB LED used here WILL melt if you try to solder it with a regular soldering iron. It's best to use a stencil and then reflow it in an oven.
+Getting a stencil is highly recommended, because the RGB LED used here WILL melt if you try to hand-solder. It's best to use a stencil and then reflow it in an oven.
 
 Speaking of which...
 
 ### RGB LED
 
-The RGB LED is the trusty WS2812 that's thrown into every single RGB project these days, except it isn't: What I used is SK6812 which is a compatible clone with [allegedly better performance](https://hackaday.com/2017/01/25/ws2812b-led-clones-work-better-than-originals/). It is also the smaller 3535 package, not the regular 5050 kind, so do watch out for that.
+The RGB LED is the trusty WS2812 that's thrown into every single RGB project these days, except it isn't: What I used is SK6812 which is a compatible clone with [allegedly better performance](https://hackaday.com/2017/01/25/ws2812b-led-clones-work-better-than-originals/). It is also the smaller 3535 package, not the regular 5050 kind, so make sure to get the right part.
 
 ![Alt text](resources/pics/led.jpg)
 
@@ -108,7 +107,7 @@ I haven't tested WS2812 with the design, it should work on paper, but I suggest 
 
 ### Switches
 
-In theory you can use any cherry MX style 3-pin switches you like, however, because there are backlights underneath, you need to find one that has an opening for the LED, and has a clear case to let the light shine through.
+In theory you can use any cherry MX style 3-pin switches you like, however, because there are backlights underneath, you need to find one that has an opening for the LED, and a translucent case to let the light shine through.
 
 I used Gateron RGB switches, they are perfectly designed for this kind of usage, translucent case with a large opening for LED. I used greens but there are other colors to choose from as well.
 
