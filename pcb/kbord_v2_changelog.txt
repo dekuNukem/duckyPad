@@ -1,5 +1,6 @@
 DONE:
 moved header to board edge for easier programming
+the 5-pin header is compatible with daytripper pogo board
 removed rotary encoder
 added gate enable signal pulldown to prevent flashing during programming
 moved SD card inwards and upwards
@@ -9,7 +10,7 @@ small button for RST and DFU
 moved the screen up a bit
 OLED_RESET is now on PA0
 BUTTON1 and BUTTON2 are now on PA1 and PA2 respectively
-change cherry MX switch footprint to have stabilizer holes
+added stabilizer holes to cherry MX switch footprints
 used a new button with plastic cap to prevent ESD
 
 TODO:
@@ -20,6 +21,12 @@ write a test mode
 NOTES:
 oled socket midpoint: 7.25mm
 oled socket pos (mil): 2860 1890
-
-
+print project url on screen if error encountered
+clean up ducky parser, looks like a lot of alias wasn't included, like "ESC" and "ESCAPE", "CTRL" or "CONTROL", etc
+find blank keycap with indent?
 no back plate, rubber feet on PCB, piece of paper tape over OLED ribbon cable?
+
+what are those for?
+const char cmd_NAME[] = "NAME ";
+const char cmd_REPLAY[] = "REPLAY ";
+

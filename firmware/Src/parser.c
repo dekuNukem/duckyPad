@@ -172,7 +172,7 @@ uint8_t load_colors(char* pf_fn)
   bg_color[2] = DEFAULT_BG_BLUE;
   keydown_color[0] = DEFAULT_KD_RED;
   keydown_color[1] = DEFAULT_KD_GREEN;
-  keydown_color[2] =DEFAULT_KD_BLUE;
+  keydown_color[2] = DEFAULT_KD_BLUE;
 
   memset(temp_buf, 0, PATH_SIZE);
   sprintf(temp_buf, "/%s/config.txt", pf_fn);
