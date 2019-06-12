@@ -1,8 +1,8 @@
-# kbord: Programmable Mechanical Keypad with RGB Backlight
+# kbord: Scriptable Mechanical Keypad with RGB Backlight
 
 ![Alt text](resources/pics/title.jpg)
 
-kbord is a programmable keypad with 15 mechanical keys, each of which can execute a script when pressed.
+kbord is a mechanical keypad with OLED screen and 15 keys, each of which can execute a script when pressed.
 
 The script can be as simple as shortcuts like `ctrl+c`, or as complex as [creating root backdoors](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---OSX-Root-Backdoor) or [grabbing passwords](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---download-mimikatz%2C-grab-passwords-and-email-them-via-gmail).
 
