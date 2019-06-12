@@ -4007,10 +4007,10 @@ by exp-lbrs.ulp</description>
 <package name="6X6_SW_FOOT">
 <smd name="P$1" x="-3" y="0" dx="2" dy="2" layer="1"/>
 <smd name="P$2" x="3" y="0" dx="2" dy="2" layer="1"/>
-<wire x1="-3" y1="3" x2="3" y2="3" width="0.127" layer="21"/>
-<wire x1="3" y1="3" x2="3" y2="-3" width="0.127" layer="21"/>
-<wire x1="3" y1="-3" x2="-3" y2="-3" width="0.127" layer="21"/>
-<wire x1="-3" y1="-3" x2="-3" y2="3" width="0.127" layer="21"/>
+<wire x1="-3" y1="1.5" x2="3" y2="1.5" width="0.127" layer="21"/>
+<wire x1="3" y1="1.5" x2="3" y2="-1.5" width="0.127" layer="21"/>
+<wire x1="3" y1="-1.5" x2="-3" y2="-1.5" width="0.127" layer="21"/>
+<wire x1="-3" y1="-1.5" x2="-3" y2="1.5" width="0.127" layer="21"/>
 <text x="-2.921" y="-4.191" size="1.016" layer="25">&gt;Name</text>
 </package>
 </packages>
@@ -5056,8 +5056,6 @@ by exp-lbrs.ulp</description>
 <wire x1="-0.762" y1="-7.747" x2="-0.762" y2="-6.731" width="0.254" layer="51"/>
 <wire x1="0.762" y1="-7.747" x2="-0.762" y2="-7.747" width="0.254" layer="51"/>
 <wire x1="-0.762" y1="-6.731" x2="-3.175" y2="-6.731" width="0.254" layer="51"/>
-<wire x1="-3.81" y1="2.54" x2="-1.27" y2="5.08" width="0.254" layer="21"/>
-<wire x1="2.54" y1="5.08" x2="-0.762" y2="3.81" width="0.254" layer="21"/>
 <wire x1="-6.096" y1="6.731" x2="6.096" y2="6.731" width="0.254" layer="21"/>
 <wire x1="6.096" y1="6.731" x2="6.096" y2="-6.731" width="0.254" layer="21"/>
 <wire x1="6.096" y1="-6.731" x2="-6.096" y2="-6.731" width="0.254" layer="21"/>
@@ -5266,14 +5264,14 @@ by exp-lbrs.ulp</description>
 <part name="GND6" library="supply1" deviceset="GND" device=""/>
 <part name="R1" library="joyAnalog" deviceset="RESISTOR" device="0805-RES" value="5.1K"/>
 <part name="R9" library="joyAnalog" deviceset="RESISTOR" device="0805-RES" value="5.1K"/>
-<part name="C26" library="clock" deviceset="C-US" device="C1210" value="47uF"/>
-<part name="GND5" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND8" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="SW2" library="3pos_slide_switch" deviceset="324_SW" device="324_SWITCH_FOOT_HOLE" value="324_SW324_SWITCH_FOOT_HOLE"/>
 <part name="SW1" library="3pos_slide_switch" deviceset="324_SW" device="324_SWITCH_FOOT_HOLE" value="324_SW324_SWITCH_FOOT_HOLE"/>
 <part name="C28" library="clock" deviceset="CAP" device="0805" value="1uF"/>
 <part name="SW3" library="lul" deviceset="6X6_SW" device=""/>
 <part name="SW4" library="lul" deviceset="6X6_SW" device=""/>
+<part name="C29" library="clock" deviceset="CAP" device="0805" value="100nF"/>
+<part name="GND16" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -5439,14 +5437,14 @@ by exp-lbrs.ulp</description>
 <instance part="GND6" gate="1" x="-10.16" y="-172.72" rot="MR0"/>
 <instance part="R1" gate="G$1" x="-5.08" y="-154.94" rot="MR0"/>
 <instance part="R9" gate="G$1" x="-5.08" y="-149.86" rot="MR0"/>
-<instance part="C26" gate="G$1" x="86.36" y="-147.32"/>
-<instance part="GND5" gate="1" x="86.36" y="-154.94"/>
 <instance part="GND8" gate="1" x="276.86" y="-213.36"/>
 <instance part="SW2" gate="G$1" x="241.3" y="-157.48" rot="MR90"/>
 <instance part="SW1" gate="G$1" x="243.84" y="-205.74" rot="MR270"/>
 <instance part="C28" gate="G$1" x="335.28" y="-2.54" rot="R90"/>
 <instance part="SW3" gate="G$1" x="154.94" y="-172.72"/>
 <instance part="SW4" gate="G$1" x="152.4" y="-195.58"/>
+<instance part="C29" gate="G$1" x="78.74" y="-147.32" rot="R180"/>
+<instance part="GND16" gate="1" x="78.74" y="-154.94"/>
 </instances>
 <busses>
 </busses>
@@ -5835,10 +5833,6 @@ by exp-lbrs.ulp</description>
 <junction x="-10.16" y="-165.1"/>
 </segment>
 <segment>
-<pinref part="C26" gate="G$1" pin="2"/>
-<pinref part="GND5" gate="1" pin="GND"/>
-</segment>
-<segment>
 <pinref part="SW2" gate="G$1" pin="2"/>
 <pinref part="GND10" gate="1" pin="GND"/>
 <wire x1="246.38" y1="-172.72" x2="254" y2="-172.72" width="0.1524" layer="91"/>
@@ -5855,6 +5849,10 @@ by exp-lbrs.ulp</description>
 <pinref part="GND19" gate="1" pin="GND"/>
 <pinref part="SW4" gate="G$1" pin="2"/>
 <wire x1="165.1" y1="-195.58" x2="175.26" y2="-195.58" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="C29" gate="G$1" pin="1"/>
+<pinref part="GND16" gate="1" pin="GND"/>
 </segment>
 </net>
 <net name="SCL" class="0">
@@ -6650,10 +6648,10 @@ by exp-lbrs.ulp</description>
 <segment>
 <pinref part="U$8" gate="G$1" pin="VBUS"/>
 <pinref part="IC2" gate="G$1" pin="VIN"/>
-<wire x1="43.18" y1="-144.78" x2="86.36" y2="-144.78" width="0.1524" layer="91"/>
-<pinref part="C26" gate="G$1" pin="1"/>
-<wire x1="86.36" y1="-144.78" x2="96.52" y2="-144.78" width="0.1524" layer="91"/>
-<junction x="86.36" y="-144.78"/>
+<wire x1="43.18" y1="-144.78" x2="78.74" y2="-144.78" width="0.1524" layer="91"/>
+<wire x1="78.74" y1="-144.78" x2="96.52" y2="-144.78" width="0.1524" layer="91"/>
+<pinref part="C29" gate="G$1" pin="2"/>
+<junction x="78.74" y="-144.78"/>
 </segment>
 </net>
 <net name="DNDNDN" class="0">
