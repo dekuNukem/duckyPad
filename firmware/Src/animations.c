@@ -132,7 +132,7 @@ void error_animation(uint8_t stage)
 {
   if(stage == 0)
     for (int i = 0; i < NEOPIXEL_COUNT; ++i)
-      led_start_animation(&neo_anime[i], error_color, ANIMATION_CROSS_FADE, 3);
+      led_start_animation(&neo_anime[i], error_color, ANIMATION_CROSS_FADE, 10);
   else
     for (int i = 0; i < NEOPIXEL_COUNT; ++i)
       led_start_animation(&neo_anime[i], bg_color, ANIMATION_CROSS_FADE, 20);

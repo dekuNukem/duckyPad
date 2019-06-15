@@ -39,19 +39,24 @@ char nonexistent_keyname[] = "-";
 profile_cache p_cache;
 
 const char cmd_NAME[] = "NAME ";
-const char cmd_REPLAY[] = "REPLAY ";
+const char cmd_REPEAT[] = "REPEAT ";
 const char cmd_REM[] = "REM ";
 const char cmd_C_COMMENT[] = "// ";
 const char cmd_DEFAULTDELAY[] = "DEFAULTDELAY ";
 const char cmd_DEFAULTCHARDELAY[] = "DEFAULTCHARDELAY ";
 const char cmd_DELAY[] = "DELAY ";
 const char cmd_STRING[] = "STRING ";
-const char cmd_ESC[] = "ESCAPE";
+const char cmd_ESCAPE[] = "ESCAPE";
+const char cmd_ESC[] = "ESC";
 const char cmd_ENTER[] = "ENTER";
-const char cmd_UPARROW[] = "UP";
-const char cmd_DOWNARROW[] = "DOWN";
-const char cmd_LEFTARROW[] = "LEFT";
-const char cmd_RIGHTARROW[] = "RIGHT";
+const char cmd_UP[] = "UP";
+const char cmd_DOWN[] = "DOWN";
+const char cmd_LEFT[] = "LEFT";
+const char cmd_RIGHT[] = "RIGHT";
+const char cmd_UPARROW[] = "UPARROW";
+const char cmd_DOWNARROW[] = "DOWNARROW";
+const char cmd_LEFTARROW[] = "LEFTARROW";
+const char cmd_RIGHTARROW[] = "RIGHTARROW";
 const char cmd_F1[] = "F1";
 const char cmd_F2[] = "F2";
 const char cmd_F3[] = "F3";
@@ -70,6 +75,7 @@ const char cmd_CAPSLOCK[] = "CAPSLOCK";
 const char cmd_PRINTSCREEN[] = "PRINTSCREEN";
 const char cmd_SCROLLLOCK[] = "SCROLLLOCK";
 const char cmd_PAUSE[] = "PAUSE";
+const char cmd_BREAK[] = "BREAK";
 const char cmd_INSERT[] = "INSERT";
 const char cmd_HOME[] = "HOME";
 const char cmd_PAGEUP[] = "PAGEUP";
@@ -80,13 +86,14 @@ const char cmd_SPACE[] = "SPACE";
 const char cmd_SHIFT[] = "SHIFT";
 const char cmd_ALT[] = "ALT";
 const char cmd_GUI[] = "GUI";
+const char cmd_WINDOWS[] = "WINDOWS";
 const char cmd_CONTROL[] = "CONTROL";
+const char cmd_CTRL[] = "CTRL";
 const char cmd_BG_COLOR[] = "BG_COLOR ";
 const char cmd_KD_COLOR[] = "KEYDOWN_COLOR ";
 const char cmd_VOLUP[] = "VOLUP";
 const char cmd_VOLDOWN[] = "VOLDOWN";
 const char cmd_VOLMUTE[] = "MUTE";
-
 
 char* goto_next_arg(char* buf, char* buf_end)
 {
@@ -178,9 +185,15 @@ uint8_t load_colors(char* pf_fn)
   sprintf(temp_buf, "/%s/config.txt", pf_fn);
 
   ret = f_open(&sd_file, temp_buf, FA_READ);
-  if(ret != 0)
+  // printf("lc: %d\n", ret);
+  if(ret == FR_OK)
+    goto color_normal;
+  else if(ret == FR_NO_FILE)
     goto color_end;
+  else
+    HAL_NVIC_SystemReset();
 
+  color_normal:
   while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
   {
     curr = read_buffer;
@@ -315,8 +328,12 @@ void change_profile(uint8_t direction)
   if(is_all_empty)
   {
     ssd1306_Fill(Black);
-    ssd1306_SetCursor(0, 32);
-    ssd1306_WriteString("no valid profiles!",Font_6x10,White);
+    ssd1306_SetCursor(10, 13);
+    ssd1306_WriteString("No Valid Profiles",Font_6x10,White);
+    ssd1306_SetCursor(0, 37);
+    ssd1306_WriteString(instruction,Font_6x10,White);
+    ssd1306_SetCursor(15, 50);
+    ssd1306_WriteString(daytripper_url,Font_6x10,White);
     ssd1306_UpdateScreen();
     return;
   }
@@ -364,6 +381,14 @@ uint8_t parse_special_key(char* msg)
     return KEY_F11;
   else if(strncmp(msg, cmd_F12, strlen(cmd_F12)) == 0)
     return KEY_F12;
+  else if(strncmp(msg, cmd_UP, strlen(cmd_UP)) == 0)
+    return KEY_UP_ARROW;
+  else if(strncmp(msg, cmd_DOWN, strlen(cmd_DOWN)) == 0)
+    return KEY_DOWN_ARROW;
+  else if(strncmp(msg, cmd_LEFT, strlen(cmd_LEFT)) == 0)
+    return KEY_LEFT_ARROW;
+  else if(strncmp(msg, cmd_RIGHT, strlen(cmd_RIGHT)) == 0)
+    return KEY_RIGHT_ARROW;
   else if(strncmp(msg, cmd_UPARROW, strlen(cmd_UPARROW)) == 0)
     return KEY_UP_ARROW;
   else if(strncmp(msg, cmd_DOWNARROW, strlen(cmd_DOWNARROW)) == 0)
@@ -372,6 +397,8 @@ uint8_t parse_special_key(char* msg)
     return KEY_LEFT_ARROW;
   else if(strncmp(msg, cmd_RIGHTARROW, strlen(cmd_RIGHTARROW)) == 0)
     return KEY_RIGHT_ARROW;
+  else if(strncmp(msg, cmd_ESCAPE, strlen(cmd_ESCAPE)) == 0)
+    return KEY_ESC;
   else if(strncmp(msg, cmd_ESC, strlen(cmd_ESC)) == 0)
     return KEY_ESC;
   else if(strncmp(msg, cmd_ENTER, strlen(cmd_ENTER)) == 0)
@@ -387,6 +414,8 @@ uint8_t parse_special_key(char* msg)
   else if(strncmp(msg, cmd_SCROLLLOCK, strlen(cmd_SCROLLLOCK)) == 0)
     return KEY_SCROLL_LOCK;
   else if(strncmp(msg, cmd_PAUSE, strlen(cmd_PAUSE)) == 0)
+    return KEY_PAUSE;
+  else if(strncmp(msg, cmd_BREAK, strlen(cmd_BREAK)) == 0)
     return KEY_PAUSE;
   else if(strncmp(msg, cmd_INSERT, strlen(cmd_INSERT)) == 0)
     return KEY_INSERT;
@@ -406,7 +435,11 @@ uint8_t parse_special_key(char* msg)
     return KEY_LEFT_ALT;
   else if(strncmp(msg, cmd_GUI, strlen(cmd_GUI)) == 0)
     return KEY_LEFT_GUI;
+  else if(strncmp(msg, cmd_WINDOWS, strlen(cmd_WINDOWS)) == 0)
+    return KEY_LEFT_GUI;
   else if(strncmp(msg, cmd_CONTROL, strlen(cmd_CONTROL)) == 0)
+    return KEY_LEFT_CTRL;
+  else if(strncmp(msg, cmd_CTRL, strlen(cmd_CTRL)) == 0)
     return KEY_LEFT_CTRL;
   else if(strncmp(msg, cmd_SPACE, strlen(cmd_SPACE)) == 0)
     return ' ';
@@ -535,7 +568,7 @@ void handle_keypress(uint8_t keynum)
   while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
   {
     line_num++;
-    if(strncmp(cmd_REPLAY, read_buffer, strlen(cmd_REPLAY)) == 0)
+    if(strncmp(cmd_REPEAT, read_buffer, strlen(cmd_REPEAT)) == 0)
     {
       uint8_t repeats = atoi(goto_next_arg(read_buffer, read_buffer + strlen(read_buffer)));
       for (int i = 0; i < repeats; ++i)
@@ -547,21 +580,19 @@ void handle_keypress(uint8_t keynum)
     {
       error_animation(0);
       ssd1306_Fill(Black);
-      ssd1306_SetCursor(0, 0);
+      ssd1306_SetCursor(5, 0);
       ssd1306_WriteString("Parse error in", Font_6x10,White);
-      ssd1306_SetCursor(0, 12);
-      ssd1306_WriteString(p_cache.profile_fn, Font_6x10,White);
-      ssd1306_SetCursor(0, 24);
+      ssd1306_SetCursor(5, 12);
       ssd1306_WriteString(p_cache.key_fn[keynum], Font_6x10,White);
       memset(temp_buf, 0, PATH_SIZE);
       sprintf(temp_buf, "line %d:", line_num);
-      ssd1306_SetCursor(0, 40);
+      ssd1306_SetCursor(5, 30);
       ssd1306_WriteString(temp_buf, Font_6x10,White);
       read_buffer[21] = 0;
-      ssd1306_SetCursor(0, 52);
+      ssd1306_SetCursor(5, 42);
       ssd1306_WriteString(read_buffer, Font_6x10,White);
       ssd1306_UpdateScreen();
-      osDelay(5000);
+      osDelay(10000);
       error_animation(1);
       print_legend();
       goto kp_end;

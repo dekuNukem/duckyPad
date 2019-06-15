@@ -10,4 +10,7 @@ extern I2C_HandleTypeDef hi2c1;
 extern UART_HandleTypeDef huart1;
 extern ADC_HandleTypeDef hadc;
 
+extern char instruction[];
+extern char daytripper_url[];
+
 #endif

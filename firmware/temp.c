@@ -1,3 +1,11 @@
+memset(temp_buf, 0, PATH_SIZE);
+  sprintf(temp_buf, "/%s/config.txt", pf_fn);
+
+  ret = f_open(&sd_file, temp_buf, FA_READ);
+  printf("lc: %d\n", ret);
+  if(ret != 0)
+    goto color_end;
+
 typedef struct
 {
   uint32_t last_pinchange;

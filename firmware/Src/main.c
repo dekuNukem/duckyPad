@@ -85,7 +85,8 @@ osThreadId kb_scanHandle;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-char no_sd[] = "Please Insert SD card";
+char instruction[] = "For instructions, see";
+char daytripper_url[] = "git.io/daytripper";
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -495,8 +496,12 @@ void kb_scan_task(void const * argument)
   if(mount_result)
   {
     ssd1306_Fill(Black);
-    ssd1306_SetCursor(0, 32);
-    ssd1306_WriteString(no_sd,Font_6x10,White);
+    ssd1306_SetCursor(0, 13);
+    ssd1306_WriteString("Please Insert SD Card",Font_6x10,White);
+    ssd1306_SetCursor(0, 37);
+    ssd1306_WriteString(instruction,Font_6x10,White);
+    ssd1306_SetCursor(15, 50);
+    ssd1306_WriteString(daytripper_url,Font_6x10,White);
     ssd1306_UpdateScreen();
     spi_set_speed_neopixel();
     while(1)
