@@ -99,16 +99,6 @@ void keyboard_update(void)
     pressed(&button_status[KEY_14]);
   button_status[KEY_14].prev_state = button_status[KEY_14].button_state;
 
-  button_status[KEY_ROT1SW].button_state = 1 - HAL_GPIO_ReadPin(E1_SW_GPIO_Port, E1_SW_Pin);
-  if(button_status[KEY_ROT1SW].prev_state == BUTTON_RELEASED && button_status[KEY_ROT1SW].button_state == BUTTON_PRESSED)
-    pressed(&button_status[KEY_ROT1SW]);
-  button_status[KEY_ROT1SW].prev_state = button_status[KEY_ROT1SW].button_state;
-
-  button_status[KEY_ROT2SW].button_state = 1 - HAL_GPIO_ReadPin(E2_SW_GPIO_Port, E2_SW_Pin);
-  if(button_status[KEY_ROT2SW].prev_state == BUTTON_RELEASED && button_status[KEY_ROT2SW].button_state == BUTTON_PRESSED)
-    pressed(&button_status[KEY_ROT2SW]);
-  button_status[KEY_ROT2SW].prev_state = button_status[KEY_ROT2SW].button_state;
-
   button_status[KEY_BUTTON1].button_state = 1 - HAL_GPIO_ReadPin(BUTTON_1_GPIO_Port, BUTTON_1_Pin);
   if(button_status[KEY_BUTTON1].prev_state == BUTTON_RELEASED && button_status[KEY_BUTTON1].button_state == BUTTON_PRESSED)
     pressed(&button_status[KEY_BUTTON1]);

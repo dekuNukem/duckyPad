@@ -5,7 +5,6 @@ lul\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 lul\tasks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 lul\tasks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 lul\tasks.o: ../Inc/FreeRTOSConfig.h
-lul\tasks.o: ../Inc/main.h
 lul\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 lul\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
 lul\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h

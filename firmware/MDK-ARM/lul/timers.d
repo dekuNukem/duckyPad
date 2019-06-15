@@ -4,7 +4,6 @@ lul\timers.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 lul\timers.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 lul\timers.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 lul\timers.o: ../Inc/FreeRTOSConfig.h
-lul\timers.o: ../Inc/main.h
 lul\timers.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 lul\timers.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
 lul\timers.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h

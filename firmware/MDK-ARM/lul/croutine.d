@@ -3,7 +3,6 @@ lul\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 lul\croutine.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 lul\croutine.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 lul\croutine.o: ../Inc/FreeRTOSConfig.h
-lul\croutine.o: ../Inc/main.h
 lul\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 lul\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
 lul\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h

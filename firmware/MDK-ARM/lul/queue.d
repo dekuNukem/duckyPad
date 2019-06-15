@@ -5,7 +5,6 @@ lul\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 lul\queue.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 lul\queue.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 lul\queue.o: ../Inc/FreeRTOSConfig.h
-lul\queue.o: ../Inc/main.h
 lul\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 lul\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
 lul\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h

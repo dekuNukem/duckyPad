@@ -4,7 +4,6 @@ lul\heap_1.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 lul\heap_1.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 lul\heap_1.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 lul\heap_1.o: ../Inc/FreeRTOSConfig.h
-lul\heap_1.o: ../Inc/main.h
 lul\heap_1.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 lul\heap_1.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
 lul\heap_1.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h

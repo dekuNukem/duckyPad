@@ -4,7 +4,6 @@ lul\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.
 lul\event_groups.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 lul\event_groups.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 lul\event_groups.o: ../Inc/FreeRTOSConfig.h
-lul\event_groups.o: ../Inc/main.h
 lul\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 lul\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
 lul\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
