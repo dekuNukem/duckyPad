@@ -36,6 +36,7 @@ static uint8_t SSD1306_Buffer[SSD1306_WIDTH * SSD1306_HEIGHT / 8];
 static SSD1306_t SSD1306;
 
 uint8_t i2c_status;
+uint8_t last_dim;
 
 //
 //	Een byte sturen naar het commando register
@@ -49,17 +50,21 @@ static void ssd1306_WriteCommand(uint8_t command)
 
 void ssd1306_dim(uint8_t is_dim)
 {
+	if(is_dim == last_dim)
+		return;
 	if(is_dim)
 	{
+		printf("dim!\n");
 		ssd1306_WriteCommand(SSD1306_SETCONTRAST);
 		ssd1306_WriteCommand(0x0);
 	}
 	else
 	{
+		printf("bright!\n");
 		ssd1306_WriteCommand(SSD1306_SETCONTRAST);
 		ssd1306_WriteCommand(0x70);
 	}
-	
+	last_dim = is_dim;
 }
 //
 //	Het scherm initialiseren voor gebruik

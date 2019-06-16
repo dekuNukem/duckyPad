@@ -13,6 +13,7 @@
 #include "animations.h"
 
 uint8_t init_complete;
+uint32_t last_keypress;
 
 void keypress_task_start(void const * argument)
 {
@@ -33,6 +34,9 @@ void keypress_task_start(void const * argument)
         else if(i == 22) // +
           change_profile(NEXT_PROFILE);
         service_press(&button_status[i]);
+        last_keypress = HAL_GetTick();
+        // OLED full brightness on keypress
+        ssd1306_dim(0);
       }
     osDelay(30);
   }
@@ -46,6 +50,9 @@ void animation_task_start(void const * argument)
   for(;;)
   {
     led_animation_handler();
+    // dim OLED screen after 2 minutes of idle to prevent burn-in
+    if(HAL_GetTick() - last_keypress > 120000)
+      ssd1306_dim(1);
     osDelay(25);
   }
 }

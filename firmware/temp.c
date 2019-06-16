@@ -1,3 +1,6 @@
+        printf("%d\n", last_keypress);
+
+
 void save_last_profile(uint8_t profile_id)
 {
   printf("pid: %d\n", profile_id);
