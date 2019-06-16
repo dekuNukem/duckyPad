@@ -47,7 +47,20 @@ static void ssd1306_WriteCommand(uint8_t command)
 		HAL_I2C_Mem_Write(&hi2c1,SSD1306_I2C_ADDR,0x00,1,&command,1,1);
 }
 
-
+void ssd1306_dim(uint8_t is_dim)
+{
+	if(is_dim)
+	{
+		ssd1306_WriteCommand(SSD1306_SETCONTRAST);
+		ssd1306_WriteCommand(0x0);
+	}
+	else
+	{
+		ssd1306_WriteCommand(SSD1306_SETCONTRAST);
+		ssd1306_WriteCommand(0x70);
+	}
+	
+}
 //
 //	Het scherm initialiseren voor gebruik
 //
@@ -66,7 +79,6 @@ uint8_t ssd1306_Init(void)
 	ssd1306_WriteCommand(SSD1306_CHARGEPUMP);                    // 0x8D
 	HAL_Delay(150);
 	ssd1306_WriteCommand(0x14);
-	// HAL_Delay(150);
 	ssd1306_WriteCommand(SSD1306_MEMORYMODE);                    // 0x20
 	ssd1306_WriteCommand(0x00);                                  // 0x0 act like ks0108
 	ssd1306_WriteCommand(SSD1306_SEGREMAP | 0x1);

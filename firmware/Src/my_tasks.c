@@ -12,7 +12,7 @@
 #include "parser.h"
 #include "animations.h"
 
-uint32_t init_complete;
+uint8_t init_complete;
 
 void keypress_task_start(void const * argument)
 {
@@ -23,7 +23,6 @@ void keypress_task_start(void const * argument)
     for (int i = 0; i < KEY_COUNT; ++i)
       if(is_pressed(&button_status[i]))
       {
-        // printf("%d\n", i);
         if(i < 15)
         {
           keypress_anime_handler(i);
@@ -39,15 +38,14 @@ void keypress_task_start(void const * argument)
   }
 }
 
-
 void animation_task_start(void const * argument)
 {
   while(init_complete == 0)
-    osDelay(33);
+    osDelay(25);
   anime_init();
   for(;;)
   {
     led_animation_handler();
-    osDelay(33);
+    osDelay(25);
   }
 }

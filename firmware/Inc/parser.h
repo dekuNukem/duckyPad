@@ -37,6 +37,8 @@ typedef struct
 void change_profile(uint8_t dir);
 void handle_keypress(uint8_t key_num);
 void scan_profiles(void);
+uint8_t get_last_profile(void);
+void restore_profile(uint8_t profile_id);
 
 #ifdef __cplusplus
 }

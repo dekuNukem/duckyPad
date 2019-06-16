@@ -1,3 +1,26 @@
+void save_last_profile(uint8_t profile_id)
+{
+  printf("pid: %d\n", profile_id);
+  sd_fresult = f_open(&sd_file, "last_profile.kbd", FA_CREATE_ALWAYS | FA_WRITE);
+  printf("%d\n", sd_fresult);
+  memset(temp_buf, 0, PATH_SIZE);
+  sprintf(temp_buf, "%d", profile_id);
+  sd_fresult = f_write(&sd_file, temp_buf, strlen(temp_buf), &ignore_this);
+  printf("%d\n", sd_fresult);
+  f_close(&sd_file);
+}
+
+  // printf("temp_buf:\n");
+  // for (int i = 0; i < PATH_SIZE; ++i)
+  //   printf("%d ", temp_buf[i]);
+
+  test(next_profile);
+void test(uint8_t profile_id)
+{
+  printf("pid: %d\n", profile_id);
+}
+
+
 memset(temp_buf, 0, PATH_SIZE);
   sprintf(temp_buf, "/%s/config.txt", pf_fn);
 

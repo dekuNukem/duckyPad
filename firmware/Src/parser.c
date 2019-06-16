@@ -28,6 +28,7 @@ DIR dir;
 FILINFO fno;
 uint8_t mount_result;
 uint16_t cmd_delay, char_delay;
+unsigned int ignore_this;
 
 uint8_t available_profile[MAX_PROFILES];
 char temp_buf[PATH_SIZE];
@@ -185,7 +186,7 @@ uint8_t load_colors(char* pf_fn)
   sprintf(temp_buf, "/%s/config.txt", pf_fn);
 
   ret = f_open(&sd_file, temp_buf, FA_READ);
-  // printf("lc: %d\n", ret);
+
   if(ret == FR_OK)
     goto color_normal;
   else if(ret == FR_NO_FILE)
@@ -316,6 +317,42 @@ void print_legend(void)
   ssd1306_UpdateScreen();
 }
 
+void save_last_profile(uint8_t profile_id)
+{
+  if(f_open(&sd_file, "last_profile.kbd", FA_CREATE_ALWAYS | FA_WRITE) != 0)
+    goto slp_end;
+  memset(temp_buf, 0, PATH_SIZE);
+  sprintf(temp_buf, "%d\n", profile_id);
+  if(f_write(&sd_file, temp_buf, strlen(temp_buf), &ignore_this) != 0)
+    goto slp_end;
+  slp_end:
+  f_close(&sd_file);
+}
+
+uint8_t get_last_profile(void)
+{
+  uint8_t ret = 0;
+  if(f_open(&sd_file, "last_profile.kbd", FA_READ) != 0)
+    goto glp_end;
+  memset(temp_buf, 0, PATH_SIZE);
+  while(f_gets(temp_buf, PATH_SIZE, &sd_file))
+    ret = atoi(temp_buf);
+
+  if(available_profile[ret] == 0)
+    ret = 0;
+  glp_end:
+  f_close(&sd_file);
+  return ret;
+}
+
+void restore_profile(uint8_t profile_id)
+{
+  load_profile(profile_id);
+  print_legend();
+  f_closedir(&dir);
+  f_close(&sd_file);
+}
+
 void change_profile(uint8_t direction)
 {
   uint8_t is_all_empty = 1;
@@ -351,6 +388,7 @@ void change_profile(uint8_t direction)
   print_legend();
   f_closedir(&dir);
   f_close(&sd_file);
+  save_last_profile(next_profile);
 }
 
 uint8_t parse_special_key(char* msg)

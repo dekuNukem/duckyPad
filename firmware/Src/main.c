@@ -510,8 +510,14 @@ void kb_scan_task(void const * argument)
       osDelay(30);
     }
   }
+
   scan_profiles();
-  change_profile(NEXT_PROFILE);
+  // this line must be after scan_profiles()
+  uint8_t last_profile = get_last_profile();
+  if(last_profile == 0)
+    change_profile(NEXT_PROFILE);
+  else
+    restore_profile(last_profile);
   init_complete = 1;
   /* Infinite loop */
   for(;;)

@@ -7,7 +7,7 @@
 
 #include "stm32f0xx_hal.h"
 
-extern uint32_t init_complete;
+extern uint8_t init_complete;
 
 void keypress_task_start(void const * argument);
 void animation_task_start(void const * argument);
