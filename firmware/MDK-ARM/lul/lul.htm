@@ -3,7 +3,7 @@
 <title>Static Call Graph - [lul\lul.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image lul\lul.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Jun 17 01:15:48 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Jun 17 13:04:38 2019
 <BR><P>
 <H3>Maximum Stack Usage =        896 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1828,10 +1828,11 @@ Global Symbols
 <LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sync_fs
 </UL>
 
-<P><STRONG><a name="[124]"></a>error_animation</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, animations.o(i.error_animation))
+<P><STRONG><a name="[124]"></a>error_animation</STRONG> (Thumb, 102 bytes, Stack size 16 bytes, animations.o(i.error_animation))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = error_animation &rArr; led_start_animation &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; __aeabi_llsr
 </UL>
-<BR>[Calls]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_start_animation
+<BR>[Calls]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_start_animation
 </UL>
 <BR>[Called By]<UL><LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_keypress
 </UL>
@@ -2398,6 +2399,7 @@ Global Symbols
 <LI><a href="#[16a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_anime_handler
 <LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_task_start
 <LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animation_task_start
+<LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;error_animation
 <LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_line
 <LI><a href="#[185]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_combo
 <LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_keypress

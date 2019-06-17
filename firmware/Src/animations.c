@@ -13,7 +13,8 @@ uint8_t blue_buf[NEOPIXEL_COUNT];
 led_animation neo_anime[NEOPIXEL_COUNT];
 uint8_t bg_color[THREE];
 uint8_t keydown_color[THREE];
-uint8_t error_color[THREE] = {255, 0, 0};
+uint8_t error_color_red[THREE] = {255, 0, 0};
+uint8_t error_color_blue[THREE] = {0, 0, 255};
 uint8_t rand_order_buf[NEOPIXEL_COUNT];
 
 uint32_t get_adc_reading(void)
@@ -131,17 +132,29 @@ void change_bg(void)
 void error_animation(uint8_t stage)
 {
   if(stage == 0)
-    for (int i = 0; i < NEOPIXEL_COUNT; ++i)
-      led_start_animation(&neo_anime[i], error_color, ANIMATION_CROSS_FADE, 10);
+  {
+    for (int j = 0; j < 5; ++j)
+    {
+      for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+        led_start_animation(&neo_anime[i], error_color_blue, ANIMATION_CROSS_FADE, 2);
+      osDelay(100);
+      for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+        led_start_animation(&neo_anime[i], error_color_red, ANIMATION_CROSS_FADE, 2);
+      osDelay(100);
+    }
+    
+  }
   else
+  {
     for (int i = 0; i < NEOPIXEL_COUNT; ++i)
       led_start_animation(&neo_anime[i], bg_color, ANIMATION_CROSS_FADE, 20);
+  }
 }
 
 void keypress_anime_handler(uint8_t idx)
 {
   led_start_animation(&neo_anime[idx], keydown_color, ANIMATION_CROSS_FADE, 3);
   osDelay(99);
-  led_start_animation(&neo_anime[idx], bg_color, ANIMATION_CROSS_FADE, 25);
+  led_start_animation(&neo_anime[idx], bg_color, ANIMATION_CROSS_FADE, 50);
 }
 
