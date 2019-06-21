@@ -26,8 +26,9 @@ void keypress_task_start(void const * argument)
       {
         if(i < 15)
         {
-          keypress_anime_handler(i);
+          keydown_anime_start(i);
           handle_keypress(i);
+          keydown_anime_end(i);
         }
         else if(i == 21) // -
           change_profile(PREV_PROFILE);

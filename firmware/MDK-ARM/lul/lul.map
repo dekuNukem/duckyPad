@@ -307,8 +307,9 @@ Section Cross References
     my_tasks.o(i.animation_task_start) refers to my_tasks.o(.data) for .data
     my_tasks.o(i.keypress_task_start) refers to cmsis_os.o(i.osDelay) for osDelay
     my_tasks.o(i.keypress_task_start) refers to buttons.o(i.is_pressed) for is_pressed
-    my_tasks.o(i.keypress_task_start) refers to animations.o(i.keypress_anime_handler) for keypress_anime_handler
+    my_tasks.o(i.keypress_task_start) refers to animations.o(i.keydown_anime_start) for keydown_anime_start
     my_tasks.o(i.keypress_task_start) refers to parser.o(i.handle_keypress) for handle_keypress
+    my_tasks.o(i.keypress_task_start) refers to animations.o(i.keydown_anime_end) for keydown_anime_end
     my_tasks.o(i.keypress_task_start) refers to parser.o(i.change_profile) for change_profile
     my_tasks.o(i.keypress_task_start) refers to buttons.o(i.service_press) for service_press
     my_tasks.o(i.keypress_task_start) refers to stm32f0xx_hal.o(i.HAL_GetTick) for HAL_GetTick
@@ -335,10 +336,13 @@ Section Cross References
     animations.o(i.get_adc_reading) refers to stm32f0xx_hal_adc.o(i.HAL_ADC_GetValue) for HAL_ADC_GetValue
     animations.o(i.get_adc_reading) refers to stm32f0xx_hal_adc.o(i.HAL_ADC_Stop) for HAL_ADC_Stop
     animations.o(i.get_adc_reading) refers to main.o(.bss) for hadc
-    animations.o(i.keypress_anime_handler) refers to animations.o(i.led_start_animation) for led_start_animation
-    animations.o(i.keypress_anime_handler) refers to cmsis_os.o(i.osDelay) for osDelay
-    animations.o(i.keypress_anime_handler) refers to animations.o(.bss) for .bss
-    animations.o(i.keypress_anime_handler) refers to animations.o(.data) for .data
+    animations.o(i.keydown_anime_end) refers to animations.o(i.led_start_animation) for led_start_animation
+    animations.o(i.keydown_anime_end) refers to animations.o(.bss) for .bss
+    animations.o(i.keydown_anime_end) refers to animations.o(.data) for .data
+    animations.o(i.keydown_anime_start) refers to animations.o(i.led_start_animation) for led_start_animation
+    animations.o(i.keydown_anime_start) refers to cmsis_os.o(i.osDelay) for osDelay
+    animations.o(i.keydown_anime_start) refers to animations.o(.bss) for .bss
+    animations.o(i.keydown_anime_start) refers to animations.o(.data) for .data
     animations.o(i.led_animation_handler) refers to dadd.o(.text) for __aeabi_dadd
     animations.o(i.led_animation_handler) refers to cdrcmple.o(.text) for __aeabi_cdrcmple
     animations.o(i.led_animation_handler) refers to cdcmple.o(.text) for __aeabi_cdcmple
@@ -2999,60 +3003,60 @@ Image Symbol Table
     ../Src/usbd_desc.c                       0x00000000   Number         0  usbd_desc.o ABSOLUTE
     ../Src/user_diskio.c                     0x00000000   Number         0  user_diskio.o ABSOLUTE
     ../clib/../cmprslib/zerorunl2.c          0x00000000   Number         0  __dczerorl2.o ABSOLUTE
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isalnum_o.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isxdigit_o.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isupper_o.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isspace_o.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  ispunct_o.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isprint_o.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  islower_o.o ABSOLUTE
     ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isgraph_o.o ABSOLUTE
     ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isdigit_o.o ABSOLUTE
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  islower_o.o ABSOLUTE
     ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  iscntrl_o.o ABSOLUTE
     ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isblank_o.o ABSOLUTE
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isspace_o.o ABSOLUTE
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isupper_o.o ABSOLUTE
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  ispunct_o.o ABSOLUTE
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isxdigit_o.o ABSOLUTE
     ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isalpha_o.o ABSOLUTE
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isprint_o.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isalnum_o.o ABSOLUTE
     ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  ctype_o.o ABSOLUTE
     ../clib/microlib/division.c              0x00000000   Number         0  uldiv.o ABSOLUTE
-    ../clib/microlib/division.c              0x00000000   Number         0  idiv.o ABSOLUTE
     ../clib/microlib/division.c              0x00000000   Number         0  uidiv.o ABSOLUTE
+    ../clib/microlib/division.c              0x00000000   Number         0  idiv.o ABSOLUTE
     ../clib/microlib/errno.c                 0x00000000   Number         0  errno.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
-    ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
-    ../clib/microlib/longlong.c              0x00000000   Number         0  llsshr.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llsshr.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
+    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  mallocra.o ABSOLUTE
+    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  malloca.o ABSOLUTE
     ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  mallocr.o ABSOLUTE
     ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  malloc.o ABSOLUTE
-    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  malloca.o ABSOLUTE
-    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  mallocra.o ABSOLUTE
     ../clib/microlib/malloc/mvars.c          0x00000000   Number         0  mvars.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf4.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf5.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf6.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf7.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf8.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfa.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf6.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf4.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf3.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf2.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf1.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf0.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfb.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfa.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf8.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf5.o ABSOLUTE
     ../clib/microlib/printf/stubs.s          0x00000000   Number         0  stubs.o ABSOLUTE
     ../clib/microlib/stdio/streams.c         0x00000000   Number         0  stdout.o ABSOLUTE
     ../clib/microlib/stdlib/rand.c           0x00000000   Number         0  rand.o ABSOLUTE
-    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpyb.o ABSOLUTE
     ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpya.o ABSOLUTE
+    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpyb.o ABSOLUTE
     ../clib/microlib/string/memset.c         0x00000000   Number         0  memseta.o ABSOLUTE
     ../clib/microlib/string/strcpy.c         0x00000000   Number         0  strcpy.o ABSOLUTE
     ../clib/microlib/string/strlen.c         0x00000000   Number         0  strlen.o ABSOLUTE
@@ -3061,10 +3065,10 @@ Image Symbol Table
     ../clib/microlib/string/strstr.c         0x00000000   Number         0  strstr.o ABSOLUTE
     ../clib/microlib/stubs.s                 0x00000000   Number         0  iusefp.o ABSOLUTE
     ../clib/microlib/unhosted.c              0x00000000   Number         0  uread4.o ABSOLUTE
+    ../clib/scanf.c                          0x00000000   Number         0  strtol.o ABSOLUTE
+    ../clib/scanf.c                          0x00000000   Number         0  atoi.o ABSOLUTE
     ../clib/scanf.c                          0x00000000   Number         0  _strtoul.o ABSOLUTE
     ../clib/scanf.c                          0x00000000   Number         0  _chval.o ABSOLUTE
-    ../clib/scanf.c                          0x00000000   Number         0  atoi.o ABSOLUTE
-    ../clib/scanf.c                          0x00000000   Number         0  strtol.o ABSOLUTE
     ../fplib/microlib/fpadd.c                0x00000000   Number         0  dadd.o ABSOLUTE
     ../fplib/microlib/fpdiv.c                0x00000000   Number         0  ddiv.o ABSOLUTE
     ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  depilogue.o ABSOLUTE
@@ -3177,8 +3181,8 @@ Image Symbol Table
     .text                                    0x08000728   Section        0  llshl.o(.text)
     .text                                    0x08000748   Section        0  llsshr.o(.text)
     .text                                    0x08000770   Section        0  strtol.o(.text)
-    .text                                    0x080007e0   Section        0  iusefp.o(.text)
     .text                                    0x080007e0   Section        0  depilogue.o(.text)
+    .text                                    0x080007e0   Section        0  iusefp.o(.text)
     .text                                    0x080008a0   Section       36  init.o(.text)
     .text                                    0x080008c4   Section        0  ctype_o.o(.text)
     .text                                    0x080008cc   Section        0  _strtoul.o(.text)
@@ -3488,196 +3492,197 @@ Image Symbol Table
     i.keyboard_release                       0x080072c8   Section        0  keyboard.o(i.keyboard_release)
     i.keyboard_release_all                   0x08007338   Section        0  keyboard.o(i.keyboard_release_all)
     i.keyboard_update                        0x0800735c   Section        0  buttons.o(i.keyboard_update)
-    i.keypress_anime_handler                 0x080075f0   Section        0  animations.o(i.keypress_anime_handler)
-    i.keypress_task_start                    0x08007624   Section        0  my_tasks.o(i.keypress_task_start)
-    i.ld_clust                               0x08007698   Section        0  ff.o(i.ld_clust)
-    ld_clust                                 0x08007699   Thumb Code    36  ff.o(i.ld_clust)
-    i.led_animation_handler                  0x080076bc   Section        0  animations.o(i.led_animation_handler)
-    i.led_animation_init                     0x080077ac   Section        0  animations.o(i.led_animation_init)
-    i.led_start_animation                    0x080077d4   Section        0  animations.o(i.led_start_animation)
-    i.load_colors                            0x08007830   Section        0  parser.o(i.load_colors)
-    i.load_profile                           0x0800794c   Section        0  parser.o(i.load_profile)
-    i.lock_fs                                0x080079a4   Section        0  ff.o(i.lock_fs)
-    lock_fs                                  0x080079a5   Thumb Code    16  ff.o(i.lock_fs)
-    i.main                                   0x080079b4   Section        0  main.o(i.main)
-    i.makeFreeRtosPriority                   0x08007a44   Section        0  cmsis_os.o(i.makeFreeRtosPriority)
-    makeFreeRtosPriority                     0x08007a45   Thumb Code    12  cmsis_os.o(i.makeFreeRtosPriority)
-    i.malloc                                 0x08007a50   Section        0  malloc.o(i.malloc)
-    i.media_key_press                        0x08007abc   Section        0  keyboard.o(i.media_key_press)
-    i.mem_cpy                                0x08007afc   Section        0  ff.o(i.mem_cpy)
-    mem_cpy                                  0x08007afd   Thumb Code    16  ff.o(i.mem_cpy)
-    i.mem_set                                0x08007b0c   Section        0  ff.o(i.mem_set)
-    mem_set                                  0x08007b0d   Thumb Code    14  ff.o(i.mem_set)
-    i.move_window                            0x08007b1a   Section        0  ff.o(i.move_window)
-    move_window                              0x08007b1b   Thumb Code    56  ff.o(i.move_window)
-    i.neopixel_show                          0x08007b54   Section        0  neopixel.o(i.neopixel_show)
-    i.osDelay                                0x08007c00   Section        0  cmsis_os.o(i.osDelay)
-    i.osKernelStart                          0x08007c10   Section        0  cmsis_os.o(i.osKernelStart)
-    i.osSemaphoreCreate                      0x08007c1a   Section        0  cmsis_os.o(i.osSemaphoreCreate)
-    i.osSemaphoreDelete                      0x08007c40   Section        0  cmsis_os.o(i.osSemaphoreDelete)
-    i.osSemaphoreRelease                     0x08007c5c   Section        0  cmsis_os.o(i.osSemaphoreRelease)
-    i.osSemaphoreWait                        0x08007ca8   Section        0  cmsis_os.o(i.osSemaphoreWait)
-    i.osSystickHandler                       0x08007d10   Section        0  cmsis_os.o(i.osSystickHandler)
-    i.osThreadCreate                         0x08007d20   Section        0  cmsis_os.o(i.osThreadCreate)
-    i.parse_combo                            0x08007d50   Section        0  parser.o(i.parse_combo)
-    i.parse_line                             0x08007ddc   Section        0  parser.o(i.parse_line)
-    i.parse_special_key                      0x08007f24   Section        0  parser.o(i.parse_special_key)
-    i.pressed                                0x08008478   Section        0  buttons.o(i.pressed)
-    i.print_keyname                          0x08008484   Section        0  parser.o(i.print_keyname)
-    i.print_legend                           0x08008548   Section        0  parser.o(i.print_legend)
-    i.print_r1                               0x080085f0   Section        0  sd_util.o(i.print_r1)
-    print_r1                                 0x080085f1   Thumb Code    44  sd_util.o(i.print_r1)
-    i.prvAddCurrentTaskToDelayedList         0x08008634   Section        0  tasks.o(i.prvAddCurrentTaskToDelayedList)
-    prvAddCurrentTaskToDelayedList           0x08008635   Thumb Code    78  tasks.o(i.prvAddCurrentTaskToDelayedList)
-    i.prvAddNewTaskToReadyList               0x0800868c   Section        0  tasks.o(i.prvAddNewTaskToReadyList)
-    prvAddNewTaskToReadyList                 0x0800868d   Thumb Code   176  tasks.o(i.prvAddNewTaskToReadyList)
-    i.prvCheckTasksWaitingTermination        0x08008744   Section        0  tasks.o(i.prvCheckTasksWaitingTermination)
-    prvCheckTasksWaitingTermination          0x08008745   Thumb Code    78  tasks.o(i.prvCheckTasksWaitingTermination)
-    i.prvCopyDataFromQueue                   0x0800879c   Section        0  queue.o(i.prvCopyDataFromQueue)
-    prvCopyDataFromQueue                     0x0800879d   Thumb Code    38  queue.o(i.prvCopyDataFromQueue)
-    i.prvCopyDataToQueue                     0x080087c2   Section        0  queue.o(i.prvCopyDataToQueue)
-    prvCopyDataToQueue                       0x080087c3   Thumb Code   112  queue.o(i.prvCopyDataToQueue)
-    i.prvDeleteTCB                           0x08008832   Section        0  tasks.o(i.prvDeleteTCB)
-    prvDeleteTCB                             0x08008833   Thumb Code    18  tasks.o(i.prvDeleteTCB)
-    i.prvIdleTask                            0x08008844   Section        0  tasks.o(i.prvIdleTask)
-    prvIdleTask                              0x08008845   Thumb Code    18  tasks.o(i.prvIdleTask)
-    i.prvInitialiseNewTask                   0x0800885c   Section        0  tasks.o(i.prvInitialiseNewTask)
-    prvInitialiseNewTask                     0x0800885d   Thumb Code   124  tasks.o(i.prvInitialiseNewTask)
-    i.prvIsQueueEmpty                        0x080088d8   Section        0  queue.o(i.prvIsQueueEmpty)
-    prvIsQueueEmpty                          0x080088d9   Thumb Code    28  queue.o(i.prvIsQueueEmpty)
-    i.prvResetNextTaskUnblockTime            0x080088f4   Section        0  tasks.o(i.prvResetNextTaskUnblockTime)
-    prvResetNextTaskUnblockTime              0x080088f5   Thumb Code    28  tasks.o(i.prvResetNextTaskUnblockTime)
-    i.prvTaskExitError                       0x08008914   Section        0  port.o(i.prvTaskExitError)
-    prvTaskExitError                         0x08008915   Thumb Code    14  port.o(i.prvTaskExitError)
-    i.prvUnlockQueue                         0x08008928   Section        0  queue.o(i.prvUnlockQueue)
-    prvUnlockQueue                           0x08008929   Thumb Code   112  queue.o(i.prvUnlockQueue)
-    i.put_fat                                0x08008998   Section        0  ff.o(i.put_fat)
-    i.pvPortMalloc                           0x08008a98   Section        0  heap_1.o(i.pvPortMalloc)
-    i.pvTaskIncrementMutexHeldCount          0x08008ae8   Section        0  tasks.o(i.pvTaskIncrementMutexHeldCount)
-    i.pxPortInitialiseStack                  0x08008b00   Section        0  port.o(i.pxPortInitialiseStack)
-    i.remove_chain                           0x08008b20   Section        0  ff.o(i.remove_chain)
-    remove_chain                             0x08008b21   Thumb Code   102  ff.o(i.remove_chain)
-    i.restore_profile                        0x08008b88   Section        0  parser.o(i.restore_profile)
-    i.save_last_profile                      0x08008ba8   Section        0  parser.o(i.save_last_profile)
-    i.scan_profiles                          0x08008c0c   Section        0  parser.o(i.scan_profiles)
-    i.sd_cmd                                 0x08008cd0   Section        0  sd_util.o(i.sd_cmd)
-    sd_cmd                                   0x08008cd1   Thumb Code   104  sd_util.o(i.sd_cmd)
-    i.sd_get_data                            0x08008d38   Section        0  sd_util.o(i.sd_get_data)
-    sd_get_data                              0x08008d39   Thumb Code   104  sd_util.o(i.sd_get_data)
-    i.sd_get_r1                              0x08008dd0   Section        0  sd_util.o(i.sd_get_r1)
-    sd_get_r1                                0x08008dd1   Thumb Code    26  sd_util.o(i.sd_get_r1)
-    i.sd_get_r7                              0x08008dea   Section        0  sd_util.o(i.sd_get_r7)
-    sd_get_r7                                0x08008deb   Thumb Code    54  sd_util.o(i.sd_get_r7)
-    i.sd_init                                0x08008e20   Section        0  sd_util.o(i.sd_init)
-    sd_init                                  0x08008e21   Thumb Code   826  sd_util.o(i.sd_init)
-    i.sd_nec                                 0x08009290   Section        0  sd_util.o(i.sd_nec)
-    sd_nec                                   0x08009291   Thumb Code    18  sd_util.o(i.sd_nec)
-    i.sd_put_data                            0x080092a4   Section        0  sd_util.o(i.sd_put_data)
-    sd_put_data                              0x080092a5   Thumb Code   134  sd_util.o(i.sd_put_data)
-    i.sd_read                                0x08009330   Section        0  sd_util.o(i.sd_read)
-    i.sd_read_cid                            0x08009398   Section        0  sd_util.o(i.sd_read_cid)
-    sd_read_cid                              0x08009399   Thumb Code   220  sd_util.o(i.sd_read_cid)
-    i.sd_read_csd                            0x08009498   Section        0  sd_util.o(i.sd_read_csd)
-    sd_read_csd                              0x08009499   Thumb Code   722  sd_util.o(i.sd_read_csd)
-    i.sd_read_status                         0x080097a8   Section        0  sd_util.o(i.sd_read_status)
-    sd_read_status                           0x080097a9   Thumb Code   138  sd_util.o(i.sd_read_status)
-    i.sd_readsector                          0x08009850   Section        0  sd_util.o(i.sd_readsector)
-    sd_readsector                            0x08009851   Thumb Code   152  sd_util.o(i.sd_readsector)
-    i.sd_write                               0x08009918   Section        0  sd_util.o(i.sd_write)
-    i.sd_writesector                         0x08009980   Section        0  sd_util.o(i.sd_writesector)
-    sd_writesector                           0x08009981   Thumb Code   166  sd_util.o(i.sd_writesector)
-    i.service_press                          0x08009a74   Section        0  buttons.o(i.service_press)
-    i.set_pixel_color                        0x08009a7c   Section        0  animations.o(i.set_pixel_color)
-    i.shuffle                                0x08009a9c   Section        0  animations.o(i.shuffle)
-    i.spi_set_speed                          0x08009acc   Section        0  sd_util.o(i.spi_set_speed)
-    spi_set_speed                            0x08009acd   Thumb Code    56  sd_util.o(i.spi_set_speed)
-    i.spi_set_speed_neopixel                 0x08009b08   Section        0  neopixel.o(i.spi_set_speed_neopixel)
-    i.spi_txrx                               0x08009b24   Section        0  sd_util.o(i.spi_txrx)
-    spi_txrx                                 0x08009b25   Thumb Code    34  sd_util.o(i.spi_txrx)
-    i.ssd1306_DrawPixel                      0x08009b4c   Section        0  ssd1306.o(i.ssd1306_DrawPixel)
-    i.ssd1306_Fill                           0x08009b9c   Section        0  ssd1306.o(i.ssd1306_Fill)
-    i.ssd1306_Init                           0x08009bc0   Section        0  ssd1306.o(i.ssd1306_Init)
-    i.ssd1306_SetCursor                      0x08009ca0   Section        0  ssd1306.o(i.ssd1306_SetCursor)
-    i.ssd1306_UpdateScreen                   0x08009cac   Section        0  ssd1306.o(i.ssd1306_UpdateScreen)
-    i.ssd1306_WriteChar                      0x08009d04   Section        0  ssd1306.o(i.ssd1306_WriteChar)
-    i.ssd1306_WriteCommand                   0x08009d94   Section        0  ssd1306.o(i.ssd1306_WriteCommand)
-    ssd1306_WriteCommand                     0x08009d95   Thumb Code    38  ssd1306.o(i.ssd1306_WriteCommand)
-    i.ssd1306_WriteString                    0x08009dc4   Section        0  ssd1306.o(i.ssd1306_WriteString)
-    i.ssd1306_dim                            0x08009df0   Section        0  ssd1306.o(i.ssd1306_dim)
-    i.st_clust                               0x08009e40   Section        0  ff.o(i.st_clust)
-    st_clust                                 0x08009e41   Thumb Code    16  ff.o(i.st_clust)
-    i.sum_sfn                                0x08009e50   Section        0  ff.o(i.sum_sfn)
-    sum_sfn                                  0x08009e51   Thumb Code    26  ff.o(i.sum_sfn)
-    i.sync_fs                                0x08009e6a   Section        0  ff.o(i.sync_fs)
-    sync_fs                                  0x08009e6b   Thumb Code   148  ff.o(i.sync_fs)
-    i.sync_window                            0x08009efe   Section        0  ff.o(i.sync_window)
-    sync_window                              0x08009eff   Thumb Code    84  ff.o(i.sync_window)
-    i.unlock_fs                              0x08009f52   Section        0  ff.o(i.unlock_fs)
-    unlock_fs                                0x08009f53   Thumb Code    36  ff.o(i.unlock_fs)
-    i.uxListRemove                           0x08009f76   Section        0  list.o(i.uxListRemove)
-    i.vListInitialise                        0x08009f9a   Section        0  list.o(i.vListInitialise)
-    i.vListInitialiseItem                    0x08009fb0   Section        0  list.o(i.vListInitialiseItem)
-    i.vListInsert                            0x08009fb6   Section        0  list.o(i.vListInsert)
-    i.vListInsertEnd                         0x08009fe6   Section        0  list.o(i.vListInsertEnd)
-    i.vPortEnterCritical                     0x0800a000   Section        0  port.o(i.vPortEnterCritical)
-    i.vPortExitCritical                      0x0800a018   Section        0  port.o(i.vPortExitCritical)
-    i.vPortFree                              0x0800a034   Section        0  heap_1.o(i.vPortFree)
-    i.vPortSetupTimerInterrupt               0x0800a040   Section        0  port.o(i.vPortSetupTimerInterrupt)
-    i.vPortYield                             0x0800a064   Section        0  port.o(i.vPortYield)
-    i.vQueueDelete                           0x0800a07c   Section        0  queue.o(i.vQueueDelete)
-    i.vQueueUnregisterQueue                  0x0800a094   Section        0  queue.o(i.vQueueUnregisterQueue)
-    i.vTaskDelay                             0x0800a0bc   Section        0  tasks.o(i.vTaskDelay)
-    i.vTaskMissedYield                       0x0800a0ec   Section        0  tasks.o(i.vTaskMissedYield)
-    i.vTaskPlaceOnEventList                  0x0800a0f8   Section        0  tasks.o(i.vTaskPlaceOnEventList)
-    i.vTaskPriorityInherit                   0x0800a11c   Section        0  tasks.o(i.vTaskPriorityInherit)
-    i.vTaskSetTimeOutState                   0x0800a180   Section        0  tasks.o(i.vTaskSetTimeOutState)
-    i.vTaskStartScheduler                    0x0800a198   Section        0  tasks.o(i.vTaskStartScheduler)
-    i.vTaskSuspendAll                        0x0800a1e4   Section        0  tasks.o(i.vTaskSuspendAll)
-    i.vTaskSwitchContext                     0x0800a1f4   Section        0  tasks.o(i.vTaskSwitchContext)
-    i.validate                               0x0800a24c   Section        0  ff.o(i.validate)
-    validate                                 0x0800a24d   Thumb Code    70  ff.o(i.validate)
-    i.xPortStartScheduler                    0x0800a294   Section        0  port.o(i.xPortStartScheduler)
-    i.xPortSysTickHandler                    0x0800a2c4   Section        0  port.o(i.xPortSysTickHandler)
-    i.xQueueGenericCreate                    0x0800a2e8   Section        0  queue.o(i.xQueueGenericCreate)
-    i.xQueueGenericReceive                   0x0800a326   Section        0  queue.o(i.xQueueGenericReceive)
-    i.xQueueGenericReset                     0x0800a460   Section        0  queue.o(i.xQueueGenericReset)
-    i.xQueueGenericSend                      0x0800a4ce   Section        0  queue.o(i.xQueueGenericSend)
-    i.xQueueGiveFromISR                      0x0800a5ec   Section        0  queue.o(i.xQueueGiveFromISR)
-    i.xQueueReceiveFromISR                   0x0800a660   Section        0  queue.o(i.xQueueReceiveFromISR)
-    i.xTaskCheckForTimeOut                   0x0800a6d8   Section        0  tasks.o(i.xTaskCheckForTimeOut)
-    i.xTaskCreate                            0x0800a72c   Section        0  tasks.o(i.xTaskCreate)
-    i.xTaskGetSchedulerState                 0x0800a77c   Section        0  tasks.o(i.xTaskGetSchedulerState)
-    i.xTaskIncrementTick                     0x0800a79c   Section        0  tasks.o(i.xTaskIncrementTick)
-    i.xTaskPriorityDisinherit                0x0800a858   Section        0  tasks.o(i.xTaskPriorityDisinherit)
-    i.xTaskRemoveFromEventList               0x0800a8bc   Section        0  tasks.o(i.xTaskRemoveFromEventList)
-    i.xTaskResumeAll                         0x0800a920   Section        0  tasks.o(i.xTaskResumeAll)
-    .constdata                               0x0800a9cc   Section       16  system_stm32f0xx.o(.constdata)
-    .constdata                               0x0800a9dc   Section        8  system_stm32f0xx.o(.constdata)
-    .constdata                               0x0800a9e4   Section       82  sd_util.o(.constdata)
-    __func__                                 0x0800a9e4   Data           8  sd_util.o(.constdata)
-    __func__                                 0x0800a9ec   Data          12  sd_util.o(.constdata)
-    __func__                                 0x0800a9f8   Data          12  sd_util.o(.constdata)
-    __func__                                 0x0800aa04   Data          12  sd_util.o(.constdata)
-    __func__                                 0x0800aa10   Data          14  sd_util.o(.constdata)
-    __func__                                 0x0800aa1e   Data          15  sd_util.o(.constdata)
-    __func__                                 0x0800aa2d   Data           9  sd_util.o(.constdata)
-    .constdata                               0x0800aa36   Section     1900  fonts.o(.constdata)
-    Font6x10                                 0x0800aa36   Data        1900  fonts.o(.constdata)
-    .constdata                               0x0800b1a2   Section      128  keyboard.o(.constdata)
-    .constdata                               0x0800b222   Section      366  parser.o(.constdata)
-    .constdata                               0x0800b390   Section       60  main.o(.constdata)
-    .constdata                               0x0800b3cc   Section     1216  ccsbcs.o(.constdata)
-    Tbl                                      0x0800b3cc   Data         256  ccsbcs.o(.constdata)
-    tbl_lower                                0x0800b4cc   Data         480  ccsbcs.o(.constdata)
-    tbl_upper                                0x0800b6ac   Data         480  ccsbcs.o(.constdata)
-    .constdata                               0x0800b88c   Section      141  ff.o(.constdata)
-    ExCvt                                    0x0800b88c   Data         128  ff.o(.constdata)
-    LfnOfs                                   0x0800b90c   Data          13  ff.o(.constdata)
-    .constdata                               0x0800b919   Section      129  ctype_o.o(.constdata)
-    .constdata                               0x0800b99c   Section        4  ctype_o.o(.constdata)
-    table                                    0x0800b99c   Data           4  ctype_o.o(.constdata)
-    .conststring                             0x0800b9a0   Section     1140  sd_util.o(.conststring)
-    .conststring                             0x0800be14   Section       40  main.o(.conststring)
+    i.keydown_anime_end                      0x080075f0   Section        0  animations.o(i.keydown_anime_end)
+    i.keydown_anime_start                    0x0800760c   Section        0  animations.o(i.keydown_anime_start)
+    i.keypress_task_start                    0x08007630   Section        0  my_tasks.o(i.keypress_task_start)
+    i.ld_clust                               0x080076a8   Section        0  ff.o(i.ld_clust)
+    ld_clust                                 0x080076a9   Thumb Code    36  ff.o(i.ld_clust)
+    i.led_animation_handler                  0x080076cc   Section        0  animations.o(i.led_animation_handler)
+    i.led_animation_init                     0x080077bc   Section        0  animations.o(i.led_animation_init)
+    i.led_start_animation                    0x080077e4   Section        0  animations.o(i.led_start_animation)
+    i.load_colors                            0x08007840   Section        0  parser.o(i.load_colors)
+    i.load_profile                           0x0800795c   Section        0  parser.o(i.load_profile)
+    i.lock_fs                                0x080079b4   Section        0  ff.o(i.lock_fs)
+    lock_fs                                  0x080079b5   Thumb Code    16  ff.o(i.lock_fs)
+    i.main                                   0x080079c4   Section        0  main.o(i.main)
+    i.makeFreeRtosPriority                   0x08007a54   Section        0  cmsis_os.o(i.makeFreeRtosPriority)
+    makeFreeRtosPriority                     0x08007a55   Thumb Code    12  cmsis_os.o(i.makeFreeRtosPriority)
+    i.malloc                                 0x08007a60   Section        0  malloc.o(i.malloc)
+    i.media_key_press                        0x08007acc   Section        0  keyboard.o(i.media_key_press)
+    i.mem_cpy                                0x08007b0c   Section        0  ff.o(i.mem_cpy)
+    mem_cpy                                  0x08007b0d   Thumb Code    16  ff.o(i.mem_cpy)
+    i.mem_set                                0x08007b1c   Section        0  ff.o(i.mem_set)
+    mem_set                                  0x08007b1d   Thumb Code    14  ff.o(i.mem_set)
+    i.move_window                            0x08007b2a   Section        0  ff.o(i.move_window)
+    move_window                              0x08007b2b   Thumb Code    56  ff.o(i.move_window)
+    i.neopixel_show                          0x08007b64   Section        0  neopixel.o(i.neopixel_show)
+    i.osDelay                                0x08007c10   Section        0  cmsis_os.o(i.osDelay)
+    i.osKernelStart                          0x08007c20   Section        0  cmsis_os.o(i.osKernelStart)
+    i.osSemaphoreCreate                      0x08007c2a   Section        0  cmsis_os.o(i.osSemaphoreCreate)
+    i.osSemaphoreDelete                      0x08007c50   Section        0  cmsis_os.o(i.osSemaphoreDelete)
+    i.osSemaphoreRelease                     0x08007c6c   Section        0  cmsis_os.o(i.osSemaphoreRelease)
+    i.osSemaphoreWait                        0x08007cb8   Section        0  cmsis_os.o(i.osSemaphoreWait)
+    i.osSystickHandler                       0x08007d20   Section        0  cmsis_os.o(i.osSystickHandler)
+    i.osThreadCreate                         0x08007d30   Section        0  cmsis_os.o(i.osThreadCreate)
+    i.parse_combo                            0x08007d60   Section        0  parser.o(i.parse_combo)
+    i.parse_line                             0x08007dec   Section        0  parser.o(i.parse_line)
+    i.parse_special_key                      0x08007f34   Section        0  parser.o(i.parse_special_key)
+    i.pressed                                0x08008488   Section        0  buttons.o(i.pressed)
+    i.print_keyname                          0x08008494   Section        0  parser.o(i.print_keyname)
+    i.print_legend                           0x08008558   Section        0  parser.o(i.print_legend)
+    i.print_r1                               0x08008600   Section        0  sd_util.o(i.print_r1)
+    print_r1                                 0x08008601   Thumb Code    44  sd_util.o(i.print_r1)
+    i.prvAddCurrentTaskToDelayedList         0x08008644   Section        0  tasks.o(i.prvAddCurrentTaskToDelayedList)
+    prvAddCurrentTaskToDelayedList           0x08008645   Thumb Code    78  tasks.o(i.prvAddCurrentTaskToDelayedList)
+    i.prvAddNewTaskToReadyList               0x0800869c   Section        0  tasks.o(i.prvAddNewTaskToReadyList)
+    prvAddNewTaskToReadyList                 0x0800869d   Thumb Code   176  tasks.o(i.prvAddNewTaskToReadyList)
+    i.prvCheckTasksWaitingTermination        0x08008754   Section        0  tasks.o(i.prvCheckTasksWaitingTermination)
+    prvCheckTasksWaitingTermination          0x08008755   Thumb Code    78  tasks.o(i.prvCheckTasksWaitingTermination)
+    i.prvCopyDataFromQueue                   0x080087ac   Section        0  queue.o(i.prvCopyDataFromQueue)
+    prvCopyDataFromQueue                     0x080087ad   Thumb Code    38  queue.o(i.prvCopyDataFromQueue)
+    i.prvCopyDataToQueue                     0x080087d2   Section        0  queue.o(i.prvCopyDataToQueue)
+    prvCopyDataToQueue                       0x080087d3   Thumb Code   112  queue.o(i.prvCopyDataToQueue)
+    i.prvDeleteTCB                           0x08008842   Section        0  tasks.o(i.prvDeleteTCB)
+    prvDeleteTCB                             0x08008843   Thumb Code    18  tasks.o(i.prvDeleteTCB)
+    i.prvIdleTask                            0x08008854   Section        0  tasks.o(i.prvIdleTask)
+    prvIdleTask                              0x08008855   Thumb Code    18  tasks.o(i.prvIdleTask)
+    i.prvInitialiseNewTask                   0x0800886c   Section        0  tasks.o(i.prvInitialiseNewTask)
+    prvInitialiseNewTask                     0x0800886d   Thumb Code   124  tasks.o(i.prvInitialiseNewTask)
+    i.prvIsQueueEmpty                        0x080088e8   Section        0  queue.o(i.prvIsQueueEmpty)
+    prvIsQueueEmpty                          0x080088e9   Thumb Code    28  queue.o(i.prvIsQueueEmpty)
+    i.prvResetNextTaskUnblockTime            0x08008904   Section        0  tasks.o(i.prvResetNextTaskUnblockTime)
+    prvResetNextTaskUnblockTime              0x08008905   Thumb Code    28  tasks.o(i.prvResetNextTaskUnblockTime)
+    i.prvTaskExitError                       0x08008924   Section        0  port.o(i.prvTaskExitError)
+    prvTaskExitError                         0x08008925   Thumb Code    14  port.o(i.prvTaskExitError)
+    i.prvUnlockQueue                         0x08008938   Section        0  queue.o(i.prvUnlockQueue)
+    prvUnlockQueue                           0x08008939   Thumb Code   112  queue.o(i.prvUnlockQueue)
+    i.put_fat                                0x080089a8   Section        0  ff.o(i.put_fat)
+    i.pvPortMalloc                           0x08008aa8   Section        0  heap_1.o(i.pvPortMalloc)
+    i.pvTaskIncrementMutexHeldCount          0x08008af8   Section        0  tasks.o(i.pvTaskIncrementMutexHeldCount)
+    i.pxPortInitialiseStack                  0x08008b10   Section        0  port.o(i.pxPortInitialiseStack)
+    i.remove_chain                           0x08008b30   Section        0  ff.o(i.remove_chain)
+    remove_chain                             0x08008b31   Thumb Code   102  ff.o(i.remove_chain)
+    i.restore_profile                        0x08008b98   Section        0  parser.o(i.restore_profile)
+    i.save_last_profile                      0x08008bb8   Section        0  parser.o(i.save_last_profile)
+    i.scan_profiles                          0x08008c1c   Section        0  parser.o(i.scan_profiles)
+    i.sd_cmd                                 0x08008ce0   Section        0  sd_util.o(i.sd_cmd)
+    sd_cmd                                   0x08008ce1   Thumb Code   104  sd_util.o(i.sd_cmd)
+    i.sd_get_data                            0x08008d48   Section        0  sd_util.o(i.sd_get_data)
+    sd_get_data                              0x08008d49   Thumb Code   104  sd_util.o(i.sd_get_data)
+    i.sd_get_r1                              0x08008de0   Section        0  sd_util.o(i.sd_get_r1)
+    sd_get_r1                                0x08008de1   Thumb Code    26  sd_util.o(i.sd_get_r1)
+    i.sd_get_r7                              0x08008dfa   Section        0  sd_util.o(i.sd_get_r7)
+    sd_get_r7                                0x08008dfb   Thumb Code    54  sd_util.o(i.sd_get_r7)
+    i.sd_init                                0x08008e30   Section        0  sd_util.o(i.sd_init)
+    sd_init                                  0x08008e31   Thumb Code   826  sd_util.o(i.sd_init)
+    i.sd_nec                                 0x080092a0   Section        0  sd_util.o(i.sd_nec)
+    sd_nec                                   0x080092a1   Thumb Code    18  sd_util.o(i.sd_nec)
+    i.sd_put_data                            0x080092b4   Section        0  sd_util.o(i.sd_put_data)
+    sd_put_data                              0x080092b5   Thumb Code   134  sd_util.o(i.sd_put_data)
+    i.sd_read                                0x08009340   Section        0  sd_util.o(i.sd_read)
+    i.sd_read_cid                            0x080093a8   Section        0  sd_util.o(i.sd_read_cid)
+    sd_read_cid                              0x080093a9   Thumb Code   220  sd_util.o(i.sd_read_cid)
+    i.sd_read_csd                            0x080094a8   Section        0  sd_util.o(i.sd_read_csd)
+    sd_read_csd                              0x080094a9   Thumb Code   722  sd_util.o(i.sd_read_csd)
+    i.sd_read_status                         0x080097b8   Section        0  sd_util.o(i.sd_read_status)
+    sd_read_status                           0x080097b9   Thumb Code   138  sd_util.o(i.sd_read_status)
+    i.sd_readsector                          0x08009860   Section        0  sd_util.o(i.sd_readsector)
+    sd_readsector                            0x08009861   Thumb Code   152  sd_util.o(i.sd_readsector)
+    i.sd_write                               0x08009928   Section        0  sd_util.o(i.sd_write)
+    i.sd_writesector                         0x08009990   Section        0  sd_util.o(i.sd_writesector)
+    sd_writesector                           0x08009991   Thumb Code   166  sd_util.o(i.sd_writesector)
+    i.service_press                          0x08009a84   Section        0  buttons.o(i.service_press)
+    i.set_pixel_color                        0x08009a8c   Section        0  animations.o(i.set_pixel_color)
+    i.shuffle                                0x08009aac   Section        0  animations.o(i.shuffle)
+    i.spi_set_speed                          0x08009adc   Section        0  sd_util.o(i.spi_set_speed)
+    spi_set_speed                            0x08009add   Thumb Code    56  sd_util.o(i.spi_set_speed)
+    i.spi_set_speed_neopixel                 0x08009b18   Section        0  neopixel.o(i.spi_set_speed_neopixel)
+    i.spi_txrx                               0x08009b34   Section        0  sd_util.o(i.spi_txrx)
+    spi_txrx                                 0x08009b35   Thumb Code    34  sd_util.o(i.spi_txrx)
+    i.ssd1306_DrawPixel                      0x08009b5c   Section        0  ssd1306.o(i.ssd1306_DrawPixel)
+    i.ssd1306_Fill                           0x08009bac   Section        0  ssd1306.o(i.ssd1306_Fill)
+    i.ssd1306_Init                           0x08009bd0   Section        0  ssd1306.o(i.ssd1306_Init)
+    i.ssd1306_SetCursor                      0x08009cb0   Section        0  ssd1306.o(i.ssd1306_SetCursor)
+    i.ssd1306_UpdateScreen                   0x08009cbc   Section        0  ssd1306.o(i.ssd1306_UpdateScreen)
+    i.ssd1306_WriteChar                      0x08009d14   Section        0  ssd1306.o(i.ssd1306_WriteChar)
+    i.ssd1306_WriteCommand                   0x08009da4   Section        0  ssd1306.o(i.ssd1306_WriteCommand)
+    ssd1306_WriteCommand                     0x08009da5   Thumb Code    38  ssd1306.o(i.ssd1306_WriteCommand)
+    i.ssd1306_WriteString                    0x08009dd4   Section        0  ssd1306.o(i.ssd1306_WriteString)
+    i.ssd1306_dim                            0x08009e00   Section        0  ssd1306.o(i.ssd1306_dim)
+    i.st_clust                               0x08009e50   Section        0  ff.o(i.st_clust)
+    st_clust                                 0x08009e51   Thumb Code    16  ff.o(i.st_clust)
+    i.sum_sfn                                0x08009e60   Section        0  ff.o(i.sum_sfn)
+    sum_sfn                                  0x08009e61   Thumb Code    26  ff.o(i.sum_sfn)
+    i.sync_fs                                0x08009e7a   Section        0  ff.o(i.sync_fs)
+    sync_fs                                  0x08009e7b   Thumb Code   148  ff.o(i.sync_fs)
+    i.sync_window                            0x08009f0e   Section        0  ff.o(i.sync_window)
+    sync_window                              0x08009f0f   Thumb Code    84  ff.o(i.sync_window)
+    i.unlock_fs                              0x08009f62   Section        0  ff.o(i.unlock_fs)
+    unlock_fs                                0x08009f63   Thumb Code    36  ff.o(i.unlock_fs)
+    i.uxListRemove                           0x08009f86   Section        0  list.o(i.uxListRemove)
+    i.vListInitialise                        0x08009faa   Section        0  list.o(i.vListInitialise)
+    i.vListInitialiseItem                    0x08009fc0   Section        0  list.o(i.vListInitialiseItem)
+    i.vListInsert                            0x08009fc6   Section        0  list.o(i.vListInsert)
+    i.vListInsertEnd                         0x08009ff6   Section        0  list.o(i.vListInsertEnd)
+    i.vPortEnterCritical                     0x0800a010   Section        0  port.o(i.vPortEnterCritical)
+    i.vPortExitCritical                      0x0800a028   Section        0  port.o(i.vPortExitCritical)
+    i.vPortFree                              0x0800a044   Section        0  heap_1.o(i.vPortFree)
+    i.vPortSetupTimerInterrupt               0x0800a050   Section        0  port.o(i.vPortSetupTimerInterrupt)
+    i.vPortYield                             0x0800a074   Section        0  port.o(i.vPortYield)
+    i.vQueueDelete                           0x0800a08c   Section        0  queue.o(i.vQueueDelete)
+    i.vQueueUnregisterQueue                  0x0800a0a4   Section        0  queue.o(i.vQueueUnregisterQueue)
+    i.vTaskDelay                             0x0800a0cc   Section        0  tasks.o(i.vTaskDelay)
+    i.vTaskMissedYield                       0x0800a0fc   Section        0  tasks.o(i.vTaskMissedYield)
+    i.vTaskPlaceOnEventList                  0x0800a108   Section        0  tasks.o(i.vTaskPlaceOnEventList)
+    i.vTaskPriorityInherit                   0x0800a12c   Section        0  tasks.o(i.vTaskPriorityInherit)
+    i.vTaskSetTimeOutState                   0x0800a190   Section        0  tasks.o(i.vTaskSetTimeOutState)
+    i.vTaskStartScheduler                    0x0800a1a8   Section        0  tasks.o(i.vTaskStartScheduler)
+    i.vTaskSuspendAll                        0x0800a1f4   Section        0  tasks.o(i.vTaskSuspendAll)
+    i.vTaskSwitchContext                     0x0800a204   Section        0  tasks.o(i.vTaskSwitchContext)
+    i.validate                               0x0800a25c   Section        0  ff.o(i.validate)
+    validate                                 0x0800a25d   Thumb Code    70  ff.o(i.validate)
+    i.xPortStartScheduler                    0x0800a2a4   Section        0  port.o(i.xPortStartScheduler)
+    i.xPortSysTickHandler                    0x0800a2d4   Section        0  port.o(i.xPortSysTickHandler)
+    i.xQueueGenericCreate                    0x0800a2f8   Section        0  queue.o(i.xQueueGenericCreate)
+    i.xQueueGenericReceive                   0x0800a336   Section        0  queue.o(i.xQueueGenericReceive)
+    i.xQueueGenericReset                     0x0800a470   Section        0  queue.o(i.xQueueGenericReset)
+    i.xQueueGenericSend                      0x0800a4de   Section        0  queue.o(i.xQueueGenericSend)
+    i.xQueueGiveFromISR                      0x0800a5fc   Section        0  queue.o(i.xQueueGiveFromISR)
+    i.xQueueReceiveFromISR                   0x0800a670   Section        0  queue.o(i.xQueueReceiveFromISR)
+    i.xTaskCheckForTimeOut                   0x0800a6e8   Section        0  tasks.o(i.xTaskCheckForTimeOut)
+    i.xTaskCreate                            0x0800a73c   Section        0  tasks.o(i.xTaskCreate)
+    i.xTaskGetSchedulerState                 0x0800a78c   Section        0  tasks.o(i.xTaskGetSchedulerState)
+    i.xTaskIncrementTick                     0x0800a7ac   Section        0  tasks.o(i.xTaskIncrementTick)
+    i.xTaskPriorityDisinherit                0x0800a868   Section        0  tasks.o(i.xTaskPriorityDisinherit)
+    i.xTaskRemoveFromEventList               0x0800a8cc   Section        0  tasks.o(i.xTaskRemoveFromEventList)
+    i.xTaskResumeAll                         0x0800a930   Section        0  tasks.o(i.xTaskResumeAll)
+    .constdata                               0x0800a9dc   Section       16  system_stm32f0xx.o(.constdata)
+    .constdata                               0x0800a9ec   Section        8  system_stm32f0xx.o(.constdata)
+    .constdata                               0x0800a9f4   Section       82  sd_util.o(.constdata)
+    __func__                                 0x0800a9f4   Data           8  sd_util.o(.constdata)
+    __func__                                 0x0800a9fc   Data          12  sd_util.o(.constdata)
+    __func__                                 0x0800aa08   Data          12  sd_util.o(.constdata)
+    __func__                                 0x0800aa14   Data          12  sd_util.o(.constdata)
+    __func__                                 0x0800aa20   Data          14  sd_util.o(.constdata)
+    __func__                                 0x0800aa2e   Data          15  sd_util.o(.constdata)
+    __func__                                 0x0800aa3d   Data           9  sd_util.o(.constdata)
+    .constdata                               0x0800aa46   Section     1900  fonts.o(.constdata)
+    Font6x10                                 0x0800aa46   Data        1900  fonts.o(.constdata)
+    .constdata                               0x0800b1b2   Section      128  keyboard.o(.constdata)
+    .constdata                               0x0800b232   Section      366  parser.o(.constdata)
+    .constdata                               0x0800b3a0   Section       60  main.o(.constdata)
+    .constdata                               0x0800b3dc   Section     1216  ccsbcs.o(.constdata)
+    Tbl                                      0x0800b3dc   Data         256  ccsbcs.o(.constdata)
+    tbl_lower                                0x0800b4dc   Data         480  ccsbcs.o(.constdata)
+    tbl_upper                                0x0800b6bc   Data         480  ccsbcs.o(.constdata)
+    .constdata                               0x0800b89c   Section      141  ff.o(.constdata)
+    ExCvt                                    0x0800b89c   Data         128  ff.o(.constdata)
+    LfnOfs                                   0x0800b91c   Data          13  ff.o(.constdata)
+    .constdata                               0x0800b929   Section      129  ctype_o.o(.constdata)
+    .constdata                               0x0800b9ac   Section        4  ctype_o.o(.constdata)
+    table                                    0x0800b9ac   Data           4  ctype_o.o(.constdata)
+    .conststring                             0x0800b9b0   Section     1140  sd_util.o(.conststring)
+    .conststring                             0x0800be24   Section       40  main.o(.conststring)
     .data                                    0x20000000   Section        4  system_stm32f0xx.o(.data)
     .data                                    0x20000004   Section       88  sd_util.o(.data)
     r1_strings                               0x20000004   Data          28  sd_util.o(.data)
@@ -4122,149 +4127,150 @@ Image Symbol Table
     keyboard_release                         0x080072c9   Thumb Code   100  keyboard.o(i.keyboard_release)
     keyboard_release_all                     0x08007339   Thumb Code    28  keyboard.o(i.keyboard_release_all)
     keyboard_update                          0x0800735d   Thumb Code   644  buttons.o(i.keyboard_update)
-    keypress_anime_handler                   0x080075f1   Thumb Code    42  animations.o(i.keypress_anime_handler)
-    keypress_task_start                      0x08007625   Thumb Code   106  my_tasks.o(i.keypress_task_start)
-    led_animation_handler                    0x080076bd   Thumb Code   226  animations.o(i.led_animation_handler)
-    led_animation_init                       0x080077ad   Thumb Code    40  animations.o(i.led_animation_init)
-    led_start_animation                      0x080077d5   Thumb Code    88  animations.o(i.led_start_animation)
-    load_colors                              0x08007831   Thumb Code   248  parser.o(i.load_colors)
-    load_profile                             0x0800794d   Thumb Code    84  parser.o(i.load_profile)
-    main                                     0x080079b5   Thumb Code   126  main.o(i.main)
-    malloc                                   0x08007a51   Thumb Code    92  malloc.o(i.malloc)
-    media_key_press                          0x08007abd   Thumb Code    56  keyboard.o(i.media_key_press)
-    neopixel_show                            0x08007b55   Thumb Code   164  neopixel.o(i.neopixel_show)
-    osDelay                                  0x08007c01   Thumb Code    16  cmsis_os.o(i.osDelay)
-    osKernelStart                            0x08007c11   Thumb Code    10  cmsis_os.o(i.osKernelStart)
-    osSemaphoreCreate                        0x08007c1b   Thumb Code    38  cmsis_os.o(i.osSemaphoreCreate)
-    osSemaphoreDelete                        0x08007c41   Thumb Code    26  cmsis_os.o(i.osSemaphoreDelete)
-    osSemaphoreRelease                       0x08007c5d   Thumb Code    70  cmsis_os.o(i.osSemaphoreRelease)
-    osSemaphoreWait                          0x08007ca9   Thumb Code    98  cmsis_os.o(i.osSemaphoreWait)
-    osSystickHandler                         0x08007d11   Thumb Code    16  cmsis_os.o(i.osSystickHandler)
-    osThreadCreate                           0x08007d21   Thumb Code    46  cmsis_os.o(i.osThreadCreate)
-    parse_combo                              0x08007d51   Thumb Code   136  parser.o(i.parse_combo)
-    parse_line                               0x08007ddd   Thumb Code   320  parser.o(i.parse_line)
-    parse_special_key                        0x08007f25   Thumb Code  1360  parser.o(i.parse_special_key)
-    pressed                                  0x08008479   Thumb Code    10  buttons.o(i.pressed)
-    print_keyname                            0x08008485   Thumb Code   166  parser.o(i.print_keyname)
-    print_legend                             0x08008549   Thumb Code   136  parser.o(i.print_legend)
-    put_fat                                  0x08008999   Thumb Code   254  ff.o(i.put_fat)
-    pvPortMalloc                             0x08008a99   Thumb Code    68  heap_1.o(i.pvPortMalloc)
-    pvTaskIncrementMutexHeldCount            0x08008ae9   Thumb Code    20  tasks.o(i.pvTaskIncrementMutexHeldCount)
-    pxPortInitialiseStack                    0x08008b01   Thumb Code    28  port.o(i.pxPortInitialiseStack)
-    restore_profile                          0x08008b89   Thumb Code    24  parser.o(i.restore_profile)
-    save_last_profile                        0x08008ba9   Thumb Code    62  parser.o(i.save_last_profile)
-    scan_profiles                            0x08008c0d   Thumb Code   174  parser.o(i.scan_profiles)
-    sd_read                                  0x08009331   Thumb Code    66  sd_util.o(i.sd_read)
-    sd_write                                 0x08009919   Thumb Code    66  sd_util.o(i.sd_write)
-    service_press                            0x08009a75   Thumb Code     6  buttons.o(i.service_press)
-    set_pixel_color                          0x08009a7d   Thumb Code    22  animations.o(i.set_pixel_color)
-    shuffle                                  0x08009a9d   Thumb Code    48  animations.o(i.shuffle)
-    spi_set_speed_neopixel                   0x08009b09   Thumb Code    22  neopixel.o(i.spi_set_speed_neopixel)
-    ssd1306_DrawPixel                        0x08009b4d   Thumb Code    70  ssd1306.o(i.ssd1306_DrawPixel)
-    ssd1306_Fill                             0x08009b9d   Thumb Code    30  ssd1306.o(i.ssd1306_Fill)
-    ssd1306_Init                             0x08009bc1   Thumb Code   214  ssd1306.o(i.ssd1306_Init)
-    ssd1306_SetCursor                        0x08009ca1   Thumb Code     8  ssd1306.o(i.ssd1306_SetCursor)
-    ssd1306_UpdateScreen                     0x08009cad   Thumb Code    74  ssd1306.o(i.ssd1306_UpdateScreen)
-    ssd1306_WriteChar                        0x08009d05   Thumb Code   138  ssd1306.o(i.ssd1306_WriteChar)
-    ssd1306_WriteString                      0x08009dc5   Thumb Code    44  ssd1306.o(i.ssd1306_WriteString)
-    ssd1306_dim                              0x08009df1   Thumb Code    54  ssd1306.o(i.ssd1306_dim)
-    uxListRemove                             0x08009f77   Thumb Code    36  list.o(i.uxListRemove)
-    vListInitialise                          0x08009f9b   Thumb Code    22  list.o(i.vListInitialise)
-    vListInitialiseItem                      0x08009fb1   Thumb Code     6  list.o(i.vListInitialiseItem)
-    vListInsert                              0x08009fb7   Thumb Code    48  list.o(i.vListInsert)
-    vListInsertEnd                           0x08009fe7   Thumb Code    24  list.o(i.vListInsertEnd)
-    vPortEnterCritical                       0x0800a001   Thumb Code    20  port.o(i.vPortEnterCritical)
-    vPortExitCritical                        0x0800a019   Thumb Code    22  port.o(i.vPortExitCritical)
-    vPortFree                                0x0800a035   Thumb Code    10  heap_1.o(i.vPortFree)
-    vPortSetupTimerInterrupt                 0x0800a041   Thumb Code    26  port.o(i.vPortSetupTimerInterrupt)
-    vPortYield                               0x0800a065   Thumb Code    18  port.o(i.vPortYield)
-    vQueueDelete                             0x0800a07d   Thumb Code    22  queue.o(i.vQueueDelete)
-    vQueueUnregisterQueue                    0x0800a095   Thumb Code    34  queue.o(i.vQueueUnregisterQueue)
-    vTaskDelay                               0x0800a0bd   Thumb Code    44  tasks.o(i.vTaskDelay)
-    vTaskMissedYield                         0x0800a0ed   Thumb Code     8  tasks.o(i.vTaskMissedYield)
-    vTaskPlaceOnEventList                    0x0800a0f9   Thumb Code    32  tasks.o(i.vTaskPlaceOnEventList)
-    vTaskPriorityInherit                     0x0800a11d   Thumb Code    92  tasks.o(i.vTaskPriorityInherit)
-    vTaskSetTimeOutState                     0x0800a181   Thumb Code    20  tasks.o(i.vTaskSetTimeOutState)
-    vTaskStartScheduler                      0x0800a199   Thumb Code    58  tasks.o(i.vTaskStartScheduler)
-    vTaskSuspendAll                          0x0800a1e5   Thumb Code    10  tasks.o(i.vTaskSuspendAll)
-    vTaskSwitchContext                       0x0800a1f5   Thumb Code    78  tasks.o(i.vTaskSwitchContext)
-    xPortStartScheduler                      0x0800a295   Thumb Code    40  port.o(i.xPortStartScheduler)
-    xPortSysTickHandler                      0x0800a2c5   Thumb Code    32  port.o(i.xPortSysTickHandler)
-    xQueueGenericCreate                      0x0800a2e9   Thumb Code    62  queue.o(i.xQueueGenericCreate)
-    xQueueGenericReceive                     0x0800a327   Thumb Code   314  queue.o(i.xQueueGenericReceive)
-    xQueueGenericReset                       0x0800a461   Thumb Code   110  queue.o(i.xQueueGenericReset)
-    xQueueGenericSend                        0x0800a4cf   Thumb Code   286  queue.o(i.xQueueGenericSend)
-    xQueueGiveFromISR                        0x0800a5ed   Thumb Code   116  queue.o(i.xQueueGiveFromISR)
-    xQueueReceiveFromISR                     0x0800a661   Thumb Code   120  queue.o(i.xQueueReceiveFromISR)
-    xTaskCheckForTimeOut                     0x0800a6d9   Thumb Code    80  tasks.o(i.xTaskCheckForTimeOut)
-    xTaskCreate                              0x0800a72d   Thumb Code    78  tasks.o(i.xTaskCreate)
-    xTaskGetSchedulerState                   0x0800a77d   Thumb Code    26  tasks.o(i.xTaskGetSchedulerState)
-    xTaskIncrementTick                       0x0800a79d   Thumb Code   180  tasks.o(i.xTaskIncrementTick)
-    xTaskPriorityDisinherit                  0x0800a859   Thumb Code    92  tasks.o(i.xTaskPriorityDisinherit)
-    xTaskRemoveFromEventList                 0x0800a8bd   Thumb Code    90  tasks.o(i.xTaskRemoveFromEventList)
-    xTaskResumeAll                           0x0800a921   Thumb Code   162  tasks.o(i.xTaskResumeAll)
-    AHBPrescTable                            0x0800a9cc   Data          16  system_stm32f0xx.o(.constdata)
-    APBPrescTable                            0x0800a9dc   Data           8  system_stm32f0xx.o(.constdata)
-    _asciimap                                0x0800b1a2   Data         128  keyboard.o(.constdata)
-    cmd_UP                                   0x0800b222   Data           3  parser.o(.constdata)
-    cmd_F1                                   0x0800b225   Data           3  parser.o(.constdata)
-    cmd_F2                                   0x0800b228   Data           3  parser.o(.constdata)
-    cmd_F3                                   0x0800b22b   Data           3  parser.o(.constdata)
-    cmd_F4                                   0x0800b22e   Data           3  parser.o(.constdata)
-    cmd_F5                                   0x0800b231   Data           3  parser.o(.constdata)
-    cmd_F6                                   0x0800b234   Data           3  parser.o(.constdata)
-    cmd_F7                                   0x0800b237   Data           3  parser.o(.constdata)
-    cmd_F8                                   0x0800b23a   Data           3  parser.o(.constdata)
-    cmd_F9                                   0x0800b23d   Data           3  parser.o(.constdata)
-    cmd_C_COMMENT                            0x0800b240   Data           4  parser.o(.constdata)
-    cmd_ESC                                  0x0800b244   Data           4  parser.o(.constdata)
-    cmd_F10                                  0x0800b248   Data           4  parser.o(.constdata)
-    cmd_F11                                  0x0800b24c   Data           4  parser.o(.constdata)
-    cmd_F12                                  0x0800b250   Data           4  parser.o(.constdata)
-    cmd_TAB                                  0x0800b254   Data           4  parser.o(.constdata)
-    cmd_END                                  0x0800b258   Data           4  parser.o(.constdata)
-    cmd_ALT                                  0x0800b25c   Data           4  parser.o(.constdata)
-    cmd_GUI                                  0x0800b260   Data           4  parser.o(.constdata)
-    cmd_REM                                  0x0800b264   Data           5  parser.o(.constdata)
-    cmd_DOWN                                 0x0800b269   Data           5  parser.o(.constdata)
-    cmd_LEFT                                 0x0800b26e   Data           5  parser.o(.constdata)
-    cmd_HOME                                 0x0800b273   Data           5  parser.o(.constdata)
-    cmd_CTRL                                 0x0800b278   Data           5  parser.o(.constdata)
-    cmd_VOLMUTE                              0x0800b27d   Data           5  parser.o(.constdata)
-    cmd_NAME                                 0x0800b282   Data           6  parser.o(.constdata)
-    cmd_ENTER                                0x0800b288   Data           6  parser.o(.constdata)
-    cmd_RIGHT                                0x0800b28e   Data           6  parser.o(.constdata)
-    cmd_PAUSE                                0x0800b294   Data           6  parser.o(.constdata)
-    cmd_BREAK                                0x0800b29a   Data           6  parser.o(.constdata)
-    cmd_SPACE                                0x0800b2a0   Data           6  parser.o(.constdata)
-    cmd_SHIFT                                0x0800b2a6   Data           6  parser.o(.constdata)
-    cmd_VOLUP                                0x0800b2ac   Data           6  parser.o(.constdata)
-    cmd_DELAY                                0x0800b2b2   Data           7  parser.o(.constdata)
-    cmd_ESCAPE                               0x0800b2b9   Data           7  parser.o(.constdata)
-    cmd_INSERT                               0x0800b2c0   Data           7  parser.o(.constdata)
-    cmd_PAGEUP                               0x0800b2c7   Data           7  parser.o(.constdata)
-    cmd_DELETE                               0x0800b2ce   Data           7  parser.o(.constdata)
-    cmd_REPEAT                               0x0800b2d5   Data           8  parser.o(.constdata)
-    cmd_STRING                               0x0800b2dd   Data           8  parser.o(.constdata)
-    cmd_UPARROW                              0x0800b2e5   Data           8  parser.o(.constdata)
-    cmd_WINDOWS                              0x0800b2ed   Data           8  parser.o(.constdata)
-    cmd_CONTROL                              0x0800b2f5   Data           8  parser.o(.constdata)
-    cmd_VOLDOWN                              0x0800b2fd   Data           8  parser.o(.constdata)
-    cmd_DEFAULTDELAY                         0x0800b305   Data          14  parser.o(.constdata)
-    cmd_DEFAULTCHARDELAY                     0x0800b313   Data          18  parser.o(.constdata)
-    cmd_DOWNARROW                            0x0800b325   Data          10  parser.o(.constdata)
-    cmd_LEFTARROW                            0x0800b32f   Data          10  parser.o(.constdata)
-    cmd_RIGHTARROW                           0x0800b339   Data          11  parser.o(.constdata)
-    cmd_BACKSPACE                            0x0800b344   Data          10  parser.o(.constdata)
-    cmd_CAPSLOCK                             0x0800b34e   Data           9  parser.o(.constdata)
-    cmd_PRINTSCREEN                          0x0800b357   Data          12  parser.o(.constdata)
-    cmd_SCROLLLOCK                           0x0800b363   Data          11  parser.o(.constdata)
-    cmd_PAGEDOWN                             0x0800b36e   Data           9  parser.o(.constdata)
-    cmd_BG_COLOR                             0x0800b377   Data          10  parser.o(.constdata)
-    cmd_KD_COLOR                             0x0800b381   Data          15  parser.o(.constdata)
-    __ctype_table                            0x0800b919   Data         129  ctype_o.o(.constdata)
-    Region$$Table$$Base                      0x0800be3c   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x0800be5c   Number         0  anon$$obj.o(Region$$Table)
+    keydown_anime_end                        0x080075f1   Thumb Code    20  animations.o(i.keydown_anime_end)
+    keydown_anime_start                      0x0800760d   Thumb Code    26  animations.o(i.keydown_anime_start)
+    keypress_task_start                      0x08007631   Thumb Code   112  my_tasks.o(i.keypress_task_start)
+    led_animation_handler                    0x080076cd   Thumb Code   226  animations.o(i.led_animation_handler)
+    led_animation_init                       0x080077bd   Thumb Code    40  animations.o(i.led_animation_init)
+    led_start_animation                      0x080077e5   Thumb Code    88  animations.o(i.led_start_animation)
+    load_colors                              0x08007841   Thumb Code   248  parser.o(i.load_colors)
+    load_profile                             0x0800795d   Thumb Code    84  parser.o(i.load_profile)
+    main                                     0x080079c5   Thumb Code   126  main.o(i.main)
+    malloc                                   0x08007a61   Thumb Code    92  malloc.o(i.malloc)
+    media_key_press                          0x08007acd   Thumb Code    56  keyboard.o(i.media_key_press)
+    neopixel_show                            0x08007b65   Thumb Code   164  neopixel.o(i.neopixel_show)
+    osDelay                                  0x08007c11   Thumb Code    16  cmsis_os.o(i.osDelay)
+    osKernelStart                            0x08007c21   Thumb Code    10  cmsis_os.o(i.osKernelStart)
+    osSemaphoreCreate                        0x08007c2b   Thumb Code    38  cmsis_os.o(i.osSemaphoreCreate)
+    osSemaphoreDelete                        0x08007c51   Thumb Code    26  cmsis_os.o(i.osSemaphoreDelete)
+    osSemaphoreRelease                       0x08007c6d   Thumb Code    70  cmsis_os.o(i.osSemaphoreRelease)
+    osSemaphoreWait                          0x08007cb9   Thumb Code    98  cmsis_os.o(i.osSemaphoreWait)
+    osSystickHandler                         0x08007d21   Thumb Code    16  cmsis_os.o(i.osSystickHandler)
+    osThreadCreate                           0x08007d31   Thumb Code    46  cmsis_os.o(i.osThreadCreate)
+    parse_combo                              0x08007d61   Thumb Code   136  parser.o(i.parse_combo)
+    parse_line                               0x08007ded   Thumb Code   320  parser.o(i.parse_line)
+    parse_special_key                        0x08007f35   Thumb Code  1360  parser.o(i.parse_special_key)
+    pressed                                  0x08008489   Thumb Code    10  buttons.o(i.pressed)
+    print_keyname                            0x08008495   Thumb Code   166  parser.o(i.print_keyname)
+    print_legend                             0x08008559   Thumb Code   136  parser.o(i.print_legend)
+    put_fat                                  0x080089a9   Thumb Code   254  ff.o(i.put_fat)
+    pvPortMalloc                             0x08008aa9   Thumb Code    68  heap_1.o(i.pvPortMalloc)
+    pvTaskIncrementMutexHeldCount            0x08008af9   Thumb Code    20  tasks.o(i.pvTaskIncrementMutexHeldCount)
+    pxPortInitialiseStack                    0x08008b11   Thumb Code    28  port.o(i.pxPortInitialiseStack)
+    restore_profile                          0x08008b99   Thumb Code    24  parser.o(i.restore_profile)
+    save_last_profile                        0x08008bb9   Thumb Code    62  parser.o(i.save_last_profile)
+    scan_profiles                            0x08008c1d   Thumb Code   174  parser.o(i.scan_profiles)
+    sd_read                                  0x08009341   Thumb Code    66  sd_util.o(i.sd_read)
+    sd_write                                 0x08009929   Thumb Code    66  sd_util.o(i.sd_write)
+    service_press                            0x08009a85   Thumb Code     6  buttons.o(i.service_press)
+    set_pixel_color                          0x08009a8d   Thumb Code    22  animations.o(i.set_pixel_color)
+    shuffle                                  0x08009aad   Thumb Code    48  animations.o(i.shuffle)
+    spi_set_speed_neopixel                   0x08009b19   Thumb Code    22  neopixel.o(i.spi_set_speed_neopixel)
+    ssd1306_DrawPixel                        0x08009b5d   Thumb Code    70  ssd1306.o(i.ssd1306_DrawPixel)
+    ssd1306_Fill                             0x08009bad   Thumb Code    30  ssd1306.o(i.ssd1306_Fill)
+    ssd1306_Init                             0x08009bd1   Thumb Code   214  ssd1306.o(i.ssd1306_Init)
+    ssd1306_SetCursor                        0x08009cb1   Thumb Code     8  ssd1306.o(i.ssd1306_SetCursor)
+    ssd1306_UpdateScreen                     0x08009cbd   Thumb Code    74  ssd1306.o(i.ssd1306_UpdateScreen)
+    ssd1306_WriteChar                        0x08009d15   Thumb Code   138  ssd1306.o(i.ssd1306_WriteChar)
+    ssd1306_WriteString                      0x08009dd5   Thumb Code    44  ssd1306.o(i.ssd1306_WriteString)
+    ssd1306_dim                              0x08009e01   Thumb Code    54  ssd1306.o(i.ssd1306_dim)
+    uxListRemove                             0x08009f87   Thumb Code    36  list.o(i.uxListRemove)
+    vListInitialise                          0x08009fab   Thumb Code    22  list.o(i.vListInitialise)
+    vListInitialiseItem                      0x08009fc1   Thumb Code     6  list.o(i.vListInitialiseItem)
+    vListInsert                              0x08009fc7   Thumb Code    48  list.o(i.vListInsert)
+    vListInsertEnd                           0x08009ff7   Thumb Code    24  list.o(i.vListInsertEnd)
+    vPortEnterCritical                       0x0800a011   Thumb Code    20  port.o(i.vPortEnterCritical)
+    vPortExitCritical                        0x0800a029   Thumb Code    22  port.o(i.vPortExitCritical)
+    vPortFree                                0x0800a045   Thumb Code    10  heap_1.o(i.vPortFree)
+    vPortSetupTimerInterrupt                 0x0800a051   Thumb Code    26  port.o(i.vPortSetupTimerInterrupt)
+    vPortYield                               0x0800a075   Thumb Code    18  port.o(i.vPortYield)
+    vQueueDelete                             0x0800a08d   Thumb Code    22  queue.o(i.vQueueDelete)
+    vQueueUnregisterQueue                    0x0800a0a5   Thumb Code    34  queue.o(i.vQueueUnregisterQueue)
+    vTaskDelay                               0x0800a0cd   Thumb Code    44  tasks.o(i.vTaskDelay)
+    vTaskMissedYield                         0x0800a0fd   Thumb Code     8  tasks.o(i.vTaskMissedYield)
+    vTaskPlaceOnEventList                    0x0800a109   Thumb Code    32  tasks.o(i.vTaskPlaceOnEventList)
+    vTaskPriorityInherit                     0x0800a12d   Thumb Code    92  tasks.o(i.vTaskPriorityInherit)
+    vTaskSetTimeOutState                     0x0800a191   Thumb Code    20  tasks.o(i.vTaskSetTimeOutState)
+    vTaskStartScheduler                      0x0800a1a9   Thumb Code    58  tasks.o(i.vTaskStartScheduler)
+    vTaskSuspendAll                          0x0800a1f5   Thumb Code    10  tasks.o(i.vTaskSuspendAll)
+    vTaskSwitchContext                       0x0800a205   Thumb Code    78  tasks.o(i.vTaskSwitchContext)
+    xPortStartScheduler                      0x0800a2a5   Thumb Code    40  port.o(i.xPortStartScheduler)
+    xPortSysTickHandler                      0x0800a2d5   Thumb Code    32  port.o(i.xPortSysTickHandler)
+    xQueueGenericCreate                      0x0800a2f9   Thumb Code    62  queue.o(i.xQueueGenericCreate)
+    xQueueGenericReceive                     0x0800a337   Thumb Code   314  queue.o(i.xQueueGenericReceive)
+    xQueueGenericReset                       0x0800a471   Thumb Code   110  queue.o(i.xQueueGenericReset)
+    xQueueGenericSend                        0x0800a4df   Thumb Code   286  queue.o(i.xQueueGenericSend)
+    xQueueGiveFromISR                        0x0800a5fd   Thumb Code   116  queue.o(i.xQueueGiveFromISR)
+    xQueueReceiveFromISR                     0x0800a671   Thumb Code   120  queue.o(i.xQueueReceiveFromISR)
+    xTaskCheckForTimeOut                     0x0800a6e9   Thumb Code    80  tasks.o(i.xTaskCheckForTimeOut)
+    xTaskCreate                              0x0800a73d   Thumb Code    78  tasks.o(i.xTaskCreate)
+    xTaskGetSchedulerState                   0x0800a78d   Thumb Code    26  tasks.o(i.xTaskGetSchedulerState)
+    xTaskIncrementTick                       0x0800a7ad   Thumb Code   180  tasks.o(i.xTaskIncrementTick)
+    xTaskPriorityDisinherit                  0x0800a869   Thumb Code    92  tasks.o(i.xTaskPriorityDisinherit)
+    xTaskRemoveFromEventList                 0x0800a8cd   Thumb Code    90  tasks.o(i.xTaskRemoveFromEventList)
+    xTaskResumeAll                           0x0800a931   Thumb Code   162  tasks.o(i.xTaskResumeAll)
+    AHBPrescTable                            0x0800a9dc   Data          16  system_stm32f0xx.o(.constdata)
+    APBPrescTable                            0x0800a9ec   Data           8  system_stm32f0xx.o(.constdata)
+    _asciimap                                0x0800b1b2   Data         128  keyboard.o(.constdata)
+    cmd_UP                                   0x0800b232   Data           3  parser.o(.constdata)
+    cmd_F1                                   0x0800b235   Data           3  parser.o(.constdata)
+    cmd_F2                                   0x0800b238   Data           3  parser.o(.constdata)
+    cmd_F3                                   0x0800b23b   Data           3  parser.o(.constdata)
+    cmd_F4                                   0x0800b23e   Data           3  parser.o(.constdata)
+    cmd_F5                                   0x0800b241   Data           3  parser.o(.constdata)
+    cmd_F6                                   0x0800b244   Data           3  parser.o(.constdata)
+    cmd_F7                                   0x0800b247   Data           3  parser.o(.constdata)
+    cmd_F8                                   0x0800b24a   Data           3  parser.o(.constdata)
+    cmd_F9                                   0x0800b24d   Data           3  parser.o(.constdata)
+    cmd_C_COMMENT                            0x0800b250   Data           4  parser.o(.constdata)
+    cmd_ESC                                  0x0800b254   Data           4  parser.o(.constdata)
+    cmd_F10                                  0x0800b258   Data           4  parser.o(.constdata)
+    cmd_F11                                  0x0800b25c   Data           4  parser.o(.constdata)
+    cmd_F12                                  0x0800b260   Data           4  parser.o(.constdata)
+    cmd_TAB                                  0x0800b264   Data           4  parser.o(.constdata)
+    cmd_END                                  0x0800b268   Data           4  parser.o(.constdata)
+    cmd_ALT                                  0x0800b26c   Data           4  parser.o(.constdata)
+    cmd_GUI                                  0x0800b270   Data           4  parser.o(.constdata)
+    cmd_REM                                  0x0800b274   Data           5  parser.o(.constdata)
+    cmd_DOWN                                 0x0800b279   Data           5  parser.o(.constdata)
+    cmd_LEFT                                 0x0800b27e   Data           5  parser.o(.constdata)
+    cmd_HOME                                 0x0800b283   Data           5  parser.o(.constdata)
+    cmd_CTRL                                 0x0800b288   Data           5  parser.o(.constdata)
+    cmd_VOLMUTE                              0x0800b28d   Data           5  parser.o(.constdata)
+    cmd_NAME                                 0x0800b292   Data           6  parser.o(.constdata)
+    cmd_ENTER                                0x0800b298   Data           6  parser.o(.constdata)
+    cmd_RIGHT                                0x0800b29e   Data           6  parser.o(.constdata)
+    cmd_PAUSE                                0x0800b2a4   Data           6  parser.o(.constdata)
+    cmd_BREAK                                0x0800b2aa   Data           6  parser.o(.constdata)
+    cmd_SPACE                                0x0800b2b0   Data           6  parser.o(.constdata)
+    cmd_SHIFT                                0x0800b2b6   Data           6  parser.o(.constdata)
+    cmd_VOLUP                                0x0800b2bc   Data           6  parser.o(.constdata)
+    cmd_DELAY                                0x0800b2c2   Data           7  parser.o(.constdata)
+    cmd_ESCAPE                               0x0800b2c9   Data           7  parser.o(.constdata)
+    cmd_INSERT                               0x0800b2d0   Data           7  parser.o(.constdata)
+    cmd_PAGEUP                               0x0800b2d7   Data           7  parser.o(.constdata)
+    cmd_DELETE                               0x0800b2de   Data           7  parser.o(.constdata)
+    cmd_REPEAT                               0x0800b2e5   Data           8  parser.o(.constdata)
+    cmd_STRING                               0x0800b2ed   Data           8  parser.o(.constdata)
+    cmd_UPARROW                              0x0800b2f5   Data           8  parser.o(.constdata)
+    cmd_WINDOWS                              0x0800b2fd   Data           8  parser.o(.constdata)
+    cmd_CONTROL                              0x0800b305   Data           8  parser.o(.constdata)
+    cmd_VOLDOWN                              0x0800b30d   Data           8  parser.o(.constdata)
+    cmd_DEFAULTDELAY                         0x0800b315   Data          14  parser.o(.constdata)
+    cmd_DEFAULTCHARDELAY                     0x0800b323   Data          18  parser.o(.constdata)
+    cmd_DOWNARROW                            0x0800b335   Data          10  parser.o(.constdata)
+    cmd_LEFTARROW                            0x0800b33f   Data          10  parser.o(.constdata)
+    cmd_RIGHTARROW                           0x0800b349   Data          11  parser.o(.constdata)
+    cmd_BACKSPACE                            0x0800b354   Data          10  parser.o(.constdata)
+    cmd_CAPSLOCK                             0x0800b35e   Data           9  parser.o(.constdata)
+    cmd_PRINTSCREEN                          0x0800b367   Data          12  parser.o(.constdata)
+    cmd_SCROLLLOCK                           0x0800b373   Data          11  parser.o(.constdata)
+    cmd_PAGEDOWN                             0x0800b37e   Data           9  parser.o(.constdata)
+    cmd_BG_COLOR                             0x0800b387   Data          10  parser.o(.constdata)
+    cmd_KD_COLOR                             0x0800b391   Data          15  parser.o(.constdata)
+    __ctype_table                            0x0800b929   Data         129  ctype_o.o(.constdata)
+    Region$$Table$$Base                      0x0800be4c   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x0800be6c   Number         0  anon$$obj.o(Region$$Table)
     SystemCoreClock                          0x20000000   Data           4  system_stm32f0xx.o(.data)
     Font_6x10                                0x2000005c   Data           8  fonts.o(.data)
     i2c_status                               0x20000064   Data           1  ssd1306.o(.data)
@@ -4342,489 +4348,490 @@ Memory Map of the image
 
   Image Entry point : 0x080000c1
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0000c0cc, Max: 0x00010000, ABSOLUTE, COMPRESSED[0x0000bfc8])
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0000c0dc, Max: 0x00010000, ABSOLUTE, COMPRESSED[0x0000bfd8])
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x0000be5c, Max: 0x00010000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x0000be6c, Max: 0x00010000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x08000000   0x08000000   0x000000c0   Data   RO         5020    RESET               startup_stm32f072xb.o
-    0x080000c0   0x080000c0   0x00000000   Code   RO         6859  * .ARM.Collect$$$$00000000  mc_p.l(entry.o)
-    0x080000c0   0x080000c0   0x00000004   Code   RO         7194    .ARM.Collect$$$$00000001  mc_p.l(entry2.o)
-    0x080000c4   0x080000c4   0x00000004   Code   RO         7197    .ARM.Collect$$$$00000004  mc_p.l(entry5.o)
-    0x080000c8   0x080000c8   0x00000000   Code   RO         7199    .ARM.Collect$$$$00000008  mc_p.l(entry7b.o)
-    0x080000c8   0x080000c8   0x00000000   Code   RO         7201    .ARM.Collect$$$$0000000A  mc_p.l(entry8b.o)
-    0x080000c8   0x080000c8   0x00000008   Code   RO         7202    .ARM.Collect$$$$0000000B  mc_p.l(entry9a.o)
-    0x080000d0   0x080000d0   0x00000000   Code   RO         7204    .ARM.Collect$$$$0000000D  mc_p.l(entry10a.o)
-    0x080000d0   0x080000d0   0x00000000   Code   RO         7206    .ARM.Collect$$$$0000000F  mc_p.l(entry11a.o)
-    0x080000d0   0x080000d0   0x00000004   Code   RO         7195    .ARM.Collect$$$$00002712  mc_p.l(entry2.o)
-    0x080000d4   0x080000d4   0x00000078   Code   RO         5899    .emb_text           port.o
-    0x0800014c   0x0800014c   0x0000001c   Code   RO         5021    .text               startup_stm32f072xb.o
-    0x08000168   0x08000168   0x0000002c   Code   RO         6862    .text               mc_p.l(uidiv.o)
-    0x08000194   0x08000194   0x00000028   Code   RO         6864    .text               mc_p.l(idiv.o)
-    0x080001bc   0x080001bc   0x00000022   Code   RO         6866    .text               mc_p.l(llushr.o)
+    0x08000000   0x08000000   0x000000c0   Data   RO         5026    RESET               startup_stm32f072xb.o
+    0x080000c0   0x080000c0   0x00000000   Code   RO         6865  * .ARM.Collect$$$$00000000  mc_p.l(entry.o)
+    0x080000c0   0x080000c0   0x00000004   Code   RO         7200    .ARM.Collect$$$$00000001  mc_p.l(entry2.o)
+    0x080000c4   0x080000c4   0x00000004   Code   RO         7203    .ARM.Collect$$$$00000004  mc_p.l(entry5.o)
+    0x080000c8   0x080000c8   0x00000000   Code   RO         7205    .ARM.Collect$$$$00000008  mc_p.l(entry7b.o)
+    0x080000c8   0x080000c8   0x00000000   Code   RO         7207    .ARM.Collect$$$$0000000A  mc_p.l(entry8b.o)
+    0x080000c8   0x080000c8   0x00000008   Code   RO         7208    .ARM.Collect$$$$0000000B  mc_p.l(entry9a.o)
+    0x080000d0   0x080000d0   0x00000000   Code   RO         7210    .ARM.Collect$$$$0000000D  mc_p.l(entry10a.o)
+    0x080000d0   0x080000d0   0x00000000   Code   RO         7212    .ARM.Collect$$$$0000000F  mc_p.l(entry11a.o)
+    0x080000d0   0x080000d0   0x00000004   Code   RO         7201    .ARM.Collect$$$$00002712  mc_p.l(entry2.o)
+    0x080000d4   0x080000d4   0x00000078   Code   RO         5905    .emb_text           port.o
+    0x0800014c   0x0800014c   0x0000001c   Code   RO         5027    .text               startup_stm32f072xb.o
+    0x08000168   0x08000168   0x0000002c   Code   RO         6868    .text               mc_p.l(uidiv.o)
+    0x08000194   0x08000194   0x00000028   Code   RO         6870    .text               mc_p.l(idiv.o)
+    0x080001bc   0x080001bc   0x00000022   Code   RO         6872    .text               mc_p.l(llushr.o)
     0x080001de   0x080001de   0x00000002   PAD
-    0x080001e0   0x080001e0   0x00000024   Code   RO         6868    .text               mc_p.l(rand.o)
-    0x08000204   0x08000204   0x00000024   Code   RO         6871    .text               mc_p.l(memcpya.o)
-    0x08000228   0x08000228   0x00000024   Code   RO         6873    .text               mc_p.l(memseta.o)
-    0x0800024c   0x0800024c   0x00000028   Code   RO         6875    .text               mc_p.l(strstr.o)
-    0x08000274   0x08000274   0x0000001a   Code   RO         6877    .text               mc_p.l(strncpy.o)
-    0x0800028e   0x0800028e   0x0000000e   Code   RO         6879    .text               mc_p.l(strlen.o)
-    0x0800029c   0x0800029c   0x00000012   Code   RO         6881    .text               mc_p.l(strcpy.o)
-    0x080002ae   0x080002ae   0x0000001e   Code   RO         6883    .text               mc_p.l(strncmp.o)
-    0x080002cc   0x080002cc   0x00000014   Code   RO         7176    .text               mc_p.l(uread4.o)
-    0x080002e0   0x080002e0   0x0000001a   Code   RO         7178    .text               mc_p.l(atoi.o)
+    0x080001e0   0x080001e0   0x00000024   Code   RO         6874    .text               mc_p.l(rand.o)
+    0x08000204   0x08000204   0x00000024   Code   RO         6877    .text               mc_p.l(memcpya.o)
+    0x08000228   0x08000228   0x00000024   Code   RO         6879    .text               mc_p.l(memseta.o)
+    0x0800024c   0x0800024c   0x00000028   Code   RO         6881    .text               mc_p.l(strstr.o)
+    0x08000274   0x08000274   0x0000001a   Code   RO         6883    .text               mc_p.l(strncpy.o)
+    0x0800028e   0x0800028e   0x0000000e   Code   RO         6885    .text               mc_p.l(strlen.o)
+    0x0800029c   0x0800029c   0x00000012   Code   RO         6887    .text               mc_p.l(strcpy.o)
+    0x080002ae   0x080002ae   0x0000001e   Code   RO         6889    .text               mc_p.l(strncmp.o)
+    0x080002cc   0x080002cc   0x00000014   Code   RO         7182    .text               mc_p.l(uread4.o)
+    0x080002e0   0x080002e0   0x0000001a   Code   RO         7184    .text               mc_p.l(atoi.o)
     0x080002fa   0x080002fa   0x00000002   PAD
-    0x080002fc   0x080002fc   0x00000164   Code   RO         7180    .text               mf_p.l(dadd.o)
-    0x08000460   0x08000460   0x000000d0   Code   RO         7182    .text               mf_p.l(dmul.o)
-    0x08000530   0x08000530   0x000000f0   Code   RO         7184    .text               mf_p.l(ddiv.o)
-    0x08000620   0x08000620   0x0000001c   Code   RO         7186    .text               mf_p.l(dfltui.o)
-    0x0800063c   0x0800063c   0x0000003c   Code   RO         7188    .text               mf_p.l(dfixui.o)
-    0x08000678   0x08000678   0x00000028   Code   RO         7190    .text               mf_p.l(cdcmple.o)
-    0x080006a0   0x080006a0   0x00000028   Code   RO         7192    .text               mf_p.l(cdrcmple.o)
-    0x080006c8   0x080006c8   0x00000060   Code   RO         7209    .text               mc_p.l(uldiv.o)
-    0x08000728   0x08000728   0x00000020   Code   RO         7211    .text               mc_p.l(llshl.o)
-    0x08000748   0x08000748   0x00000026   Code   RO         7213    .text               mc_p.l(llsshr.o)
+    0x080002fc   0x080002fc   0x00000164   Code   RO         7186    .text               mf_p.l(dadd.o)
+    0x08000460   0x08000460   0x000000d0   Code   RO         7188    .text               mf_p.l(dmul.o)
+    0x08000530   0x08000530   0x000000f0   Code   RO         7190    .text               mf_p.l(ddiv.o)
+    0x08000620   0x08000620   0x0000001c   Code   RO         7192    .text               mf_p.l(dfltui.o)
+    0x0800063c   0x0800063c   0x0000003c   Code   RO         7194    .text               mf_p.l(dfixui.o)
+    0x08000678   0x08000678   0x00000028   Code   RO         7196    .text               mf_p.l(cdcmple.o)
+    0x080006a0   0x080006a0   0x00000028   Code   RO         7198    .text               mf_p.l(cdrcmple.o)
+    0x080006c8   0x080006c8   0x00000060   Code   RO         7215    .text               mc_p.l(uldiv.o)
+    0x08000728   0x08000728   0x00000020   Code   RO         7217    .text               mc_p.l(llshl.o)
+    0x08000748   0x08000748   0x00000026   Code   RO         7219    .text               mc_p.l(llsshr.o)
     0x0800076e   0x0800076e   0x00000002   PAD
-    0x08000770   0x08000770   0x00000070   Code   RO         7224    .text               mc_p.l(strtol.o)
-    0x080007e0   0x080007e0   0x00000000   Code   RO         7226    .text               mc_p.l(iusefp.o)
-    0x080007e0   0x080007e0   0x000000be   Code   RO         7227    .text               mf_p.l(depilogue.o)
+    0x08000770   0x08000770   0x00000070   Code   RO         7230    .text               mc_p.l(strtol.o)
+    0x080007e0   0x080007e0   0x00000000   Code   RO         7232    .text               mc_p.l(iusefp.o)
+    0x080007e0   0x080007e0   0x000000be   Code   RO         7233    .text               mf_p.l(depilogue.o)
     0x0800089e   0x0800089e   0x00000002   PAD
-    0x080008a0   0x080008a0   0x00000024   Code   RO         7233    .text               mc_p.l(init.o)
-    0x080008c4   0x080008c4   0x00000008   Code   RO         7235    .text               mc_p.l(ctype_o.o)
-    0x080008cc   0x080008cc   0x000000a6   Code   RO         7263    .text               mc_p.l(_strtoul.o)
-    0x08000972   0x08000972   0x0000001e   Code   RO         7265    .text               mc_p.l(_chval.o)
-    0x08000990   0x08000990   0x00000056   Code   RO         7275    .text               mc_p.l(__dczerorl2.o)
-    0x080009e6   0x080009e6   0x00000052   Code   RO         1798    i.ADC_ConversionStop  stm32f0xx_hal_adc.o
-    0x08000a38   0x08000a38   0x00000066   Code   RO         1802    i.ADC_Disable       stm32f0xx_hal_adc.o
+    0x080008a0   0x080008a0   0x00000024   Code   RO         7239    .text               mc_p.l(init.o)
+    0x080008c4   0x080008c4   0x00000008   Code   RO         7241    .text               mc_p.l(ctype_o.o)
+    0x080008cc   0x080008cc   0x000000a6   Code   RO         7269    .text               mc_p.l(_strtoul.o)
+    0x08000972   0x08000972   0x0000001e   Code   RO         7271    .text               mc_p.l(_chval.o)
+    0x08000990   0x08000990   0x00000056   Code   RO         7281    .text               mc_p.l(__dczerorl2.o)
+    0x080009e6   0x080009e6   0x00000052   Code   RO         1804    i.ADC_ConversionStop  stm32f0xx_hal_adc.o
+    0x08000a38   0x08000a38   0x00000066   Code   RO         1808    i.ADC_Disable       stm32f0xx_hal_adc.o
     0x08000a9e   0x08000a9e   0x00000002   PAD
-    0x08000aa0   0x08000aa0   0x00000084   Code   RO         1803    i.ADC_Enable        stm32f0xx_hal_adc.o
-    0x08000b24   0x08000b24   0x0000000a   Code   RO         5508    i.FATFS_LinkDriver  ff_gen_drv.o
+    0x08000aa0   0x08000aa0   0x00000084   Code   RO         1809    i.ADC_Enable        stm32f0xx_hal_adc.o
+    0x08000b24   0x08000b24   0x0000000a   Code   RO         5514    i.FATFS_LinkDriver  ff_gen_drv.o
     0x08000b2e   0x08000b2e   0x00000002   PAD
-    0x08000b30   0x08000b30   0x00000040   Code   RO         5509    i.FATFS_LinkDriverEx  ff_gen_drv.o
-    0x08000b70   0x08000b70   0x0000012c   Code   RO         1805    i.HAL_ADC_ConfigChannel  stm32f0xx_hal_adc.o
-    0x08000c9c   0x08000c9c   0x00000006   Code   RO         1812    i.HAL_ADC_GetValue  stm32f0xx_hal_adc.o
+    0x08000b30   0x08000b30   0x00000040   Code   RO         5515    i.FATFS_LinkDriverEx  ff_gen_drv.o
+    0x08000b70   0x08000b70   0x0000012c   Code   RO         1811    i.HAL_ADC_ConfigChannel  stm32f0xx_hal_adc.o
+    0x08000c9c   0x08000c9c   0x00000006   Code   RO         1818    i.HAL_ADC_GetValue  stm32f0xx_hal_adc.o
     0x08000ca2   0x08000ca2   0x00000002   PAD
-    0x08000ca4   0x08000ca4   0x00000174   Code   RO         1814    i.HAL_ADC_Init      stm32f0xx_hal_adc.o
-    0x08000e18   0x08000e18   0x00000024   Code   RO         1454    i.HAL_ADC_MspInit   stm32f0xx_hal_msp.o
-    0x08000e3c   0x08000e3c   0x000000be   Code   RO         1818    i.HAL_ADC_PollForConversion  stm32f0xx_hal_adc.o
+    0x08000ca4   0x08000ca4   0x00000174   Code   RO         1820    i.HAL_ADC_Init      stm32f0xx_hal_adc.o
+    0x08000e18   0x08000e18   0x00000024   Code   RO         1460    i.HAL_ADC_MspInit   stm32f0xx_hal_msp.o
+    0x08000e3c   0x08000e3c   0x000000be   Code   RO         1824    i.HAL_ADC_PollForConversion  stm32f0xx_hal_adc.o
     0x08000efa   0x08000efa   0x00000002   PAD
-    0x08000efc   0x08000efc   0x0000005c   Code   RO         1820    i.HAL_ADC_Start     stm32f0xx_hal_adc.o
-    0x08000f58   0x08000f58   0x0000003e   Code   RO         1823    i.HAL_ADC_Stop      stm32f0xx_hal_adc.o
-    0x08000f96   0x08000f96   0x0000001c   Code   RO         4302    i.HAL_Delay         stm32f0xx_hal.o
+    0x08000efc   0x08000efc   0x0000005c   Code   RO         1826    i.HAL_ADC_Start     stm32f0xx_hal_adc.o
+    0x08000f58   0x08000f58   0x0000003e   Code   RO         1829    i.HAL_ADC_Stop      stm32f0xx_hal_adc.o
+    0x08000f96   0x08000f96   0x0000001c   Code   RO         4308    i.HAL_Delay         stm32f0xx_hal.o
     0x08000fb2   0x08000fb2   0x00000002   PAD
-    0x08000fb4   0x08000fb4   0x000000dc   Code   RO         4434    i.HAL_GPIO_DeInit   stm32f0xx_hal_gpio.o
-    0x08001090   0x08001090   0x00000154   Code   RO         4437    i.HAL_GPIO_Init     stm32f0xx_hal_gpio.o
-    0x080011e4   0x080011e4   0x0000000a   Code   RO         4439    i.HAL_GPIO_ReadPin  stm32f0xx_hal_gpio.o
-    0x080011ee   0x080011ee   0x0000000c   Code   RO         4441    i.HAL_GPIO_WritePin  stm32f0xx_hal_gpio.o
+    0x08000fb4   0x08000fb4   0x000000dc   Code   RO         4440    i.HAL_GPIO_DeInit   stm32f0xx_hal_gpio.o
+    0x08001090   0x08001090   0x00000154   Code   RO         4443    i.HAL_GPIO_Init     stm32f0xx_hal_gpio.o
+    0x080011e4   0x080011e4   0x0000000a   Code   RO         4445    i.HAL_GPIO_ReadPin  stm32f0xx_hal_gpio.o
+    0x080011ee   0x080011ee   0x0000000c   Code   RO         4447    i.HAL_GPIO_WritePin  stm32f0xx_hal_gpio.o
     0x080011fa   0x080011fa   0x00000002   PAD
-    0x080011fc   0x080011fc   0x0000000c   Code   RO         4306    i.HAL_GetTick       stm32f0xx_hal.o
-    0x08001208   0x08001208   0x00000076   Code   RO         3721    i.HAL_HalfDuplex_Init  stm32f0xx_hal_uart.o
-    0x0800127e   0x0800127e   0x0000004a   Code   RO         2418    i.HAL_I2CEx_ConfigAnalogFilter  stm32f0xx_hal_i2c_ex.o
-    0x080012c8   0x080012c8   0x00000048   Code   RO         2419    i.HAL_I2CEx_ConfigDigitalFilter  stm32f0xx_hal_i2c_ex.o
-    0x08001310   0x08001310   0x000000b4   Code   RO         2005    i.HAL_I2C_Init      stm32f0xx_hal_i2c.o
-    0x080013c4   0x080013c4   0x0000011c   Code   RO         2006    i.HAL_I2C_IsDeviceReady  stm32f0xx_hal_i2c.o
-    0x080014e0   0x080014e0   0x00000154   Code   RO         2024    i.HAL_I2C_Mem_Write  stm32f0xx_hal_i2c.o
-    0x08001634   0x08001634   0x0000004c   Code   RO         1456    i.HAL_I2C_MspInit   stm32f0xx_hal_msp.o
-    0x08001680   0x08001680   0x00000064   Code   RO         2468    i.HAL_IWDG_Init     stm32f0xx_hal_iwdg.o
-    0x080016e4   0x080016e4   0x00000010   Code   RO         2469    i.HAL_IWDG_Refresh  stm32f0xx_hal_iwdg.o
-    0x080016f4   0x080016f4   0x00000010   Code   RO         4310    i.HAL_IncTick       stm32f0xx_hal.o
-    0x08001704   0x08001704   0x00000020   Code   RO         4311    i.HAL_Init          stm32f0xx_hal.o
-    0x08001724   0x08001724   0x00000078   Code   RO         1521    i.HAL_InitTick      stm32f0xx_hal_timebase_tim.o
-    0x0800179c   0x0800179c   0x00000044   Code   RO         1457    i.HAL_MspInit       stm32f0xx_hal_msp.o
-    0x080017e0   0x080017e0   0x00000014   Code   RO         4594    i.HAL_NVIC_EnableIRQ  stm32f0xx_hal_cortex.o
-    0x080017f4   0x080017f4   0x00000008   Code   RO         4598    i.HAL_NVIC_SetPriority  stm32f0xx_hal_cortex.o
-    0x080017fc   0x080017fc   0x0000001c   Code   RO         4599    i.HAL_NVIC_SystemReset  stm32f0xx_hal_cortex.o
-    0x08001818   0x08001818   0x0000003a   Code   RO         1778    i.HAL_PCDEx_PMAConfig  stm32f0xx_hal_pcd_ex.o
-    0x08001852   0x08001852   0x00000018   Code   RO         1140    i.HAL_PCD_DataInStageCallback  usbd_conf.o
-    0x0800186a   0x0800186a   0x0000001c   Code   RO         1141    i.HAL_PCD_DataOutStageCallback  usbd_conf.o
+    0x080011fc   0x080011fc   0x0000000c   Code   RO         4312    i.HAL_GetTick       stm32f0xx_hal.o
+    0x08001208   0x08001208   0x00000076   Code   RO         3727    i.HAL_HalfDuplex_Init  stm32f0xx_hal_uart.o
+    0x0800127e   0x0800127e   0x0000004a   Code   RO         2424    i.HAL_I2CEx_ConfigAnalogFilter  stm32f0xx_hal_i2c_ex.o
+    0x080012c8   0x080012c8   0x00000048   Code   RO         2425    i.HAL_I2CEx_ConfigDigitalFilter  stm32f0xx_hal_i2c_ex.o
+    0x08001310   0x08001310   0x000000b4   Code   RO         2011    i.HAL_I2C_Init      stm32f0xx_hal_i2c.o
+    0x080013c4   0x080013c4   0x0000011c   Code   RO         2012    i.HAL_I2C_IsDeviceReady  stm32f0xx_hal_i2c.o
+    0x080014e0   0x080014e0   0x00000154   Code   RO         2030    i.HAL_I2C_Mem_Write  stm32f0xx_hal_i2c.o
+    0x08001634   0x08001634   0x0000004c   Code   RO         1462    i.HAL_I2C_MspInit   stm32f0xx_hal_msp.o
+    0x08001680   0x08001680   0x00000064   Code   RO         2474    i.HAL_IWDG_Init     stm32f0xx_hal_iwdg.o
+    0x080016e4   0x080016e4   0x00000010   Code   RO         2475    i.HAL_IWDG_Refresh  stm32f0xx_hal_iwdg.o
+    0x080016f4   0x080016f4   0x00000010   Code   RO         4316    i.HAL_IncTick       stm32f0xx_hal.o
+    0x08001704   0x08001704   0x00000020   Code   RO         4317    i.HAL_Init          stm32f0xx_hal.o
+    0x08001724   0x08001724   0x00000078   Code   RO         1527    i.HAL_InitTick      stm32f0xx_hal_timebase_tim.o
+    0x0800179c   0x0800179c   0x00000044   Code   RO         1463    i.HAL_MspInit       stm32f0xx_hal_msp.o
+    0x080017e0   0x080017e0   0x00000014   Code   RO         4600    i.HAL_NVIC_EnableIRQ  stm32f0xx_hal_cortex.o
+    0x080017f4   0x080017f4   0x00000008   Code   RO         4604    i.HAL_NVIC_SetPriority  stm32f0xx_hal_cortex.o
+    0x080017fc   0x080017fc   0x0000001c   Code   RO         4605    i.HAL_NVIC_SystemReset  stm32f0xx_hal_cortex.o
+    0x08001818   0x08001818   0x0000003a   Code   RO         1784    i.HAL_PCDEx_PMAConfig  stm32f0xx_hal_pcd_ex.o
+    0x08001852   0x08001852   0x00000018   Code   RO         1146    i.HAL_PCD_DataInStageCallback  usbd_conf.o
+    0x0800186a   0x0800186a   0x0000001c   Code   RO         1147    i.HAL_PCD_DataOutStageCallback  usbd_conf.o
     0x08001886   0x08001886   0x00000002   PAD
-    0x08001888   0x08001888   0x00000168   Code   RO         1566    i.HAL_PCD_EP_Close  stm32f0xx_hal_pcd.o
-    0x080019f0   0x080019f0   0x000000b4   Code   RO         1567    i.HAL_PCD_EP_ClrStall  stm32f0xx_hal_pcd.o
-    0x08001aa4   0x08001aa4   0x000002a0   Code   RO         1570    i.HAL_PCD_EP_Open   stm32f0xx_hal_pcd.o
-    0x08001d44   0x08001d44   0x00000134   Code   RO         1571    i.HAL_PCD_EP_Receive  stm32f0xx_hal_pcd.o
-    0x08001e78   0x08001e78   0x0000008c   Code   RO         1572    i.HAL_PCD_EP_SetStall  stm32f0xx_hal_pcd.o
-    0x08001f04   0x08001f04   0x00000190   Code   RO         1573    i.HAL_PCD_EP_Transmit  stm32f0xx_hal_pcd.o
-    0x08002094   0x08002094   0x0000010c   Code   RO         1575    i.HAL_PCD_IRQHandler  stm32f0xx_hal_pcd.o
-    0x080021a0   0x080021a0   0x0000009a   Code   RO         1578    i.HAL_PCD_Init      stm32f0xx_hal_pcd.o
+    0x08001888   0x08001888   0x00000168   Code   RO         1572    i.HAL_PCD_EP_Close  stm32f0xx_hal_pcd.o
+    0x080019f0   0x080019f0   0x000000b4   Code   RO         1573    i.HAL_PCD_EP_ClrStall  stm32f0xx_hal_pcd.o
+    0x08001aa4   0x08001aa4   0x000002a0   Code   RO         1576    i.HAL_PCD_EP_Open   stm32f0xx_hal_pcd.o
+    0x08001d44   0x08001d44   0x00000134   Code   RO         1577    i.HAL_PCD_EP_Receive  stm32f0xx_hal_pcd.o
+    0x08001e78   0x08001e78   0x0000008c   Code   RO         1578    i.HAL_PCD_EP_SetStall  stm32f0xx_hal_pcd.o
+    0x08001f04   0x08001f04   0x00000190   Code   RO         1579    i.HAL_PCD_EP_Transmit  stm32f0xx_hal_pcd.o
+    0x08002094   0x08002094   0x0000010c   Code   RO         1581    i.HAL_PCD_IRQHandler  stm32f0xx_hal_pcd.o
+    0x080021a0   0x080021a0   0x0000009a   Code   RO         1584    i.HAL_PCD_Init      stm32f0xx_hal_pcd.o
     0x0800223a   0x0800223a   0x00000002   PAD
-    0x0800223c   0x0800223c   0x00000038   Code   RO         1146    i.HAL_PCD_MspInit   usbd_conf.o
-    0x08002274   0x08002274   0x00000018   Code   RO         1147    i.HAL_PCD_ResetCallback  usbd_conf.o
-    0x0800228c   0x0800228c   0x0000002c   Code   RO         1148    i.HAL_PCD_ResumeCallback  usbd_conf.o
-    0x080022b8   0x080022b8   0x00000010   Code   RO         1149    i.HAL_PCD_SOFCallback  usbd_conf.o
-    0x080022c8   0x080022c8   0x0000002c   Code   RO         1584    i.HAL_PCD_SetAddress  stm32f0xx_hal_pcd.o
-    0x080022f4   0x080022f4   0x00000016   Code   RO         1150    i.HAL_PCD_SetupStageCallback  usbd_conf.o
-    0x0800230a   0x0800230a   0x00000012   Code   RO         1586    i.HAL_PCD_Start     stm32f0xx_hal_pcd.o
-    0x0800231c   0x0800231c   0x00000028   Code   RO         1151    i.HAL_PCD_SuspendCallback  usbd_conf.o
-    0x08002344   0x08002344   0x00000120   Code   RO         4222    i.HAL_RCCEx_PeriphCLKConfig  stm32f0xx_hal_rcc_ex.o
-    0x08002464   0x08002464   0x00000154   Code   RO         4120    i.HAL_RCC_ClockConfig  stm32f0xx_hal_rcc.o
-    0x080025b8   0x080025b8   0x00000038   Code   RO         4124    i.HAL_RCC_GetClockConfig  stm32f0xx_hal_rcc.o
-    0x080025f0   0x080025f0   0x0000000c   Code   RO         4125    i.HAL_RCC_GetHCLKFreq  stm32f0xx_hal_rcc.o
-    0x080025fc   0x080025fc   0x00000020   Code   RO         4127    i.HAL_RCC_GetPCLK1Freq  stm32f0xx_hal_rcc.o
-    0x0800261c   0x0800261c   0x00000088   Code   RO         4128    i.HAL_RCC_GetSysClockFreq  stm32f0xx_hal_rcc.o
-    0x080026a4   0x080026a4   0x000003d4   Code   RO         4131    i.HAL_RCC_OscConfig  stm32f0xx_hal_rcc.o
-    0x08002a78   0x08002a78   0x0000002c   Code   RO         2500    i.HAL_SPI_DeInit    stm32f0xx_hal_spi.o
-    0x08002aa4   0x08002aa4   0x000000b8   Code   RO         2505    i.HAL_SPI_Init      stm32f0xx_hal_spi.o
-    0x08002b5c   0x08002b5c   0x00000028   Code   RO         1458    i.HAL_SPI_MspDeInit  stm32f0xx_hal_msp.o
-    0x08002b84   0x08002b84   0x00000044   Code   RO         1459    i.HAL_SPI_MspInit   stm32f0xx_hal_msp.o
-    0x08002bc8   0x08002bc8   0x00000170   Code   RO         2513    i.HAL_SPI_Transmit  stm32f0xx_hal_spi.o
-    0x08002d38   0x08002d38   0x0000023a   Code   RO         2514    i.HAL_SPI_TransmitReceive  stm32f0xx_hal_spi.o
+    0x0800223c   0x0800223c   0x00000038   Code   RO         1152    i.HAL_PCD_MspInit   usbd_conf.o
+    0x08002274   0x08002274   0x00000018   Code   RO         1153    i.HAL_PCD_ResetCallback  usbd_conf.o
+    0x0800228c   0x0800228c   0x0000002c   Code   RO         1154    i.HAL_PCD_ResumeCallback  usbd_conf.o
+    0x080022b8   0x080022b8   0x00000010   Code   RO         1155    i.HAL_PCD_SOFCallback  usbd_conf.o
+    0x080022c8   0x080022c8   0x0000002c   Code   RO         1590    i.HAL_PCD_SetAddress  stm32f0xx_hal_pcd.o
+    0x080022f4   0x080022f4   0x00000016   Code   RO         1156    i.HAL_PCD_SetupStageCallback  usbd_conf.o
+    0x0800230a   0x0800230a   0x00000012   Code   RO         1592    i.HAL_PCD_Start     stm32f0xx_hal_pcd.o
+    0x0800231c   0x0800231c   0x00000028   Code   RO         1157    i.HAL_PCD_SuspendCallback  usbd_conf.o
+    0x08002344   0x08002344   0x00000120   Code   RO         4228    i.HAL_RCCEx_PeriphCLKConfig  stm32f0xx_hal_rcc_ex.o
+    0x08002464   0x08002464   0x00000154   Code   RO         4126    i.HAL_RCC_ClockConfig  stm32f0xx_hal_rcc.o
+    0x080025b8   0x080025b8   0x00000038   Code   RO         4130    i.HAL_RCC_GetClockConfig  stm32f0xx_hal_rcc.o
+    0x080025f0   0x080025f0   0x0000000c   Code   RO         4131    i.HAL_RCC_GetHCLKFreq  stm32f0xx_hal_rcc.o
+    0x080025fc   0x080025fc   0x00000020   Code   RO         4133    i.HAL_RCC_GetPCLK1Freq  stm32f0xx_hal_rcc.o
+    0x0800261c   0x0800261c   0x00000088   Code   RO         4134    i.HAL_RCC_GetSysClockFreq  stm32f0xx_hal_rcc.o
+    0x080026a4   0x080026a4   0x000003d4   Code   RO         4137    i.HAL_RCC_OscConfig  stm32f0xx_hal_rcc.o
+    0x08002a78   0x08002a78   0x0000002c   Code   RO         2506    i.HAL_SPI_DeInit    stm32f0xx_hal_spi.o
+    0x08002aa4   0x08002aa4   0x000000b8   Code   RO         2511    i.HAL_SPI_Init      stm32f0xx_hal_spi.o
+    0x08002b5c   0x08002b5c   0x00000028   Code   RO         1464    i.HAL_SPI_MspDeInit  stm32f0xx_hal_msp.o
+    0x08002b84   0x08002b84   0x00000044   Code   RO         1465    i.HAL_SPI_MspInit   stm32f0xx_hal_msp.o
+    0x08002bc8   0x08002bc8   0x00000170   Code   RO         2519    i.HAL_SPI_Transmit  stm32f0xx_hal_spi.o
+    0x08002d38   0x08002d38   0x0000023a   Code   RO         2520    i.HAL_SPI_TransmitReceive  stm32f0xx_hal_spi.o
     0x08002f72   0x08002f72   0x00000002   PAD
-    0x08002f74   0x08002f74   0x00000018   Code   RO         4600    i.HAL_SYSTICK_CLKSourceConfig  stm32f0xx_hal_cortex.o
-    0x08002f8c   0x08002f8c   0x00000030   Code   RO         4602    i.HAL_SYSTICK_Config  stm32f0xx_hal_cortex.o
-    0x08002fbc   0x08002fbc   0x00000002   Code   RO         3478    i.HAL_TIMEx_BreakCallback  stm32f0xx_hal_tim_ex.o
-    0x08002fbe   0x08002fbe   0x00000002   Code   RO         3479    i.HAL_TIMEx_CommutationCallback  stm32f0xx_hal_tim_ex.o
-    0x08002fc0   0x08002fc0   0x00000034   Code   RO         2839    i.HAL_TIM_Base_Init  stm32f0xx_hal_tim.o
-    0x08002ff4   0x08002ff4   0x00000002   Code   RO         2841    i.HAL_TIM_Base_MspInit  stm32f0xx_hal_tim.o
-    0x08002ff6   0x08002ff6   0x00000016   Code   RO         2844    i.HAL_TIM_Base_Start_IT  stm32f0xx_hal_tim.o
-    0x0800300c   0x0800300c   0x00000002   Code   RO         2870    i.HAL_TIM_IC_CaptureCallback  stm32f0xx_hal_tim.o
-    0x0800300e   0x0800300e   0x00000162   Code   RO         2883    i.HAL_TIM_IRQHandler  stm32f0xx_hal_tim.o
-    0x08003170   0x08003170   0x00000002   Code   RO         2886    i.HAL_TIM_OC_DelayElapsedCallback  stm32f0xx_hal_tim.o
-    0x08003172   0x08003172   0x00000002   Code   RO         2913    i.HAL_TIM_PWM_PulseFinishedCallback  stm32f0xx_hal_tim.o
-    0x08003174   0x08003174   0x00000014   Code   RO          878    i.HAL_TIM_PeriodElapsedCallback  main.o
-    0x08003188   0x08003188   0x00000002   Code   RO         2924    i.HAL_TIM_TriggerCallback  stm32f0xx_hal_tim.o
+    0x08002f74   0x08002f74   0x00000018   Code   RO         4606    i.HAL_SYSTICK_CLKSourceConfig  stm32f0xx_hal_cortex.o
+    0x08002f8c   0x08002f8c   0x00000030   Code   RO         4608    i.HAL_SYSTICK_Config  stm32f0xx_hal_cortex.o
+    0x08002fbc   0x08002fbc   0x00000002   Code   RO         3484    i.HAL_TIMEx_BreakCallback  stm32f0xx_hal_tim_ex.o
+    0x08002fbe   0x08002fbe   0x00000002   Code   RO         3485    i.HAL_TIMEx_CommutationCallback  stm32f0xx_hal_tim_ex.o
+    0x08002fc0   0x08002fc0   0x00000034   Code   RO         2845    i.HAL_TIM_Base_Init  stm32f0xx_hal_tim.o
+    0x08002ff4   0x08002ff4   0x00000002   Code   RO         2847    i.HAL_TIM_Base_MspInit  stm32f0xx_hal_tim.o
+    0x08002ff6   0x08002ff6   0x00000016   Code   RO         2850    i.HAL_TIM_Base_Start_IT  stm32f0xx_hal_tim.o
+    0x0800300c   0x0800300c   0x00000002   Code   RO         2876    i.HAL_TIM_IC_CaptureCallback  stm32f0xx_hal_tim.o
+    0x0800300e   0x0800300e   0x00000162   Code   RO         2889    i.HAL_TIM_IRQHandler  stm32f0xx_hal_tim.o
+    0x08003170   0x08003170   0x00000002   Code   RO         2892    i.HAL_TIM_OC_DelayElapsedCallback  stm32f0xx_hal_tim.o
+    0x08003172   0x08003172   0x00000002   Code   RO         2919    i.HAL_TIM_PWM_PulseFinishedCallback  stm32f0xx_hal_tim.o
+    0x08003174   0x08003174   0x00000014   Code   RO          884    i.HAL_TIM_PeriodElapsedCallback  main.o
+    0x08003188   0x08003188   0x00000002   Code   RO         2930    i.HAL_TIM_TriggerCallback  stm32f0xx_hal_tim.o
     0x0800318a   0x0800318a   0x00000002   PAD
-    0x0800318c   0x0800318c   0x00000048   Code   RO         1461    i.HAL_UART_MspInit  stm32f0xx_hal_msp.o
-    0x080031d4   0x080031d4   0x000000c8   Code   RO         3751    i.HAL_UART_Transmit  stm32f0xx_hal_uart.o
-    0x0800329c   0x0800329c   0x00000006   Code   RO         1405    i.HardFault_Handler  stm32f0xx_it.o
-    0x080032a2   0x080032a2   0x00000022   Code   RO         2047    i.I2C_Flush_TXDR    stm32f0xx_hal_i2c.o
-    0x080032c4   0x080032c4   0x00000074   Code   RO         2055    i.I2C_IsAcknowledgeFailed  stm32f0xx_hal_i2c.o
-    0x08003338   0x08003338   0x0000006a   Code   RO         2059    i.I2C_RequestMemoryWrite  stm32f0xx_hal_i2c.o
+    0x0800318c   0x0800318c   0x00000048   Code   RO         1467    i.HAL_UART_MspInit  stm32f0xx_hal_msp.o
+    0x080031d4   0x080031d4   0x000000c8   Code   RO         3757    i.HAL_UART_Transmit  stm32f0xx_hal_uart.o
+    0x0800329c   0x0800329c   0x00000006   Code   RO         1411    i.HardFault_Handler  stm32f0xx_it.o
+    0x080032a2   0x080032a2   0x00000022   Code   RO         2053    i.I2C_Flush_TXDR    stm32f0xx_hal_i2c.o
+    0x080032c4   0x080032c4   0x00000074   Code   RO         2061    i.I2C_IsAcknowledgeFailed  stm32f0xx_hal_i2c.o
+    0x08003338   0x08003338   0x0000006a   Code   RO         2065    i.I2C_RequestMemoryWrite  stm32f0xx_hal_i2c.o
     0x080033a2   0x080033a2   0x00000002   PAD
-    0x080033a4   0x080033a4   0x00000024   Code   RO         2062    i.I2C_TransferConfig  stm32f0xx_hal_i2c.o
-    0x080033c8   0x080033c8   0x00000048   Code   RO         2063    i.I2C_WaitOnFlagUntilTimeout  stm32f0xx_hal_i2c.o
-    0x08003410   0x08003410   0x0000004e   Code   RO         2065    i.I2C_WaitOnSTOPFlagUntilTimeout  stm32f0xx_hal_i2c.o
-    0x0800345e   0x0800345e   0x00000052   Code   RO         2066    i.I2C_WaitOnTXISFlagUntilTimeout  stm32f0xx_hal_i2c.o
-    0x080034b0   0x080034b0   0x0000005c   Code   RO          879    i.MX_ADC_Init       main.o
-    0x0800350c   0x0800350c   0x0000001c   Code   RO         1064    i.MX_FATFS_Init     fatfs.o
-    0x08003528   0x08003528   0x000000d8   Code   RO          880    i.MX_GPIO_Init      main.o
-    0x08003600   0x08003600   0x00000054   Code   RO          881    i.MX_I2C1_Init      main.o
-    0x08003654   0x08003654   0x00000048   Code   RO          882    i.MX_SPI1_Init      main.o
-    0x0800369c   0x0800369c   0x00000038   Code   RO          883    i.MX_USART1_UART_Init  main.o
-    0x080036d4   0x080036d4   0x00000028   Code   RO         1108    i.MX_USB_DEVICE_Init  usb_device.o
-    0x080036fc   0x080036fc   0x00000002   Code   RO         1406    i.NMI_Handler       stm32f0xx_it.o
+    0x080033a4   0x080033a4   0x00000024   Code   RO         2068    i.I2C_TransferConfig  stm32f0xx_hal_i2c.o
+    0x080033c8   0x080033c8   0x00000048   Code   RO         2069    i.I2C_WaitOnFlagUntilTimeout  stm32f0xx_hal_i2c.o
+    0x08003410   0x08003410   0x0000004e   Code   RO         2071    i.I2C_WaitOnSTOPFlagUntilTimeout  stm32f0xx_hal_i2c.o
+    0x0800345e   0x0800345e   0x00000052   Code   RO         2072    i.I2C_WaitOnTXISFlagUntilTimeout  stm32f0xx_hal_i2c.o
+    0x080034b0   0x080034b0   0x0000005c   Code   RO          885    i.MX_ADC_Init       main.o
+    0x0800350c   0x0800350c   0x0000001c   Code   RO         1070    i.MX_FATFS_Init     fatfs.o
+    0x08003528   0x08003528   0x000000d8   Code   RO          886    i.MX_GPIO_Init      main.o
+    0x08003600   0x08003600   0x00000054   Code   RO          887    i.MX_I2C1_Init      main.o
+    0x08003654   0x08003654   0x00000048   Code   RO          888    i.MX_SPI1_Init      main.o
+    0x0800369c   0x0800369c   0x00000038   Code   RO          889    i.MX_USART1_UART_Init  main.o
+    0x080036d4   0x080036d4   0x00000028   Code   RO         1114    i.MX_USB_DEVICE_Init  usb_device.o
+    0x080036fc   0x080036fc   0x00000002   Code   RO         1412    i.NMI_Handler       stm32f0xx_it.o
     0x080036fe   0x080036fe   0x00000002   PAD
-    0x08003700   0x08003700   0x00000044   Code   RO         4604    i.NVIC_SetPriority  stm32f0xx_hal_cortex.o
-    0x08003744   0x08003744   0x00000330   Code   RO         1589    i.PCD_EP_ISR_Handler  stm32f0xx_hal_pcd.o
-    0x08003a74   0x08003a74   0x0000002a   Code   RO         1590    i.PCD_ReadPMA       stm32f0xx_hal_pcd.o
-    0x08003a9e   0x08003a9e   0x00000026   Code   RO         1591    i.PCD_WritePMA      stm32f0xx_hal_pcd.o
-    0x08003ac4   0x08003ac4   0x0000004c   Code   RO         2543    i.SPI_EndRxTxTransaction  stm32f0xx_hal_spi.o
-    0x08003b10   0x08003b10   0x00000096   Code   RO         2548    i.SPI_WaitFifoStateUntilTimeout  stm32f0xx_hal_spi.o
-    0x08003ba6   0x08003ba6   0x0000008c   Code   RO         2549    i.SPI_WaitFlagStateUntilTimeout  stm32f0xx_hal_spi.o
-    0x08003c32   0x08003c32   0x00000002   Code   RO         5900    i.SVC_Handler       port.o
-    0x08003c34   0x08003c34   0x00000008   Code   RO         1407    i.SysTick_Handler   stm32f0xx_it.o
-    0x08003c3c   0x08003c3c   0x0000008c   Code   RO          884    i.SystemClock_Config  main.o
+    0x08003700   0x08003700   0x00000044   Code   RO         4610    i.NVIC_SetPriority  stm32f0xx_hal_cortex.o
+    0x08003744   0x08003744   0x00000330   Code   RO         1595    i.PCD_EP_ISR_Handler  stm32f0xx_hal_pcd.o
+    0x08003a74   0x08003a74   0x0000002a   Code   RO         1596    i.PCD_ReadPMA       stm32f0xx_hal_pcd.o
+    0x08003a9e   0x08003a9e   0x00000026   Code   RO         1597    i.PCD_WritePMA      stm32f0xx_hal_pcd.o
+    0x08003ac4   0x08003ac4   0x0000004c   Code   RO         2549    i.SPI_EndRxTxTransaction  stm32f0xx_hal_spi.o
+    0x08003b10   0x08003b10   0x00000096   Code   RO         2554    i.SPI_WaitFifoStateUntilTimeout  stm32f0xx_hal_spi.o
+    0x08003ba6   0x08003ba6   0x0000008c   Code   RO         2555    i.SPI_WaitFlagStateUntilTimeout  stm32f0xx_hal_spi.o
+    0x08003c32   0x08003c32   0x00000002   Code   RO         5906    i.SVC_Handler       port.o
+    0x08003c34   0x08003c34   0x00000008   Code   RO         1413    i.SysTick_Handler   stm32f0xx_it.o
+    0x08003c3c   0x08003c3c   0x0000008c   Code   RO          890    i.SystemClock_Config  main.o
     0x08003cc8   0x08003cc8   0x0000005c   Code   RO            4    i.SystemInit        system_stm32f0xx.o
-    0x08003d24   0x08003d24   0x00000010   Code   RO         1408    i.TIM6_DAC_IRQHandler  stm32f0xx_it.o
-    0x08003d34   0x08003d34   0x00000094   Code   RO         2925    i.TIM_Base_SetConfig  stm32f0xx_hal_tim.o
-    0x08003dc8   0x08003dc8   0x000000ca   Code   RO         3756    i.UART_AdvFeatureConfig  stm32f0xx_hal_uart.o
+    0x08003d24   0x08003d24   0x00000010   Code   RO         1414    i.TIM6_DAC_IRQHandler  stm32f0xx_it.o
+    0x08003d34   0x08003d34   0x00000094   Code   RO         2931    i.TIM_Base_SetConfig  stm32f0xx_hal_tim.o
+    0x08003dc8   0x08003dc8   0x000000ca   Code   RO         3762    i.UART_AdvFeatureConfig  stm32f0xx_hal_uart.o
     0x08003e92   0x08003e92   0x00000002   PAD
-    0x08003e94   0x08003e94   0x00000074   Code   RO         3757    i.UART_CheckIdleState  stm32f0xx_hal_uart.o
-    0x08003f08   0x08003f08   0x0000015c   Code   RO         3772    i.UART_SetConfig    stm32f0xx_hal_uart.o
-    0x08004064   0x08004064   0x00000060   Code   RO         3774    i.UART_WaitOnFlagUntilTimeout  stm32f0xx_hal_uart.o
-    0x080040c4   0x080040c4   0x00000010   Code   RO         5554    i.USBD_ClrClassConfig  usbd_core.o
-    0x080040d4   0x080040d4   0x00000010   Code   RO         5749    i.USBD_CtlContinueRx  usbd_ioreq.o
-    0x080040e4   0x080040e4   0x00000010   Code   RO         5750    i.USBD_CtlContinueSendData  usbd_ioreq.o
-    0x080040f4   0x080040f4   0x00000014   Code   RO         5688    i.USBD_CtlError     usbd_ctlreq.o
-    0x08004108   0x08004108   0x00000018   Code   RO         5752    i.USBD_CtlReceiveStatus  usbd_ioreq.o
-    0x08004120   0x08004120   0x0000001c   Code   RO         5753    i.USBD_CtlSendData  usbd_ioreq.o
-    0x0800413c   0x0800413c   0x00000018   Code   RO         5754    i.USBD_CtlSendStatus  usbd_ioreq.o
-    0x08004154   0x08004154   0x00000020   Code   RO         1341    i.USBD_FS_ConfigStrDescriptor  usbd_desc.o
-    0x08004174   0x08004174   0x0000000c   Code   RO         1342    i.USBD_FS_DeviceDescriptor  usbd_desc.o
-    0x08004180   0x08004180   0x00000024   Code   RO         1343    i.USBD_FS_InterfaceStrDescriptor  usbd_desc.o
-    0x080041a4   0x080041a4   0x0000000c   Code   RO         1344    i.USBD_FS_LangIDStrDescriptor  usbd_desc.o
-    0x080041b0   0x080041b0   0x00000028   Code   RO         1345    i.USBD_FS_ManufacturerStrDescriptor  usbd_desc.o
-    0x080041d8   0x080041d8   0x0000002c   Code   RO         1346    i.USBD_FS_ProductStrDescriptor  usbd_desc.o
-    0x08004204   0x08004204   0x00000024   Code   RO         1347    i.USBD_FS_SerialStrDescriptor  usbd_desc.o
-    0x08004228   0x08004228   0x000000d8   Code   RO         5689    i.USBD_GetDescriptor  usbd_ctlreq.o
-    0x08004300   0x08004300   0x00000044   Code   RO         5690    i.USBD_GetString    usbd_ctlreq.o
-    0x08004344   0x08004344   0x00000010   Code   RO         5805    i.USBD_HID_DataIn   usbd_hid.o
-    0x08004354   0x08004354   0x00000022   Code   RO         5806    i.USBD_HID_DeInit   usbd_hid.o
+    0x08003e94   0x08003e94   0x00000074   Code   RO         3763    i.UART_CheckIdleState  stm32f0xx_hal_uart.o
+    0x08003f08   0x08003f08   0x0000015c   Code   RO         3778    i.UART_SetConfig    stm32f0xx_hal_uart.o
+    0x08004064   0x08004064   0x00000060   Code   RO         3780    i.UART_WaitOnFlagUntilTimeout  stm32f0xx_hal_uart.o
+    0x080040c4   0x080040c4   0x00000010   Code   RO         5560    i.USBD_ClrClassConfig  usbd_core.o
+    0x080040d4   0x080040d4   0x00000010   Code   RO         5755    i.USBD_CtlContinueRx  usbd_ioreq.o
+    0x080040e4   0x080040e4   0x00000010   Code   RO         5756    i.USBD_CtlContinueSendData  usbd_ioreq.o
+    0x080040f4   0x080040f4   0x00000014   Code   RO         5694    i.USBD_CtlError     usbd_ctlreq.o
+    0x08004108   0x08004108   0x00000018   Code   RO         5758    i.USBD_CtlReceiveStatus  usbd_ioreq.o
+    0x08004120   0x08004120   0x0000001c   Code   RO         5759    i.USBD_CtlSendData  usbd_ioreq.o
+    0x0800413c   0x0800413c   0x00000018   Code   RO         5760    i.USBD_CtlSendStatus  usbd_ioreq.o
+    0x08004154   0x08004154   0x00000020   Code   RO         1347    i.USBD_FS_ConfigStrDescriptor  usbd_desc.o
+    0x08004174   0x08004174   0x0000000c   Code   RO         1348    i.USBD_FS_DeviceDescriptor  usbd_desc.o
+    0x08004180   0x08004180   0x00000024   Code   RO         1349    i.USBD_FS_InterfaceStrDescriptor  usbd_desc.o
+    0x080041a4   0x080041a4   0x0000000c   Code   RO         1350    i.USBD_FS_LangIDStrDescriptor  usbd_desc.o
+    0x080041b0   0x080041b0   0x00000028   Code   RO         1351    i.USBD_FS_ManufacturerStrDescriptor  usbd_desc.o
+    0x080041d8   0x080041d8   0x0000002c   Code   RO         1352    i.USBD_FS_ProductStrDescriptor  usbd_desc.o
+    0x08004204   0x08004204   0x00000024   Code   RO         1353    i.USBD_FS_SerialStrDescriptor  usbd_desc.o
+    0x08004228   0x08004228   0x000000d8   Code   RO         5695    i.USBD_GetDescriptor  usbd_ctlreq.o
+    0x08004300   0x08004300   0x00000044   Code   RO         5696    i.USBD_GetString    usbd_ctlreq.o
+    0x08004344   0x08004344   0x00000010   Code   RO         5811    i.USBD_HID_DataIn   usbd_hid.o
+    0x08004354   0x08004354   0x00000022   Code   RO         5812    i.USBD_HID_DeInit   usbd_hid.o
     0x08004376   0x08004376   0x00000002   PAD
-    0x08004378   0x08004378   0x0000000c   Code   RO         5807    i.USBD_HID_GetCfgDesc  usbd_hid.o
-    0x08004384   0x08004384   0x0000000c   Code   RO         5808    i.USBD_HID_GetDeviceQualifierDesc  usbd_hid.o
-    0x08004390   0x08004390   0x0000002e   Code   RO         5810    i.USBD_HID_Init     usbd_hid.o
-    0x080043be   0x080043be   0x0000002a   Code   RO         5811    i.USBD_HID_SendReport  usbd_hid.o
-    0x080043e8   0x080043e8   0x000000a0   Code   RO         5812    i.USBD_HID_Setup    usbd_hid.o
-    0x08004488   0x08004488   0x00000032   Code   RO         5556    i.USBD_Init         usbd_core.o
-    0x080044ba   0x080044ba   0x00000026   Code   RO         1152    i.USBD_LL_ClearStallEP  usbd_conf.o
-    0x080044e0   0x080044e0   0x00000026   Code   RO         1153    i.USBD_LL_CloseEP   usbd_conf.o
-    0x08004506   0x08004506   0x000000b6   Code   RO         5557    i.USBD_LL_DataInStage  usbd_core.o
-    0x080045bc   0x080045bc   0x00000078   Code   RO         5558    i.USBD_LL_DataOutStage  usbd_core.o
-    0x08004634   0x08004634   0x00000088   Code   RO         1158    i.USBD_LL_Init      usbd_conf.o
-    0x080046bc   0x080046bc   0x00000024   Code   RO         1159    i.USBD_LL_IsStallEP  usbd_conf.o
-    0x080046e0   0x080046e0   0x0000002c   Code   RO         1160    i.USBD_LL_OpenEP    usbd_conf.o
-    0x0800470c   0x0800470c   0x00000026   Code   RO         1161    i.USBD_LL_PrepareReceive  usbd_conf.o
-    0x08004732   0x08004732   0x00000046   Code   RO         5563    i.USBD_LL_Reset     usbd_core.o
-    0x08004778   0x08004778   0x0000000c   Code   RO         5564    i.USBD_LL_Resume    usbd_core.o
-    0x08004784   0x08004784   0x0000001e   Code   RO         5565    i.USBD_LL_SOF       usbd_core.o
-    0x080047a2   0x080047a2   0x00000006   Code   RO         5566    i.USBD_LL_SetSpeed  usbd_core.o
-    0x080047a8   0x080047a8   0x00000026   Code   RO         1162    i.USBD_LL_SetUSBAddress  usbd_conf.o
-    0x080047ce   0x080047ce   0x0000005e   Code   RO         5567    i.USBD_LL_SetupStage  usbd_core.o
-    0x0800482c   0x0800482c   0x00000026   Code   RO         1163    i.USBD_LL_StallEP   usbd_conf.o
-    0x08004852   0x08004852   0x00000026   Code   RO         1164    i.USBD_LL_Start     usbd_conf.o
-    0x08004878   0x08004878   0x00000010   Code   RO         5568    i.USBD_LL_Suspend   usbd_core.o
-    0x08004888   0x08004888   0x00000026   Code   RO         1166    i.USBD_LL_Transmit  usbd_conf.o
-    0x080048ae   0x080048ae   0x00000028   Code   RO         5691    i.USBD_ParseSetupRequest  usbd_ctlreq.o
-    0x080048d6   0x080048d6   0x00000016   Code   RO         5569    i.USBD_RegisterClass  usbd_core.o
-    0x080048ec   0x080048ec   0x0000001c   Code   RO         5571    i.USBD_SetClassConfig  usbd_core.o
-    0x08004908   0x08004908   0x00000070   Code   RO         5692    i.USBD_SetConfig    usbd_ctlreq.o
-    0x08004978   0x08004978   0x0000000a   Code   RO         5572    i.USBD_Start        usbd_core.o
-    0x08004982   0x08004982   0x000000ee   Code   RO         5693    i.USBD_StdDevReq    usbd_ctlreq.o
-    0x08004a70   0x08004a70   0x000000ea   Code   RO         5694    i.USBD_StdEPReq     usbd_ctlreq.o
-    0x08004b5a   0x08004b5a   0x0000003a   Code   RO         5695    i.USBD_StdItfReq    usbd_ctlreq.o
-    0x08004b94   0x08004b94   0x00000002   Code   RO         1167    i.USBD_static_free  usbd_conf.o
+    0x08004378   0x08004378   0x0000000c   Code   RO         5813    i.USBD_HID_GetCfgDesc  usbd_hid.o
+    0x08004384   0x08004384   0x0000000c   Code   RO         5814    i.USBD_HID_GetDeviceQualifierDesc  usbd_hid.o
+    0x08004390   0x08004390   0x0000002e   Code   RO         5816    i.USBD_HID_Init     usbd_hid.o
+    0x080043be   0x080043be   0x0000002a   Code   RO         5817    i.USBD_HID_SendReport  usbd_hid.o
+    0x080043e8   0x080043e8   0x000000a0   Code   RO         5818    i.USBD_HID_Setup    usbd_hid.o
+    0x08004488   0x08004488   0x00000032   Code   RO         5562    i.USBD_Init         usbd_core.o
+    0x080044ba   0x080044ba   0x00000026   Code   RO         1158    i.USBD_LL_ClearStallEP  usbd_conf.o
+    0x080044e0   0x080044e0   0x00000026   Code   RO         1159    i.USBD_LL_CloseEP   usbd_conf.o
+    0x08004506   0x08004506   0x000000b6   Code   RO         5563    i.USBD_LL_DataInStage  usbd_core.o
+    0x080045bc   0x080045bc   0x00000078   Code   RO         5564    i.USBD_LL_DataOutStage  usbd_core.o
+    0x08004634   0x08004634   0x00000088   Code   RO         1164    i.USBD_LL_Init      usbd_conf.o
+    0x080046bc   0x080046bc   0x00000024   Code   RO         1165    i.USBD_LL_IsStallEP  usbd_conf.o
+    0x080046e0   0x080046e0   0x0000002c   Code   RO         1166    i.USBD_LL_OpenEP    usbd_conf.o
+    0x0800470c   0x0800470c   0x00000026   Code   RO         1167    i.USBD_LL_PrepareReceive  usbd_conf.o
+    0x08004732   0x08004732   0x00000046   Code   RO         5569    i.USBD_LL_Reset     usbd_core.o
+    0x08004778   0x08004778   0x0000000c   Code   RO         5570    i.USBD_LL_Resume    usbd_core.o
+    0x08004784   0x08004784   0x0000001e   Code   RO         5571    i.USBD_LL_SOF       usbd_core.o
+    0x080047a2   0x080047a2   0x00000006   Code   RO         5572    i.USBD_LL_SetSpeed  usbd_core.o
+    0x080047a8   0x080047a8   0x00000026   Code   RO         1168    i.USBD_LL_SetUSBAddress  usbd_conf.o
+    0x080047ce   0x080047ce   0x0000005e   Code   RO         5573    i.USBD_LL_SetupStage  usbd_core.o
+    0x0800482c   0x0800482c   0x00000026   Code   RO         1169    i.USBD_LL_StallEP   usbd_conf.o
+    0x08004852   0x08004852   0x00000026   Code   RO         1170    i.USBD_LL_Start     usbd_conf.o
+    0x08004878   0x08004878   0x00000010   Code   RO         5574    i.USBD_LL_Suspend   usbd_core.o
+    0x08004888   0x08004888   0x00000026   Code   RO         1172    i.USBD_LL_Transmit  usbd_conf.o
+    0x080048ae   0x080048ae   0x00000028   Code   RO         5697    i.USBD_ParseSetupRequest  usbd_ctlreq.o
+    0x080048d6   0x080048d6   0x00000016   Code   RO         5575    i.USBD_RegisterClass  usbd_core.o
+    0x080048ec   0x080048ec   0x0000001c   Code   RO         5577    i.USBD_SetClassConfig  usbd_core.o
+    0x08004908   0x08004908   0x00000070   Code   RO         5698    i.USBD_SetConfig    usbd_ctlreq.o
+    0x08004978   0x08004978   0x0000000a   Code   RO         5578    i.USBD_Start        usbd_core.o
+    0x08004982   0x08004982   0x000000ee   Code   RO         5699    i.USBD_StdDevReq    usbd_ctlreq.o
+    0x08004a70   0x08004a70   0x000000ea   Code   RO         5700    i.USBD_StdEPReq     usbd_ctlreq.o
+    0x08004b5a   0x08004b5a   0x0000003a   Code   RO         5701    i.USBD_StdItfReq    usbd_ctlreq.o
+    0x08004b94   0x08004b94   0x00000002   Code   RO         1173    i.USBD_static_free  usbd_conf.o
     0x08004b96   0x08004b96   0x00000002   PAD
-    0x08004b98   0x08004b98   0x00000008   Code   RO         1168    i.USBD_static_malloc  usbd_conf.o
-    0x08004ba0   0x08004ba0   0x00000010   Code   RO         1409    i.USB_IRQHandler    stm32f0xx_it.o
-    0x08004bb0   0x08004bb0   0x00000020   Code   RO          993    i.USER_initialize   user_diskio.o
-    0x08004bd0   0x08004bd0   0x00000030   Code   RO          994    i.USER_ioctl        user_diskio.o
-    0x08004c00   0x08004c00   0x00000030   Code   RO          995    i.USER_read         user_diskio.o
-    0x08004c30   0x08004c30   0x00000020   Code   RO          996    i.USER_status       user_diskio.o
-    0x08004c50   0x08004c50   0x00000030   Code   RO          997    i.USER_write        user_diskio.o
-    0x08004c80   0x08004c80   0x00000002   Code   RO          885    i._Error_Handler    main.o
+    0x08004b98   0x08004b98   0x00000008   Code   RO         1174    i.USBD_static_malloc  usbd_conf.o
+    0x08004ba0   0x08004ba0   0x00000010   Code   RO         1415    i.USB_IRQHandler    stm32f0xx_it.o
+    0x08004bb0   0x08004bb0   0x00000020   Code   RO          999    i.USER_initialize   user_diskio.o
+    0x08004bd0   0x08004bd0   0x00000030   Code   RO         1000    i.USER_ioctl        user_diskio.o
+    0x08004c00   0x08004c00   0x00000030   Code   RO         1001    i.USER_read         user_diskio.o
+    0x08004c30   0x08004c30   0x00000020   Code   RO         1002    i.USER_status       user_diskio.o
+    0x08004c50   0x08004c50   0x00000030   Code   RO         1003    i.USER_write        user_diskio.o
+    0x08004c80   0x08004c80   0x00000002   Code   RO          891    i._Error_Handler    main.o
     0x08004c82   0x08004c82   0x00000002   PAD
-    0x08004c84   0x08004c84   0x00000020   Code   RO         7094    i.__0printf$8       mc_p.l(printf8.o)
-    0x08004ca4   0x08004ca4   0x00000028   Code   RO         7096    i.__0sprintf$8      mc_p.l(printf8.o)
-    0x08004ccc   0x08004ccc   0x0000002e   Code   RO         7229    i.__ARM_clz         mf_p.l(depilogue.o)
-    0x08004cfa   0x08004cfa   0x0000001a   Code   RO         3470    i.__ARM_common_switch8  stm32f0xx_hal_tim.o
-    0x08004d14   0x08004d14   0x00000008   Code   RO         7217    i.__aeabi_errno_addr  mc_p.l(errno.o)
-    0x08004d1c   0x08004d1c   0x0000000e   Code   RO         7269    i.__scatterload_copy  mc_p.l(handlers.o)
-    0x08004d2a   0x08004d2a   0x00000002   Code   RO         7270    i.__scatterload_null  mc_p.l(handlers.o)
-    0x08004d2c   0x08004d2c   0x0000000e   Code   RO         7271    i.__scatterload_zeroinit  mc_p.l(handlers.o)
+    0x08004c84   0x08004c84   0x00000020   Code   RO         7100    i.__0printf$8       mc_p.l(printf8.o)
+    0x08004ca4   0x08004ca4   0x00000028   Code   RO         7102    i.__0sprintf$8      mc_p.l(printf8.o)
+    0x08004ccc   0x08004ccc   0x0000002e   Code   RO         7235    i.__ARM_clz         mf_p.l(depilogue.o)
+    0x08004cfa   0x08004cfa   0x0000001a   Code   RO         3476    i.__ARM_common_switch8  stm32f0xx_hal_tim.o
+    0x08004d14   0x08004d14   0x00000008   Code   RO         7223    i.__aeabi_errno_addr  mc_p.l(errno.o)
+    0x08004d1c   0x08004d1c   0x0000000e   Code   RO         7275    i.__scatterload_copy  mc_p.l(handlers.o)
+    0x08004d2a   0x08004d2a   0x00000002   Code   RO         7276    i.__scatterload_null  mc_p.l(handlers.o)
+    0x08004d2c   0x08004d2c   0x0000000e   Code   RO         7277    i.__scatterload_zeroinit  mc_p.l(handlers.o)
     0x08004d3a   0x08004d3a   0x00000002   PAD
-    0x08004d3c   0x08004d3c   0x00000428   Code   RO         7101    i._printf_core      mc_p.l(printf8.o)
-    0x08005164   0x08005164   0x00000020   Code   RO         7102    i._printf_post_padding  mc_p.l(printf8.o)
-    0x08005184   0x08005184   0x0000002c   Code   RO         7103    i._printf_pre_padding  mc_p.l(printf8.o)
-    0x080051b0   0x080051b0   0x0000000a   Code   RO         7105    i._sputc            mc_p.l(printf8.o)
+    0x08004d3c   0x08004d3c   0x00000428   Code   RO         7107    i._printf_core      mc_p.l(printf8.o)
+    0x08005164   0x08005164   0x00000020   Code   RO         7108    i._printf_post_padding  mc_p.l(printf8.o)
+    0x08005184   0x08005184   0x0000002c   Code   RO         7109    i._printf_pre_padding  mc_p.l(printf8.o)
+    0x080051b0   0x080051b0   0x0000000a   Code   RO         7111    i._sputc            mc_p.l(printf8.o)
     0x080051ba   0x080051ba   0x00000002   PAD
     0x080051bc   0x080051bc   0x0000003c   Code   RO          757    i.animation_task_start  my_tasks.o
     0x080051f8   0x080051f8   0x00000020   Code   RO          797    i.anime_init        animations.o
     0x08005218   0x08005218   0x00000068   Code   RO          798    i.change_bg         animations.o
     0x08005280   0x08005280   0x000000dc   Code   RO          620    i.change_profile    parser.o
-    0x0800535c   0x0800535c   0x00000070   Code   RO         5175    i.check_fs          ff.o
-    0x080053cc   0x080053cc   0x00000012   Code   RO         5176    i.chk_chr           ff.o
-    0x080053de   0x080053de   0x00000038   Code   RO         5177    i.clmt_clust        ff.o
-    0x08005416   0x08005416   0x0000001e   Code   RO         5178    i.clust2sect        ff.o
-    0x08005434   0x08005434   0x00000074   Code   RO         5179    i.cmp_lfn           ff.o
+    0x0800535c   0x0800535c   0x00000070   Code   RO         5181    i.check_fs          ff.o
+    0x080053cc   0x080053cc   0x00000012   Code   RO         5182    i.chk_chr           ff.o
+    0x080053de   0x080053de   0x00000038   Code   RO         5183    i.clmt_clust        ff.o
+    0x08005416   0x08005416   0x0000001e   Code   RO         5184    i.clust2sect        ff.o
+    0x08005434   0x08005434   0x00000074   Code   RO         5185    i.cmp_lfn           ff.o
     0x080054a8   0x080054a8   0x0000002e   Code   RO          149    i.crc16             sd_util.o
     0x080054d6   0x080054d6   0x00000018   Code   RO          151    i.crc7_one          sd_util.o
     0x080054ee   0x080054ee   0x00000002   PAD
-    0x080054f0   0x080054f0   0x000000b4   Code   RO         5180    i.create_chain      ff.o
-    0x080055a4   0x080055a4   0x0000020c   Code   RO         5181    i.create_name       ff.o
-    0x080057b0   0x080057b0   0x000000dc   Code   RO         5182    i.dir_find          ff.o
-    0x0800588c   0x0800588c   0x0000010c   Code   RO         5183    i.dir_next          ff.o
-    0x08005998   0x08005998   0x00000110   Code   RO         5184    i.dir_read          ff.o
-    0x08005aa8   0x08005aa8   0x0000015a   Code   RO         5185    i.dir_register      ff.o
-    0x08005c02   0x08005c02   0x0000008c   Code   RO         5187    i.dir_sdi           ff.o
+    0x080054f0   0x080054f0   0x000000b4   Code   RO         5186    i.create_chain      ff.o
+    0x080055a4   0x080055a4   0x0000020c   Code   RO         5187    i.create_name       ff.o
+    0x080057b0   0x080057b0   0x000000dc   Code   RO         5188    i.dir_find          ff.o
+    0x0800588c   0x0800588c   0x0000010c   Code   RO         5189    i.dir_next          ff.o
+    0x08005998   0x08005998   0x00000110   Code   RO         5190    i.dir_read          ff.o
+    0x08005aa8   0x08005aa8   0x0000015a   Code   RO         5191    i.dir_register      ff.o
+    0x08005c02   0x08005c02   0x0000008c   Code   RO         5193    i.dir_sdi           ff.o
     0x08005c8e   0x08005c8e   0x00000002   PAD
-    0x08005c90   0x08005c90   0x0000002c   Code   RO         5124    i.disk_initialize   diskio.o
-    0x08005cbc   0x08005cbc   0x0000001c   Code   RO         5125    i.disk_ioctl        diskio.o
-    0x08005cd8   0x08005cd8   0x0000001c   Code   RO         5126    i.disk_read         diskio.o
-    0x08005cf4   0x08005cf4   0x00000018   Code   RO         5127    i.disk_status       diskio.o
-    0x08005d0c   0x08005d0c   0x0000001c   Code   RO         5128    i.disk_write        diskio.o
+    0x08005c90   0x08005c90   0x0000002c   Code   RO         5130    i.disk_initialize   diskio.o
+    0x08005cbc   0x08005cbc   0x0000001c   Code   RO         5131    i.disk_ioctl        diskio.o
+    0x08005cd8   0x08005cd8   0x0000001c   Code   RO         5132    i.disk_read         diskio.o
+    0x08005cf4   0x08005cf4   0x00000018   Code   RO         5133    i.disk_status       diskio.o
+    0x08005d0c   0x08005d0c   0x0000001c   Code   RO         5134    i.disk_write        diskio.o
     0x08005d28   0x08005d28   0x00000070   Code   RO          799    i.error_animation   animations.o
-    0x08005d98   0x08005d98   0x0000002a   Code   RO         5189    i.f_close           ff.o
-    0x08005dc2   0x08005dc2   0x00000020   Code   RO         5190    i.f_closedir        ff.o
-    0x08005de2   0x08005de2   0x00000048   Code   RO         5192    i.f_gets            ff.o
+    0x08005d98   0x08005d98   0x0000002a   Code   RO         5195    i.f_close           ff.o
+    0x08005dc2   0x08005dc2   0x00000020   Code   RO         5196    i.f_closedir        ff.o
+    0x08005de2   0x08005de2   0x00000048   Code   RO         5198    i.f_gets            ff.o
     0x08005e2a   0x08005e2a   0x00000002   PAD
-    0x08005e2c   0x08005e2c   0x00000088   Code   RO         5195    i.f_mount           ff.o
-    0x08005eb4   0x08005eb4   0x00000186   Code   RO         5196    i.f_open            ff.o
-    0x0800603a   0x0800603a   0x000000a2   Code   RO         5197    i.f_opendir         ff.o
-    0x080060dc   0x080060dc   0x000001b0   Code   RO         5201    i.f_read            ff.o
-    0x0800628c   0x0800628c   0x0000008c   Code   RO         5202    i.f_readdir         ff.o
-    0x08006318   0x08006318   0x000000b8   Code   RO         5205    i.f_sync            ff.o
-    0x080063d0   0x080063d0   0x000001e8   Code   RO         5209    i.f_write           ff.o
-    0x080065b8   0x080065b8   0x00000038   Code   RO         5096    i.ff_convert        ccsbcs.o
-    0x080065f0   0x080065f0   0x0000001a   Code   RO         5027    i.ff_cre_syncobj    syscall.o
-    0x0800660a   0x0800660a   0x0000000a   Code   RO         5028    i.ff_del_syncobj    syscall.o
-    0x08006614   0x08006614   0x00000008   Code   RO         5029    i.ff_memalloc       syscall.o
-    0x0800661c   0x0800661c   0x00000008   Code   RO         5030    i.ff_memfree        syscall.o
-    0x08006624   0x08006624   0x00000008   Code   RO         5031    i.ff_rel_grant      syscall.o
-    0x0800662c   0x0800662c   0x00000016   Code   RO         5032    i.ff_req_grant      syscall.o
+    0x08005e2c   0x08005e2c   0x00000088   Code   RO         5201    i.f_mount           ff.o
+    0x08005eb4   0x08005eb4   0x00000186   Code   RO         5202    i.f_open            ff.o
+    0x0800603a   0x0800603a   0x000000a2   Code   RO         5203    i.f_opendir         ff.o
+    0x080060dc   0x080060dc   0x000001b0   Code   RO         5207    i.f_read            ff.o
+    0x0800628c   0x0800628c   0x0000008c   Code   RO         5208    i.f_readdir         ff.o
+    0x08006318   0x08006318   0x000000b8   Code   RO         5211    i.f_sync            ff.o
+    0x080063d0   0x080063d0   0x000001e8   Code   RO         5215    i.f_write           ff.o
+    0x080065b8   0x080065b8   0x00000038   Code   RO         5102    i.ff_convert        ccsbcs.o
+    0x080065f0   0x080065f0   0x0000001a   Code   RO         5033    i.ff_cre_syncobj    syscall.o
+    0x0800660a   0x0800660a   0x0000000a   Code   RO         5034    i.ff_del_syncobj    syscall.o
+    0x08006614   0x08006614   0x00000008   Code   RO         5035    i.ff_memalloc       syscall.o
+    0x0800661c   0x0800661c   0x00000008   Code   RO         5036    i.ff_memfree        syscall.o
+    0x08006624   0x08006624   0x00000008   Code   RO         5037    i.ff_rel_grant      syscall.o
+    0x0800662c   0x0800662c   0x00000016   Code   RO         5038    i.ff_req_grant      syscall.o
     0x08006642   0x08006642   0x00000002   PAD
-    0x08006644   0x08006644   0x00000024   Code   RO         5097    i.ff_wtoupper       ccsbcs.o
+    0x08006644   0x08006644   0x00000024   Code   RO         5103    i.ff_wtoupper       ccsbcs.o
     0x08006668   0x08006668   0x000000a4   Code   RO          621    i.find_profile      parser.o
-    0x0800670c   0x0800670c   0x000002a4   Code   RO         5210    i.find_volume       ff.o
-    0x080069b0   0x080069b0   0x0000006c   Code   RO         5211    i.fit_lfn           ff.o
-    0x08006a1c   0x08006a1c   0x0000006e   Code   RO         5212    i.follow_path       ff.o
+    0x0800670c   0x0800670c   0x000002a4   Code   RO         5216    i.find_volume       ff.o
+    0x080069b0   0x080069b0   0x0000006c   Code   RO         5217    i.fit_lfn           ff.o
+    0x08006a1c   0x08006a1c   0x0000006e   Code   RO         5218    i.follow_path       ff.o
     0x08006a8a   0x08006a8a   0x00000002   PAD
-    0x08006a8c   0x08006a8c   0x00000018   Code   RO          886    i.fputc             main.o
-    0x08006aa4   0x08006aa4   0x00000054   Code   RO         7148    i.free              mc_p.l(malloc.o)
-    0x08006af8   0x08006af8   0x0000007c   Code   RO         5213    i.gen_numname       ff.o
+    0x08006a8c   0x08006a8c   0x00000018   Code   RO          892    i.fputc             main.o
+    0x08006aa4   0x08006aa4   0x00000054   Code   RO         7154    i.free              mc_p.l(malloc.o)
+    0x08006af8   0x08006af8   0x0000007c   Code   RO         5219    i.gen_numname       ff.o
     0x08006b74   0x08006b74   0x0000002c   Code   RO          800    i.get_adc_reading   animations.o
     0x08006ba0   0x08006ba0   0x00000020   Code   RO          622    i.get_arg           parser.o
-    0x08006bc0   0x08006bc0   0x000000c8   Code   RO         5214    i.get_fat           ff.o
-    0x08006c88   0x08006c88   0x000000cc   Code   RO         5215    i.get_fileinfo      ff.o
+    0x08006bc0   0x08006bc0   0x000000c8   Code   RO         5220    i.get_fat           ff.o
+    0x08006c88   0x08006c88   0x000000cc   Code   RO         5221    i.get_fileinfo      ff.o
     0x08006d54   0x08006d54   0x000000d0   Code   RO          623    i.get_keyname       parser.o
     0x08006e24   0x08006e24   0x00000064   Code   RO          624    i.get_last_profile  parser.o
-    0x08006e88   0x08006e88   0x0000003c   Code   RO         5216    i.get_ldnumber      ff.o
+    0x08006e88   0x08006e88   0x0000003c   Code   RO         5222    i.get_ldnumber      ff.o
     0x08006ec4   0x08006ec4   0x0000002c   Code   RO          625    i.goto_next_arg     parser.o
     0x08006ef0   0x08006ef0   0x00000194   Code   RO          626    i.handle_keypress   parser.o
     0x08007084   0x08007084   0x00000050   Code   RO          152    i.hwif_init         sd_util.o
-    0x080070d4   0x080070d4   0x0000000c   Code   RO         6508    i.inHandlerMode     cmsis_os.o
+    0x080070d4   0x080070d4   0x0000000c   Code   RO         6514    i.inHandlerMode     cmsis_os.o
     0x080070e0   0x080070e0   0x00000014   Code   RO          529    i.is_media_key      keyboard.o
     0x080070f4   0x080070f4   0x00000014   Code   RO          485    i.is_pressed        buttons.o
     0x08007108   0x08007108   0x00000032   Code   RO          530    i.kb_print          keyboard.o
     0x0800713a   0x0800713a   0x00000002   PAD
-    0x0800713c   0x0800713c   0x00000104   Code   RO          887    i.kb_scan_task      main.o
+    0x0800713c   0x0800713c   0x00000104   Code   RO          893    i.kb_scan_task      main.o
     0x08007240   0x08007240   0x00000088   Code   RO          532    i.keyboard_press    keyboard.o
     0x080072c8   0x080072c8   0x00000070   Code   RO          533    i.keyboard_release  keyboard.o
     0x08007338   0x08007338   0x00000024   Code   RO          534    i.keyboard_release_all  keyboard.o
     0x0800735c   0x0800735c   0x00000294   Code   RO          486    i.keyboard_update   buttons.o
-    0x080075f0   0x080075f0   0x00000034   Code   RO          801    i.keypress_anime_handler  animations.o
-    0x08007624   0x08007624   0x00000074   Code   RO          758    i.keypress_task_start  my_tasks.o
-    0x08007698   0x08007698   0x00000024   Code   RO         5217    i.ld_clust          ff.o
-    0x080076bc   0x080076bc   0x000000f0   Code   RO          802    i.led_animation_handler  animations.o
-    0x080077ac   0x080077ac   0x00000028   Code   RO          803    i.led_animation_init  animations.o
-    0x080077d4   0x080077d4   0x0000005c   Code   RO          804    i.led_start_animation  animations.o
-    0x08007830   0x08007830   0x0000011c   Code   RO          627    i.load_colors       parser.o
-    0x0800794c   0x0800794c   0x00000058   Code   RO          628    i.load_profile      parser.o
-    0x080079a4   0x080079a4   0x00000010   Code   RO         5218    i.lock_fs           ff.o
-    0x080079b4   0x080079b4   0x00000090   Code   RO          888    i.main              main.o
-    0x08007a44   0x08007a44   0x0000000c   Code   RO         6510    i.makeFreeRtosPriority  cmsis_os.o
-    0x08007a50   0x08007a50   0x0000006c   Code   RO         7149    i.malloc            mc_p.l(malloc.o)
-    0x08007abc   0x08007abc   0x00000040   Code   RO          535    i.media_key_press   keyboard.o
-    0x08007afc   0x08007afc   0x00000010   Code   RO         5219    i.mem_cpy           ff.o
-    0x08007b0c   0x08007b0c   0x0000000e   Code   RO         5220    i.mem_set           ff.o
-    0x08007b1a   0x08007b1a   0x00000038   Code   RO         5221    i.move_window       ff.o
-    0x08007b52   0x08007b52   0x00000002   PAD
-    0x08007b54   0x08007b54   0x000000ac   Code   RO          447    i.neopixel_show     neopixel.o
-    0x08007c00   0x08007c00   0x00000010   Code   RO         6512    i.osDelay           cmsis_os.o
-    0x08007c10   0x08007c10   0x0000000a   Code   RO         6515    i.osKernelStart     cmsis_os.o
-    0x08007c1a   0x08007c1a   0x00000026   Code   RO         6541    i.osSemaphoreCreate  cmsis_os.o
-    0x08007c40   0x08007c40   0x0000001a   Code   RO         6542    i.osSemaphoreDelete  cmsis_os.o
-    0x08007c5a   0x08007c5a   0x00000002   PAD
-    0x08007c5c   0x08007c5c   0x0000004c   Code   RO         6544    i.osSemaphoreRelease  cmsis_os.o
-    0x08007ca8   0x08007ca8   0x00000068   Code   RO         6545    i.osSemaphoreWait   cmsis_os.o
-    0x08007d10   0x08007d10   0x00000010   Code   RO         6548    i.osSystickHandler  cmsis_os.o
-    0x08007d20   0x08007d20   0x0000002e   Code   RO         6549    i.osThreadCreate    cmsis_os.o
-    0x08007d4e   0x08007d4e   0x00000002   PAD
-    0x08007d50   0x08007d50   0x0000008c   Code   RO          629    i.parse_combo       parser.o
-    0x08007ddc   0x08007ddc   0x00000148   Code   RO          630    i.parse_line        parser.o
-    0x08007f24   0x08007f24   0x00000554   Code   RO          631    i.parse_special_key  parser.o
-    0x08008478   0x08008478   0x0000000a   Code   RO          487    i.pressed           buttons.o
-    0x08008482   0x08008482   0x00000002   PAD
-    0x08008484   0x08008484   0x000000c4   Code   RO          632    i.print_keyname     parser.o
-    0x08008548   0x08008548   0x000000a8   Code   RO          633    i.print_legend      parser.o
-    0x080085f0   0x080085f0   0x00000044   Code   RO          153    i.print_r1          sd_util.o
-    0x08008634   0x08008634   0x00000058   Code   RO         6221    i.prvAddCurrentTaskToDelayedList  tasks.o
-    0x0800868c   0x0800868c   0x000000b8   Code   RO         6222    i.prvAddNewTaskToReadyList  tasks.o
-    0x08008744   0x08008744   0x00000058   Code   RO         6223    i.prvCheckTasksWaitingTermination  tasks.o
-    0x0800879c   0x0800879c   0x00000026   Code   RO         6081    i.prvCopyDataFromQueue  queue.o
-    0x080087c2   0x080087c2   0x00000070   Code   RO         6082    i.prvCopyDataToQueue  queue.o
-    0x08008832   0x08008832   0x00000012   Code   RO         6224    i.prvDeleteTCB      tasks.o
-    0x08008844   0x08008844   0x00000018   Code   RO         6225    i.prvIdleTask       tasks.o
-    0x0800885c   0x0800885c   0x0000007c   Code   RO         6226    i.prvInitialiseNewTask  tasks.o
-    0x080088d8   0x080088d8   0x0000001c   Code   RO         6083    i.prvIsQueueEmpty   queue.o
-    0x080088f4   0x080088f4   0x00000020   Code   RO         6227    i.prvResetNextTaskUnblockTime  tasks.o
-    0x08008914   0x08008914   0x00000014   Code   RO         5901    i.prvTaskExitError  port.o
-    0x08008928   0x08008928   0x00000070   Code   RO         6084    i.prvUnlockQueue    queue.o
-    0x08008998   0x08008998   0x000000fe   Code   RO         5222    i.put_fat           ff.o
-    0x08008a96   0x08008a96   0x00000002   PAD
-    0x08008a98   0x08008a98   0x00000050   Code   RO         5866    i.pvPortMalloc      heap_1.o
-    0x08008ae8   0x08008ae8   0x00000018   Code   RO         6229    i.pvTaskIncrementMutexHeldCount  tasks.o
-    0x08008b00   0x08008b00   0x00000020   Code   RO         5902    i.pxPortInitialiseStack  port.o
-    0x08008b20   0x08008b20   0x00000066   Code   RO         5224    i.remove_chain      ff.o
-    0x08008b86   0x08008b86   0x00000002   PAD
-    0x08008b88   0x08008b88   0x00000020   Code   RO          634    i.restore_profile   parser.o
-    0x08008ba8   0x08008ba8   0x00000064   Code   RO          635    i.save_last_profile  parser.o
-    0x08008c0c   0x08008c0c   0x000000c4   Code   RO          636    i.scan_profiles     parser.o
-    0x08008cd0   0x08008cd0   0x00000068   Code   RO          154    i.sd_cmd            sd_util.o
-    0x08008d38   0x08008d38   0x00000098   Code   RO          155    i.sd_get_data       sd_util.o
-    0x08008dd0   0x08008dd0   0x0000001a   Code   RO          156    i.sd_get_r1         sd_util.o
-    0x08008dea   0x08008dea   0x00000036   Code   RO          157    i.sd_get_r7         sd_util.o
-    0x08008e20   0x08008e20   0x00000470   Code   RO          158    i.sd_init           sd_util.o
-    0x08009290   0x08009290   0x00000012   Code   RO          159    i.sd_nec            sd_util.o
-    0x080092a2   0x080092a2   0x00000002   PAD
-    0x080092a4   0x080092a4   0x0000008c   Code   RO          160    i.sd_put_data       sd_util.o
-    0x08009330   0x08009330   0x00000068   Code   RO          161    i.sd_read           sd_util.o
-    0x08009398   0x08009398   0x00000100   Code   RO          162    i.sd_read_cid       sd_util.o
-    0x08009498   0x08009498   0x00000310   Code   RO          163    i.sd_read_csd       sd_util.o
-    0x080097a8   0x080097a8   0x000000a8   Code   RO          164    i.sd_read_status    sd_util.o
-    0x08009850   0x08009850   0x000000c8   Code   RO          165    i.sd_readsector     sd_util.o
-    0x08009918   0x08009918   0x00000068   Code   RO          166    i.sd_write          sd_util.o
-    0x08009980   0x08009980   0x000000f4   Code   RO          167    i.sd_writesector    sd_util.o
-    0x08009a74   0x08009a74   0x00000006   Code   RO          488    i.service_press     buttons.o
-    0x08009a7a   0x08009a7a   0x00000002   PAD
-    0x08009a7c   0x08009a7c   0x00000020   Code   RO          805    i.set_pixel_color   animations.o
-    0x08009a9c   0x08009a9c   0x00000030   Code   RO          806    i.shuffle           animations.o
-    0x08009acc   0x08009acc   0x0000003c   Code   RO          168    i.spi_set_speed     sd_util.o
-    0x08009b08   0x08009b08   0x0000001c   Code   RO          448    i.spi_set_speed_neopixel  neopixel.o
-    0x08009b24   0x08009b24   0x00000028   Code   RO          169    i.spi_txrx          sd_util.o
-    0x08009b4c   0x08009b4c   0x00000050   Code   RO          368    i.ssd1306_DrawPixel  ssd1306.o
-    0x08009b9c   0x08009b9c   0x00000024   Code   RO          369    i.ssd1306_Fill      ssd1306.o
-    0x08009bc0   0x08009bc0   0x000000e0   Code   RO          370    i.ssd1306_Init      ssd1306.o
-    0x08009ca0   0x08009ca0   0x0000000c   Code   RO          371    i.ssd1306_SetCursor  ssd1306.o
-    0x08009cac   0x08009cac   0x00000058   Code   RO          372    i.ssd1306_UpdateScreen  ssd1306.o
-    0x08009d04   0x08009d04   0x00000090   Code   RO          373    i.ssd1306_WriteChar  ssd1306.o
-    0x08009d94   0x08009d94   0x00000030   Code   RO          374    i.ssd1306_WriteCommand  ssd1306.o
-    0x08009dc4   0x08009dc4   0x0000002c   Code   RO          375    i.ssd1306_WriteString  ssd1306.o
-    0x08009df0   0x08009df0   0x00000050   Code   RO          376    i.ssd1306_dim       ssd1306.o
-    0x08009e40   0x08009e40   0x00000010   Code   RO         5225    i.st_clust          ff.o
-    0x08009e50   0x08009e50   0x0000001a   Code   RO         5226    i.sum_sfn           ff.o
-    0x08009e6a   0x08009e6a   0x00000094   Code   RO         5227    i.sync_fs           ff.o
-    0x08009efe   0x08009efe   0x00000054   Code   RO         5228    i.sync_window       ff.o
-    0x08009f52   0x08009f52   0x00000024   Code   RO         5229    i.unlock_fs         ff.o
-    0x08009f76   0x08009f76   0x00000024   Code   RO         6044    i.uxListRemove      list.o
-    0x08009f9a   0x08009f9a   0x00000016   Code   RO         6045    i.vListInitialise   list.o
-    0x08009fb0   0x08009fb0   0x00000006   Code   RO         6046    i.vListInitialiseItem  list.o
-    0x08009fb6   0x08009fb6   0x00000030   Code   RO         6047    i.vListInsert       list.o
-    0x08009fe6   0x08009fe6   0x00000018   Code   RO         6048    i.vListInsertEnd    list.o
-    0x08009ffe   0x08009ffe   0x00000002   PAD
-    0x0800a000   0x0800a000   0x00000018   Code   RO         5904    i.vPortEnterCritical  port.o
-    0x0800a018   0x0800a018   0x0000001c   Code   RO         5905    i.vPortExitCritical  port.o
-    0x0800a034   0x0800a034   0x0000000a   Code   RO         5867    i.vPortFree         heap_1.o
-    0x0800a03e   0x0800a03e   0x00000002   PAD
-    0x0800a040   0x0800a040   0x00000024   Code   RO         5906    i.vPortSetupTimerInterrupt  port.o
-    0x0800a064   0x0800a064   0x00000018   Code   RO         5907    i.vPortYield        port.o
-    0x0800a07c   0x0800a07c   0x00000016   Code   RO         6089    i.vQueueDelete      queue.o
-    0x0800a092   0x0800a092   0x00000002   PAD
-    0x0800a094   0x0800a094   0x00000028   Code   RO         6090    i.vQueueUnregisterQueue  queue.o
-    0x0800a0bc   0x0800a0bc   0x00000030   Code   RO         6235    i.vTaskDelay        tasks.o
-    0x0800a0ec   0x0800a0ec   0x0000000c   Code   RO         6238    i.vTaskMissedYield  tasks.o
-    0x0800a0f8   0x0800a0f8   0x00000024   Code   RO         6240    i.vTaskPlaceOnEventList  tasks.o
-    0x0800a11c   0x0800a11c   0x00000064   Code   RO         6242    i.vTaskPriorityInherit  tasks.o
-    0x0800a180   0x0800a180   0x00000018   Code   RO         6245    i.vTaskSetTimeOutState  tasks.o
-    0x0800a198   0x0800a198   0x0000004c   Code   RO         6246    i.vTaskStartScheduler  tasks.o
-    0x0800a1e4   0x0800a1e4   0x00000010   Code   RO         6248    i.vTaskSuspendAll   tasks.o
-    0x0800a1f4   0x0800a1f4   0x00000058   Code   RO         6249    i.vTaskSwitchContext  tasks.o
-    0x0800a24c   0x0800a24c   0x00000046   Code   RO         5230    i.validate          ff.o
-    0x0800a292   0x0800a292   0x00000002   PAD
-    0x0800a294   0x0800a294   0x00000030   Code   RO         5908    i.xPortStartScheduler  port.o
-    0x0800a2c4   0x0800a2c4   0x00000024   Code   RO         5909    i.xPortSysTickHandler  port.o
-    0x0800a2e8   0x0800a2e8   0x0000003e   Code   RO         6092    i.xQueueGenericCreate  queue.o
-    0x0800a326   0x0800a326   0x0000013a   Code   RO         6093    i.xQueueGenericReceive  queue.o
-    0x0800a460   0x0800a460   0x0000006e   Code   RO         6094    i.xQueueGenericReset  queue.o
-    0x0800a4ce   0x0800a4ce   0x0000011e   Code   RO         6095    i.xQueueGenericSend  queue.o
-    0x0800a5ec   0x0800a5ec   0x00000074   Code   RO         6097    i.xQueueGiveFromISR  queue.o
-    0x0800a660   0x0800a660   0x00000078   Code   RO         6101    i.xQueueReceiveFromISR  queue.o
-    0x0800a6d8   0x0800a6d8   0x00000054   Code   RO         6250    i.xTaskCheckForTimeOut  tasks.o
-    0x0800a72c   0x0800a72c   0x0000004e   Code   RO         6251    i.xTaskCreate       tasks.o
-    0x0800a77a   0x0800a77a   0x00000002   PAD
-    0x0800a77c   0x0800a77c   0x00000020   Code   RO         6255    i.xTaskGetSchedulerState  tasks.o
-    0x0800a79c   0x0800a79c   0x000000bc   Code   RO         6258    i.xTaskIncrementTick  tasks.o
-    0x0800a858   0x0800a858   0x00000064   Code   RO         6261    i.xTaskPriorityDisinherit  tasks.o
-    0x0800a8bc   0x0800a8bc   0x00000064   Code   RO         6262    i.xTaskRemoveFromEventList  tasks.o
-    0x0800a920   0x0800a920   0x000000ac   Code   RO         6264    i.xTaskResumeAll    tasks.o
-    0x0800a9cc   0x0800a9cc   0x00000010   Data   RO            5    .constdata          system_stm32f0xx.o
-    0x0800a9dc   0x0800a9dc   0x00000008   Data   RO            6    .constdata          system_stm32f0xx.o
-    0x0800a9e4   0x0800a9e4   0x00000052   Data   RO          171    .constdata          sd_util.o
-    0x0800aa36   0x0800aa36   0x0000076c   Data   RO          347    .constdata          fonts.o
-    0x0800b1a2   0x0800b1a2   0x00000080   Data   RO          537    .constdata          keyboard.o
-    0x0800b222   0x0800b222   0x0000016e   Data   RO          639    .constdata          parser.o
-    0x0800b390   0x0800b390   0x0000003c   Data   RO          890    .constdata          main.o
-    0x0800b3cc   0x0800b3cc   0x000004c0   Data   RO         5098    .constdata          ccsbcs.o
-    0x0800b88c   0x0800b88c   0x0000008d   Data   RO         5231    .constdata          ff.o
-    0x0800b919   0x0800b919   0x00000081   Data   RO         7236    .constdata          mc_p.l(ctype_o.o)
-    0x0800b99a   0x0800b99a   0x00000002   PAD
-    0x0800b99c   0x0800b99c   0x00000004   Data   RO         7237    .constdata          mc_p.l(ctype_o.o)
-    0x0800b9a0   0x0800b9a0   0x00000474   Data   RO          172    .conststring        sd_util.o
-    0x0800be14   0x0800be14   0x00000028   Data   RO          891    .conststring        main.o
-    0x0800be3c   0x0800be3c   0x00000020   Data   RO         7267    Region$$Table       anon$$obj.o
+    0x080075f0   0x080075f0   0x0000001c   Code   RO          801    i.keydown_anime_end  animations.o
+    0x0800760c   0x0800760c   0x00000024   Code   RO          802    i.keydown_anime_start  animations.o
+    0x08007630   0x08007630   0x00000078   Code   RO          758    i.keypress_task_start  my_tasks.o
+    0x080076a8   0x080076a8   0x00000024   Code   RO         5223    i.ld_clust          ff.o
+    0x080076cc   0x080076cc   0x000000f0   Code   RO          803    i.led_animation_handler  animations.o
+    0x080077bc   0x080077bc   0x00000028   Code   RO          804    i.led_animation_init  animations.o
+    0x080077e4   0x080077e4   0x0000005c   Code   RO          805    i.led_start_animation  animations.o
+    0x08007840   0x08007840   0x0000011c   Code   RO          627    i.load_colors       parser.o
+    0x0800795c   0x0800795c   0x00000058   Code   RO          628    i.load_profile      parser.o
+    0x080079b4   0x080079b4   0x00000010   Code   RO         5224    i.lock_fs           ff.o
+    0x080079c4   0x080079c4   0x00000090   Code   RO          894    i.main              main.o
+    0x08007a54   0x08007a54   0x0000000c   Code   RO         6516    i.makeFreeRtosPriority  cmsis_os.o
+    0x08007a60   0x08007a60   0x0000006c   Code   RO         7155    i.malloc            mc_p.l(malloc.o)
+    0x08007acc   0x08007acc   0x00000040   Code   RO          535    i.media_key_press   keyboard.o
+    0x08007b0c   0x08007b0c   0x00000010   Code   RO         5225    i.mem_cpy           ff.o
+    0x08007b1c   0x08007b1c   0x0000000e   Code   RO         5226    i.mem_set           ff.o
+    0x08007b2a   0x08007b2a   0x00000038   Code   RO         5227    i.move_window       ff.o
+    0x08007b62   0x08007b62   0x00000002   PAD
+    0x08007b64   0x08007b64   0x000000ac   Code   RO          447    i.neopixel_show     neopixel.o
+    0x08007c10   0x08007c10   0x00000010   Code   RO         6518    i.osDelay           cmsis_os.o
+    0x08007c20   0x08007c20   0x0000000a   Code   RO         6521    i.osKernelStart     cmsis_os.o
+    0x08007c2a   0x08007c2a   0x00000026   Code   RO         6547    i.osSemaphoreCreate  cmsis_os.o
+    0x08007c50   0x08007c50   0x0000001a   Code   RO         6548    i.osSemaphoreDelete  cmsis_os.o
+    0x08007c6a   0x08007c6a   0x00000002   PAD
+    0x08007c6c   0x08007c6c   0x0000004c   Code   RO         6550    i.osSemaphoreRelease  cmsis_os.o
+    0x08007cb8   0x08007cb8   0x00000068   Code   RO         6551    i.osSemaphoreWait   cmsis_os.o
+    0x08007d20   0x08007d20   0x00000010   Code   RO         6554    i.osSystickHandler  cmsis_os.o
+    0x08007d30   0x08007d30   0x0000002e   Code   RO         6555    i.osThreadCreate    cmsis_os.o
+    0x08007d5e   0x08007d5e   0x00000002   PAD
+    0x08007d60   0x08007d60   0x0000008c   Code   RO          629    i.parse_combo       parser.o
+    0x08007dec   0x08007dec   0x00000148   Code   RO          630    i.parse_line        parser.o
+    0x08007f34   0x08007f34   0x00000554   Code   RO          631    i.parse_special_key  parser.o
+    0x08008488   0x08008488   0x0000000a   Code   RO          487    i.pressed           buttons.o
+    0x08008492   0x08008492   0x00000002   PAD
+    0x08008494   0x08008494   0x000000c4   Code   RO          632    i.print_keyname     parser.o
+    0x08008558   0x08008558   0x000000a8   Code   RO          633    i.print_legend      parser.o
+    0x08008600   0x08008600   0x00000044   Code   RO          153    i.print_r1          sd_util.o
+    0x08008644   0x08008644   0x00000058   Code   RO         6227    i.prvAddCurrentTaskToDelayedList  tasks.o
+    0x0800869c   0x0800869c   0x000000b8   Code   RO         6228    i.prvAddNewTaskToReadyList  tasks.o
+    0x08008754   0x08008754   0x00000058   Code   RO         6229    i.prvCheckTasksWaitingTermination  tasks.o
+    0x080087ac   0x080087ac   0x00000026   Code   RO         6087    i.prvCopyDataFromQueue  queue.o
+    0x080087d2   0x080087d2   0x00000070   Code   RO         6088    i.prvCopyDataToQueue  queue.o
+    0x08008842   0x08008842   0x00000012   Code   RO         6230    i.prvDeleteTCB      tasks.o
+    0x08008854   0x08008854   0x00000018   Code   RO         6231    i.prvIdleTask       tasks.o
+    0x0800886c   0x0800886c   0x0000007c   Code   RO         6232    i.prvInitialiseNewTask  tasks.o
+    0x080088e8   0x080088e8   0x0000001c   Code   RO         6089    i.prvIsQueueEmpty   queue.o
+    0x08008904   0x08008904   0x00000020   Code   RO         6233    i.prvResetNextTaskUnblockTime  tasks.o
+    0x08008924   0x08008924   0x00000014   Code   RO         5907    i.prvTaskExitError  port.o
+    0x08008938   0x08008938   0x00000070   Code   RO         6090    i.prvUnlockQueue    queue.o
+    0x080089a8   0x080089a8   0x000000fe   Code   RO         5228    i.put_fat           ff.o
+    0x08008aa6   0x08008aa6   0x00000002   PAD
+    0x08008aa8   0x08008aa8   0x00000050   Code   RO         5872    i.pvPortMalloc      heap_1.o
+    0x08008af8   0x08008af8   0x00000018   Code   RO         6235    i.pvTaskIncrementMutexHeldCount  tasks.o
+    0x08008b10   0x08008b10   0x00000020   Code   RO         5908    i.pxPortInitialiseStack  port.o
+    0x08008b30   0x08008b30   0x00000066   Code   RO         5230    i.remove_chain      ff.o
+    0x08008b96   0x08008b96   0x00000002   PAD
+    0x08008b98   0x08008b98   0x00000020   Code   RO          634    i.restore_profile   parser.o
+    0x08008bb8   0x08008bb8   0x00000064   Code   RO          635    i.save_last_profile  parser.o
+    0x08008c1c   0x08008c1c   0x000000c4   Code   RO          636    i.scan_profiles     parser.o
+    0x08008ce0   0x08008ce0   0x00000068   Code   RO          154    i.sd_cmd            sd_util.o
+    0x08008d48   0x08008d48   0x00000098   Code   RO          155    i.sd_get_data       sd_util.o
+    0x08008de0   0x08008de0   0x0000001a   Code   RO          156    i.sd_get_r1         sd_util.o
+    0x08008dfa   0x08008dfa   0x00000036   Code   RO          157    i.sd_get_r7         sd_util.o
+    0x08008e30   0x08008e30   0x00000470   Code   RO          158    i.sd_init           sd_util.o
+    0x080092a0   0x080092a0   0x00000012   Code   RO          159    i.sd_nec            sd_util.o
+    0x080092b2   0x080092b2   0x00000002   PAD
+    0x080092b4   0x080092b4   0x0000008c   Code   RO          160    i.sd_put_data       sd_util.o
+    0x08009340   0x08009340   0x00000068   Code   RO          161    i.sd_read           sd_util.o
+    0x080093a8   0x080093a8   0x00000100   Code   RO          162    i.sd_read_cid       sd_util.o
+    0x080094a8   0x080094a8   0x00000310   Code   RO          163    i.sd_read_csd       sd_util.o
+    0x080097b8   0x080097b8   0x000000a8   Code   RO          164    i.sd_read_status    sd_util.o
+    0x08009860   0x08009860   0x000000c8   Code   RO          165    i.sd_readsector     sd_util.o
+    0x08009928   0x08009928   0x00000068   Code   RO          166    i.sd_write          sd_util.o
+    0x08009990   0x08009990   0x000000f4   Code   RO          167    i.sd_writesector    sd_util.o
+    0x08009a84   0x08009a84   0x00000006   Code   RO          488    i.service_press     buttons.o
+    0x08009a8a   0x08009a8a   0x00000002   PAD
+    0x08009a8c   0x08009a8c   0x00000020   Code   RO          806    i.set_pixel_color   animations.o
+    0x08009aac   0x08009aac   0x00000030   Code   RO          807    i.shuffle           animations.o
+    0x08009adc   0x08009adc   0x0000003c   Code   RO          168    i.spi_set_speed     sd_util.o
+    0x08009b18   0x08009b18   0x0000001c   Code   RO          448    i.spi_set_speed_neopixel  neopixel.o
+    0x08009b34   0x08009b34   0x00000028   Code   RO          169    i.spi_txrx          sd_util.o
+    0x08009b5c   0x08009b5c   0x00000050   Code   RO          368    i.ssd1306_DrawPixel  ssd1306.o
+    0x08009bac   0x08009bac   0x00000024   Code   RO          369    i.ssd1306_Fill      ssd1306.o
+    0x08009bd0   0x08009bd0   0x000000e0   Code   RO          370    i.ssd1306_Init      ssd1306.o
+    0x08009cb0   0x08009cb0   0x0000000c   Code   RO          371    i.ssd1306_SetCursor  ssd1306.o
+    0x08009cbc   0x08009cbc   0x00000058   Code   RO          372    i.ssd1306_UpdateScreen  ssd1306.o
+    0x08009d14   0x08009d14   0x00000090   Code   RO          373    i.ssd1306_WriteChar  ssd1306.o
+    0x08009da4   0x08009da4   0x00000030   Code   RO          374    i.ssd1306_WriteCommand  ssd1306.o
+    0x08009dd4   0x08009dd4   0x0000002c   Code   RO          375    i.ssd1306_WriteString  ssd1306.o
+    0x08009e00   0x08009e00   0x00000050   Code   RO          376    i.ssd1306_dim       ssd1306.o
+    0x08009e50   0x08009e50   0x00000010   Code   RO         5231    i.st_clust          ff.o
+    0x08009e60   0x08009e60   0x0000001a   Code   RO         5232    i.sum_sfn           ff.o
+    0x08009e7a   0x08009e7a   0x00000094   Code   RO         5233    i.sync_fs           ff.o
+    0x08009f0e   0x08009f0e   0x00000054   Code   RO         5234    i.sync_window       ff.o
+    0x08009f62   0x08009f62   0x00000024   Code   RO         5235    i.unlock_fs         ff.o
+    0x08009f86   0x08009f86   0x00000024   Code   RO         6050    i.uxListRemove      list.o
+    0x08009faa   0x08009faa   0x00000016   Code   RO         6051    i.vListInitialise   list.o
+    0x08009fc0   0x08009fc0   0x00000006   Code   RO         6052    i.vListInitialiseItem  list.o
+    0x08009fc6   0x08009fc6   0x00000030   Code   RO         6053    i.vListInsert       list.o
+    0x08009ff6   0x08009ff6   0x00000018   Code   RO         6054    i.vListInsertEnd    list.o
+    0x0800a00e   0x0800a00e   0x00000002   PAD
+    0x0800a010   0x0800a010   0x00000018   Code   RO         5910    i.vPortEnterCritical  port.o
+    0x0800a028   0x0800a028   0x0000001c   Code   RO         5911    i.vPortExitCritical  port.o
+    0x0800a044   0x0800a044   0x0000000a   Code   RO         5873    i.vPortFree         heap_1.o
+    0x0800a04e   0x0800a04e   0x00000002   PAD
+    0x0800a050   0x0800a050   0x00000024   Code   RO         5912    i.vPortSetupTimerInterrupt  port.o
+    0x0800a074   0x0800a074   0x00000018   Code   RO         5913    i.vPortYield        port.o
+    0x0800a08c   0x0800a08c   0x00000016   Code   RO         6095    i.vQueueDelete      queue.o
+    0x0800a0a2   0x0800a0a2   0x00000002   PAD
+    0x0800a0a4   0x0800a0a4   0x00000028   Code   RO         6096    i.vQueueUnregisterQueue  queue.o
+    0x0800a0cc   0x0800a0cc   0x00000030   Code   RO         6241    i.vTaskDelay        tasks.o
+    0x0800a0fc   0x0800a0fc   0x0000000c   Code   RO         6244    i.vTaskMissedYield  tasks.o
+    0x0800a108   0x0800a108   0x00000024   Code   RO         6246    i.vTaskPlaceOnEventList  tasks.o
+    0x0800a12c   0x0800a12c   0x00000064   Code   RO         6248    i.vTaskPriorityInherit  tasks.o
+    0x0800a190   0x0800a190   0x00000018   Code   RO         6251    i.vTaskSetTimeOutState  tasks.o
+    0x0800a1a8   0x0800a1a8   0x0000004c   Code   RO         6252    i.vTaskStartScheduler  tasks.o
+    0x0800a1f4   0x0800a1f4   0x00000010   Code   RO         6254    i.vTaskSuspendAll   tasks.o
+    0x0800a204   0x0800a204   0x00000058   Code   RO         6255    i.vTaskSwitchContext  tasks.o
+    0x0800a25c   0x0800a25c   0x00000046   Code   RO         5236    i.validate          ff.o
+    0x0800a2a2   0x0800a2a2   0x00000002   PAD
+    0x0800a2a4   0x0800a2a4   0x00000030   Code   RO         5914    i.xPortStartScheduler  port.o
+    0x0800a2d4   0x0800a2d4   0x00000024   Code   RO         5915    i.xPortSysTickHandler  port.o
+    0x0800a2f8   0x0800a2f8   0x0000003e   Code   RO         6098    i.xQueueGenericCreate  queue.o
+    0x0800a336   0x0800a336   0x0000013a   Code   RO         6099    i.xQueueGenericReceive  queue.o
+    0x0800a470   0x0800a470   0x0000006e   Code   RO         6100    i.xQueueGenericReset  queue.o
+    0x0800a4de   0x0800a4de   0x0000011e   Code   RO         6101    i.xQueueGenericSend  queue.o
+    0x0800a5fc   0x0800a5fc   0x00000074   Code   RO         6103    i.xQueueGiveFromISR  queue.o
+    0x0800a670   0x0800a670   0x00000078   Code   RO         6107    i.xQueueReceiveFromISR  queue.o
+    0x0800a6e8   0x0800a6e8   0x00000054   Code   RO         6256    i.xTaskCheckForTimeOut  tasks.o
+    0x0800a73c   0x0800a73c   0x0000004e   Code   RO         6257    i.xTaskCreate       tasks.o
+    0x0800a78a   0x0800a78a   0x00000002   PAD
+    0x0800a78c   0x0800a78c   0x00000020   Code   RO         6261    i.xTaskGetSchedulerState  tasks.o
+    0x0800a7ac   0x0800a7ac   0x000000bc   Code   RO         6264    i.xTaskIncrementTick  tasks.o
+    0x0800a868   0x0800a868   0x00000064   Code   RO         6267    i.xTaskPriorityDisinherit  tasks.o
+    0x0800a8cc   0x0800a8cc   0x00000064   Code   RO         6268    i.xTaskRemoveFromEventList  tasks.o
+    0x0800a930   0x0800a930   0x000000ac   Code   RO         6270    i.xTaskResumeAll    tasks.o
+    0x0800a9dc   0x0800a9dc   0x00000010   Data   RO            5    .constdata          system_stm32f0xx.o
+    0x0800a9ec   0x0800a9ec   0x00000008   Data   RO            6    .constdata          system_stm32f0xx.o
+    0x0800a9f4   0x0800a9f4   0x00000052   Data   RO          171    .constdata          sd_util.o
+    0x0800aa46   0x0800aa46   0x0000076c   Data   RO          347    .constdata          fonts.o
+    0x0800b1b2   0x0800b1b2   0x00000080   Data   RO          537    .constdata          keyboard.o
+    0x0800b232   0x0800b232   0x0000016e   Data   RO          639    .constdata          parser.o
+    0x0800b3a0   0x0800b3a0   0x0000003c   Data   RO          896    .constdata          main.o
+    0x0800b3dc   0x0800b3dc   0x000004c0   Data   RO         5104    .constdata          ccsbcs.o
+    0x0800b89c   0x0800b89c   0x0000008d   Data   RO         5237    .constdata          ff.o
+    0x0800b929   0x0800b929   0x00000081   Data   RO         7242    .constdata          mc_p.l(ctype_o.o)
+    0x0800b9aa   0x0800b9aa   0x00000002   PAD
+    0x0800b9ac   0x0800b9ac   0x00000004   Data   RO         7243    .constdata          mc_p.l(ctype_o.o)
+    0x0800b9b0   0x0800b9b0   0x00000474   Data   RO          172    .conststring        sd_util.o
+    0x0800be24   0x0800be24   0x00000028   Data   RO          897    .conststring        main.o
+    0x0800be4c   0x0800be4c   0x00000020   Data   RO         7273    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x0800be5c, Size: 0x00003e40, Max: 0x00004000, ABSOLUTE, COMPRESSED[0x0000016c])
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x0800be6c, Size: 0x00003e40, Max: 0x00004000, ABSOLUTE, COMPRESSED[0x0000016c])
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -4838,32 +4845,32 @@ Memory Map of the image
     0x20000095   COMPRESSED   0x00000001   Data   RW          642    .data               parser.o
     0x20000096   COMPRESSED   0x00000002   PAD
     0x20000098   COMPRESSED   0x00000008   Data   RW          759    .data               my_tasks.o
-    0x200000a0   COMPRESSED   0x0000001f   Data   RW          808    .data               animations.o
+    0x200000a0   COMPRESSED   0x0000001f   Data   RW          809    .data               animations.o
     0x200000bf   COMPRESSED   0x00000001   PAD
-    0x200000c0   COMPRESSED   0x0000002c   Data   RW          892    .data               main.o
-    0x200000ec   COMPRESSED   0x00000001   Data   RW         1000    .data               user_diskio.o
+    0x200000c0   COMPRESSED   0x0000002c   Data   RW          898    .data               main.o
+    0x200000ec   COMPRESSED   0x00000001   Data   RW         1006    .data               user_diskio.o
     0x200000ed   COMPRESSED   0x00000003   PAD
-    0x200000f0   COMPRESSED   0x00000014   Data   RW         1001    .data               user_diskio.o
-    0x20000104   COMPRESSED   0x00000005   Data   RW         1067    .data               fatfs.o
+    0x200000f0   COMPRESSED   0x00000014   Data   RW         1007    .data               user_diskio.o
+    0x20000104   COMPRESSED   0x00000005   Data   RW         1073    .data               fatfs.o
     0x20000109   COMPRESSED   0x00000003   PAD
-    0x2000010c   COMPRESSED   0x0000001c   Data   RW         1349    .data               usbd_desc.o
-    0x20000128   COMPRESSED   0x00000016   Data   RW         1350    .data               usbd_desc.o
+    0x2000010c   COMPRESSED   0x0000001c   Data   RW         1355    .data               usbd_desc.o
+    0x20000128   COMPRESSED   0x00000016   Data   RW         1356    .data               usbd_desc.o
     0x2000013e   COMPRESSED   0x00000002   PAD
-    0x20000140   COMPRESSED   0x00000004   Data   RW         4317    .data               stm32f0xx_hal.o
-    0x20000144   COMPRESSED   0x00000008   Data   RW         5232    .data               ff.o
-    0x2000014c   COMPRESSED   0x00000001   Data   RW         5696    .data               usbd_ctlreq.o
+    0x20000140   COMPRESSED   0x00000004   Data   RW         4323    .data               stm32f0xx_hal.o
+    0x20000144   COMPRESSED   0x00000008   Data   RW         5238    .data               ff.o
+    0x2000014c   COMPRESSED   0x00000001   Data   RW         5702    .data               usbd_ctlreq.o
     0x2000014d   COMPRESSED   0x00000003   PAD
-    0x20000150   COMPRESSED   0x00000038   Data   RW         5813    .data               usbd_hid.o
-    0x20000188   COMPRESSED   0x0000008a   Data   RW         5814    .data               usbd_hid.o
+    0x20000150   COMPRESSED   0x00000038   Data   RW         5819    .data               usbd_hid.o
+    0x20000188   COMPRESSED   0x0000008a   Data   RW         5820    .data               usbd_hid.o
     0x20000212   COMPRESSED   0x00000002   PAD
-    0x20000214   COMPRESSED   0x00000008   Data   RW         5871    .data               heap_1.o
-    0x2000021c   COMPRESSED   0x00000004   Data   RW         5910    .data               port.o
-    0x20000220   COMPRESSED   0x0000003c   Data   RW         6267    .data               tasks.o
-    0x2000025c   COMPRESSED   0x00000004   Data   RW         6869    .data               mc_p.l(rand.o)
-    0x20000260   COMPRESSED   0x00000004   Data   RW         7208    .data               mc_p.l(stdout.o)
-    0x20000264   COMPRESSED   0x00000004   Data   RW         7215    .data               mc_p.l(mvars.o)
-    0x20000268   COMPRESSED   0x00000004   Data   RW         7216    .data               mc_p.l(mvars.o)
-    0x2000026c   COMPRESSED   0x00000004   Data   RW         7220    .data               mc_p.l(errno.o)
+    0x20000214   COMPRESSED   0x00000008   Data   RW         5877    .data               heap_1.o
+    0x2000021c   COMPRESSED   0x00000004   Data   RW         5916    .data               port.o
+    0x20000220   COMPRESSED   0x0000003c   Data   RW         6273    .data               tasks.o
+    0x2000025c   COMPRESSED   0x00000004   Data   RW         6875    .data               mc_p.l(rand.o)
+    0x20000260   COMPRESSED   0x00000004   Data   RW         7214    .data               mc_p.l(stdout.o)
+    0x20000264   COMPRESSED   0x00000004   Data   RW         7221    .data               mc_p.l(mvars.o)
+    0x20000268   COMPRESSED   0x00000004   Data   RW         7222    .data               mc_p.l(mvars.o)
+    0x2000026c   COMPRESSED   0x00000004   Data   RW         7226    .data               mc_p.l(errno.o)
     0x20000270        -       0x00000410   Zero   RW          377    .bss                ssd1306.o
     0x20000680        -       0x0000019a   Zero   RW          449    .bss                neopixel.o
     0x2000081a        -       0x00000045   Zero   RW          489    .bss                buttons.o
@@ -4871,21 +4878,21 @@ Memory Map of the image
     0x20000860        -       0x00000234   Zero   RW          637    .bss                parser.o
     0x20000a94        -       0x00000855   Zero   RW          638    .bss                parser.o
     0x200012e9   COMPRESSED   0x00000007   PAD
-    0x200012f0        -       0x000003ff   Zero   RW          807    .bss                animations.o
+    0x200012f0        -       0x000003ff   Zero   RW          808    .bss                animations.o
     0x200016ef   COMPRESSED   0x00000001   PAD
-    0x200016f0        -       0x0000017c   Zero   RW          889    .bss                main.o
-    0x2000186c        -       0x00000010   Zero   RW          999    .bss                user_diskio.o
-    0x2000187c        -       0x00000224   Zero   RW         1109    .bss                usb_device.o
-    0x20001aa0        -       0x00000234   Zero   RW         1169    .bss                usbd_conf.o
-    0x20001cd4        -       0x00000200   Zero   RW         1348    .bss                usbd_desc.o
-    0x20001ed4        -       0x00000040   Zero   RW         1524    .bss                stm32f0xx_hal_timebase_tim.o
-    0x20001f14        -       0x0000000c   Zero   RW         5512    .bss                ff_gen_drv.o
-    0x20001f20        -       0x000013ec   Zero   RW         5870    .bss                heap_1.o
-    0x2000330c        -       0x00000040   Zero   RW         6102    .bss                queue.o
-    0x2000334c        -       0x000000f0   Zero   RW         6266    .bss                tasks.o
+    0x200016f0        -       0x0000017c   Zero   RW          895    .bss                main.o
+    0x2000186c        -       0x00000010   Zero   RW         1005    .bss                user_diskio.o
+    0x2000187c        -       0x00000224   Zero   RW         1115    .bss                usb_device.o
+    0x20001aa0        -       0x00000234   Zero   RW         1175    .bss                usbd_conf.o
+    0x20001cd4        -       0x00000200   Zero   RW         1354    .bss                usbd_desc.o
+    0x20001ed4        -       0x00000040   Zero   RW         1530    .bss                stm32f0xx_hal_timebase_tim.o
+    0x20001f14        -       0x0000000c   Zero   RW         5518    .bss                ff_gen_drv.o
+    0x20001f20        -       0x000013ec   Zero   RW         5876    .bss                heap_1.o
+    0x2000330c        -       0x00000040   Zero   RW         6108    .bss                queue.o
+    0x2000334c        -       0x000000f0   Zero   RW         6272    .bss                tasks.o
     0x2000343c   COMPRESSED   0x00000004   PAD
-    0x20003440        -       0x00000400   Zero   RW         5019    HEAP                startup_stm32f072xb.o
-    0x20003840        -       0x00000600   Zero   RW         5018    STACK               startup_stm32f072xb.o
+    0x20003440        -       0x00000400   Zero   RW         5025    HEAP                startup_stm32f072xb.o
+    0x20003840        -       0x00000600   Zero   RW         5024    STACK               startup_stm32f072xb.o
 
 
 ==============================================================================
@@ -4895,7 +4902,7 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       796         72          0         31       1023       8151   animations.o
+       808         80          0         31       1023       8592   animations.o
        696         16          0          0         69       3769   buttons.o
         92         12       1216          0          0       1959   ccsbcs.o
        356         12          0          0          0      12643   cmsis_os.o
@@ -4908,7 +4915,7 @@ Image component sizes
        418         40        128          5          0       8868   keyboard.o
        136          0          0          0          0       3306   list.o
       1110        156        100         44        380      12361   main.o
-       176         18          0          8          0       1391   my_tasks.o
+       180         16          0          8          0       1395   my_tasks.o
        200         14          0          0        410       1947   neopixel.o
       4068        394        366         34       2697      17107   parser.o
        370         58          0          4          0       7271   port.o
@@ -4947,7 +4954,7 @@ Image component sizes
        208         38          0         21         16       3747   user_diskio.o
 
     ----------------------------------------------------------------------
-     39580       2856       5321        604      15312     873548   Object Totals
+     39596       2862       5321        604      15312     873993   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         70          0          0         19         13          0   (incl. Padding)
 
@@ -5022,15 +5029,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     43276       3006       5456        624      15312     859276   Grand Totals
-     43276       3006       5456        364      15312     859276   ELF Image Totals (compressed)
-     43276       3006       5456        364          0          0   ROM Totals
+     43292       3012       5456        624      15312     859677   Grand Totals
+     43292       3012       5456        364      15312     859677   ELF Image Totals (compressed)
+     43292       3012       5456        364          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                48732 (  47.59kB)
+    Total RO  Size (Code + RO Data)                48748 (  47.61kB)
     Total RW  Size (RW Data + ZI Data)             15936 (  15.56kB)
-    Total ROM Size (Code + RO Data + RW Data)      49096 (  47.95kB)
+    Total ROM Size (Code + RO Data + RW Data)      49112 (  47.96kB)
 
 ==============================================================================
 

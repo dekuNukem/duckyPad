@@ -1,3 +1,15 @@
+/*
+when key down and script is executing, 
+the key should be breathing
+32 frame lookup table
+after its done then fade back to background color
+*/
+void keydown_anime_start(uint8_t idx)
+{
+  led_start_animation(&neo_anime[idx], keydown_color, ANIMATION_CROSS_FADE, 3);
+  osDelay(99);
+  led_start_animation(&neo_anime[idx], bg_color, ANIMATION_CROSS_FADE, 50);
+}
         printf("%d\n", last_keypress);
 
 

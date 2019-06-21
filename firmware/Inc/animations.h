@@ -8,7 +8,6 @@
 #include "stm32f0xx_hal.h"
 
 #define THREE 3
-#define ANIME_FPS 30
 #define ANIMATION_NO_ANIMATION 0
 #define ANIMATION_CROSS_FADE 1
 #define ANIMATION_FULLY_ON 2
@@ -32,7 +31,8 @@ typedef struct
 
 void led_animation_handler(void);
 void anime_init(void);
-void keypress_anime_handler(uint8_t idx);
+void keydown_anime_start(uint8_t idx);
+void keydown_anime_end(uint8_t idx);
 void error_animation(uint8_t stage);
 void change_bg(void);
 

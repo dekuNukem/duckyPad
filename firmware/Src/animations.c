@@ -142,7 +142,6 @@ void error_animation(uint8_t stage)
         led_start_animation(&neo_anime[i], error_color_red, ANIMATION_CROSS_FADE, 2);
       osDelay(100);
     }
-    
   }
   else
   {
@@ -151,10 +150,13 @@ void error_animation(uint8_t stage)
   }
 }
 
-void keypress_anime_handler(uint8_t idx)
+void keydown_anime_start(uint8_t idx)
 {
   led_start_animation(&neo_anime[idx], keydown_color, ANIMATION_CROSS_FADE, 3);
   osDelay(99);
-  led_start_animation(&neo_anime[idx], bg_color, ANIMATION_CROSS_FADE, 50);
 }
 
+void keydown_anime_end(uint8_t idx)
+{
+	led_start_animation(&neo_anime[idx], bg_color, ANIMATION_CROSS_FADE, 50);
+}

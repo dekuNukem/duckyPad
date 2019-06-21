@@ -12,29 +12,20 @@ OLED_RESET is now on PA0
 BUTTON1 and BUTTON2 are now on PA1 and PA2 respectively
 added stabilizer holes to cherry MX switch footprints
 used a new button with plastic cap to prevent ESD
-
-cleaned up error screens
+cleaned up error screens, print project url on screen on error
 added instruction on error screen
 might have fixed bad boot
+use the same white button of DFU/RST for plus minus
+remember last selected profile
+dim OLED after 2 minutes to prevent burn-in
+key aliases in ducky script now supported
+no longer needs back plate, rubber feet on PCB, piece of paper tape over OLED ribbon cable
 
 TODO:
-remove ADC to save some space
-write a test mode
-use the same white button of DFU/RST for plus minus
 add APP/MENU button support
-remember last selected profile?
 find a logo to put on the front of PCB
-dim OLED after 10 minutes?
+find blank keycap with indent?
 
 NOTES:
 oled socket midpoint: 7.25mm
 oled socket pos (mil): 2860 1890
-print project url on screen if error encountered
-clean up ducky parser, looks like a lot of alias wasn't included, like "ESC" and "ESCAPE", "CTRL" or "CONTROL", etc
-find blank keycap with indent?
-no back plate, rubber feet on PCB, piece of paper tape over OLED ribbon cable?
-
-what are those for?
-const char cmd_NAME[] = "NAME ";
-const char cmd_REPLAY[] = "REPLAY ";
-
