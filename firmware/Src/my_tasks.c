@@ -24,6 +24,10 @@ void keypress_task_start(void const * argument)
     for (int i = 0; i < KEY_COUNT; ++i)
       if(is_pressed(&button_status[i]))
       {
+
+        last_keypress = HAL_GetTick();
+        ssd1306_dim(0); // OLED back to full brightness
+
         if(i < 15)
         {
           keydown_anime_start(i);
@@ -35,9 +39,6 @@ void keypress_task_start(void const * argument)
         else if(i == 22) // +
           change_profile(NEXT_PROFILE);
         service_press(&button_status[i]);
-        last_keypress = HAL_GetTick();
-        // OLED full brightness on keypress
-        ssd1306_dim(0);
       }
     osDelay(30);
   }

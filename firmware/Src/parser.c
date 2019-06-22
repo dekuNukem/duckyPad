@@ -323,9 +323,7 @@ void save_last_profile(uint8_t profile_id)
     goto slp_end;
   memset(temp_buf, 0, PATH_SIZE);
   sprintf(temp_buf, "%d\n", profile_id);
-  if(f_write(&sd_file, temp_buf, strlen(temp_buf), &ignore_this) != 0)
-    goto slp_end;
-  slp_end:
+  f_write(&sd_file, temp_buf, strlen(temp_buf), &ignore_this)
   f_close(&sd_file);
 }
 

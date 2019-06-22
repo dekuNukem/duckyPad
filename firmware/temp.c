@@ -4,6 +4,9 @@ the key should be breathing
 32 frame lookup table
 after its done then fade back to background color
 */
+delaying 2 seconds...
+donedelaying 2 seconds...
+done
 void keydown_anime_start(uint8_t idx)
 {
   led_start_animation(&neo_anime[idx], keydown_color, ANIMATION_CROSS_FADE, 3);
@@ -11,8 +14,7 @@ void keydown_anime_start(uint8_t idx)
   led_start_animation(&neo_anime[idx], bg_color, ANIMATION_CROSS_FADE, 50);
 }
         printf("%d\n", last_keypress);
-
-
+        
 void save_last_profile(uint8_t profile_id)
 {
   printf("pid: %d\n", profile_id);
