@@ -5228,7 +5228,7 @@ by exp-lbrs.ulp</description>
 <part name="+3V33" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="IC3" library="74xx-little-de" library_urn="urn:adsk.eagle:library:86" deviceset="74*1G08" device="DBV" technology="AHCT"/>
 <part name="GND31" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="U$8" library="my_usbc_16p" deviceset="USBC_16P" device=""/>
+<part name="U2" library="my_usbc_16p" deviceset="USBC_16P" device=""/>
 <part name="GND6" library="supply1" deviceset="GND" device=""/>
 <part name="R1" library="joyAnalog" deviceset="RESISTOR" device="0805-RES" value="5.1K"/>
 <part name="R9" library="joyAnalog" deviceset="RESISTOR" device="0805-RES" value="5.1K"/>
@@ -5401,7 +5401,7 @@ by exp-lbrs.ulp</description>
 <instance part="IC3" gate="A" x="-60.96" y="22.86" rot="R180"/>
 <instance part="IC3" gate="P" x="-63.5" y="50.8"/>
 <instance part="GND31" gate="1" x="-45.72" y="7.62"/>
-<instance part="U$8" gate="G$1" x="27.94" y="-165.1" rot="MR0"/>
+<instance part="U2" gate="G$1" x="27.94" y="-165.1" rot="MR0"/>
 <instance part="GND6" gate="1" x="-10.16" y="-172.72" rot="MR0"/>
 <instance part="R1" gate="G$1" x="-5.08" y="-154.94" rot="MR0"/>
 <instance part="R9" gate="G$1" x="-5.08" y="-149.86" rot="MR0"/>
@@ -5796,7 +5796,7 @@ by exp-lbrs.ulp</description>
 <junction x="-10.16" y="-154.94"/>
 <pinref part="R9" gate="G$1" pin="2"/>
 <wire x1="-10.16" y1="-149.86" x2="-10.16" y2="-154.94" width="0.1524" layer="91"/>
-<pinref part="U$8" gate="G$1" pin="GND"/>
+<pinref part="U2" gate="G$1" pin="GND"/>
 <wire x1="43.18" y1="-165.1" x2="-10.16" y2="-165.1" width="0.1524" layer="91"/>
 <junction x="-10.16" y="-165.1"/>
 </segment>
@@ -6138,11 +6138,11 @@ by exp-lbrs.ulp</description>
 <segment>
 <wire x1="58.42" y1="-149.86" x2="45.72" y2="-149.86" width="0.1524" layer="91"/>
 <label x="60.96" y="-149.86" size="1.778" layer="95"/>
-<pinref part="U$8" gate="G$1" pin="DP1"/>
+<pinref part="U2" gate="G$1" pin="DP1"/>
 <wire x1="45.72" y1="-149.86" x2="43.18" y2="-149.86" width="0.1524" layer="91"/>
 <wire x1="45.72" y1="-149.86" x2="45.72" y2="-152.4" width="0.1524" layer="91"/>
 <junction x="45.72" y="-149.86"/>
-<pinref part="U$8" gate="G$1" pin="DP2"/>
+<pinref part="U2" gate="G$1" pin="DP2"/>
 <wire x1="45.72" y1="-152.4" x2="43.18" y2="-152.4" width="0.1524" layer="91"/>
 </segment>
 <segment>
@@ -6618,19 +6618,19 @@ by exp-lbrs.ulp</description>
 <wire x1="2.54" y1="-154.94" x2="0" y2="-154.94" width="0.1524" layer="91"/>
 <wire x1="10.16" y1="-152.4" x2="2.54" y2="-152.4" width="0.1524" layer="91"/>
 <wire x1="2.54" y1="-152.4" x2="2.54" y2="-154.94" width="0.1524" layer="91"/>
-<pinref part="U$8" gate="G$1" pin="CC2"/>
+<pinref part="U2" gate="G$1" pin="CC2"/>
 </segment>
 </net>
 <net name="N$33" class="0">
 <segment>
 <pinref part="R9" gate="G$1" pin="1"/>
 <wire x1="10.16" y1="-149.86" x2="0" y2="-149.86" width="0.1524" layer="91"/>
-<pinref part="U$8" gate="G$1" pin="CC1"/>
+<pinref part="U2" gate="G$1" pin="CC1"/>
 </segment>
 </net>
 <net name="N$1" class="0">
 <segment>
-<pinref part="U$8" gate="G$1" pin="VBUS"/>
+<pinref part="U2" gate="G$1" pin="VBUS"/>
 <pinref part="IC2" gate="G$1" pin="VIN"/>
 <wire x1="43.18" y1="-144.78" x2="78.74" y2="-144.78" width="0.1524" layer="91"/>
 <wire x1="78.74" y1="-144.78" x2="96.52" y2="-144.78" width="0.1524" layer="91"/>
@@ -6646,10 +6646,10 @@ by exp-lbrs.ulp</description>
 </segment>
 <segment>
 <wire x1="58.42" y1="-157.48" x2="45.72" y2="-157.48" width="0.1524" layer="91"/>
-<pinref part="U$8" gate="G$1" pin="DN1"/>
+<pinref part="U2" gate="G$1" pin="DN1"/>
 <wire x1="45.72" y1="-157.48" x2="43.18" y2="-157.48" width="0.1524" layer="91"/>
 <label x="60.96" y="-157.48" size="1.778" layer="95"/>
-<pinref part="U$8" gate="G$1" pin="DN2"/>
+<pinref part="U2" gate="G$1" pin="DN2"/>
 <wire x1="43.18" y1="-160.02" x2="45.72" y2="-160.02" width="0.1524" layer="91"/>
 <wire x1="45.72" y1="-160.02" x2="45.72" y2="-157.48" width="0.1524" layer="91"/>
 <junction x="45.72" y="-157.48"/>

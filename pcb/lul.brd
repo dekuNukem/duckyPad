@@ -7,7 +7,7 @@
 <setting keepoldvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="1" unitdist="mil" unit="mil" style="lines" multiple="1" display="yes" altdistance="5" altunitdist="mil" altunit="mil"/>
+<grid distance="10" unitdist="mil" unit="mil" style="lines" multiple="1" display="yes" altdistance="5" altunitdist="mil" altunit="mil"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -37,7 +37,7 @@
 <layer number="26" name="bNames" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="27" name="tValues" color="7" fill="1" visible="no" active="yes"/>
 <layer number="28" name="bValues" color="7" fill="1" visible="no" active="yes"/>
-<layer number="29" name="tStop" color="7" fill="3" visible="no" active="yes"/>
+<layer number="29" name="tStop" color="7" fill="3" visible="yes" active="yes"/>
 <layer number="30" name="bStop" color="7" fill="6" visible="no" active="yes"/>
 <layer number="31" name="tCream" color="7" fill="4" visible="no" active="yes"/>
 <layer number="32" name="bCream" color="7" fill="5" visible="no" active="yes"/>
@@ -188,7 +188,7 @@
 <text x="80.3656" y="4.508" size="3.048" layer="25" align="center">+</text>
 <text x="65.278" y="4.508" size="3.048" layer="25" align="center">-</text>
 <text x="88.646" y="66.7766" size="2.1844" layer="26" rot="MR0">dekuNukem
-PT3 JUN19</text>
+PD1 JUN19</text>
 <text x="87.8332" y="93.2942" size="1.27" layer="26" rot="MR0">CLK</text>
 <text x="85.1916" y="88.6714" size="1.27" layer="26" rot="MR0">DIO</text>
 <text x="85.1916" y="86.1568" size="1.27" layer="26" rot="MR0">TX</text>
@@ -1034,7 +1034,7 @@ These rules have been curated by SparkFuns DFM commitee. After doing much resear
 <attribute name="NAME" x="72.136" y="55.0291" size="0.8128" layer="25"/>
 </element>
 <element name="IC3" library="74xx-little-de" library_urn="urn:adsk.eagle:library:86" package="SOT23-5" value="74AHCT1G08DBV" x="59.563" y="89.4588" smashed="yes"/>
-<element name="U$8" library="my_usbc_16p" package="USBC_16P_FOOT" value="USBC_16P" x="67.8688" y="92.1512" rot="R180"/>
+<element name="U2" library="my_usbc_16p" package="USBC_16P_FOOT" value="USBC_16P" x="67.8688" y="92.1512" rot="R180"/>
 <element name="R1" library="joyAnalog" package="0805" value="5.1K" x="76.2" y="91.567" smashed="yes" rot="R90">
 <attribute name="NAME" x="76.5683" y="93.472" size="0.8128" layer="25" rot="R90"/>
 <attribute name="VALUE" x="77.597" y="90.551" size="0.4064" layer="27" rot="R90"/>
@@ -1151,12 +1151,12 @@ These rules have been curated by SparkFuns DFM commitee. After doing much resear
 <contactref element="R5" pad="1"/>
 <contactref element="R1" pad="2"/>
 <contactref element="R9" pad="2"/>
-<contactref element="U$8" pad="P$15"/>
-<contactref element="U$8" pad="A1B12"/>
-<contactref element="U$8" pad="P$14"/>
-<contactref element="U$8" pad="P$16"/>
-<contactref element="U$8" pad="P$13"/>
-<contactref element="U$8" pad="B11A12"/>
+<contactref element="U2" pad="P$15"/>
+<contactref element="U2" pad="A1B12"/>
+<contactref element="U2" pad="P$14"/>
+<contactref element="U2" pad="P$16"/>
+<contactref element="U2" pad="P$13"/>
+<contactref element="U2" pad="B11A12"/>
 <wire x1="61.75" y1="70.5" x2="61.75" y2="71.1936" width="0.2032" layer="1"/>
 <wire x1="61.75" y1="71.1936" x2="61.2902" y2="71.6534" width="0.2032" layer="1"/>
 <wire x1="61.2902" y1="71.6534" x2="61.2902" y2="72.644" width="0.2032" layer="1"/>
@@ -1569,8 +1569,8 @@ These rules have been curated by SparkFuns DFM commitee. After doing much resear
 </signal>
 <signal name="USB_DP">
 <contactref element="IC1" pad="33"/>
-<contactref element="U$8" pad="A6"/>
-<contactref element="U$8" pad="B6"/>
+<contactref element="U2" pad="A6"/>
+<contactref element="U2" pad="B6"/>
 <wire x1="62.75" y1="70.5" x2="62.75" y2="71.9716" width="0.2032" layer="1"/>
 <wire x1="62.75" y1="71.9716" x2="62.5602" y2="72.1614" width="0.2032" layer="1"/>
 <wire x1="62.5602" y1="72.1614" x2="62.5602" y2="81.1784" width="0.2032" layer="1"/>
@@ -2135,7 +2135,7 @@ These rules have been curated by SparkFuns DFM commitee. After doing much resear
 </signal>
 <signal name="N$31">
 <contactref element="R1" pad="1"/>
-<contactref element="U$8" pad="B5"/>
+<contactref element="U2" pad="B5"/>
 <wire x1="76.2" y1="90.667" x2="76.2" y2="91.1098" width="0.2032" layer="1"/>
 <wire x1="76.2" y1="91.1098" x2="75.7428" y2="91.567" width="0.2032" layer="1"/>
 <wire x1="75.7428" y1="91.567" x2="67.6402" y2="91.567" width="0.2032" layer="1"/>
@@ -2144,14 +2144,14 @@ These rules have been curated by SparkFuns DFM commitee. After doing much resear
 </signal>
 <signal name="N$33">
 <contactref element="R9" pad="1"/>
-<contactref element="U$8" pad="A5"/>
+<contactref element="U2" pad="A5"/>
 <wire x1="74.168" y1="90.667" x2="69.8136" y2="90.667" width="0.2032" layer="1"/>
 <wire x1="69.8136" y1="90.667" x2="69.1188" y2="89.9722" width="0.2032" layer="1"/>
 <wire x1="69.1188" y1="89.9722" x2="69.1188" y2="88.3037" width="0.2032" layer="1"/>
 </signal>
 <signal name="N$1">
-<contactref element="U$8" pad="B4A9"/>
-<contactref element="U$8" pad="A4B9"/>
+<contactref element="U2" pad="B4A9"/>
+<contactref element="U2" pad="A4B9"/>
 <contactref element="IC2" pad="3"/>
 <via x="65.8876" y="86.7664" extent="1-16" drill="0.45"/>
 <wire x1="65.8876" y1="86.7664" x2="70.3072" y2="86.7664" width="0.3048" layer="16"/>
@@ -2169,8 +2169,8 @@ These rules have been curated by SparkFuns DFM commitee. After doing much resear
 </signal>
 <signal name="DNDNDN">
 <contactref element="IC1" pad="32"/>
-<contactref element="U$8" pad="A7"/>
-<contactref element="U$8" pad="B7"/>
+<contactref element="U2" pad="A7"/>
+<contactref element="U2" pad="B7"/>
 <wire x1="63.25" y1="70.5" x2="63.25" y2="72.1066" width="0.2032" layer="1"/>
 <wire x1="63.25" y1="72.1066" x2="62.9412" y2="72.4154" width="0.2032" layer="1"/>
 <wire x1="62.9412" y1="72.4154" x2="62.9412" y2="80.899" width="0.2032" layer="1"/>
