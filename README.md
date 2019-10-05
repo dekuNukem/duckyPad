@@ -83,7 +83,7 @@ Press +/- button on the lower right to change profiles.
 
 ## Making one yourself
 
-BOM is [here](/resources/kbord_bom.xlsx), build process is [here](https://www.youtube.com/watch?v=EGLLCtRuEuM)
+BOM is [here](/pcb/kbord_v2_bom.xlsx), build process is [here](https://www.youtube.com/watch?v=EGLLCtRuEuM)
 
 Here are some things to keep in mind if you're making one yourself:
 
@@ -91,7 +91,7 @@ Here are some things to keep in mind if you're making one yourself:
 
 The board is a simple 2-layer board. Don't forget the cutout for the OLED screen in the milling layer!
 
-![Alt text](resources/pics/pcb.jpg)
+![Alt text](pcb/kbord_v2_front.jpg)
 
 Getting a stencil is highly recommended, because the RGB LED used here WILL melt if you try to hand-solder. It's best to use a stencil and then reflow it in an oven.
 
