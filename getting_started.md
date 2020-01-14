@@ -10,7 +10,7 @@ Formate it in FAT32:
 
 ![Alt text](resources/pics/format.PNG)
 
-Afterwards, [Click here](sample_SD_card.zip) to download some sample profiles. Extract everything into the root of SD card like this:
+Afterwards, [Click here](https://github.com/dekuNukem/kbord/raw/master/sample_SD_card.zip) to download some sample profiles. Extract everything into the root of SD card like this:
 
 ![Alt text](resources/pics/sd_card.PNG)
 
