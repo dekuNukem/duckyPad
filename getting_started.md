@@ -2,21 +2,17 @@
 
 Congratulations on the purchase! Here is a short guide on how to use it.
 
-## Overview
-
-Under construction...
-
 ## Quick start
 
 You need a micro SD card to store the script from which kbord will execute. Any old ones below 8GB would be plenty.
 
 Formate it in FAT32:
 
-![Alt text](resources/pics/format.png)
+![Alt text](resources/pics/format.PNG)
 
 Afterwards, [Click here](sample_SD_card.zip) to download some sample profiles. Extract everything into the root of SD card like this:
 
-![Alt text](resources/pics/sd_card.png)
+![Alt text](resources/pics/sd_card.PNG)
 
 Eject the SD card and put it in kbord, turn the power on, and voilà:
 
@@ -26,7 +22,7 @@ Press a key to execute the corresponding script, and use `+` and `-` button to s
 
 ## Writing your own scripts
 
-Chances are you want to customize your own profiles and scripts. So keep reading.
+Chances are you want to customize your own profiles and scripts. So keep reading, and don't forget you can use existing examples as your starting point.
 
 ### Step 1: Preparing profiles
 
