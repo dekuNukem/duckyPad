@@ -40,7 +40,7 @@ A switch plate is strongly recommended, to improve stability and even out the ba
 
 ## OLED
 
-I used a 1.3 inch OLED display from alibaba. Make sure the connector is `30pin FPC with 0.5mm pin spacing`.
+I used a 1.3 inch OLED display from aliexpress. Make sure the connector is `30pin FPC with 0.5mm pin spacing`.
 Note that the FPC connector used here is upper-contact variant. Here are some sample listings (illustration purpose only, you don't have to buy from them):
 
 https://www.aliexpress.com/item/32950730252.html
@@ -57,7 +57,7 @@ I bought some blank R4 keycaps, just make sure they don't block the backlight.
 
 ## USB Type-C connector
 
-Search `USB 16p` on alibaba for the connector. Should look like this:
+Search `USB 16p` on aliexpress for the connector. Should look like this:
 
 ![Alt text](resources/pics/usbc.png)
 
@@ -67,7 +67,7 @@ Datasheet:
 
 ## Tactile Buttons
 
-Try searching `3X4X2.5MM White Tactile Button` on alibaba.
+Try searching `3X4X2.5MM White Tactile Button` on aliexpress.
 
 Should look like this:
 
