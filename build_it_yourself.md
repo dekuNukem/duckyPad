@@ -55,6 +55,24 @@ Datasheet:
 
 I bought some blank R4 keycaps, just make sure they don't block the backlight.
 
+## USB Type-C connector
+
+Search `USB 16p` on alibaba for the connector. Should look like this:
+
+![Alt text](resources/pics/usbc.png)
+
+Datasheet:
+
+![Alt text](resources/pics/usbc_datasheet.jpg)
+
+## Tactile Buttons
+
+Try searching `3X4X2.5MM White Tactile Button` on alibaba.
+
+Should look like this:
+
+![Alt text](resources/pics/butt.png)
+
 ## Misc
 
 Remember to make sure the entire board is working before you solder the switches in place, otherwise it would be almost impossible to get them off again.
