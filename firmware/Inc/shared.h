@@ -11,6 +11,6 @@ extern UART_HandleTypeDef huart1;
 extern ADC_HandleTypeDef hadc;
 
 extern char instruction[];
-extern char daytripper_url[];
+extern char project_url[];
 
 #endif

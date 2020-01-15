@@ -368,8 +368,8 @@ void change_profile(uint8_t direction)
     ssd1306_WriteString("No Valid Profiles",Font_6x10,White);
     ssd1306_SetCursor(0, 37);
     ssd1306_WriteString(instruction,Font_6x10,White);
-    ssd1306_SetCursor(15, 50);
-    ssd1306_WriteString(daytripper_url,Font_6x10,White);
+    ssd1306_SetCursor(25, 50);
+    ssd1306_WriteString(project_url,Font_6x10,White);
     ssd1306_UpdateScreen();
     return;
   }

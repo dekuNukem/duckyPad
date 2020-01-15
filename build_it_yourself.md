@@ -8,9 +8,9 @@ Here are some things to keep in mind if you're making one yourself:
 
 The board is a simple 2-layer board. Don't forget the cutout for the OLED screen in the milling layer!
 
-![Alt text](pcb/kbord_v2_front.jpg)
+![Alt text](resources/pics/pcb_front.jpg)
 
-![Alt text](pcb/kbord_v2_back.jpg)
+![Alt text](resources/pics/pcb_back.jpg)
 
 Getting a stencil is highly recommended, because the RGB LED used here WILL melt if you try to hand-solder. It's best to use a stencil and then reflow it in an oven.
 
@@ -41,6 +41,7 @@ A switch plate is strongly recommended, to improve stability and even out the ba
 ## OLED
 
 I used a 1.3 inch OLED display from aliexpress. Make sure the connector is `30pin FPC with 0.5mm pin spacing`.
+
 Note that the FPC connector used here is upper-contact variant. Here are some sample listings (illustration purpose only, you don't have to buy from them):
 
 https://www.aliexpress.com/item/32950730252.html
@@ -74,6 +75,8 @@ Should look like this:
 ![Alt text](resources/pics/butt.png)
 
 ## Misc
+
+To prevent OLED ribbon cable snagging on things, tape it down to the back of the circuit board.
 
 Remember to make sure the entire board is working before you solder the switches in place, otherwise it would be almost impossible to get them off again.
 

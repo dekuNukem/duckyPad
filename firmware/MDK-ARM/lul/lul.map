@@ -3695,79 +3695,79 @@ Image Symbol Table
     .data                                    0x20000095   Section        1  parser.o(.data)
     .data                                    0x20000098   Section        8  my_tasks.o(.data)
     .data                                    0x200000a0   Section       31  animations.o(.data)
-    .data                                    0x200000c0   Section       44  main.o(.data)
-    .data                                    0x200000ec   Section        1  user_diskio.o(.data)
-    Stat                                     0x200000ec   Data           1  user_diskio.o(.data)
-    .data                                    0x200000f0   Section       20  user_diskio.o(.data)
-    .data                                    0x20000104   Section        5  fatfs.o(.data)
-    .data                                    0x2000010c   Section       28  usbd_desc.o(.data)
-    .data                                    0x20000128   Section       22  usbd_desc.o(.data)
-    .data                                    0x20000140   Section        4  stm32f0xx_hal.o(.data)
-    .data                                    0x20000144   Section        8  ff.o(.data)
-    Fsid                                     0x20000144   Data           2  ff.o(.data)
-    FatFs                                    0x20000148   Data           4  ff.o(.data)
-    .data                                    0x2000014c   Section        1  usbd_ctlreq.o(.data)
-    cfgidx                                   0x2000014c   Data           1  usbd_ctlreq.o(.data)
-    .data                                    0x20000150   Section       56  usbd_hid.o(.data)
-    .data                                    0x20000188   Section      138  usbd_hid.o(.data)
-    USBD_HID_CfgDesc                         0x20000188   Data          34  usbd_hid.o(.data)
-    USBD_HID_Desc                            0x200001ac   Data           9  usbd_hid.o(.data)
-    USBD_HID_DeviceQualifierDesc             0x200001b8   Data          10  usbd_hid.o(.data)
-    HID_MOUSE_ReportDesc                     0x200001c4   Data          78  usbd_hid.o(.data)
-    .data                                    0x20000214   Section        8  heap_1.o(.data)
-    xNextFreeByte                            0x20000214   Data           4  heap_1.o(.data)
-    pucAlignedHeap                           0x20000218   Data           4  heap_1.o(.data)
-    .data                                    0x2000021c   Section        4  port.o(.data)
-    uxCriticalNesting                        0x2000021c   Data           4  port.o(.data)
-    .data                                    0x20000220   Section       60  tasks.o(.data)
-    uxDeletedTasksWaitingCleanUp             0x20000224   Data           4  tasks.o(.data)
-    uxCurrentNumberOfTasks                   0x20000228   Data           4  tasks.o(.data)
-    xTickCount                               0x2000022c   Data           4  tasks.o(.data)
-    uxTopReadyPriority                       0x20000230   Data           4  tasks.o(.data)
-    xSchedulerRunning                        0x20000234   Data           4  tasks.o(.data)
-    uxPendedTicks                            0x20000238   Data           4  tasks.o(.data)
-    xYieldPending                            0x2000023c   Data           4  tasks.o(.data)
-    xNumOfOverflows                          0x20000240   Data           4  tasks.o(.data)
-    uxTaskNumber                             0x20000244   Data           4  tasks.o(.data)
-    xNextTaskUnblockTime                     0x20000248   Data           4  tasks.o(.data)
-    xIdleTaskHandle                          0x2000024c   Data           4  tasks.o(.data)
-    uxSchedulerSuspended                     0x20000250   Data           4  tasks.o(.data)
-    pxDelayedTaskList                        0x20000254   Data           4  tasks.o(.data)
-    pxOverflowDelayedTaskList                0x20000258   Data           4  tasks.o(.data)
-    .data                                    0x2000025c   Section        4  rand.o(.data)
-    _rand_state                              0x2000025c   Data           4  rand.o(.data)
-    .data                                    0x20000260   Section        4  stdout.o(.data)
-    .data                                    0x20000264   Section        4  mvars.o(.data)
-    .data                                    0x20000268   Section        4  mvars.o(.data)
-    .data                                    0x2000026c   Section        4  errno.o(.data)
-    _errno                                   0x2000026c   Data           4  errno.o(.data)
-    .bss                                     0x20000270   Section     1040  ssd1306.o(.bss)
-    SSD1306_Buffer                           0x20000270   Data        1040  ssd1306.o(.bss)
-    .bss                                     0x20000680   Section      410  neopixel.o(.bss)
-    .bss                                     0x2000081a   Section       69  buttons.o(.bss)
-    .bss                                     0x20000860   Section      564  parser.o(.bss)
-    .bss                                     0x20000a94   Section     2133  parser.o(.bss)
-    .bss                                     0x200012f0   Section     1023  animations.o(.bss)
-    .bss                                     0x200016f0   Section      380  main.o(.bss)
-    .bss                                     0x2000186c   Section       16  user_diskio.o(.bss)
-    .bss                                     0x2000187c   Section      548  usb_device.o(.bss)
-    .bss                                     0x20001aa0   Section      564  usbd_conf.o(.bss)
-    mem                                      0x20001aa0   Data          20  usbd_conf.o(.bss)
-    .bss                                     0x20001cd4   Section      512  usbd_desc.o(.bss)
-    .bss                                     0x20001ed4   Section       64  stm32f0xx_hal_timebase_tim.o(.bss)
-    .bss                                     0x20001f14   Section       12  ff_gen_drv.o(.bss)
-    .bss                                     0x20001f20   Section     5100  heap_1.o(.bss)
-    ucHeap                                   0x20001f20   Data        5100  heap_1.o(.bss)
-    .bss                                     0x2000330c   Section       64  queue.o(.bss)
-    .bss                                     0x2000334c   Section      240  tasks.o(.bss)
-    pxReadyTasksLists                        0x2000334c   Data         140  tasks.o(.bss)
-    xDelayedTaskList1                        0x200033d8   Data          20  tasks.o(.bss)
-    xDelayedTaskList2                        0x200033ec   Data          20  tasks.o(.bss)
-    xPendingReadyList                        0x20003400   Data          20  tasks.o(.bss)
-    xTasksWaitingTermination                 0x20003414   Data          20  tasks.o(.bss)
-    xSuspendedTaskList                       0x20003428   Data          20  tasks.o(.bss)
-    HEAP                                     0x20003440   Section     1024  startup_stm32f072xb.o(HEAP)
-    STACK                                    0x20003840   Section     1536  startup_stm32f072xb.o(STACK)
+    .data                                    0x200000c0   Section       39  main.o(.data)
+    .data                                    0x200000e7   Section        1  user_diskio.o(.data)
+    Stat                                     0x200000e7   Data           1  user_diskio.o(.data)
+    .data                                    0x200000e8   Section       20  user_diskio.o(.data)
+    .data                                    0x200000fc   Section        5  fatfs.o(.data)
+    .data                                    0x20000104   Section       28  usbd_desc.o(.data)
+    .data                                    0x20000120   Section       22  usbd_desc.o(.data)
+    .data                                    0x20000138   Section        4  stm32f0xx_hal.o(.data)
+    .data                                    0x2000013c   Section        8  ff.o(.data)
+    Fsid                                     0x2000013c   Data           2  ff.o(.data)
+    FatFs                                    0x20000140   Data           4  ff.o(.data)
+    .data                                    0x20000144   Section        1  usbd_ctlreq.o(.data)
+    cfgidx                                   0x20000144   Data           1  usbd_ctlreq.o(.data)
+    .data                                    0x20000148   Section       56  usbd_hid.o(.data)
+    .data                                    0x20000180   Section      138  usbd_hid.o(.data)
+    USBD_HID_CfgDesc                         0x20000180   Data          34  usbd_hid.o(.data)
+    USBD_HID_Desc                            0x200001a4   Data           9  usbd_hid.o(.data)
+    USBD_HID_DeviceQualifierDesc             0x200001b0   Data          10  usbd_hid.o(.data)
+    HID_MOUSE_ReportDesc                     0x200001bc   Data          78  usbd_hid.o(.data)
+    .data                                    0x2000020c   Section        8  heap_1.o(.data)
+    xNextFreeByte                            0x2000020c   Data           4  heap_1.o(.data)
+    pucAlignedHeap                           0x20000210   Data           4  heap_1.o(.data)
+    .data                                    0x20000214   Section        4  port.o(.data)
+    uxCriticalNesting                        0x20000214   Data           4  port.o(.data)
+    .data                                    0x20000218   Section       60  tasks.o(.data)
+    uxDeletedTasksWaitingCleanUp             0x2000021c   Data           4  tasks.o(.data)
+    uxCurrentNumberOfTasks                   0x20000220   Data           4  tasks.o(.data)
+    xTickCount                               0x20000224   Data           4  tasks.o(.data)
+    uxTopReadyPriority                       0x20000228   Data           4  tasks.o(.data)
+    xSchedulerRunning                        0x2000022c   Data           4  tasks.o(.data)
+    uxPendedTicks                            0x20000230   Data           4  tasks.o(.data)
+    xYieldPending                            0x20000234   Data           4  tasks.o(.data)
+    xNumOfOverflows                          0x20000238   Data           4  tasks.o(.data)
+    uxTaskNumber                             0x2000023c   Data           4  tasks.o(.data)
+    xNextTaskUnblockTime                     0x20000240   Data           4  tasks.o(.data)
+    xIdleTaskHandle                          0x20000244   Data           4  tasks.o(.data)
+    uxSchedulerSuspended                     0x20000248   Data           4  tasks.o(.data)
+    pxDelayedTaskList                        0x2000024c   Data           4  tasks.o(.data)
+    pxOverflowDelayedTaskList                0x20000250   Data           4  tasks.o(.data)
+    .data                                    0x20000254   Section        4  rand.o(.data)
+    _rand_state                              0x20000254   Data           4  rand.o(.data)
+    .data                                    0x20000258   Section        4  stdout.o(.data)
+    .data                                    0x2000025c   Section        4  mvars.o(.data)
+    .data                                    0x20000260   Section        4  mvars.o(.data)
+    .data                                    0x20000264   Section        4  errno.o(.data)
+    _errno                                   0x20000264   Data           4  errno.o(.data)
+    .bss                                     0x20000268   Section     1040  ssd1306.o(.bss)
+    SSD1306_Buffer                           0x20000268   Data        1040  ssd1306.o(.bss)
+    .bss                                     0x20000678   Section      410  neopixel.o(.bss)
+    .bss                                     0x20000812   Section       69  buttons.o(.bss)
+    .bss                                     0x20000858   Section      564  parser.o(.bss)
+    .bss                                     0x20000a8c   Section     2133  parser.o(.bss)
+    .bss                                     0x200012e8   Section     1023  animations.o(.bss)
+    .bss                                     0x200016e8   Section      380  main.o(.bss)
+    .bss                                     0x20001864   Section       16  user_diskio.o(.bss)
+    .bss                                     0x20001874   Section      548  usb_device.o(.bss)
+    .bss                                     0x20001a98   Section      564  usbd_conf.o(.bss)
+    mem                                      0x20001a98   Data          20  usbd_conf.o(.bss)
+    .bss                                     0x20001ccc   Section      512  usbd_desc.o(.bss)
+    .bss                                     0x20001ecc   Section       64  stm32f0xx_hal_timebase_tim.o(.bss)
+    .bss                                     0x20001f0c   Section       12  ff_gen_drv.o(.bss)
+    .bss                                     0x20001f18   Section     5100  heap_1.o(.bss)
+    ucHeap                                   0x20001f18   Data        5100  heap_1.o(.bss)
+    .bss                                     0x20003304   Section       64  queue.o(.bss)
+    .bss                                     0x20003344   Section      240  tasks.o(.bss)
+    pxReadyTasksLists                        0x20003344   Data         140  tasks.o(.bss)
+    xDelayedTaskList1                        0x200033d0   Data          20  tasks.o(.bss)
+    xDelayedTaskList2                        0x200033e4   Data          20  tasks.o(.bss)
+    xPendingReadyList                        0x200033f8   Data          20  tasks.o(.bss)
+    xTasksWaitingTermination                 0x2000340c   Data          20  tasks.o(.bss)
+    xSuspendedTaskList                       0x20003420   Data          20  tasks.o(.bss)
+    HEAP                                     0x20003438   Section     1024  startup_stm32f072xb.o(HEAP)
+    STACK                                    0x20003838   Section     1536  startup_stm32f072xb.o(STACK)
 
     Global Symbols
 
@@ -4292,53 +4292,53 @@ Image Symbol Table
     pixel_map                                0x200000b0   Data          15  animations.o(.data)
     kb_scanHandle                            0x200000c0   Data           4  main.o(.data)
     instruction                              0x200000c4   Data          22  main.o(.data)
-    daytripper_url                           0x200000da   Data          18  main.o(.data)
-    USER_Driver                              0x200000f0   Data          20  user_diskio.o(.data)
-    retUSER                                  0x20000104   Data           1  fatfs.o(.data)
-    USERPath                                 0x20000105   Data           4  fatfs.o(.data)
-    FS_Desc                                  0x2000010c   Data          28  usbd_desc.o(.data)
-    USBD_LangIDDesc                          0x20000128   Data           4  usbd_desc.o(.data)
-    USBD_FS_DeviceDesc                       0x2000012c   Data          18  usbd_desc.o(.data)
-    uwTick                                   0x20000140   Data           4  stm32f0xx_hal.o(.data)
-    USBD_HID                                 0x20000150   Data          56  usbd_hid.o(.data)
-    pxCurrentTCB                             0x20000220   Data           4  tasks.o(.data)
-    __stdout                                 0x20000260   Data           4  stdout.o(.data)
-    __microlib_freelist                      0x20000264   Data           4  mvars.o(.data)
-    __microlib_freelist_initialised          0x20000268   Data           4  mvars.o(.data)
-    ws_reset_buf                             0x20000680   Data          50  neopixel.o(.bss)
-    ws_spi_buf                               0x200006b2   Data         360  neopixel.o(.bss)
-    button_status                            0x2000081a   Data          69  buttons.o(.bss)
-    sd_fs                                    0x20000860   Data         564  parser.o(.bss)
-    sd_file                                  0x20000a94   Data         552  parser.o(.bss)
-    dir                                      0x20000cbc   Data         548  parser.o(.bss)
-    fno                                      0x20000ee0   Data          32  parser.o(.bss)
-    available_profile                        0x20000f00   Data          16  parser.o(.bss)
-    temp_buf                                 0x20000f10   Data          40  parser.o(.bss)
-    lfn_buf                                  0x20000f38   Data          24  parser.o(.bss)
-    key_name_buf                             0x20000f50   Data          24  parser.o(.bss)
-    read_buffer                              0x20000f68   Data         256  parser.o(.bss)
-    prev_line                                0x20001068   Data         256  parser.o(.bss)
-    p_cache                                  0x20001168   Data         385  parser.o(.bss)
-    red_buf                                  0x200012f0   Data          15  animations.o(.bss)
-    green_buf                                0x200012ff   Data          15  animations.o(.bss)
-    blue_buf                                 0x2000130e   Data          15  animations.o(.bss)
-    neo_anime                                0x20001320   Data         960  animations.o(.bss)
-    rand_order_buf                           0x200016e0   Data          15  animations.o(.bss)
-    hadc                                     0x200016f0   Data          76  main.o(.bss)
-    hi2c1                                    0x2000173c   Data          76  main.o(.bss)
-    hiwdg                                    0x20001788   Data          16  main.o(.bss)
-    hspi1                                    0x20001798   Data         100  main.o(.bss)
-    huart1                                   0x200017fc   Data         112  main.o(.bss)
-    hw                                       0x2000186c   Data          16  user_diskio.o(.bss)
-    hUsbDeviceFS                             0x2000187c   Data         548  usb_device.o(.bss)
-    hpcd_USB_FS                              0x20001ab4   Data         544  usbd_conf.o(.bss)
-    USBD_StrDesc                             0x20001cd4   Data         512  usbd_desc.o(.bss)
-    htim6                                    0x20001ed4   Data          64  stm32f0xx_hal_timebase_tim.o(.bss)
-    disk                                     0x20001f14   Data          12  ff_gen_drv.o(.bss)
-    xQueueRegistry                           0x2000330c   Data          64  queue.o(.bss)
-    __heap_base                              0x20003440   Data           0  startup_stm32f072xb.o(HEAP)
-    __heap_limit                             0x20003840   Data           0  startup_stm32f072xb.o(HEAP)
-    __initial_sp                             0x20003e40   Data           0  startup_stm32f072xb.o(STACK)
+    project_url                              0x200000da   Data          13  main.o(.data)
+    USER_Driver                              0x200000e8   Data          20  user_diskio.o(.data)
+    retUSER                                  0x200000fc   Data           1  fatfs.o(.data)
+    USERPath                                 0x200000fd   Data           4  fatfs.o(.data)
+    FS_Desc                                  0x20000104   Data          28  usbd_desc.o(.data)
+    USBD_LangIDDesc                          0x20000120   Data           4  usbd_desc.o(.data)
+    USBD_FS_DeviceDesc                       0x20000124   Data          18  usbd_desc.o(.data)
+    uwTick                                   0x20000138   Data           4  stm32f0xx_hal.o(.data)
+    USBD_HID                                 0x20000148   Data          56  usbd_hid.o(.data)
+    pxCurrentTCB                             0x20000218   Data           4  tasks.o(.data)
+    __stdout                                 0x20000258   Data           4  stdout.o(.data)
+    __microlib_freelist                      0x2000025c   Data           4  mvars.o(.data)
+    __microlib_freelist_initialised          0x20000260   Data           4  mvars.o(.data)
+    ws_reset_buf                             0x20000678   Data          50  neopixel.o(.bss)
+    ws_spi_buf                               0x200006aa   Data         360  neopixel.o(.bss)
+    button_status                            0x20000812   Data          69  buttons.o(.bss)
+    sd_fs                                    0x20000858   Data         564  parser.o(.bss)
+    sd_file                                  0x20000a8c   Data         552  parser.o(.bss)
+    dir                                      0x20000cb4   Data         548  parser.o(.bss)
+    fno                                      0x20000ed8   Data          32  parser.o(.bss)
+    available_profile                        0x20000ef8   Data          16  parser.o(.bss)
+    temp_buf                                 0x20000f08   Data          40  parser.o(.bss)
+    lfn_buf                                  0x20000f30   Data          24  parser.o(.bss)
+    key_name_buf                             0x20000f48   Data          24  parser.o(.bss)
+    read_buffer                              0x20000f60   Data         256  parser.o(.bss)
+    prev_line                                0x20001060   Data         256  parser.o(.bss)
+    p_cache                                  0x20001160   Data         385  parser.o(.bss)
+    red_buf                                  0x200012e8   Data          15  animations.o(.bss)
+    green_buf                                0x200012f7   Data          15  animations.o(.bss)
+    blue_buf                                 0x20001306   Data          15  animations.o(.bss)
+    neo_anime                                0x20001318   Data         960  animations.o(.bss)
+    rand_order_buf                           0x200016d8   Data          15  animations.o(.bss)
+    hadc                                     0x200016e8   Data          76  main.o(.bss)
+    hi2c1                                    0x20001734   Data          76  main.o(.bss)
+    hiwdg                                    0x20001780   Data          16  main.o(.bss)
+    hspi1                                    0x20001790   Data         100  main.o(.bss)
+    huart1                                   0x200017f4   Data         112  main.o(.bss)
+    hw                                       0x20001864   Data          16  user_diskio.o(.bss)
+    hUsbDeviceFS                             0x20001874   Data         548  usb_device.o(.bss)
+    hpcd_USB_FS                              0x20001aac   Data         544  usbd_conf.o(.bss)
+    USBD_StrDesc                             0x20001ccc   Data         512  usbd_desc.o(.bss)
+    htim6                                    0x20001ecc   Data          64  stm32f0xx_hal_timebase_tim.o(.bss)
+    disk                                     0x20001f0c   Data          12  ff_gen_drv.o(.bss)
+    xQueueRegistry                           0x20003304   Data          64  queue.o(.bss)
+    __heap_base                              0x20003438   Data           0  startup_stm32f072xb.o(HEAP)
+    __heap_limit                             0x20003838   Data           0  startup_stm32f072xb.o(HEAP)
+    __initial_sp                             0x20003e38   Data           0  startup_stm32f072xb.o(STACK)
 
 
 
@@ -4348,7 +4348,7 @@ Memory Map of the image
 
   Image Entry point : 0x080000c1
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0000c0dc, Max: 0x00010000, ABSOLUTE, COMPRESSED[0x0000bfd8])
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0000c0d4, Max: 0x00010000, ABSOLUTE, COMPRESSED[0x0000bfd4])
 
     Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x0000be6c, Max: 0x00010000, ABSOLUTE)
 
@@ -4831,7 +4831,7 @@ Memory Map of the image
     0x0800be4c   0x0800be4c   0x00000020   Data   RO         7273    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x0800be6c, Size: 0x00003e40, Max: 0x00004000, ABSOLUTE, COMPRESSED[0x0000016c])
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x0800be6c, Size: 0x00003e38, Max: 0x00004000, ABSOLUTE, COMPRESSED[0x00000168])
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -4847,52 +4847,51 @@ Memory Map of the image
     0x20000098   COMPRESSED   0x00000008   Data   RW          759    .data               my_tasks.o
     0x200000a0   COMPRESSED   0x0000001f   Data   RW          809    .data               animations.o
     0x200000bf   COMPRESSED   0x00000001   PAD
-    0x200000c0   COMPRESSED   0x0000002c   Data   RW          898    .data               main.o
-    0x200000ec   COMPRESSED   0x00000001   Data   RW         1006    .data               user_diskio.o
-    0x200000ed   COMPRESSED   0x00000003   PAD
-    0x200000f0   COMPRESSED   0x00000014   Data   RW         1007    .data               user_diskio.o
-    0x20000104   COMPRESSED   0x00000005   Data   RW         1073    .data               fatfs.o
-    0x20000109   COMPRESSED   0x00000003   PAD
-    0x2000010c   COMPRESSED   0x0000001c   Data   RW         1355    .data               usbd_desc.o
-    0x20000128   COMPRESSED   0x00000016   Data   RW         1356    .data               usbd_desc.o
-    0x2000013e   COMPRESSED   0x00000002   PAD
-    0x20000140   COMPRESSED   0x00000004   Data   RW         4323    .data               stm32f0xx_hal.o
-    0x20000144   COMPRESSED   0x00000008   Data   RW         5238    .data               ff.o
-    0x2000014c   COMPRESSED   0x00000001   Data   RW         5702    .data               usbd_ctlreq.o
-    0x2000014d   COMPRESSED   0x00000003   PAD
-    0x20000150   COMPRESSED   0x00000038   Data   RW         5819    .data               usbd_hid.o
-    0x20000188   COMPRESSED   0x0000008a   Data   RW         5820    .data               usbd_hid.o
-    0x20000212   COMPRESSED   0x00000002   PAD
-    0x20000214   COMPRESSED   0x00000008   Data   RW         5877    .data               heap_1.o
-    0x2000021c   COMPRESSED   0x00000004   Data   RW         5916    .data               port.o
-    0x20000220   COMPRESSED   0x0000003c   Data   RW         6273    .data               tasks.o
-    0x2000025c   COMPRESSED   0x00000004   Data   RW         6875    .data               mc_p.l(rand.o)
-    0x20000260   COMPRESSED   0x00000004   Data   RW         7214    .data               mc_p.l(stdout.o)
-    0x20000264   COMPRESSED   0x00000004   Data   RW         7221    .data               mc_p.l(mvars.o)
-    0x20000268   COMPRESSED   0x00000004   Data   RW         7222    .data               mc_p.l(mvars.o)
-    0x2000026c   COMPRESSED   0x00000004   Data   RW         7226    .data               mc_p.l(errno.o)
-    0x20000270        -       0x00000410   Zero   RW          377    .bss                ssd1306.o
-    0x20000680        -       0x0000019a   Zero   RW          449    .bss                neopixel.o
-    0x2000081a        -       0x00000045   Zero   RW          489    .bss                buttons.o
-    0x2000085f   COMPRESSED   0x00000001   PAD
-    0x20000860        -       0x00000234   Zero   RW          637    .bss                parser.o
-    0x20000a94        -       0x00000855   Zero   RW          638    .bss                parser.o
-    0x200012e9   COMPRESSED   0x00000007   PAD
-    0x200012f0        -       0x000003ff   Zero   RW          808    .bss                animations.o
-    0x200016ef   COMPRESSED   0x00000001   PAD
-    0x200016f0        -       0x0000017c   Zero   RW          895    .bss                main.o
-    0x2000186c        -       0x00000010   Zero   RW         1005    .bss                user_diskio.o
-    0x2000187c        -       0x00000224   Zero   RW         1115    .bss                usb_device.o
-    0x20001aa0        -       0x00000234   Zero   RW         1175    .bss                usbd_conf.o
-    0x20001cd4        -       0x00000200   Zero   RW         1354    .bss                usbd_desc.o
-    0x20001ed4        -       0x00000040   Zero   RW         1530    .bss                stm32f0xx_hal_timebase_tim.o
-    0x20001f14        -       0x0000000c   Zero   RW         5518    .bss                ff_gen_drv.o
-    0x20001f20        -       0x000013ec   Zero   RW         5876    .bss                heap_1.o
-    0x2000330c        -       0x00000040   Zero   RW         6108    .bss                queue.o
-    0x2000334c        -       0x000000f0   Zero   RW         6272    .bss                tasks.o
-    0x2000343c   COMPRESSED   0x00000004   PAD
-    0x20003440        -       0x00000400   Zero   RW         5025    HEAP                startup_stm32f072xb.o
-    0x20003840        -       0x00000600   Zero   RW         5024    STACK               startup_stm32f072xb.o
+    0x200000c0   COMPRESSED   0x00000027   Data   RW          898    .data               main.o
+    0x200000e7   COMPRESSED   0x00000001   Data   RW         1006    .data               user_diskio.o
+    0x200000e8   COMPRESSED   0x00000014   Data   RW         1007    .data               user_diskio.o
+    0x200000fc   COMPRESSED   0x00000005   Data   RW         1073    .data               fatfs.o
+    0x20000101   COMPRESSED   0x00000003   PAD
+    0x20000104   COMPRESSED   0x0000001c   Data   RW         1355    .data               usbd_desc.o
+    0x20000120   COMPRESSED   0x00000016   Data   RW         1356    .data               usbd_desc.o
+    0x20000136   COMPRESSED   0x00000002   PAD
+    0x20000138   COMPRESSED   0x00000004   Data   RW         4323    .data               stm32f0xx_hal.o
+    0x2000013c   COMPRESSED   0x00000008   Data   RW         5238    .data               ff.o
+    0x20000144   COMPRESSED   0x00000001   Data   RW         5702    .data               usbd_ctlreq.o
+    0x20000145   COMPRESSED   0x00000003   PAD
+    0x20000148   COMPRESSED   0x00000038   Data   RW         5819    .data               usbd_hid.o
+    0x20000180   COMPRESSED   0x0000008a   Data   RW         5820    .data               usbd_hid.o
+    0x2000020a   COMPRESSED   0x00000002   PAD
+    0x2000020c   COMPRESSED   0x00000008   Data   RW         5877    .data               heap_1.o
+    0x20000214   COMPRESSED   0x00000004   Data   RW         5916    .data               port.o
+    0x20000218   COMPRESSED   0x0000003c   Data   RW         6273    .data               tasks.o
+    0x20000254   COMPRESSED   0x00000004   Data   RW         6875    .data               mc_p.l(rand.o)
+    0x20000258   COMPRESSED   0x00000004   Data   RW         7214    .data               mc_p.l(stdout.o)
+    0x2000025c   COMPRESSED   0x00000004   Data   RW         7221    .data               mc_p.l(mvars.o)
+    0x20000260   COMPRESSED   0x00000004   Data   RW         7222    .data               mc_p.l(mvars.o)
+    0x20000264   COMPRESSED   0x00000004   Data   RW         7226    .data               mc_p.l(errno.o)
+    0x20000268        -       0x00000410   Zero   RW          377    .bss                ssd1306.o
+    0x20000678        -       0x0000019a   Zero   RW          449    .bss                neopixel.o
+    0x20000812        -       0x00000045   Zero   RW          489    .bss                buttons.o
+    0x20000857   COMPRESSED   0x00000001   PAD
+    0x20000858        -       0x00000234   Zero   RW          637    .bss                parser.o
+    0x20000a8c        -       0x00000855   Zero   RW          638    .bss                parser.o
+    0x200012e1   COMPRESSED   0x00000007   PAD
+    0x200012e8        -       0x000003ff   Zero   RW          808    .bss                animations.o
+    0x200016e7   COMPRESSED   0x00000001   PAD
+    0x200016e8        -       0x0000017c   Zero   RW          895    .bss                main.o
+    0x20001864        -       0x00000010   Zero   RW         1005    .bss                user_diskio.o
+    0x20001874        -       0x00000224   Zero   RW         1115    .bss                usb_device.o
+    0x20001a98        -       0x00000234   Zero   RW         1175    .bss                usbd_conf.o
+    0x20001ccc        -       0x00000200   Zero   RW         1354    .bss                usbd_desc.o
+    0x20001ecc        -       0x00000040   Zero   RW         1530    .bss                stm32f0xx_hal_timebase_tim.o
+    0x20001f0c        -       0x0000000c   Zero   RW         5518    .bss                ff_gen_drv.o
+    0x20001f18        -       0x000013ec   Zero   RW         5876    .bss                heap_1.o
+    0x20003304        -       0x00000040   Zero   RW         6108    .bss                queue.o
+    0x20003344        -       0x000000f0   Zero   RW         6272    .bss                tasks.o
+    0x20003434   COMPRESSED   0x00000004   PAD
+    0x20003438        -       0x00000400   Zero   RW         5025    HEAP                startup_stm32f072xb.o
+    0x20003838        -       0x00000600   Zero   RW         5024    STACK               startup_stm32f072xb.o
 
 
 ==============================================================================
@@ -4914,7 +4913,7 @@ Image component sizes
         90         12          0          8       5100       2163   heap_1.o
        418         40        128          5          0       8868   keyboard.o
        136          0          0          0          0       3306   list.o
-      1110        156        100         44        380      12361   main.o
+      1110        156        100         39        380      12358   main.o
        180         16          0          8          0       1395   my_tasks.o
        200         14          0          0        410       1947   neopixel.o
       4068        394        366         34       2697      17107   parser.o
@@ -4954,9 +4953,9 @@ Image component sizes
        208         38          0         21         16       3747   user_diskio.o
 
     ----------------------------------------------------------------------
-     39596       2862       5321        604      15312     873993   Object Totals
+     39596       2862       5321        596      15312     873990   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-        70          0          0         19         13          0   (incl. Padding)
+        70          0          0         16         13          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -5029,15 +5028,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     43292       3012       5456        624      15312     859677   Grand Totals
-     43292       3012       5456        364      15312     859677   ELF Image Totals (compressed)
-     43292       3012       5456        364          0          0   ROM Totals
+     43292       3012       5456        616      15312     859674   Grand Totals
+     43292       3012       5456        360      15312     859674   ELF Image Totals (compressed)
+     43292       3012       5456        360          0          0   ROM Totals
 
 ==============================================================================
 
     Total RO  Size (Code + RO Data)                48748 (  47.61kB)
-    Total RW  Size (RW Data + ZI Data)             15936 (  15.56kB)
-    Total ROM Size (Code + RO Data + RW Data)      49112 (  47.96kB)
+    Total RW  Size (RW Data + ZI Data)             15928 (  15.55kB)
+    Total ROM Size (Code + RO Data + RW Data)      49108 (  47.96kB)
 
 ==============================================================================
 
