@@ -52,8 +52,8 @@ void animation_task_start(void const * argument)
   for(;;)
   {
     led_animation_handler();
-    // dim OLED screen after 2 minutes of idle to prevent burn-in
-    if(HAL_GetTick() - last_keypress > 120000)
+    // dim OLED screen after 5 minutes of idle to prevent burn-in
+    if(HAL_GetTick() - last_keypress > 300000)
       ssd1306_dim(1);
     osDelay(25);
   }
