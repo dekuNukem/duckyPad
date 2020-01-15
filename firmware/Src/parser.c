@@ -489,6 +489,7 @@ uint8_t parse_special_key(char* msg)
   return 0;
 }
 
+// able to press 3 keys at once
 void parse_combo(char* line, uint8_t key)
 {
   uint8_t spk1 = 0;
