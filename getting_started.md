@@ -1,20 +1,20 @@
-# Getting Started with kbord
+# Getting Started with duckypad
 
 Congratulations on the purchase! Here is a short guide on how to use it.
 
 ## Quick start
 
-You need a micro SD card to store the script from which kbord will execute. Any old ones below 8GB would be plenty.
+You need a micro SD card to store the script from which duckypad will execute. Any old ones below 8GB would be plenty.
 
 Formate it in FAT32:
 
 ![Alt text](resources/pics/format.PNG)
 
-Afterwards, [Click here](https://github.com/dekuNukem/kbord/raw/master/sample_SD_card.zip) to download some sample profiles. Extract everything into the root of SD card like this:
+Afterwards, [Click here](https://github.com/dekuNukem/duckypad/raw/master/sample_SD_card.zip) to download some sample profiles. Extract everything into the root of SD card like this:
 
 ![Alt text](resources/pics/sd_card.PNG)
 
-Eject the SD card and put it in kbord, turn the power on, and voilà:
+Eject the SD card and put it in duckypad, turn the power on, and voilà:
 
 ![Alt text](resources/pics/firefox_example.JPG)
 
@@ -62,9 +62,9 @@ If you skip this step the default backlight color would be light blue.
 
 ### Step 4: Run it!
 
-Just like before, format the SD card in FAT32, put all the profile folders in the root of the SD card, and insert it in kbord.
+Just like before, format the SD card in FAT32, put all the profile folders in the root of the SD card, and insert it in your duckypad.
 
-kbord should start up with the first profile, displaying the profile names and key names, as well as the background color.
+duckypad should start up with the first profile, displaying the profile names and key names, as well as the background color.
 
 Press the corresponding keys to execute their scripts, if there is an error it will show up on the screen.
 

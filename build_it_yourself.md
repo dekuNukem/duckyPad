@@ -1,6 +1,6 @@
-# Making a kbord yourself
+# Making a duckypad yourself
 
-BOM is [here](/pcb/kbord_v2_bom.xlsx), a video with build process is [here](https://www.youtube.com/watch?v=EGLLCtRuEuM).
+BOM is [here](/pcb/duckypad_v2_bom.xlsx), a video with build process is [here](https://www.youtube.com/watch?v=EGLLCtRuEuM).
 
 Here are some things to keep in mind if you're making one yourself:
 
