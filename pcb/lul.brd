@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="9.1.3">
+<eagle version="9.5.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="yes"/>
@@ -24,20 +24,20 @@
 <layer number="13" name="Route13" color="4" fill="5" visible="no" active="no"/>
 <layer number="14" name="Route14" color="1" fill="6" visible="no" active="no"/>
 <layer number="15" name="Route15" color="4" fill="6" visible="no" active="no"/>
-<layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
+<layer number="16" name="Bottom" color="1" fill="1" visible="no" active="yes"/>
 <layer number="17" name="Pads" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
-<layer number="19" name="Unrouted" color="6" fill="1" visible="yes" active="yes"/>
-<layer number="20" name="Dimension" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="19" name="Unrouted" color="6" fill="1" visible="no" active="yes"/>
+<layer number="20" name="Dimension" color="15" fill="1" visible="no" active="yes"/>
 <layer number="21" name="tPlace" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="22" name="bPlace" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="22" name="bPlace" color="7" fill="1" visible="no" active="yes"/>
 <layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="yes"/>
-<layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="24" name="bOrigins" color="15" fill="1" visible="no" active="yes"/>
 <layer number="25" name="tNames" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="26" name="bNames" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="27" name="tValues" color="7" fill="1" visible="no" active="yes"/>
+<layer number="26" name="bNames" color="7" fill="1" visible="no" active="yes"/>
+<layer number="27" name="tValues" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="28" name="bValues" color="7" fill="1" visible="no" active="yes"/>
-<layer number="29" name="tStop" color="7" fill="3" visible="yes" active="yes"/>
+<layer number="29" name="tStop" color="7" fill="3" visible="no" active="yes"/>
 <layer number="30" name="bStop" color="7" fill="6" visible="no" active="yes"/>
 <layer number="31" name="tCream" color="7" fill="4" visible="no" active="yes"/>
 <layer number="32" name="bCream" color="7" fill="5" visible="no" active="yes"/>
@@ -47,10 +47,10 @@
 <layer number="36" name="bGlue" color="7" fill="5" visible="no" active="yes"/>
 <layer number="37" name="tTest" color="7" fill="1" visible="no" active="yes"/>
 <layer number="38" name="bTest" color="7" fill="1" visible="no" active="yes"/>
-<layer number="39" name="tKeepout" color="4" fill="11" visible="yes" active="yes"/>
-<layer number="40" name="bKeepout" color="1" fill="11" visible="yes" active="yes"/>
-<layer number="41" name="tRestrict" color="4" fill="10" visible="yes" active="yes"/>
-<layer number="42" name="bRestrict" color="1" fill="10" visible="yes" active="yes"/>
+<layer number="39" name="tKeepout" color="4" fill="11" visible="no" active="yes"/>
+<layer number="40" name="bKeepout" color="1" fill="11" visible="no" active="yes"/>
+<layer number="41" name="tRestrict" color="4" fill="10" visible="no" active="yes"/>
+<layer number="42" name="bRestrict" color="1" fill="10" visible="no" active="yes"/>
 <layer number="43" name="vRestrict" color="2" fill="10" visible="no" active="yes"/>
 <layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
 <layer number="45" name="Holes" color="7" fill="1" visible="no" active="yes"/>
@@ -59,7 +59,7 @@
 <layer number="48" name="Document" color="7" fill="1" visible="no" active="yes"/>
 <layer number="49" name="Reference" color="7" fill="1" visible="no" active="yes"/>
 <layer number="50" name="dxf" color="7" fill="1" visible="no" active="no"/>
-<layer number="51" name="tDocu" color="7" fill="1" visible="no" active="yes"/>
+<layer number="51" name="tDocu" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="52" name="bDocu" color="7" fill="1" visible="no" active="yes"/>
 <layer number="53" name="tGND_GNDA" color="7" fill="9" visible="no" active="no"/>
 <layer number="54" name="bGND_GNDA" color="1" fill="9" visible="no" active="no"/>
@@ -194,10 +194,10 @@ PD1 JUN19</text>
 <text x="85.1916" y="86.1568" size="1.27" layer="26" rot="MR0">TX</text>
 <text x="85.1916" y="83.6168" size="1.27" layer="26" rot="MR0">3V3</text>
 <text x="85.1916" y="81.0514" size="1.27" layer="26" rot="MR0">GND</text>
-<text x="88.5952" y="74.3712" size="3.81" layer="26" rot="MR0">kbord</text>
+<text x="88.5952" y="74.3712" size="3.81" layer="26" rot="MR0">duckypad</text>
 <rectangle x1="67.8434" y1="48.0822" x2="70.9422" y2="49.1744" layer="42"/>
 <rectangle x1="70.866" y1="48.7934" x2="71.628" y2="50.5714" layer="42"/>
-<text x="88.9254" y="61.2902" size="2.54" layer="26" rot="MR0">git.io/kbord</text>
+<text x="88.9254" y="61.2902" size="2.54" layer="26" rot="MR0">git.io/duckypad</text>
 </plain>
 <libraries>
 <library name="clock">
@@ -885,21 +885,21 @@ These rules have been curated by SparkFuns DFM commitee. After doing much resear
 </pass>
 </autorouter>
 <elements>
-<element name="S1" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="10" y="86" rot="R180"/>
-<element name="S10" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="10" y="29" rot="R180"/>
-<element name="S11" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="29" y="29" rot="R180"/>
-<element name="S12" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="48" y="29" rot="R180"/>
-<element name="S13" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="10" y="10" rot="R180"/>
-<element name="S14" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="29" y="10" rot="R180"/>
-<element name="S15" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="48" y="10" rot="R180"/>
-<element name="S2" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="29" y="86" rot="R180"/>
+<element name="S1" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="10" y="86" smashed="yes" rot="R180"/>
+<element name="S10" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="10" y="29" smashed="yes" rot="R180"/>
+<element name="S11" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="29" y="29" smashed="yes" rot="R180"/>
+<element name="S12" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="48" y="29" smashed="yes" rot="R180"/>
+<element name="S13" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="10" y="10" smashed="yes" rot="R180"/>
+<element name="S14" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="29" y="10" smashed="yes" rot="R180"/>
+<element name="S15" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="48" y="10" smashed="yes" rot="R180"/>
+<element name="S2" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="29" y="86" smashed="yes" rot="R180"/>
 <element name="S3" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="48" y="86" smashed="yes" rot="R180"/>
-<element name="S4" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="10" y="67" rot="R180"/>
-<element name="S5" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="29" y="67" rot="R180"/>
-<element name="S6" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="48" y="67" rot="R180"/>
-<element name="S7" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="10" y="48" rot="R180"/>
-<element name="S8" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="29" y="48" rot="R180"/>
-<element name="S9" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="48" y="48" rot="R180"/>
+<element name="S4" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="10" y="67" smashed="yes" rot="R180"/>
+<element name="S5" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="29" y="67" smashed="yes" rot="R180"/>
+<element name="S6" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="48" y="67" smashed="yes" rot="R180"/>
+<element name="S7" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="10" y="48" smashed="yes" rot="R180"/>
+<element name="S8" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="29" y="48" smashed="yes" rot="R180"/>
+<element name="S9" library="SparkFun-Cherry-MX-Switch-Breakout" package="CHERRY-MX-LED" value="CHERRY-MX-LED" x="48" y="48" smashed="yes" rot="R180"/>
 <element name="U1" library="lul" package="LUL_UG-2864HSWEG01_1.3_WRAPAROUND" value="UG-2864HSWEG01" x="72.644" y="48.006" smashed="yes"/>
 <element name="R3" library="clock" package="0805" value="560K" x="75.692" y="48.133" smashed="yes">
 <attribute name="NAME" x="76.3778" y="47.2059" size="0.8128" layer="25" rot="R180"/>
@@ -1020,13 +1020,13 @@ These rules have been curated by SparkFuns DFM commitee. After doing much resear
 <element name="C27" library="clock" package="C1210" value="47uF" x="82.931" y="83.312" smashed="yes" rot="R90">
 <attribute name="NAME" x="84.0994" y="86.8934" size="0.8128" layer="25" rot="R180"/>
 </element>
-<element name="U$7" library="clock" package="M3_MOUNTING_HOLE_PACK" value="M3_MOUNTING_HOLE" x="19.5" y="19.5"/>
-<element name="U$9" library="clock" package="M3_MOUNTING_HOLE_PACK" value="M3_MOUNTING_HOLE" x="86.5" y="57.5"/>
-<element name="U$10" library="clock" package="M3_MOUNTING_HOLE_PACK" value="M3_MOUNTING_HOLE" x="82.5" y="93"/>
-<element name="U$11" library="clock" package="M3_MOUNTING_HOLE_PACK" value="M3_MOUNTING_HOLE" x="19.5" y="76.5"/>
-<element name="U$14" library="clock" package="M3_MOUNTING_HOLE_PACK" value="M3_MOUNTING_HOLE" x="72.5" y="4"/>
-<element name="U$15" library="clock" package="M3_MOUNTING_HOLE_PACK" value="M3_MOUNTING_HOLE" x="38.5" y="57.5"/>
-<element name="U$16" library="clock" package="M3_MOUNTING_HOLE_PACK" value="M3_MOUNTING_HOLE" x="38.5" y="38.5"/>
+<element name="U$7" library="clock" package="M3_MOUNTING_HOLE_PACK" value="M3_MOUNTING_HOLE" x="19.5" y="19.5" smashed="yes"/>
+<element name="U$9" library="clock" package="M3_MOUNTING_HOLE_PACK" value="M3_MOUNTING_HOLE" x="86.5" y="57.5" smashed="yes"/>
+<element name="U$10" library="clock" package="M3_MOUNTING_HOLE_PACK" value="M3_MOUNTING_HOLE" x="82.5" y="93" smashed="yes"/>
+<element name="U$11" library="clock" package="M3_MOUNTING_HOLE_PACK" value="M3_MOUNTING_HOLE" x="19.5" y="76.5" smashed="yes"/>
+<element name="U$14" library="clock" package="M3_MOUNTING_HOLE_PACK" value="M3_MOUNTING_HOLE" x="72.5" y="4" smashed="yes"/>
+<element name="U$15" library="clock" package="M3_MOUNTING_HOLE_PACK" value="M3_MOUNTING_HOLE" x="38.5" y="57.5" smashed="yes"/>
+<element name="U$16" library="clock" package="M3_MOUNTING_HOLE_PACK" value="M3_MOUNTING_HOLE" x="38.5" y="38.5" smashed="yes"/>
 <element name="R7" library="clock" package="0805" value="5.1K" x="69.088" y="53.594" smashed="yes" rot="R180">
 <attribute name="NAME" x="72.1868" y="53.2511" size="0.8128" layer="25"/>
 </element>
@@ -1034,7 +1034,7 @@ These rules have been curated by SparkFuns DFM commitee. After doing much resear
 <attribute name="NAME" x="72.136" y="55.0291" size="0.8128" layer="25"/>
 </element>
 <element name="IC3" library="74xx-little-de" library_urn="urn:adsk.eagle:library:86" package="SOT23-5" value="74AHCT1G08DBV" x="59.563" y="89.4588" smashed="yes"/>
-<element name="U2" library="my_usbc_16p" package="USBC_16P_FOOT" value="USBC_16P" x="67.8688" y="92.1512" rot="R180"/>
+<element name="U2" library="my_usbc_16p" package="USBC_16P_FOOT" value="USBC_16P" x="67.8688" y="92.1512" smashed="yes" rot="R180"/>
 <element name="R1" library="joyAnalog" package="0805" value="5.1K" x="76.2" y="91.567" smashed="yes" rot="R90">
 <attribute name="NAME" x="76.5683" y="93.472" size="0.8128" layer="25" rot="R90"/>
 <attribute name="VALUE" x="77.597" y="90.551" size="0.4064" layer="27" rot="R90"/>
@@ -1050,9 +1050,11 @@ These rules have been curated by SparkFuns DFM commitee. After doing much resear
 <element name="C28" library="clock" package="0805@1" value="1uF" x="76.835" y="49.784" smashed="yes">
 <attribute name="NAME" x="75.8444" y="50.7873" size="0.8128" layer="25"/>
 </element>
-<element name="C29" library="clock" package="0805@1" value="100nF" x="72.517" y="85.0138" rot="R90"/>
-<element name="SW3" library="3pos_slide_switch" package="342_SWICH_FOOT_HOLE" value="324_SW324_SWITCH_FOOT_HOLE" x="65" y="9.5"/>
-<element name="SW4" library="3pos_slide_switch" package="342_SWICH_FOOT_HOLE" value="324_SW324_SWITCH_FOOT_HOLE" x="80" y="9.5"/>
+<element name="C29" library="clock" package="0805@1" value="100nF" x="72.517" y="85.0138" smashed="yes" rot="R90">
+<attribute name="NAME" x="71.5645" y="83.3628" size="0.8128" layer="25" rot="R90"/>
+</element>
+<element name="SW3" library="3pos_slide_switch" package="342_SWICH_FOOT_HOLE" value="324_SW324_SWITCH_FOOT_HOLE" x="65" y="9.5" smashed="yes"/>
+<element name="SW4" library="3pos_slide_switch" package="342_SWICH_FOOT_HOLE" value="324_SW324_SWITCH_FOOT_HOLE" x="80" y="9.5" smashed="yes"/>
 </elements>
 <signals>
 <signal name="GND">
