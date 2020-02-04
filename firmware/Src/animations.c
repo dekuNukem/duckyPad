@@ -4,6 +4,7 @@
 #include "animations.h"
 #include "neopixel.h"
 #include "shared.h"
+#include "parser.h"
 
 uint32_t frame_counter;
 uint8_t pixel_map[NEOPIXEL_COUNT] = {2, 1, 0, 3, 4, 5, 8, 7, 6, 9, 10, 11, 14, 13, 12};
@@ -11,8 +12,6 @@ uint8_t red_buf[NEOPIXEL_COUNT];
 uint8_t green_buf[NEOPIXEL_COUNT];
 uint8_t blue_buf[NEOPIXEL_COUNT];
 led_animation neo_anime[NEOPIXEL_COUNT];
-uint8_t bg_color[THREE];
-uint8_t keydown_color[THREE];
 uint8_t error_color_red[THREE] = {255, 0, 0};
 uint8_t error_color_blue[THREE] = {0, 0, 255};
 uint8_t rand_order_buf[NEOPIXEL_COUNT];
@@ -124,7 +123,7 @@ void change_bg(void)
 
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
   {
-    led_start_animation(&neo_anime[i], bg_color, ANIMATION_CROSS_FADE, (10));
+    led_start_animation(&neo_anime[i], p_cache.individual_key_color[i], ANIMATION_CROSS_FADE, (10));
     neo_anime[i].animation_start += 1.5 * rand_order_buf[i];
   }
 }
@@ -146,17 +145,17 @@ void error_animation(uint8_t stage)
   else
   {
     for (int i = 0; i < NEOPIXEL_COUNT; ++i)
-      led_start_animation(&neo_anime[i], bg_color, ANIMATION_CROSS_FADE, 20);
+      led_start_animation(&neo_anime[i], p_cache.individual_key_color[i], ANIMATION_CROSS_FADE, 20);
   }
 }
 
 void keydown_anime_start(uint8_t idx)
 {
-  led_start_animation(&neo_anime[idx], keydown_color, ANIMATION_CROSS_FADE, 3);
+  led_start_animation(&neo_anime[idx], p_cache.keydown_color, ANIMATION_CROSS_FADE, 3);
   osDelay(99);
 }
 
 void keydown_anime_end(uint8_t idx)
 {
-	led_start_animation(&neo_anime[idx], bg_color, ANIMATION_CROSS_FADE, 50);
+	led_start_animation(&neo_anime[idx], p_cache.individual_key_color[idx], ANIMATION_CROSS_FADE, 50);
 }

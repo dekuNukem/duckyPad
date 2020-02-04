@@ -32,6 +32,8 @@ typedef struct
   uint8_t current_profile;
   char profile_fn[FILENAME_SIZE];
   char key_fn[MAPPABLE_KEY_COUNT][FILENAME_SIZE];
+  uint8_t keydown_color[3];
+  uint8_t individual_key_color[MAPPABLE_KEY_COUNT][3];
 } profile_cache;
 
 void change_profile(uint8_t dir);
@@ -39,6 +41,7 @@ void handle_keypress(uint8_t key_num);
 void scan_profiles(void);
 uint8_t get_last_profile(void);
 void restore_profile(uint8_t profile_id);
+extern profile_cache p_cache;
 
 #ifdef __cplusplus
 }

@@ -3,9 +3,9 @@
 <title>Static Call Graph - [lul\lul.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image lul\lul.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Jan 15 15:40:02 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue Feb 04 14:07:25 2020
 <BR><P>
-<H3>Maximum Stack Usage =        392 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        400 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 kb_scan_task &rArr; change_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 <P>
@@ -1684,8 +1684,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[f7]"></a>__0sprintf$8</STRONG> (Thumb, 36 bytes, Stack size 24 bytes, printf8.o(i.__0sprintf$8), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_core
-<LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sputc
+<BR><BR>[Calls]<UL><LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sputc
+<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_core
 </UL>
 
 <P><STRONG><a name="[1d8]"></a>__1sprintf$8</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf8.o(i.__0sprintf$8), UNUSED)
@@ -1748,7 +1748,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animation_task_start
 </UL>
 
-<P><STRONG><a name="[ff]"></a>change_bg</STRONG> (Thumb, 88 bytes, Stack size 24 bytes, animations.o(i.change_bg))
+<P><STRONG><a name="[ff]"></a>change_bg</STRONG> (Thumb, 98 bytes, Stack size 24 bytes, animations.o(i.change_bg))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = change_bg &rArr; led_start_animation &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; __aeabi_llsr
 </UL>
 <BR>[Calls]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
@@ -1763,7 +1763,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[102]"></a>change_profile</STRONG> (Thumb, 176 bytes, Stack size 16 bytes, parser.o(i.change_profile))
-<BR><BR>[Stack]<UL><LI>Max Depth = 392<LI>Call Chain = change_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
+<BR><BR>[Stack]<UL><LI>Max Depth = 400<LI>Call Chain = change_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_WriteString
 <LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_UpdateScreen
@@ -1825,7 +1825,7 @@ Global Symbols
 <LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sync_fs
 </UL>
 
-<P><STRONG><a name="[124]"></a>error_animation</STRONG> (Thumb, 102 bytes, Stack size 16 bytes, animations.o(i.error_animation))
+<P><STRONG><a name="[124]"></a>error_animation</STRONG> (Thumb, 110 bytes, Stack size 16 bytes, animations.o(i.error_animation))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = error_animation &rArr; led_start_animation &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; __aeabi_llsr
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
@@ -2196,7 +2196,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[3f]"></a>kb_scan_task</STRONG> (Thumb, 206 bytes, Stack size 0 bytes, main.o(i.kb_scan_task))
-<BR><BR>[Stack]<UL><LI>Max Depth = 392<LI>Call Chain = kb_scan_task &rArr; change_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
+<BR><BR>[Stack]<UL><LI>Max Depth = 400<LI>Call Chain = kb_scan_task &rArr; change_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 <LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_update
@@ -2258,7 +2258,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_scan_task
 </UL>
 
-<P><STRONG><a name="[169]"></a>keydown_anime_end</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, animations.o(i.keydown_anime_end))
+<P><STRONG><a name="[169]"></a>keydown_anime_end</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, animations.o(i.keydown_anime_end))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = keydown_anime_end &rArr; led_start_animation &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; __aeabi_llsr
 </UL>
 <BR>[Calls]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_start_animation
@@ -2276,7 +2276,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[40]"></a>keypress_task_start</STRONG> (Thumb, 112 bytes, Stack size 0 bytes, my_tasks.o(i.keypress_task_start))
-<BR><BR>[Stack]<UL><LI>Max Depth = 392<LI>Call Chain = keypress_task_start &rArr; change_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
+<BR><BR>[Stack]<UL><LI>Max Depth = 400<LI>Call Chain = keypress_task_start &rArr; change_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 <LI><a href="#[16c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_press
@@ -2326,8 +2326,8 @@ Global Symbols
 <LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_bg
 </UL>
 
-<P><STRONG><a name="[174]"></a>load_colors</STRONG> (Thumb, 254 bytes, Stack size 24 bytes, parser.o(i.load_colors))
-<BR><BR>[Stack]<UL><LI>Max Depth = 352<LI>Call Chain = load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
+<P><STRONG><a name="[174]"></a>load_colors</STRONG> (Thumb, 412 bytes, Stack size 32 bytes, parser.o(i.load_colors))
+<BR><BR>[Stack]<UL><LI>Max Depth = 360<LI>Call Chain = load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_gets
@@ -2344,7 +2344,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[107]"></a>load_profile</STRONG> (Thumb, 84 bytes, Stack size 24 bytes, parser.o(i.load_profile))
-<BR><BR>[Stack]<UL><LI>Max Depth = 376<LI>Call Chain = load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
+<BR><BR>[Stack]<UL><LI>Max Depth = 384<LI>Call Chain = load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_bg
 <LI><a href="#[174]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_colors
@@ -2471,8 +2471,8 @@ Global Symbols
 <P><STRONG><a name="[176]"></a>osThreadCreate</STRONG> (Thumb, 46 bytes, Stack size 24 bytes, cmsis_os.o(i.osThreadCreate))
 <BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = osThreadCreate &rArr; xTaskCreate &rArr; pvPortMalloc &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[183]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;makeFreeRtosPriority
-<LI><a href="#[184]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
+<BR>[Calls]<UL><LI><a href="#[184]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
+<LI><a href="#[183]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;makeFreeRtosPriority
 </UL>
 <BR>[Called By]<UL><LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -2566,8 +2566,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
 </UL>
-<BR>[Called By]<UL><LI><a href="#[17a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericCreate
-<LI><a href="#[184]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
+<BR>[Called By]<UL><LI><a href="#[184]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
+<LI><a href="#[17a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericCreate
 </UL>
 
 <P><STRONG><a name="[1bd]"></a>pvTaskIncrementMutexHeldCount</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, tasks.o(i.pvTaskIncrementMutexHeldCount))
@@ -2581,7 +2581,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[162]"></a>restore_profile</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, parser.o(i.restore_profile))
-<BR><BR>[Stack]<UL><LI>Max Depth = 384<LI>Call Chain = restore_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
+<BR><BR>[Stack]<UL><LI>Max Depth = 392<LI>Call Chain = restore_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_closedir
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
@@ -2813,9 +2813,9 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[199]"></a>vPortFree</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, heap_1.o(i.vPortFree))
-<BR><BR>[Called By]<UL><LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvDeleteTCB
+<BR><BR>[Called By]<UL><LI><a href="#[184]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
+<LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvDeleteTCB
 <LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vQueueDelete
-<LI><a href="#[184]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
 </UL>
 
 <P><STRONG><a name="[1b3]"></a>vPortSetupTimerInterrupt</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, port.o(i.vPortSetupTimerInterrupt))
@@ -2892,8 +2892,8 @@ Global Symbols
 <P><STRONG><a name="[179]"></a>vTaskStartScheduler</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, tasks.o(i.vTaskStartScheduler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = vTaskStartScheduler &rArr; xTaskCreate &rArr; pvPortMalloc &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xPortStartScheduler
-<LI><a href="#[184]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
+<BR>[Calls]<UL><LI><a href="#[184]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
+<LI><a href="#[1b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xPortStartScheduler
 </UL>
 <BR>[Called By]<UL><LI><a href="#[177]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelStart
 </UL>
@@ -3788,10 +3788,10 @@ Local Symbols
 <P><STRONG><a name="[ee]"></a>USBD_SetConfig</STRONG> (Thumb, 108 bytes, Stack size 16 bytes, usbd_ctlreq.o(i.USBD_SetConfig))
 <BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = USBD_SetConfig &rArr; USBD_CtlSendStatus &rArr; USBD_LL_Transmit &rArr; HAL_PCD_EP_Transmit &rArr; PCD_WritePMA
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlError
+<BR>[Calls]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_ClrClassConfig
+<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlError
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlSendStatus
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_SetClassConfig
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_ClrClassConfig
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_StdDevReq
 </UL>
@@ -3948,9 +3948,9 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[f6]"></a>_printf_core</STRONG> (Thumb, 1020 bytes, Stack size 104 bytes, printf8.o(i._printf_core), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_post_padding
+<BR><BR>[Calls]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_pre_padding
+<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_post_padding
 <LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
-<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_pre_padding
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__0sprintf$8
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__0printf$8

@@ -60,3 +60,5 @@ lul\animations.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
 lul\animations.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 lul\animations.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 lul\animations.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
+lul\animations.o: ../Inc/parser.h
+lul\animations.o: ../Inc/buttons.h

@@ -1,9 +1,27 @@
+
 /*
 when key down and script is executing, 
 the key should be breathing
 32 frame lookup table
 after its done then fade back to background color
 */
+ curr = goto_next_arg(curr, msg_end);
+      p_cache.bg_color[0] = atoi(curr);
+      curr = goto_next_arg(curr, msg_end);
+      p_cache.bg_color[1] = atoi(curr);
+      curr = goto_next_arg(curr, msg_end);
+      p_cache.bg_color[2] = atoi(curr);
+      
+      uint8_t key_num = atoi(read_buffer + strlen(cmd_SWCOLOR));
+      printf("key_num: %d\n", key_num);
+      curr = goto_next_arg(curr, msg_end);
+      printf("red: %d ", atoi(curr));
+      curr = goto_next_arg(curr, msg_end);
+      printf("green: %d ", atoi(curr));
+      curr = goto_next_arg(curr, msg_end);
+      printf("blue: %d\n", atoi(curr));
+
+
 delaying 2 seconds...
 donedelaying 2 seconds...
 done

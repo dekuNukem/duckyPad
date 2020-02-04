@@ -11,7 +11,7 @@
 #define DEFAULT_CMD_DELAY_MS 10
 #define DEFAULT_CHAR_DELAY_MS 10
 
-uint8_t col_lookup[7][3] = {  
+static const uint8_t col_lookup[7][3] = {  
    {18, 60, 103},
    {15, 57, 100},
    {12, 54, 97},
@@ -92,6 +92,7 @@ const char cmd_CONTROL[] = "CONTROL";
 const char cmd_CTRL[] = "CTRL";
 const char cmd_BG_COLOR[] = "BG_COLOR ";
 const char cmd_KD_COLOR[] = "KEYDOWN_COLOR ";
+const char cmd_SWCOLOR[] = "SWCOLOR_";
 const char cmd_VOLUP[] = "VOLUP";
 const char cmd_VOLDOWN[] = "VOLDOWN";
 const char cmd_VOLMUTE[] = "MUTE";
@@ -175,12 +176,15 @@ uint8_t load_colors(char* pf_fn)
   char *curr, *msg_end;
   uint8_t ret;
 
-  bg_color[0] = DEFAULT_BG_RED;
-  bg_color[1] = DEFAULT_BG_GREEN;
-  bg_color[2] = DEFAULT_BG_BLUE;
-  keydown_color[0] = DEFAULT_KD_RED;
-  keydown_color[1] = DEFAULT_KD_GREEN;
-  keydown_color[2] = DEFAULT_KD_BLUE;
+  p_cache.keydown_color[0] = DEFAULT_KD_RED;
+  p_cache.keydown_color[1] = DEFAULT_KD_GREEN;
+  p_cache.keydown_color[2] = DEFAULT_KD_BLUE;
+  for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+  {
+    p_cache.individual_key_color[i][0] = DEFAULT_BG_RED;
+    p_cache.individual_key_color[i][1] = DEFAULT_BG_GREEN;
+    p_cache.individual_key_color[i][2] = DEFAULT_BG_BLUE;
+  }
 
   memset(temp_buf, 0, PATH_SIZE);
   sprintf(temp_buf, "/%s/config.txt", pf_fn);
@@ -202,20 +206,38 @@ uint8_t load_colors(char* pf_fn)
     if(strncmp(cmd_BG_COLOR, read_buffer, strlen(cmd_BG_COLOR)) == 0)
     {
       curr = goto_next_arg(curr, msg_end);
-      bg_color[0] = atoi(curr);
+      uint8_t rrr = atoi(curr);
       curr = goto_next_arg(curr, msg_end);
-      bg_color[1] = atoi(curr);
+      uint8_t ggg = atoi(curr);
       curr = goto_next_arg(curr, msg_end);
-      bg_color[2] = atoi(curr);
+      uint8_t bbb = atoi(curr);
+      for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+      {
+        p_cache.individual_key_color[i][0] = rrr;
+        p_cache.individual_key_color[i][1] = ggg;
+        p_cache.individual_key_color[i][2] = bbb;
+      }
     }
-    if(strncmp(cmd_KD_COLOR, read_buffer, strlen(cmd_KD_COLOR)) == 0)
+    else if(strncmp(cmd_KD_COLOR, read_buffer, strlen(cmd_KD_COLOR)) == 0)
     {
       curr = goto_next_arg(curr, msg_end);
-      keydown_color[0] = atoi(curr);
+      p_cache.keydown_color[0] = atoi(curr);
       curr = goto_next_arg(curr, msg_end);
-      keydown_color[1] = atoi(curr);
+      p_cache.keydown_color[1] = atoi(curr);
       curr = goto_next_arg(curr, msg_end);
-      keydown_color[2] = atoi(curr);
+      p_cache.keydown_color[2] = atoi(curr);
+    }
+    else if(strncmp(cmd_SWCOLOR, read_buffer, strlen(cmd_SWCOLOR)) == 0)
+    {
+      uint8_t keynum = atoi(read_buffer + strlen(cmd_SWCOLOR));
+      if(keynum == 0 || keynum > MAX_PROFILES)
+        continue;
+      curr = goto_next_arg(curr, msg_end);
+      p_cache.individual_key_color[keynum][0] = atoi(curr);
+      curr = goto_next_arg(curr, msg_end);
+      p_cache.individual_key_color[keynum][1] = atoi(curr);
+      curr = goto_next_arg(curr, msg_end);
+      p_cache.individual_key_color[keynum][2] = atoi(curr);
     }
   }
   ret = PARSE_OK;
@@ -224,6 +246,7 @@ uint8_t load_colors(char* pf_fn)
   return ret;
 }
 
+// find out what profile folders are available
 void scan_profiles(void)
 {
   char* profile_fn;
@@ -260,11 +283,11 @@ void scan_profiles(void)
 
 void load_profile(uint8_t pid)
 {
-  char* ppppp = find_profile(pid);
-  if(ppppp == NULL)
+  char* profile_name = find_profile(pid);
+  if(profile_name == NULL)
     return;
   memset(p_cache.profile_fn, 0, FILENAME_SIZE);
-  strcpy(p_cache.profile_fn, ppppp);
+  strcpy(p_cache.profile_fn, profile_name);
   for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
   {
     memset(p_cache.key_fn[i], 0, FILENAME_SIZE);
@@ -368,7 +391,7 @@ void change_profile(uint8_t direction)
     ssd1306_WriteString("No Valid Profiles",Font_6x10,White);
     ssd1306_SetCursor(0, 37);
     ssd1306_WriteString(instruction,Font_6x10,White);
-    ssd1306_SetCursor(25, 50);
+    ssd1306_SetCursor(18, 50);
     ssd1306_WriteString(project_url,Font_6x10,White);
     ssd1306_UpdateScreen();
     return;

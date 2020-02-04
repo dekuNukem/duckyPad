@@ -36,9 +36,6 @@ void keydown_anime_end(uint8_t idx);
 void error_animation(uint8_t stage);
 void change_bg(void);
 
-extern uint8_t bg_color[THREE];
-extern uint8_t keydown_color[THREE];
-
 #ifdef __cplusplus
 }
 #endif
