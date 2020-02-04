@@ -20,6 +20,17 @@ after its done then fade back to background color
       printf("green: %d ", atoi(curr));
       curr = goto_next_arg(curr, msg_end);
       printf("blue: %d\n", atoi(curr));
+void handle_keypress(uint8_t keynum, but_status* b_status)
+{
+  uint8_t is_repeat = 1;
+  while(1)
+  {
+    keypress_wrap(keynum);
+    if(is_repeat == 0 || b_status->button_state == BUTTON_RELEASED)
+      return;
+    osDelay(66);
+  }
+}
 
 
 delaying 2 seconds...

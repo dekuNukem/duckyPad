@@ -700,12 +700,22 @@ void keypress_wrap(uint8_t keynum)
 
 void handle_keypress(uint8_t keynum, but_status* b_status)
 {
-  uint8_t is_repeat = 1;
+  keypress_wrap(keynum);
+
+  uint32_t hold_start = HAL_GetTick();
+  while(1)
+  {
+    keyboard_update();
+    if(b_status->button_state == BUTTON_RELEASED)
+      return;
+    if(HAL_GetTick() - hold_start > 500)
+      break;
+  }
+
   while(1)
   {
     keypress_wrap(keynum);
-    if(is_repeat == 0 || b_status->button_state == BUTTON_RELEASED)
+    if(b_status->button_state == BUTTON_RELEASED)
       return;
-    osDelay(66);
   }
 }
