@@ -40,7 +40,7 @@ void keypress_task_start(void const * argument)
           change_profile(NEXT_PROFILE);
         service_press(&button_status[i]);
       }
-    osDelay(30);
+    osDelay(10);
   }
 }
 

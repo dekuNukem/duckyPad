@@ -30,10 +30,11 @@ extern uint8_t mount_result;
 typedef struct
 {
   uint8_t current_profile;
+  uint8_t available_profile[MAX_PROFILES];
   char profile_fn[FILENAME_SIZE];
   char key_fn[MAPPABLE_KEY_COUNT][FILENAME_SIZE];
-  uint8_t keydown_color[3];
   uint8_t individual_key_color[MAPPABLE_KEY_COUNT][3];
+  uint8_t individual_keydown_color[MAPPABLE_KEY_COUNT][3];
 } profile_cache;
 
 void change_profile(uint8_t dir);

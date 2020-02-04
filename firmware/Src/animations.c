@@ -123,7 +123,7 @@ void change_bg(void)
 
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
   {
-    led_start_animation(&neo_anime[i], p_cache.individual_key_color[i], ANIMATION_CROSS_FADE, (10));
+    led_start_animation(&neo_anime[i], p_cache.individual_key_color[i], ANIMATION_CROSS_FADE, 8);
     neo_anime[i].animation_start += 1.5 * rand_order_buf[i];
   }
 }
@@ -151,7 +151,7 @@ void error_animation(uint8_t stage)
 
 void keydown_anime_start(uint8_t idx)
 {
-  led_start_animation(&neo_anime[idx], p_cache.keydown_color, ANIMATION_CROSS_FADE, 3);
+  led_start_animation(&neo_anime[idx], p_cache.individual_keydown_color[idx], ANIMATION_CROSS_FADE, 3);
   osDelay(99);
 }
 

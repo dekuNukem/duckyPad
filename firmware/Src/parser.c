@@ -30,7 +30,6 @@ uint8_t mount_result;
 uint16_t cmd_delay, char_delay;
 unsigned int ignore_this;
 
-uint8_t available_profile[MAX_PROFILES];
 char temp_buf[PATH_SIZE];
 char lfn_buf[FILENAME_SIZE];
 char key_name_buf[FILENAME_SIZE];
@@ -93,6 +92,7 @@ const char cmd_CTRL[] = "CTRL";
 const char cmd_BG_COLOR[] = "BG_COLOR ";
 const char cmd_KD_COLOR[] = "KEYDOWN_COLOR ";
 const char cmd_SWCOLOR[] = "SWCOLOR_";
+const char cmd_DIM_UNUSED_KEYS[] = "DIM_UNUSED_KEYS ";
 const char cmd_VOLUP[] = "VOLUP";
 const char cmd_VOLDOWN[] = "VOLDOWN";
 const char cmd_VOLMUTE[] = "MUTE";
@@ -175,15 +175,16 @@ uint8_t load_colors(char* pf_fn)
 {
   char *curr, *msg_end;
   uint8_t ret;
+  uint8_t is_unused_keys_dimmed = 1;
 
-  p_cache.keydown_color[0] = DEFAULT_KD_RED;
-  p_cache.keydown_color[1] = DEFAULT_KD_GREEN;
-  p_cache.keydown_color[2] = DEFAULT_KD_BLUE;
   for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
   {
     p_cache.individual_key_color[i][0] = DEFAULT_BG_RED;
     p_cache.individual_key_color[i][1] = DEFAULT_BG_GREEN;
     p_cache.individual_key_color[i][2] = DEFAULT_BG_BLUE;
+    p_cache.individual_keydown_color[i][0] = DEFAULT_KD_RED;
+    p_cache.individual_keydown_color[i][1] = DEFAULT_KD_GREEN;
+    p_cache.individual_keydown_color[i][2] = DEFAULT_KD_BLUE;
   }
 
   memset(temp_buf, 0, PATH_SIZE);
@@ -221,11 +222,17 @@ uint8_t load_colors(char* pf_fn)
     else if(strncmp(cmd_KD_COLOR, read_buffer, strlen(cmd_KD_COLOR)) == 0)
     {
       curr = goto_next_arg(curr, msg_end);
-      p_cache.keydown_color[0] = atoi(curr);
+      uint8_t rrr = atoi(curr);
       curr = goto_next_arg(curr, msg_end);
-      p_cache.keydown_color[1] = atoi(curr);
+      uint8_t ggg = atoi(curr);
       curr = goto_next_arg(curr, msg_end);
-      p_cache.keydown_color[2] = atoi(curr);
+      uint8_t bbb = atoi(curr);
+      for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+      {
+        p_cache.individual_keydown_color[i][0] = rrr;
+        p_cache.individual_keydown_color[i][1] = ggg;
+        p_cache.individual_keydown_color[i][2] = bbb;
+      }
     }
     else if(strncmp(cmd_SWCOLOR, read_buffer, strlen(cmd_SWCOLOR)) == 0)
     {
@@ -238,6 +245,28 @@ uint8_t load_colors(char* pf_fn)
       p_cache.individual_key_color[keynum][1] = atoi(curr);
       curr = goto_next_arg(curr, msg_end);
       p_cache.individual_key_color[keynum][2] = atoi(curr);
+    }
+
+    else if(strncmp(cmd_DIM_UNUSED_KEYS, read_buffer, strlen(cmd_DIM_UNUSED_KEYS)) == 0)
+    {
+      curr = goto_next_arg(curr, msg_end);
+      is_unused_keys_dimmed = atoi(curr);
+    }
+  }
+
+  if(is_unused_keys_dimmed)
+  {
+    for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+    {
+      if(strcmp(p_cache.key_fn[i], nonexistent_keyname) == 0)
+      {
+        p_cache.individual_key_color[i][0] = 0;
+        p_cache.individual_key_color[i][1] = 0;
+        p_cache.individual_key_color[i][2] = 0;
+        p_cache.individual_keydown_color[i][0] = 0;
+        p_cache.individual_keydown_color[i][1] = 0;
+        p_cache.individual_keydown_color[i][2] = 0;
+      }
     }
   }
   ret = PARSE_OK;
@@ -252,7 +281,7 @@ void scan_profiles(void)
   char* profile_fn;
   fno.lfname = lfn_buf; 
   fno.lfsize = FILENAME_SIZE - 1;
-  memset(available_profile, 0, MAX_PROFILES);
+  memset(p_cache.available_profile, 0, MAX_PROFILES);
 
   if (f_opendir(&dir, "/") != FR_OK)
     return;
@@ -273,7 +302,7 @@ void scan_profiles(void)
         if(num == 0)
           continue;
         if(num < MAX_PROFILES)
-          available_profile[num] = 1;
+          p_cache.available_profile[num] = 1;
       }
     }
   }
@@ -360,7 +389,7 @@ uint8_t get_last_profile(void)
   while(f_gets(temp_buf, PATH_SIZE, &sd_file))
     ret = atoi(temp_buf);
 
-  if(available_profile[ret] == 0)
+  if(p_cache.available_profile[ret] == 0)
     ret = 0;
   glp_end:
   f_close(&sd_file);
@@ -381,7 +410,7 @@ void change_profile(uint8_t direction)
   uint8_t next_profile = p_cache.current_profile;
 
   for (int i = 0; i < MAX_PROFILES; ++i)
-    if(available_profile[i])
+    if(p_cache.available_profile[i])
       is_all_empty = 0;
 
   if(is_all_empty)
@@ -403,7 +432,7 @@ void change_profile(uint8_t direction)
       next_profile = next_profile + 1 > MAX_PROFILES - 1 ? 0 : next_profile + 1;
     else
       next_profile = next_profile - 1 > MAX_PROFILES - 1 ? MAX_PROFILES - 1 : next_profile - 1;
-    if(available_profile[next_profile])
+    if(p_cache.available_profile[next_profile])
       break;
   }
   load_profile(next_profile);
