@@ -38,10 +38,12 @@ typedef struct
 } profile_cache;
 
 void change_profile(uint8_t dir);
-void handle_keypress(uint8_t key_num);
+void handle_keypress(uint8_t key_num, but_status* b_status);
 void scan_profiles(void);
 uint8_t get_last_profile(void);
 void restore_profile(uint8_t profile_id);
+void keypress_wrap(uint8_t keynum);
+
 extern profile_cache p_cache;
 
 #ifdef __cplusplus

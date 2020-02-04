@@ -644,7 +644,7 @@ uint8_t parse_line(char* line)
   return result;
 }
 
-void handle_keypress(uint8_t keynum)
+void keypress_wrap(uint8_t keynum)
 {
   uint16_t line_num = 0;
   uint8_t result;
@@ -696,4 +696,16 @@ void handle_keypress(uint8_t keynum)
   }
   kp_end:
   f_close(&sd_file);
+}
+
+void handle_keypress(uint8_t keynum, but_status* b_status)
+{
+  uint8_t is_repeat = 1;
+  while(1)
+  {
+    keypress_wrap(keynum);
+    if(is_repeat == 0 || b_status->button_state == BUTTON_RELEASED)
+      return;
+    osDelay(66);
+  }
 }

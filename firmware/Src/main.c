@@ -524,7 +524,7 @@ void kb_scan_task(void const * argument)
   {
     HAL_IWDG_Refresh(&hiwdg);
     keyboard_update();
-    osDelay(30);
+    osDelay(16);
   }
   /* USER CODE END 5 */ 
 }

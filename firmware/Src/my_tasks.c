@@ -18,29 +18,28 @@ uint32_t last_keypress;
 void keypress_task_start(void const * argument)
 {
   while(init_complete == 0)
-    osDelay(10);
+    osDelay(16);
   for(;;)
   {
     for (int i = 0; i < KEY_COUNT; ++i)
       if(is_pressed(&button_status[i]))
       {
-
         last_keypress = HAL_GetTick();
         ssd1306_dim(0); // OLED back to full brightness
 
-        if(i < 15)
+        if(i <= KEY_14)
         {
           keydown_anime_start(i);
-          handle_keypress(i);
+          handle_keypress(i, &button_status[i]); // handle the button state inside here for repeats
           keydown_anime_end(i);
         }
-        else if(i == 21) // -
+        else if(i == KEY_BUTTON1) // -
           change_profile(PREV_PROFILE);
-        else if(i == 22) // +
+        else if(i == KEY_BUTTON2) // +
           change_profile(NEXT_PROFILE);
         service_press(&button_status[i]);
       }
-    osDelay(10);
+    osDelay(16);
   }
 }
 
