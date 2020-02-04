@@ -705,6 +705,7 @@ void handle_keypress(uint8_t keynum, but_status* b_status)
   uint32_t hold_start = HAL_GetTick();
   while(1)
   {
+    HAL_IWDG_Refresh(&hiwdg);
     keyboard_update();
     if(b_status->button_state == BUTTON_RELEASED)
       return;
@@ -714,6 +715,8 @@ void handle_keypress(uint8_t keynum, but_status* b_status)
 
   while(1)
   {
+    HAL_IWDG_Refresh(&hiwdg);
+    keyboard_update();
     keypress_wrap(keynum);
     if(b_status->button_state == BUTTON_RELEASED)
       return;

@@ -152,7 +152,6 @@ void error_animation(uint8_t stage)
 void keydown_anime_start(uint8_t idx)
 {
   led_start_animation(&neo_anime[idx], p_cache.individual_keydown_color[idx], ANIMATION_CROSS_FADE, 3);
-  osDelay(99);
 }
 
 void keydown_anime_end(uint8_t idx)

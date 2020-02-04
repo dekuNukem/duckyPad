@@ -32,6 +32,9 @@ void handle_keypress(uint8_t keynum, but_status* b_status)
   }
 }
 
+  if(p_cache.key_fn[keynum][0] == nonexistent_keyname[0])
+    return;
+
 
 delaying 2 seconds...
 donedelaying 2 seconds...
