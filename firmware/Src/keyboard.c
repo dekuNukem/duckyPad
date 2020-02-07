@@ -177,6 +177,8 @@ void media_key_press(uint8_t k)
   USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, KB_BUF_SIZE);
 }
 
+// adopted from arduino keyboard.c
+// can be found in resources folder
 void keyboard_press(uint8_t k, uint8_t use_mod)
 {
   uint8_t usage_id;

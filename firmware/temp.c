@@ -5,6 +5,9 @@ the key should be breathing
 32 frame lookup table
 after its done then fade back to background color
 */
+
+  printf("k: 0x%x, use_mod: %d\n", k, use_mod);
+  print_kb_buf();
  curr = goto_next_arg(curr, msg_end);
       p_cache.bg_color[0] = atoi(curr);
       curr = goto_next_arg(curr, msg_end);

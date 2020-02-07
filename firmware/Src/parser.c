@@ -253,7 +253,9 @@ uint8_t load_colors(char* pf_fn)
       is_unused_keys_dimmed = atoi(curr);
     }
   }
-
+  ret = PARSE_OK;
+  color_end:
+  f_close(&sd_file);
   if(is_unused_keys_dimmed)
   {
     for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
@@ -269,9 +271,6 @@ uint8_t load_colors(char* pf_fn)
       }
     }
   }
-  ret = PARSE_OK;
-  color_end:
-  f_close(&sd_file);
   return ret;
 }
 
@@ -446,7 +445,13 @@ uint8_t parse_special_key(char* msg)
 {
   if(msg == NULL)
     return 0;
-  if(strncmp(msg, cmd_F1, strlen(cmd_F1)) == 0)
+  if(strncmp(msg, cmd_F10, strlen(cmd_F10)) == 0)
+    return KEY_F10;
+  else if(strncmp(msg, cmd_F11, strlen(cmd_F11)) == 0)
+    return KEY_F11;
+  else if(strncmp(msg, cmd_F12, strlen(cmd_F12)) == 0)
+    return KEY_F12;
+  else if(strncmp(msg, cmd_F1, strlen(cmd_F1)) == 0)
     return KEY_F1;
   else if(strncmp(msg, cmd_F2, strlen(cmd_F2)) == 0)
     return KEY_F2;
@@ -464,12 +469,6 @@ uint8_t parse_special_key(char* msg)
     return KEY_F8;
   else if(strncmp(msg, cmd_F9, strlen(cmd_F9)) == 0)
     return KEY_F9;
-  else if(strncmp(msg, cmd_F10, strlen(cmd_F10)) == 0)
-    return KEY_F10;
-  else if(strncmp(msg, cmd_F11, strlen(cmd_F11)) == 0)
-    return KEY_F11;
-  else if(strncmp(msg, cmd_F12, strlen(cmd_F12)) == 0)
-    return KEY_F12;
   else if(strncmp(msg, cmd_UP, strlen(cmd_UP)) == 0)
     return KEY_UP_ARROW;
   else if(strncmp(msg, cmd_DOWN, strlen(cmd_DOWN)) == 0)
@@ -541,33 +540,44 @@ uint8_t parse_special_key(char* msg)
   return 0;
 }
 
-// able to press 3 keys at once
+// able to press 4 keys at once
 void parse_combo(char* line, uint8_t key)
 {
-  uint8_t spk1 = 0;
-  uint8_t spk2 = 0;
+  uint8_t special_key_1 = 0;
+  uint8_t special_key_2 = 0;
+  uint8_t special_key_3 = 0;
   char* line_end = line + strlen(line);
   char *arg1 = goto_next_arg(line, line_end);
   char *arg2 = goto_next_arg(arg1, line_end);
+  char *arg3 = goto_next_arg(arg2, line_end);
 
-  spk1 = parse_special_key(arg1);
-  if(arg1 != NULL && spk1 == 0)
-    spk1 = arg1[0];
+  special_key_1 = parse_special_key(arg1);
+  if(arg1 != NULL && special_key_1 == 0)
+    special_key_1 = arg1[0];
 
-  spk2 = parse_special_key(arg2);
-  if(arg2 != NULL && spk2 == 0)
-    spk2 = arg2[0];
+  special_key_2 = parse_special_key(arg2);
+  if(arg2 != NULL && special_key_2 == 0)
+    special_key_2 = arg2[0];
+
+	special_key_3 = parse_special_key(arg3);
+  if(arg3 != NULL && special_key_3 == 0)
+    special_key_3 = arg3[0];
 
   keyboard_press(key, 1);
   osDelay(char_delay);
   if(arg1 != NULL)
   {
-    keyboard_press(spk1, 0);
+    keyboard_press(special_key_1, 0);
     osDelay(char_delay);
   }
   if(arg2 != NULL)
   {
-    keyboard_press(spk2, 0);
+    keyboard_press(special_key_2, 0);
+    osDelay(char_delay);
+  }
+  if(arg3 != NULL)
+  {
+    keyboard_press(special_key_3, 0);
     osDelay(char_delay);
   }
   keyboard_release_all();
@@ -586,15 +596,15 @@ uint8_t parse_line(char* line)
 {
   uint8_t result = PARSE_OK;
 
-  for (int i = 0; i < strlen(line); ++i)
+  // cut off at line ending
+  for(int i = 0; i < strlen(line); ++i)
     if(line[i] == '\r' || line[i] == '\n')
       line[i] = 0;
 
   char* line_end = line + strlen(line);
-  char spk = parse_special_key(line);
-
-  if(spk != 0)
-    parse_combo(line, spk);
+  char special_key = parse_special_key(line);
+  if(special_key != 0)
+    parse_combo(line, special_key);
   else if(strncmp(cmd_NAME, line, strlen(cmd_NAME)) == 0)
     ;
   else if(strncmp(cmd_REM, line, strlen(cmd_REM)) == 0)
@@ -701,7 +711,6 @@ void keypress_wrap(uint8_t keynum)
 void handle_keypress(uint8_t keynum, but_status* b_status)
 {
   keypress_wrap(keynum);
-
   uint32_t hold_start = HAL_GetTick();
   while(1)
   {
