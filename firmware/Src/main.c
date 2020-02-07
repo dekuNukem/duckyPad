@@ -147,6 +147,7 @@ int main(void)
   MX_ADC_Init();
   MX_IWDG_Init();
   /* USER CODE BEGIN 2 */
+  printf("duckypad V2\ndekuNukem 2020\n");
   /* USER CODE END 2 */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -342,9 +343,9 @@ static void MX_IWDG_Init(void)
 {
 
   hiwdg.Instance = IWDG;
-  hiwdg.Init.Prescaler = IWDG_PRESCALER_32;
-  hiwdg.Init.Window = 2000;
-  hiwdg.Init.Reload = 2000;
+  hiwdg.Init.Prescaler = IWDG_PRESCALER_64;
+  hiwdg.Init.Window = 4095;
+  hiwdg.Init.Reload = 4095;
   if (HAL_IWDG_Init(&hiwdg) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
@@ -524,12 +525,14 @@ void kb_scan_task(void const * argument)
   }
 
   scan_profiles();
+  printf("scan_profiles done\n");
   // this line must be after scan_profiles()
   uint8_t last_profile = get_last_profile();
   if(last_profile == 0)
     change_profile(NEXT_PROFILE);
   else
     restore_profile(last_profile);
+  printf("load profile done\n");
   init_complete = 1;
   /* Infinite loop */
   for(;;)
