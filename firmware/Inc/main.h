@@ -10,7 +10,7 @@
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
-  * Copyright (c) 2019 STMicroelectronics International N.V. 
+  * Copyright (c) 2020 STMicroelectronics International N.V. 
   * All rights reserved.
   *
   * Redistribution and use in source and binary forms, with or without 
@@ -75,8 +75,9 @@
 #define BUTTON_1_GPIO_Port GPIOA
 #define BUTTON_2_Pin GPIO_PIN_2
 #define BUTTON_2_GPIO_Port GPIOA
-#define CARD_PRESENT_Pin GPIO_PIN_4
-#define CARD_PRESENT_GPIO_Port GPIOA
+#define CARD_DETECT_Pin GPIO_PIN_4
+#define CARD_DETECT_GPIO_Port GPIOA
+#define CARD_DETECT_EXTI_IRQn EXTI4_15_IRQn
 #define SD_CS_Pin GPIO_PIN_0
 #define SD_CS_GPIO_Port GPIOB
 #define SW1_Pin GPIO_PIN_13

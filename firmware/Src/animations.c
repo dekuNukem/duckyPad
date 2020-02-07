@@ -38,6 +38,16 @@ void shuffle(uint8_t *array, uint8_t array_size)
   }
 }
 
+void neopixel_off(void)
+{
+  memset(red_buf, 0, NEOPIXEL_COUNT);
+  memset(green_buf, 0, NEOPIXEL_COUNT);
+  memset(blue_buf, 0, NEOPIXEL_COUNT);
+  taskENTER_CRITICAL();
+  neopixel_show(red_buf, green_buf, blue_buf);
+  taskEXIT_CRITICAL();
+}
+
 void set_pixel_color(uint8_t which, uint8_t r, uint8_t g, uint8_t b)
 {
   red_buf[pixel_map[which]] = r;

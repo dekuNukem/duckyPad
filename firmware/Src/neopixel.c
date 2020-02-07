@@ -41,10 +41,3 @@ void neopixel_show(uint8_t* red, uint8_t* green, uint8_t* blue)
   HAL_SPI_Transmit(&hspi1, ws_reset_buf, NEOPIXEL_RESET_BUF_SIZE, 500);
   HAL_GPIO_WritePin(LED_DATA_EN_GPIO_Port, LED_DATA_EN_Pin, GPIO_PIN_RESET);
 }
-
-void spi_set_speed_neopixel(void)
-{
-  HAL_SPI_DeInit(&hspi1);
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
-  HAL_SPI_Init(&hspi1);
-}

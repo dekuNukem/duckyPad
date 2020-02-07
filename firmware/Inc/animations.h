@@ -35,6 +35,7 @@ void keydown_anime_start(uint8_t idx);
 void keydown_anime_end(uint8_t idx);
 void error_animation(uint8_t stage);
 void change_bg(void);
+void neopixel_off(void);
 
 #ifdef __cplusplus
 }
