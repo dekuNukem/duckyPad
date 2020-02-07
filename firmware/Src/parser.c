@@ -600,7 +600,7 @@ uint8_t parse_line(char* line)
   for(int i = 0; i < strlen(line); ++i)
     if(line[i] == '\r' || line[i] == '\n')
       line[i] = 0;
-
+  printf("this line: %s\n", line);
   char* line_end = line + strlen(line);
   char special_key = parse_special_key(line);
   if(special_key != 0)
@@ -662,7 +662,7 @@ void keypress_wrap(uint8_t keynum)
   sprintf(temp_buf, "/%s/%s", p_cache.profile_fn, p_cache.key_fn[keynum]);
   if(f_open(&sd_file, temp_buf, FA_READ) != 0)
     goto kp_end;
-
+  printf("\n---------\n");
   cmd_delay = DEFAULT_CMD_DELAY_MS;
   char_delay = DEFAULT_CHAR_DELAY_MS;
   while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)

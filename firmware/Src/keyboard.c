@@ -182,13 +182,11 @@ void media_key_press(uint8_t k)
 void keyboard_press(uint8_t k, uint8_t use_mod)
 {
   uint8_t usage_id;
-
   if(is_media_key(k))
   {
     media_key_press(k);
     return;
   }
-
   if(k >= 0x88)
     usage_id = k - 0x88;
   else if(k >= 0x80)
