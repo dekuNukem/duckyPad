@@ -236,8 +236,8 @@ uint8_t load_colors(char* pf_fn)
     }
     else if(strncmp(cmd_SWCOLOR, read_buffer, strlen(cmd_SWCOLOR)) == 0)
     {
-      uint8_t keynum = atoi(read_buffer + strlen(cmd_SWCOLOR));
-      if(keynum == 0 || keynum > MAX_PROFILES)
+      uint8_t keynum = atoi(read_buffer + strlen(cmd_SWCOLOR)) - 1;
+      if(keynum > MAX_PROFILES)
         continue;
       curr = goto_next_arg(curr, msg_end);
       p_cache.individual_key_color[keynum][0] = atoi(curr);
