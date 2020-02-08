@@ -54,13 +54,13 @@ void ssd1306_dim(uint8_t is_dim)
 		return;
 	if(is_dim)
 	{
-		printf("dim!\n");
+		// printf("dim!\n");
 		ssd1306_WriteCommand(SSD1306_SETCONTRAST);
 		ssd1306_WriteCommand(0x0);
 	}
 	else
 	{
-		printf("bright!\n");
+		// printf("bright!\n");
 		ssd1306_WriteCommand(SSD1306_SETCONTRAST);
 		ssd1306_WriteCommand(0x70);
 	}

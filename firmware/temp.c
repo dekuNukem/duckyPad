@@ -5,6 +5,14 @@ the key should be breathing
 32 frame lookup table
 after its done then fade back to background color
 */
+
+this line: TAB PAGEDOWN F12 CTRL 
+this line: F11 F1 END CONTROL 
+this line: ESCAPE INSERT F2 WINDOWS 
+this line: BREAK SCROLLLOCK DELETE CONTROL 
+this line: SHIFT DOWNARROW ESCAPE PAGEUP 
+
+
 void restore_profile(uint8_t profile_id)
 {
   printf("AAA\n");
