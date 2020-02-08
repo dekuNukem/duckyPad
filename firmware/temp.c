@@ -5,7 +5,18 @@ the key should be breathing
 32 frame lookup table
 after its done then fade back to background color
 */
-
+void restore_profile(uint8_t profile_id)
+{
+  printf("AAA\n");
+  load_profile(profile_id);
+  printf("BBB\n");
+  print_legend();
+  printf("CCC\n");
+  f_closedir(&dir);
+  printf("DDD\n");
+  f_close(&sd_file);
+  printf("AAA\n");
+}
   printf("k: 0x%x, use_mod: %d\n", k, use_mod);
   print_kb_buf();
  curr = goto_next_arg(curr, msg_end);
