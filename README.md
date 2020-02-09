@@ -2,9 +2,9 @@
 
 ![Alt text](resources/pics/title.jpg)
 
-duckypad is a mechanical keypad with OLED screen and 15 keys, each of which can execute a script when pressed.
+duckypad is a mechanical keypad with RGB backlight, OLED screen, and 15 keys. Each key can execute a script when pressed.
 
-The script can be as simple as shortcuts like `ctrl+c`, or as complex as [creating root backdoors](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---OSX-Root-Backdoor) or [grabbing passwords](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---download-mimikatz%2C-grab-passwords-and-email-them-via-gmail).
+The scripts can be as simple as shortcuts like `ctrl+c`, or as complex as [creating root backdoors](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---OSX-Root-Backdoor) or [grabbing passwords](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---download-mimikatz%2C-grab-passwords-and-email-them-via-gmail). It's all customizable by you.
 
 Multiple profiles are supported, for different programs/environments.
 
@@ -14,9 +14,9 @@ Multiple profiles are supported, for different programs/environments.
 * Individually addressable RGB backlights with animations
 * OLED screen displaying current profile and key functions
 * SD card script storage
-* USB-C connector
 * Standard duckyscript parsed onboard
 * Multiple profiles
+* USB-C connector
 
 ## Video
 
