@@ -125,6 +125,12 @@ Press the corresponding keys to execute their scripts, if there is an error it w
 
 Press +/- button to change profiles.
 
+## Using Autohotkey
+
+For even more extereme scripting needs, you can use [autohotkey](https://www.autohotkey.com) with duckyPad.
+
+Check out the [official tutorials](https://www.autohotkey.com/docs_1.0/Tutorial.htm), the [autohotkey profile](https://github.com/dekuNukem/duckypad/raw/master/sample_SD_card.zip), and a [sample autohotkey script](resources/duckypad_autohotkey_script.ahk) upon which you can tinker with. 
+
 ## USB Firmware Updates
 
 You can update duckypad's firmware via USB, for bug fixes and and/or new features. 
@@ -170,12 +176,6 @@ And now the firmware is being updated!
 It could take anywhere between a few seconds to a few minutes. Try using different USB ports if it is particularly slow. 
 
 After uploading is complete, unplug and plug it back in to start using the new firmware. 
-
-## Autohotkey Profile
-
-If duckyscript isn't enough, you can also use [autohotkey](https://www.autohotkey.com) with duckyPad for even more powerful scripting needs.
-
-Check out the [official tutorials](https://www.autohotkey.com/docs_1.0/Tutorial.htm), the [autohotkey profile](https://github.com/dekuNukem/duckypad/raw/master/sample_SD_card.zip), and here's a [sample autohotkey script](resources/duckypad_autohotkey_script.ahk) upon which you can tinker with. 
 
 ## Pretty Colors
 
