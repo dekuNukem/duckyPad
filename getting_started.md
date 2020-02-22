@@ -72,6 +72,7 @@ To set your custom backlight color, put the following lines **`AT THE BEGINNING`
 BG_COLOR 255 100 0
 KEYDOWN_COLOR 100 0 255
 ```
+
 BG_COLOR is the background color. The number should be between 0 and 255, in the order of R-G-B.
 
 Similarly, KEYDOWN_COLOR is the color of the key when you press it down.
@@ -80,10 +81,10 @@ If you skip this step, the default backlight color would be light purple.
 
 #### Dim Unused Keys
 
-If you want the backlight off for unused keys, add the following line in `config.txt`:
+By default unused keys are dimmed. If you want everything to light up, add the following line in `config.txt`:
 
 ```
-DIM_UNUSED_KEYS 1
+DIM_UNUSED_KEYS 0
 ```
 
 #### Individual Key Colors
@@ -172,7 +173,9 @@ After uploading is complete, unplug and plug it back in to start using the new f
 
 ## Autohotkey Profile
 
-Under construction...
+If duckyscript isn't enough, you can also use [autohotkey](https://www.autohotkey.com) with duckyPad for even more powerful scripting needs.
+
+Check out the [official tutorials](https://www.autohotkey.com/docs_1.0/Tutorial.htm), the [autohotkey profile](https://github.com/dekuNukem/duckypad/raw/master/sample_SD_card.zip), and here's a [sample autohotkey script](resources/duckypad_autohotkey_script.ahk) upon which you can tinker with. 
 
 ## Pretty Colors
 
