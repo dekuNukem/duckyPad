@@ -19,7 +19,15 @@ use the same white button of DFU/RST for plus minus
 remember last selected profile
 dim OLED after 2 minutes to prevent burn-in
 key aliases in ducky script now supported
-no longer needs back plate, rubber feet on PCB, piece of paper tape over OLED ribbon cable
+no longer needs back plate, rubber feet on PCB, insulating tape over OLED ribbon cable
+changed name to duckyPad
+
+reboots when SD card is inserted or removed while powered on
+turns off all backlights when starting
+repeats the script if key is held down
+fixed a few parsing bugs
+added dim unused keys option
+added individual key colors option
 
 TODO:
 add APP/MENU button support
@@ -31,12 +39,4 @@ oled socket midpoint: 7.25mm
 oled socket pos (mil): 2860 1890
 
 
-
-software:
-reboots when SD card is inserted or removed while powered on
-turns off all backlights when starting
-repeats the script if button is held down
-fixed a few parsing bugs
-added dim unused keys option
-added individual key colors option
 
