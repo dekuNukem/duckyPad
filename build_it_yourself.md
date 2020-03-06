@@ -82,6 +82,6 @@ Remember to make sure the entire board is working before you solder the switches
 
 ## Technical notes
 
-The microcontroller used here is a STM32F072C8T6, my go-to chip when doing not-too-demanding projects like this. It costs less than a dollar, has more peripherals, pins, and is faster than any old aduinos can dream of. ST provides a free Keil MDK license for all F0 parts, and there are also completely open source toolchains like arm-gcc.
+The microcontroller used here is a STM32F072C8T6. It costs less than a dollar, has more peripherals, pins, and is faster than any old Aduinos. ST provides a free Keil MDK license for all F0 parts, and there are also completely open source toolchains like arm-gcc.
 
 One interesting design detail is the RGB LED. The WS2812(and its clones) requires a rather high data rate, and Arduino library achieve this by bitbanging in assembly. However the ARM processor in STM32 have some funky pipeline and caches, making asm timing somewhat unreliable. As a result I used SPI for LED control. By selecting the right speed and the right data on the MISO line, you can have the waveform that look exactly like what WS2812 requires. In this case sending 0xf8 at 8MHz is bit 1, and sending 0xc0 results in a bit 0. Since SPI is also used by SD card, an AND gate is added between MOSI and WS2812 input so the LED command is insulated when SD card is active.
