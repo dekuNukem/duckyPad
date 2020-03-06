@@ -176,6 +176,7 @@ uint8_t load_colors(char* pf_fn)
   char *curr, *msg_end;
   uint8_t ret;
   uint8_t is_unused_keys_dimmed = 1;
+  uint8_t has_user_kd = 0;
 
   for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
   {
@@ -217,6 +218,13 @@ uint8_t load_colors(char* pf_fn)
         p_cache.individual_key_color[i][0] = rrr;
         p_cache.individual_key_color[i][1] = ggg;
         p_cache.individual_key_color[i][2] = bbb;
+
+        if(has_user_kd == 0)
+        {
+          p_cache.individual_keydown_color[i][0] = 255 - rrr;
+          p_cache.individual_keydown_color[i][1] = 255 - ggg;
+          p_cache.individual_keydown_color[i][2] = 255 - bbb;
+        }
       }
     }
     else if(strncmp(cmd_KD_COLOR, read_buffer, strlen(cmd_KD_COLOR)) == 0)
@@ -233,6 +241,7 @@ uint8_t load_colors(char* pf_fn)
         p_cache.individual_keydown_color[i][1] = ggg;
         p_cache.individual_keydown_color[i][2] = bbb;
       }
+      has_user_kd = 1;
     }
     else if(strncmp(cmd_SWCOLOR, read_buffer, strlen(cmd_SWCOLOR)) == 0)
     {
@@ -241,10 +250,18 @@ uint8_t load_colors(char* pf_fn)
         continue;
       curr = goto_next_arg(curr, msg_end);
       p_cache.individual_key_color[keynum][0] = atoi(curr);
+      if(has_user_kd == 0)
+        p_cache.individual_keydown_color[keynum][0] = 255 - atoi(curr);
+
       curr = goto_next_arg(curr, msg_end);
       p_cache.individual_key_color[keynum][1] = atoi(curr);
+      if(has_user_kd == 0)
+        p_cache.individual_keydown_color[keynum][1] = 255 - atoi(curr);
+
       curr = goto_next_arg(curr, msg_end);
       p_cache.individual_key_color[keynum][2] = atoi(curr);
+      if(has_user_kd == 0)
+        p_cache.individual_keydown_color[keynum][2] = 255 - atoi(curr);
     }
 
     else if(strncmp(cmd_DIM_UNUSED_KEYS, read_buffer, strlen(cmd_DIM_UNUSED_KEYS)) == 0)

@@ -3,8 +3,8 @@ import random
 import colorsys
 from PIL import Image, ImageDraw
 
-start_color = (255, 0, 0)
-end_color = (0, 0, 255)
+start_color = (255, 100, 0)
+end_color = (255, 0, 255)
 
 rstep = (end_color[0] - start_color[0]) / 14
 gstep = (end_color[1] - start_color[1]) / 14

@@ -67,7 +67,11 @@ void led_animation_handler(void)
     if(neo_anime[idx].animation_type == ANIMATION_NO_ANIMATION)
       continue;
     else if(neo_anime[idx].animation_type == ANIMATION_FULLY_ON)
+    {
+      for (int i = 0; i < THREE; ++i)
+        neo_anime[idx].current_color[i] = neo_anime[idx].target_color[i];
       set_pixel_color(neo_anime[idx].index, neo_anime[idx].target_color[0], neo_anime[idx].target_color[1], neo_anime[idx].target_color[2]);
+    }
     else if(neo_anime[idx].animation_type == ANIMATION_CROSS_FADE)
     {
       if(current_frame <= neo_anime[idx].animation_duration)
@@ -161,10 +165,10 @@ void error_animation(uint8_t stage)
 
 void keydown_anime_start(uint8_t idx)
 {
-  led_start_animation(&neo_anime[idx], p_cache.individual_keydown_color[idx], ANIMATION_CROSS_FADE, 3);
+  led_start_animation(&neo_anime[idx], p_cache.individual_keydown_color[idx], ANIMATION_FULLY_ON, 5);
 }
 
 void keydown_anime_end(uint8_t idx)
 {
-	led_start_animation(&neo_anime[idx], p_cache.individual_key_color[idx], ANIMATION_CROSS_FADE, 50);
+  led_start_animation(&neo_anime[idx], p_cache.individual_key_color[idx], ANIMATION_CROSS_FADE, 50);
 }
