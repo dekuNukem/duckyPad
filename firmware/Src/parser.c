@@ -8,8 +8,8 @@
 #include "keyboard.h"
 #include "animations.h"
 
-#define DEFAULT_CMD_DELAY_MS 10
-#define DEFAULT_CHAR_DELAY_MS 10
+#define DEFAULT_CMD_DELAY_MS 17
+#define DEFAULT_CHAR_DELAY_MS 17
 
 static const uint8_t col_lookup[7][3] = {  
    {18, 60, 103},
@@ -609,6 +609,14 @@ uint16_t get_arg(char* line)
   return atoi(arg);
 }
 
+uint8_t is_empty_line(char* line)
+{
+  for (int i = 0; i < strlen(line); ++i)
+    if(line[i] != ' ' && line[i] != '\t' && line[i] != '\n' && line[i] != '\r')
+      return 0;
+  return 1;
+}
+
 uint8_t parse_line(char* line)
 {
   uint8_t result = PARSE_OK;
@@ -620,7 +628,10 @@ uint8_t parse_line(char* line)
   // printf("this line: %s\n", line);
   char* line_end = line + strlen(line);
   char special_key = parse_special_key(line);
-  if(special_key != 0)
+
+  if(is_empty_line(line))
+    result = PARSE_EMPTY_LINE;
+  else if(special_key != 0)
     parse_combo(line, special_key);
   else if(strncmp(cmd_NAME, line, strlen(cmd_NAME)) == 0)
     ;
@@ -660,8 +671,6 @@ uint8_t parse_line(char* line)
     }
     char_delay = argg;
   }
-  else if(strlen(line) <= 2)
-    result = PARSE_EMPTY_LINE;
   else
     result = PARSE_ERROR;
 
