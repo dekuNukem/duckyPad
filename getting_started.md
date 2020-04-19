@@ -1,10 +1,10 @@
-# Getting Started with duckypad
+# Getting Started with duckyPad
 
-Congratulations on your new toy! Here is a short guide on how to use your duckypad.
+Congratulations on your new toy! Here is a short guide on how to use your duckyPad.
 
 ## Quick Start
 
-Your duckyPad should come with a SD card already installed, containing some sample profiles.
+Your duckyPad should come with a SD card already installed, containing some demo profiles.
 
 Simply plug it into your computer, and voilà:
 
@@ -30,19 +30,21 @@ To remove the SD card, push it inwards to unlock.
 
 ## Customizing Your Own Scripts
 
-Chances are you want to write your own profiles and scripts. So here's how! 
+Chances are you want to use your own scripts. So here's how! 
 
-(don't forget you can always use [existing examples](https://github.com/dekuNukem/duckypad/raw/master/sample_SD_card.zip) as a starting point)
+(remember you can always play with [existing examples on the SD card](https://github.com/dekuNukem/duckypad/raw/master/sample_SD_card.zip) as a starting point)
 
 ### Step 1: Preparing Profiles
 
-Eject the SD card and mount it on your computer with an SD card reader.
+Profile contains a group of scripts corresponding to the keys on the duckyPad. Usually you would want to set up one profile per program you want to control. 
 
-You should see some folders, those are profiles. Profiles contains the script for each keypresses, and usually you set up a profile for each program you want to control.
+Profiles are created as folders at the **root level** of the SD card. They have naming conventions like `profile#_name`, where `#` is the profile number, and `name` being the name of the profile.
 
-Profiles are created as folders, with naming conventions like `profile#_name`, where `#` is the profile number, and `name` being the name of the profile. Up to 16 profiles are supported. Here are some examples:
+If you mount the SD card on your computer, you might see some examples like these:
 
 ![Alt text](resources/pics/profile_examples.png)
+
+Feel free to create more or delete the ones you don't need. Up to 16 profiles are supported.
 
 ### Step 2: Preparing Scripts
 
@@ -54,13 +56,15 @@ Here are some examples:
 
 ![Alt text](resources/pics/key_scripts.png)
 
+* It helps to take a look at those examples before writing your own
+
 * The screen will only display the **first 7 characters** of the key name, so keep it short!
 
 * You can leave gaps in the key numbering (such as only defining key 1, 2, 6, 12, 15, etc)
 
 ### Step 3: Optional Parameters
 
-Here are some optional settings you can adjust. You don't have to do it, but it will look better if you do.
+There are also some optional settings you can adjust. You don't have to do it, but it will look better if you do.
 
 Simply create a file named `config.txt` in a profile folder like this:
 
@@ -76,6 +80,8 @@ KEYDOWN_COLOR 100 0 255
 ```
 
 BG_COLOR is the background color. The number should be between 0 and 255, in the order of R-G-B.
+
+Can't decide? Use [this website](https://www.w3schools.com/colors/colors_picker.asp) to try some out. Use the `rgb()` value of each colour.
 
 Similarly, KEYDOWN_COLOR is the color of the key when you press it down.
 
@@ -119,7 +125,7 @@ The above result in a pretty rainbow:
 
 ### Step 4: Run it!
 
-Just like before, make sure the SD card is formatted in FAT32, put all the profile folders in the root of the SD card, and insert it in your duckypad.
+Just like before, make sure the SD card is formatted in FAT32, copy all the profile folders in the root of the SD card, and insert it in your duckyPad.
 
 duckypad should start up with the first profile, displaying the profile names and key names, as well as the background color.
 
@@ -129,13 +135,13 @@ Press +/- button to change profiles.
 
 ## Using Autohotkey
 
-For even more extreme scripting needs, you can use [autohotkey](https://www.autohotkey.com) with duckyPad.
+You can use [autohotkey](https://www.autohotkey.com) for even more extreme scripting needs, such as invoking complex scripts, or control mouse moments, etc.
 
 Check out the [official tutorials](https://www.autohotkey.com/docs_1.0/Tutorial.htm), the [autohotkey profile](https://github.com/dekuNukem/duckypad/raw/master/sample_SD_card.zip), and a [sample autohotkey script](resources/duckypad_autohotkey_script.ahk) upon which you can tinker with. 
 
 ## USB Firmware Updates
 
-You can update duckypad's firmware via USB, for bug fixes and and/or new features. 
+You can update duckyPad's firmware via USB, for bug fixes and and/or new features. 
 
 To do this, download and install the [STM32 DfuSe tool](resources/en.stsw-stm32080_stm32_DfuSe.zip) from this repo. You can download it from [the official website](https://www.st.com/en/development-tools/stsw-stm32080.html) too, but it requires creating an account.
 
