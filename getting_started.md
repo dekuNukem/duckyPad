@@ -16,7 +16,7 @@ Simply plug it into your computer, and voilà:
 
 ## Quick word on SD card
 
-All duckyPad scripts are stored on a microSD card. One comes installed, but you can also use your own.
+All duckyPad scripts are stored on a microSD card, which comes installed. But of course you can also use your own.
 
 To use a new SD card, it needs to be formatted in FAT32, with `Default allocation size`:
 
@@ -28,7 +28,7 @@ To insert a SD card, Slide it into the slot logo side up, push inwards until it 
 
 To remove the SD card, push it inwards to unlock.
 
-## Customizing Your Own Scripts
+## Writing Your Own Scripts
 
 Chances are you want to use your own scripts. So here's how! 
 
@@ -36,7 +36,7 @@ Chances are you want to use your own scripts. So here's how!
 
 ### Step 1: Preparing Profiles
 
-Profile contains a group of scripts corresponding to the keys on the duckyPad. Usually you would want to set up one profile per program you want to control. 
+A *Profile* contains a group of scripts corresponding to the keys on the duckyPad. Usually you would want to set up one profile per program you want to control. 
 
 Profiles are created as folders at the **root level** of the SD card. They have naming conventions like `profile#_name`, where `#` is the profile number, and `name` being the name of the profile.
 
@@ -81,7 +81,7 @@ KEYDOWN_COLOR 100 0 255
 
 BG_COLOR is the background color. The number should be between 0 and 255, in the order of R-G-B.
 
-Can't decide? Use [this website](https://www.w3schools.com/colors/colors_picker.asp) to try some out. Use the `rgb()` value of each colour.
+* Can't decide? Use [this website](https://www.w3schools.com/colors/colors_picker.asp) to try some out. Use the `rgb()` value of each colour.
 
 Similarly, KEYDOWN_COLOR is the color of the key when you press it down.
 
