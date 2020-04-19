@@ -4,29 +4,29 @@ Congratulations on your new toy! Here is a short guide on how to use your duckyp
 
 ## Quick Start
 
-You need a micro SD card to store the scripts from which duckypad will execute. Any old ones would do.
+Your duckyPad should come with a SD card already installed, containing some sample profiles.
 
-Format it in FAT32, with `Default allocation size`:
-
-![Alt text](resources/pics/format.PNG)
-
-Afterwards, [Click here](https://github.com/dekuNukem/duckypad/raw/master/sample_SD_card.zip) to download some sample profiles. Extract everything into the root of SD card:
-
-![Alt text](resources/pics/sd_card.PNG)
-
-Eject the SD card and insert it in duckypad. Logo side up, push inwards until it clicks in place:
-
-![Alt text](resources/pics/sd_slot.jpg)
-
-Plug it in, and voilà:
+Simply plug it into your computer, and voilà:
 
 ![Alt text](resources/pics/firefox_example.JPG)
 
-* Press a key to execute the corresponding script. Hold it down to repeat.
-
 * Use `+` and `-` button to switch profiles.
 
-* To remove the SD card, push inwards to unlock.
+* Press a key to execute the corresponding script. Hold it down to repeat.
+
+## Quick word on SD card
+
+All duckyPad scripts are stored on a microSD card. One comes installed, but you can also use your own.
+
+To use a new SD card, it needs to be formatted in FAT32, with `Default allocation size`:
+
+![Alt text](resources/pics/format.PNG)
+
+To insert a SD card, Slide it into the slot logo side up, push inwards until it clicks in place:
+
+![Alt text](resources/pics/sd_slot.jpg)
+
+To remove the SD card, push it inwards to unlock.
 
 ## Customizing Your Own Scripts
 
@@ -36,11 +36,13 @@ Chances are you want to write your own profiles and scripts. So here's how!
 
 ### Step 1: Preparing Profiles
 
-Profiles are created as folders, with naming conventions like `profile#_name`, where `#` is the profile number, and `name` being the name of the profile. Here are some examples:
+Eject the SD card and mount it on your computer with an SD card reader.
+
+You should see some folders, those are profiles. Profiles contains the script for each keypresses, and usually you set up a profile for each program you want to control.
+
+Profiles are created as folders, with naming conventions like `profile#_name`, where `#` is the profile number, and `name` being the name of the profile. Up to 16 profiles are supported. Here are some examples:
 
 ![Alt text](resources/pics/profile_examples.png)
-
-* Currently 16 profiles are supported
 
 ### Step 2: Preparing Scripts
 
@@ -117,7 +119,7 @@ The above result in a pretty rainbow:
 
 ### Step 4: Run it!
 
-Just like before, format the SD card in FAT32, put all the profile folders in the root of the SD card, and insert it in your duckypad.
+Just like before, make sure the SD card is formatted in FAT32, put all the profile folders in the root of the SD card, and insert it in your duckypad.
 
 duckypad should start up with the first profile, displaying the profile names and key names, as well as the background color.
 
@@ -127,7 +129,7 @@ Press +/- button to change profiles.
 
 ## Using Autohotkey
 
-For even more extereme scripting needs, you can use [autohotkey](https://www.autohotkey.com) with duckyPad.
+For even more extreme scripting needs, you can use [autohotkey](https://www.autohotkey.com) with duckyPad.
 
 Check out the [official tutorials](https://www.autohotkey.com/docs_1.0/Tutorial.htm), the [autohotkey profile](https://github.com/dekuNukem/duckypad/raw/master/sample_SD_card.zip), and a [sample autohotkey script](resources/duckypad_autohotkey_script.ahk) upon which you can tinker with. 
 
