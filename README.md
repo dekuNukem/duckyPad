@@ -1,4 +1,4 @@
-# duckyPad: Do-it-all Mechanical Macropad
+# duckyPad: Do-It-All Mechanical Macropad
 
 ![Alt text](resources/pics/title.jpg)
 
@@ -30,7 +30,7 @@ Please see [Purchase Information](./purchase_information.md).
 * Experiment with [badUSB attacks](https://arstechnica.com/information-technology/2014/07/this-thumbdrive-hacks-computers-badusb-exploit-makes-devices-turn-evil/) 
 * Switch scenes during streaming
 * Launch your favourite apps
-* ...do anything you can think of with a single keypress
+* ...do anything you can think of with a single keypress!
 
 ## Examples
 

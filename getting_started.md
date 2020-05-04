@@ -135,7 +135,7 @@ Press +/- button to change profiles.
 
 ## Using Autohotkey
 
-You can use [autohotkey](https://www.autohotkey.com) for even more extreme scripting needs, such as invoking complex scripts, or control mouse moments, etc.
+You can use [autohotkey](https://www.autohotkey.com) for even more sophisticated scripting needs, such as launching apps, or control mouse moments, etc.
 
 Check out the [official tutorials](https://www.autohotkey.com/docs_1.0/Tutorial.htm), the [autohotkey profile](https://github.com/dekuNukem/duckypad/raw/master/sample_SD_card.zip), and a [sample autohotkey script](resources/duckypad_autohotkey_script.ahk) upon which you can tinker with. 
 
