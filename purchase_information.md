@@ -106,6 +106,12 @@ Questions or comments? You can reach me with the same email, and I'll do my best
 
 After receiving your duckyPad, please see [this guide](./getting_started.md) on how to use it.
 
+## Feedback Wanted!
+
+If you do get one, I'd love to hear how you think of this product.
+
+Your feedback would be immensely helpful in improving this project in preparation for a wider launch!
+
 ## Questions or Comments?
 
 Please feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), or email `dekuNukem`@`gmail`.`com` for inquires.
