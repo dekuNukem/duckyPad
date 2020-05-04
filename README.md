@@ -18,10 +18,9 @@ Please see [Purchase Information](./purchase_information.md).
 
 * 15 mechanical switches
 * Individually addressable RGB backlights, fully customisable
-* Up to 16 profiles supported for 240 actions
+* Up to 16 profiles supported for 240 scripts
 * OLED screen displaying current profile and key functions
-* SD card script storage
-* Standard [duckyscript](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Duckyscript) parsed onboard
+* Standard [duckyscript](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Duckyscript) parsed from SD card
 * USB-C connector
 * No driver needed
 
@@ -31,7 +30,7 @@ Please see [Purchase Information](./purchase_information.md).
 * Experiment with [badUSB attacks](https://arstechnica.com/information-technology/2014/07/this-thumbdrive-hacks-computers-badusb-exploit-makes-devices-turn-evil/) 
 * Switch scenes during streaming
 * Launch your favourite apps
-* ... Do anything you can think of with a single keypress
+* ...do anything you can think of with a single keypress
 
 ## Examples
 
