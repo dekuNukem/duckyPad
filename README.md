@@ -8,11 +8,9 @@ When pressed, each key executes a user-defined script from an SD card.
 
 The scripts can be as simple as shortcuts like `ctrl+c`, or as complex as [creating root backdoors](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---OSX-Root-Backdoor) or [grabbing passwords](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---download-mimikatz%2C-grab-passwords-and-email-them-via-gmail). All customizable by you.
 
-Up to 16 profiles are supported, for a total of 240 actions.
-
 duckyPad offers limitless possibilities to consolidate and customise your workflows.
 
-## Buy duckyPad!
+## Get a duckyPad!
 
 Please see [Purchase Information](./purchase_information.md).
 
