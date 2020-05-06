@@ -1,5 +1,9 @@
 # Purchasing a duckyPad
 
+[Main Page](/README.md)
+
+------
+
 Thanks for considering to support this project!
 
 I was actually planning a kickstarter earlier this year (2020), but with the coronavirus situation, launching the campaign right now doesn't seem to be the best timing.

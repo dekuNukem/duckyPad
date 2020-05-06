@@ -1,6 +1,14 @@
 # Getting Started with duckyPad
 
+[Main Page](/README.md) | [Buy duckyPad](/purchase_information.md)
+
+------
+
 Congratulations on your new toy! Here is a short guide on how to use your duckyPad.
+
+## Kit Assembly
+
+If your duckyPad has not been assembled yet, [see this guide](/kit_assembly_guide.md) to put it together.
 
 ## Quick Start
 
