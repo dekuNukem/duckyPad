@@ -3932,6 +3932,42 @@ by exp-lbrs.ulp</description>
 <text x="-3.556" y="-1.524" size="1.27" layer="21">+</text>
 <text x="2.794" y="-1.397" size="1.27" layer="21">o</text>
 </package>
+<package name="WS2812B">
+<circle x="0" y="0" radius="1.7204625" width="0.127" layer="21"/>
+<wire x1="2.5" y1="-2.5" x2="-2.5" y2="-2.5" width="0.127" layer="21"/>
+<wire x1="-2.5" y1="-2.5" x2="-2.5" y2="1.6" width="0.127" layer="21"/>
+<wire x1="-2.5" y1="1.6" x2="-2.5" y2="2.5" width="0.127" layer="21"/>
+<wire x1="-2.5" y1="2.5" x2="-1.6" y2="2.5" width="0.127" layer="21"/>
+<wire x1="-1.6" y1="2.5" x2="2.5" y2="2.5" width="0.127" layer="21"/>
+<wire x1="2.5" y1="2.5" x2="2.5" y2="-2.5" width="0.127" layer="21"/>
+<wire x1="-2.5" y1="1.6" x2="-1.6" y2="2.5" width="0.127" layer="21"/>
+<wire x1="-1.6" y1="2.5" x2="-1.3" y2="2.8" width="0.127" layer="21"/>
+<wire x1="-1.3" y1="2.8" x2="-1.7" y2="3.2" width="0.127" layer="21"/>
+<wire x1="-1.7" y1="3.2" x2="-2.5" y2="2.5" width="0.127" layer="21"/>
+<smd name="1-VDD" x="2.45" y="-1.65" dx="1.5" dy="0.9" layer="1" rot="R180"/>
+<smd name="2-DOUT" x="2.45" y="1.65" dx="1.5" dy="0.9" layer="1" rot="R180"/>
+<smd name="3-GND" x="-2.45" y="1.65" dx="1.5" dy="0.9" layer="1" rot="R180"/>
+<smd name="4-DIN" x="-2.45" y="-1.65" dx="1.5" dy="0.9" layer="1" rot="R180"/>
+<text x="3.4925" y="1.5875" size="0.8128" layer="25" ratio="10" rot="R270">&gt;NAME</text>
+</package>
+<package name="WS2812B-NARROW">
+<circle x="0" y="0" radius="1.7204625" width="0.127" layer="21"/>
+<wire x1="2.5" y1="-2.5" x2="-2.5" y2="-2.5" width="0.127" layer="21"/>
+<wire x1="-2.5" y1="-2.5" x2="-2.5" y2="1.6" width="0.127" layer="21"/>
+<wire x1="-2.5" y1="1.6" x2="-2.5" y2="2.5" width="0.127" layer="21"/>
+<wire x1="-2.5" y1="2.5" x2="-1.6" y2="2.5" width="0.127" layer="21"/>
+<wire x1="-1.6" y1="2.5" x2="2.5" y2="2.5" width="0.127" layer="21"/>
+<wire x1="2.5" y1="2.5" x2="2.5" y2="-2.5" width="0.127" layer="21"/>
+<wire x1="-2.5" y1="1.6" x2="-1.6" y2="2.5" width="0.127" layer="21"/>
+<wire x1="-1.6" y1="2.5" x2="-1.25" y2="2.85" width="0.127" layer="21"/>
+<wire x1="-1.25" y1="2.85" x2="-1.7" y2="3.3" width="0.127" layer="21"/>
+<wire x1="-1.7" y1="3.3" x2="-2.5" y2="2.5" width="0.127" layer="21"/>
+<smd name="1-VDD" x="2.35" y="-1.65" dx="1.3" dy="1.2" layer="1" rot="R180"/>
+<smd name="2-DOUT" x="2.35" y="1.65" dx="1.3" dy="1.2" layer="1" rot="R180"/>
+<smd name="3-GND" x="-2.35" y="1.65" dx="1.3" dy="1.2" layer="1" rot="R180"/>
+<smd name="4-DIN" x="-2.35" y="-1.65" dx="1.3" dy="1.2" layer="1" rot="R180"/>
+<text x="3.4925" y="1.5875" size="0.8128" layer="25" ratio="10" rot="R270">&gt;NAME</text>
+</package>
 <package name="LUL_UG-2864HSWEG01_1.3_WRAPAROUND">
 <smd name="1" x="-7.25" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
 <smd name="2" x="-6.75" y="0" dx="1.28" dy="0.31" layer="16" rot="R90"/>
@@ -3967,17 +4003,6 @@ by exp-lbrs.ulp</description>
 <text x="7.99" y="1.016" size="0.8128" layer="52" font="vector" rot="R90">30</text>
 <smd name="31" x="-9.45" y="-2.24" dx="3" dy="3.5" layer="16" rot="R90"/>
 <smd name="32" x="9.4" y="-2.24" dx="3" dy="3.5" layer="16" rot="R90"/>
-</package>
-<package name="REVERSE_MNT">
-<smd name="VDD" x="2.5" y="-0.75" dx="0.82" dy="1.8" layer="16" rot="R270"/>
-<smd name="DOUT" x="2.5" y="0.75" dx="0.82" dy="1.8" layer="16" rot="R270"/>
-<smd name="GND" x="-2.5" y="0.75" dx="0.82" dy="1.8" layer="16" rot="R270"/>
-<smd name="DIN" x="-2.5" y="-0.75" dx="0.82" dy="1.8" layer="16" rot="R270"/>
-<text x="4" y="0.75" size="1.27" layer="22" rot="R180" align="center">o</text>
-<text x="4" y="-0.75" size="1.27" layer="22" rot="R180" align="center">+</text>
-<text x="-4" y="-0.75" size="1.27" layer="22" rot="R180" align="center">i</text>
-<text x="-4" y="0.75" size="1.27" layer="22" rot="R180" align="center">-</text>
-<rectangle x1="-1.65" y1="-1.45" x2="1.65" y2="1.45" layer="46" rot="R180"/>
 </package>
 </packages>
 <symbols>
@@ -4105,12 +4130,23 @@ by exp-lbrs.ulp</description>
 <technology name=""/>
 </technologies>
 </device>
-<device name="" package="REVERSE_MNT">
+<device name="5050" package="WS2812B">
 <connects>
-<connect gate="G$1" pin="DI" pad="DIN"/>
-<connect gate="G$1" pin="DO" pad="DOUT"/>
-<connect gate="G$1" pin="GND" pad="GND"/>
-<connect gate="G$1" pin="VDD" pad="VDD"/>
+<connect gate="G$1" pin="DI" pad="4-DIN"/>
+<connect gate="G$1" pin="DO" pad="2-DOUT"/>
+<connect gate="G$1" pin="GND" pad="3-GND"/>
+<connect gate="G$1" pin="VDD" pad="1-VDD"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="_5050N" package="WS2812B-NARROW">
+<connects>
+<connect gate="G$1" pin="DI" pad="4-DIN"/>
+<connect gate="G$1" pin="DO" pad="2-DOUT"/>
+<connect gate="G$1" pin="GND" pad="3-GND"/>
+<connect gate="G$1" pin="VDD" pad="1-VDD"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -5062,22 +5098,22 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <part name="R17" library="clock" deviceset="RESISTOR" device="0805-RES" value="10K"/>
 <part name="GND45" library="backplane" deviceset="GND" device=""/>
 <part name="GND19" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="LED1" library="lul" deviceset="WS2812B" device="" value="WS2812B"/>
+<part name="LED1" library="lul" deviceset="WS2812B" device="3535"/>
 <part name="GND1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="LED2" library="lul" deviceset="WS2812B" device="" value="WS2812B"/>
-<part name="LED3" library="lul" deviceset="WS2812B" device="" value="WS2812B"/>
-<part name="LED4" library="lul" deviceset="WS2812B" device="" value="WS2812B"/>
-<part name="LED5" library="lul" deviceset="WS2812B" device="" value="WS2812B"/>
-<part name="LED6" library="lul" deviceset="WS2812B" device="" value="WS2812B"/>
-<part name="LED7" library="lul" deviceset="WS2812B" device="" value="WS2812B"/>
-<part name="LED8" library="lul" deviceset="WS2812B" device="" value="WS2812B"/>
-<part name="LED9" library="lul" deviceset="WS2812B" device="" value="WS2812B"/>
-<part name="LED10" library="lul" deviceset="WS2812B" device="" value="WS2812B"/>
-<part name="LED11" library="lul" deviceset="WS2812B" device="" value="WS2812B"/>
-<part name="LED12" library="lul" deviceset="WS2812B" device="" value="WS2812B"/>
-<part name="LED13" library="lul" deviceset="WS2812B" device="" value="WS2812B"/>
-<part name="LED14" library="lul" deviceset="WS2812B" device="" value="WS2812B"/>
-<part name="LED15" library="lul" deviceset="WS2812B" device="" value="WS2812B"/>
+<part name="LED2" library="lul" deviceset="WS2812B" device="3535"/>
+<part name="LED3" library="lul" deviceset="WS2812B" device="3535"/>
+<part name="LED4" library="lul" deviceset="WS2812B" device="3535"/>
+<part name="LED5" library="lul" deviceset="WS2812B" device="3535"/>
+<part name="LED6" library="lul" deviceset="WS2812B" device="3535"/>
+<part name="LED7" library="lul" deviceset="WS2812B" device="3535"/>
+<part name="LED8" library="lul" deviceset="WS2812B" device="3535"/>
+<part name="LED9" library="lul" deviceset="WS2812B" device="3535"/>
+<part name="LED10" library="lul" deviceset="WS2812B" device="3535"/>
+<part name="LED11" library="lul" deviceset="WS2812B" device="3535"/>
+<part name="LED12" library="lul" deviceset="WS2812B" device="3535"/>
+<part name="LED13" library="lul" deviceset="WS2812B" device="3535"/>
+<part name="LED14" library="lul" deviceset="WS2812B" device="3535"/>
+<part name="LED15" library="lul" deviceset="WS2812B" device="3535"/>
 <part name="+3V11" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="+3V12" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="+3V13" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
