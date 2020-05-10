@@ -22,29 +22,23 @@ Simply plug it into your computer, and voilà:
 
 * Press a key to execute the corresponding script. Hold it down to repeat.
 
-## Quick word on SD card
+## Writing Your Own Scripts
 
-All duckyPad scripts are stored on a microSD card, which comes installed. But of course you can also use your own.
+Chances are you want to write your own scripts. So here's how! 
 
-To use a new SD card, it needs to be formatted in FAT32, with `Default allocation size`:
+### Step 0: Notes on SD Card
 
-![Alt text](resources/pics/format.PNG)
-
-To insert a SD card, Slide it into the slot logo side up, push inwards until it clicks in place:
+To insert the SD card, Slide it into the slot logo side up, push inwards until it clicks in place:
 
 ![Alt text](resources/pics/sd_slot.jpg)
 
 To remove the SD card, push it inwards to unlock.
 
-## Writing Your Own Scripts
-
-Chances are you want to use your own scripts. So here's how! 
-
-(remember you can always play with [existing examples on the SD card](https://github.com/dekuNukem/duckypad/raw/master/sample_profiles.zip) as a starting point)
+The SD card should be in [FAT32 format](resources/pics/format.PNG).
 
 ### Step 1: Preparing Profiles
 
-A *Profile* contains a group of scripts corresponding to the keys on the duckyPad. Usually you would want to set up one profile per program you want to control. 
+A *Profile* contains a group of scripts corresponding to the keys on the duckyPad. Usually you want to set up one profile per program you want to control.
 
 Profiles are created as folders at the **root level** of the SD card. They have naming conventions like `profile#_name`, where `#` is the profile number, and `name` being the name of the profile.
 
@@ -52,7 +46,9 @@ If you mount the SD card on your computer, you might see some examples like thes
 
 ![Alt text](resources/pics/profile_examples.png)
 
-Feel free to create more or delete the ones you don't need. Up to 16 profiles are supported.
+[Existing examples](https://github.com/dekuNukem/duckypad/raw/master/sample_profiles.zip) are an excellent starting point of making your own profiles and scripts.
+
+Up to 16 profiles are supported.
 
 ### Step 2: Preparing Scripts
 
@@ -64,11 +60,9 @@ Here are some examples:
 
 ![Alt text](resources/pics/key_scripts.png)
 
-* It helps to take a look at those examples before writing your own
+* Might be helpful to take a look at the [sample profiles](https://github.com/dekuNukem/duckypad/raw/master/sample_profiles.zip) before writing your own
 
 * The screen will only display the **first 7 characters** of the key name, so keep it short!
-
-* You can leave gaps in the key numbering (such as only defining key 1, 2, 6, 12, 15, etc)
 
 ### Step 3: Optional Parameters
 
@@ -80,20 +74,27 @@ Simply create a file named `config.txt` in a profile folder like this:
 
 #### Backlight Colors
 
-To set your custom backlight color, put the following lines **`AT THE BEGINNING`** of `config.txt`:
+To set your custom background color, add the following line **`AT THE BEGINNING`** of `config.txt`:
 
 ```
 BG_COLOR 255 100 0
-KEYDOWN_COLOR 100 0 255
 ```
 
-BG_COLOR is the background color. The number should be between 0 and 255, in the order of R-G-B.
+The number should be between 0 and 255, in the order of R-G-B.
 
 * Can't decide? Use [this website](https://www.w3schools.com/colors/colors_picker.asp) to try some out. Use the `rgb()` value of each colour.
 
-Similarly, KEYDOWN_COLOR is the color of the key when you press it down.
+If unspecified, the default background color would be light purple.
 
-If you skip this step, the default backlight color would be light purple.
+#### Key-down Colors
+
+To set the color of a key to change into when pressed, add the following line in `config.txt`:
+
+```
+KEYDOWN_COLOR 100 0 255
+```
+
+If unspecified, the default key-down color would be the inverse of background color.
 
 #### Dim Unused Keys
 
@@ -107,7 +108,7 @@ DIM_UNUSED_KEYS 0
 
 You can also assign colors to individual keys, this will override the background color above.
 
-Just add lines for the keys you want in `config.txt` like this:
+Just add lines in `config.txt` for the keys you want like this:
 
 ```
 SWCOLOR_1 148 0 211
@@ -133,17 +134,19 @@ The above result in a pretty rainbow:
 
 ### Step 4: Run it!
 
-Just like before, make sure the SD card is formatted in FAT32, copy all the profile folders in the root of the SD card, and insert it in your duckyPad.
+Just like before, make sure the SD card is in FAT32 format, copy all the profile folders to the root of the SD card, and insert it in your duckyPad.
 
-duckypad should start up with the first profile, displaying the profile names and key names, as well as the background color.
+duckypad should start up and display the profile names and key names, as well as the background color.
 
-Press the corresponding keys to execute their scripts, if there is an error it will show up on the screen.
+Press the corresponding keys to execute the scripts, if there is an error it will show up on the screen.
 
 Press +/- button to change profiles.
 
 ## Using Autohotkey
 
 You can use [autohotkey](https://www.autohotkey.com) for even more sophisticated scripting needs, such as launching apps, or control mouse moments, etc.
+
+To do this, duckyPad can be set up to press a simple combo like `WIN + F1`, which then get captured by autohotkey to execute a more complex custom script on your PC.
 
 Check out the [official tutorials](https://www.autohotkey.com/docs_1.0/Tutorial.htm), the [autohotkey profile](sample_profiles/profile7_autohotkey), and a [sample autohotkey script](resources/duckypad_autohotkey_script.ahk) upon which you can tinker with. 
 
