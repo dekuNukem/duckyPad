@@ -40,7 +40,7 @@ To remove the SD card, push it inwards to unlock.
 
 Chances are you want to use your own scripts. So here's how! 
 
-(remember you can always play with [existing examples on the SD card](https://github.com/dekuNukem/duckypad/raw/master/sample_SD_card.zip) as a starting point)
+(remember you can always play with [existing examples on the SD card](https://github.com/dekuNukem/duckypad/raw/master/sample_profiles.zip) as a starting point)
 
 ### Step 1: Preparing Profiles
 
@@ -145,7 +145,7 @@ Press +/- button to change profiles.
 
 You can use [autohotkey](https://www.autohotkey.com) for even more sophisticated scripting needs, such as launching apps, or control mouse moments, etc.
 
-Check out the [official tutorials](https://www.autohotkey.com/docs_1.0/Tutorial.htm), the [autohotkey profile](https://github.com/dekuNukem/duckypad/raw/master/sample_SD_card.zip), and a [sample autohotkey script](resources/duckypad_autohotkey_script.ahk) upon which you can tinker with. 
+Check out the [official tutorials](https://www.autohotkey.com/docs_1.0/Tutorial.htm), the [autohotkey profile](sample_profiles/profile7_autohotkey), and a [sample autohotkey script](resources/duckypad_autohotkey_script.ahk) upon which you can tinker with. 
 
 ## USB Firmware Updates
 

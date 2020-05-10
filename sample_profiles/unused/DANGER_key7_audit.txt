@@ -1,0 +1,62 @@
+REM this script generates a security audit of a windows PC
+
+DEFAULTCHARDELAY 16
+
+GUI r
+DELAY 300
+STRING CMD /ADMINISTRATOR 
+DELAY 300
+ENTER
+DELAY 300
+STRING CD c:\
+DELAY 300
+ENTER
+STRING MD Audit
+DELAY 300
+ENTER
+DELAY 300
+STRING CD c:\Audit
+DELAY 300
+ENTER
+DELAY 300
+STRING MD Audit-%date:/=_%"
+DELAY 70
+ENTER
+DELAY 500
+REM This variable is used so that robocopy can create a date stamped folder to help 
+REM Id the folder 
+STRING set DST=Audit-%date:/=_%
+DELAY 500
+ENTER
+DELAY 500
+STRING systeminfo.exe>C:\Audit\Audit-%date:/=_%"\systemSpecs.txt
+ENTER
+DELAY 250
+STRING Exit
+ENTER
+GUI r 
+DELAY 300
+STRING POWERSHELL
+DELAY 20
+ENTER
+DELAY 500
+STRING Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Select-Object DisplayName, DisplayVersion, Publisher, Size, InstallDate | Format-Table -AutoSize > C:\Audit\InstallList.txt
+ENTER
+DELAY 500
+STRING EXIT
+DELAY 20 
+ENTER
+DELAY 320
+GUI r
+DELAY 300
+STRING CMD
+ENTER 
+DELAY 300 
+STRING ROBOCOPY "c:\Audit" "\\PC NETWORK PATH\Audits" /s /e /r:0 /w:0 /np
+ENTER
+DELAY 300
+STRING ROBOCOPY "c:\Audit\Audit-%date:/=_%"" "\Audits" /s /e /r:0 /w:0 /np 
+ENTER
+DELAY 300
+STRING EXIT
+ENTER
