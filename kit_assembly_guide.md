@@ -26,7 +26,7 @@ By now, you should have:
 
 Start by peeling off the protective cover on the key plate:
 
-![Alt text](resources/pics/assembly/peel.jpg)
+![Alt text](resources/pics/assembly/peel2.jpg)
 
 Then insert the switches into the plate:
 
