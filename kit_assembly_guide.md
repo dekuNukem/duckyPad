@@ -24,7 +24,11 @@ By now, you should have:
 
 ![Alt text](resources/pics/tier3.jpg)
 
-Start by inserting switches into the plate:
+Start by peeling off the protective cover on the key plate:
+
+![Alt text](resources/pics/assembly/peel.jpg)
+
+Then insert the switches into the plate:
 
 ![Alt text](resources/pics/assembly/solder2.jpg)
 
