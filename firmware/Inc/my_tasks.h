@@ -5,7 +5,7 @@
  extern "C" {
 #endif 
 
-#include "stm32f0xx_hal.h"
+#include "stm32f4xx_hal.h"
 
 extern uint8_t init_complete;
 

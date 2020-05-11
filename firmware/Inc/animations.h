@@ -5,7 +5,7 @@
  extern "C" {
 #endif 
 
-#include "stm32f0xx_hal.h"
+#include "stm32f4xx_hal.h"
 
 #define THREE 3
 #define ANIMATION_NO_ANIMATION 0

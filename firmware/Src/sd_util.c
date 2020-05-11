@@ -6,7 +6,7 @@
  */
 
 #include <stdio.h>
-#include "stm32f0xx_hal.h"
+#include "stm32f4xx_hal.h"
 #include "sd_util.h"
 #include <string.h>
 #include "shared.h" 
@@ -34,9 +34,9 @@ char sd_util_buf[SD_UTIL_BUF_SIZE];
 static void spi_set_speed(enum sd_speed speed)
 {
   HAL_SPI_DeInit(&hspi1);
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_128;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
   if(speed == SD_SPEED_25MHZ)
-    hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
+    hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
   HAL_SPI_Init(&hspi1);
   u8 dummy = 0;
   HAL_SPI_Transmit(&hspi1, &dummy, 1, 500);

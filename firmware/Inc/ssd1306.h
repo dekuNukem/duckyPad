@@ -1,5 +1,5 @@
 
-#include "stm32f0xx_hal.h"
+#include "stm32f4xx_hal.h"
 #include "fonts.h"
 
 //	Deze library is door Olivier Van den Eede 2016 geschreven en aangepast voor gebruik met

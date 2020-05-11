@@ -19,10 +19,10 @@ uint8_t rand_order_buf[NEOPIXEL_COUNT];
 uint32_t get_adc_reading(void)
 {
   uint32_t result = 0;
-  HAL_ADC_Start(&hadc);
-  if(HAL_ADC_PollForConversion(&hadc, 100) == HAL_OK)
-    result = HAL_ADC_GetValue(&hadc);
-  HAL_ADC_Stop(&hadc);
+  HAL_ADC_Start(&hadc1);
+  if(HAL_ADC_PollForConversion(&hadc1, 100) == HAL_OK)
+    result = HAL_ADC_GetValue(&hadc1);
+  HAL_ADC_Stop(&hadc1);
   return result;
 }
 

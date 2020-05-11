@@ -5,7 +5,7 @@
  extern "C" {
 #endif 
 
-#include "stm32f0xx_hal.h"
+#include "stm32f4xx_hal.h"
 
 #define KEY_COUNT 23
 #define MAPPABLE_KEY_COUNT 15

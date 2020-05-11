@@ -5,7 +5,7 @@
  extern "C" {
 #endif 
 
-#include "stm32f0xx_hal.h"
+#include "stm32f4xx_hal.h"
 
 #define NEOPIXEL_RESET_BUF_SIZE 50
 #define NEOPIXEL_COUNT 15

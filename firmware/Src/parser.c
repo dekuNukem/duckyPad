@@ -114,8 +114,8 @@ char* goto_next_arg(char* buf, char* buf_end)
 char* find_profile(uint8_t pid)
 {
   char* profile_fn;
-  fno.lfname = lfn_buf; 
-  fno.lfsize = FILENAME_SIZE - 1;
+  strncpy(fno.fname, lfn_buf, FILENAME_SIZE);
+  fno.fsize = FILENAME_SIZE - 1;
 
   if (f_opendir(&dir, "/") != FR_OK)
     return NULL;
@@ -129,7 +129,7 @@ char* find_profile(uint8_t pid)
       break;
     if (fno.fattrib & AM_DIR)
     {
-      profile_fn = fno.lfname[0] ? fno.lfname : fno.fname;
+      profile_fn = fno.fname[0] ? fno.fname : fno.fname;
       if(strncmp(temp_buf, profile_fn, strlen(temp_buf)) == 0)
         return profile_fn;
     }
@@ -145,8 +145,8 @@ char* get_keyname(char* pf_fn, uint8_t keynum)
   if(pf_fn == NULL)
     return ret;
 
-  fno.lfname = lfn_buf; 
-  fno.lfsize = FILENAME_SIZE - 1;
+  strncpy(fno.fname, lfn_buf, FILENAME_SIZE);
+  fno.fsize = FILENAME_SIZE - 1;
   memset(temp_buf, 0, PATH_SIZE);
   sprintf(temp_buf, "/%s", pf_fn);
   if (f_opendir(&dir, temp_buf) != FR_OK)
@@ -158,7 +158,7 @@ char* get_keyname(char* pf_fn, uint8_t keynum)
     memset(lfn_buf, 0, FILENAME_SIZE);
     if (f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)
       break;
-    key_fn = fno.lfname[0] ? fno.lfname : fno.fname;
+    key_fn = fno.fname[0] ? fno.fname : fno.fname;
     if(strncmp(temp_buf, key_fn, strlen(temp_buf)) == 0)
     {
       memset(key_name_buf, 0, FILENAME_SIZE);
@@ -295,8 +295,8 @@ uint8_t load_colors(char* pf_fn)
 void scan_profiles(void)
 {
   char* profile_fn;
-  fno.lfname = lfn_buf; 
-  fno.lfsize = FILENAME_SIZE - 1;
+  strncpy(fno.fname, lfn_buf, FILENAME_SIZE);
+  fno.fsize = FILENAME_SIZE - 1;
   memset(p_cache.available_profile, 0, MAX_PROFILES);
 
   if (f_opendir(&dir, "/") != FR_OK)
@@ -311,7 +311,7 @@ void scan_profiles(void)
       break;
     if (fno.fattrib & AM_DIR)
     {
-      profile_fn = fno.lfname[0] ? fno.lfname : fno.fname;
+      profile_fn = fno.fname[0] ? fno.fname : fno.fname;
       if(strncmp(temp_buf, profile_fn, strlen(temp_buf)) == 0)
       {
         uint8_t num = atoi(profile_fn + strlen(temp_buf));
