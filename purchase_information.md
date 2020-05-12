@@ -14,7 +14,7 @@ Those circuit boards are professionally machine-assembled by a PCB fab house, an
 
 ## Options and Pricing
 
-All pricing in **`US Dollar`**
+All pricing in **`US Dollar`**.
 
 All tiers are currently **`IN STOCK`**.
 
@@ -116,7 +116,7 @@ After receiving your duckyPad, please see [this guide](./getting_started.md) on 
 
 If you do get one, I'd love to hear how you think of this product.
 
-Your feedback would be immensely helpful in improving this project in preparation for a wider launch!
+Your feedback would be immensely helpful in improving this project for a wider launch!
 
 ## Questions or Comments?
 
