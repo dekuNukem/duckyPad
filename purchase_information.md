@@ -6,7 +6,7 @@
 
 Thanks for considering supporting this project!
 
-I was actually planning a kickstarter early this year, but with the coronavirus situation, launching a campaign right now doesn't seem to be the best timing.
+I was actually planning a kickstarter earlier this year, but with the coronavirus situation, launching a campaign right now doesn't seem to be the best timing.
 
 Still, I do have **around 30 duckyPads in stock** from a test production run, and you can purchase one directly from me.
 
@@ -14,7 +14,9 @@ Those circuit boards are professionally machine-assembled by a PCB fab house, an
 
 ## Options and Pricing
 
-All pricing in **`US Dollar`**!
+All pricing in **`US Dollar`**
+
+All tiers are currently **`IN STOCK`**.
 
 ### Tier 1: Circuit Board Only - $55
 
