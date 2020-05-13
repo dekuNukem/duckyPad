@@ -1,37 +1,15 @@
-# duckypad: Scriptable Mechanical Keypad with RGB Backlight
+# Ancestors
+This is a port of the duckyPad (https://github.com/dekuNukem/duckyPad) to a STM32F4CF411CEU.
 
-![Alt text](resources/pics/title.jpg)
+I wanted to build it myself but I do not have the means to solder the PCB myself.
 
-duckypad is a mechanical keypad with RGB backlight, OLED screen, and 15 keys. Each key can execute a script when pressed.
+# Parts used
+- STM32F411CEU (Blackpill): https://de.aliexpress.com/item/4000138305460.html?spm=a2g0s.9042311.0.0.211c4c4diRx1zV
+- Micro SD card module: https://www.ebay.de/itm/QITA-MicroSD-Breakout-Board-f%C3%BCr-SD-TF-Karte-f%C3%BCr-Arduino-3-3V-6Pin-CP09009/352884165898?ssPageName=STRK%3AMEBIDX%3AIT&_trksid=p2060353.m2749.l2649
+- 1.3" OLED dispaly with PCB: https://www.ebay.de/itm/1-3-Zoll-Arduino-OLED-128x64-Display-SH1106-I2C-IIC-TWI-wei%C3%9F-Raspberry-Pi/253081549017?ssPageName=STRK%3AMEBIDX%3AIT&_trksid=p2060353.m2749.l2649
 
-The scripts can be as simple as shortcuts like `ctrl+c`, or as complex as [creating root backdoors](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---OSX-Root-Backdoor) or [grabbing passwords](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---download-mimikatz%2C-grab-passwords-and-email-them-via-gmail). It's all customizable by you.
+The soldering was done by hand.
 
-Multiple profiles are supported, for different programs/environments.
-
-## Features
-
-* 15 mechanical switches
-* Individually addressable RGB backlights with animations
-* OLED screen displaying current profile and key functions
-* SD card script storage
-* Standard duckyscript parsed onboard
-* Multiple profiles
-* USB-C connector
-
-## Video
-
-Here's a silly video showing duckypad in action, as well as the timelapse of me building it.
-
-https://www.youtube.com/watch?v=EGLLCtRuEuM
-
-## Getting started
-
-Please see [this guide](./getting_started.md) on how to use your duckypad.
-
-## Making one yourself
-
-Please see [this guide](./build_it_yourself.md).
-
-## Questions?
-
-Feel free to ask in the issue section, or email me at `dekunukem__gmail__com`.
+# Pictures
+![First prototype picture](resources/pics/title1.jpg)
+![Second prototype picture](resources/pics/title2.jpg)
