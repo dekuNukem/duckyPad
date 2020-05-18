@@ -68,7 +68,9 @@ Please see [this guide](./getting_started.md) on how to use your duckyPad.
 
 Please see [this guide](./build_it_yourself.md).
 
-Honorable mention: simonCor ported this projecto to a [STM32F4 black pill](https://github.com/simonCor/poor-mans-ducky-pad), with hand-soldered connections and 3D-printed case, very neat!
+------
+
+Honorable mention: simonCor ported this project to a [STM32F4 black pill](https://github.com/simonCor/poor-mans-ducky-pad), with hand-soldered connections and 3D-printed case, very neat!
 
 ## Questions or Comments?
 
