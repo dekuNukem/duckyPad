@@ -34,11 +34,11 @@ Please see [Purchase Information](./purchase_information.md).
 
 ## Examples
 
-1-key badUSB attack:
+1-key badUSB attack ([script](/sample_profiles/unused/DANGER_key6_admin.txt)):
 
 ![Alt text](resources/pics/badusb.gif)
 
-Controlling Firefox:
+Controlling Firefox ([scripts](/sample_profiles/profile3_firefox)):
 
 ![Alt text](resources/pics/firefox.gif)
 
@@ -46,11 +46,11 @@ Switch scenes on livestream:
 
 ![Alt text](resources/pics/stream.gif)
 
-Eagle shortcuts:
+Eagle shortcuts ([scripts](/sample_profiles/profile5_eagle)):
 
 ![Alt text](resources/pics/eagle.gif)
 
-One-finger twitch spam:
+One-finger twitch spam ([scripts](/sample_profiles/profile4_twitch)):
 
 ![Alt text](resources/pics/twitchspam.gif)
 
