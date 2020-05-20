@@ -16,4 +16,7 @@ extern IWDG_HandleTypeDef hiwdg;
 extern char instruction[];
 extern char project_url[];
 
+#define USE_GERMAN_ASCIIMAP 1
+#define USE_ENGLISH_ASCIIMAP 0
+
 #endif
