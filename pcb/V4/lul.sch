@@ -2331,6 +2331,11 @@ chip</description>
 <text x="-1.905" y="3.683" size="1.27" layer="25">&gt;NAME</text>
 <text x="-1.905" y="-4.826" size="1.27" layer="27">&gt;VALUE</text>
 </package>
+<package name="M3_MOUNTING_HOLE_PACK">
+<circle x="0" y="0" radius="2" width="0" layer="41"/>
+<circle x="0" y="0" radius="2" width="0" layer="42"/>
+<hole x="0" y="0" drill="3.2"/>
+</package>
 </packages>
 <symbols>
 <symbol name="BAT_AN_M">
@@ -2504,6 +2509,10 @@ chip</description>
 <pin name="2" x="0" y="-5.08" visible="off" length="short" direction="pas" swaplevel="1" rot="R90"/>
 <text x="1.016" y="0.635" size="1.778" layer="95">&gt;NAME</text>
 <text x="1.016" y="-4.191" size="1.778" layer="96">&gt;VALUE</text>
+</symbol>
+<symbol name="M3_MOUNTING_HOLE_SYM">
+<circle x="0" y="0" radius="3.5921" width="0.254" layer="94"/>
+<text x="5.08" y="0" size="1.778" layer="94">M3 hole</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -3594,6 +3603,18 @@ Standard 0603 ceramic capacitor, and 0.1" leaded capacitor.</description>
 <connect gate="G$1" pin="1" pad="1"/>
 <connect gate="G$1" pin="2" pad="2"/>
 </connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="M3_MOUNTING_HOLE">
+<gates>
+<gate name="G$1" symbol="M3_MOUNTING_HOLE_SYM" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="M3_MOUNTING_HOLE_PACK">
 <technologies>
 <technology name=""/>
 </technologies>
@@ -4986,36 +5007,6 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 </deviceset>
 </devicesets>
 </library>
-<library name="3pos_slide_switch_centered">
-<packages>
-<package name="M2_SCREW_FOOT">
-<hole x="0" y="0" drill="2.2"/>
-</package>
-</packages>
-<symbols>
-<symbol name="M2_SCREW_SYM">
-<wire x1="-10.16" y1="5.08" x2="12.7" y2="5.08" width="0.254" layer="94"/>
-<wire x1="12.7" y1="5.08" x2="12.7" y2="-5.08" width="0.254" layer="94"/>
-<wire x1="12.7" y1="-5.08" x2="-10.16" y2="-5.08" width="0.254" layer="94"/>
-<wire x1="-10.16" y1="-5.08" x2="-10.16" y2="5.08" width="0.254" layer="94"/>
-<text x="-5.08" y="0" size="1.778" layer="94">M2 SCREW</text>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="M2_SCREW_DEV">
-<gates>
-<gate name="G$1" symbol="M2_SCREW_SYM" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="M2_SCREW_FOOT">
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
 </libraries>
 <attributes>
 </attributes>
@@ -5144,12 +5135,13 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <part name="GND32" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="+3V32" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="C27" library="clock" deviceset="C-US" device="C1210" value="47uF"/>
-<part name="U$7" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
-<part name="U$9" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
-<part name="U$10" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
-<part name="U$11" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
-<part name="U$15" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
-<part name="U$16" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
+<part name="U$7" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
+<part name="U$9" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
+<part name="U$10" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
+<part name="U$11" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
+<part name="U$14" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
+<part name="U$15" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
+<part name="U$16" library="clock" deviceset="M3_MOUNTING_HOLE" device=""/>
 <part name="R7" library="clock" deviceset="RESISTOR" device="0805-RES" value="5.1K"/>
 <part name="R8" library="clock" deviceset="RESISTOR" device="0805-RES" value="5.1K"/>
 <part name="+3V27" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
@@ -5183,12 +5175,6 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <part name="SW17" library="Kailh_switch_socket" deviceset="KAILH_SWITCH_SOCKET" device=""/>
 <part name="SW18" library="Kailh_switch_socket" deviceset="KAILH_SWITCH_SOCKET" device=""/>
 <part name="SW19" library="Kailh_switch_socket" deviceset="KAILH_SWITCH_SOCKET" device=""/>
-<part name="U$8" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
-<part name="U$12" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
-<part name="U$13" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
-<part name="U$17" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
-<part name="U$22" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
-<part name="U$23" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -5583,6 +5569,7 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <instance part="U$9" gate="G$1" x="495.3" y="15.24" smashed="yes"/>
 <instance part="U$10" gate="G$1" x="467.36" y="33.02" smashed="yes"/>
 <instance part="U$11" gate="G$1" x="523.24" y="33.02" smashed="yes"/>
+<instance part="U$14" gate="G$1" x="467.36" y="15.24" smashed="yes"/>
 <instance part="U$15" gate="G$1" x="495.3" y="48.26" smashed="yes"/>
 <instance part="U$16" gate="G$1" x="523.24" y="48.26" smashed="yes"/>
 <instance part="R7" gate="G$1" x="299.72" y="33.02" smashed="yes" rot="R90">
@@ -5703,12 +5690,6 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <attribute name="NAME" x="172.72" y="-50.8" size="1.778" layer="95"/>
 <attribute name="VALUE" x="172.72" y="-48.26" size="1.778" layer="96"/>
 </instance>
-<instance part="U$8" gate="G$1" x="594.36" y="38.1" smashed="yes"/>
-<instance part="U$12" gate="G$1" x="599.44" y="17.78" smashed="yes"/>
-<instance part="U$13" gate="G$1" x="599.44" y="-7.62" smashed="yes"/>
-<instance part="U$17" gate="G$1" x="568.96" y="-25.4" smashed="yes"/>
-<instance part="U$22" gate="G$1" x="553.72" y="7.62" smashed="yes"/>
-<instance part="U$23" gate="G$1" x="558.8" y="27.94" smashed="yes"/>
 </instances>
 <busses>
 </busses>
