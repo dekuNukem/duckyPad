@@ -1,8 +1,52 @@
 """
 pack BEFORE place
 
-"""
+"""		
+def profile_shift_up():
+	global profile_var
+	global profile_list
+	selection = profile_listbox.curselection()
+	if len(selection) <= 0 or selection[0] == 0:
+		print("profile_shift_up: nothing to do")
+		return
+	source = selection[0]
+	destination = selection[0] - 1
+	print("source: ", source)
+	print("destination: ", destination)
+	print([x.name for x in profile_list])
+	profile_list[destination], profile_list[source] = profile_list[source], profile_list[destination]
+	print([x.name for x in profile_list])
+	profile_var.set([x.name for x in profile_list])
+	profile_listbox.selection_clear(0, len(profile_list))
+	profile_listbox.selection_set(destination)
+my_dirs = [d for d in os.listdir(dp_root_folder_path) if os.path.isdir(os.path.join(dp_root_folder_path, d))]
+	my_dirs.sort()
+	my_dirs = [d for d in my_dirs if d.startswith("profile")]
+	profile_var.set(my_dirs)
 
+result = build_profile("/Users/allen/Desktop/test_profiles")
+for item in result:
+	print(item)
+
+print(folder_name.split('profile')[-1].split(''))
+
+print(self.path)
+		print(self.name)
+		print(self.index)
+		print(self.color)
+		print(self.script)
+		print('...............')
+
+				# print(self.path)
+		# print(self.name)
+		# print(self.keys)
+		# print(self.bg_color)
+		# print(self.kd_color)
+		# print(self.dim_unused)
+		print('-----------')
+
+default_bg_color = (64, 126, 255)
+default_keydown_color = (255, 255, 255)
 from tkinter import messagebox
 
 	messagebox.showinfo("Say Hello", "Hello World")
