@@ -2,6 +2,24 @@
 pack BEFORE place
 
 """		
+
+
+def select_root_folder():
+	global dp_root_folder_display
+	global root_folder_path_label
+	global profile_var
+	dir_result = filedialog.askdirectory()
+	if len(dir_result) <= 0:
+		return
+	dp_root_folder_path= dir_result
+	dp_root_folder_display.set("Selected: " + dir_result)
+	root_folder_path_label.config(foreground='navy')
+
+	my_dirs = [d for d in os.listdir(dp_root_folder_path) if os.path.isdir(os.path.join(dp_root_folder_path, d))]
+	my_dirs.sort()
+	my_dirs = [d for d in my_dirs if d.startswith("profile")]
+	profile_var.set(my_dirs)
+
 def profile_shift_up():
 	global profile_var
 	global profile_list

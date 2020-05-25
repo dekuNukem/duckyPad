@@ -23,10 +23,8 @@ def select_root_folder():
 	dp_root_folder_display.set("Selected: " + dir_result)
 	root_folder_path_label.config(foreground='navy')
 
-	my_dirs = [d for d in os.listdir(dp_root_folder_path) if os.path.isdir(os.path.join(dp_root_folder_path, d))]
-	my_dirs.sort()
-	my_dirs = [d for d in my_dirs if d.startswith("profile")]
-	profile_var.set(my_dirs)
+	profile_list = duck_objs.build_profile(dir_result)
+	profile_var.set([' '+x.name for x in profile_list])
 
 def debug_set_root_folder():
 	global dp_root_folder_display
@@ -101,6 +99,9 @@ root.update()
 profile_listbox = Listbox(profiles_lf, listvariable=profile_var, height=16)
 profile_listbox.pack()
 
+profile_listbox.place(x=32, y=PADDING)
+
+
 profile_up_button = Button(profiles_lf, text="↑", command=profile_shift_up)
 profile_up_button.pack()
 profile_up_button.place(x=5, y=80, width=20, height=40)
@@ -142,5 +143,8 @@ root_folder_path_label.pack()
 root_folder_path_label.place(x=90, y=0)
 
 # --------------------------
-debug_set_root_folder()
+try:
+	debug_set_root_folder()
+except Exception as e:
+	print(e)
 root.mainloop()
