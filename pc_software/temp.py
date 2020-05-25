@@ -3,6 +3,22 @@ pack BEFORE place
 
 """
 
+from tkinter import messagebox
+
+	messagebox.showinfo("Say Hello", "Hello World")
+
+profile_buf = []
+profile_var = StringVar(value=profile_buf)
+
+mylist = ['one', 'two', 'three']
+var = StringVar(value=mylist)
+
+profile_listbox = Listbox(profiles_lf, listvariable=var)
+profile_listbox.pack()
+profile_listbox.insert(1, "Nachos") 
+profile_listbox.insert(2, "Sandwich") 
+profile_listbox.insert(3, "Burger") 
+profile_listbox.insert(4, "Pizza") 
 
 
 def check_root_folder():
@@ -12,7 +28,8 @@ def check_root_folder():
 	root.after(500, check_root_folder)
 
 
-	
+	# root.after(500, check_root_folder)
+
 def gui_update_non_block():
     root.update()
     root.update_idletasks()
