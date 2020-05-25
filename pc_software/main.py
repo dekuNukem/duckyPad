@@ -100,7 +100,7 @@ root.update()
 profile_listbox = Listbox(profiles_lf, listvariable=profile_var, height=16)
 profile_listbox.pack()
 
-profile_listbox.place(x=32, y=PADDING)
+profile_listbox.place(x=32, y=PADDING, width=182)
 
 
 profile_up_button = Button(profiles_lf, text="↑", command=profile_shift_up)
@@ -144,8 +144,8 @@ root_folder_path_label.pack()
 root_folder_path_label.place(x=90, y=0)
 
 # --------------------------
-try:
-	debug_set_root_folder()
-except Exception as e:
-	print(e)
+# try:
+# 	debug_set_root_folder()
+# except Exception as e:
+# 	print(e)
 root.mainloop()
