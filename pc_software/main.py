@@ -9,7 +9,7 @@ MAIN_WINDOW_WIDTH = 800
 MAIN_WINDOW_HEIGHT = 533
 PADDING = 10
 HIGHT_ROOT_FOLDER_LF = 50
-INVALID_ROOT_FOLDER_STRING = "<-- Please select root folder"
+INVALID_ROOT_FOLDER_STRING = "<-- Please select your duckyPad root folder"
 
 def select_root_folder():
 	global dp_root_folder_display
@@ -59,13 +59,13 @@ root.update()
 profile_listbox = Listbox(profiles_lf, listvariable=profile_var)
 profile_listbox.pack()
 
-profile_add_button = Button(profiles_lf, text="Add...", command=None)
+profile_add_button = Button(profiles_lf, text="Add", command=None)
 profile_add_button.pack()
 profile_add_button.place(x=PADDING, y=200, width = 80, height = 25)
 
-profile_add_button = Button(profiles_lf, text="Remove", command=None, width='8')
+profile_add_button = Button(profiles_lf, text="Remove", command=None)
 profile_add_button.pack()
-profile_add_button.place(x=PADDING + 100, y=200)
+profile_add_button.place(x=PADDING + 100, y=200, width = 80, height = 25)
 
 # ------------- Keys frame -------------
 keys_lf = LabelFrame(root, text="Keys", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_WINDOW_HEIGHT - HIGHT_ROOT_FOLDER_LF - PADDING)
