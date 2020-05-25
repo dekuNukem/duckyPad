@@ -16,6 +16,7 @@ def select_root_folder():
 	global dp_root_folder_display
 	global root_folder_path_label
 	global profile_var
+	global profile_list
 	dir_result = filedialog.askdirectory()
 	if len(dir_result) <= 0:
 		return
