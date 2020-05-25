@@ -1,4 +1,18 @@
+"""
+pack BEFORE place
 
+"""
+
+
+
+def check_root_folder():
+	global dp_root_folder_path
+	if len(dp_root_folder_path.get()) <= 0:
+		print("invalid root folder: empty path")
+	root.after(500, check_root_folder)
+
+
+	
 def gui_update_non_block():
     root.update()
     root.update_idletasks()
