@@ -3,11 +3,26 @@ pack BEFORE place
 
 """		
 
-
+def profile_dupe_click():
+    global profile_list
+    selection = profile_listbox.curselection()
+    if len(selection) <= 0:
+        return
+    answer = simpledialog.askstring("Input", "New name?", parent=profiles_lf, initialvalue=profile_list[selection[0]].name)
+    if answer is None:
+        return
+    answer = input_clean(answer, 13)
+    if len(answer) <= 0 or answer in [x.name for x in profile_list]:
+        return
+    new_profile = copy.deepcopy(profile_list[selection[0]])
+    new_profile.name = answer
+    profile_list.insert(selection[0] + 1, new_profile)
+    update_profile_listbox()
 
 # kd_color_button = Button(profiles_lf, highlightthickness=20, command=None)
 # kd_color_button.pack()
 # kd_color_button.place(x=160, y=402, width=60, height=20)
+    print("curselection:", profile_listbox.curselection())
 
 
 

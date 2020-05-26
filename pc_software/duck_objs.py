@@ -70,6 +70,16 @@ class dp_profile(object):
 		except Exception as e:
 			print('>>>>> read_config:', path, e)
 
+	def load_from_path(self, path):
+		folder_name = os.path.basename(os.path.normpath(path))
+		if not (folder_name.startswith('profile') and folder_name[7].isnumeric() and '_' in folder_name):
+			print("invalid profile folder:", folder_name)
+			raise ValueError
+		self.path = path
+		self.name = folder_name.split('_', 1)[-1]
+		self.read_config(path)
+		self.read_keys(path)
+
 	def __str__(self):
 		ret = ""
 		ret += str('-----Profile info-----') + '\n'
@@ -78,28 +88,23 @@ class dp_profile(object):
 		ret += "bg_color:\t" + str(self.bg_color) + '\n'
 		ret += "kd_color:\t" + str(self.kd_color) + '\n'
 		ret += "dim_unused:\t" + str(self.dim_unused) + '\n'
-		ret += "key count:\t" + str(len(self.keylist)) + '\n'
+		ret += "key count:\t" + str(len([x for x in self.keylist if x is not None])) + '\n'
 		ret += "keys:\n"
-		for item in self.keylist:
-			ret += str(item)
+		for item in [x for x in self.keylist if x is not None]:
+			ret += str(item) + '\n'
 		ret += str('----------------------') + '\n'
 		return ret
 
-	def __init__(self, path):
+	def __init__(self):
 		super(dp_profile, self).__init__()
-		folder_name = os.path.basename(os.path.normpath(path))
-		if not (folder_name.startswith('profile') and folder_name[7].isnumeric() and '_' in folder_name):
-			print("invalid profile folder:", folder_name)
-			raise ValueError
-		self.path = path
-		self.name = folder_name.split('_', 1)[-1]
-		self.keylist = []
+		self.key_count = 15
+		self.path = None
+		self.name = None
+		self.keylist = [None] * self.key_count
 		self.bg_color = None
 		self.kd_color = None
 		self.dim_unused = True
-		self.read_config(path)
-		self.read_keys(path)
-		
+
 def build_profile(root_dir_path):
 	my_dirs = [d for d in os.listdir(root_dir_path) if os.path.isdir(os.path.join(root_dir_path, d))]
 	my_dirs = [x for x in my_dirs if x.startswith('profile') and x[7].isnumeric() and '_' in x]
@@ -107,8 +112,8 @@ def build_profile(root_dir_path):
 	my_dirs = [os.path.join(root_dir_path, d) for d in my_dirs if d.startswith("profile")]
 	profile_list = []
 	for item in my_dirs:
-		profile_list.append(dp_profile(item))
+		this_profile = dp_profile()
+		this_profile.load_from_path(item)
+		profile_list.append(this_profile)
 	return profile_list
-
-
 
