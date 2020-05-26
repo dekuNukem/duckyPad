@@ -16,9 +16,6 @@ PADDING = 10
 HIGHT_ROOT_FOLDER_LF = 50
 INVALID_ROOT_FOLDER_STRING = "<-- Please select your duckyPad root folder"
 
-def update_profile_listbox():
-    profile_var.set([' '+x.name for x in profile_list])
-
 def select_root_folder():
     global profile_list
     global dp_root_folder_path
@@ -30,7 +27,7 @@ def select_root_folder():
     root_folder_path_label.config(foreground='navy')
 
     profile_list = duck_objs.build_profile(dir_result)
-    update_profile_listbox()
+    update_profile_display()
     enable_buttons()
 
 def enable_buttons():
@@ -52,7 +49,7 @@ def debug_set_root_folder():
     root_folder_path_label.config(foreground='navy')
 
     profile_list = duck_objs.build_profile(dir_result)
-    update_profile_listbox()
+    update_profile_display()
     enable_buttons()
 
 def profile_shift_up():
@@ -64,10 +61,10 @@ def profile_shift_up():
     source = selection[0]
     destination = selection[0] - 1
     profile_list[destination], profile_list[source] = profile_list[source], profile_list[destination]
-    update_profile_listbox()
+    update_profile_display()
     profile_listbox.selection_clear(0, len(profile_list))
     profile_listbox.selection_set(destination)
-    update_profile_display(profile_listbox.curselection()[0])
+    update_profile_display()
 
 def profile_shift_down():
     global profile_var
@@ -78,29 +75,30 @@ def profile_shift_down():
     source = selection[0]
     destination = selection[0] + 1
     profile_list[destination], profile_list[source] = profile_list[source], profile_list[destination]
-    update_profile_listbox()
+    update_profile_display()
     profile_listbox.selection_clear(0, len(profile_list))
     profile_listbox.selection_set(destination)
-    update_profile_display(profile_listbox.curselection()[0])
+    update_profile_display()
 
 def rgb_to_hex(rgb_tuple):
     return '#%02x%02x%02x' % rgb_tuple
 
-def update_profile_display(index):
+def update_profile_display():
+    profile_var.set([' '+x.name for x in profile_list]) # update profile listbox
+    if len(profile_listbox.curselection()) <= 0:
+        return
+    index = profile_listbox.curselection()[0]
     bg_color_hex = "#abcdef"
     if profile_list[index].bg_color is not None:
         bg_color_hex = rgb_to_hex(profile_list[index].bg_color)
     bg_color_button.config(background=bg_color_hex)
-    
     kd_color_hex = "#abcdef"
     if profile_list[index].kd_color is not None:
         kd_color_hex = rgb_to_hex(profile_list[index].kd_color)
     kd_color_button.config(background=kd_color_hex)
 
 def on_profile_listbox_select(event):
-    if len(event.widget.curselection()) <= 0:
-        return
-    update_profile_display(event.widget.curselection()[0])
+    update_profile_display()
     
 def bg_color_click(event):
     print("bg_color_click")
@@ -112,7 +110,7 @@ def kd_color_click(event):
     result = askcolor()
     print(result)
 
-def input_clean(str_input, len_limit=None):
+def clean_input(str_input, len_limit=None):
     result = ''.join([x for x in str_input if 32 <= ord(x) <= 126])
     while('  ' in result):
         result = result.replace('  ', ' ')
@@ -125,7 +123,7 @@ def profile_add_click():
     answer = simpledialog.askstring("Input", "New profile name?", parent=profiles_lf)
     if answer is None:
         return
-    answer = input_clean(answer, 13)
+    answer = clean_input(answer, 13)
     if len(answer) <= 0 or answer in [x.name for x in profile_list]:
         return
 
@@ -142,9 +140,10 @@ def profile_add_click():
     new_profile.path = os.path.join(dp_root_folder_path, folder_name)
     new_profile.name = answer
     profile_list.insert(insert_point, new_profile)
-    update_profile_listbox()
+    update_profile_display()
     profile_listbox.selection_clear(0, len(profile_list))
     profile_listbox.selection_set(insert_point)
+    update_profile_display()
 
 def profile_remove_click():
     global profile_list
@@ -152,7 +151,10 @@ def profile_remove_click():
     if len(selection) <= 0:
         return
     profile_list.pop(selection[0])
-    update_profile_listbox()
+    update_profile_display()
+    profile_listbox.selection_clear(0, len(profile_list))
+    profile_listbox.selection_set(selection[0])
+    update_profile_display()
 
 def profile_dupe_click():
     global profile_list
@@ -162,15 +164,16 @@ def profile_dupe_click():
     answer = simpledialog.askstring("Input", "New name?", parent=profiles_lf, initialvalue=profile_list[selection[0]].name)
     if answer is None:
         return
-    answer = input_clean(answer, 13)
+    answer = clean_input(answer, 13)
     if len(answer) <= 0 or answer in [x.name for x in profile_list]:
         return
     new_profile = copy.deepcopy(profile_list[selection[0]])
     new_profile.name = answer
     profile_list.insert(selection[0] + 1, new_profile)
-    update_profile_listbox()
+    update_profile_display()
     profile_listbox.selection_clear(0, len(profile_list))
     profile_listbox.selection_set(selection[0] + 1)
+    update_profile_display()
 
 def profile_rename_click():
     global profile_list
@@ -180,11 +183,11 @@ def profile_rename_click():
     answer = simpledialog.askstring("Input", "New name?", parent=profiles_lf, initialvalue=profile_list[selection[0]].name)
     if answer is None:
         return
-    answer = input_clean(answer, 13)
+    answer = clean_input(answer, 13)
     if len(answer) <= 0 or answer in [x.name for x in profile_list]:
         return
     profile_list[selection[0]].name = answer
-    update_profile_listbox()
+    update_profile_display()
 
 root = Tk()
 root.title("duckyPad configurator")
@@ -242,7 +245,7 @@ BUTTON_WIDTH = int(profiles_lf.winfo_width() / 2.5)
 BUTTON_HEIGHT = 25
 BUTTON_Y_POS = 295
 
-profile_add_button = Button(profiles_lf, text="Add", command=profile_add_click, state=DISABLED)
+profile_add_button = Button(profiles_lf, text="New", command=profile_add_click, state=DISABLED)
 profile_add_button.pack()
 profile_add_button.place(x=PADDING*2, y=BUTTON_Y_POS, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 
@@ -283,7 +286,7 @@ dim_unused_keys_checkbox.place(x=22, y=425)
 kd_color_var = IntVar()
 kd_R1 = Radiobutton(profiles_lf, text="      Auto", variable=kd_color_var, value=1, command=None)
 kd_R1.pack()
-kd_R1.place(x=130, y=385)
+kd_R1.place(x=130, y=380)
 kd_R2 = Radiobutton(profiles_lf, text="", variable=kd_color_var, value=2, command=None)
 kd_R2.pack()
 kd_R2.place(x=130, y=405)
