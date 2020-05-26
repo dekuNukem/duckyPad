@@ -92,10 +92,42 @@ def update_profile_display():
     if profile_list[index].bg_color is not None:
         bg_color_hex = rgb_to_hex(profile_list[index].bg_color)
     bg_color_button.config(background=bg_color_hex)
-    kd_color_hex = "#abcdef"
-    if profile_list[index].kd_color is not None:
-        kd_color_hex = rgb_to_hex(profile_list[index].kd_color)
-    kd_color_button.config(background=kd_color_hex)
+
+    if profile_list[index].kd_color is None:
+        kd_R1.select()
+        kd_color_button.config(background='SystemButtonFace')
+    else:
+        kd_R2.select()
+        kd_color_button.config(background=rgb_to_hex(profile_list[index].kd_color))
+
+    if profile_list[index].dim_unused:
+        dim_unused_keys_checkbox.select()
+    else:
+        dim_unused_keys_checkbox.deselect()
+
+def kd_radiobutton_auto_click():
+    global profile_list
+    selection = profile_listbox.curselection()
+    if len(selection) <= 0:
+        return
+    profile_list[selection[0]].kd_color = None
+    update_profile_display()
+
+def kd_radiobutton_custom_click():
+    global profile_list
+    selection = profile_listbox.curselection()
+    if len(selection) <= 0:
+        return
+    profile_list[selection[0]].kd_color = (238,130,238)
+    update_profile_display()
+
+def dim_unused_keys_click():
+    global profile_list
+    selection = profile_listbox.curselection()
+    if len(selection) <= 0:
+        return
+    profile_list[selection[0]].dim_unused = bool(dim_unused_keys_checkbox_var.get())
+    update_profile_display()
 
 def on_profile_listbox_select(event):
     update_profile_display()
@@ -132,8 +164,6 @@ def profile_add_click():
         insert_point = profile_listbox.curselection()[0] + 1
     except Exception as e:
         print('insert:', e)
-    print('insert_point', insert_point)
-    print('cleaned_answer:', answer)
 
     new_profile = duck_objs.dp_profile()
     folder_name = 'profile' + str(len(profile_list)+1) + '_' + answer
@@ -144,6 +174,7 @@ def profile_add_click():
     profile_listbox.selection_clear(0, len(profile_list))
     profile_listbox.selection_set(insert_point)
     update_profile_display()
+    print(new_profile)
 
 def profile_remove_click():
     global profile_list
@@ -189,6 +220,9 @@ def profile_rename_click():
     profile_list[selection[0]].name = answer
     update_profile_display()
 
+def save_click():
+    print('hell')
+
 root = Tk()
 root.title("duckyPad configurator")
 root.geometry(str(MAIN_WINDOW_WIDTH) + "x" + str(MAIN_WINDOW_HEIGHT))
@@ -214,7 +248,7 @@ root_folder_path_label = Label(master=root_folder_lf, textvariable=dp_root_folde
 root_folder_path_label.pack()
 root_folder_path_label.place(x=90, y=0)
 
-save_button = Button(root_folder_lf, text="Save", command=None, state=DISABLED, width='8')
+save_button = Button(root_folder_lf, text="Save", command=save_click, state=DISABLED, width='8')
 save_button.pack()
 save_button.place(x=400, y=0)
 
@@ -279,15 +313,16 @@ kd_color_button.pack()
 kd_color_button.place(x=160, y=407, width=60, height=20)
 kd_color_button.bind("<Button-1>", kd_color_click)
 
-dim_unused_keys_checkbox = Checkbutton(profiles_lf, text="Dim unused keys", variable=None)
+dim_unused_keys_checkbox_var = IntVar()
+dim_unused_keys_checkbox = Checkbutton(profiles_lf, text="Dim unused keys", variable=dim_unused_keys_checkbox_var, command=dim_unused_keys_click)
 dim_unused_keys_checkbox.pack()
 dim_unused_keys_checkbox.place(x=22, y=425)
 
 kd_color_var = IntVar()
-kd_R1 = Radiobutton(profiles_lf, text="      Auto", variable=kd_color_var, value=1, command=None)
+kd_R1 = Radiobutton(profiles_lf, text="      Auto", variable=kd_color_var, value=1, command=kd_radiobutton_auto_click)
 kd_R1.pack()
 kd_R1.place(x=130, y=380)
-kd_R2 = Radiobutton(profiles_lf, text="", variable=kd_color_var, value=2, command=None)
+kd_R2 = Radiobutton(profiles_lf, text="", variable=kd_color_var, value=2, command=kd_radiobutton_custom_click)
 kd_R2.pack()
 kd_R2.place(x=130, y=405)
 
