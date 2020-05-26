@@ -2,7 +2,15 @@
 pack BEFORE place
 
 """		
+dim_unused_keys_checkbox = Checkbutton(profiles_lf, text="Dim unused keys", variable=None)
+dim_unused_keys_checkbox.pack()
+dim_unused_keys_checkbox.update()
+dim_unused_keys_checkbox.place(x=int(profiles_lf.winfo_width() - dim_unused_keys_checkbox.winfo_width())/2, y=360)
 
+profile_separator = ttk.Separator(scripts_lf, orient=HORIZONTAL)
+profile_separator.pack(fill='x')
+profile_separator.place(x=2, y=2)
+root.update()
 
 def select_root_folder():
 	global dp_root_folder_display
@@ -117,6 +125,20 @@ working_folder_select_button.place(x=100, y=100)
 
 
 ############
+def on_profile_listbox_select(event):
+    ew = event.widget
+    index = int(ew.curselection()[0])
+    value = ew.get(index)
+    print('You selected item %d: "%s"' % (index, value))
+    bg_color_hex = "#abcdef"
+    if profile_list[index].bg_color is not None:
+    	bg_color_hex = rgb_to_hex(profile_list[index].bg_color)
+    bg_color_button.config(highlightbackground=bg_color_hex)
+
+    kd_color_hex = "#abcdef"
+    if profile_list[index].kd_color is not None:
+    	kd_color_hex = rgb_to_hex(profile_list[index].kd_color)
+    kd_color_button.config(highlightbackground=kd_color_hex)
 
 import os
 import sys
