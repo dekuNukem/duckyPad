@@ -261,7 +261,7 @@ profile_rename_button = Button(profiles_lf, text="Rename", command=profile_renam
 profile_rename_button.pack()
 profile_rename_button.place(x=PADDING * 2.5 + BUTTON_WIDTH, y=BUTTON_Y_POS + BUTTON_HEIGHT + int(PADDING/2), width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 
-bg_color_label = Label(master=profiles_lf, text="Backgroud color:")
+bg_color_label = Label(master=profiles_lf, text="Background color:")
 bg_color_label.pack()
 bg_color_label.place(x=20, y=355)
 
