@@ -100,7 +100,7 @@ def update_profile_display(index):
 def on_profile_listbox_select(event):
     if len(event.widget.curselection()) <= 0:
         return
-    update_profile_display(int(event.widget.curselection()[0]))
+    update_profile_display(event.widget.curselection()[0])
     
 def bg_color_click(event):
     print("bg_color_click")
