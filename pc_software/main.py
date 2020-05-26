@@ -194,6 +194,10 @@ kd_R2 = Radiobutton(profiles_lf, text="", variable=kd_color_var, value=2, comman
 kd_R2.pack()
 kd_R2.place(x=130, y=400)
 
+test_label = Label(master=profiles_lf, text='test', foreground='red')
+test_label.pack()
+test_label.place(x=90, y=0)
+
 # ------------- Keys frame -------------
 keys_lf = LabelFrame(root, text="Keys", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_WINDOW_HEIGHT - HIGHT_ROOT_FOLDER_LF - PADDING)
 keys_lf.pack()
