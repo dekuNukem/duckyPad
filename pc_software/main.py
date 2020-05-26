@@ -83,21 +83,25 @@ def update_profile_display(index):
     bg_color_hex = "#abcdef"
     if profile_list[index].bg_color is not None:
         bg_color_hex = rgb_to_hex(profile_list[index].bg_color)
-    bg_color_button.config(highlightbackground=bg_color_hex)
+    bg_color_button.config(background=bg_color_hex)
     
     kd_color_hex = "#abcdef"
     if profile_list[index].kd_color is not None:
         kd_color_hex = rgb_to_hex(profile_list[index].kd_color)
-    kd_color_button.config(highlightbackground=kd_color_hex)
+    kd_color_button.config(background=kd_color_hex)
 
 def on_profile_listbox_select(event):
     update_profile_display(int(event.widget.curselection()[0]))
     
-def bg_color_button_click():
-    print("does it still work?")
+def bg_color_click(event):
+    print("bg_color_click")
+    result = askcolor()
+    print(result)
 
-def kd_color_sel():
-    print("hello world")
+def kd_color_click(event):
+    print("kd_color_click")
+    result = askcolor()
+    print(result)
 
 root = Tk()
 root.title("duckyPad configurator")
@@ -170,33 +174,31 @@ bg_color_label = Label(master=profiles_lf, text="Backgroud color:")
 bg_color_label.pack()
 bg_color_label.place(x=20, y=355)
 
-bg_color_button = Button(profiles_lf, command=bg_color_button_click, highlightthickness=20)
+bg_color_button = Label(master=profiles_lf, borderwidth=1, relief="solid")
 bg_color_button.pack()
-bg_color_button.place(x=155, y=356, width=60, height=20)
+bg_color_button.place(x=160, y=356, width=60, height=20)
+bg_color_button.bind("<Button-1>", bg_color_click)
 
 kd_color_label = Label(master=profiles_lf, text="Key-down color:")
 kd_color_label.pack()
 kd_color_label.place(x=20, y=380)
 
-kd_color_button = Button(profiles_lf, highlightthickness=20, command=None)
+kd_color_button = Label(master=profiles_lf, borderwidth=1, relief="solid")
 kd_color_button.pack()
-kd_color_button.place(x=155, y=402, width=60, height=20)
+kd_color_button.place(x=160, y=402, width=60, height=20)
+kd_color_button.bind("<Button-1>", kd_color_click)
 
 dim_unused_keys_checkbox = Checkbutton(profiles_lf, text="Dim unused keys", variable=None)
 dim_unused_keys_checkbox.pack()
 dim_unused_keys_checkbox.place(x=22, y=425)
 
 kd_color_var = IntVar()
-kd_R1 = Radiobutton(profiles_lf, text="    Auto", variable=kd_color_var, value=1, command=kd_color_sel)
+kd_R1 = Radiobutton(profiles_lf, text="      Auto", variable=kd_color_var, value=1, command=None)
 kd_R1.pack()
 kd_R1.place(x=130, y=380)
-kd_R2 = Radiobutton(profiles_lf, text="", variable=kd_color_var, value=2, command=kd_color_sel)
+kd_R2 = Radiobutton(profiles_lf, text="", variable=kd_color_var, value=2, command=None)
 kd_R2.pack()
 kd_R2.place(x=130, y=400)
-
-test_label = Label(master=profiles_lf, text='test', foreground='white', background='red')
-test_label.pack()
-test_label.place(x=20, y=400)
 
 # ------------- Keys frame -------------
 keys_lf = LabelFrame(root, text="Keys", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_WINDOW_HEIGHT - HIGHT_ROOT_FOLDER_LF - PADDING)
@@ -213,5 +215,4 @@ scripts_lf.place(x=keys_lf.winfo_x() + keys_lf.winfo_width() + PADDING, y=keys_l
 # --------------------------
 
 debug_set_root_folder()
-# askcolor()
 root.mainloop()

@@ -2,6 +2,15 @@
 pack BEFORE place
 
 """		
+
+
+
+# kd_color_button = Button(profiles_lf, highlightthickness=20, command=None)
+# kd_color_button.pack()
+# kd_color_button.place(x=160, y=402, width=60, height=20)
+
+
+
 dim_unused_keys_checkbox = Checkbutton(profiles_lf, text="Dim unused keys", variable=None)
 dim_unused_keys_checkbox.pack()
 dim_unused_keys_checkbox.update()
