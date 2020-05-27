@@ -132,6 +132,8 @@ def update_profile_display():
         else:
             key_button_list[count].config(background='SystemButtonFace', text='')
     keys_lf_reset()
+    key_name_entrybox.delete(0, 'end')
+    selected_key = None
 
 def kd_radiobutton_auto_click():
     global profile_list
@@ -263,6 +265,17 @@ def profile_rename_click():
 def save_click():
     print('save_click')
 
+def key_button_click(event):
+    global selected_key
+    if len(profile_listbox.curselection()) <= 0:
+        return
+    selected_key = key_button_list.index(event.widget)
+    keys_lf_reset()
+    event.widget.config(borderwidth=7, relief='sunken')
+    if profile_list[profile_listbox.curselection()[0]].keylist[selected_key] is not None:
+        key_name_entrybox.delete(0, 'end')
+        key_name_entrybox.insert(0, profile_list[profile_listbox.curselection()[0]].keylist[selected_key].name)
+
 root = Tk()
 root.title("duckyPad configurator")
 root.geometry(str(MAIN_WINDOW_WIDTH) + "x" + str(MAIN_WINDOW_HEIGHT))
@@ -367,17 +380,7 @@ kd_R2.place(x=130, y=405)
 
 # ------------- Keys frame -------------
 selected_key = None
-def key_button_click(event):
-    global selected_key
-    if len(profile_listbox.curselection()) <= 0:
-        return
-    selected_key = key_button_list.index(event.widget)
-    if profile_list[profile_listbox.curselection()[0]].keylist[selected_key] is None:
-        return
-    keys_lf_reset()
-    event.widget.config(borderwidth=7, relief='sunken')
-    # select nothing when profile changes
-    
+
 keys_lf = LabelFrame(root, text="Keys", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_WINDOW_HEIGHT - HIGHT_ROOT_FOLDER_LF - PADDING)
 keys_lf.pack()
 keys_lf.place(x=profiles_lf.winfo_x() + profiles_lf.winfo_width() + PADDING, y=profiles_lf.winfo_y())
@@ -402,6 +405,26 @@ for x in range(15):
     this_button.place(x=button_xy_map[x][0], y=button_xy_map[x][1], width=KEY_BUTTON_WIDTH, height=KEY_BUTTON_HEIGHT)
     this_button.bind("<Button-1>", key_button_click)
     key_button_list.append(this_button)
+
+key_name_text = Label(master=keys_lf, text="Key name:")
+key_name_text.pack()
+key_name_text.place(x=PADDING, y=305)
+root.update()
+
+key_name_entrybox = Entry(keys_lf, width=15)
+key_name_entrybox.pack()
+key_name_entrybox.place(x=key_name_text.winfo_width()+PADDING, y=305)
+
+KEY_BUTTON_GAP = int((keys_lf.winfo_width() - 2 * BUTTON_WIDTH) / 3.5)
+
+key_rename_button = Button(keys_lf, text="Apply", command=None, state=DISABLED)
+key_rename_button.pack()
+key_rename_button.place(x=KEY_BUTTON_GAP, y=335, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
+root.update()
+key_remove_button = Button(keys_lf, text="Remove", command=None, state=DISABLED)
+key_remove_button.pack()
+key_remove_button.place(x=KEY_BUTTON_GAP*2+key_rename_button.winfo_width(), y=335, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
+
 
 # ------------- Scripts frame -------------
 scripts_lf = LabelFrame(root, text="Scripts", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_WINDOW_HEIGHT - HIGHT_ROOT_FOLDER_LF - PADDING)

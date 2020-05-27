@@ -2,6 +2,11 @@
 pack BEFORE place
 
 """		
+
+    # if profile_list[profile_listbox.curselection()[0]].keylist[selected_key] is None:
+    #     return
+
+    
 (255-this_color[0],255-this_color[1],255-this_color[2])
     print('key_button_click')
     print(key_button_list.index(event.widget))
