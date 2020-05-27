@@ -343,11 +343,20 @@ kd_R2.pack()
 kd_R2.place(x=130, y=405)
 
 # ------------- Keys frame -------------
+
+def key_button_click(event):
+    print('key_button_click')
+
 keys_lf = LabelFrame(root, text="Keys", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_WINDOW_HEIGHT - HIGHT_ROOT_FOLDER_LF - PADDING)
 keys_lf.pack()
 keys_lf.place(x=profiles_lf.winfo_x() + profiles_lf.winfo_width() + PADDING, y=profiles_lf.winfo_y())
 keys_lf.pack_propagate(False) 
 root.update()
+
+key1_button = Label(master=keys_lf, borderwidth=1, relief="solid")
+key1_button.pack()
+key1_button.place(x=20, y=20, width=60, height=20)
+key1_button.bind("<Button-1>", bg_color_click)
 
 # ------------- Scripts frame -------------
 scripts_lf = LabelFrame(root, text="Scripts", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_WINDOW_HEIGHT - HIGHT_ROOT_FOLDER_LF - PADDING)
