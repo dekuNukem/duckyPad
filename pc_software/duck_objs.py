@@ -30,10 +30,9 @@ class dp_key(object):
 
 	def __init__(self, path):
 		super(dp_key, self).__init__()
-		temp_split = os.path.basename(os.path.normpath(path)).rstrip('.txt').lstrip('key').split('_', 1)
 		self.path = path
-		self.name = temp_split[1]
-		self.index = int(temp_split[0])
+		self.name = os.path.basename(os.path.normpath(path)).split('.')[0].split('_', 1)[-1]
+		self.index = int(os.path.basename(os.path.normpath(path)).split('_')[0].strip('key'))
 		self.color = None
 		self.script = None
 		self.read_file(path)
@@ -50,7 +49,8 @@ class dp_profile(object):
 		key_file_list = [x for x in os.listdir(path) if x.endswith('.txt') and x.startswith('key') and '_' in x and x[3].isnumeric()]
 		key_file_list.sort(key=lambda s: int(s[3:].split("_")[0])) # sort by number not by letter
 		for item in key_file_list:
-			self.keylist.append(dp_key(os.path.join(path, item)))
+			this_key = dp_key(os.path.join(path, item))
+			self.keylist[this_key.index -1] = this_key
 
 	def read_config(self, path):
 		try:

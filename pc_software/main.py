@@ -3,6 +3,7 @@ import sys
 import time
 import copy
 import random
+import colorsys
 import duck_objs
 from tkinter import *
 from tkinter import filedialog
@@ -87,6 +88,11 @@ def profile_shift_down():
     profile_listbox.selection_set(destination)
     update_profile_display()
 
+def adapt_color(rgb_tuple):
+    if (rgb_tuple[0]*0.299 + rgb_tuple[1]*0.587 + rgb_tuple[2]*0.114) > 145:
+        return "black"
+    return 'white'
+
 def update_profile_display():
     profile_var.set([' '+x.name for x in profile_list]) # update profile listbox
     if len(profile_listbox.curselection()) <= 0:
@@ -108,6 +114,20 @@ def update_profile_display():
         dim_unused_keys_checkbox.select()
     else:
         dim_unused_keys_checkbox.deselect()
+
+    for count, item in enumerate(profile_list[index].keylist):
+        if item is not None:
+            this_color = None
+            if item.color is not None:
+                key_button_list[count].config(background=rgb_to_hex(item.color))
+                this_color = item.color
+            else:
+                key_button_list[count].config(background=rgb_to_hex(profile_list[index].bg_color))
+                this_color = profile_list[index].bg_color
+            print(item)
+            key_button_list[count].config(text=item.name[:7], font=(None, 13), foreground=adapt_color(this_color))
+        else:
+            key_button_list[count].config(background='SystemButtonFace', text='')
 
 def kd_radiobutton_auto_click():
     global profile_list
@@ -237,7 +257,7 @@ def profile_rename_click():
     update_profile_display()
 
 def save_click():
-    print('hell')
+    print('save_click')
 
 root = Tk()
 root.title("duckyPad configurator")
@@ -267,7 +287,6 @@ root_folder_path_label.place(x=90, y=0)
 save_button = Button(root_folder_lf, text="Save", command=save_click, state=DISABLED, width='8')
 save_button.pack()
 save_button.place(x=400, y=0)
-
 
 # ------------- Profiles frame -------------
 
@@ -346,17 +365,32 @@ kd_R2.place(x=130, y=405)
 
 def key_button_click(event):
     print('key_button_click')
-
+    print(key_button_list.index(event.widget))
+    
 keys_lf = LabelFrame(root, text="Keys", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_WINDOW_HEIGHT - HIGHT_ROOT_FOLDER_LF - PADDING)
 keys_lf.pack()
 keys_lf.place(x=profiles_lf.winfo_x() + profiles_lf.winfo_width() + PADDING, y=profiles_lf.winfo_y())
 keys_lf.pack_propagate(False) 
 root.update()
 
-key1_button = Label(master=keys_lf, borderwidth=1, relief="solid")
-key1_button.pack()
-key1_button.place(x=20, y=20, width=60, height=20)
-key1_button.bind("<Button-1>", bg_color_click)
+key_instruction = Label(master=keys_lf, text="click to edit, drag to rearrange")
+key_instruction.pack()
+root.update()
+key_instruction.place(x=(keys_lf.winfo_width() - key_instruction.winfo_width())/2, y=0)
+
+KEY_BUTTON_HEADROOM = 20
+KEY_BUTTON_WIDTH = 70
+KEY_BUTTON_HEIGHT = 45
+KEY_BUTTON_GAP = int((keys_lf.winfo_width() - 3 * KEY_BUTTON_WIDTH) / 4.5)
+
+button_xy_map = [(KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING), (KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING*2+KEY_BUTTON_HEIGHT), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING*2+KEY_BUTTON_HEIGHT), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING*2+KEY_BUTTON_HEIGHT), (KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING*3+KEY_BUTTON_HEIGHT*2), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING*3+KEY_BUTTON_HEIGHT*2), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING*3+KEY_BUTTON_HEIGHT*2), (KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING*4+KEY_BUTTON_HEIGHT*3), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING*4+KEY_BUTTON_HEIGHT*3), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING*4+KEY_BUTTON_HEIGHT*3), (KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING*5+KEY_BUTTON_HEIGHT*4), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING*5+KEY_BUTTON_HEIGHT*4), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING*5+KEY_BUTTON_HEIGHT*4)]
+key_button_list = []
+for x in range(15):
+    this_button = Label(master=keys_lf, borderwidth=1, relief="solid", background='SystemButtonFace')
+    this_button.pack()
+    this_button.place(x=button_xy_map[x][0], y=button_xy_map[x][1], width=KEY_BUTTON_WIDTH, height=KEY_BUTTON_HEIGHT)
+    this_button.bind("<Button-1>", key_button_click)
+    key_button_list.append(this_button)
 
 # ------------- Scripts frame -------------
 scripts_lf = LabelFrame(root, text="Scripts", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_WINDOW_HEIGHT - HIGHT_ROOT_FOLDER_LF - PADDING)

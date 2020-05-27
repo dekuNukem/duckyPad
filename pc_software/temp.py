@@ -2,7 +2,84 @@
 pack BEFORE place
 
 """		
+(255-this_color[0],255-this_color[1],255-this_color[2])
 
+
+
+key1_button = Label(master=keys_lf, borderwidth=1, relief="solid")
+key1_button.pack()
+key1_button.place(x=KEY_BUTTON_GAP, y=KEY_BUTTON_HEADROOM + PADDING, width=KEY_BUTTON_WIDTH, height=KEY_BUTTON_HEIGHT)
+key1_button.bind("<Button-1>", key_button_click)
+
+key2_button = Label(master=keys_lf, borderwidth=1, relief="solid")
+key2_button.pack()
+key2_button.place(x= KEY_BUTTON_GAP * 2 + KEY_BUTTON_WIDTH, y=KEY_BUTTON_HEADROOM + PADDING, width=KEY_BUTTON_WIDTH, height=KEY_BUTTON_HEIGHT)
+key2_button.bind("<Button-1>", key_button_click)
+
+key3_button = Label(master=keys_lf, borderwidth=1, relief="solid")
+key3_button.pack()
+key3_button.place(x=KEY_BUTTON_GAP * 3 + KEY_BUTTON_WIDTH * 2, y=KEY_BUTTON_HEADROOM + PADDING, width=KEY_BUTTON_WIDTH, height=KEY_BUTTON_HEIGHT)
+key3_button.bind("<Button-1>", key_button_click)
+
+key4_button = Label(master=keys_lf, borderwidth=1, relief="solid")
+key4_button.pack()
+key4_button.place(x=KEY_BUTTON_GAP, y=KEY_BUTTON_HEADROOM + PADDING * 2 + KEY_BUTTON_HEIGHT, width=KEY_BUTTON_WIDTH, height=KEY_BUTTON_HEIGHT)
+key4_button.bind("<Button-1>", key_button_click)
+
+key5_button = Label(master=keys_lf, borderwidth=1, relief="solid")
+key5_button.pack()
+key5_button.place(x= KEY_BUTTON_GAP * 2 + KEY_BUTTON_WIDTH, y=KEY_BUTTON_HEADROOM + PADDING * 2 + KEY_BUTTON_HEIGHT, width=KEY_BUTTON_WIDTH, height=KEY_BUTTON_HEIGHT)
+key5_button.bind("<Button-1>", key_button_click)
+
+key6_button = Label(master=keys_lf, borderwidth=1, relief="solid")
+key6_button.pack()
+key6_button.place(x=KEY_BUTTON_GAP * 3 + KEY_BUTTON_WIDTH * 2, y=KEY_BUTTON_HEADROOM + PADDING * 2 + KEY_BUTTON_HEIGHT, width=KEY_BUTTON_WIDTH, height=KEY_BUTTON_HEIGHT)
+key6_button.bind("<Button-1>", key_button_click)
+
+key7_button = Label(master=keys_lf, borderwidth=1, relief="solid")
+key7_button.pack()
+key7_button.place(x=KEY_BUTTON_GAP, y=KEY_BUTTON_HEADROOM + PADDING * 3 + KEY_BUTTON_HEIGHT * 2, width=KEY_BUTTON_WIDTH, height=KEY_BUTTON_HEIGHT)
+key7_button.bind("<Button-1>", key_button_click)
+
+key8_button = Label(master=keys_lf, borderwidth=1, relief="solid")
+key8_button.pack()
+key8_button.place(x= KEY_BUTTON_GAP * 2 + KEY_BUTTON_WIDTH, y=KEY_BUTTON_HEADROOM + PADDING * 3 + KEY_BUTTON_HEIGHT * 2, width=KEY_BUTTON_WIDTH, height=KEY_BUTTON_HEIGHT)
+key8_button.bind("<Button-1>", key_button_click)
+
+key9_button = Label(master=keys_lf, borderwidth=1, relief="solid")
+key9_button.pack()
+key9_button.place(x=KEY_BUTTON_GAP * 3 + KEY_BUTTON_WIDTH * 2, y=KEY_BUTTON_HEADROOM + PADDING * 3 + KEY_BUTTON_HEIGHT * 2, width=KEY_BUTTON_WIDTH, height=KEY_BUTTON_HEIGHT)
+key9_button.bind("<Button-1>", key_button_click)
+
+key10_button = Label(master=keys_lf, borderwidth=1, relief="solid")
+key10_button.pack()
+key10_button.place(x=KEY_BUTTON_GAP, y=KEY_BUTTON_HEADROOM + PADDING * 4 + KEY_BUTTON_HEIGHT * 3, width=KEY_BUTTON_WIDTH, height=KEY_BUTTON_HEIGHT)
+key10_button.bind("<Button-1>", key_button_click)
+
+key11_button = Label(master=keys_lf, borderwidth=1, relief="solid")
+key11_button.pack()
+key11_button.place(x= KEY_BUTTON_GAP * 2 + KEY_BUTTON_WIDTH, y=KEY_BUTTON_HEADROOM + PADDING * 4 + KEY_BUTTON_HEIGHT * 3, width=KEY_BUTTON_WIDTH, height=KEY_BUTTON_HEIGHT)
+key11_button.bind("<Button-1>", key_button_click)
+
+key12_button = Label(master=keys_lf, borderwidth=1, relief="solid")
+key12_button.pack()
+key12_button.place(x=KEY_BUTTON_GAP * 3 + KEY_BUTTON_WIDTH * 2, y=KEY_BUTTON_HEADROOM + PADDING * 4 + KEY_BUTTON_HEIGHT * 3, width=KEY_BUTTON_WIDTH, height=KEY_BUTTON_HEIGHT)
+key12_button.bind("<Button-1>", key_button_click)
+
+key13_button = Label(master=keys_lf, borderwidth=1, relief="solid")
+key13_button.pack()
+key13_button.place(x=KEY_BUTTON_GAP, y=KEY_BUTTON_HEADROOM + PADDING * 5 + KEY_BUTTON_HEIGHT * 4, width=KEY_BUTTON_WIDTH, height=KEY_BUTTON_HEIGHT)
+key13_button.bind("<Button-1>", key_button_click)
+
+key14_button = Label(master=keys_lf, borderwidth=1, relief="solid")
+key14_button.pack()
+key14_button.place(x= KEY_BUTTON_GAP * 2 + KEY_BUTTON_WIDTH, y=KEY_BUTTON_HEADROOM + PADDING * 5 + KEY_BUTTON_HEIGHT * 4, width=KEY_BUTTON_WIDTH, height=KEY_BUTTON_HEIGHT)
+key14_button.bind("<Button-1>", key_button_click)
+
+key15_button = Label(master=keys_lf, borderwidth=1, relief="solid")
+key15_button.pack()
+key15_button.place(x=KEY_BUTTON_GAP * 3 + KEY_BUTTON_WIDTH * 2, y=KEY_BUTTON_HEADROOM + PADDING * 5 + KEY_BUTTON_HEIGHT * 4, width=KEY_BUTTON_WIDTH, height=KEY_BUTTON_HEIGHT)
+key15_button.bind("<Button-1>", key_button_click)
 def profile_dupe_click():
     global profile_list
     selection = profile_listbox.curselection()
