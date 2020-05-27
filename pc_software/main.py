@@ -16,6 +16,13 @@ PADDING = 10
 HIGHT_ROOT_FOLDER_LF = 50
 INVALID_ROOT_FOLDER_STRING = "<-- Please select your duckyPad root folder"
 
+def hex_to_rgb(hex_str):
+    hex_str = hex_str.strip('#')
+    return tuple(int(hex_str[i:i+2], 16) for i in (0, 2, 4))
+
+def rgb_to_hex(rgb_tuple):
+    return '#%02x%02x%02x' % rgb_tuple
+
 def select_root_folder():
     global profile_list
     global dp_root_folder_path
@@ -80,9 +87,6 @@ def profile_shift_down():
     profile_listbox.selection_set(destination)
     update_profile_display()
 
-def rgb_to_hex(rgb_tuple):
-    return '#%02x%02x%02x' % rgb_tuple
-
 def update_profile_display():
     profile_var.set([' '+x.name for x in profile_list]) # update profile listbox
     if len(profile_listbox.curselection()) <= 0:
@@ -133,14 +137,26 @@ def on_profile_listbox_select(event):
     update_profile_display()
     
 def bg_color_click(event):
-    print("bg_color_click")
-    result = askcolor()
-    print(result)
+    global profile_list
+    selection = profile_listbox.curselection()
+    if len(selection) <= 0:
+        return
+    result = askcolor()[-1]
+    if result is None:
+        return
+    profile_list[selection[0]].bg_color = hex_to_rgb(result)
+    update_profile_display()
 
 def kd_color_click(event):
-    print("kd_color_click")
-    result = askcolor()
-    print(result)
+    global profile_list
+    selection = profile_listbox.curselection()
+    if len(selection) <= 0 or kd_color_var.get() == 0:
+        return
+    result = askcolor()[-1]
+    if result is None:
+        return
+    profile_list[selection[0]].kd_color = hex_to_rgb(result)
+    update_profile_display()
 
 def clean_input(str_input, len_limit=None):
     result = ''.join([x for x in str_input if 32 <= ord(x) <= 126])
@@ -148,7 +164,7 @@ def clean_input(str_input, len_limit=None):
         result = result.replace('  ', ' ')
     if len_limit is not None:
         result = result[:len_limit]
-    return result
+    return result.strip()
 
 def profile_add_click():
     global profile_list
@@ -319,10 +335,10 @@ dim_unused_keys_checkbox.pack()
 dim_unused_keys_checkbox.place(x=22, y=425)
 
 kd_color_var = IntVar()
-kd_R1 = Radiobutton(profiles_lf, text="      Auto", variable=kd_color_var, value=1, command=kd_radiobutton_auto_click)
+kd_R1 = Radiobutton(profiles_lf, text="      Auto", variable=kd_color_var, value=0, command=kd_radiobutton_auto_click)
 kd_R1.pack()
 kd_R1.place(x=130, y=380)
-kd_R2 = Radiobutton(profiles_lf, text="", variable=kd_color_var, value=2, command=kd_radiobutton_custom_click)
+kd_R2 = Radiobutton(profiles_lf, text="", variable=kd_color_var, value=1, command=kd_radiobutton_custom_click)
 kd_R2.pack()
 kd_R2.place(x=130, y=405)
 
