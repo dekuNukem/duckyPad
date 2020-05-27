@@ -3,7 +3,8 @@ pack BEFORE place
 
 """		
 (255-this_color[0],255-this_color[1],255-this_color[2])
-
+    print('key_button_click')
+    print(key_button_list.index(event.widget))
 
 
 key1_button = Label(master=keys_lf, borderwidth=1, relief="solid")

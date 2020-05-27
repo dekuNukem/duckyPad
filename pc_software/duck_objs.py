@@ -90,7 +90,7 @@ class dp_profile(object):
 		ret += "dim_unused:\t" + str(self.dim_unused) + '\n'
 		ret += "key count:\t" + str(len([x for x in self.keylist if x is not None])) + '\n'
 		ret += "keys:\n"
-		for item in [x for x in self.keylist if x is not None]:
+		for item in [x for x in self.keylist]:
 			ret += str(item) + '\n'
 		ret += str('----------------------') + '\n'
 		return ret

@@ -17,6 +17,10 @@ PADDING = 10
 HIGHT_ROOT_FOLDER_LF = 50
 INVALID_ROOT_FOLDER_STRING = "<-- Please select your duckyPad root folder"
 
+def keys_lf_reset():
+    for item in key_button_list:
+        item.config(borderwidth=1, relief="solid")
+
 def hex_to_rgb(hex_str):
     hex_str = hex_str.strip('#')
     return tuple(int(hex_str[i:i+2], 16) for i in (0, 2, 4))
@@ -124,10 +128,10 @@ def update_profile_display():
             else:
                 key_button_list[count].config(background=rgb_to_hex(profile_list[index].bg_color))
                 this_color = profile_list[index].bg_color
-            print(item)
             key_button_list[count].config(text=item.name[:7], font=(None, 13), foreground=adapt_color(this_color))
         else:
             key_button_list[count].config(background='SystemButtonFace', text='')
+    keys_lf_reset()
 
 def kd_radiobutton_auto_click():
     global profile_list
@@ -362,10 +366,17 @@ kd_R2.pack()
 kd_R2.place(x=130, y=405)
 
 # ------------- Keys frame -------------
-
+selected_key = None
 def key_button_click(event):
-    print('key_button_click')
-    print(key_button_list.index(event.widget))
+    global selected_key
+    if len(profile_listbox.curselection()) <= 0:
+        return
+    selected_key = key_button_list.index(event.widget)
+    if profile_list[profile_listbox.curselection()[0]].keylist[selected_key] is None:
+        return
+    keys_lf_reset()
+    event.widget.config(borderwidth=7, relief='sunken')
+    # select nothing when profile changes
     
 keys_lf = LabelFrame(root, text="Keys", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_WINDOW_HEIGHT - HIGHT_ROOT_FOLDER_LF - PADDING)
 keys_lf.pack()
