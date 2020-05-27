@@ -379,7 +379,7 @@ root.update()
 key_instruction.place(x=(keys_lf.winfo_width() - key_instruction.winfo_width())/2, y=0)
 
 KEY_BUTTON_HEADROOM = 20
-KEY_BUTTON_WIDTH = 70
+KEY_BUTTON_WIDTH = 75
 KEY_BUTTON_HEIGHT = 45
 KEY_BUTTON_GAP = int((keys_lf.winfo_width() - 3 * KEY_BUTTON_WIDTH) / 4.5)
 
