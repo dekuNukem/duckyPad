@@ -272,8 +272,8 @@ def key_button_click(event):
     selected_key = key_button_list.index(event.widget)
     keys_lf_reset()
     event.widget.config(borderwidth=7, relief='sunken')
+    key_name_entrybox.delete(0, 'end')
     if profile_list[profile_listbox.curselection()[0]].keylist[selected_key] is not None:
-        key_name_entrybox.delete(0, 'end')
         key_name_entrybox.insert(0, profile_list[profile_listbox.curselection()[0]].keylist[selected_key].name)
 
 root = Tk()
@@ -314,7 +314,7 @@ profiles_lf.place(x=PADDING, y=HIGHT_ROOT_FOLDER_LF)
 profiles_lf.pack_propagate(False)
 root.update()
 
-profile_listbox = Listbox(profiles_lf, listvariable=profile_var, height=16) #, selectmode='single'?
+profile_listbox = Listbox(profiles_lf, listvariable=profile_var, height=16, exportselection=0) #, selectmode='single'?
 profile_listbox.pack()
 profile_listbox.place(x=32, y=PADDING, width=182)
 profile_listbox.bind('<<ListboxSelect>>', on_profile_listbox_select)
@@ -356,7 +356,7 @@ bg_color_button.pack()
 bg_color_button.place(x=160, y=356, width=60, height=20)
 bg_color_button.bind("<Button-1>", bg_color_click)
 
-kd_color_label = Label(master=profiles_lf, text="Key-down color:")
+kd_color_label = Label(master=profiles_lf, text="Activation color:")
 kd_color_label.pack()
 kd_color_label.place(x=20, y=380)
 
@@ -411,13 +411,13 @@ key_name_text.pack()
 key_name_text.place(x=PADDING, y=305)
 root.update()
 
-key_name_entrybox = Entry(keys_lf, width=15)
+key_name_entrybox = Entry(keys_lf)
 key_name_entrybox.pack()
-key_name_entrybox.place(x=key_name_text.winfo_width()+PADDING, y=305)
+key_name_entrybox.place(x=key_name_text.winfo_width()+PADDING, y=305, width=145)
 
 KEY_BUTTON_GAP = int((keys_lf.winfo_width() - 2 * BUTTON_WIDTH) / 3.5)
 
-key_rename_button = Button(keys_lf, text="Apply", command=None, state=DISABLED)
+key_rename_button = Button(keys_lf, text="Rename", command=None, state=DISABLED)
 key_rename_button.pack()
 key_rename_button.place(x=KEY_BUTTON_GAP, y=335, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 root.update()
@@ -425,6 +425,23 @@ key_remove_button = Button(keys_lf, text="Remove", command=None, state=DISABLED)
 key_remove_button.pack()
 key_remove_button.place(x=KEY_BUTTON_GAP*2+key_rename_button.winfo_width(), y=335, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 
+key_name_text = Label(master=keys_lf, text="Key color:")
+key_name_text.pack()
+key_name_text.place(x=PADDING, y=380)
+root.update()
+
+key_color_type_var = IntVar()
+key_color_rb1 = Radiobutton(keys_lf, text="Same as background", variable=key_color_type_var, value=0, command=None)
+key_color_rb1.pack()
+key_color_rb1.place(x=85, y=380)
+key_color_rb2 = Radiobutton(keys_lf, text="", variable=key_color_type_var, value=1, command=None)
+key_color_rb2.pack()
+key_color_rb2.place(x=85, y=405)
+
+key_color_button = Label(master=keys_lf, borderwidth=1, relief="solid")
+key_color_button.pack()
+key_color_button.place(x=135, y=407, width=60, height=20)
+# key_color_button.bind("<Button-1>", bg_color_click)
 
 # ------------- Scripts frame -------------
 scripts_lf = LabelFrame(root, text="Scripts", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_WINDOW_HEIGHT - HIGHT_ROOT_FOLDER_LF - PADDING)
