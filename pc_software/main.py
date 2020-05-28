@@ -516,5 +516,6 @@ scripts_lf.place(x=keys_lf.winfo_x() + keys_lf.winfo_width() + PADDING, y=keys_l
 
 # --------------------------
 
-debug_set_root_folder()
+if os.name == 'posix':
+    debug_set_root_folder()
 root.mainloop()
