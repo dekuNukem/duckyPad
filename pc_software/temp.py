@@ -2,11 +2,44 @@
 pack BEFORE place
 
 """		
+    print('source:', drag_source_button_index)
+    print('destination:', drag_destination_button_index)
+    print('------')
+drag_source_button_index = None
+drag_destination_button_index = None
+def button_drag_start(event):
+    global drag_source_button_index
+    global drag_destination_button_index
+    drag_source_button_index = key_button_list.index(event.widget)
+    drag_destination_button_index = search_button(event.x_root, event.y_root)
+    button_state_backup = None
+    if drag_source_button_index is not None and drag_destination_button_index is not None and drag_destination_button_index != drag_source_button_index:
+        # print(drag_source_button_index, drag_destination_button_index)
+        button_state_backup = copy.deepcopy(key_button_list[drag_destination_button_index])
+        key_button_list[drag_destination_button_index].config(text='move here')
+    elif button_state_backup is not None:
+        # update_profile_display()
+        key_button_list[drag_destination_button_index] = button_state_backup
+        root.update()
+def button_drag_release(event):
+    print('released at:', event.x, event.y)
+hovering_over_button = None
+def button_drag_start(event):
+    global hovering_over_button
+    selected_key = key_button_list.index(event.widget)
+    print('dragging key', selected_key, '', event.x, event.y)
+    print('event root', selected_key, '', event.x_root, event.y_root)
+    print('widget root', selected_key, '', event.widget.winfo_rootx(), event.widget.winfo_rooty())
+    print('search_button:', search_button(event.x_root, event.y_root))
+def button_drag_release(event):
+    print('released at:', event.x, event.y)
+canvas_test = Canvas(root, bg="", height=250, width=300)
+canvas_test.pack()
 
     # if profile_list[profile_listbox.curselection()[0]].keylist[selected_key] is None:
     #     return
 
-    
+
 (255-this_color[0],255-this_color[1],255-this_color[2])
     print('key_button_click')
     print(key_button_list.index(event.widget))

@@ -17,7 +17,7 @@ PADDING = 10
 HIGHT_ROOT_FOLDER_LF = 50
 INVALID_ROOT_FOLDER_STRING = "<-- Please select your duckyPad root folder"
 
-def keys_lf_reset():
+def reset_key_button_relief():
     for item in key_button_list:
         item.config(borderwidth=1, relief="solid")
 
@@ -119,21 +119,24 @@ def update_profile_display():
     else:
         dim_unused_keys_checkbox.deselect()
 
-    for count, item in enumerate(profile_list[index].keylist):
+    reset_key_button_appearances(index)
+    reset_key_button_relief()
+    key_name_entrybox.delete(0, 'end')
+    selected_key = None
+
+def reset_key_button_appearances(profile_index):
+    for count, item in enumerate(profile_list[profile_index].keylist):
         if item is not None:
             this_color = None
             if item.color is not None:
                 key_button_list[count].config(background=rgb_to_hex(item.color))
                 this_color = item.color
             else:
-                key_button_list[count].config(background=rgb_to_hex(profile_list[index].bg_color))
-                this_color = profile_list[index].bg_color
+                key_button_list[count].config(background=rgb_to_hex(profile_list[profile_index].bg_color))
+                this_color = profile_list[profile_index].bg_color
             key_button_list[count].config(text=item.name[:7], font=(None, 13), foreground=adapt_color(this_color))
         else:
             key_button_list[count].config(background='SystemButtonFace', text='')
-    keys_lf_reset()
-    key_name_entrybox.delete(0, 'end')
-    selected_key = None
 
 def kd_radiobutton_auto_click():
     global profile_list
@@ -265,13 +268,16 @@ def profile_rename_click():
 def save_click():
     print('save_click')
 
-def key_button_click(event):
+def key_button_click_event(event):
+    key_button_click(event.widget)
+
+def key_button_click(button_widget):
     global selected_key
     if len(profile_listbox.curselection()) <= 0:
         return
-    selected_key = key_button_list.index(event.widget)
-    keys_lf_reset()
-    event.widget.config(borderwidth=7, relief='sunken')
+    selected_key = key_button_list.index(button_widget)
+    reset_key_button_relief()
+    button_widget.config(borderwidth=7, relief='sunken')
     key_name_entrybox.delete(0, 'end')
     if profile_list[profile_listbox.curselection()[0]].keylist[selected_key] is not None:
         key_name_entrybox.insert(0, profile_list[profile_listbox.curselection()[0]].keylist[selected_key].name)
@@ -397,8 +403,63 @@ KEY_BUTTON_WIDTH = 75
 KEY_BUTTON_HEIGHT = 45
 KEY_BUTTON_GAP = int((keys_lf.winfo_width() - 3 * KEY_BUTTON_WIDTH) / 4.5)
 
-def dragging(event):
-    print(event.x, event.y)
+def search_button(rootx, rooty):
+    for index, item in enumerate(key_button_list):
+        xstart = item.winfo_rootx()
+        xend = item.winfo_rootx() + item.winfo_width()
+        ystart = item.winfo_rooty()
+        yend = item.winfo_rooty() + item.winfo_height()
+        if xstart < rootx < xend and ystart < rooty < yend:
+            return index
+    return None
+
+drag_source_button_index = None
+drag_destination_button_index = None
+def button_drag_start(event):
+    global drag_source_button_index
+    global drag_destination_button_index
+    if len(profile_listbox.curselection()) <= 0:
+        return
+    profile_index = profile_listbox.curselection()[0]
+    drag_source_button_index = key_button_list.index(event.widget)
+    # if empty button
+    if profile_list[profile_index].keylist[drag_source_button_index] is None:
+        return
+    drag_destination_button_index = search_button(event.x_root, event.y_root)
+    if drag_source_button_index == drag_destination_button_index:
+        return
+    reset_key_button_relief()
+    event.widget.config(borderwidth=7, relief='sunken')
+    if drag_source_button_index is not None and drag_destination_button_index is not None and drag_destination_button_index != drag_source_button_index:
+        key_button_list[drag_destination_button_index].config(text='move\nhere', background='white', foreground='black', borderwidth=4)
+    else:
+        reset_key_button_appearances(profile_index)
+
+def update_keylist_index():
+    if len(profile_listbox.curselection()) <= 0:
+        return
+    profile_index = profile_listbox.curselection()[0]
+    for index, item in enumerate(profile_list[profile_index].keylist):
+        if item is not None:
+            item.index = index + 1
+
+def button_drag_release(event):
+    global drag_source_button_index
+    global drag_destination_button_index
+    if len(profile_listbox.curselection()) <= 0:
+        return
+    if drag_source_button_index == drag_destination_button_index:
+        return
+    profile_index = profile_listbox.curselection()[0]
+    reset_key_button_appearances(profile_index)
+    reset_key_button_relief()
+    if drag_source_button_index is not None and drag_destination_button_index is not None:
+        profile_list[profile_index].keylist[drag_destination_button_index], profile_list[profile_index].keylist[drag_source_button_index] = profile_list[profile_index].keylist[drag_source_button_index], profile_list[profile_index].keylist[drag_destination_button_index]
+        update_profile_display()
+        update_keylist_index()
+        key_button_click(key_button_list[drag_destination_button_index])
+    drag_source_button_index = None
+    drag_destination_button_index = None
 
 button_xy_map = [(KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING), (KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING*2+KEY_BUTTON_HEIGHT), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING*2+KEY_BUTTON_HEIGHT), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING*2+KEY_BUTTON_HEIGHT), (KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING*3+KEY_BUTTON_HEIGHT*2), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING*3+KEY_BUTTON_HEIGHT*2), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING*3+KEY_BUTTON_HEIGHT*2), (KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING*4+KEY_BUTTON_HEIGHT*3), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING*4+KEY_BUTTON_HEIGHT*3), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING*4+KEY_BUTTON_HEIGHT*3), (KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING*5+KEY_BUTTON_HEIGHT*4), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING*5+KEY_BUTTON_HEIGHT*4), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING*5+KEY_BUTTON_HEIGHT*4)]
 key_button_list = []
@@ -406,8 +467,9 @@ for x in range(15):
     this_button = Label(master=keys_lf, borderwidth=1, relief="solid", background='SystemButtonFace')
     this_button.pack()
     this_button.place(x=button_xy_map[x][0], y=button_xy_map[x][1], width=KEY_BUTTON_WIDTH, height=KEY_BUTTON_HEIGHT)
-    this_button.bind("<Button-1>", key_button_click)
-    this_button.bind("<B1-Motion>", dragging)
+    this_button.bind("<Button-1>", key_button_click_event)
+    this_button.bind("<B1-Motion>", button_drag_start)
+    this_button.bind("<ButtonRelease-1>", button_drag_release)
     key_button_list.append(this_button)
 
 key_name_text = Label(master=keys_lf, text="Key name:")
