@@ -5,6 +5,7 @@ import copy
 import random
 import colorsys
 import duck_objs
+import webbrowser
 from tkinter import *
 from tkinter import filedialog
 from tkinter import simpledialog
@@ -16,6 +17,7 @@ MAIN_WINDOW_HEIGHT = 533
 PADDING = 10
 HIGHT_ROOT_FOLDER_LF = 50
 INVALID_ROOT_FOLDER_STRING = "<-- Please select your duckyPad root folder"
+last_rgb = (238,130,238)
 
 def reset_key_button_relief():
     for item in key_button_list:
@@ -98,6 +100,7 @@ def adapt_color(rgb_tuple):
     return 'white'
 
 def update_profile_display():
+    global selected_key
     profile_var.set([' '+x.name for x in profile_list]) # update profile listbox
     if len(profile_listbox.curselection()) <= 0:
         return
@@ -119,12 +122,16 @@ def update_profile_display():
     else:
         dim_unused_keys_checkbox.deselect()
 
-    reset_key_button_appearances(index)
+    update_key_button_appearances(index)
     reset_key_button_relief()
     key_name_entrybox.delete(0, 'end')
+    script_textbox.delete(1.0, 'end')
     selected_key = None
+    key_color_button.config(background='SystemButtonFace')
+    key_color_rb1.config(state=DISABLED)
+    key_color_rb2.config(state=DISABLED)
 
-def reset_key_button_appearances(profile_index):
+def update_key_button_appearances(profile_index):
     for count, item in enumerate(profile_list[profile_index].keylist):
         if item is not None:
             this_color = None
@@ -134,7 +141,7 @@ def reset_key_button_appearances(profile_index):
             else:
                 key_button_list[count].config(background=rgb_to_hex(profile_list[profile_index].bg_color))
                 this_color = profile_list[profile_index].bg_color
-            key_button_list[count].config(text=item.name[:7], font=(None, 13), foreground=adapt_color(this_color))
+            key_button_list[count].config(text=item.name[:7], foreground=adapt_color(this_color))
         else:
             key_button_list[count].config(background='SystemButtonFace', text='')
 
@@ -151,7 +158,7 @@ def kd_radiobutton_custom_click():
     selection = profile_listbox.curselection()
     if len(selection) <= 0:
         return
-    profile_list[selection[0]].kd_color = (238,130,238)
+    profile_list[selection[0]].kd_color = last_rgb
     update_profile_display()
 
 def dim_unused_keys_click():
@@ -167,12 +174,14 @@ def on_profile_listbox_select(event):
     
 def bg_color_click(event):
     global profile_list
+    global last_rgb
     selection = profile_listbox.curselection()
     if len(selection) <= 0:
         return
     result = askcolor()[-1]
     if result is None:
         return
+    last_rgb = hex_to_rgb(result)
     profile_list[selection[0]].bg_color = hex_to_rgb(result)
     update_profile_display()
 
@@ -275,12 +284,30 @@ def key_button_click(button_widget):
     global selected_key
     if len(profile_listbox.curselection()) <= 0:
         return
+    profile_index = profile_listbox.curselection()[0]
     selected_key = key_button_list.index(button_widget)
     reset_key_button_relief()
     button_widget.config(borderwidth=7, relief='sunken')
     key_name_entrybox.delete(0, 'end')
-    if profile_list[profile_listbox.curselection()[0]].keylist[selected_key] is not None:
-        key_name_entrybox.insert(0, profile_list[profile_listbox.curselection()[0]].keylist[selected_key].name)
+    if profile_list[profile_index].keylist[selected_key] is not None:
+        key_name_entrybox.insert(0, profile_list[profile_index].keylist[selected_key].name)
+        script_textbox.delete(1.0, 'end')
+        script_textbox.insert(1.0, profile_list[profile_index].keylist[selected_key].script)
+
+    if profile_list[profile_index].keylist[selected_key] is None:
+        key_color_button.config(background='SystemButtonFace')
+        key_color_rb1.config(state=DISABLED)
+        key_color_rb2.config(state=DISABLED)
+        return
+
+    key_color_rb1.config(state=NORMAL)
+    key_color_rb2.config(state=NORMAL)
+    if profile_list[profile_index].keylist[selected_key].color is None:
+        key_color_rb1.select()
+        key_color_button.config(background='SystemButtonFace')
+    else:
+        key_color_rb2.select()
+        key_color_button.config(background=rgb_to_hex(profile_list[profile_index].keylist[selected_key].color))
 
 root = Tk()
 root.title("duckyPad configurator")
@@ -424,16 +451,20 @@ def button_drag_start(event):
     drag_source_button_index = key_button_list.index(event.widget)
     # if empty button
     if profile_list[profile_index].keylist[drag_source_button_index] is None:
+        drag_source_button_index = None
+        drag_destination_button_index = None
         return
     drag_destination_button_index = search_button(event.x_root, event.y_root)
     if drag_source_button_index == drag_destination_button_index:
+        drag_source_button_index = None
+        drag_destination_button_index = None
         return
     reset_key_button_relief()
     event.widget.config(borderwidth=7, relief='sunken')
     if drag_source_button_index is not None and drag_destination_button_index is not None and drag_destination_button_index != drag_source_button_index:
         key_button_list[drag_destination_button_index].config(text='move\nhere', background='white', foreground='black', borderwidth=4)
     else:
-        reset_key_button_appearances(profile_index)
+        update_key_button_appearances(profile_index)
 
 def update_keylist_index():
     if len(profile_listbox.curselection()) <= 0:
@@ -450,23 +481,29 @@ def button_drag_release(event):
         return
     if drag_source_button_index == drag_destination_button_index:
         return
+    # print('source:', drag_source_button_index)
+    # print('destination:', drag_destination_button_index)
+    # print('------')
     profile_index = profile_listbox.curselection()[0]
-    reset_key_button_appearances(profile_index)
+    update_key_button_appearances(profile_index)
     reset_key_button_relief()
     if drag_source_button_index is not None and drag_destination_button_index is not None:
         profile_list[profile_index].keylist[drag_destination_button_index], profile_list[profile_index].keylist[drag_source_button_index] = profile_list[profile_index].keylist[drag_source_button_index], profile_list[profile_index].keylist[drag_destination_button_index]
         update_profile_display()
         update_keylist_index()
+    if drag_source_button_index is not None and drag_destination_button_index is None:
+        key_button_click(key_button_list[drag_source_button_index])
+    if drag_destination_button_index is not None:
         key_button_click(key_button_list[drag_destination_button_index])
     drag_source_button_index = None
     drag_destination_button_index = None
 
-button_xy_map = [(KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING), (KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING*2+KEY_BUTTON_HEIGHT), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING*2+KEY_BUTTON_HEIGHT), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING*2+KEY_BUTTON_HEIGHT), (KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING*3+KEY_BUTTON_HEIGHT*2), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING*3+KEY_BUTTON_HEIGHT*2), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING*3+KEY_BUTTON_HEIGHT*2), (KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING*4+KEY_BUTTON_HEIGHT*3), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING*4+KEY_BUTTON_HEIGHT*3), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING*4+KEY_BUTTON_HEIGHT*3), (KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING*5+KEY_BUTTON_HEIGHT*4), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING*5+KEY_BUTTON_HEIGHT*4), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING*5+KEY_BUTTON_HEIGHT*4)]
+key_button_xy_list = [(KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING), (KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING*2+KEY_BUTTON_HEIGHT), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING*2+KEY_BUTTON_HEIGHT), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING*2+KEY_BUTTON_HEIGHT), (KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING*3+KEY_BUTTON_HEIGHT*2), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING*3+KEY_BUTTON_HEIGHT*2), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING*3+KEY_BUTTON_HEIGHT*2), (KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING*4+KEY_BUTTON_HEIGHT*3), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING*4+KEY_BUTTON_HEIGHT*3), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING*4+KEY_BUTTON_HEIGHT*3), (KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING*5+KEY_BUTTON_HEIGHT*4), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING*5+KEY_BUTTON_HEIGHT*4), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING*5+KEY_BUTTON_HEIGHT*4)]
 key_button_list = []
 for x in range(15):
     this_button = Label(master=keys_lf, borderwidth=1, relief="solid", background='SystemButtonFace', font=(None, 13))
     this_button.pack()
-    this_button.place(x=button_xy_map[x][0], y=button_xy_map[x][1], width=KEY_BUTTON_WIDTH, height=KEY_BUTTON_HEIGHT)
+    this_button.place(x=key_button_xy_list[x][0], y=key_button_xy_list[x][1], width=KEY_BUTTON_WIDTH, height=KEY_BUTTON_HEIGHT)
     this_button.bind("<Button-1>", key_button_click_event)
     this_button.bind("<B1-Motion>", button_drag_start)
     this_button.bind("<ButtonRelease-1>", button_drag_release)
@@ -483,11 +520,41 @@ key_name_entrybox.place(x=key_name_text.winfo_width()+PADDING, y=305, width=145)
 
 KEY_BUTTON_GAP = int((keys_lf.winfo_width() - 2 * BUTTON_WIDTH) / 3.5)
 
-key_rename_button = Button(keys_lf, text="Rename", command=None, state=DISABLED)
+def key_rename_click():
+    if len(profile_listbox.curselection()) <= 0:
+        return
+    profile_index = profile_listbox.curselection()[0]
+    if selected_key is None:
+        return
+    result = clean_input(key_name_entrybox.get(), 7)
+    if len(result) <= 0 or result in [x.name for x in profile_list[profile_index].keylist if x is not None]:
+        return
+    if profile_list[profile_index].keylist[selected_key] is not None:
+        profile_list[profile_index].keylist[selected_key].name = result
+    else:
+        new_key = duck_objs.dp_key()
+        new_key.name = result
+        profile_list[profile_index].keylist[selected_key] = new_key
+        update_keylist_index()
+    # print(profile_list[profile_index].keylist[selected_key])
+    update_key_button_appearances(profile_index)
+    key_button_click(key_button_list[selected_key])
+
+def key_remove_click():
+    if len(profile_listbox.curselection()) <= 0:
+        return
+    profile_index = profile_listbox.curselection()[0]
+    if selected_key is None:
+        return
+    profile_list[profile_index].keylist[selected_key] = None
+    update_key_button_appearances(profile_index)
+    key_button_click(key_button_list[selected_key])
+
+key_rename_button = Button(keys_lf, text="Apply", command=key_rename_click) #, state=DISABLED
 key_rename_button.pack()
 key_rename_button.place(x=KEY_BUTTON_GAP, y=335, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 root.update()
-key_remove_button = Button(keys_lf, text="Remove", command=None, state=DISABLED)
+key_remove_button = Button(keys_lf, text="Remove", command=key_remove_click) #, state=DISABLED
 key_remove_button.pack()
 key_remove_button.place(x=KEY_BUTTON_GAP*2+key_rename_button.winfo_width(), y=335, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 
@@ -496,24 +563,107 @@ key_name_text.pack()
 key_name_text.place(x=PADDING, y=380)
 root.update()
 
+def key_color_rb1_click():
+    if len(profile_listbox.curselection()) <= 0:
+        return
+    profile_index = profile_listbox.curselection()[0]
+    if selected_key is None:
+        return
+    if profile_list[profile_index].keylist[selected_key] is not None:
+        profile_list[profile_index].keylist[selected_key].color = None
+    update_key_button_appearances(profile_index)
+    key_button_click(key_button_list[selected_key])
+
+def key_color_rb2_click():
+    if len(profile_listbox.curselection()) <= 0:
+        return
+    profile_index = profile_listbox.curselection()[0]
+    if selected_key is None:
+        return
+    if profile_list[profile_index].keylist[selected_key] is not None:
+        profile_list[profile_index].keylist[selected_key].color = last_rgb
+    update_key_button_appearances(profile_index)
+    key_button_click(key_button_list[selected_key])
+
+def key_color_button_click(event):
+    global last_rgb
+    if len(profile_listbox.curselection()) <= 0:
+        return
+    profile_index = profile_listbox.curselection()[0]
+    if selected_key is None:
+        return
+    if profile_list[profile_index].keylist[selected_key] is not None:
+        result = askcolor()[-1]
+        if result is None:
+            return
+        last_rgb = hex_to_rgb(result)
+        profile_list[profile_index].keylist[selected_key].color = hex_to_rgb(result)
+    update_key_button_appearances(profile_index)
+    key_button_click(key_button_list[selected_key])
+
 key_color_type_var = IntVar()
-key_color_rb1 = Radiobutton(keys_lf, text="Same as background", variable=key_color_type_var, value=0, command=None)
+key_color_rb1 = Radiobutton(keys_lf, text="Same as background", variable=key_color_type_var, value=0, command=key_color_rb1_click,state=DISABLED)
 key_color_rb1.pack()
 key_color_rb1.place(x=85, y=380)
-key_color_rb2 = Radiobutton(keys_lf, text="", variable=key_color_type_var, value=1, command=None)
+key_color_rb2 = Radiobutton(keys_lf, text="", variable=key_color_type_var, value=1, command=key_color_rb2_click, state=DISABLED)
 key_color_rb2.pack()
 key_color_rb2.place(x=85, y=405)
 
 key_color_button = Label(master=keys_lf, borderwidth=1, relief="solid")
 key_color_button.pack()
 key_color_button.place(x=135, y=407, width=60, height=20)
-# key_color_button.bind("<Button-1>", bg_color_click)
+key_color_button.bind("<Button-1>", key_color_button_click)
 
 # ------------- Scripts frame -------------
 scripts_lf = LabelFrame(root, text="Scripts", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_WINDOW_HEIGHT - HIGHT_ROOT_FOLDER_LF - PADDING)
 scripts_lf.pack()
+scripts_lf.pack_propagate(False)
 scripts_lf.place(x=keys_lf.winfo_x() + keys_lf.winfo_width() + PADDING, y=keys_lf.winfo_y())
 
+def script_instruction_click(event):
+    webbrowser.open('https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Duckyscript')
+
+script_instruction = Label(master=scripts_lf, text="Read more about Duckyscript...", fg="blue", cursor="hand2")
+script_instruction.pack()
+script_instruction.pack_propagate(False)
+root.update()
+script_instruction.place(x=(scripts_lf.winfo_width() - script_instruction.winfo_width())/2, y=0)
+script_instruction.bind("<Button-1>", script_instruction_click)
+
+def script_textbox_modified():
+    print("wtf!!")
+    
+def script_textbox_event(event):
+    script_textbox_modified()
+    script_textbox.tk.call(script_textbox._w, 'edit', 'modified', 0)
+
+script_textbox = Text(scripts_lf, relief='solid', borderwidth=1, padx=2, pady=2, font=(None, 12))
+script_textbox.pack()
+script_textbox.pack_propagate(False)
+script_textbox.place(x=key_button_list[0].winfo_x(), y=KEY_BUTTON_HEADROOM+PADDING-3, width=key_button_list[-1].winfo_x() + KEY_BUTTON_WIDTH - KEY_BUTTON_GAP, height=key_button_list[-1].winfo_y() - key_button_list[0].winfo_y() + KEY_BUTTON_HEIGHT + 5)
+root.update()
+script_textbox.bind("<<Modified>>", script_textbox_event)
+
+script_common_commands_lf = LabelFrame(scripts_lf, text="Common commands", width=script_textbox.winfo_width(), height=105)
+script_common_commands_lf.pack()
+script_common_commands_lf.pack_propagate(False)
+script_common_commands_lf.place(x=PADDING, y=300)
+root.update()
+
+SCRIPT_BUTTON_WIDTH = script_textbox.winfo_width()/3.4
+SCRIPT_BUTTON_GAP = 5
+PADDING = 2
+
+script_button_xy_list = [(SCRIPT_BUTTON_GAP, PADDING), (SCRIPT_BUTTON_GAP*2+SCRIPT_BUTTON_WIDTH, PADDING), (SCRIPT_BUTTON_GAP*3+SCRIPT_BUTTON_WIDTH*2, PADDING), (SCRIPT_BUTTON_GAP, PADDING+BUTTON_HEIGHT+2), (SCRIPT_BUTTON_GAP*2+SCRIPT_BUTTON_WIDTH, PADDING+BUTTON_HEIGHT+2), (SCRIPT_BUTTON_GAP*3+SCRIPT_BUTTON_WIDTH*2, PADDING+BUTTON_HEIGHT+2), (SCRIPT_BUTTON_GAP, (PADDING+BUTTON_HEIGHT)*2+2), (SCRIPT_BUTTON_GAP*2+SCRIPT_BUTTON_WIDTH, (PADDING+BUTTON_HEIGHT)*2+2), (SCRIPT_BUTTON_GAP*3+SCRIPT_BUTTON_WIDTH*2, (PADDING+BUTTON_HEIGHT)*2+2)]
+script_button_commands = ["STRING", "CTRL", "SHIFT", "ALT", "GUI", "REM", "DELAY", "REPEAT", "more..."]
+script_button_list = []
+for x in range(9):
+    this_button = Button(script_common_commands_lf, text=script_button_commands[x], command=None) #, state=DISABLED
+    this_button.pack()
+    this_button.place(x=script_button_xy_list[x][0], y=script_button_xy_list[x][1], width=SCRIPT_BUTTON_WIDTH, height=BUTTON_HEIGHT)
+    key_button_list.append(this_button)
+
+root.update()
 # --------------------------
 
 if os.name == 'posix':

@@ -2,6 +2,61 @@
 pack BEFORE place
 
 """		
+script_textbox_var = StringVar()
+
+string_button = Button(script_common_commands_lf, text="STRING", command=None) #, state=DISABLED
+string_button.pack()
+string_button.place(x=SCRIPT_BUTTON_GAP, y=PADDING, width=SCRIPT_BUTTON_WIDTH, height=BUTTON_HEIGHT)
+
+control_button = Button(script_common_commands_lf, text="CTRL", command=None) #, state=DISABLED
+control_button.pack()
+control_button.place(x=SCRIPT_BUTTON_GAP*2+SCRIPT_BUTTON_WIDTH, y=PADDING, width=SCRIPT_BUTTON_WIDTH, height=BUTTON_HEIGHT)
+
+shift_button = Button(script_common_commands_lf, text="SHIFT", command=None) #, state=DISABLED
+shift_button.pack()
+shift_button.place(x=SCRIPT_BUTTON_GAP*3+SCRIPT_BUTTON_WIDTH*2, y=PADDING, width=SCRIPT_BUTTON_WIDTH, height=BUTTON_HEIGHT)
+
+alt_button = Button(script_common_commands_lf, text="ALT", command=None) #, state=DISABLED
+alt_button.pack()
+alt_button.place(x=SCRIPT_BUTTON_GAP, y=PADDING+BUTTON_HEIGHT+2, width=SCRIPT_BUTTON_WIDTH, height=BUTTON_HEIGHT)
+
+gui_button = Button(script_common_commands_lf, text="WIN", command=None) #, state=DISABLED
+gui_button.pack()
+gui_button.place(x=SCRIPT_BUTTON_GAP*2+SCRIPT_BUTTON_WIDTH, y=PADDING+BUTTON_HEIGHT+2, width=SCRIPT_BUTTON_WIDTH, height=BUTTON_HEIGHT)
+
+rem_button = Button(script_common_commands_lf, text="REM", command=None) #, state=DISABLED
+rem_button.pack()
+rem_button.place(x=SCRIPT_BUTTON_GAP*3+SCRIPT_BUTTON_WIDTH*2, y=PADDING+BUTTON_HEIGHT+2, width=SCRIPT_BUTTON_WIDTH, height=BUTTON_HEIGHT)
+
+delay_button = Button(script_common_commands_lf, text="DELAY", command=None) #, state=DISABLED
+delay_button.pack()
+delay_button.place(x=SCRIPT_BUTTON_GAP, y=(PADDING+BUTTON_HEIGHT)*2+2, width=SCRIPT_BUTTON_WIDTH, height=BUTTON_HEIGHT)
+
+repeat_button = Button(script_common_commands_lf, text="REPEAT", command=None) #, state=DISABLED
+repeat_button.pack()
+repeat_button.place(x=SCRIPT_BUTTON_GAP*2+SCRIPT_BUTTON_WIDTH, y=(PADDING+BUTTON_HEIGHT)*2+2, width=SCRIPT_BUTTON_WIDTH, height=BUTTON_HEIGHT)
+
+more_button = Button(script_common_commands_lf, text="more...", command=None) #, state=DISABLED
+more_button.pack()
+more_button.place(x=SCRIPT_BUTTON_GAP*3+SCRIPT_BUTTON_WIDTH*2, y=(PADDING+BUTTON_HEIGHT)*2+2, width=SCRIPT_BUTTON_WIDTH, height=BUTTON_HEIGHT)
+
+
+def key_color_rb2_click():
+    if len(profile_listbox.curselection()) <= 0:
+        return
+    profile_index = profile_listbox.curselection()[0]
+    if selected_key is None:
+        return
+    if profile_list[profile_index].keylist[selected_key] is not None:
+        result = askcolor()[-1]
+        if result is None:
+            return
+        profile_list[profile_index].keylist[selected_key].color = hex_to_rgb(result)
+    update_key_button_appearances(profile_index)
+    key_button_click(key_button_list[selected_key])
+
+
+
     print('source:', drag_source_button_index)
     print('destination:', drag_destination_button_index)
     print('------')

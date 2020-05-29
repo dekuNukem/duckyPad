@@ -28,13 +28,20 @@ class dp_key(object):
 		ret += str('...............') + '\n'
 		return ret
 
-	def __init__(self, path):
+	def __init__(self, path=None):
 		super(dp_key, self).__init__()
+		if path is None:
+			self.path = None
+			self.name = None
+			self.index = None
+			self.color = None
+			self.script = ''
+			return
 		self.path = path
 		self.name = os.path.basename(os.path.normpath(path)).split('.')[0].split('_', 1)[-1]
 		self.index = int(os.path.basename(os.path.normpath(path)).split('_')[0].strip('key'))
 		self.color = None
-		self.script = None
+		self.script = ''
 		self.read_file(path)
 		try:
 			config_path = os.path.join(os.path.dirname(path), "config.txt")
