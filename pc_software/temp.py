@@ -2,8 +2,17 @@
 pack BEFORE place
 
 """		
-script_textbox_var = StringVar()
 
+			print('cmd_DELAY:', e)
+			print('cmd_DEFAULTDELAY:', e)
+			print('cmd_DEFAULTCHARDELAY:', e)
+			
+script_textbox_var = StringVar()
+for x in range(9):
+    def this_func(x=x):
+        script_textbox.insert(END, script_button_commands[x] + "\n")
+        script_textbox.see(END)
+    func_list.append(this_func)
 string_button = Button(script_common_commands_lf, text="STRING", command=None) #, state=DISABLED
 string_button.pack()
 string_button.place(x=SCRIPT_BUTTON_GAP, y=PADDING, width=SCRIPT_BUTTON_WIDTH, height=BUTTON_HEIGHT)
