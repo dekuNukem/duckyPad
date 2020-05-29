@@ -2,6 +2,11 @@
 pack BEFORE place
 
 """		
+# ds_check_button = Button(scripts_lf, text='Check syntax', command=check_syntax_click) #, state=DISABLED
+# ds_check_button.pack()
+# ds_check_button.place(x=10, y=413, width=100, height=30)
+
+    # print(modified_count, key_button_clicked_at)
 
 			print('cmd_DELAY:', e)
 			print('cmd_DEFAULTDELAY:', e)
@@ -103,7 +108,13 @@ canvas_test.pack()
     # if profile_list[profile_listbox.curselection()[0]].keylist[selected_key] is None:
     #     return
 
-
+def script_textbox_modified():
+    if is_key_selected() == False:
+        return
+    profile_index = profile_listbox.curselection()[0]
+    if profile_list[profile_index].keylist[selected_key] is not None and profile_list[profile_index].keylist[selected_key].script != script_textbox.get(1.0, END).replace('\r','').strip().strip('\n'):
+        profile_list[profile_index].keylist[selected_key].script = script_textbox.get(1.0, END).replace('\r','').strip().strip('\n')
+        syntax_check_result_label.config(text="", fg="green")
 (255-this_color[0],255-this_color[1],255-this_color[2])
     print('key_button_click')
     print(key_button_list.index(event.widget))
@@ -293,6 +304,7 @@ profile_listbox.insert(1, "Nachos")
 profile_listbox.insert(2, "Sandwich") 
 profile_listbox.insert(3, "Burger") 
 profile_listbox.insert(4, "Pizza") 
+    # print(modified_count, key_button_clicked_at)
 
 
 def check_root_folder():

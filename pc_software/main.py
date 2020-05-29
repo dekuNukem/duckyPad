@@ -131,7 +131,7 @@ def update_profile_display():
     key_color_rb1.config(state=DISABLED)
     key_color_rb2.config(state=DISABLED)
     clear_and_disable_script_textbox()
-    
+    syntax_check_result_label.config(text="", fg="green")
 
 def clear_and_disable_script_textbox():
     script_textbox.delete(1.0, 'end')
@@ -288,6 +288,7 @@ def key_button_click_event(event):
 
 def key_button_click(button_widget):
     global selected_key
+    global key_button_clicked_at
     if len(profile_listbox.curselection()) <= 0:
         return
     profile_index = profile_listbox.curselection()[0]
@@ -316,6 +317,8 @@ def key_button_click(button_widget):
     else:
         key_color_rb2.select()
         key_color_button.config(background=rgb_to_hex(profile_list[profile_index].keylist[selected_key].color))
+    key_button_clicked_at = modified_count
+    check_syntax_click()
 
 root = Tk()
 root.title("duckyPad configurator")
@@ -638,29 +641,48 @@ root.update()
 script_instruction.place(x=(scripts_lf.winfo_width() - script_instruction.winfo_width())/2, y=0)
 script_instruction.bind("<Button-1>", script_instruction_click)
 
+modified_count = 0
+key_button_clicked_at = 0
+last_textbox_edit = 0
+modification_checked = 0
+
 def script_textbox_modified():
+    global modified_count
+    global last_textbox_edit
+    global modification_checked
     if is_key_selected() == False:
-        print("no key selected")
         return
+    modified_count += 1
+    last_textbox_edit = time.time()
+    if modified_count - key_button_clicked_at > 2:
+        syntax_check_result_label.config(text="Checking...", fg="black")
     profile_index = profile_listbox.curselection()[0]
     if profile_list[profile_index].keylist[selected_key] is not None:
         profile_list[profile_index].keylist[selected_key].script = script_textbox.get(1.0, END).replace('\r','').strip().strip('\n')
+        modification_checked = 0
     
 def script_textbox_event(event):
     script_textbox_modified()
     script_textbox.tk.call(script_textbox._w, 'edit', 'modified', 0)
 
-script_textbox = Text(scripts_lf, relief='solid', borderwidth=1, padx=2, pady=2, font=(None, 12), state=DISABLED)
+script_textbox = Text(scripts_lf, relief='solid', borderwidth=1, padx=2, pady=2, spacing3=5, wrap="word", state=DISABLED)
 script_textbox.pack()
 script_textbox.pack_propagate(False)
 script_textbox.place(x=key_button_list[0].winfo_x(), y=KEY_BUTTON_HEADROOM+PADDING-3, width=key_button_list[-1].winfo_x() + KEY_BUTTON_WIDTH - KEY_BUTTON_GAP, height=key_button_list[-1].winfo_y() - key_button_list[0].winfo_y() + KEY_BUTTON_HEIGHT + 5)
 root.update()
 script_textbox.bind("<<Modified>>", script_textbox_event)
+script_textbox.tag_configure("error", background="#ffff00")
 
 script_common_commands_lf = LabelFrame(scripts_lf, text="Common commands", width=script_textbox.winfo_width(), height=105)
 script_common_commands_lf.pack()
 script_common_commands_lf.pack_propagate(False)
 script_common_commands_lf.place(x=PADDING, y=300)
+root.update()
+
+check_syntax_lf = LabelFrame(scripts_lf, text="Code check", width=script_textbox.winfo_width(), height=40)
+check_syntax_lf.pack()
+check_syntax_lf.pack_propagate(False)
+check_syntax_lf.place(x=PADDING, y=407)
 root.update()
 
 SCRIPT_BUTTON_WIDTH = script_textbox.winfo_width()/3.4
@@ -681,12 +703,38 @@ for x in range(9):
     key_button_list.append(this_button)
 key_button_list[-1].config(command=open_duckypad_url)
 
-ds_check_button = Button(scripts_lf, text='Check syntax', command=None) #, state=DISABLED
-ds_check_button.pack()
-ds_check_button.place(x=10, y=410, height=BUTTON_HEIGHT)
+def check_syntax_click():
+    if is_key_selected() == False:
+        return
+    has_errors = False
+    profile_index = profile_listbox.curselection()[0]
+    if profile_list[profile_index].keylist[selected_key] is None:
+        return
+    for count, line in enumerate(profile_list[profile_index].keylist[selected_key].script.split('\n')):
+        if ds_syntax_check.parse_line(line) != ds_syntax_check.PARSE_OK:
+            print("syntax error on line", count, ':', line)
+            script_textbox.tag_add("error", str(count+1)+".0", str(count+1)+".0 lineend")
+            script_textbox.mark_set("insert", str(count+1)+".0")
+            script_textbox.see(str(count+1)+'.0')
+            syntax_check_result_label.config(text='Error(s) found!', fg='red')
+            has_errors = True
+    if has_errors == False:
+        syntax_check_result_label.config(text="It looks alright...", fg="green")
+
+syntax_check_result_label = Label(master=check_syntax_lf)
+syntax_check_result_label.pack()
+syntax_check_result_label.pack_propagate(False)
+syntax_check_result_label.place(x=65, y=-4)
 
 # --------------------------
+def repeat_func():
+    global modification_checked
+    if time.time() - last_textbox_edit >= 1 and modification_checked == 0:
+        check_syntax_click()
+        modification_checked = 1
+    root.after(500, repeat_func)
 
+root.after(500, repeat_func)
 if os.name == 'posix':
     debug_set_root_folder()
 root.mainloop()
