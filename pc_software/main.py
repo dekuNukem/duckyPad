@@ -326,6 +326,7 @@ def save_everything(save_path):
         save_result_label.config(text='Saved!', fg="green")
     except Exception as e:
         print('save_click:', e)
+        messagebox.showerror("Error", "Save Failed!\n"+str(e))
         save_result_label.config(text='Save FAILED!', fg="red")
     last_save = time.time()
 
