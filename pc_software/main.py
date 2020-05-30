@@ -138,6 +138,10 @@ def clear_and_disable_script_textbox():
     script_textbox.config(state=DISABLED)
 
 def update_key_button_appearances(profile_index):
+    if profile_index is None:
+        for x in range(15):
+            key_button_list[x].config(background='SystemButtonFace', text='')
+        return
     for count, item in enumerate(profile_list[profile_index].keylist):
         if item is not None:
             this_color = None
@@ -149,11 +153,9 @@ def update_key_button_appearances(profile_index):
                 this_color = profile_list[profile_index].bg_color
             key_button_list[count].config(text=item.name[:7], foreground=adapt_color(this_color))
         elif item is None and profile_list[profile_index].dim_unused is False:
-            key_button_list[count].config(background=rgb_to_hex(profile_list[profile_index].bg_color))
-            key_button_list[count].config(text='')
+            key_button_list[count].config(text='', background=rgb_to_hex(profile_list[profile_index].bg_color))
         elif item is None and profile_list[profile_index].dim_unused:
             key_button_list[count].config(background='SystemButtonFace', text='')
-            key_button_list[count].config(text='')
 
 def kd_radiobutton_auto_click():
     global profile_list
@@ -229,7 +231,8 @@ def profile_add_click():
     try:
         insert_point = profile_listbox.curselection()[0] + 1
     except Exception as e:
-        print('insert:', e)
+        # print('insert:', e)
+        pass
 
     new_profile = duck_objs.dp_profile()
     new_profile.name = answer
@@ -249,6 +252,9 @@ def profile_remove_click():
     profile_listbox.selection_clear(0, len(profile_list))
     profile_listbox.selection_set(selection[0])
     update_profile_display()
+    if len(profile_list) <= 0:
+        update_key_button_appearances(None)
+        reset_key_button_relief()
 
 def profile_dupe_click():
     global profile_list
@@ -433,7 +439,7 @@ root.update()
 
 profile_listbox = Listbox(profiles_lf, listvariable=profile_var, height=16, exportselection=0) #, selectmode='single'?
 profile_listbox.pack()
-profile_listbox.place(x=32, y=PADDING, width=182)
+profile_listbox.place(x=32, y=PADDING, width=182, height=270)
 profile_listbox.bind('<<ListboxSelect>>', on_profile_listbox_select)
 
 profile_up_button = Button(profiles_lf, text="↑", command=profile_shift_up, state=DISABLED)
@@ -786,6 +792,7 @@ def check_syntax_click():
     profile_index = profile_listbox.curselection()[0]
     if profile_list[profile_index].keylist[selected_key] is None:
         return
+    script_textbox.tag_remove("error", '1.0', 'end')
     for count, line in enumerate(profile_list[profile_index].keylist[selected_key].script.split('\n')):
         if ds_syntax_check.parse_line(line) != ds_syntax_check.PARSE_OK:
             print("syntax error on line", count, ':', line)
