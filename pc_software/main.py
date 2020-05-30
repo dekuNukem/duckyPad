@@ -297,32 +297,38 @@ def ensure_dir(dir_path):
         os.mkdir(dir_path)
 
 def save_click():
-    # print('save_click')
-    save_path = dp_root_folder_path
-    validate_data_objs(save_path)
-    ensure_dir(save_path)
-    my_dirs = [d for d in os.listdir(save_path) if os.path.isdir(os.path.join(save_path, d))]
-    my_dirs = [x for x in my_dirs if x.startswith('profile') and x[7].isnumeric() and '_' in x]
-    my_dirs = [os.path.join(save_path, d) for d in my_dirs if d.startswith("profile")]
-    for item in my_dirs:
-        # print('deleting...', item)
-        shutil.rmtree(item)
-    for this_profile in profile_list:
-        os.mkdir(this_profile.path)
-        config_file = open(os.path.join(this_profile.path, 'config.txt'), 'w')
-        config_file.write('BG_COLOR %d %d %d\n' % (this_profile.bg_color))
-        if this_profile.kd_color is not None:
-            config_file.write('KEYDOWN_COLOR %d %d %d\n' % (this_profile.kd_color))
-        if this_profile.dim_unused is False:
-            config_file.write('DIM_UNUSED_KEYS 0\n')
-        for this_key in this_profile.keylist:
-            if this_key is None:
-                continue
-            with open(this_key.path, 'w') as key_file:
-                key_file.write(this_key.script)
-            if this_key.color is not None:
-                config_file.write('SWCOLOR_%d %d %d %d\n' % (this_key.index, this_key.color[0], this_key.color[1], this_key.color[2]))
-        config_file.close()
+    global last_save
+    try:
+        save_path = dp_root_folder_path
+        validate_data_objs(save_path)
+        ensure_dir(save_path)
+        my_dirs = [d for d in os.listdir(save_path) if os.path.isdir(os.path.join(save_path, d))]
+        my_dirs = [x for x in my_dirs if x.startswith('profile') and x[7].isnumeric() and '_' in x]
+        my_dirs = [os.path.join(save_path, d) for d in my_dirs if d.startswith("profile")]
+        for item in my_dirs:
+            # print('deleting...', item)
+            shutil.rmtree(item)
+        for this_profile in profile_list:
+            os.mkdir(this_profile.path)
+            config_file = open(os.path.join(this_profile.path, 'config.txt'), 'w')
+            config_file.write('BG_COLOR %d %d %d\n' % (this_profile.bg_color))
+            if this_profile.kd_color is not None:
+                config_file.write('KEYDOWN_COLOR %d %d %d\n' % (this_profile.kd_color))
+            if this_profile.dim_unused is False:
+                config_file.write('DIM_UNUSED_KEYS 0\n')
+            for this_key in this_profile.keylist:
+                if this_key is None:
+                    continue
+                with open(this_key.path, 'w') as key_file:
+                    key_file.write(this_key.script)
+                if this_key.color is not None:
+                    config_file.write('SWCOLOR_%d %d %d %d\n' % (this_key.index, this_key.color[0], this_key.color[1], this_key.color[2]))
+            config_file.close()
+        save_result_label.config(text='Save successful!', fg="green")
+    except Exception as e:
+        print('save_click:', e)
+        save_result_label.config(text='Save FAILED!', fg="red")
+    last_save = time.time()
 
 def key_button_click_event(event):
     key_button_click(event.widget)
@@ -396,12 +402,12 @@ save_button = Button(save_lf, text="Save", command=save_click, state=DISABLED, w
 save_button.pack()
 save_button.place(x=20, y=2)
 
-save_result_label = Label(master=save_lf, text="Save successful!", fg="green")
+save_result_label = Label(master=save_lf, text="")
 save_result_label.pack()
-root.update()
-
 save_result_label.pack_propagate(False)
-save_result_label.place(x=50, y=0)
+save_result_label.place(x=100, y=0)
+
+last_save = 0
 
 # ------------- Profiles frame -------------
 
@@ -789,6 +795,8 @@ def repeat_func():
     if time.time() - last_textbox_edit >= 0.5 and modification_checked == 0:
         check_syntax_click()
         modification_checked = 1
+    if time.time() - last_save > 2:
+        save_result_label.config(text='')
     root.after(500, repeat_func)
 
 root.after(500, repeat_func)
