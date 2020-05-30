@@ -393,7 +393,7 @@ root_folder_lf.place(x=PADDING, y=0)
 root_folder_lf.pack_propagate(False) 
 root.update()
 
-root_folder_select_button = Button(root_folder_lf, text="Select...", command=select_root_folder, width='8')
+root_folder_select_button = Button(root_folder_lf, text="Open...", command=select_root_folder, width='8')
 root_folder_select_button.pack()
 root_folder_select_button.place(x=PADDING, y=0)
 
