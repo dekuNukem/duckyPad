@@ -54,6 +54,7 @@ def enable_buttons():
     profile_down_button.config(state=NORMAL)
     profile_dupe_button.config(state=NORMAL)
     save_button.config(state=NORMAL)
+    save_as_button.config(state=NORMAL)
 
 def debug_set_root_folder():
     global profile_list
@@ -296,17 +297,15 @@ def ensure_dir(dir_path):
     if not os.path.exists(dir_path):
         os.mkdir(dir_path)
 
-def save_click():
+def save_everything(save_path):
     global last_save
     try:
-        save_path = dp_root_folder_path
         validate_data_objs(save_path)
         ensure_dir(save_path)
         my_dirs = [d for d in os.listdir(save_path) if os.path.isdir(os.path.join(save_path, d))]
         my_dirs = [x for x in my_dirs if x.startswith('profile') and x[7].isnumeric() and '_' in x]
         my_dirs = [os.path.join(save_path, d) for d in my_dirs if d.startswith("profile")]
         for item in my_dirs:
-            # print('deleting...', item)
             shutil.rmtree(item)
         for this_profile in profile_list:
             os.mkdir(this_profile.path)
@@ -324,11 +323,20 @@ def save_click():
                 if this_key.color is not None:
                     config_file.write('SWCOLOR_%d %d %d %d\n' % (this_key.index, this_key.color[0], this_key.color[1], this_key.color[2]))
             config_file.close()
-        save_result_label.config(text='Save successful!', fg="green")
+        save_result_label.config(text='Saved!', fg="green")
     except Exception as e:
         print('save_click:', e)
         save_result_label.config(text='Save FAILED!', fg="red")
     last_save = time.time()
+
+def save_click():
+    save_everything(dp_root_folder_path)
+
+def save_as_click():
+    dir_result = filedialog.askdirectory()
+    if len(dir_result) <= 0:
+        return
+    save_everything(dir_result)
 
 def key_button_click_event(event):
     key_button_click(event.widget)
@@ -347,7 +355,7 @@ def key_button_click(button_widget):
         key_name_entrybox.insert(0, profile_list[profile_index].keylist[selected_key].name)
         script_textbox.config(state=NORMAL)
         script_textbox.delete(1.0, 'end')
-        script_textbox.insert(1.0, profile_list[profile_index].keylist[selected_key].script+'\n')
+        script_textbox.insert(1.0, profile_list[profile_index].keylist[selected_key].script)
 
     if profile_list[profile_index].keylist[selected_key] is None:
         key_color_button.config(background='SystemButtonFace')
@@ -398,14 +406,18 @@ save_lf.place(x=537, y=0)
 save_lf.pack_propagate(False) 
 root.update()
 
-save_button = Button(save_lf, text="Save", command=save_click, state=DISABLED, width='8')
+save_button = Button(save_lf, text="Save", command=save_click, state=DISABLED, width=5)#
 save_button.pack()
-save_button.place(x=20, y=2)
+save_button.place(x=10, y=2)
+
+save_as_button = Button(save_lf, text="Save as...", command=save_as_click, state=DISABLED, width=8)
+save_as_button.pack()
+save_as_button.place(x=65, y=2)
 
 save_result_label = Label(master=save_lf, text="")
 save_result_label.pack()
 save_result_label.pack_propagate(False)
-save_result_label.place(x=100, y=0)
+save_result_label.place(x=150, y=2)
 
 last_save = 0
 
@@ -777,11 +789,12 @@ def check_syntax_click():
         if ds_syntax_check.parse_line(line) != ds_syntax_check.PARSE_OK:
             print("syntax error on line", count, ':', line)
             script_textbox.tag_add("error", str(count+1)+".0", str(count+1)+".0 lineend")
-            script_textbox.mark_set("insert", str(count+1)+".0")
-            script_textbox.see(str(count+1)+'.0')
+            # script_textbox.mark_set("insert", str(count+1)+".0")
+            # script_textbox.see(str(count+1)+'.0')
             syntax_check_result_label.config(text='Error(s) found!', fg='red')
             has_errors = True
     if has_errors == False:
+        script_textbox.tag_remove("error", '1.0', 'end')
         syntax_check_result_label.config(text="It looks alright...", fg="green")
 
 syntax_check_result_label = Label(master=check_syntax_lf)
