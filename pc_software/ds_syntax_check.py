@@ -1,7 +1,7 @@
 import os
 
 
-# quick and dirty translation from parse.c
+# quick and dirty port from parse.c
 
 KEY_LEFT_CTRL = 0x80
 KEY_LEFT_SHIFT = 0x81

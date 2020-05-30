@@ -559,11 +559,11 @@ def key_remove_click():
 
 key_rename_button = Button(keys_lf, text="Apply", command=key_rename_click) #, state=DISABLED
 key_rename_button.pack()
-key_rename_button.place(x=KEY_BUTTON_GAP, y=335, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
+key_rename_button.place(x=KEY_BUTTON_GAP, y=340, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 root.update()
 key_remove_button = Button(keys_lf, text="Remove", command=key_remove_click) #, state=DISABLED
 key_remove_button.pack()
-key_remove_button.place(x=KEY_BUTTON_GAP*2+key_rename_button.winfo_width(), y=335, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
+key_remove_button.place(x=KEY_BUTTON_GAP*2+key_rename_button.winfo_width(), y=340, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 
 key_name_text = Label(master=keys_lf, text="Key color:")
 key_name_text.pack()
@@ -654,9 +654,12 @@ def script_textbox_modified():
         return
     modified_count += 1
     last_textbox_edit = time.time()
-    if modified_count - key_button_clicked_at > 2:
-        syntax_check_result_label.config(text="Checking...", fg="black")
     profile_index = profile_listbox.curselection()[0]
+    cantthinkofaname = ""
+    if modified_count - key_button_clicked_at > 2:
+        if profile_list[profile_index].keylist[selected_key] is not None:
+            cantthinkofaname = "Checking..."
+        syntax_check_result_label.config(text=cantthinkofaname, fg="black")
     if profile_list[profile_index].keylist[selected_key] is not None:
         profile_list[profile_index].keylist[selected_key].script = script_textbox.get(1.0, END).replace('\r','').strip().strip('\n')
         modification_checked = 0
@@ -729,7 +732,7 @@ syntax_check_result_label.place(x=65, y=-4)
 # --------------------------
 def repeat_func():
     global modification_checked
-    if time.time() - last_textbox_edit >= 1 and modification_checked == 0:
+    if time.time() - last_textbox_edit >= 0.5 and modification_checked == 0:
         check_syntax_click()
         modification_checked = 1
     root.after(500, repeat_func)
