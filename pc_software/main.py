@@ -2,7 +2,8 @@ import os
 import sys
 import time
 import copy
-import random
+import shutil
+import pathlib
 import colorsys
 import duck_objs
 import webbrowser
@@ -106,9 +107,7 @@ def update_profile_display():
     if len(profile_listbox.curselection()) <= 0:
         return
     index = profile_listbox.curselection()[0]
-    bg_color_hex = "#abcdef"
-    if profile_list[index].bg_color is not None:
-        bg_color_hex = rgb_to_hex(profile_list[index].bg_color)
+    bg_color_hex = rgb_to_hex(profile_list[index].bg_color)
     bg_color_button.config(background=bg_color_hex)
 
     if profile_list[index].kd_color is None:
@@ -148,8 +147,12 @@ def update_key_button_appearances(profile_index):
                 key_button_list[count].config(background=rgb_to_hex(profile_list[profile_index].bg_color))
                 this_color = profile_list[profile_index].bg_color
             key_button_list[count].config(text=item.name[:7], foreground=adapt_color(this_color))
-        else:
+        elif item is None and profile_list[profile_index].dim_unused is False:
+            key_button_list[count].config(background=rgb_to_hex(profile_list[profile_index].bg_color))
+            key_button_list[count].config(text='')
+        elif item is None and profile_list[profile_index].dim_unused:
             key_button_list[count].config(background='SystemButtonFace', text='')
+            key_button_list[count].config(text='')
 
 def kd_radiobutton_auto_click():
     global profile_list
@@ -212,6 +215,8 @@ def clean_input(str_input, len_limit=None):
 
 def profile_add_click():
     global profile_list
+    if len(profile_list) >= 16:
+        return
     answer = simpledialog.askstring("Input", "New profile name?", parent=profiles_lf)
     if answer is None:
         return
@@ -226,15 +231,12 @@ def profile_add_click():
         print('insert:', e)
 
     new_profile = duck_objs.dp_profile()
-    folder_name = 'profile' + str(len(profile_list)+1) + '_' + answer
-    new_profile.path = os.path.join(dp_root_folder_path, folder_name)
     new_profile.name = answer
     profile_list.insert(insert_point, new_profile)
     update_profile_display()
     profile_listbox.selection_clear(0, len(profile_list))
     profile_listbox.selection_set(insert_point)
     update_profile_display()
-    print(new_profile)
 
 def profile_remove_click():
     global profile_list
@@ -280,8 +282,47 @@ def profile_rename_click():
     profile_list[selection[0]].name = answer
     update_profile_display()
 
+def validate_data_objs(save_path):
+    # update path and indexs of profile and keys
+    for profile_index, this_profile in enumerate(profile_list):
+        this_profile.path = os.path.join(save_path, 'profile'+str(profile_index+1)+'_'+str(this_profile.name))
+        for key_index, this_key in enumerate(this_profile.keylist):
+            if this_key is None:
+                continue
+            this_key.path = os.path.join(this_profile.path, 'key'+str(key_index+1)+'_'+str(this_key.name)+'.txt')
+            this_key.index = key_index + 1
+
+def ensure_dir(dir_path):
+    if not os.path.exists(dir_path):
+        os.mkdir(dir_path)
+
 def save_click():
-    print('save_click')
+    # print('save_click')
+    save_path = dp_root_folder_path
+    validate_data_objs(save_path)
+    ensure_dir(save_path)
+    my_dirs = [d for d in os.listdir(save_path) if os.path.isdir(os.path.join(save_path, d))]
+    my_dirs = [x for x in my_dirs if x.startswith('profile') and x[7].isnumeric() and '_' in x]
+    my_dirs = [os.path.join(save_path, d) for d in my_dirs if d.startswith("profile")]
+    for item in my_dirs:
+        # print('deleting...', item)
+        shutil.rmtree(item)
+    for this_profile in profile_list:
+        os.mkdir(this_profile.path)
+        config_file = open(os.path.join(this_profile.path, 'config.txt'), 'w')
+        config_file.write('BG_COLOR %d %d %d\n' % (this_profile.bg_color))
+        if this_profile.kd_color is not None:
+            config_file.write('KEYDOWN_COLOR %d %d %d\n' % (this_profile.kd_color))
+        if this_profile.dim_unused is False:
+            config_file.write('DIM_UNUSED_KEYS 0\n')
+        for this_key in this_profile.keylist:
+            if this_key is None:
+                continue
+            with open(this_key.path, 'w') as key_file:
+                key_file.write(this_key.script)
+            if this_key.color is not None:
+                config_file.write('SWCOLOR_%d %d %d %d\n' % (this_key.index, this_key.color[0], this_key.color[1], this_key.color[2]))
+        config_file.close()
 
 def key_button_click_event(event):
     key_button_click(event.widget)
@@ -331,7 +372,7 @@ dp_root_folder_display = StringVar()
 dp_root_folder_path= ''
 dp_root_folder_display.set(INVALID_ROOT_FOLDER_STRING)
 
-root_folder_lf = LabelFrame(root, text="duckyPad Folder", width=MAIN_WINDOW_WIDTH - PADDING*2, height=HIGHT_ROOT_FOLDER_LF)
+root_folder_lf = LabelFrame(root, text="duckyPad Folder", width=516, height=HIGHT_ROOT_FOLDER_LF)
 root_folder_lf.pack()
 root_folder_lf.place(x=PADDING, y=0)
 root_folder_lf.pack_propagate(False) 
@@ -345,9 +386,22 @@ root_folder_path_label = Label(master=root_folder_lf, textvariable=dp_root_folde
 root_folder_path_label.pack()
 root_folder_path_label.place(x=90, y=0)
 
-save_button = Button(root_folder_lf, text="Save", command=save_click, state=DISABLED, width='8')
+save_lf = LabelFrame(root, text="Remember to Save!", width=252, height=HIGHT_ROOT_FOLDER_LF)
+save_lf.pack()
+save_lf.place(x=537, y=0)
+save_lf.pack_propagate(False) 
+root.update()
+
+save_button = Button(save_lf, text="Save", command=save_click, state=DISABLED, width='8')
 save_button.pack()
-save_button.place(x=400, y=0)
+save_button.place(x=20, y=2)
+
+save_result_label = Label(master=save_lf, text="Save successful!", fg="green")
+save_result_label.pack()
+root.update()
+
+save_result_label.pack_propagate(False)
+save_result_label.place(x=50, y=0)
 
 # ------------- Profiles frame -------------
 

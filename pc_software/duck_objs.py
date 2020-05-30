@@ -108,7 +108,7 @@ class dp_profile(object):
 		self.path = None
 		self.name = None
 		self.keylist = [None] * self.key_count
-		self.bg_color = None
+		self.bg_color = (84,22,180)
 		self.kd_color = None
 		self.dim_unused = True
 

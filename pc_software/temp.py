@@ -2,16 +2,21 @@
 pack BEFORE place
 
 """		
+
+this_profile.path = os.path.join(pathlib.Path(this_profile.path).parent, 'profile'+str(index+1)+'_'+str(this_profile.name))
+
+                    
 # ds_check_button = Button(scripts_lf, text='Check syntax', command=check_syntax_click) #, state=DISABLED
 # ds_check_button.pack()
 # ds_check_button.place(x=10, y=413, width=100, height=30)
-
+    # folder_name = 'profile' + str(len(profile_list)+1) + '_' + answer
+    # new_profile.path = os.path.join(dp_root_folder_path, folder_name)
     # print(modified_count, key_button_clicked_at)
 
 			print('cmd_DELAY:', e)
 			print('cmd_DEFAULTDELAY:', e)
 			print('cmd_DEFAULTCHARDELAY:', e)
-			
+
 script_textbox_var = StringVar()
 for x in range(9):
     def this_func(x=x):
