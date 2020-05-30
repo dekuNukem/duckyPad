@@ -1,10 +1,8 @@
 import os
-import sys
 import time
 import copy
 import shutil
 import pathlib
-import colorsys
 import duck_objs
 import webbrowser
 import ds_syntax_check
@@ -14,6 +12,12 @@ from tkinter import simpledialog
 from tkinter.colorchooser import askcolor
 from tkinter import messagebox
 
+"""
+0.1.0
+20200531
+initial release
+"""
+THIS_VERSION_NUMBER = '0.1.0'
 MAIN_WINDOW_WIDTH = 800
 MAIN_WINDOW_HEIGHT = 533
 PADDING = 10
@@ -383,7 +387,7 @@ def key_button_click(button_widget):
     check_syntax_click()
 
 root = Tk()
-root.title("duckyPad configurator")
+root.title("duckyPad configurator v" + THIS_VERSION_NUMBER)
 root.geometry(str(MAIN_WINDOW_WIDTH) + "x" + str(MAIN_WINDOW_HEIGHT))
 root.resizable(width=FALSE, height=FALSE)
 profile_list = []
