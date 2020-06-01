@@ -14,7 +14,7 @@ from tkinter.colorchooser import askcolor
 from tkinter import messagebox
 
 
-THIS_VERSION_NUMBER = '0.1.1'
+THIS_VERSION_NUMBER = '0.1.0'
 MAIN_WINDOW_WIDTH = 800
 MAIN_WINDOW_HEIGHT = 533
 PADDING = 10

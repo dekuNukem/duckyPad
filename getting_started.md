@@ -199,6 +199,8 @@ If you don't trust or unable to run the software, you can also configure duckyPa
 
 ### Step 1: Preparing Profiles
 
+A *Profile* contains a group of scripts corresponding to the keys on the duckyPad. Usually you want to set up one profile per program you want to control.
+
 Profiles are created as folders at the **root level** of the SD card. They have naming conventions like `profile#_name`, where `#` is the profile number, and `name` being the name of the profile.
 
 If you mount the SD card on your computer, you might see some examples like these:
@@ -211,7 +213,7 @@ Up to 16 profiles are supported.
 
 ### Step 2: Preparing Scripts
 
-Now you can write some scripts inside the profile folders. 
+Now you're ready to write some scripts inside the profile folders. The script used in this project is Duckyscript, [click here to read its usage](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Duckyscript).
 
 Each key has its own script file, named like `key#_name.txt`, where `#` is the key number(top left is 1, bottom right is 15), and `name` is a short description of what that key does. 
 
@@ -291,6 +293,11 @@ SWCOLOR_15 255 0  0
 
 Just like before, make sure the SD card is in FAT32 format, copy all the profile folders to the root of the SD card (if they are not already there), insert it in your duckyPad, and power on.
 
+duckypad should start up and display the profile names and key names, as well as the background color.
+
+Press the corresponding keys to execute the scripts, if there is an error it will show up on the screen.
+
+Press +/- button to change profiles.
 
 ## Questions or Comments?
 
