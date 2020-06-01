@@ -36,6 +36,40 @@ def hex_to_rgb(hex_str):
 def rgb_to_hex(rgb_tuple):
     return '#%02x%02x%02x' % rgb_tuple
 
+def ui_reset():
+    global selected_key
+    profile_add_button.config(state=DISABLED)
+    profile_remove_button.config(state=DISABLED)
+    profile_rename_button.config(state=DISABLED)
+    profile_up_button.config(state=DISABLED)
+    profile_down_button.config(state=DISABLED)
+    profile_dupe_button.config(state=DISABLED)
+    save_button.config(state=DISABLED)
+    save_as_button.config(state=DISABLED)
+    kd_R1.config(state=DISABLED)
+    kd_R2.config(state=DISABLED)
+    dim_unused_keys_checkbox.config(state=DISABLED)
+    key_rename_button.config(state=DISABLED)
+    key_remove_button.config(state=DISABLED)
+    for button in script_command_button_list:
+        button.config(state=DISABLED)
+    key_name_entrybox.config(state=DISABLED)
+    bg_color_label.config(fg='grey')
+    kd_color_label.config(fg='grey')
+    key_name_text.config(fg='grey')
+    key_color_text.config(fg='grey')
+    reset_key_button_relief()
+    update_key_button_appearances(None)
+    key_name_entrybox.delete(0, 'end')
+    selected_key = None
+    key_color_button.config(background='SystemButtonFace')
+    bg_color_button.config(background='SystemButtonFace')
+    kd_color_button.config(background='SystemButtonFace')
+    key_color_rb1.config(state=DISABLED)
+    key_color_rb2.config(state=DISABLED)
+    clear_and_disable_script_textbox()
+    syntax_check_result_label.config(text="", fg="green")
+
 def select_root_folder():
     global profile_list
     global dp_root_folder_path
@@ -45,8 +79,8 @@ def select_root_folder():
     dp_root_folder_path= dir_result
     dp_root_folder_display.set("Selected: " + dir_result)
     root_folder_path_label.config(foreground='navy')
-
     profile_list = duck_objs.build_profile(dir_result)
+    ui_reset()
     update_profile_display()
     enable_buttons()
 
@@ -59,6 +93,18 @@ def enable_buttons():
     profile_dupe_button.config(state=NORMAL)
     save_button.config(state=NORMAL)
     save_as_button.config(state=NORMAL)
+    kd_R1.config(state=NORMAL)
+    kd_R2.config(state=NORMAL)
+    dim_unused_keys_checkbox.config(state=NORMAL)
+    key_rename_button.config(state=NORMAL)
+    key_remove_button.config(state=NORMAL)
+    for button in script_command_button_list:
+        button.config(state=NORMAL)
+    key_name_entrybox.config(state=NORMAL)
+    bg_color_label.config(fg='black')
+    kd_color_label.config(fg='black')
+    key_name_text.config(fg='black')
+    key_color_text.config(fg='black')
 
 def debug_set_root_folder():
     global profile_list
@@ -256,7 +302,7 @@ def profile_remove_click():
     profile_listbox.selection_clear(0, len(profile_list))
     profile_listbox.selection_set(selection[0])
     update_profile_display()
-    if len(profile_list) <= 0:
+    if len(profile_list) <= 0 or len(profile_listbox.curselection()) <= 0:
         update_key_button_appearances(None)
         reset_key_button_relief()
 
@@ -353,6 +399,7 @@ def key_button_click_event(event):
     key_button_click(event.widget)
 
 def key_button_click(button_widget):
+    global last_rgb
     global selected_key
     global key_button_clicked_at
     if len(profile_listbox.curselection()) <= 0:
@@ -382,6 +429,7 @@ def key_button_click(button_widget):
         key_color_button.config(background='SystemButtonFace')
     else:
         key_color_rb2.select()
+        last_rgb = profile_list[profile_index].keylist[selected_key].color
         key_color_button.config(background=rgb_to_hex(profile_list[profile_index].keylist[selected_key].color))
     key_button_clicked_at = modified_count
     check_syntax_click()
@@ -411,7 +459,7 @@ root_folder_path_label = Label(master=root_folder_lf, textvariable=dp_root_folde
 root_folder_path_label.pack()
 root_folder_path_label.place(x=90, y=0)
 
-save_lf = LabelFrame(root, text="Remember to Save!", width=252, height=HIGHT_ROOT_FOLDER_LF)
+save_lf = LabelFrame(root, text="Don't forget to Save!", width=252, height=HIGHT_ROOT_FOLDER_LF)
 save_lf.pack()
 save_lf.place(x=537, y=0)
 save_lf.pack_propagate(False) 
@@ -474,7 +522,7 @@ profile_rename_button = Button(profiles_lf, text="Rename", command=profile_renam
 profile_rename_button.pack()
 profile_rename_button.place(x=PADDING * 2.5 + BUTTON_WIDTH, y=BUTTON_Y_POS + BUTTON_HEIGHT + int(PADDING/2), width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 
-bg_color_label = Label(master=profiles_lf, text="Background color:")
+bg_color_label = Label(master=profiles_lf, text="Background color:", fg='grey')
 bg_color_label.pack()
 bg_color_label.place(x=20, y=355)
 
@@ -483,7 +531,7 @@ bg_color_button.pack()
 bg_color_button.place(x=160, y=356, width=60, height=20)
 bg_color_button.bind("<Button-1>", bg_color_click)
 
-kd_color_label = Label(master=profiles_lf, text="Activation color:")
+kd_color_label = Label(master=profiles_lf, text="Activation color:", fg='grey')
 kd_color_label.pack()
 kd_color_label.place(x=20, y=380)
 
@@ -493,15 +541,15 @@ kd_color_button.place(x=160, y=407, width=60, height=20)
 kd_color_button.bind("<Button-1>", kd_color_click)
 
 dim_unused_keys_checkbox_var = IntVar()
-dim_unused_keys_checkbox = Checkbutton(profiles_lf, text="Dim unused keys", variable=dim_unused_keys_checkbox_var, command=dim_unused_keys_click)
+dim_unused_keys_checkbox = Checkbutton(profiles_lf, text="Dim unused keys", variable=dim_unused_keys_checkbox_var, command=dim_unused_keys_click, state=DISABLED)
 dim_unused_keys_checkbox.pack()
 dim_unused_keys_checkbox.place(x=22, y=425)
 
 kd_color_var = IntVar()
-kd_R1 = Radiobutton(profiles_lf, text="      Auto", variable=kd_color_var, value=0, command=kd_radiobutton_auto_click)
+kd_R1 = Radiobutton(profiles_lf, text="      Auto", variable=kd_color_var, value=0, command=kd_radiobutton_auto_click, state=DISABLED)
 kd_R1.pack()
 kd_R1.place(x=130, y=380)
-kd_R2 = Radiobutton(profiles_lf, text="", variable=kd_color_var, value=1, command=kd_radiobutton_custom_click)
+kd_R2 = Radiobutton(profiles_lf, text="", variable=kd_color_var, value=1, command=kd_radiobutton_custom_click, state=DISABLED)
 kd_R2.pack()
 kd_R2.place(x=130, y=405)
 
@@ -603,14 +651,18 @@ for x in range(15):
     this_button.bind("<ButtonRelease-1>", button_drag_release)
     key_button_list.append(this_button)
 
-key_name_text = Label(master=keys_lf, text="Key name:")
+key_name_text = Label(master=keys_lf, text="Key name:", fg='grey')
 key_name_text.pack()
 key_name_text.place(x=PADDING, y=305)
 root.update()
 
-key_name_entrybox = Entry(keys_lf)
+def key_name_entrybox_return_pressed(event):
+    key_rename_click()
+
+key_name_entrybox = Entry(keys_lf, state=DISABLED)
 key_name_entrybox.pack()
 key_name_entrybox.place(x=key_name_text.winfo_width()+PADDING, y=305, width=145)
+key_name_entrybox.bind('<Return>', key_name_entrybox_return_pressed)
 
 KEY_BUTTON_GAP = int((keys_lf.winfo_width() - 2 * BUTTON_WIDTH) / 3.5)
 
@@ -640,17 +692,17 @@ def key_remove_click():
     update_key_button_appearances(profile_index)
     key_button_click(key_button_list[selected_key])
 
-key_rename_button = Button(keys_lf, text="Apply", command=key_rename_click) #, state=DISABLED
+key_rename_button = Button(keys_lf, text="Apply", command=key_rename_click, state=DISABLED)
 key_rename_button.pack()
 key_rename_button.place(x=KEY_BUTTON_GAP, y=340, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 root.update()
-key_remove_button = Button(keys_lf, text="Remove", command=key_remove_click) #, state=DISABLED
+key_remove_button = Button(keys_lf, text="Remove", command=key_remove_click, state=DISABLED)
 key_remove_button.pack()
 key_remove_button.place(x=KEY_BUTTON_GAP*2+key_rename_button.winfo_width(), y=340, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 
-key_name_text = Label(master=keys_lf, text="Key color:")
-key_name_text.pack()
-key_name_text.place(x=PADDING, y=380)
+key_color_text = Label(master=keys_lf, text="Key color:", fg='grey')
+key_color_text.pack()
+key_color_text.place(x=PADDING, y=380)
 root.update()
 
 def key_color_rb1_click():
@@ -744,7 +796,7 @@ def script_textbox_modified():
             cantthinkofaname = "Checking..."
         syntax_check_result_label.config(text=cantthinkofaname, fg="black")
     if profile_list[profile_index].keylist[selected_key] is not None:
-        profile_list[profile_index].keylist[selected_key].script = script_textbox.get(1.0, END).replace('\r','').strip().strip('\n')
+        profile_list[profile_index].keylist[selected_key].script = script_textbox.get(1.0, END)#.replace('\r','').strip().strip('\n')
         modification_checked = 0
     
 def script_textbox_event(event):
@@ -781,13 +833,13 @@ script_command_button_list = []
 
 for x in range(9):
     def this_func(x=x):
-        script_textbox.insert(END, "\n" + script_button_commands[x] + " ")
-        script_textbox.see(END)
-    this_button = Button(script_common_commands_lf, text=script_button_commands[x], command=this_func) #, state=DISABLED
+        script_textbox.insert(INSERT, "\n" + script_button_commands[x] + " ")
+        # script_textbox.see(END)
+    this_button = Button(script_common_commands_lf, text=script_button_commands[x], command=this_func, state=DISABLED)
     this_button.pack()
     this_button.place(x=script_button_xy_list[x][0], y=script_button_xy_list[x][1], width=SCRIPT_BUTTON_WIDTH, height=BUTTON_HEIGHT)
-    key_button_list.append(this_button)
-key_button_list[-1].config(command=open_duckypad_url)
+    script_command_button_list.append(this_button)
+script_command_button_list[-1].config(command=open_duckypad_url)
 
 def check_syntax_click():
     if is_key_selected() == False:
