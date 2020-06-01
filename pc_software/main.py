@@ -416,7 +416,7 @@ def key_button_click(button_widget):
         key_name_entrybox.insert(0, profile_list[profile_index].keylist[selected_key].name)
         script_textbox.config(state=NORMAL)
         script_textbox.delete(1.0, 'end')
-        script_textbox.insert(1.0, profile_list[profile_index].keylist[selected_key].script)
+        script_textbox.insert(1.0, profile_list[profile_index].keylist[selected_key].script.rstrip('\n'))
 
     if profile_list[profile_index].keylist[selected_key] is None:
         key_color_button.config(background='SystemButtonFace')
