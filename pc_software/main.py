@@ -885,6 +885,7 @@ def repeat_func():
     root.after(500, repeat_func)
 
 root.after(500, repeat_func)
-if os.name == 'posix':
-    debug_set_root_folder()
+# if os.name == 'posix':
+#     debug_set_root_folder()
+root.iconbitmap('icon.ico')    
 root.mainloop()
