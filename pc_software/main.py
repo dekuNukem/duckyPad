@@ -13,11 +13,7 @@ from tkinter import simpledialog
 from tkinter.colorchooser import askcolor
 from tkinter import messagebox
 
-"""
-0.1.0
-20200531
-initial release
-"""
+
 THIS_VERSION_NUMBER = '0.1.1'
 MAIN_WINDOW_WIDTH = 800
 MAIN_WINDOW_HEIGHT = 533
@@ -486,7 +482,7 @@ save_result_label.place(x=660, y=-6, width=110, height=35)
 def update_click(event):
     webbrowser.open('https://github.com/dekuNukem/duckyPad/releases')
 
-if check_update.has_update('0.0.0'):
+if check_update.has_update(THIS_VERSION_NUMBER):
     save_result_label.config(text='Update available!\nClick me', fg='white', bg='blue', cursor="hand2")
     save_result_label.bind("<Button-1>", update_click)
 
