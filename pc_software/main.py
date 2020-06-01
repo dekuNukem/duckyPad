@@ -17,13 +17,16 @@ from tkinter import messagebox
 20200531
 initial release
 """
-THIS_VERSION_NUMBER = '0.1.0'
+THIS_VERSION_NUMBER = '0.1.1'
 MAIN_WINDOW_WIDTH = 800
 MAIN_WINDOW_HEIGHT = 533
 PADDING = 10
 HIGHT_ROOT_FOLDER_LF = 50
 INVALID_ROOT_FOLDER_STRING = "<-- Please select your duckyPad root folder"
 last_rgb = (238,130,238)
+
+def open_duckypad_user_manual_url():
+    webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/getting_started.md')
 
 def reset_key_button_relief():
     for item in key_button_list:
@@ -445,38 +448,36 @@ dp_root_folder_display = StringVar()
 dp_root_folder_path= ''
 dp_root_folder_display.set(INVALID_ROOT_FOLDER_STRING)
 
-root_folder_lf = LabelFrame(root, text="duckyPad Folder", width=516, height=HIGHT_ROOT_FOLDER_LF)
+root_folder_lf = LabelFrame(root, text="Files", width=779, height=HIGHT_ROOT_FOLDER_LF)
 root_folder_lf.pack()
 root_folder_lf.place(x=PADDING, y=0)
 root_folder_lf.pack_propagate(False) 
 root.update()
 
-root_folder_select_button = Button(root_folder_lf, text="Open...", command=select_root_folder, width='8')
+user_manual_button = Button(root_folder_lf, text="User Manual", command=open_duckypad_user_manual_url)
+user_manual_button.pack()
+user_manual_button.place(x=5, y=0, width=85)
+
+root_folder_select_button = Button(root_folder_lf, text="Open...", command=select_root_folder)
 root_folder_select_button.pack()
-root_folder_select_button.place(x=PADDING, y=0)
+root_folder_select_button.place(x=95, y=0, width=60)
 
 root_folder_path_label = Label(master=root_folder_lf, textvariable=dp_root_folder_display, foreground='red')
 root_folder_path_label.pack()
-root_folder_path_label.place(x=90, y=0)
+root_folder_path_label.place(x=155, y=0)
 
-save_lf = LabelFrame(root, text="Don't forget to Save!", width=252, height=HIGHT_ROOT_FOLDER_LF)
-save_lf.pack()
-save_lf.place(x=537, y=0)
-save_lf.pack_propagate(False) 
-root.update()
-
-save_button = Button(save_lf, text="Save", command=save_click, state=DISABLED, width=5)#
+save_button = Button(root_folder_lf, text="Save", command=save_click, state=DISABLED)
 save_button.pack()
-save_button.place(x=10, y=2)
+save_button.place(x=535, y=0, width=50)
 
-save_as_button = Button(save_lf, text="Save as...", command=save_as_click, state=DISABLED, width=8)
+save_as_button = Button(root_folder_lf, text="Save as...", command=save_as_click, state=DISABLED)
 save_as_button.pack()
-save_as_button.place(x=65, y=2)
+save_as_button.place(x=590, y=0, width=65)
 
-save_result_label = Label(master=save_lf, text="")
+save_result_label = Label(master=root_folder_lf, text="")
 save_result_label.pack()
 save_result_label.pack_propagate(False)
-save_result_label.place(x=150, y=2)
+save_result_label.place(x=670, y=0)
 
 last_save = 0
 
@@ -763,11 +764,11 @@ scripts_lf.pack()
 scripts_lf.pack_propagate(False)
 scripts_lf.place(x=keys_lf.winfo_x() + keys_lf.winfo_width() + PADDING, y=keys_lf.winfo_y())
 
-def open_duckypad_url():
+def open_duckyscript_url():
     webbrowser.open('https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Duckyscript')
 
 def script_instruction_click(event):
-    open_duckypad_url()
+    open_duckyscript_url()
 
 script_instruction = Label(master=scripts_lf, text="Read more about Duckyscript...", fg="blue", cursor="hand2")
 script_instruction.pack()
@@ -839,7 +840,7 @@ for x in range(9):
     this_button.pack()
     this_button.place(x=script_button_xy_list[x][0], y=script_button_xy_list[x][1], width=SCRIPT_BUTTON_WIDTH, height=BUTTON_HEIGHT)
     script_command_button_list.append(this_button)
-script_command_button_list[-1].config(command=open_duckypad_url)
+script_command_button_list[-1].config(command=open_duckyscript_url)
 
 def check_syntax_click():
     if is_key_selected() == False:

@@ -2,6 +2,11 @@
 pack BEFORE place
 
 """		
+save_lf = LabelFrame(root, text="Don't forget to Save!", width=252, height=HIGHT_ROOT_FOLDER_LF)
+save_lf.pack()
+save_lf.place(x=537, y=0)
+save_lf.pack_propagate(False) 
+root.update()
 
 this_profile.path = os.path.join(pathlib.Path(this_profile.path).parent, 'profile'+str(index+1)+'_'+str(this_profile.name))
 
