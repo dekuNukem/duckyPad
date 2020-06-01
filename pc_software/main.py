@@ -5,6 +5,7 @@ import shutil
 import pathlib
 import duck_objs
 import webbrowser
+import check_update
 import ds_syntax_check
 from tkinter import *
 from tkinter import filedialog
@@ -382,11 +383,14 @@ def save_everything(save_path):
                 if this_key.color is not None:
                     config_file.write('SWCOLOR_%d %d %d %d\n' % (this_key.index, this_key.color[0], this_key.color[1], this_key.color[2]))
             config_file.close()
-        save_result_label.config(text='Saved!', fg="green")
+        save_result_label.config(text='Saved!', fg="green", bg='white', cursor="")
+        save_result_label.unbind("<Button-1>")
+
     except Exception as e:
         print('save_click:', e)
         messagebox.showerror("Error", "Save Failed!\n"+str(e))
-        save_result_label.config(text='Save FAILED!', fg="red")
+        save_result_label.config(text='Save FAILED!', fg="red", bg='white', cursor="")
+        save_result_label.unbind("<Button-1>")
     last_save = time.time()
 
 def save_click():
@@ -477,7 +481,14 @@ save_as_button.place(x=590, y=0, width=65)
 save_result_label = Label(master=root_folder_lf, text="")
 save_result_label.pack()
 save_result_label.pack_propagate(False)
-save_result_label.place(x=670, y=0)
+save_result_label.place(x=660, y=-6, width=110, height=35)
+
+def update_click(event):
+    webbrowser.open('https://github.com/dekuNukem/duckyPad/releases')
+
+if check_update.has_update('0.0.0'):
+    save_result_label.config(text='Update available!\nClick me', fg='white', bg='blue', cursor="hand2")
+    save_result_label.bind("<Button-1>", update_click)
 
 last_save = 0
 
@@ -873,7 +884,7 @@ def repeat_func():
     if time.time() - last_textbox_edit >= 0.5 and modification_checked == 0:
         check_syntax_click()
         modification_checked = 1
-    if time.time() - last_save > 2:
+    if time.time() - last_save > 2 and 'update' not in save_result_label.cget("text").lower():
         save_result_label.config(text='')
     root.after(500, repeat_func)
 

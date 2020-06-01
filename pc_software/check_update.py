@@ -2,8 +2,7 @@ import json
 import socket
 import urllib.request
 
-remote_url = "https://raw.githubusercontent.com/dekuNukem/duckyPad/master/pc_software/release_info.json"
-remote_url = "https://api.github.com/repos/10se1ucgo/DisableWinTracking/releases/latest"
+remote_url = "https://api.github.com/repos/dekuNukem/duckyPad/releases/latest"
 
 def is_internet_available():
     try:
@@ -14,26 +13,19 @@ def is_internet_available():
     return False
 
 def versiontuple(v):
-    return tuple(map(int, (v.split("."))))
-
-# def has_update(this_version):
-# 	if is_internet_available() is False:
-# 		return False
-# 	try:
-# 		result_dict = json.loads(urllib.request.urlopen(remote_url).read())
-# 		this_version = versiontuple(this_version)
-# 		remote_version = versiontuple(result_dict['latest_version'])
-# 		return remote_version > this_version
-# 	except Exception as e:
-# 		print('has_update:', e)
-# 		return False
+    return tuple(map(int, (v.strip('v').split("."))))
 
 def has_update(this_version):
+	return True
 	if is_internet_available() is False:
 		return False
-	result_dict = json.loads(urllib.request.urlopen(remote_url).read())
-	this_version = versiontuple(this_version)
-	# remote_version = versiontuple(result_dict['latest_version'])
-	print(result_dict)
-	return False
-print(has_update('0.1.0'))
+	try:
+		result_dict = json.loads(urllib.request.urlopen(remote_url).read())
+		this_version = versiontuple(this_version)
+		remote_version = versiontuple(result_dict['tag_name'])
+		return remote_version > this_version
+	except Exception as e:
+		print('has_update:', e)
+		return False
+
+# print(has_update('0.0.9'))
