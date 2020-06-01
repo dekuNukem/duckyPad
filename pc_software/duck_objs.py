@@ -48,6 +48,7 @@ class dp_key(object):
 			self.read_color(config_path)
 		except Exception as e:
 			print(">>> read_color:", config_path, e)
+			pass
 
 # -----------------------------------------------------------
 
@@ -76,12 +77,13 @@ class dp_profile(object):
 						self.dim_unused = False
 		except Exception as e:
 			print('>>>>> read_config:', path, e)
+			pass
 
 	def load_from_path(self, path):
 		folder_name = os.path.basename(os.path.normpath(path))
 		if not (folder_name.startswith('profile') and folder_name[7].isnumeric() and '_' in folder_name):
 			print("invalid profile folder:", folder_name)
-			raise ValueError
+			return
 		self.path = path
 		self.name = folder_name.split('_', 1)[-1]
 		self.read_config(path)

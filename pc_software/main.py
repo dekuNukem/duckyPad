@@ -383,7 +383,7 @@ def save_everything(save_path):
         save_result_label.unbind("<Button-1>")
 
     except Exception as e:
-        print('save_click:', e)
+        # print('save_click:', e)
         messagebox.showerror("Error", "Save Failed!\n"+str(e))
         save_result_label.config(text='Save FAILED!', fg="red", bg='SystemButtonFace', cursor="")
         save_result_label.unbind("<Button-1>")
@@ -859,7 +859,7 @@ def check_syntax_click():
     script_textbox.tag_remove("error", '1.0', 'end')
     for count, line in enumerate(profile_list[profile_index].keylist[selected_key].script.split('\n')):
         if ds_syntax_check.parse_line(line) != ds_syntax_check.PARSE_OK:
-            print("syntax error on line", count, ':', line)
+            # print("syntax error on line", count, ':', line)
             script_textbox.tag_add("error", str(count+1)+".0", str(count+1)+".0 lineend")
             # script_textbox.mark_set("insert", str(count+1)+".0")
             # script_textbox.see(str(count+1)+'.0')
