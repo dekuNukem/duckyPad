@@ -383,13 +383,13 @@ def save_everything(save_path):
                 if this_key.color is not None:
                     config_file.write('SWCOLOR_%d %d %d %d\n' % (this_key.index, this_key.color[0], this_key.color[1], this_key.color[2]))
             config_file.close()
-        save_result_label.config(text='Saved!', fg="green", bg='white', cursor="")
+        save_result_label.config(text='Saved!', fg="green", bg='SystemButtonFace', cursor="")
         save_result_label.unbind("<Button-1>")
 
     except Exception as e:
         print('save_click:', e)
         messagebox.showerror("Error", "Save Failed!\n"+str(e))
-        save_result_label.config(text='Save FAILED!', fg="red", bg='white', cursor="")
+        save_result_label.config(text='Save FAILED!', fg="red", bg='SystemButtonFace', cursor="")
         save_result_label.unbind("<Button-1>")
     last_save = time.time()
 

@@ -16,7 +16,6 @@ def versiontuple(v):
     return tuple(map(int, (v.strip('v').split("."))))
 
 def has_update(this_version):
-	return True
 	if is_internet_available() is False:
 		return False
 	try:
