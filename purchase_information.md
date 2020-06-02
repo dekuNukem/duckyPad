@@ -81,7 +81,7 @@ This tier **DOES** come with a microSD card.
 
 ## Optional Accessories
 
-### microSD Card Reader - $3
+### microSD Card Reader - $2
 
 ![Alt text](resources/pics/sd_reader.jpg)
 
@@ -89,7 +89,7 @@ This tier **DOES** come with a microSD card.
 
 * Works fine in Windows, doesn't seem to work in macOS.
 
-* $3
+* $2
 
 ### USB-C cable - $3
 
