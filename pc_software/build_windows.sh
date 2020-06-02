@@ -1,1 +1,3 @@
-pyinstaller.exe --onefile --noconsole --icon=icon.ico main.py
+pyinstaller.exe --noconsole --icon=icon.ico duckypad_config
+
+# --onefile 
