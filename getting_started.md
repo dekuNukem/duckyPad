@@ -42,23 +42,27 @@ If you decide to use your own SD card, it should be formatted in [FAT32 format](
 
 * The software is in early stages of development. If you run into any problems, please don't hesitate to [open an issue](https://github.com/dekuNukem/duckypad/issues), or contact me through `dekuNukem`@`gmail`.`com`.
 
-### Using the duckyPad configurator
-
-Mount the SD card on your computer.
-
-Extract the `.zip` file and launch the application by clicking `duckypad_config.exe`.
+Extract the `.zip` file and launch the application by clicking `duckypad_config.exe`:
 
 ![Alt text](resources/pics/app/duckexe.png)
 
-Your system might complain about this software being untrusted. This is because I haven't had the code digitally signed, which costs hundreds of dollars a year.
+### "Untrusted App" Warnings
+
+When trying to run the app, your system might complain about this software being untrusted. This is because I haven't had the code digitally signed, which costs hundreds of dollars a year.
 
 Please feel free to [review the code](https://github.com/dekuNukem/duckyPad/tree/master/pc_software). If you really don't trust it, you can also [configure your duckyPad manually](#Configure-duckyPad-Manually).
 
-Click `More info` and then `Run anyway`.
+For Windows 10, click `More info` and then `Run anyway`.
 
 ![Alt text](resources/pics/app/defender.png)
 
-It should look like this:
+For macOS, **right click** on the app and select `Open`:
+
+![Alt text](resources/pics/app/macos_warning.png)
+
+### Using the duckyPad configurator
+
+Mount the SD card on your computer and launch the app. It should look like this:
 
 ![Alt text](resources/pics/app/unselected.png)
 
