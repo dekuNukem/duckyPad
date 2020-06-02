@@ -3,7 +3,7 @@
 block_cipher = None
 
 
-a = Analysis(['main.py'],
+a = Analysis(['duckypad_config.py'],
              pathex=['/Users/allen/my_local/duckyPad/pc_software/duck_app'],
              binaries=[('/System/Library/Frameworks/Tk.framework/Tk', 'tk'), ('/System/Library/Frameworks/Tcl.framework/Tcl', 'tcl')],
              datas=[],
@@ -23,7 +23,7 @@ exe = EXE(pyz,
           a.zipfiles,
           a.datas,
           [],
-          name='main',
+          name='duckypad_config',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
@@ -32,7 +32,7 @@ exe = EXE(pyz,
           runtime_tmpdir=None,
           console=False , icon='icon.ico')
 app = BUNDLE(exe,
-             name='main.app',
+             name='duckypad_config.app',
              icon='icon.ico',
              bundle_identifier=None,
              info_plist={
