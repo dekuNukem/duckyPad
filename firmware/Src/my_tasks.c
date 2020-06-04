@@ -14,6 +14,7 @@
 
 uint8_t init_complete;
 uint32_t last_keypress;
+uint32_t next_pixel_shift = 30000;
 
 void keypress_task_start(void const * argument)
 {
@@ -54,6 +55,13 @@ void animation_task_start(void const * argument)
     // dim OLED screen after 5 minutes of idle to prevent burn-in
     if(HAL_GetTick() - last_keypress > 300000)
       ssd1306_dim(1);
+    // shift pixels around every 2 minutes to prevent burn-in
+    if(HAL_GetTick() > next_pixel_shift)
+    {
+      if(has_valid_profiles)
+        print_legend(rand()%3-1, rand()%3-1); // -1 to 1
+      next_pixel_shift = HAL_GetTick() + 120000;
+    }
     osDelay(25);
   }
 }

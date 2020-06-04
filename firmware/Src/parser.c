@@ -27,6 +27,7 @@ FIL sd_file;
 DIR dir;
 FILINFO fno;
 uint8_t mount_result;
+uint8_t has_valid_profiles;
 uint16_t cmd_delay, char_delay;
 unsigned int ignore_this;
 
@@ -343,7 +344,7 @@ void load_profile(uint8_t pid)
   p_cache.current_profile = pid;
 }
 
-void print_keyname(char* keyname, uint8_t keynum)
+void print_keyname(char* keyname, uint8_t keynum, int8_t x_offset, int8_t y_offset)
 {
   char* start;
   char* end;
@@ -362,12 +363,17 @@ void print_keyname(char* keyname, uint8_t keynum)
     key_name_buf[7] = 0;
   uint8_t row = keynum / 3;
   uint8_t col = keynum - row * 3;
-  uint8_t x_start = col_lookup[strlen(key_name_buf) - 1][col];
-  ssd1306_SetCursor(x_start, (row + 1) * 10 + 3);
+  int8_t x_start = col_lookup[strlen(key_name_buf) - 1][col] + x_offset;
+  int8_t y_start = (row + 1) * 10 + 2 + y_offset;
+  if(x_start < 0)
+    x_start = 0;
+  if(y_start < 0)
+    y_start = 0;
+  ssd1306_SetCursor((uint8_t)x_start, (uint8_t)y_start);
   ssd1306_WriteString(key_name_buf, Font_6x10,White);
 }
 
-void print_legend(void)
+void print_legend(int8_t x_offset, int8_t y_offset)
 {
   ssd1306_Fill(Black);
   memset(temp_buf, 0, PATH_SIZE);
@@ -377,11 +383,15 @@ void print_legend(void)
   sprintf(temp_buf, "P%d: %s", p_cache.current_profile, pf_name);
   if(strlen(temp_buf) > 21)
     temp_buf[21] = 0;
-  uint8_t x_start = (21 - strlen(temp_buf)) * 3;
-  ssd1306_SetCursor(x_start, 0);
+  int8_t x_start = (21 - strlen(temp_buf)) * 3 + x_offset;
+  if(x_start < 0)
+    x_start = 0;
+  if(y_offset < 0)
+    y_offset = 0;
+  ssd1306_SetCursor((uint8_t)x_start, 0);
   ssd1306_WriteString(temp_buf, Font_6x10,White);
   for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
-    print_keyname(p_cache.key_fn[i], i);
+    print_keyname(p_cache.key_fn[i], i, x_offset, y_offset);
   ssd1306_UpdateScreen();
 }
 
@@ -415,7 +425,8 @@ uint8_t get_last_profile(void)
 void restore_profile(uint8_t profile_id)
 {
   load_profile(profile_id);
-  print_legend();
+  print_legend(0, 0);
+  has_valid_profiles = 1;
   f_closedir(&dir);
   f_close(&sd_file);
 }
@@ -452,7 +463,8 @@ void change_profile(uint8_t direction)
       break;
   }
   load_profile(next_profile);
-  print_legend();
+  print_legend(0, 0);
+  has_valid_profiles = 1;
   f_closedir(&dir);
   f_close(&sd_file);
   save_last_profile(next_profile);
@@ -720,7 +732,7 @@ void keypress_wrap(uint8_t keynum)
       ssd1306_UpdateScreen();
       osDelay(10000);
       error_animation(1);
-      print_legend();
+      print_legend(0, 0);
       goto kp_end;
     }
     else if(result == PARSE_OK)

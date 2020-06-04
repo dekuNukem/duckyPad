@@ -26,6 +26,7 @@ extern FIL sd_file;
 extern DIR dir;
 extern FILINFO fno;
 extern uint8_t mount_result;
+extern uint8_t has_valid_profiles;
 
 typedef struct
 {
@@ -43,6 +44,7 @@ void scan_profiles(void);
 uint8_t get_last_profile(void);
 void restore_profile(uint8_t profile_id);
 void keypress_wrap(uint8_t keynum);
+void print_legend(int8_t x_offset, int8_t y_offset);
 
 extern profile_cache p_cache;
 

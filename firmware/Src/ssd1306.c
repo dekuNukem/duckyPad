@@ -1,6 +1,5 @@
 #include "ssd1306.h"
 
-
 #define SSD1306_LCDWIDTH 128
 #define SSD1306_LCDHEIGHT 64
 #define SSD1306_SETCONTRAST 0x81
@@ -66,6 +65,7 @@ void ssd1306_dim(uint8_t is_dim)
 	}
 	last_dim = is_dim;
 }
+
 //
 //	Het scherm initialiseren voor gebruik
 //

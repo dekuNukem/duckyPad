@@ -6,6 +6,13 @@ the key should be breathing
 after its done then fade back to background color
 */
 
+void shift_pixel_vertical(int8_t offset)
+{
+  ssd1306_WriteCommand(SSD1306_SETDISPLAYOFFSET);
+  ssd1306_WriteCommand((uint8_t)offset);
+}
+
+
 this line: TAB PAGEDOWN F12 CTRL 
 this line: F11 F1 END CONTROL 
 this line: ESCAPE INSERT F2 WINDOWS 
