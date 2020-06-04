@@ -4,7 +4,7 @@
 
 ------
 
-Thanks for purchasing duckuPad! Here is a short guide on how to put everything together.
+Thanks for purchasing duckyPad! Here is a short guide on how to put everything together.
 
 If yours is already assembled, please move on to the [Quick Start Guide](/getting_started.md).
 
