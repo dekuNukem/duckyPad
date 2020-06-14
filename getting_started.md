@@ -40,7 +40,7 @@ If you decide to use your own SD card, it should be formatted in [FAT32 format](
 
 [Head here to download the latest release](https://github.com/dekuNukem/duckyPad/releases) for Windows and macOS.
 
-* The software is in early stages of development. If you run into any problems, please don't hesitate to [open an issue](https://github.com/dekuNukem/duckypad/issues), or contact me through `dekuNukem`@`gmail`.`com`.
+* The software is in early stages of development. If you run into any problems, please don't hesitate to [open an issue](https://github.com/dekuNukem/duckypad/issues), DM me on [discord](https://discordapp.com/users/123481134762950659), or contact me through `dekuNukem`@`gmail`.`com`.
 
 Extract the `.zip` file and launch the application by clicking `duckypad_config.exe`:
 
@@ -145,10 +145,6 @@ Press the corresponding keys to execute the scripts, if there is an error it wil
 Press +/- button to change profiles.
 
 ![Alt text](resources/pics/rainbow.jpg)
-
-## Bugs?
-
-This software is in early stages of development, so if you run into any bugs or issues, please don't hesitate to [open an issue](https://github.com/dekuNukem/duckypad/issues), or contact me through `dekuNukem`@`gmail`.`com`.
 
 ## Using Autohotkey
 
@@ -313,4 +309,4 @@ Press +/- button to change profiles.
 
 ## Questions or Comments?
 
-Please feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), or email `dekuNukem`@`gmail`.`com` for inquires.
+Please feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), DM me on [discord](https://discordapp.com/users/123481134762950659), or email `dekuNukem`@`gmail`.`com` for inquires.
