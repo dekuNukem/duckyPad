@@ -3956,7 +3956,7 @@ by exp-lbrs.ulp</description>
 <text x="4" y="-0.75" size="1.27" layer="22" rot="R180" align="center">+</text>
 <text x="-4" y="-0.75" size="1.27" layer="22" rot="R180" align="center">i</text>
 <text x="-4" y="0.75" size="1.27" layer="22" rot="R180" align="center">-</text>
-<rectangle x1="-1.65" y1="-1.45" x2="1.65" y2="1.45" layer="46" rot="R180"/>
+<rectangle x1="-1.75" y1="-1.55" x2="1.75" y2="1.55" layer="46"/>
 </package>
 </packages>
 <symbols>
@@ -4938,8 +4938,8 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <packages>
 <package name="SWITCH_SOCKET">
 <hole x="0" y="0" drill="4"/>
-<hole x="-3.81" y="2.54" drill="2.93"/>
-<hole x="2.54" y="5.08" drill="2.93"/>
+<hole x="-3.81" y="2.54" drill="3.1"/>
+<hole x="2.54" y="5.08" drill="3.1"/>
 <smd name="2" x="-7.625" y="2.54" dx="2.7" dy="2" layer="16"/>
 <smd name="1" x="6.355" y="5.08" dx="2.7" dy="2" layer="16"/>
 <hole x="-5.08" y="0" drill="1.7"/>
@@ -5221,7 +5221,6 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <part name="U$12" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
 <part name="U$13" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
 <part name="U$17" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
-<part name="U$22" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
 <part name="U$23" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
 <part name="U$14" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
 </parts>
@@ -5739,7 +5738,6 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <instance part="U$12" gate="G$1" x="599.44" y="17.78" smashed="yes"/>
 <instance part="U$13" gate="G$1" x="599.44" y="-7.62" smashed="yes"/>
 <instance part="U$17" gate="G$1" x="568.96" y="-25.4" smashed="yes"/>
-<instance part="U$22" gate="G$1" x="553.72" y="7.62" smashed="yes"/>
 <instance part="U$23" gate="G$1" x="558.8" y="27.94" smashed="yes"/>
 <instance part="U$14" gate="G$1" x="520.7" y="-20.32" smashed="yes"/>
 </instances>
