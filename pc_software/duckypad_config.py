@@ -449,34 +449,25 @@ dp_root_folder_path= ''
 dp_root_folder_display.set(INVALID_ROOT_FOLDER_STRING)
 
 root_folder_lf = LabelFrame(root, text="Files", width=779, height=HIGHT_ROOT_FOLDER_LF)
-root_folder_lf.pack()
-root_folder_lf.place(x=PADDING, y=0)
-root_folder_lf.pack_propagate(False) 
+root_folder_lf.place(x=PADDING, y=0) 
 root.update()
 
 user_manual_button = Button(root_folder_lf, text="User Manual", command=open_duckypad_user_manual_url)
-user_manual_button.pack()
 user_manual_button.place(x=5, y=0, width=85)
 
 root_folder_select_button = Button(root_folder_lf, text="Open...", command=select_root_folder)
-root_folder_select_button.pack()
 root_folder_select_button.place(x=95, y=0, width=60)
 
 root_folder_path_label = Label(master=root_folder_lf, textvariable=dp_root_folder_display, foreground='red')
-root_folder_path_label.pack()
 root_folder_path_label.place(x=155, y=0)
 
 save_button = Button(root_folder_lf, text="Save", command=save_click, state=DISABLED)
-save_button.pack()
 save_button.place(x=535, y=0, width=50)
 
 save_as_button = Button(root_folder_lf, text="Save as...", command=save_as_click, state=DISABLED)
-save_as_button.pack()
 save_as_button.place(x=590, y=0, width=65)
 
 save_result_label = Label(master=root_folder_lf, text="")
-save_result_label.pack()
-save_result_label.pack_propagate(False)
 save_result_label.place(x=660, y=-6, width=110, height=35)
 
 def update_click(event):
@@ -492,22 +483,17 @@ last_save = 0
 
 profile_var = StringVar()
 profiles_lf = LabelFrame(root, text="Profiles", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_WINDOW_HEIGHT - HIGHT_ROOT_FOLDER_LF - PADDING)
-profiles_lf.pack()
 profiles_lf.place(x=PADDING, y=HIGHT_ROOT_FOLDER_LF)
-profiles_lf.pack_propagate(False)
 root.update()
 
 profile_listbox = Listbox(profiles_lf, listvariable=profile_var, height=16, exportselection=0) #, selectmode='single'?
-profile_listbox.pack()
 profile_listbox.place(x=32, y=PADDING, width=182, height=270)
 profile_listbox.bind('<<ListboxSelect>>', on_profile_listbox_select)
 
 profile_up_button = Button(profiles_lf, text="↑", command=profile_shift_up, state=DISABLED)
-profile_up_button.pack()
 profile_up_button.place(x=5, y=80, width=20, height=40)
 
 profile_down_button = Button(profiles_lf, text="↓", command=profile_shift_down, state=DISABLED)
-profile_down_button.pack()
 profile_down_button.place(x=5, y=140, width=20, height=40)
 
 BUTTON_WIDTH = int(profiles_lf.winfo_width() / 2.5)
@@ -515,65 +501,51 @@ BUTTON_HEIGHT = 25
 BUTTON_Y_POS = 295
 
 profile_add_button = Button(profiles_lf, text="New", command=profile_add_click, state=DISABLED)
-profile_add_button.pack()
 profile_add_button.place(x=PADDING*2, y=BUTTON_Y_POS, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 
 profile_dupe_button = Button(profiles_lf, text="Duplicate", command=profile_dupe_click, state=DISABLED)
-profile_dupe_button.pack()
 profile_dupe_button.place(x=PADDING * 2.5 + BUTTON_WIDTH, y=BUTTON_Y_POS, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 
 profile_remove_button = Button(profiles_lf, text="Remove", command=profile_remove_click, state=DISABLED)
-profile_remove_button.pack()
 profile_remove_button.place(x=PADDING * 2, y=BUTTON_Y_POS + BUTTON_HEIGHT + int(PADDING/2), width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 
 profile_rename_button = Button(profiles_lf, text="Rename", command=profile_rename_click, state=DISABLED)
-profile_rename_button.pack()
 profile_rename_button.place(x=PADDING * 2.5 + BUTTON_WIDTH, y=BUTTON_Y_POS + BUTTON_HEIGHT + int(PADDING/2), width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 
 bg_color_label = Label(master=profiles_lf, text="Background color:", fg='grey')
-bg_color_label.pack()
 bg_color_label.place(x=20, y=355)
 
 bg_color_button = Label(master=profiles_lf, borderwidth=1, relief="solid")
-bg_color_button.pack()
 bg_color_button.place(x=160, y=356, width=60, height=20)
 bg_color_button.bind("<Button-1>", bg_color_click)
 
 kd_color_label = Label(master=profiles_lf, text="Activation color:", fg='grey')
-kd_color_label.pack()
 kd_color_label.place(x=20, y=380)
 
 kd_color_button = Label(master=profiles_lf, borderwidth=1, relief="solid")
-kd_color_button.pack()
 kd_color_button.place(x=160, y=407, width=60, height=20)
 kd_color_button.bind("<Button-1>", kd_color_click)
 
 dim_unused_keys_checkbox_var = IntVar()
 dim_unused_keys_checkbox = Checkbutton(profiles_lf, text="Dim unused keys", variable=dim_unused_keys_checkbox_var, command=dim_unused_keys_click, state=DISABLED)
-dim_unused_keys_checkbox.pack()
 dim_unused_keys_checkbox.place(x=22, y=425)
 
 kd_color_var = IntVar()
 kd_R1 = Radiobutton(profiles_lf, text="      Auto", variable=kd_color_var, value=0, command=kd_radiobutton_auto_click, state=DISABLED)
-kd_R1.pack()
 kd_R1.place(x=130, y=380)
 kd_R2 = Radiobutton(profiles_lf, text="", variable=kd_color_var, value=1, command=kd_radiobutton_custom_click, state=DISABLED)
-kd_R2.pack()
 kd_R2.place(x=130, y=405)
 
 # ------------- Keys frame -------------
 selected_key = None
 
 keys_lf = LabelFrame(root, text="Keys", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_WINDOW_HEIGHT - HIGHT_ROOT_FOLDER_LF - PADDING)
-keys_lf.pack()
-keys_lf.place(x=profiles_lf.winfo_x() + profiles_lf.winfo_width() + PADDING, y=profiles_lf.winfo_y())
-keys_lf.pack_propagate(False) 
+keys_lf.place(x=profiles_lf.winfo_x() + profiles_lf.winfo_width() + PADDING, y=profiles_lf.winfo_y()) 
 root.update()
 
 key_instruction = Label(master=keys_lf, text="click to edit, drag to rearrange")
-key_instruction.pack()
 root.update()
-key_instruction.place(x=(keys_lf.winfo_width() - key_instruction.winfo_width())/2, y=0)
+key_instruction.place(x=30, y=0)
 
 KEY_BUTTON_HEADROOM = 20
 KEY_BUTTON_WIDTH = 75
@@ -652,7 +624,7 @@ key_button_xy_list = [(KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING), (KEY_BUTTON_
 key_button_list = []
 for x in range(15):
     this_button = Label(master=keys_lf, borderwidth=1, relief="solid", background='SystemButtonFace', font=(None, 13))
-    this_button.pack()
+
     this_button.place(x=key_button_xy_list[x][0], y=key_button_xy_list[x][1], width=KEY_BUTTON_WIDTH, height=KEY_BUTTON_HEIGHT)
     this_button.bind("<Button-1>", key_button_click_event)
     this_button.bind("<B1-Motion>", button_drag_start)
@@ -660,7 +632,6 @@ for x in range(15):
     key_button_list.append(this_button)
 
 key_name_text = Label(master=keys_lf, text="Key name:", fg='grey')
-key_name_text.pack()
 key_name_text.place(x=PADDING, y=305)
 root.update()
 
@@ -668,7 +639,6 @@ def key_name_entrybox_return_pressed(event):
     key_rename_click()
 
 key_name_entrybox = Entry(keys_lf, state=DISABLED)
-key_name_entrybox.pack()
 key_name_entrybox.place(x=key_name_text.winfo_width()+PADDING, y=305, width=145)
 key_name_entrybox.bind('<Return>', key_name_entrybox_return_pressed)
 
@@ -701,15 +671,12 @@ def key_remove_click():
     key_button_click(key_button_list[selected_key])
 
 key_rename_button = Button(keys_lf, text="Apply", command=key_rename_click, state=DISABLED)
-key_rename_button.pack()
 key_rename_button.place(x=KEY_BUTTON_GAP, y=340, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 root.update()
 key_remove_button = Button(keys_lf, text="Remove", command=key_remove_click, state=DISABLED)
-key_remove_button.pack()
 key_remove_button.place(x=KEY_BUTTON_GAP*2+key_rename_button.winfo_width(), y=340, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 
 key_color_text = Label(master=keys_lf, text="Key color:", fg='grey')
-key_color_text.pack()
 key_color_text.place(x=PADDING, y=380)
 root.update()
 
@@ -754,21 +721,16 @@ def key_color_button_click(event):
 
 key_color_type_var = IntVar()
 key_color_rb1 = Radiobutton(keys_lf, text="Same as background", variable=key_color_type_var, value=0, command=key_color_rb1_click,state=DISABLED)
-key_color_rb1.pack()
 key_color_rb1.place(x=85, y=380)
 key_color_rb2 = Radiobutton(keys_lf, text="", variable=key_color_type_var, value=1, command=key_color_rb2_click, state=DISABLED)
-key_color_rb2.pack()
 key_color_rb2.place(x=85, y=405)
 
 key_color_button = Label(master=keys_lf, borderwidth=1, relief="solid")
-key_color_button.pack()
 key_color_button.place(x=135, y=407, width=60, height=20)
 key_color_button.bind("<Button-1>", key_color_button_click)
 
 # ------------- Scripts frame -------------
 scripts_lf = LabelFrame(root, text="Scripts", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_WINDOW_HEIGHT - HIGHT_ROOT_FOLDER_LF - PADDING)
-scripts_lf.pack()
-scripts_lf.pack_propagate(False)
 scripts_lf.place(x=keys_lf.winfo_x() + keys_lf.winfo_width() + PADDING, y=keys_lf.winfo_y())
 
 def open_duckyscript_url():
@@ -778,10 +740,8 @@ def script_instruction_click(event):
     open_duckyscript_url()
 
 script_instruction = Label(master=scripts_lf, text="Read more about Duckyscript...", fg="blue", cursor="hand2")
-script_instruction.pack()
-script_instruction.pack_propagate(False)
 root.update()
-script_instruction.place(x=(scripts_lf.winfo_width() - script_instruction.winfo_width())/2, y=0)
+script_instruction.place(x=25, y=0)
 script_instruction.bind("<Button-1>", script_instruction_click)
 
 modified_count = 0
@@ -812,22 +772,16 @@ def script_textbox_event(event):
     script_textbox.tk.call(script_textbox._w, 'edit', 'modified', 0)
 
 script_textbox = Text(scripts_lf, relief='solid', borderwidth=1, padx=2, pady=2, spacing3=5, wrap="word", state=DISABLED)
-script_textbox.pack()
-script_textbox.pack_propagate(False)
 script_textbox.place(x=key_button_list[0].winfo_x(), y=KEY_BUTTON_HEADROOM+PADDING-3, width=key_button_list[-1].winfo_x() + KEY_BUTTON_WIDTH - KEY_BUTTON_GAP, height=key_button_list[-1].winfo_y() - key_button_list[0].winfo_y() + KEY_BUTTON_HEIGHT + 5)
 root.update()
 script_textbox.bind("<<Modified>>", script_textbox_event)
 script_textbox.tag_configure("error", background="#ffff00")
 
 script_common_commands_lf = LabelFrame(scripts_lf, text="Common commands", width=script_textbox.winfo_width(), height=105)
-script_common_commands_lf.pack()
-script_common_commands_lf.pack_propagate(False)
 script_common_commands_lf.place(x=PADDING, y=300)
 root.update()
 
 check_syntax_lf = LabelFrame(scripts_lf, text="Code check", width=script_textbox.winfo_width(), height=40)
-check_syntax_lf.pack()
-check_syntax_lf.pack_propagate(False)
 check_syntax_lf.place(x=PADDING, y=407)
 root.update()
 
@@ -844,7 +798,7 @@ for x in range(9):
         script_textbox.insert(INSERT, "\n" + script_button_commands[x] + " ")
         # script_textbox.see(END)
     this_button = Button(script_common_commands_lf, text=script_button_commands[x], command=this_func, state=DISABLED)
-    this_button.pack()
+
     this_button.place(x=script_button_xy_list[x][0], y=script_button_xy_list[x][1], width=SCRIPT_BUTTON_WIDTH, height=BUTTON_HEIGHT)
     script_command_button_list.append(this_button)
 script_command_button_list[-1].config(command=open_duckyscript_url)
@@ -870,8 +824,6 @@ def check_syntax_click():
         syntax_check_result_label.config(text="It looks alright...", fg="green")
 
 syntax_check_result_label = Label(master=check_syntax_lf)
-syntax_check_result_label.pack()
-syntax_check_result_label.pack_propagate(False)
 syntax_check_result_label.place(x=65, y=-4)
 
 # --------------------------
