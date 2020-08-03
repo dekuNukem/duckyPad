@@ -3,8 +3,7 @@
 [Main Page](/README.md) | [Buy duckyPad](/purchase_information.md)
 
 ------
-
-BOM is [here](/pcb/duckypad_v2_bom.xlsx), a video with build process is [here](https://www.youtube.com/watch?v=EGLLCtRuEuM).
+BOM is [here](pcb/V5/duckypad_v5_bom.xlsx), a video with build process is [here](https://www.youtube.com/watch?v=EGLLCtRuEuM).
 
 Here are some things to keep in mind if you're making one yourself:
 
