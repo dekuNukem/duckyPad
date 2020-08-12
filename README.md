@@ -18,8 +18,8 @@ Please see [Purchase Information](./purchase_information.md).
 
 ## Features
 
-* 15 mechanical switches
-* Individually addressable RGB backlights, fully customisable
+* 15 Cherry MX-style mechanical switches
+* Customisable RGB backlights
 * Up to 16 profiles supported for 240 scripts
 * OLED screen displaying current profile and key functions
 * Standard [duckyscript](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Duckyscript) parsed from SD card
@@ -28,10 +28,10 @@ Please see [Purchase Information](./purchase_information.md).
 
 ## You can use duckyPad to...
 
-* Consolidate all shortcuts of your favourite app in one place
-* Experiment with [badUSB attacks](https://arstechnica.com/information-technology/2014/07/this-thumbdrive-hacks-computers-badusb-exploit-makes-devices-turn-evil/) 
+* Consolidate all shortcuts of your favourite apps in one place
 * Switch scenes during streaming
 * Launch your favourite apps
+* Experiment with [badUSB attacks](https://arstechnica.com/information-technology/2014/07/this-thumbdrive-hacks-computers-badusb-exploit-makes-devices-turn-evil/) 
 * ...do anything you can think of with a single keypress!
 
 ## Examples
@@ -64,7 +64,7 @@ Please see [Purchase Information](./purchase_information.md).
 
 ## Getting started
 
-Please see [this guide](./getting_started.md) on how to use your duckyPad.
+Please see [the instruction manual](./getting_started.md) on how to use your duckyPad.
 
 ## Making one yourself
 
@@ -76,4 +76,4 @@ Honorable mention: simonCor ported this project to a [STM32F4 black pill](https:
 
 ## Questions or Comments?
 
-Please feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), DM me on [discord](https://discordapp.com/users/123481134762950659), or email `dekuNukem`@`gmail`.`com` for inquires.
+Please feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), DM me on discord `dekuNukem#6998`, or email `dekuNukem`@`gmail`.`com` for inquires.

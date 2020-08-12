@@ -137,4 +137,4 @@ Your feedback would be immensely helpful in improving this project for a wider l
 
 ## Questions or Comments?
 
-Please feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), DM me on [discord](https://discordapp.com/users/123481134762950659), or email `dekuNukem`@`gmail`.`com` for inquires.
+Please feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), DM me on discord `dekuNukem#6998`, or email `dekuNukem`@`gmail`.`com` for inquires.
