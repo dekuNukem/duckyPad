@@ -21,8 +21,8 @@ Please see [Purchase Information](./purchase_information.md).
 * 15 Cherry MX-style mechanical switches
 * Customisable RGB backlights
 * Up to 16 profiles supported for 240 scripts
-* OLED screen displaying current profile and key functions
-* Standard [duckyscript](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Duckyscript) parsed from SD card
+* OLED screen displaying current profile and key functions (with burn-in prevention!)
+* Standard [duckyscript](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Duckyscript) parsed directly from SD card
 * USB-C connector
 * No driver needed
 
