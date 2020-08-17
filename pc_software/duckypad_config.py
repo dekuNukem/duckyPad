@@ -14,7 +14,7 @@ from tkinter.colorchooser import askcolor
 from tkinter import messagebox
 
 
-THIS_VERSION_NUMBER = '0.1.1'
+THIS_VERSION_NUMBER = '0.1.2'
 MAIN_WINDOW_WIDTH = 800
 MAIN_WINDOW_HEIGHT = 533
 PADDING = 10
@@ -260,6 +260,7 @@ def kd_color_click(event):
 
 def clean_input(str_input, len_limit=None):
     result = ''.join([x for x in str_input if 32 <= ord(x) <= 126])
+    result = ''.join([x for x in result if x.isalnum() or x == ' '])
     while('  ' in result):
         result = result.replace('  ', ' ')
     if len_limit is not None:
