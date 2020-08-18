@@ -14,7 +14,7 @@ from tkinter.colorchooser import askcolor
 from tkinter import messagebox
 
 
-THIS_VERSION_NUMBER = '0.1.2'
+THIS_VERSION_NUMBER = '0.1.3'
 MAIN_WINDOW_WIDTH = 800
 MAIN_WINDOW_HEIGHT = 533
 PADDING = 10
@@ -258,9 +258,10 @@ def kd_color_click(event):
     profile_list[selection[0]].kd_color = hex_to_rgb(result)
     update_profile_display()
 
+invalid_filename_characters = ['<', '>', ':', '"', '/', '\\', '|', '?', '*']
+
 def clean_input(str_input, len_limit=None):
-    result = ''.join([x for x in str_input if 32 <= ord(x) <= 126])
-    result = ''.join([x for x in result if x.isalnum() or x == ' '])
+    result = ''.join([x for x in str_input if 32 <= ord(x) <= 126 and x not in invalid_filename_characters])
     while('  ' in result):
         result = result.replace('  ', ' ')
     if len_limit is not None:
