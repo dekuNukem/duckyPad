@@ -50,13 +50,13 @@ Extract the `.zip` file and launch the application by clicking `duckypad_config.
 
 When trying to run the app, your system might complain about this software being untrusted. This is because I haven't had the code digitally signed, which costs hundreds of dollars a year.
 
-Please feel free to [review the code](https://github.com/dekuNukem/duckyPad/tree/master/pc_software). If you really don't trust it, you can also [configure your duckyPad manually](#Configure-duckyPad-Manually).
+Please feel free to [review the code](https://github.com/dekuNukem/duckyPad/tree/master/pc_software), you can also just run the `duckypad_config.py` itself in terminal with Python3. If you really don't trust it, you can also [configure your duckyPad manually](#Configure-duckyPad-Manually).
 
 For Windows 10, click `More info` and then `Run anyway`.
 
 ![Alt text](resources/pics/app/defender.png)
 
-For macOS, **right click** on the app and select `Open`:
+For macOS, **`RIGHT CLICK`** on the app and select `Open`:
 
 ![Alt text](resources/pics/app/macos_warning.png)
 
@@ -134,7 +134,7 @@ Don't forget to save!
 
 * Press the `Save` button to save the changes to SD card. It might take a few seconds.
 
-* You can also press `Save as...` to make a backup somewhere else, select a empty folder!
+* You can also press `Save as...` to make a backup somewhere else, select a empty folder first!
 
 ### Run it!
 
@@ -153,7 +153,6 @@ You can use [autohotkey](https://www.autohotkey.com) for even more sophisticated
 To do this, duckyPad can be set up to press a simple combo like `WIN + F1`, which then get captured by autohotkey to execute a more complex custom script on your PC.
 
 Check out the [official tutorials](https://www.autohotkey.com/docs_1.0/Tutorial.htm), the [autohotkey profile](sample_profiles/profile7_autohotkey), and a [sample autohotkey script](resources/duckypad_autohotkey_script.ahk) upon which you can tinker with. 
-
 
 ## USB Firmware Updates
 
