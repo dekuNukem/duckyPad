@@ -50,7 +50,7 @@ Extract the `.zip` file and launch the application by clicking `duckypad_config.
 
 When trying to run the app, your system might complain about this software being untrusted. This is because I haven't had the code digitally signed, which costs hundreds of dollars a year.
 
-Please feel free to [review the code](https://github.com/dekuNukem/duckyPad/tree/master/pc_software), you can also just run the `duckypad_config.py` itself in terminal with Python3. If you really don't trust it, you can also [configure your duckyPad manually](#Configure-duckyPad-Manually).
+Please feel free to [review the code](https://github.com/dekuNukem/duckyPad/tree/master/pc_software). If you really don't trust the app, you can run the `duckypad_config.py` script itself with Python3. Finally, you can [configure your duckyPad completely manually](#Configure-duckyPad-Manually).
 
 For Windows 10, click `More info` and then `Run anyway`.
 
@@ -82,13 +82,13 @@ It might look a bit overwhelming, but don't worry, let's break it down.
 
 * Each profile contains a group of scripts corresponding to the keys on the duckyPad.
 
-* As you can see, you usually create a profile for each app you want to control.
+* As you can see, you typically create a profile for each app you want to control.
 
 ![Alt text](resources/pics/app/profiles.png)
 
 * Use the buttons to create a new profile, duplicate an existing profile, and remove/rename a profile.
 
-* Use the up/down arrow to reorder profiles.
+* Use the up/down arrow button to reorder profiles.
 
 * Choose a background color for the RGB backlight.
 
