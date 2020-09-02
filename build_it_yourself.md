@@ -3,7 +3,12 @@
 [Main Page](/README.md) | [Buy duckyPad](/purchase_information.md)
 
 ------
-BOM is [here](pcb/V5/duckypad_v5_bom.xlsx), a video with build process is [here](https://www.youtube.com/watch?v=EGLLCtRuEuM).
+
+## Beware of duckypad Versions!
+
+This guide is for [duckyPad V2](pcb/V2), BOM is [here](pcb/V5/duckypad_v2_bom.xlsx). A video with build process is [here](https://www.youtube.com/watch?v=EGLLCtRuEuM).
+
+A newer version with kailh hot-swap sockets and reverse-mount RGB LED is currently under prototype testing. It features a few different components and proper front and back acrylic plates. More information will be added once testings are done. Files for this new version [is here](pcb), BOM is [here](pcb/V5/duckypad_v5_bom.xlsx).
 
 Here are some things to keep in mind if you're making one yourself:
 
