@@ -166,7 +166,7 @@ First, locate the debug buttons on the board:
 
 To update firmware:
 
-* Make sure the board is OFF and unplugged.
+* Make sure the board is unplugged.
 
 * **Press and hold down the DFU button (one on the left)** while plugging it into a computer.
 
@@ -181,6 +181,8 @@ Now launch the `DfuSeDemo` software:
 In the `Available DUF Devices` section at top left corner, you should see a `STM Device in DFU Mode`.
 
 ![Alt text](resources/pics/dfu_available.png)
+
+* If nothing shows up, you might need to install a driver. [Click me for details](https://github.com/dekuNukem/daytripper/blob/master/dfu_driver_install.md)
 
 Press the `Choose...` button and select a firmware file in `.dfu` format. Make sure it's the correct file!
 
