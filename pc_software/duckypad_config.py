@@ -1,4 +1,5 @@
 import os
+import sys
 import time
 import copy
 import shutil
@@ -13,6 +14,9 @@ from tkinter import simpledialog
 from tkinter.colorchooser import askcolor
 from tkinter import messagebox
 
+default_button_color = 'SystemButtonFace'
+if 'linux' in sys.platform:
+    default_button_color = 'grey'
 
 THIS_VERSION_NUMBER = '0.1.3'
 MAIN_WINDOW_WIDTH = 800
@@ -62,9 +66,9 @@ def ui_reset():
     update_key_button_appearances(None)
     key_name_entrybox.delete(0, 'end')
     selected_key = None
-    key_color_button.config(background='SystemButtonFace')
-    bg_color_button.config(background='SystemButtonFace')
-    kd_color_button.config(background='SystemButtonFace')
+    key_color_button.config(background=default_button_color)
+    bg_color_button.config(background=default_button_color)
+    kd_color_button.config(background=default_button_color)
     key_color_rb1.config(state=DISABLED)
     key_color_rb2.config(state=DISABLED)
     clear_and_disable_script_textbox()
@@ -163,7 +167,7 @@ def update_profile_display():
 
     if profile_list[index].kd_color is None:
         kd_R1.select()
-        kd_color_button.config(background='SystemButtonFace')
+        kd_color_button.config(background=default_button_color)
     else:
         kd_R2.select()
         kd_color_button.config(background=rgb_to_hex(profile_list[index].kd_color))
@@ -177,7 +181,7 @@ def update_profile_display():
     reset_key_button_relief()
     key_name_entrybox.delete(0, 'end')
     selected_key = None
-    key_color_button.config(background='SystemButtonFace')
+    key_color_button.config(background=default_button_color)
     key_color_rb1.config(state=DISABLED)
     key_color_rb2.config(state=DISABLED)
     clear_and_disable_script_textbox()
@@ -190,7 +194,7 @@ def clear_and_disable_script_textbox():
 def update_key_button_appearances(profile_index):
     if profile_index is None:
         for x in range(15):
-            key_button_list[x].config(background='SystemButtonFace', text='')
+            key_button_list[x].config(background=default_button_color, text='')
         return
     for count, item in enumerate(profile_list[profile_index].keylist):
         if item is not None:
@@ -205,7 +209,7 @@ def update_key_button_appearances(profile_index):
         elif item is None and profile_list[profile_index].dim_unused is False:
             key_button_list[count].config(text='', background=rgb_to_hex(profile_list[profile_index].bg_color))
         elif item is None and profile_list[profile_index].dim_unused:
-            key_button_list[count].config(background='SystemButtonFace', text='')
+            key_button_list[count].config(background=default_button_color, text='')
 
 def kd_radiobutton_auto_click():
     global profile_list
@@ -381,13 +385,13 @@ def save_everything(save_path):
                 if this_key.color is not None:
                     config_file.write('SWCOLOR_%d %d %d %d\n' % (this_key.index, this_key.color[0], this_key.color[1], this_key.color[2]))
             config_file.close()
-        save_result_label.config(text='Saved!', fg="green", bg='SystemButtonFace', cursor="")
+        save_result_label.config(text='Saved!', fg="green", bg=default_button_color, cursor="")
         save_result_label.unbind("<Button-1>")
 
     except Exception as e:
         # print('save_click:', e)
         messagebox.showerror("Error", "Save Failed!\n"+str(e))
-        save_result_label.config(text='Save FAILED!', fg="red", bg='SystemButtonFace', cursor="")
+        save_result_label.config(text='Save FAILED!', fg="red", bg=default_button_color, cursor="")
         save_result_label.unbind("<Button-1>")
     last_save = time.time()
 
@@ -421,7 +425,7 @@ def key_button_click(button_widget):
         script_textbox.insert(1.0, profile_list[profile_index].keylist[selected_key].script.rstrip('\n'))
 
     if profile_list[profile_index].keylist[selected_key] is None:
-        key_color_button.config(background='SystemButtonFace')
+        key_color_button.config(background=default_button_color)
         key_color_rb1.config(state=DISABLED)
         key_color_rb2.config(state=DISABLED)
         clear_and_disable_script_textbox()
@@ -431,7 +435,7 @@ def key_button_click(button_widget):
     key_color_rb2.config(state=NORMAL)
     if profile_list[profile_index].keylist[selected_key].color is None:
         key_color_rb1.select()
-        key_color_button.config(background='SystemButtonFace')
+        key_color_button.config(background=default_button_color)
     else:
         key_color_rb2.select()
         last_rgb = profile_list[profile_index].keylist[selected_key].color
@@ -625,7 +629,7 @@ def button_drag_release(event):
 key_button_xy_list = [(KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING), (KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING*2+KEY_BUTTON_HEIGHT), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING*2+KEY_BUTTON_HEIGHT), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING*2+KEY_BUTTON_HEIGHT), (KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING*3+KEY_BUTTON_HEIGHT*2), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING*3+KEY_BUTTON_HEIGHT*2), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING*3+KEY_BUTTON_HEIGHT*2), (KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING*4+KEY_BUTTON_HEIGHT*3), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING*4+KEY_BUTTON_HEIGHT*3), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING*4+KEY_BUTTON_HEIGHT*3), (KEY_BUTTON_GAP,KEY_BUTTON_HEADROOM+PADDING*5+KEY_BUTTON_HEIGHT*4), (KEY_BUTTON_GAP*2+KEY_BUTTON_WIDTH,KEY_BUTTON_HEADROOM+PADDING*5+KEY_BUTTON_HEIGHT*4), (KEY_BUTTON_GAP*3+KEY_BUTTON_WIDTH*2,KEY_BUTTON_HEADROOM+PADDING*5+KEY_BUTTON_HEIGHT*4)]
 key_button_list = []
 for x in range(15):
-    this_button = Label(master=keys_lf, borderwidth=1, relief="solid", background='SystemButtonFace', font=(None, 13))
+    this_button = Label(master=keys_lf, borderwidth=1, relief="solid", background=default_button_color, font=(None, 13))
 
     this_button.place(x=key_button_xy_list[x][0], y=key_button_xy_list[x][1], width=KEY_BUTTON_WIDTH, height=KEY_BUTTON_HEIGHT)
     this_button.bind("<Button-1>", key_button_click_event)
