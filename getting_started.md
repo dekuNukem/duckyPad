@@ -38,13 +38,15 @@ If you decide to use your own SD card, it should be formatted in [FAT32 format](
 
 ### Download the duckyPad configurator
 
-[Head here to download the latest release](https://github.com/dekuNukem/duckyPad/releases) for Windows and macOS.
+[Head here to download the latest release](https://github.com/dekuNukem/duckyPad/releases) for Windows, macOS, and Linux.
 
 * The software is in early stages of development. If you run into any problems, please don't hesitate to [open an issue](https://github.com/dekuNukem/duckypad/issues), DM me on discord `dekuNukem#6998`, or contact me through `dekuNukem`@`gmail`.`com`.
 
 Extract the `.zip` file and launch the application by clicking `duckypad_config.exe`:
 
 ![Alt text](resources/pics/app/duckexe.png)
+
+For Linux users, simply run the `duckypad_config.py` script with Python3.6 or higher. 
 
 ### "Untrusted App" Warnings
 
