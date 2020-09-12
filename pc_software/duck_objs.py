@@ -38,7 +38,7 @@ class dp_key(object):
 			self.script = ''
 			return
 		self.path = path
-		self.name = os.path.basename(os.path.normpath(path)).split('.')[0].split('_', 1)[-1]
+		self.name = os.path.basename(os.path.normpath(path)).rsplit('.', 1)[0].split('_', 1)[-1]
 		self.index = int(os.path.basename(os.path.normpath(path)).split('_')[0].strip('key'))
 		self.color = None
 		self.script = ''
@@ -58,7 +58,7 @@ class dp_profile(object):
 		key_file_list.sort(key=lambda s: int(s[3:].split("_")[0])) # sort by number not by letter
 		for item in key_file_list:
 			this_key = dp_key(os.path.join(path, item))
-			self.keylist[this_key.index -1] = this_key
+			self.keylist[this_key.index - 1] = this_key
 
 	def read_config(self, path):
 		try:
