@@ -47,6 +47,7 @@ const char cmd_DEFAULTDELAY[] = "DEFAULTDELAY ";
 const char cmd_DEFAULTCHARDELAY[] = "DEFAULTCHARDELAY ";
 const char cmd_DELAY[] = "DELAY ";
 const char cmd_STRING[] = "STRING ";
+const char cmd_UARTPRINT[] = "UARTPRINT ";
 const char cmd_ESCAPE[] = "ESCAPE";
 const char cmd_ESC[] = "ESC";
 const char cmd_ENTER[] = "ENTER";
@@ -653,6 +654,11 @@ uint8_t parse_line(char* line)
     ;
   else if(strncmp(cmd_STRING, line, strlen(cmd_STRING)) == 0)
     kb_print(line + strlen(cmd_STRING), char_delay);
+  else if(strncmp(cmd_UARTPRINT, line, strlen(cmd_UARTPRINT)) == 0)
+  {
+    printf("UART %s\n", line + strlen(cmd_UARTPRINT));
+    osDelay(100);
+  }
   else if(strncmp(cmd_DELAY, line, strlen(cmd_DELAY)) == 0)
   {
     uint16_t argg = get_arg(line);
