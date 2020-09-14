@@ -85,6 +85,9 @@ osThreadId kb_scanHandle;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
+static const uint8_t fw_version_major = 0;
+static const uint8_t fw_version_minor = 2;
+static const uint8_t fw_version_patch = 0;
 char instruction[] = "For instructions, see";
 char project_url[] = "git.io/duckypad";
 /* USER CODE END PV */
@@ -503,10 +506,30 @@ void kb_scan_task(void const * argument)
   neopixel_off();
   mount_result = f_mount(&sd_fs, "", 1);
   HAL_GPIO_WritePin(OLED_RESET_GPIO_Port, OLED_RESET_Pin, GPIO_PIN_RESET);
-  HAL_Delay(10);
+  osDelay(10);
   HAL_GPIO_WritePin(OLED_RESET_GPIO_Port, OLED_RESET_Pin, GPIO_PIN_SET);
-  HAL_Delay(20);
+  osDelay(20);
   ssd1306_Init();
+
+  ssd1306_Fill(Black);
+
+  ssd1306_SetCursor(18, 20);
+  ssd1306_WriteString(project_url,Font_6x10,White);
+  memset(temp_buf, 0, PATH_SIZE);
+  sprintf(temp_buf, "FW V%d.%d.%d", fw_version_major, fw_version_minor, fw_version_patch);
+  ssd1306_SetCursor(35, 35);
+  ssd1306_WriteString(temp_buf,Font_6x10,White);
+  ssd1306_UpdateScreen();
+  HAL_IWDG_Refresh(&hiwdg);
+  osDelay(1000);
+  HAL_IWDG_Refresh(&hiwdg);
+
+  // while(1)
+  // {
+  //   HAL_IWDG_Refresh(&hiwdg);
+  //   osDelay(30);
+  // }
+  
   if(mount_result)
   {
     ssd1306_Fill(Black);
@@ -524,6 +547,7 @@ void kb_scan_task(void const * argument)
     }
   }
 
+  get_global_settings();
   scan_profiles();
   // this line must be after scan_profiles()
   uint8_t last_profile = get_last_profile();

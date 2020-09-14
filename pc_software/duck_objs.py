@@ -2,9 +2,9 @@ import os
 import sys
 
 class dp_key(object):
-	def read_file(self, path):
+	def load_script(self, path):
 		with open(path) as keyfile:
-			self.script = keyfile.read()
+			return keyfile.read()
 
 	def read_color(self, config_path):
 		with open(config_path) as configfile:
@@ -28,6 +28,20 @@ class dp_key(object):
 		ret += str('...............') + '\n'
 		return ret
 
+	def get_keyname(self, path, index):
+		ret = 'err_' + str(index)
+		try:
+			with open(os.path.join(os.path.dirname(path), "config.txt")) as ffffff:
+				for line in ffffff:
+					this_split = line.replace('\n','').replace('\r','').split(' ')
+					if this_split[0].startswith('z') and int(this_split[0][1:]) == index:
+						ret = this_split[1]
+						break
+		except Exception as e:
+			print('get_keyname exception:', e)
+			pass
+		return ret
+		
 	def __init__(self, path=None):
 		super(dp_key, self).__init__()
 		if path is None:
@@ -37,12 +51,15 @@ class dp_key(object):
 			self.color = None
 			self.script = ''
 			return
+
 		self.path = path
-		self.name = os.path.basename(os.path.normpath(path)).rsplit('.', 1)[0].split('_', 1)[-1]
-		self.index = int(os.path.basename(os.path.normpath(path)).split('_')[0].strip('key'))
+		self.index = int(os.path.basename(os.path.normpath(path)).split("_")[0].split(".txt")[0].strip('key'))
+		if '_' in os.path.basename(os.path.normpath(path)):
+			self.name = os.path.basename(os.path.normpath(path)).rsplit('.', 1)[0].split('_', 1)[-1]
+		else:
+			self.name = self.get_keyname(path, self.index)
 		self.color = None
-		self.script = ''
-		self.read_file(path)
+		self.script = self.load_script(path)
 		try:
 			config_path = os.path.join(os.path.dirname(path), "config.txt")
 			self.read_color(config_path)
@@ -54,8 +71,9 @@ class dp_key(object):
 
 class dp_profile(object):
 	def read_keys(self, path):
-		key_file_list = [x for x in os.listdir(path) if x.endswith('.txt') and x.startswith('key') and '_' in x and x[3].isnumeric()]
-		key_file_list.sort(key=lambda s: int(s[3:].split("_")[0])) # sort by number not by letter
+		key_file_list = [x for x in os.listdir(path) if x.endswith('.txt') and x.startswith('key') and x[3].isnumeric()]
+		key_file_list.sort(key=lambda s: int(s[3:].split("_")[0].split(".txt")[0])) # sort by number not by letter
+		# print(key_file_list)
 		for item in key_file_list:
 			this_key = dp_key(os.path.join(path, item))
 			self.keylist[this_key.index - 1] = this_key

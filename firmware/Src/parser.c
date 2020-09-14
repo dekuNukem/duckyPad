@@ -140,39 +140,6 @@ char* find_profile(uint8_t pid)
   return NULL;
 }
 
-char* get_keyname(char* pf_fn, uint8_t keynum)
-{
-  char* key_fn;
-  char* ret = nonexistent_keyname;
-  if(pf_fn == NULL)
-    return ret;
-
-  fno.lfname = lfn_buf; 
-  fno.lfsize = FILENAME_SIZE - 1;
-  memset(temp_buf, 0, PATH_SIZE);
-  sprintf(temp_buf, "/%s", pf_fn);
-  if (f_opendir(&dir, temp_buf) != FR_OK)
-    return ret;
-  memset(temp_buf, 0, PATH_SIZE);
-  sprintf(temp_buf, "key%d_", keynum + 1);
-  while(1)
-  {
-    memset(lfn_buf, 0, FILENAME_SIZE);
-    if (f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)
-      break;
-    key_fn = fno.lfname[0] ? fno.lfname : fno.fname;
-    if(strncmp(temp_buf, key_fn, strlen(temp_buf)) == 0)
-    {
-      memset(key_name_buf, 0, FILENAME_SIZE);
-      strncpy(key_name_buf, key_fn, FILENAME_SIZE);
-      ret = key_name_buf;
-      break;
-    }
-  }
-  f_closedir(&dir);
-  return ret;
-}
-
 uint8_t load_colors(char* pf_fn)
 {
   char *curr, *msg_end;
@@ -325,7 +292,48 @@ void scan_profiles(void)
     }
   }
   f_closedir(&dir);
-  return;
+}
+
+void strip_newline(char* line, uint8_t size)
+{
+  for(int i = 0; i < size; ++i)
+    if(line[i] == '\n' || line[i] == '\r')
+      line[i] = 0;
+}
+
+uint8_t get_keynames(profile_cache* ppppppp)
+{
+  uint8_t ret = 1;
+  if(ppppppp == NULL)
+    return ret;
+  memset(temp_buf, 0, PATH_SIZE);
+  sprintf(temp_buf, "/%s/config.txt", ppppppp->profile_fn);
+
+  for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+  {
+    memset(ppppppp->key_fn[i], 0, FILENAME_SIZE);
+    strcpy(ppppppp->key_fn[i], nonexistent_keyname);
+  }
+
+  if(f_open(&sd_file, temp_buf, FA_READ) != 0)
+    goto glk_end;
+  
+  while(f_gets(temp_buf, PATH_SIZE, &sd_file))
+  {
+    if(temp_buf[0] != 'z')
+      continue;
+    uint8_t this_key_index = atoi(temp_buf+1);
+    if(this_key_index == 0)
+      continue;
+    this_key_index--;
+    memset(ppppppp->key_fn[this_key_index], 0, FILENAME_SIZE);
+    strip_newline(temp_buf, PATH_SIZE);
+    strcpy(ppppppp->key_fn[this_key_index], goto_next_arg(temp_buf, temp_buf+PATH_SIZE));
+  }
+  ret = 0;
+  glk_end:
+  f_close(&sd_file);
+  return ret;
 }
 
 void load_profile(uint8_t pid)
@@ -335,11 +343,7 @@ void load_profile(uint8_t pid)
     return;
   memset(p_cache.profile_fn, 0, FILENAME_SIZE);
   strcpy(p_cache.profile_fn, profile_name);
-  for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
-  {
-    memset(p_cache.key_fn[i], 0, FILENAME_SIZE);
-    strcpy(p_cache.key_fn[i], get_keyname(p_cache.profile_fn, i));
-  }
+  get_keynames(&p_cache);
   load_colors(p_cache.profile_fn);
   change_bg();
   p_cache.current_profile = pid;
@@ -347,19 +351,8 @@ void load_profile(uint8_t pid)
 
 void print_keyname(char* keyname, uint8_t keynum, int8_t x_offset, int8_t y_offset)
 {
-  char* start;
-  char* end;
-  memset(temp_buf, 0, FILENAME_SIZE);
-  sprintf(temp_buf, "key%d_", keynum + 1);
-  start = keyname + strlen(temp_buf);
-  end = strstr(start, ".txt");
-  if(end == NULL)
-  {
-    start = keyname;
-    end = keyname + strlen(keyname);
-  }
   memset(key_name_buf, 0, FILENAME_SIZE);
-  strncpy(key_name_buf, start, end - start);
+  strcpy(key_name_buf, keyname);
   if(strlen(key_name_buf) > 7)
     key_name_buf[7] = 0;
   uint8_t row = keynum / 3;
@@ -398,7 +391,7 @@ void print_legend(int8_t x_offset, int8_t y_offset)
 
 void save_last_profile(uint8_t profile_id)
 {
-  if(f_open(&sd_file, "last_profile.kbd", FA_CREATE_ALWAYS | FA_WRITE) != 0)
+  if(f_open(&sd_file, "last_profile.txt", FA_CREATE_ALWAYS | FA_WRITE) != 0)
     goto slp_end;
   memset(temp_buf, 0, PATH_SIZE);
   sprintf(temp_buf, "%d\n", profile_id);
@@ -410,7 +403,7 @@ void save_last_profile(uint8_t profile_id)
 uint8_t get_last_profile(void)
 {
   uint8_t ret = 0;
-  if(f_open(&sd_file, "last_profile.kbd", FA_READ) != 0)
+  if(f_open(&sd_file, "last_profile.txt", FA_READ) != 0)
     goto glp_end;
   memset(temp_buf, 0, PATH_SIZE);
   while(f_gets(temp_buf, PATH_SIZE, &sd_file))
@@ -419,6 +412,26 @@ uint8_t get_last_profile(void)
   if(p_cache.available_profile[ret] == 0)
     ret = 0;
   glp_end:
+  f_close(&sd_file);
+  return ret;
+}
+
+uint8_t get_global_settings(void)
+{
+  uint8_t ret = 0;
+  if(f_open(&sd_file, "global_settings.txt", FA_READ) != 0)
+  {
+    printf("no settings found\n");
+    goto ggs_end;
+  }
+  memset(temp_buf, 0, PATH_SIZE);
+
+  while(f_gets(temp_buf, PATH_SIZE, &sd_file))
+  {
+    printf("%s\n", temp_buf);
+  }
+
+  ggs_end:
   f_close(&sd_file);
   return ret;
 }
@@ -463,11 +476,7 @@ void change_profile(uint8_t direction)
     if(p_cache.available_profile[next_profile])
       break;
   }
-  load_profile(next_profile);
-  print_legend(0, 0);
-  has_valid_profiles = 1;
-  f_closedir(&dir);
-  f_close(&sd_file);
+  restore_profile(next_profile);
   save_last_profile(next_profile);
 }
 
@@ -703,10 +712,10 @@ void keypress_wrap(uint8_t keynum)
   uint16_t line_num = 0;
   uint8_t result;
   memset(temp_buf, 0, PATH_SIZE);
-  sprintf(temp_buf, "/%s/%s", p_cache.profile_fn, p_cache.key_fn[keynum]);
+  sprintf(temp_buf, "/%s/key%d.txt", p_cache.profile_fn, keynum+1);
+  // printf("%s\n", temp_buf);
   if(f_open(&sd_file, temp_buf, FA_READ) != 0)
     goto kp_end;
-  // printf("\n---------\n");
   cmd_delay = DEFAULT_CMD_DELAY_MS;
   char_delay = DEFAULT_CHAR_DELAY_MS;
   while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)

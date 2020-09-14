@@ -18,7 +18,7 @@ default_button_color = 'SystemButtonFace'
 if 'linux' in sys.platform:
     default_button_color = 'grey'
 
-THIS_VERSION_NUMBER = '0.1.4'
+THIS_VERSION_NUMBER = '0.2.0'
 MAIN_WINDOW_WIDTH = 800
 MAIN_WINDOW_HEIGHT = 533
 PADDING = 10
@@ -264,8 +264,10 @@ def kd_color_click(event):
 
 invalid_filename_characters = ['<', '>', ':', '"', '/', '\\', '|', '?', '*']
 
-def clean_input(str_input, len_limit=None):
+def clean_input(str_input, len_limit=None, clean_filename=True):
     result = ''.join([x for x in str_input if 32 <= ord(x) <= 126 and x not in invalid_filename_characters])
+    if clean_filename is False:
+        result = ''.join([x for x in str_input if 32 <= ord(x) <= 126])
     while('  ' in result):
         result = result.replace('  ', ' ')
     if len_limit is not None:
@@ -352,7 +354,7 @@ def validate_data_objs(save_path):
         for key_index, this_key in enumerate(this_profile.keylist):
             if this_key is None:
                 continue
-            this_key.path = os.path.join(this_profile.path, 'key'+str(key_index+1)+'_'+str(this_key.name)+'.txt')
+            this_key.path = os.path.join(this_profile.path, 'key'+str(key_index+1)+'.txt')
             this_key.index = key_index + 1
 
 def ensure_dir(dir_path):
@@ -372,6 +374,12 @@ def save_everything(save_path):
         for this_profile in profile_list:
             os.mkdir(this_profile.path)
             config_file = open(os.path.join(this_profile.path, 'config.txt'), 'w')
+
+            for this_key in this_profile.keylist:
+                if this_key is None:
+                    continue
+                config_file.write('z' + str(this_key.index) + ' ' + str(this_key.name) + '\n')
+
             config_file.write('BG_COLOR %d %d %d\n' % (this_profile.bg_color))
             if this_profile.kd_color is not None:
                 config_file.write('KEYDOWN_COLOR %d %d %d\n' % (this_profile.kd_color))
@@ -385,6 +393,7 @@ def save_everything(save_path):
                 if this_key.color is not None:
                     config_file.write('SWCOLOR_%d %d %d %d\n' % (this_key.index, this_key.color[0], this_key.color[1], this_key.color[2]))
             config_file.close()
+
         save_result_label.config(text='Saved!', fg="green", bg=default_button_color, cursor="")
         save_result_label.unbind("<Button-1>")
 
@@ -654,7 +663,7 @@ def key_rename_click():
     if is_key_selected() == False:
         return
     profile_index = profile_listbox.curselection()[0]
-    result = clean_input(key_name_entrybox.get(), 7)
+    result = clean_input(key_name_entrybox.get(), 7, clean_filename=False)
     if len(result) <= 0 or result in [x.name for x in profile_list[profile_index].keylist if x is not None]:
         return
     if profile_list[profile_index].keylist[selected_key] is not None:

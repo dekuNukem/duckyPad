@@ -6,6 +6,13 @@ the key should be breathing
 after its done then fade back to background color
 */
 
+    # if '_' in key_file_list[0]:
+    #   key_file_list.sort(key=lambda s: int(s[3:].split("_")[0])) # sort by number not by letter
+    # else:
+    #   key_file_list.sort(key=lambda s: int(s[3:].split(".txt")[0])) # sort by number not by letter
+printf("%s", temp_buf);
+    printf("%d\n", atoi(temp_buf));
+    printf("%s\n", goto_next_arg(temp_buf, temp_buf+PATH_SIZE));
 void shift_pixel_vertical(int8_t offset)
 {
   ssd1306_WriteCommand(SSD1306_SETDISPLAYOFFSET);
