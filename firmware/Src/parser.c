@@ -657,7 +657,7 @@ uint8_t parse_line(char* line)
   else if(strncmp(cmd_UARTPRINT, line, strlen(cmd_UARTPRINT)) == 0)
   {
     printf("UART %s\n", line + strlen(cmd_UARTPRINT));
-    osDelay(100);
+    osDelay(25);
   }
   else if(strncmp(cmd_DELAY, line, strlen(cmd_DELAY)) == 0)
   {
