@@ -63,7 +63,7 @@ void animation_task_start(void const * argument)
   for(;;)
   {
     led_animation_handler();
-    if(is_sleeping == 0 && HAL_GetTick() - last_keypress > 5000)
+    if(dp_settings.sleep_after_ms != 0 && is_sleeping == 0 && HAL_GetTick() - last_keypress > dp_settings.sleep_after_ms)
     {
       key_led_shutdown();
       ssd1306_Fill(Black);
@@ -74,7 +74,7 @@ void animation_task_start(void const * argument)
     if(HAL_GetTick() - last_keypress > 300000)
       ssd1306_dim(1);
     // shift pixels around every 2 minutes to prevent burn-in
-    if(HAL_GetTick() > next_pixel_shift)
+    if(is_sleeping == 0 && HAL_GetTick() > next_pixel_shift)
     {
       if(has_valid_profiles)
         print_legend(rand()%3-1, rand()%3-1); // -1 to 1

@@ -511,32 +511,21 @@ void kb_scan_task(void const * argument)
   osDelay(20);
   ssd1306_Init();
   ssd1306_Fill(Black);
-
-  // ssd1306_SetCursor(18, 20);
-  // ssd1306_WriteString(project_url,Font_6x10,White);
-  // memset(temp_buf, 0, PATH_SIZE);
-  // sprintf(temp_buf, "FW V%d.%d.%d", fw_version_major, fw_version_minor, fw_version_patch);
-  // ssd1306_SetCursor(35, 35);
-  // ssd1306_WriteString(temp_buf,Font_6x10,White);
-  // ssd1306_UpdateScreen();
-  // HAL_IWDG_Refresh(&hiwdg);
-  // osDelay(1000);
-  // HAL_IWDG_Refresh(&hiwdg);
-
-  // while(1)
-  // {
-  //   HAL_IWDG_Refresh(&hiwdg);
-  //   osDelay(30);
-  // }
-  
+ 
   if(mount_result)
   {
     ssd1306_Fill(Black);
-    ssd1306_SetCursor(0, 13);
+    ssd1306_SetCursor(0, 5);
     ssd1306_WriteString("Please Insert SD Card",Font_6x10,White);
-    ssd1306_SetCursor(0, 37);
+
+    memset(temp_buf, 0, PATH_SIZE);
+    sprintf(temp_buf, "FW V%d.%d.%d", fw_version_major, fw_version_minor, fw_version_patch);
+    ssd1306_SetCursor(35, 52);
+    ssd1306_WriteString(temp_buf,Font_6x10,White);
+
+    ssd1306_SetCursor(0, 22);
     ssd1306_WriteString(instruction,Font_6x10,White);
-    ssd1306_SetCursor(18, 50);
+    ssd1306_SetCursor(18, 35);
     ssd1306_WriteString(project_url,Font_6x10,White);
     ssd1306_UpdateScreen();
     while(1)

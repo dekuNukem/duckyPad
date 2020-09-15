@@ -20,11 +20,13 @@ if 'linux' in sys.platform:
 
 THIS_VERSION_NUMBER = '0.2.0'
 MAIN_WINDOW_WIDTH = 800
-MAIN_WINDOW_HEIGHT = 533
+MAIN_WINDOW_HEIGHT = 600
+MAIN_COLOUM_HEIGHT = 533
 PADDING = 10
 HIGHT_ROOT_FOLDER_LF = 50
 INVALID_ROOT_FOLDER_STRING = "<-- Please select your duckyPad root folder"
 last_rgb = (238,130,238)
+dp_settings = duck_objs.dp_global_settings()
 
 def open_duckypad_user_manual_url():
     webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/getting_started.md')
@@ -73,6 +75,7 @@ def ui_reset():
     key_color_rb2.config(state=DISABLED)
     clear_and_disable_script_textbox()
     syntax_check_result_label.config(text="", fg="green")
+    sleepmode_slider.config(state=DISABLED)
 
 def select_root_folder():
     global profile_list
@@ -80,10 +83,11 @@ def select_root_folder():
     dir_result = filedialog.askdirectory()
     if len(dir_result) <= 0:
         return
-    dp_root_folder_path= dir_result
+    dp_root_folder_path = dir_result
     dp_root_folder_display.set("Selected: " + dir_result)
     root_folder_path_label.config(foreground='navy')
     profile_list = duck_objs.build_profile(dir_result)
+    dp_settings.load_from_path(dp_root_folder_path)
     ui_reset()
     update_profile_display()
     enable_buttons()
@@ -109,6 +113,8 @@ def enable_buttons():
     kd_color_label.config(fg='black')
     key_name_text.config(fg='black')
     key_color_text.config(fg='black')
+    sleepmode_slider.config(state=NORMAL)
+    sleepmode_slider.set(dp_settings.sleep_after_minutes)
 
 def debug_set_root_folder():
     global profile_list
@@ -394,6 +400,8 @@ def save_everything(save_path):
                     config_file.write('SWCOLOR_%d %d %d %d\n' % (this_key.index, this_key.color[0], this_key.color[1], this_key.color[2]))
             config_file.close()
 
+        with open(os.path.join(dp_root_folder_path, 'settings.txt'), 'w') as setting_file:
+            setting_file.write("sleep_after_min " + str(sleepmode_slider.get()) + "\n")
         save_result_label.config(text='Saved!', fg="green", bg=default_button_color, cursor="")
         save_result_label.unbind("<Button-1>")
 
@@ -497,7 +505,7 @@ last_save = 0
 # ------------- Profiles frame -------------
 
 profile_var = StringVar()
-profiles_lf = LabelFrame(root, text="Profiles", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_WINDOW_HEIGHT - HIGHT_ROOT_FOLDER_LF - PADDING)
+profiles_lf = LabelFrame(root, text="Profiles", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_COLOUM_HEIGHT - HIGHT_ROOT_FOLDER_LF - PADDING)
 profiles_lf.place(x=PADDING, y=HIGHT_ROOT_FOLDER_LF)
 root.update()
 
@@ -554,7 +562,7 @@ kd_R2.place(x=130, y=405)
 # ------------- Keys frame -------------
 selected_key = None
 
-keys_lf = LabelFrame(root, text="Keys", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_WINDOW_HEIGHT - HIGHT_ROOT_FOLDER_LF - PADDING)
+keys_lf = LabelFrame(root, text="Keys", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_COLOUM_HEIGHT - HIGHT_ROOT_FOLDER_LF - PADDING)
 keys_lf.place(x=profiles_lf.winfo_x() + profiles_lf.winfo_width() + PADDING, y=profiles_lf.winfo_y()) 
 root.update()
 
@@ -745,7 +753,7 @@ key_color_button.place(x=135, y=407, width=60, height=20)
 key_color_button.bind("<Button-1>", key_color_button_click)
 
 # ------------- Scripts frame -------------
-scripts_lf = LabelFrame(root, text="Scripts", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_WINDOW_HEIGHT - HIGHT_ROOT_FOLDER_LF - PADDING)
+scripts_lf = LabelFrame(root, text="Scripts", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_COLOUM_HEIGHT - HIGHT_ROOT_FOLDER_LF - PADDING)
 scripts_lf.place(x=keys_lf.winfo_x() + keys_lf.winfo_width() + PADDING, y=keys_lf.winfo_y())
 
 def open_duckyscript_url():
@@ -842,6 +850,42 @@ syntax_check_result_label = Label(master=check_syntax_lf)
 syntax_check_result_label.place(x=65, y=-4)
 
 # --------------------------
+
+def add_s(word, value):
+    if value == 1:
+        return word
+    return word + 's'
+
+def minutes_to_str(value):
+    value = int(value)
+    if value == 0:
+        return "Never"
+    this_hours = int(value/60)
+    this_minutes = value % 60
+    result = ''
+    if this_hours > 0:
+        result += str(this_hours) + add_s(" hour", this_hours)
+    result += " " + str(this_minutes) + add_s(" minute", this_minutes)
+    return result
+
+def slider_adjust_sleepmode(value):
+    sleepmode_slider_text.config(text=minutes_to_str(value))
+
+settings_lf = LabelFrame(root, text="Settings", width=779, height=65)
+settings_lf.place(x=10, y=525) 
+enter_sleep_mode_label = Label(master=settings_lf, text="Enter sleep mode after:")
+enter_sleep_mode_label.place(x=10, y=0)
+
+sleepmode_slider = Scale(settings_lf)
+sleepmode_slider.config(from_=0, to=360, length=150, showvalue=0, sliderlength=20, orient=HORIZONTAL, command=slider_adjust_sleepmode)
+sleepmode_slider.set(0)
+sleepmode_slider.place(x=10, y=20)
+sleepmode_slider.config(state=DISABLED)
+
+sleepmode_slider_text = Label(settings_lf, text='Never')
+sleepmode_slider_text.place(x=135, y=0)
+root.update()
+
 def repeat_func():
     global modification_checked
     if time.time() - last_textbox_edit >= 0.5 and modification_checked == 0:

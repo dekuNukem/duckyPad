@@ -132,6 +132,20 @@ class dp_profile(object):
 		self.kd_color = None
 		self.dim_unused = True
 
+class dp_global_settings(object):
+	def load_from_path(self, path):
+		try:
+			with open(os.path.join(path, 'settings.txt')) as settings_file:
+				for line in settings_file.readlines():
+					line = line.replace('\n', '').replace('\r', '')
+					if 'sleep_after_min' in line:
+						self.sleep_after_minutes = int(line.split(' ')[-1])
+		except Exception as e:
+			print('dp_global_settings load_from_path:', e)
+	def __init__(self):
+		super(dp_global_settings, self).__init__()
+		self.sleep_after_minutes = 0
+
 def build_profile(root_dir_path):
 	my_dirs = [d for d in os.listdir(root_dir_path) if os.path.isdir(os.path.join(root_dir_path, d))]
 	my_dirs = [x for x in my_dirs if x.startswith('profile') and x[7].isnumeric() and '_' in x]

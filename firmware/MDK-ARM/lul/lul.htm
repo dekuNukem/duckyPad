@@ -3,9 +3,9 @@
 <title>Static Call Graph - [lul\lul.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image lul\lul.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue Sep 15 11:42:03 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue Sep 15 22:13:09 2020
 <BR><P>
-<H3>Maximum Stack Usage =        384 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        392 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 kb_scan_task &rArr; change_profile &rArr; restore_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 <P>
@@ -303,22 +303,23 @@ Global Symbols
 <P><STRONG><a name="[47]"></a>__aeabi_memclr</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, memseta.o(.text))
 <BR><BR>[Calls]<UL><LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memset
 </UL>
-<BR>[Called By]<UL><LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;neopixel_off
-<LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
+<BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_scan_task
+<LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;neopixel_off
+<LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
 <LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_profile
-<LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
+<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
 </UL>
 
 <P><STRONG><a name="[148]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;neopixel_off
-<LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
+<BR><BR>[Called By]<UL><LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;neopixel_off
+<LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
 <LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_last_profile
 <LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_legend
 <LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_keyname
 <LI><a href="#[17a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_colors
-<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
-<LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_last_profile
-<LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
+<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
+<LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_last_profile
+<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
 <LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_global_settings
 <LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_profile
 </UL>
@@ -330,8 +331,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[14a]"></a>strlen</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, strlen.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_print
-<LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
+<BR><BR>[Called By]<UL><LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_print
+<LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
 <LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_last_profile
 <LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_legend
 <LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_keyname
@@ -339,8 +340,8 @@ Global Symbols
 <LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_line
 <LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_combo
 <LI><a href="#[17a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_colors
-<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
-<LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;is_empty_line
+<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
+<LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;is_empty_line
 <LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_arg
 <LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_profile
 </UL>
@@ -351,21 +352,22 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[17a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_colors
 </UL>
 
-<P><STRONG><a name="[156]"></a>strcpy</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, strcpy.o(.text))
+<P><STRONG><a name="[155]"></a>strcpy</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, strcpy.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_keyname
 <LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_profile
-<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
-<LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
+<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
+<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
 </UL>
 
 <P><STRONG><a name="[14b]"></a>strncmp</STRONG> (Thumb, 30 bytes, Stack size 12 bytes, strncmp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = strncmp
 </UL>
-<BR>[Called By]<UL><LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
+<BR>[Called By]<UL><LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
 <LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_special_key
 <LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_line
 <LI><a href="#[17a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_colors
-<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
+<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
+<LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_global_settings
 <LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_profile
 </UL>
 
@@ -388,11 +390,12 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
 <LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
+<BR>[Called By]<UL><LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
 <LI><a href="#[17a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_colors
-<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
-<LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_last_profile
-<LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
+<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
+<LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_last_profile
+<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
+<LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_global_settings
 <LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_arg
 </UL>
 
@@ -635,8 +638,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 </UL>
-<BR>[Called By]<UL><LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_Init
-<LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_set_speed
+<BR>[Called By]<UL><LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_Init
+<LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_set_speed
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_EXTI_Callback
 </UL>
 
@@ -672,17 +675,17 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[16c]"></a>HAL_GPIO_ReadPin</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f0xx_hal_gpio.o(i.HAL_GPIO_ReadPin))
-<BR><BR>[Called By]<UL><LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_update
+<BR><BR>[Called By]<UL><LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_update
 </UL>
 
 <P><STRONG><a name="[bf]"></a>HAL_GPIO_WritePin</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32f0xx_hal_gpio.o(i.HAL_GPIO_WritePin))
 <BR><BR>[Called By]<UL><LI><a href="#[177]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;neopixel_show
 <LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
 <LI><a href="#[1b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_readsector
-<LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_status
-<LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_csd
-<LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_cid
-<LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
+<LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_status
+<LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_csd
+<LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_cid
+<LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
 <LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_scan_task
 <LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
 </UL>
@@ -701,7 +704,7 @@ Global Symbols
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_PollForConversion
 <LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_task_start
 <LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animation_task_start
-<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_keypress
+<LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_keypress
 <LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_WaitOnTXISFlagUntilTimeout
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_WaitOnSTOPFlagUntilTimeout
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_WaitOnFlagUntilTimeout
@@ -752,7 +755,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Called By]<UL><LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_Init
+<BR>[Called By]<UL><LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_Init
 </UL>
 
 <P><STRONG><a name="[77]"></a>HAL_I2C_Mem_Write</STRONG> (Thumb, 334 bytes, Stack size 48 bytes, stm32f0xx_hal_i2c.o(i.HAL_I2C_Mem_Write))
@@ -785,9 +788,9 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[15b]"></a>HAL_IWDG_Refresh</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f0xx_hal_iwdg.o(i.HAL_IWDG_Refresh))
+<P><STRONG><a name="[15a]"></a>HAL_IWDG_Refresh</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f0xx_hal_iwdg.o(i.HAL_IWDG_Refresh))
 <BR><BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_scan_task
-<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_keypress
+<LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_keypress
 </UL>
 
 <P><STRONG><a name="[b6]"></a>HAL_IncTick</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f0xx_hal.o(i.HAL_IncTick))
@@ -1047,7 +1050,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_MspDeInit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_set_speed
+<BR>[Called By]<UL><LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_set_speed
 </UL>
 
 <P><STRONG><a name="[a5]"></a>HAL_SPI_Init</STRONG> (Thumb, 184 bytes, Stack size 24 bytes, stm32f0xx_hal_spi.o(i.HAL_SPI_Init))
@@ -1055,7 +1058,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_MspInit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_set_speed
+<BR>[Called By]<UL><LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_set_speed
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_SPI1_Init
 </UL>
 
@@ -1082,7 +1085,7 @@ Global Symbols
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_EndRxTxTransaction
 </UL>
 <BR>[Called By]<UL><LI><a href="#[177]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;neopixel_show
-<LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_set_speed
+<LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_set_speed
 </UL>
 
 <P><STRONG><a name="[aa]"></a>HAL_SPI_TransmitReceive</STRONG> (Thumb, 570 bytes, Stack size 48 bytes, stm32f0xx_hal_spi.o(i.HAL_SPI_TransmitReceive))
@@ -1425,8 +1428,8 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[16a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;media_key_press
 <LI><a href="#[16b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_release_all
-<LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_release
-<LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_press
+<LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_release
+<LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_press
 </UL>
 
 <P><STRONG><a name="[c6]"></a>USBD_Init</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, usbd_core.o(i.USBD_Init))
@@ -1694,13 +1697,12 @@ Global Symbols
 
 <P><STRONG><a name="[1db]"></a>__1printf$5</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf5.o(i.__0printf$5), UNUSED)
 
-<P><STRONG><a name="[154]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf5.o(i.__0printf$5))
+<P><STRONG><a name="[168]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf5.o(i.__0printf$5))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_led_shutdown
 <LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_line
-<LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_global_settings
 </UL>
 
 <P><STRONG><a name="[f9]"></a>__0sprintf$5</STRONG> (Thumb, 36 bytes, Stack size 24 bytes, printf5.o(i.__0sprintf$5), UNUSED)
@@ -1713,12 +1715,13 @@ Global Symbols
 <P><STRONG><a name="[149]"></a>__2sprintf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf5.o(i.__0sprintf$5))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
+<BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_scan_task
+<LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
 <LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_last_profile
 <LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_legend
 <LI><a href="#[17a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_colors
-<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
-<LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
+<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
+<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
 <LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_profile
 </UL>
 
@@ -1747,7 +1750,7 @@ Global Symbols
 
 <P><STRONG><a name="[1e0]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 
-<P><STRONG><a name="[41]"></a>animation_task_start</STRONG> (Thumb, 152 bytes, Stack size 0 bytes, my_tasks.o(i.animation_task_start))
+<P><STRONG><a name="[41]"></a>animation_task_start</STRONG> (Thumb, 166 bytes, Stack size 0 bytes, my_tasks.o(i.animation_task_start))
 <BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = animation_task_start &rArr; anime_init &rArr; change_bg &rArr; led_start_animation &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; __aeabi_llsr
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
@@ -1854,7 +1857,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 <LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_start_animation
 </UL>
-<BR>[Called By]<UL><LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
+<BR>[Called By]<UL><LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
 </UL>
 
 <P><STRONG><a name="[125]"></a>f_close</STRONG> (Thumb, 36 bytes, Stack size 16 bytes, ff.o(i.f_close))
@@ -1867,9 +1870,9 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_last_profile
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_profile
 <LI><a href="#[17a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_colors
-<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
-<LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_last_profile
-<LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
+<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
+<LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_last_profile
+<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
 <LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_global_settings
 </UL>
 
@@ -1879,7 +1882,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validate
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;unlock_fs
 </UL>
-<BR>[Called By]<UL><LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
+<BR>[Called By]<UL><LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_profile
 <LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_profile
 </UL>
@@ -1890,9 +1893,9 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
 </UL>
 <BR>[Called By]<UL><LI><a href="#[17a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_colors
-<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
-<LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_last_profile
-<LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
+<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
+<LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_last_profile
+<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
 <LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_global_settings
 </UL>
 
@@ -1925,9 +1928,9 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_last_profile
 <LI><a href="#[17a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_colors
-<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
-<LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_last_profile
-<LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
+<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
+<LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_last_profile
+<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
 <LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_global_settings
 </UL>
 
@@ -1942,7 +1945,7 @@ Global Symbols
 <LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ff_memfree
 <LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ff_memalloc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
+<BR>[Called By]<UL><LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
 <LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_profile
 </UL>
 
@@ -1973,7 +1976,7 @@ Global Symbols
 <LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ff_memfree
 <LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ff_memalloc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
+<BR>[Called By]<UL><LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
 <LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_profile
 </UL>
 
@@ -2127,28 +2130,29 @@ Global Symbols
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;create_chain
 </UL>
 
-<P><STRONG><a name="[153]"></a>get_global_settings</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, parser.o(i.get_global_settings))
-<BR><BR>[Stack]<UL><LI>Max Depth = 320<LI>Call Chain = get_global_settings &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
+<P><STRONG><a name="[153]"></a>get_global_settings</STRONG> (Thumb, 86 bytes, Stack size 16 bytes, parser.o(i.get_global_settings))
+<BR><BR>[Stack]<UL><LI>Max Depth = 328<LI>Call Chain = get_global_settings &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_gets
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
-<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strncmp
 <LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_scan_task
 </UL>
 
-<P><STRONG><a name="[155]"></a>get_keynames</STRONG> (Thumb, 176 bytes, Stack size 24 bytes, parser.o(i.get_keynames))
+<P><STRONG><a name="[154]"></a>get_keynames</STRONG> (Thumb, 176 bytes, Stack size 24 bytes, parser.o(i.get_keynames))
 <BR><BR>[Stack]<UL><LI>Max Depth = 336<LI>Call Chain = get_keynames &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_gets
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
-<LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strip_newline
+<LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strip_newline
 <LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;goto_next_arg
 <LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
-<LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
+<LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
 <LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
 <LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
@@ -2156,7 +2160,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_profile
 </UL>
 
-<P><STRONG><a name="[158]"></a>get_last_profile</STRONG> (Thumb, 78 bytes, Stack size 8 bytes, parser.o(i.get_last_profile))
+<P><STRONG><a name="[157]"></a>get_last_profile</STRONG> (Thumb, 78 bytes, Stack size 8 bytes, parser.o(i.get_last_profile))
 <BR><BR>[Stack]<UL><LI>Max Depth = 320<LI>Call Chain = get_last_profile &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
@@ -2171,18 +2175,18 @@ Global Symbols
 <P><STRONG><a name="[152]"></a>goto_next_arg</STRONG> (Thumb, 44 bytes, Stack size 0 bytes, parser.o(i.goto_next_arg))
 <BR><BR>[Called By]<UL><LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_combo
 <LI><a href="#[17a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_colors
-<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
-<LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
+<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
+<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
 <LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_arg
 </UL>
 
-<P><STRONG><a name="[159]"></a>handle_keypress</STRONG> (Thumb, 70 bytes, Stack size 24 bytes, parser.o(i.handle_keypress))
+<P><STRONG><a name="[158]"></a>handle_keypress</STRONG> (Thumb, 70 bytes, Stack size 24 bytes, parser.o(i.handle_keypress))
 <BR><BR>[Stack]<UL><LI>Max Depth = 360<LI>Call Chain = handle_keypress &rArr; keypress_wrap &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_update
-<LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_IWDG_Refresh
+<BR>[Calls]<UL><LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_update
+<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_IWDG_Refresh
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
-<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
+<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
 </UL>
 <BR>[Called By]<UL><LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_task_start
 </UL>
@@ -2190,16 +2194,16 @@ Global Symbols
 <P><STRONG><a name="[f4]"></a>hwif_init</STRONG> (Thumb, 80 bytes, Stack size 16 bytes, sd_util.o(i.hwif_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = hwif_init &rArr; sd_read_csd &rArr; sd_get_data &rArr; spi_txrx &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_set_speed
-<LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_status
-<LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_csd
-<LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_cid
-<LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
+<BR>[Calls]<UL><LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_set_speed
+<LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_status
+<LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_csd
+<LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_cid
+<LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USER_initialize
 </UL>
 
-<P><STRONG><a name="[162]"></a>is_empty_line</STRONG> (Thumb, 46 bytes, Stack size 16 bytes, parser.o(i.is_empty_line))
+<P><STRONG><a name="[161]"></a>is_empty_line</STRONG> (Thumb, 46 bytes, Stack size 16 bytes, parser.o(i.is_empty_line))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = is_empty_line
 </UL>
 <BR>[Calls]<UL><LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
@@ -2208,46 +2212,48 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[169]"></a>is_media_key</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, keyboard.o(i.is_media_key))
-<BR><BR>[Called By]<UL><LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_release
-<LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_press
+<BR><BR>[Called By]<UL><LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_release
+<LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_press
 </UL>
 
 <P><STRONG><a name="[170]"></a>is_pressed</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, buttons.o(i.is_pressed))
 <BR><BR>[Called By]<UL><LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_task_start
 </UL>
 
-<P><STRONG><a name="[163]"></a>kb_print</STRONG> (Thumb, 50 bytes, Stack size 16 bytes, keyboard.o(i.kb_print))
+<P><STRONG><a name="[162]"></a>kb_print</STRONG> (Thumb, 50 bytes, Stack size 16 bytes, keyboard.o(i.kb_print))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = kb_print &rArr; osDelay &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
-<LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_release
-<LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_press
+<LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_release
+<LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_press
 <LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
 <BR>[Called By]<UL><LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_line
 </UL>
 
-<P><STRONG><a name="[3f]"></a>kb_scan_task</STRONG> (Thumb, 216 bytes, Stack size 0 bytes, main.o(i.kb_scan_task))
-<BR><BR>[Stack]<UL><LI>Max Depth = 384<LI>Call Chain = kb_scan_task &rArr; change_profile &rArr; restore_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
+<P><STRONG><a name="[3f]"></a>kb_scan_task</STRONG> (Thumb, 262 bytes, Stack size 8 bytes, main.o(i.kb_scan_task))
+<BR><BR>[Stack]<UL><LI>Max Depth = 392<LI>Call Chain = kb_scan_task &rArr; change_profile &rArr; restore_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
-<LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_update
+<LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_update
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_WriteString
 <LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_UpdateScreen
 <LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_SetCursor
-<LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_Init
+<LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_Init
 <LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_Fill
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 <LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mount
 <LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USB_DEVICE_Init
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_FATFS_Init
-<LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;neopixel_off
-<LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_IWDG_Refresh
-<LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
+<LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;neopixel_off
+<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_IWDG_Refresh
+<LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_profile
-<LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_last_profile
+<LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_last_profile
 <LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_global_settings
 <LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_profile
+<LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
+<LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(.constdata)
 </UL>
@@ -2259,30 +2265,30 @@ Global Symbols
 <LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 <LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2uiz
 <LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_start_animation
-<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animation_task_start
 </UL>
 
-<P><STRONG><a name="[164]"></a>keyboard_press</STRONG> (Thumb, 124 bytes, Stack size 8 bytes, keyboard.o(i.keyboard_press))
+<P><STRONG><a name="[163]"></a>keyboard_press</STRONG> (Thumb, 124 bytes, Stack size 8 bytes, keyboard.o(i.keyboard_press))
 <BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = keyboard_press &rArr; media_key_press &rArr; USBD_HID_SendReport &rArr; USBD_LL_Transmit &rArr; HAL_PCD_EP_Transmit &rArr; PCD_WritePMA
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_HID_SendReport
 <LI><a href="#[16a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;media_key_press
 <LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;is_media_key
 </UL>
-<BR>[Called By]<UL><LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_print
+<BR>[Called By]<UL><LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_print
 <LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_combo
 </UL>
 
-<P><STRONG><a name="[165]"></a>keyboard_release</STRONG> (Thumb, 100 bytes, Stack size 8 bytes, keyboard.o(i.keyboard_release))
+<P><STRONG><a name="[164]"></a>keyboard_release</STRONG> (Thumb, 100 bytes, Stack size 8 bytes, keyboard.o(i.keyboard_release))
 <BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = keyboard_release &rArr; keyboard_release_all &rArr; USBD_HID_SendReport &rArr; USBD_LL_Transmit &rArr; HAL_PCD_EP_Transmit &rArr; PCD_WritePMA
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_HID_SendReport
 <LI><a href="#[16b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_release_all
 <LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;is_media_key
 </UL>
-<BR>[Called By]<UL><LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_print
+<BR>[Called By]<UL><LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_print
 </UL>
 
 <P><STRONG><a name="[16b]"></a>keyboard_release_all</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, keyboard.o(i.keyboard_release_all))
@@ -2290,18 +2296,18 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_HID_SendReport
 </UL>
-<BR>[Called By]<UL><LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_release
+<BR>[Called By]<UL><LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_release
 <LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_combo
 </UL>
 
-<P><STRONG><a name="[15c]"></a>keyboard_update</STRONG> (Thumb, 644 bytes, Stack size 24 bytes, buttons.o(i.keyboard_update))
+<P><STRONG><a name="[15b]"></a>keyboard_update</STRONG> (Thumb, 644 bytes, Stack size 24 bytes, buttons.o(i.keyboard_update))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = keyboard_update
 </UL>
 <BR>[Calls]<UL><LI><a href="#[16c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_ReadPin
 <LI><a href="#[16d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mark_as_pressed
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_scan_task
-<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_keypress
+<LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_keypress
 </UL>
 
 <P><STRONG><a name="[16e]"></a>keydown_anime_end</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, animations.o(i.keydown_anime_end))
@@ -2332,12 +2338,12 @@ Global Symbols
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_bg
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_profile
-<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_keypress
+<LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_keypress
 <LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_profile
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(.constdata)
 </UL>
-<P><STRONG><a name="[15a]"></a>keypress_wrap</STRONG> (Thumb, 342 bytes, Stack size 24 bytes, parser.o(i.keypress_wrap))
+<P><STRONG><a name="[159]"></a>keypress_wrap</STRONG> (Thumb, 342 bytes, Stack size 24 bytes, parser.o(i.keypress_wrap))
 <BR><BR>[Stack]<UL><LI>Max Depth = 336<LI>Call Chain = keypress_wrap &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
@@ -2354,12 +2360,12 @@ Global Symbols
 <LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;goto_next_arg
 <LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 <LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strncmp
-<LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
+<LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
 <LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 <LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
 </UL>
-<BR>[Called By]<UL><LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_keypress
+<BR>[Called By]<UL><LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_keypress
 </UL>
 
 <P><STRONG><a name="[fc]"></a>led_animation_handler</STRONG> (Thumb, 250 bytes, Stack size 24 bytes, animations.o(i.led_animation_handler))
@@ -2422,9 +2428,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_bg
 <LI><a href="#[17a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_colors
-<LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
+<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
 <LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_profile
-<LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
+<LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
 <LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_profile
@@ -2443,7 +2449,7 @@ Global Symbols
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_I2C1_Init
 <LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_ADC_Init
-<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 <LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
@@ -2455,7 +2461,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[16d]"></a>mark_as_pressed</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, buttons.o(i.mark_as_pressed))
-<BR><BR>[Called By]<UL><LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_update
+<BR><BR>[Called By]<UL><LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_update
 </UL>
 
 <P><STRONG><a name="[16a]"></a>media_key_press</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, keyboard.o(i.media_key_press))
@@ -2463,10 +2469,10 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_HID_SendReport
 </UL>
-<BR>[Called By]<UL><LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_press
+<BR>[Called By]<UL><LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_press
 </UL>
 
-<P><STRONG><a name="[166]"></a>neopixel_off</STRONG> (Thumb, 54 bytes, Stack size 8 bytes, animations.o(i.neopixel_off))
+<P><STRONG><a name="[165]"></a>neopixel_off</STRONG> (Thumb, 54 bytes, Stack size 8 bytes, animations.o(i.neopixel_off))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = neopixel_off &rArr; neopixel_show &rArr; HAL_SPI_Transmit &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[177]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;neopixel_show
@@ -2484,7 +2490,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 </UL>
-<BR>[Called By]<UL><LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;neopixel_off
+<BR>[Called By]<UL><LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;neopixel_off
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_animation_handler
 </UL>
 
@@ -2493,14 +2499,14 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_print
+<BR>[Called By]<UL><LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_print
 <LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_scan_task
 <LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_task_start
 <LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animation_task_start
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;error_animation
 <LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_line
 <LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_combo
-<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
+<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
 </UL>
 
 <P><STRONG><a name="[17f]"></a>osKernelStart</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, cmsis_os.o(i.osKernelStart))
@@ -2572,7 +2578,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 <LI><a href="#[16b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_release_all
-<LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_press
+<LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_press
 <LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_special_key
 <LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;goto_next_arg
 <LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
@@ -2584,16 +2590,16 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = parse_line &rArr; parse_combo &rArr; osDelay &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
-<LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_print
+<LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_print
 <LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_special_key
 <LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_combo
-<LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;is_empty_line
+<LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;is_empty_line
 <LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_arg
-<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 <LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strncmp
 <LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
-<BR>[Called By]<UL><LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
+<BR>[Called By]<UL><LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
 </UL>
 
 <P><STRONG><a name="[18e]"></a>parse_special_key</STRONG> (Thumb, 1360 bytes, Stack size 8 bytes, parser.o(i.parse_special_key))
@@ -2611,7 +2617,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_WriteString
 <LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_SetCursor
-<LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
+<LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
 <LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 <LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
@@ -2633,7 +2639,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animation_task_start
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_profile
-<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
+<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
 </UL>
 
 <P><STRONG><a name="[114]"></a>put_fat</STRONG> (Thumb, 254 bytes, Stack size 40 bytes, ff.o(i.put_fat))
@@ -2692,7 +2698,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_profile
 </UL>
 
-<P><STRONG><a name="[168]"></a>scan_profiles</STRONG> (Thumb, 172 bytes, Stack size 16 bytes, parser.o(i.scan_profiles))
+<P><STRONG><a name="[167]"></a>scan_profiles</STRONG> (Thumb, 172 bytes, Stack size 16 bytes, parser.o(i.scan_profiles))
 <BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = scan_profiles &rArr; f_opendir &rArr; follow_path &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_readdir
@@ -2712,8 +2718,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = sd_read &rArr; sd_init &rArr; sd_get_r7 &rArr; sd_get_r1 &rArr; spi_txrx &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_readsector
-<LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_status
-<LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
+<LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_status
+<LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USER_read
 </UL>
@@ -2722,8 +2728,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = sd_write &rArr; sd_writesector &rArr; sd_put_data &rArr; spi_txrx &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
-<LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_status
-<LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
+<LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_status
+<LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USER_write
 </UL>
@@ -2758,15 +2764,15 @@ Global Symbols
 <P><STRONG><a name="[fe]"></a>ssd1306_Fill</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, ssd1306.o(i.ssd1306_Fill))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = ssd1306_Fill
 </UL>
-<BR>[Called By]<UL><LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_Init
+<BR>[Called By]<UL><LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_Init
 <LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_scan_task
 <LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animation_task_start
 <LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_legend
-<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
+<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
 <LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_profile
 </UL>
 
-<P><STRONG><a name="[167]"></a>ssd1306_Init</STRONG> (Thumb, 214 bytes, Stack size 8 bytes, ssd1306.o(i.ssd1306_Init))
+<P><STRONG><a name="[166]"></a>ssd1306_Init</STRONG> (Thumb, 214 bytes, Stack size 8 bytes, ssd1306.o(i.ssd1306_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = ssd1306_Init &rArr; ssd1306_UpdateScreen &rArr; ssd1306_WriteCommand &rArr; HAL_I2C_Mem_Write &rArr; I2C_RequestMemoryWrite &rArr; I2C_WaitOnTXISFlagUntilTimeout &rArr; I2C_IsAcknowledgeFailed
 </UL>
 <BR>[Calls]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_I2C_IsDeviceReady
@@ -2782,7 +2788,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_scan_task
 <LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_legend
 <LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_keyname
-<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
+<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
 <LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_profile
 </UL>
 
@@ -2792,11 +2798,11 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_I2C_Mem_Write
 <LI><a href="#[1b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_WriteCommand
 </UL>
-<BR>[Called By]<UL><LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_Init
+<BR>[Called By]<UL><LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_Init
 <LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_scan_task
 <LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animation_task_start
 <LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_legend
-<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
+<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
 <LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_profile
 </UL>
 
@@ -2816,7 +2822,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_scan_task
 <LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_legend
 <LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_keyname
-<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
+<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
 <LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_profile
 </UL>
 
@@ -2829,10 +2835,10 @@ Global Symbols
 <LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animation_task_start
 </UL>
 
-<P><STRONG><a name="[157]"></a>strip_newline</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, parser.o(i.strip_newline))
+<P><STRONG><a name="[156]"></a>strip_newline</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, parser.o(i.strip_newline))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = strip_newline
 </UL>
-<BR>[Called By]<UL><LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
+<BR>[Called By]<UL><LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
 </UL>
 
 <P><STRONG><a name="[191]"></a>uxListRemove</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, list.o(i.uxListRemove))
@@ -2872,7 +2878,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[176]"></a>vPortEnterCritical</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, port.o(i.vPortEnterCritical))
-<BR><BR>[Called By]<UL><LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;neopixel_off
+<BR><BR>[Called By]<UL><LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;neopixel_off
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_animation_handler
 <LI><a href="#[1c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
 <LI><a href="#[183]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
@@ -2886,7 +2892,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[178]"></a>vPortExitCritical</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, port.o(i.vPortExitCritical))
-<BR><BR>[Called By]<UL><LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;neopixel_off
+<BR><BR>[Called By]<UL><LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;neopixel_off
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_animation_handler
 <LI><a href="#[1c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
 <LI><a href="#[183]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
@@ -3198,10 +3204,10 @@ Local Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
 <LI><a href="#[1b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_readsector
-<LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_status
-<LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_csd
-<LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_cid
-<LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
+<LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_status
+<LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_csd
+<LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_cid
+<LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
 </UL>
 
 <P><STRONG><a name="[1aa]"></a>sd_get_data</STRONG> (Thumb, 88 bytes, Stack size 24 bytes, sd_util.o(i.sd_get_data))
@@ -3211,8 +3217,8 @@ Local Symbols
 <LI><a href="#[1a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_txrx
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_readsector
-<LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_csd
-<LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_cid
+<LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_csd
+<LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_cid
 </UL>
 
 <P><STRONG><a name="[1ac]"></a>sd_get_r1</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, sd_util.o(i.sd_get_r1))
@@ -3222,9 +3228,9 @@ Local Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
 <LI><a href="#[1b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_readsector
-<LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_csd
-<LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_cid
-<LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
+<LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_csd
+<LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_cid
+<LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
 <LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r7
 </UL>
 
@@ -3234,15 +3240,15 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[1a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_txrx
 <LI><a href="#[1ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r1
 </UL>
-<BR>[Called By]<UL><LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
+<BR>[Called By]<UL><LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
 </UL>
 
-<P><STRONG><a name="[15e]"></a>sd_init</STRONG> (Thumb, 604 bytes, Stack size 32 bytes, sd_util.o(i.sd_init))
+<P><STRONG><a name="[15d]"></a>sd_init</STRONG> (Thumb, 604 bytes, Stack size 32 bytes, sd_util.o(i.sd_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = sd_init &rArr; sd_get_r7 &rArr; sd_get_r1 &rArr; spi_txrx &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 <LI><a href="#[1a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_txrx
-<LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_set_speed
+<LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_set_speed
 <LI><a href="#[1ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_nec
 <LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r7
 <LI><a href="#[1ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r1
@@ -3260,10 +3266,10 @@ Local Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
 <LI><a href="#[1b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_readsector
-<LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_status
-<LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_csd
-<LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_cid
-<LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
+<LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_status
+<LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_csd
+<LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_cid
+<LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
 </UL>
 
 <P><STRONG><a name="[1af]"></a>sd_put_data</STRONG> (Thumb, 134 bytes, Stack size 40 bytes, sd_util.o(i.sd_put_data))
@@ -3275,7 +3281,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
 </UL>
 
-<P><STRONG><a name="[160]"></a>sd_read_cid</STRONG> (Thumb, 112 bytes, Stack size 32 bytes, sd_util.o(i.sd_read_cid))
+<P><STRONG><a name="[15f]"></a>sd_read_cid</STRONG> (Thumb, 112 bytes, Stack size 32 bytes, sd_util.o(i.sd_read_cid))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = sd_read_cid &rArr; sd_get_data &rArr; spi_txrx &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
@@ -3287,7 +3293,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hwif_init
 </UL>
 
-<P><STRONG><a name="[161]"></a>sd_read_csd</STRONG> (Thumb, 234 bytes, Stack size 32 bytes, sd_util.o(i.sd_read_csd))
+<P><STRONG><a name="[160]"></a>sd_read_csd</STRONG> (Thumb, 234 bytes, Stack size 32 bytes, sd_util.o(i.sd_read_csd))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = sd_read_csd &rArr; sd_get_data &rArr; spi_txrx &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
@@ -3299,7 +3305,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hwif_init
 </UL>
 
-<P><STRONG><a name="[15f]"></a>sd_read_status</STRONG> (Thumb, 94 bytes, Stack size 16 bytes, sd_util.o(i.sd_read_status))
+<P><STRONG><a name="[15e]"></a>sd_read_status</STRONG> (Thumb, 94 bytes, Stack size 16 bytes, sd_util.o(i.sd_read_status))
 <BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = sd_read_status &rArr; sd_cmd &rArr; spi_txrx &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
@@ -3337,7 +3343,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_write
 </UL>
 
-<P><STRONG><a name="[15d]"></a>spi_set_speed</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, sd_util.o(i.spi_set_speed))
+<P><STRONG><a name="[15c]"></a>spi_set_speed</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, sd_util.o(i.spi_set_speed))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = spi_set_speed &rArr; HAL_SPI_Transmit &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
@@ -3346,7 +3352,7 @@ Local Symbols
 <LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hwif_init
-<LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
+<LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
 </UL>
 
 <P><STRONG><a name="[1a8]"></a>spi_txrx</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, sd_util.o(i.spi_txrx))
@@ -3355,10 +3361,10 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_writesector
-<LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_status
+<LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_read_status
 <LI><a href="#[1af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_put_data
 <LI><a href="#[1ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_nec
-<LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
+<LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_init
 <LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r7
 <LI><a href="#[1ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_r1
 <LI><a href="#[1aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sd_get_data
@@ -3372,7 +3378,7 @@ Local Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_dim
 <LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_UpdateScreen
-<LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_Init
+<LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_Init
 </UL>
 
 <P><STRONG><a name="[bc]"></a>MX_ADC_Init</STRONG> (Thumb, 82 bytes, Stack size 16 bytes, main.o(i.MX_ADC_Init))

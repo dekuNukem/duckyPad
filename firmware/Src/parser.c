@@ -38,6 +38,7 @@ char read_buffer[READ_BUF_SIZE];
 char prev_line[READ_BUF_SIZE];
 char nonexistent_keyname[] = "\253";
 profile_cache p_cache;
+dp_global_settings dp_settings;
 
 const char cmd_NAME[] = "NAME ";
 const char cmd_REPEAT[] = "REPEAT ";
@@ -418,24 +419,18 @@ uint8_t get_last_profile(void)
   return ret;
 }
 
-uint8_t get_global_settings(void)
+void get_global_settings(void)
 {
-  uint8_t ret = 0;
-  if(f_open(&sd_file, "global_settings.txt", FA_READ) != 0)
-  {
-    printf("no settings found\n");
+  if(f_open(&sd_file, "settings.txt", FA_READ) != 0)
     goto ggs_end;
-  }
   memset(temp_buf, 0, PATH_SIZE);
-
   while(f_gets(temp_buf, PATH_SIZE, &sd_file))
   {
-    printf("%s\n", temp_buf);
+    if(strncmp(temp_buf, "sleep_after_min", 15) == 0)
+      dp_settings.sleep_after_ms = atoi(temp_buf+15) * 60000;
   }
-
   ggs_end:
   f_close(&sd_file);
-  return ret;
 }
 
 void restore_profile(uint8_t profile_id)

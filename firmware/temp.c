@@ -5,7 +5,22 @@ the key should be breathing
 32 frame lookup table
 after its done then fade back to background color
 */
+  // ssd1306_SetCursor(18, 20);
+  // ssd1306_WriteString(project_url,Font_6x10,White);
+  // memset(temp_buf, 0, PATH_SIZE);
+  // sprintf(temp_buf, "FW V%d.%d.%d", fw_version_major, fw_version_minor, fw_version_patch);
+  // ssd1306_SetCursor(35, 35);
+  // ssd1306_WriteString(temp_buf,Font_6x10,White);
+  // ssd1306_UpdateScreen();
+  // HAL_IWDG_Refresh(&hiwdg);
+  // osDelay(1000);
+  // HAL_IWDG_Refresh(&hiwdg);
 
+  // while(1)
+  // {
+  //   HAL_IWDG_Refresh(&hiwdg);
+  //   osDelay(30);
+  // }
     # if '_' in key_file_list[0]:
     #   key_file_list.sort(key=lambda s: int(s[3:].split("_")[0])) # sort by number not by letter
     # else:
