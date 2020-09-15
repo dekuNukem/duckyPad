@@ -510,19 +510,18 @@ void kb_scan_task(void const * argument)
   HAL_GPIO_WritePin(OLED_RESET_GPIO_Port, OLED_RESET_Pin, GPIO_PIN_SET);
   osDelay(20);
   ssd1306_Init();
-
   ssd1306_Fill(Black);
 
-  ssd1306_SetCursor(18, 20);
-  ssd1306_WriteString(project_url,Font_6x10,White);
-  memset(temp_buf, 0, PATH_SIZE);
-  sprintf(temp_buf, "FW V%d.%d.%d", fw_version_major, fw_version_minor, fw_version_patch);
-  ssd1306_SetCursor(35, 35);
-  ssd1306_WriteString(temp_buf,Font_6x10,White);
-  ssd1306_UpdateScreen();
-  HAL_IWDG_Refresh(&hiwdg);
-  osDelay(1000);
-  HAL_IWDG_Refresh(&hiwdg);
+  // ssd1306_SetCursor(18, 20);
+  // ssd1306_WriteString(project_url,Font_6x10,White);
+  // memset(temp_buf, 0, PATH_SIZE);
+  // sprintf(temp_buf, "FW V%d.%d.%d", fw_version_major, fw_version_minor, fw_version_patch);
+  // ssd1306_SetCursor(35, 35);
+  // ssd1306_WriteString(temp_buf,Font_6x10,White);
+  // ssd1306_UpdateScreen();
+  // HAL_IWDG_Refresh(&hiwdg);
+  // osDelay(1000);
+  // HAL_IWDG_Refresh(&hiwdg);
 
   // while(1)
   // {

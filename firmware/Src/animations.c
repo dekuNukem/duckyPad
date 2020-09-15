@@ -15,6 +15,7 @@ led_animation neo_anime[NEOPIXEL_COUNT];
 uint8_t error_color_red[THREE] = {255, 0, 0};
 uint8_t error_color_blue[THREE] = {0, 0, 255};
 uint8_t rand_order_buf[NEOPIXEL_COUNT];
+uint8_t color_black[THREE] = {0,0,0};
 
 uint32_t get_adc_reading(void)
 {
@@ -171,4 +172,14 @@ void keydown_anime_start(uint8_t idx)
 void keydown_anime_end(uint8_t idx)
 {
   led_start_animation(&neo_anime[idx], p_cache.individual_key_color[idx], ANIMATION_CROSS_FADE, 50);
+}
+
+void key_led_shutdown(void)
+{
+  printf("hello\n");
+  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+  {
+    led_start_animation(&neo_anime[i], color_black, ANIMATION_CROSS_FADE, 8);
+    neo_anime[i].animation_start += 1.5 * rand_order_buf[i];
+  }
 }

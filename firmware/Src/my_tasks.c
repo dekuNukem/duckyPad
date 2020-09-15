@@ -15,6 +15,7 @@
 uint8_t init_complete;
 uint32_t last_keypress;
 uint32_t next_pixel_shift = 30000;
+uint8_t is_sleeping;
 
 void keypress_task_start(void const * argument)
 {
@@ -28,6 +29,14 @@ void keypress_task_start(void const * argument)
         last_keypress = HAL_GetTick();
         ssd1306_dim(0); // OLED back to full brightness
 
+        if(is_sleeping) // wake up from sleep
+        {
+          change_bg();
+          restore_profile(p_cache.current_profile);
+          is_sleeping = 0;
+          goto key_task_end;
+        }
+
         if(i <= KEY_14)
         {
           keydown_anime_start(i);
@@ -38,6 +47,8 @@ void keypress_task_start(void const * argument)
           change_profile(PREV_PROFILE);
         else if(i == KEY_BUTTON2) // +
           change_profile(NEXT_PROFILE);
+        
+        key_task_end:
         service_press(&button_status[i]);
       }
     osDelay(16);
@@ -52,6 +63,13 @@ void animation_task_start(void const * argument)
   for(;;)
   {
     led_animation_handler();
+    if(is_sleeping == 0 && HAL_GetTick() - last_keypress > 5000)
+    {
+      key_led_shutdown();
+      ssd1306_Fill(Black);
+      ssd1306_UpdateScreen();
+      is_sleeping = 1;
+    }
     // dim OLED screen after 5 minutes of idle to prevent burn-in
     if(HAL_GetTick() - last_keypress > 300000)
       ssd1306_dim(1);
