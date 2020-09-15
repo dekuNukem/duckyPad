@@ -36,7 +36,7 @@ char lfn_buf[FILENAME_SIZE];
 char key_name_buf[FILENAME_SIZE];
 char read_buffer[READ_BUF_SIZE];
 char prev_line[READ_BUF_SIZE];
-char nonexistent_keyname[] = "-";
+char nonexistent_keyname[] = "\253";
 profile_cache p_cache;
 
 const char cmd_NAME[] = "NAME ";
@@ -353,6 +353,8 @@ void print_keyname(char* keyname, uint8_t keynum, int8_t x_offset, int8_t y_offs
 {
   memset(key_name_buf, 0, FILENAME_SIZE);
   strcpy(key_name_buf, keyname);
+  if(key_name_buf[0] == nonexistent_keyname[0] && key_name_buf[1] == 0)
+    key_name_buf[0] = '-';
   if(strlen(key_name_buf) > 7)
     key_name_buf[7] = 0;
   uint8_t row = keynum / 3;
