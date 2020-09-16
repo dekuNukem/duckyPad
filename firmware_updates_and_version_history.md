@@ -8,7 +8,7 @@
 
 You can update duckyPad's firmware via USB, for bug fixes and and/or new features. 
 
-To do this, download and install the [STM32 DfuSe tool](resources/en.stsw-stm32080_stm32_DfuSe.zip) from this repo. You can download it from [the official website](https://www.st.com/en/development-tools/stsw-stm32080.html) too, but it requires creating an account.
+To do this, download and install the [STM32 DfuSe tool](resources/en.stsw-stm32080_stm32_DfuSe.zip) from this repo. (You can also download it from [the official website](https://www.st.com/en/development-tools/stsw-stm32080.html), but it requires creating an account.)
 
 First, locate the debug buttons on the board:
 
@@ -66,9 +66,9 @@ After uploading is complete, unplug and plug it back in to start using the new f
 
 ## 0.2.0
 
-Major update. New features and optimisations.
-
 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.2.0.dfu)
+
+Major update. New features and optimisations.
 
 * You can now use symbols like `?*<>/\` in key names.
 
@@ -80,6 +80,6 @@ Major update. New features and optimisations.
 
 ## 0.1.0
 
-Initial Release
-
 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.1.0.dfu)
+
+Initial Release
