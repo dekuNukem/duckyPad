@@ -144,7 +144,7 @@ class dp_global_settings(object):
 			print('dp_global_settings load_from_path:', e)
 	def __init__(self):
 		super(dp_global_settings, self).__init__()
-		self.sleep_after_minutes = 0
+		self.sleep_after_minutes = 30
 
 def build_profile(root_dir_path):
 	my_dirs = [d for d in os.listdir(root_dir_path) if os.path.isdir(os.path.join(root_dir_path, d))]

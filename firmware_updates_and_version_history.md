@@ -36,7 +36,7 @@ In the `Available DUF Devices` section at top left corner, you should see a `STM
 
 Press the `Choose...` button and select a firmware file in `.dfu` format.
 
-* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.2.1.dfu) to download the latest firmware
+* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.2.1.dfu) to download the latest firmware (v0.2.1)
 
 * ...or [scroll down](#firmware-version-history) for older firmware versions.
 
@@ -58,13 +58,13 @@ After uploading is complete, unplug and plug it back in to start using the new f
 
 ## Firmware Version History
 
-## 0.2.1
+### 0.2.1
 
 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.2.1.dfu)
 
 * duckyPad now store its firmware version on SD card, so PC app can check for updates.
 
-## 0.2.0
+### 0.2.0
 
 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.2.0.dfu)
 
@@ -78,7 +78,7 @@ Major update. New features and optimisations.
 
 * Other minor fixes
 
-## 0.1.0
+### 0.1.0
 
 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.1.0.dfu)
 

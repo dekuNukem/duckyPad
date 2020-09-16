@@ -80,24 +80,25 @@ def ui_reset():
 def check_firmware_update():
     filelist = os.listdir(dp_root_folder_path)
     if 'last_profile.txt' in filelist and 'dp_stats.txt' not in filelist:
-        return 1
+        return 1, None
     if 'dp_stats.txt' in filelist:
         with open(os.path.join(dp_root_folder_path, 'dp_stats.txt')) as dp_stats_file:
             for line in dp_stats_file:
                 if line.startswith('fw '):
-                    return check_update.get_firmware_update_status(line.replace('\n', '').replace('\r', '').replace('fw ', ''))
-    return 2
+                    line = line.replace('\n', '').replace('\r', '').replace('fw ', '')
+                    return check_update.get_firmware_update_status(line), line
+    return 2, None
 
-def fw_update_click():
+def fw_update_click(what):
     webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/firmware_updates_and_version_history.md')
 
 def print_fw_update_label():
-    fw_result = check_firmware_update()
+    fw_result, this_version = check_firmware_update()
     if fw_result == 0:
-        dp_fw_update_label.config(text='Firmware: Up to date')
+        dp_fw_update_label.config(text='Firmware (' + str(this_version) +'): Up to date')
         dp_fw_update_label.unbind("<Button-1>")
     elif fw_result == 1:
-        dp_fw_update_label.config(text='Firmware: Update available! Click me!', fg='black', bg='orange', cursor="hand2")
+        dp_fw_update_label.config(text='Firmware (' + str(this_version) +'): Update available! Click me!', fg='black', bg='orange', cursor="hand2")
         dp_fw_update_label.bind("<Button-1>", fw_update_click)
     else:
         dp_fw_update_label.config(text='Firmware: Unknown')
@@ -912,19 +913,19 @@ updates_lf = LabelFrame(root, text="Updates", width=253, height=65)
 updates_lf.place(x=536, y=525)
 
 pc_app_update_label = Label(master=updates_lf)
-pc_app_update_label.place(x=10, y=0)
+pc_app_update_label.place(x=5, y=0)
 update_stats = check_update.get_pc_app_update_status(THIS_VERSION_NUMBER)
 
 if update_stats == 0:
-    pc_app_update_label.config(text='This app: Up to date')
+    pc_app_update_label.config(text='This app (' + str(THIS_VERSION_NUMBER) + '): Up to date')
 elif update_stats == 1:
-    pc_app_update_label.config(text='This app: Update available! Click me!', fg='black', bg='orange', cursor="hand2")
+    pc_app_update_label.config(text='This app (' + str(THIS_VERSION_NUMBER) + '): Update available! Click me!', fg='black', bg='orange', cursor="hand2")
     pc_app_update_label.bind("<Button-1>", app_update_click)
 else:
-    pc_app_update_label.config(text='This app: Unknown')
+    pc_app_update_label.config(text='This app (' + str(THIS_VERSION_NUMBER) + '): Unknown')
 
 dp_fw_update_label = Label(master=updates_lf, text="Firmware: Unknown")
-dp_fw_update_label.place(x=10, y=22)
+dp_fw_update_label.place(x=5, y=22)
 
 root.update()
 

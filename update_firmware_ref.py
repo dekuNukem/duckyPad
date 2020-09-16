@@ -22,7 +22,7 @@ readme_file.close()
 changes_made = False
 for index, line in enumerate(readme_lines):
 	if 'click me' in line.lower() and 'to download the latest firmware' in line.lower():
-		readme_lines[index] = "* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/" + str(latest_dfu_file_name) + ") to download the latest firmware\n"
+		readme_lines[index] = "* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/" + str(latest_dfu_file_name) + ") to download the latest firmware (v" + latest_dfu_file_name.replace('duckypad_v', '').replace('.dfu', '') + ")\n"
 		changes_made = True
 
 if changes_made:
