@@ -135,7 +135,7 @@ class dp_profile(object):
 class dp_global_settings(object):
 	def load_from_path(self, path):
 		try:
-			with open(os.path.join(path, 'settings.txt')) as settings_file:
+			with open(os.path.join(path, 'dp_settings.txt')) as settings_file:
 				for line in settings_file.readlines():
 					line = line.replace('\n', '').replace('\r', '')
 					if 'sleep_after_min' in line:

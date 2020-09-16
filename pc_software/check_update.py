@@ -15,16 +15,21 @@ def is_internet_available():
 def versiontuple(v):
     return tuple(map(int, (v.strip('v').split("."))))
 
-def has_update(this_version):
+"""
+0 no update
+1 has update
+2 unknown
+"""
+def get_pc_app_update_status(this_version):
 	if is_internet_available() is False:
-		return False
+		return 2
 	try:
 		result_dict = json.loads(urllib.request.urlopen(remote_url).read())
 		this_version = versiontuple(this_version)
 		remote_version = versiontuple(result_dict['tag_name'])
-		return remote_version > this_version
+		return int(remote_version > this_version)
 	except Exception as e:
 		print('has_update:', e)
-		return False
+		return 2
 
 # print(has_update('0.0.9'))

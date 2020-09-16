@@ -18,7 +18,7 @@ default_button_color = 'SystemButtonFace'
 if 'linux' in sys.platform:
     default_button_color = 'grey'
 
-THIS_VERSION_NUMBER = '0.2.0'
+THIS_VERSION_NUMBER = '0.1.0'
 MAIN_WINDOW_WIDTH = 800
 MAIN_WINDOW_HEIGHT = 600
 MAIN_COLOUM_HEIGHT = 533
@@ -400,7 +400,7 @@ def save_everything(save_path):
                     config_file.write('SWCOLOR_%d %d %d %d\n' % (this_key.index, this_key.color[0], this_key.color[1], this_key.color[2]))
             config_file.close()
 
-        with open(os.path.join(dp_root_folder_path, 'settings.txt'), 'w') as setting_file:
+        with open(os.path.join(dp_root_folder_path, 'dp_settings.txt'), 'w') as setting_file:
             setting_file.write("sleep_after_min " + str(sleepmode_slider.get()) + "\n")
         save_result_label.config(text='Saved!', fg="green", bg=default_button_color, cursor="")
         save_result_label.unbind("<Button-1>")
@@ -495,10 +495,6 @@ save_result_label.place(x=660, y=-6, width=110, height=35)
 
 def update_click(event):
     webbrowser.open('https://github.com/dekuNukem/duckyPad/releases')
-
-if check_update.has_update(THIS_VERSION_NUMBER):
-    save_result_label.config(text='Update available!\nClick me', fg='white', bg='blue', cursor="hand2")
-    save_result_label.bind("<Button-1>", update_click)
 
 last_save = 0
 
@@ -871,7 +867,7 @@ def minutes_to_str(value):
 def slider_adjust_sleepmode(value):
     sleepmode_slider_text.config(text=minutes_to_str(value))
 
-settings_lf = LabelFrame(root, text="Settings", width=779, height=65)
+settings_lf = LabelFrame(root, text="Settings", width=516, height=65)
 settings_lf.place(x=10, y=525) 
 enter_sleep_mode_label = Label(master=settings_lf, text="Enter sleep mode after:")
 enter_sleep_mode_label.place(x=10, y=0)
@@ -884,6 +880,25 @@ sleepmode_slider.config(state=DISABLED)
 
 sleepmode_slider_text = Label(settings_lf, text='Never')
 sleepmode_slider_text.place(x=135, y=0)
+
+updates_lf = LabelFrame(root, text="Updates", width=253, height=65)
+updates_lf.place(x=536, y=525)
+
+pc_app_update_label = Label(master=updates_lf)
+pc_app_update_label.place(x=10, y=0)
+update_stats = check_update.get_pc_app_update_status(THIS_VERSION_NUMBER)
+
+if update_stats == 0:
+    pc_app_update_label.config(text='PC App: Up to date')
+elif update_stats == 1:
+    pc_app_update_label.config(text='PC App: Update available! Click me!', fg='white', bg='blue', cursor="hand2")
+    pc_app_update_label.bind("<Button-1>", update_click)
+else:
+    pc_app_update_label.config(text='PC App: Unknown')
+
+dp_fw_update_label = Label(master=updates_lf, text="duckyPad Firmware:")
+dp_fw_update_label.place(x=10, y=22)
+
 root.update()
 
 def repeat_func():

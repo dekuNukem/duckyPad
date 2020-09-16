@@ -188,7 +188,7 @@ In the `Available DUF Devices` section at top left corner, you should see a `STM
 
 Press the `Choose...` button and select a firmware file in `.dfu` format. Make sure it's the correct file!
 
-* [Click me](firmware/duckypad.dfu) for latest firmware
+* [Click me](firmware/duckypad_v0.2.0.dfu) to download the latest firmware
 
 ![Alt text](resources/pics/dfu_choose.png)
 
