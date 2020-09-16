@@ -1,41 +1,30 @@
-# Daytripper Firmware History
+# duckyPad Firmware History
 
 [Main Page](/README.md) | [Buy duckyPad](/purchase_information.md)
 
 ------
+## 0.2.1
 
-## TX
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.2.1.dfu)
 
-### 1.1.2
+* duckyPad now store its firmware version on SD card, so PC app can check for updates.
 
-Bugfix, 4 September 2020. [Download Here](https://github.com/dekuNukem/daytripper/raw/master/firmware/dfu_files/TX_1.1.2.dfu)
+## 0.2.0
 
-**`FIXED`**
+Major update. New features and optimisations.
 
-* Removed test mode and user button functions to free up flash memory space.
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.2.0.dfu)
 
-### 1.1.1
+* You can now use symbols like `?*<>/\` in key names.
 
-Bugfix, 30 August 2020. [Download Here](https://github.com/dekuNukem/daytripper/raw/master/firmware/dfu_files/TX_1.1.1.dfu)
+* Significantly increased profile switching speed.
 
-**`FIXED`**
+* Added sleep mode. Your duckyPad can now turn off after a configurable delay. Press any key to wake it up.
 
-* More stable voltage monitoring for low-battery shutdown.
+* Other minor fixes
 
-### 1.1.0
+## 0.1.0
 
-Major update, 27 August 2020. [Download Here](https://github.com/dekuNukem/daytripper/raw/master/firmware/dfu_files/TX_1.1.0.dfu)
+Initial Release
 
-**`NEW`**
-
-* Added support for custom configuration via companion PC app.
-
-* Adjustable refresh rate, noise reduction, timing budget, detection range, trigger LED, and debug output.
-
-* See [Advanced Usage Guide](/advanced_usage.md) for usage.
-
-* Reduced power consumption. Up to 10 extra hours of battery life on default settings.
-
-### 1.0.0
-
-Initial Release, Sept 2019. [Download Here](https://github.com/dekuNukem/daytripper/raw/master/firmware/dfu_files/TX_1.0.0.dfu)
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.1.0.dfu)
