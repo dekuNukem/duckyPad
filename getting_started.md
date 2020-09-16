@@ -186,7 +186,7 @@ In the `Available DUF Devices` section at top left corner, you should see a `STM
 
 * If nothing shows up, you might need to install a driver. [Click me for details](https://github.com/dekuNukem/daytripper/blob/master/dfu_driver_install.md)
 
-Press the `Choose...` button and select a firmware file in `.dfu` format. Make sure it's the correct file!
+Press the `Choose...` button and select a firmware file in `.dfu` format.
 
 * [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.2.1.dfu) to download the latest firmware
 
