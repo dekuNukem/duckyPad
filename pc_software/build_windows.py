@@ -1,6 +1,9 @@
 import os
 import sys
 
+# add C:\Program Files\7-Zip to windows environment variable first!
+# or export PATH=$PATH:"C:\Program Files\7-Zip"
+
 os.system('rm -rfv ./__pycache__')
 os.system('rm -rfv ./build')
 os.system('rm -rfv ./dist')

@@ -7,6 +7,7 @@ find . -name "__pycache__" -exec rm -rf {} \;
 find ./pc_software -name "duck_app" -exec rm -rf {} \;
 find ./pc_software -name "build" -exec rm -rf {} \;
 find ./pc_software -name "dist" -exec rm -rf {} \;
+find ./pc_software -name "*.zip" -exec rm -rf {} \;
 find ./pc_software -name "duckypad_config.spec" -exec rm -rf {} \;
 python update_firmware_ref.py
 zip -rv sample_profiles.zip sample_profiles
