@@ -130,6 +130,16 @@ Finally, the rightmost column is for *scripts*:
 
 -----
 
+One the bottom we have settings and updates section.
+
+![Alt text](resources/pics/app/settings.png)
+
+By default, duckyPad goes to sleep after 30 minutes. Adjust the slider to set your own delay. Drag it all the way to the left for always-on.
+
+`Updates` section shows you available updates for this app and duckyPad firmware. Click on the text for instructions.
+
+-----
+
 Don't forget to save!
 
 ![Alt text](resources/pics/app/save.png)
