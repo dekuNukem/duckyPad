@@ -156,15 +156,27 @@ Press the corresponding keys to execute the scripts, if there is an error it wil
 
 Press +/- button to change profiles.
 
-![Alt text](resources/pics/rainbow.jpg)
-
 ## Using Autohotkey
 
 You can use [autohotkey](https://www.autohotkey.com) for even more sophisticated scripting needs, such as launching apps/scripts, control mouse moments, etc.
 
 To do this, duckyPad can be set up to press a simple combo like `WIN + F1`, which then get captured by autohotkey to execute a more complex custom script on your PC.
 
-Check out the [official tutorials](https://www.autohotkey.com/docs_1.0/Tutorial.htm), the [autohotkey profile](sample_profiles/profile7_autohotkey), and a [sample autohotkey script](resources/duckypad_autohotkey_script.ahk) upon which you can tinker with. 
+* Download and install [autohotkey](https://www.autohotkey.com)
+
+* Download and save [this sample autohotkey script](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/resources/duckypad_autohotkey_script.ahk) as an `.ahk` file.
+
+* Switch the profile on duckyPad to [`autohotkey`](sample_profiles/profile7_autohotkey), and run the script by right clicking and select `Run Script`.
+
+![Alt text](resources/pics/ahk_run.png)
+
+* AHK will execute the script. Press any key on duckyPad, a corresponding message box will appear.
+
+![Alt text](resources/pics/ahk_box.png)
+
+* Now you can write your own autohotkey script to do whatever you want!
+
+Check out the [official tutorials](https://www.autohotkey.com/docs_1.0/Tutorial.htm), the [autohotkey profile](sample_profiles/profile7_autohotkey), and the [sample autohotkey script](resources/duckypad_autohotkey_script.ahk) upon which you can tinker with. 
 
 ## USB Firmware Updates
 
