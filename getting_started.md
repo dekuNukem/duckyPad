@@ -194,7 +194,7 @@ Up to 16 profiles are supported.
 
 Now you're ready to write some scripts inside the profile folders. The script used in this project is Duckyscript, [click here to read its usage](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Duckyscript).
 
-Each key has its own script file, named like `key#_name.txt`, where `#` is the key number(top left is 1, bottom right is 15), and `name` is a short description of what that key does. 
+Each key has its own script file, named like `key#.txt`, where `#` is the key number(top left is 1, bottom right is 15). 
 
 Here are some examples:
 
@@ -202,19 +202,29 @@ Here are some examples:
 
 * Might be helpful to take a look at the [sample profiles](https://github.com/dekuNukem/duckypad/raw/master/sample_profiles.zip) before writing your own
 
-* The screen will only display the **first 7 characters** of the key name, so keep it short!
+### Step 3: Key Names and Optional Parameters
 
-### Step 3: Optional Parameters
-
-There are also some optional settings to specify. You don't have to do it, but it will look better if you do.
-
-Simply create a file named `config.txt` in a profile folder like this:
+Create a file named `config.txt` in a profile folder like this:
 
 ![Alt text](resources/pics/config.png)
 
+#### Key Names
+
+In the `config.txt`, list the names of your keys like this:
+
+```
+z1 prev
+z2 next
+z3 close
+z4 reopen
+....
+z15 save
+```
+* The screen will only display the **first 7 characters** of the key name, so keep it short!
+
 #### Backlight Colors
 
-To set your custom background color, add the following line **`AT THE BEGINNING`** of `config.txt`:
+To set your custom background color, add the following line:
 
 ```
 BG_COLOR 255 100 0
@@ -272,7 +282,7 @@ SWCOLOR_15 255 0  0
 
 Just like before, make sure the SD card is in FAT32 format, copy all the profile folders to the root of the SD card (if they are not already there), insert it in your duckyPad, and power on.
 
-duckypad should start up and display the profile names and key names, as well as the background color.
+duckyPad should start up and display the profile names and key names, as well as the background color.
 
 Press the corresponding keys to execute the scripts, if there is an error it will show up on the screen.
 
