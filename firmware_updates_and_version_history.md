@@ -83,3 +83,9 @@ Major update. New features and optimisations.
 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.1.0.dfu)
 
 Initial Release
+
+## Questions or Comments?
+
+Please feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), DM me on discord `dekuNukem#6998`, or email `dekuNukem`@`gmail`.`com` for inquires.
+
+There is also an [official duckyPad discord](https://discord.gg/t4qJnHh), so feel free to join for updates, tech supports, and chats.
