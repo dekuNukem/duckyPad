@@ -1,6 +1,10 @@
 import os
 import sys
 
+if 'win32' not in sys.platform:
+    print("this script is for windows only!")
+    exit()
+
 # add C:\Program Files\7-Zip to windows environment variable first!
 # or export PATH=$PATH:"C:\Program Files\7-Zip"
 
