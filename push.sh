@@ -10,7 +10,9 @@ find ./pc_software -name "dist" -exec rm -rf {} \;
 find ./pc_software -name "*.zip" -exec rm -rf {} \;
 find ./pc_software -name "duckypad_config.spec" -exec rm -rf {} \;
 python update_firmware_ref.py
-zip -rv sample_profiles.zip sample_profiles
+rm ./sample_profiles.zip
+7z.exe a -r sample_profiles.zip ./sample_profiles
+zip -rv sample_profiles.zip ./sample_profiles
 git add --all
 git commit -m "$@"
 git push origin master
