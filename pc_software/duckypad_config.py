@@ -893,11 +893,11 @@ def minutes_to_str(value):
     return result
 
 def slider_adjust_sleepmode(value):
-    sleepmode_slider_text.config(text=minutes_to_str(value))
+    enter_sleep_mode_label.config(text="Enter sleep mode after: " + minutes_to_str(value))
 
 settings_lf = LabelFrame(root, text="Settings", width=516, height=65)
 settings_lf.place(x=10, y=525) 
-enter_sleep_mode_label = Label(master=settings_lf, text="Enter sleep mode after:")
+enter_sleep_mode_label = Label(master=settings_lf, text="Enter sleep mode after: Never")
 enter_sleep_mode_label.place(x=10, y=0)
 
 sleepmode_slider = Scale(settings_lf)
@@ -906,14 +906,11 @@ sleepmode_slider.set(0)
 sleepmode_slider.place(x=10, y=20)
 sleepmode_slider.config(state=DISABLED)
 
-sleepmode_slider_text = Label(settings_lf, text='Never')
-sleepmode_slider_text.place(x=135, y=0)
-
 updates_lf = LabelFrame(root, text="Updates", width=253, height=65)
 updates_lf.place(x=536, y=525)
 
 pc_app_update_label = Label(master=updates_lf)
-pc_app_update_label.place(x=5, y=0)
+pc_app_update_label.place(x=5, y=-2)
 update_stats = check_update.get_pc_app_update_status(THIS_VERSION_NUMBER)
 
 if update_stats == 0:
@@ -925,7 +922,7 @@ else:
     pc_app_update_label.config(text='This app (' + str(THIS_VERSION_NUMBER) + '): Unknown')
 
 dp_fw_update_label = Label(master=updates_lf, text="Firmware: Unknown")
-dp_fw_update_label.place(x=5, y=22)
+dp_fw_update_label.place(x=5, y=20)
 
 root.update()
 

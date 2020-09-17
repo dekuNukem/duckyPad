@@ -103,6 +103,8 @@ cmd_DIM_UNUSED_KEYS = "DIM_UNUSED_KEYS "
 cmd_VOLUP = "VOLUP"
 cmd_VOLDOWN = "VOLDOWN"
 cmd_VOLMUTE = "MUTE"
+cmd_UARTPRINT = "UARTPRINT ";
+
 
 PARSE_OK = 0
 PARSE_ERROR = 1
@@ -213,6 +215,8 @@ def parse_line(line):
 	elif parse_special_key(line) != 0:
 		pass
 	elif(len(os.path.commonprefix([cmd_NAME, line])) == len(cmd_NAME)):
+		pass
+	elif(len(os.path.commonprefix([cmd_UARTPRINT, line])) == len(cmd_UARTPRINT)):
 		pass
 	elif(len(os.path.commonprefix([cmd_REM, line])) == len(cmd_REM)):
 		pass
