@@ -18,7 +18,7 @@ default_button_color = 'SystemButtonFace'
 if 'linux' in sys.platform:
     default_button_color = 'grey'
 
-THIS_VERSION_NUMBER = '0.2.1'
+THIS_VERSION_NUMBER = '0.3.0'
 MAIN_WINDOW_WIDTH = 800
 MAIN_WINDOW_HEIGHT = 600
 MAIN_COLOUM_HEIGHT = 533
@@ -134,6 +134,7 @@ def enable_buttons():
     dim_unused_keys_checkbox.config(state=NORMAL)
     key_rename_button.config(state=NORMAL)
     key_remove_button.config(state=NORMAL)
+    execute_button.config(state=NORMAL, bg='red', fg="white")
     for button in script_command_button_list:
         button.config(state=NORMAL)
     key_name_entrybox.config(state=NORMAL)
@@ -818,6 +819,25 @@ def script_textbox_event(event):
     script_textbox_modified()
     script_textbox.tk.call(script_textbox._w, 'edit', 'modified', 0)
 
+script_exe_warning_showed = False
+
+def run_script():
+    global script_exe_warning_showed
+    if len(script_textbox.get("1.0",END)) <= 2:
+        return
+    if(script_exe_warning_showed is False):
+        if(messagebox.askokcancel("Warning", "You are about to run this script on your PC.\nMAKE SURE YOU TRUST IT!\n\nExecution will start after a 2-second delay.") == False):
+            return
+    try:
+        import autogui
+        time.sleep(2)
+        exe_result, exe_note = autogui.execute_file(script_textbox.get("1.0",END).replace('\r', '').split('\n'))
+        if exe_result != 0:
+            messagebox.showerror("Error", exe_note)
+    except Exception as e:
+        messagebox.showerror("Error", "execution failed:\n\n" + str(e))
+    script_exe_warning_showed = True
+
 script_textbox = Text(scripts_lf, relief='solid', borderwidth=1, padx=2, pady=2, spacing3=5, wrap="word", state=DISABLED)
 script_textbox.place(x=key_button_list[0].winfo_x(), y=KEY_BUTTON_HEADROOM+PADDING-3, width=key_button_list[-1].winfo_x() + KEY_BUTTON_WIDTH - KEY_BUTTON_GAP, height=key_button_list[-1].winfo_y() - key_button_list[0].winfo_y() + KEY_BUTTON_HEIGHT + 5)
 root.update()
@@ -828,13 +848,17 @@ script_common_commands_lf = LabelFrame(scripts_lf, text="Common commands", width
 script_common_commands_lf.place(x=PADDING, y=300)
 root.update()
 
-check_syntax_lf = LabelFrame(scripts_lf, text="Code check", width=script_textbox.winfo_width(), height=40)
+check_syntax_lf = LabelFrame(scripts_lf, text="Code check", width=script_textbox.winfo_width()/2, height=40)
 check_syntax_lf.place(x=PADDING, y=407)
 root.update()
 
 SCRIPT_BUTTON_WIDTH = script_textbox.winfo_width()/3.4
 SCRIPT_BUTTON_GAP = 5
 PADDING = 2
+
+execute_button = Button(scripts_lf, text="Run this script!", command=run_script, state=DISABLED)
+execute_button.place(x=135, y=417, width=100, height=BUTTON_HEIGHT)
+root.update()
 
 script_button_xy_list = [(SCRIPT_BUTTON_GAP, PADDING), (SCRIPT_BUTTON_GAP*2+SCRIPT_BUTTON_WIDTH, PADDING), (SCRIPT_BUTTON_GAP*3+SCRIPT_BUTTON_WIDTH*2, PADDING), (SCRIPT_BUTTON_GAP, PADDING+BUTTON_HEIGHT+2), (SCRIPT_BUTTON_GAP*2+SCRIPT_BUTTON_WIDTH, PADDING+BUTTON_HEIGHT+2), (SCRIPT_BUTTON_GAP*3+SCRIPT_BUTTON_WIDTH*2, PADDING+BUTTON_HEIGHT+2), (SCRIPT_BUTTON_GAP, (PADDING+BUTTON_HEIGHT)*2+2), (SCRIPT_BUTTON_GAP*2+SCRIPT_BUTTON_WIDTH, (PADDING+BUTTON_HEIGHT)*2+2), (SCRIPT_BUTTON_GAP*3+SCRIPT_BUTTON_WIDTH*2, (PADDING+BUTTON_HEIGHT)*2+2)]
 script_button_commands = ["STRING", "CTRL", "SHIFT", "ALT", "GUI", "ENTER", "DELAY", "REPEAT", "more..."]
@@ -843,9 +867,7 @@ script_command_button_list = []
 for x in range(9):
     def this_func(x=x):
         script_textbox.insert(INSERT, "\n" + script_button_commands[x] + " ")
-        # script_textbox.see(END)
     this_button = Button(script_common_commands_lf, text=script_button_commands[x], command=this_func, state=DISABLED)
-
     this_button.place(x=script_button_xy_list[x][0], y=script_button_xy_list[x][1], width=SCRIPT_BUTTON_WIDTH, height=BUTTON_HEIGHT)
     script_command_button_list.append(this_button)
 script_command_button_list[-1].config(command=open_duckyscript_url)
@@ -871,7 +893,7 @@ def check_syntax_click():
         syntax_check_result_label.config(text="It looks alright...", fg="green")
 
 syntax_check_result_label = Label(master=check_syntax_lf)
-syntax_check_result_label.place(x=65, y=-4)
+syntax_check_result_label.place(x=10, y=-4)
 
 # --------------------------
 

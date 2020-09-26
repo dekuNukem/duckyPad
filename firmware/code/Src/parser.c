@@ -40,11 +40,10 @@ char nonexistent_keyname[] = "\253";
 profile_cache p_cache;
 dp_global_settings dp_settings;
 
-const char cmd_NAME[] = "NAME ";
 const char cmd_REPEAT[] = "REPEAT ";
 const char cmd_REM[] = "REM ";
-const char cmd_C_COMMENT[] = "// ";
 const char cmd_DEFAULTDELAY[] = "DEFAULTDELAY ";
+const char cmd_DEFAULT_DELAY[] = "DEFAULT_DELAY ";
 const char cmd_DEFAULTCHARDELAY[] = "DEFAULTCHARDELAY ";
 const char cmd_DELAY[] = "DELAY ";
 const char cmd_STRING[] = "STRING ";
@@ -99,6 +98,8 @@ const char cmd_DIM_UNUSED_KEYS[] = "DIM_UNUSED_KEYS ";
 const char cmd_VOLUP[] = "VOLUP";
 const char cmd_VOLDOWN[] = "VOLDOWN";
 const char cmd_VOLMUTE[] = "MUTE";
+const char cmd_MENU[] = "MENU";
+const char cmd_APP[] = "APP";
 
 char* goto_next_arg(char* buf, char* buf_end)
 {
@@ -575,6 +576,10 @@ uint8_t parse_special_key(char* msg)
     return KEY_VOL_DOWN;
   else if(strncmp(msg, cmd_VOLMUTE, strlen(cmd_VOLMUTE)) == 0)
     return KEY_VOL_MUTE;
+  else if(strncmp(msg, cmd_MENU, strlen(cmd_MENU)) == 0)
+    return KEY_MENU;
+  else if(strncmp(msg, cmd_APP, strlen(cmd_APP)) == 0)
+    return KEY_MENU;
   return 0;
 }
 
@@ -654,11 +659,7 @@ uint8_t parse_line(char* line)
     result = PARSE_EMPTY_LINE;
   else if(special_key != 0)
     parse_combo(line, special_key);
-  else if(strncmp(cmd_NAME, line, strlen(cmd_NAME)) == 0)
-    ;
   else if(strncmp(cmd_REM, line, strlen(cmd_REM)) == 0)
-    ;
-  else if(strncmp(cmd_C_COMMENT, line, strlen(cmd_C_COMMENT)) == 0)
     ;
   else if(strncmp(cmd_STRING, line, strlen(cmd_STRING)) == 0)
     kb_print(line + strlen(cmd_STRING), char_delay);
@@ -677,7 +678,7 @@ uint8_t parse_line(char* line)
     }
     osDelay(argg);
   }
-  else if(strncmp(cmd_DEFAULTDELAY, line, strlen(cmd_DEFAULTDELAY)) == 0)
+  else if((strncmp(cmd_DEFAULTDELAY, line, strlen(cmd_DEFAULTDELAY)) == 0) || (strncmp(cmd_DEFAULT_DELAY, line, strlen(cmd_DEFAULT_DELAY)) == 0))
   {
     uint16_t argg = get_arg(line);
     if(argg == 0)

@@ -86,8 +86,8 @@ osThreadId kb_scanHandle;
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 uint8_t fw_version_major = 0;
-uint8_t fw_version_minor = 2;
-uint8_t fw_version_patch = 1;
+uint8_t fw_version_minor = 3;
+uint8_t fw_version_patch = 0;
 char instruction[] = "For instructions, see";
 char project_url[] = "git.io/duckypad";
 /* USER CODE END PV */

@@ -46,6 +46,7 @@
 #define KEY_LEFT_ARROW (0X50+0x88)
 #define KEY_DOWN_ARROW (0X51+0x88)
 #define KEY_UP_ARROW (0X52+0x88)
+#define KEY_MENU (0xED)
 
 #define KEY_VOL_UP 0xff
 #define KEY_VOL_DOWN 0xfe
