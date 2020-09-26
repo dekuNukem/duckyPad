@@ -881,6 +881,7 @@ def check_syntax_click():
         return
     script_textbox.tag_remove("error", '1.0', 'end')
     for count, line in enumerate(profile_list[profile_index].keylist[selected_key].script.split('\n')):
+        # print(ds_syntax_check.parse_line(line), line)
         if ds_syntax_check.parse_line(line) != ds_syntax_check.PARSE_OK:
             # print("syntax error on line", count, ':', line)
             script_textbox.tag_add("error", str(count+1)+".0", str(count+1)+".0 lineend")

@@ -94,8 +94,10 @@ def parse_line(ducky_line):
 	global default_char_delay_ms
 	parse_result = PARSE_OK
 	parse_note = ""
-	ducky_line = ducky_line.replace('\n', '').replace('\r', '').strip()
-	if len(ducky_line) <= 1:
+	ducky_line = ducky_line.replace('\n', '').replace('\r', '')
+	if not (ducky_line.startswith(cmd_STRING) or ducky_line.startswith(cmd_REM)):
+		ducky_line = ducky_line.strip()
+	if len(ducky_line) <= 0:
 		return PARSE_EMPTY_LINE, parse_note
 	elif ducky_line.startswith(cmd_REM) or ducky_line.startswith(cmd_UARTPRINT):
 		return PARSE_OK, parse_note
