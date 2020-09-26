@@ -134,7 +134,7 @@ def enable_buttons():
     dim_unused_keys_checkbox.config(state=NORMAL)
     key_rename_button.config(state=NORMAL)
     key_remove_button.config(state=NORMAL)
-    execute_button.config(state=NORMAL, bg='red', fg="white")
+    execute_button.config(state=NORMAL, fg="red")
     for button in script_command_button_list:
         button.config(state=NORMAL)
     key_name_entrybox.config(state=NORMAL)
@@ -857,7 +857,7 @@ SCRIPT_BUTTON_GAP = 5
 PADDING = 2
 
 execute_button = Button(scripts_lf, text="Run this script!", command=run_script, state=DISABLED)
-execute_button.place(x=135, y=417, width=100, height=BUTTON_HEIGHT)
+execute_button.place(x=135, y=417, width=105, height=BUTTON_HEIGHT)
 root.update()
 
 script_button_xy_list = [(SCRIPT_BUTTON_GAP, PADDING), (SCRIPT_BUTTON_GAP*2+SCRIPT_BUTTON_WIDTH, PADDING), (SCRIPT_BUTTON_GAP*3+SCRIPT_BUTTON_WIDTH*2, PADDING), (SCRIPT_BUTTON_GAP, PADDING+BUTTON_HEIGHT+2), (SCRIPT_BUTTON_GAP*2+SCRIPT_BUTTON_WIDTH, PADDING+BUTTON_HEIGHT+2), (SCRIPT_BUTTON_GAP*3+SCRIPT_BUTTON_WIDTH*2, PADDING+BUTTON_HEIGHT+2), (SCRIPT_BUTTON_GAP, (PADDING+BUTTON_HEIGHT)*2+2), (SCRIPT_BUTTON_GAP*2+SCRIPT_BUTTON_WIDTH, (PADDING+BUTTON_HEIGHT)*2+2), (SCRIPT_BUTTON_GAP*3+SCRIPT_BUTTON_WIDTH*2, (PADDING+BUTTON_HEIGHT)*2+2)]
@@ -890,10 +890,10 @@ def check_syntax_click():
             has_errors = True
     if has_errors == False:
         script_textbox.tag_remove("error", '1.0', 'end')
-        syntax_check_result_label.config(text="It looks alright...", fg="green")
+        syntax_check_result_label.config(text="It looks alright..", fg="green")
 
 syntax_check_result_label = Label(master=check_syntax_lf)
-syntax_check_result_label.place(x=10, y=-4)
+syntax_check_result_label.place(x=2, y=-4)
 
 # --------------------------
 
