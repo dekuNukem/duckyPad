@@ -78,4 +78,4 @@ Honorable mention: simonCor ported this project to a [STM32F4 black pill](https:
 
 Please feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), DM me on discord `dekuNukem#6998`, or email `dekuNukem`@`gmail`.`com` for inquires.
 
-There is also an [official duckyPad discord](https://discord.gg/t4qJnHh), so feel free to join for updates, tech supports, and chats.
+There is also an [official duckyPad discord](https://discord.gg/4sJCBx5), so feel free to join for updates, tech supports, and chats.
