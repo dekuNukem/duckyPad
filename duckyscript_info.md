@@ -140,6 +140,31 @@ Those modifier keys can be used on their own:
 
 * That's pretty much it!
 
+## Examples
+
+As you will see, those are very straightforward and simple.
+
+Check out the [sample profiles](https://github.com/dekuNukem/duckyPad/tree/master/sample_profiles) for more examples.
+
+### Open a certain webpage on windows
+
+```
+WINDOWS r
+DELAY 400
+STRING https://www.youtube.com/watch?v=dQw4w9WgXcQ
+ENTER
+```
+
+### Save a webpage then close it
+
+```
+CONTROL s
+DELAY 600
+ENTER
+DELAY 600
+CONTROL w
+```
+
 ## Questions or Comments?
 
 Please feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), ask in the [official duckyPad discord](https://discord.gg/4sJCBx5), DM me on discord `dekuNukem#6998`, or email `dekuNukem`@`gmail`.`com` for inquires.

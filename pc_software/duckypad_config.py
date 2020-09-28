@@ -806,7 +806,7 @@ scripts_lf = LabelFrame(root, text="Scripts", width=int(MAIN_WINDOW_WIDTH / 3 - 
 scripts_lf.place(x=keys_lf.winfo_x() + keys_lf.winfo_width() + PADDING, y=keys_lf.winfo_y())
 
 def open_duckyscript_url():
-    webbrowser.open('https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Duckyscript')
+    webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md')
 
 def script_instruction_click(event):
     open_duckyscript_url()
