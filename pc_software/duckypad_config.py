@@ -43,14 +43,14 @@ def create_help_window():
     help_window.resizable(width=FALSE, height=FALSE)
 
     user_manual_label = Label(master=help_window, text="Not sure what to do? Please read...")
-    user_manual_label.place(x=40, y=5)
+    user_manual_label.place(x=35, y=5)
     user_manual_button = Button(help_window, text="User Manual", command=open_duckypad_user_manual_url)
     user_manual_button.place(x=60, y=30, width=160)
 
-    discord_label = Label(master=help_window, text="Questions or comments? Feel free to ask in...")
-    discord_label.place(x=20, y=60)
+    discord_label = Label(master=help_window, text="Questions or comments? Ask in...")
+    discord_label.place(x=35, y=60)
     discord_button = Button(help_window, text="Official Discord Chatroom", command=open_discord_link)
-    discord_button.place(x=60, y=85, width=160)
+    discord_button.place(x=50, y=85, width=180)
 
 def open_duckypad_user_manual_url():
     webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/getting_started.md')
