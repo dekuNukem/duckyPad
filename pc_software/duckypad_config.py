@@ -28,6 +28,9 @@ INVALID_ROOT_FOLDER_STRING = "<-- Please select your duckyPad root folder"
 last_rgb = (238,130,238)
 dp_settings = duck_objs.dp_global_settings()
 
+def create_help_window():
+    help_window = Toplevel(root)
+
 def open_duckypad_user_manual_url():
     webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/getting_started.md')
 
@@ -504,7 +507,7 @@ root_folder_lf = LabelFrame(root, text="Files", width=779, height=HIGHT_ROOT_FOL
 root_folder_lf.place(x=PADDING, y=0) 
 root.update()
 
-user_manual_button = Button(root_folder_lf, text="User Manual", command=open_duckypad_user_manual_url)
+user_manual_button = Button(root_folder_lf, text="Help...", command=create_help_window)
 user_manual_button.place(x=5, y=0, width=85)
 
 root_folder_select_button = Button(root_folder_lf, text="Open...", command=select_root_folder)
