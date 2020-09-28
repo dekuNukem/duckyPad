@@ -8,8 +8,8 @@
 #include "keyboard.h"
 #include "animations.h"
 
-#define DEFAULT_CMD_DELAY_MS 17
-#define DEFAULT_CHAR_DELAY_MS 17
+#define DEFAULT_CMD_DELAY_MS 20
+#define DEFAULT_CHAR_DELAY_MS 20
 
 static const uint8_t col_lookup[7][3] = {  
    {18, 60, 103},
