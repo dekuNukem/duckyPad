@@ -122,7 +122,7 @@ Finally, the rightmost column is for *scripts*:
 
 * Once you have selected a key, the script that this key will execute is displayed here.
 
-* duckyPad uses duckyScript, you can [read about its usage here](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Duckyscript).
+* duckyPad uses duckyScript, please [read about its usage here](duckyscript_info.md).
 
 * Code check will be performed as you type, errors will be highlighted in yellow.
 
