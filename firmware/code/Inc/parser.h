@@ -9,7 +9,7 @@
 #include "buttons.h"
 
 #define READ_BUF_SIZE 256
-#define MAX_PROFILES 16
+#define MAX_PROFILES 32
 #define PATH_SIZE 40
 #define FILENAME_SIZE 24
 #define KEYNAME_SIZE 8

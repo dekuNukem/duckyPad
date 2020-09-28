@@ -335,7 +335,7 @@ def clean_input(str_input, len_limit=None, clean_filename=True):
 
 def profile_add_click():
     global profile_list
-    if len(profile_list) >= 16:
+    if len(profile_list) >= duck_objs.MAX_PROFILE_COUNT:
         return
     answer = simpledialog.askstring("Input", "New profile name?", parent=profiles_lf)
     if answer is None:

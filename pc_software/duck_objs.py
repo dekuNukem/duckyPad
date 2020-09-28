@@ -1,6 +1,8 @@
 import os
 import sys
 
+MAX_PROFILE_COUNT = 32
+
 class dp_key(object):
 	def load_script(self, path):
 		with open(path) as keyfile:
@@ -151,6 +153,7 @@ def build_profile(root_dir_path):
 	my_dirs = [x for x in my_dirs if x.startswith('profile') and x[7].isnumeric() and '_' in x]
 	my_dirs.sort(key=lambda s: int(s[7:].split("_")[0]))
 	my_dirs = [os.path.join(root_dir_path, d) for d in my_dirs if d.startswith("profile")]
+	my_dirs = my_dirs[:MAX_PROFILE_COUNT]
 	profile_list = []
 	for item in my_dirs:
 		this_profile = dp_profile()
