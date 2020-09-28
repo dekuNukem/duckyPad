@@ -97,8 +97,3 @@ One interesting design detail is the RGB LED. The WS2812(and its clones) require
 ## Questions or Comments?
 
 Please feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), ask in the [official duckyPad discord](https://discord.gg/4sJCBx5), DM me on discord `dekuNukem#6998`, or email `dekuNukem`@`gmail`.`com` for inquires.
-
-
-
-
-

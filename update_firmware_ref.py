@@ -63,7 +63,7 @@ for filename in md_file_list:
 			ssss = line.split('[official duckyPad discord](')
 			front = ssss[0]
 			back = ssss[1].split(')')[-1]
-			readme_lines[index] = front + "[official duckyPad discord](" + discord_link + ")" + back + '\n'
+			readme_lines[index] = front + "[official duckyPad discord](" + discord_link + ")" + back
 			# print(readme_lines[index])
 			changes_made = True
 
