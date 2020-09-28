@@ -36,7 +36,7 @@ if THIS_VERSION is None:
 	exit()
 
 print(THIS_VERSION)
-os.system("python3 setup.py py2app")
+os.system("python3 setup.py py2app --packages=PIL")
 
 output_folder_path = os.path.join('.', "dist")
 original_name = os.path.join(output_folder_path, "duckypad_config.app")
