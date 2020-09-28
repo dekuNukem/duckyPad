@@ -47,6 +47,7 @@ If you decide to use your own SD card, it should be formatted in [FAT32 format](
 
 
 
+
 Extract the `.zip` file and launch the application by clicking `duckypad_config.exe`:
 
 ![Alt text](resources/pics/app/duckexe.png)
@@ -308,6 +309,7 @@ Press +/- button to change profiles.
 ## Questions or Comments?
 
 Please feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), ask in the [official duckyPad discord](https://discord.gg/4sJCBx5), DM me on discord `dekuNukem#6998`, or email `dekuNukem`@`gmail`.`com` for inquires.
+
 
 
 
