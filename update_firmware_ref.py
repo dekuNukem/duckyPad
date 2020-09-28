@@ -53,7 +53,7 @@ if discord_link is None:
 md_file_list = [d for d in os.listdir('.') if d.lower().endswith('.md')]
 
 for filename in md_file_list:
-	this_md_file = open(filename)
+	this_md_file = open(filename, encoding='utf-8')
 	readme_lines = this_md_file.readlines()
 	this_md_file.close()
 	changes_made = False
@@ -68,7 +68,7 @@ for filename in md_file_list:
 			changes_made = True
 
 	if changes_made:
-		this_md_file = open(filename, 'w')
+		this_md_file = open(filename, 'w', encoding='utf-8')
 		this_md_file.writelines(readme_lines)
 		this_md_file.close()
 		print('discord link updated on', filename)
