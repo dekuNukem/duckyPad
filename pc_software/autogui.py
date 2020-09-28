@@ -48,6 +48,8 @@ autogui_map = {"ESCAPE":"escape",
 "CTRL":"ctrl",
 "VOLUP":"volumeup",
 "VOLDOWN":"volumedown",
+"MENU":"apps",
+"APP":"apps",
 "MUTE":"volumemute"}
 
 valid_chars = ['!', '"', '#', '$', '%', '&', "'", '(',
