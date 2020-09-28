@@ -28,7 +28,7 @@ try:
 			THIS_VERSION = line.replace('\n', '').replace('\r', '').split("'")[-2]
 	mainfile.close()
 except Exception as e:
-	print('build_windows exception:', e)
+	print('build_mac exception:', e)
 	exit()
 
 if THIS_VERSION is None:
