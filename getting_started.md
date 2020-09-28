@@ -126,7 +126,11 @@ Finally, the rightmost column is for *scripts*:
 
 * Code check will be performed as you type, errors will be highlighted in yellow.
 
-* You can also use an external editor and just paste the code in.
+* Press `Run this script!` button to test-run it on your computer. **`MAKE SURE YOU TRUST THE SCRIPT!`**
+
+* Test-run starts after a 2-second delay.
+
+* Test-run duckyScript can't get past [Windows User Account Control](resources/pics/app/uac.png) screens. You'll have to run it on real thing.
 
 -----
 
@@ -134,9 +138,9 @@ One the bottom we have settings and updates section.
 
 ![Alt text](resources/pics/app/settings.png)
 
-By default, duckyPad goes to sleep after 30 minutes. Adjust the slider to set your own delay. Drag it all the way to the left for always-on.
+By default, duckyPad goes to sleep after 30 minutes. Adjust the slider to set your own delay. Drag it all the way left for always-on.
 
-`Updates` section shows you available updates for this app and duckyPad firmware. Click on the text for instructions.
+`Updates` section shows available updates for this app and duckyPad firmware. Click on the text for instructions.
 
 -----
 
