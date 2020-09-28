@@ -13,6 +13,7 @@ from tkinter import filedialog
 from tkinter import simpledialog
 from tkinter.colorchooser import askcolor
 from tkinter import messagebox
+import urllib.request
 
 default_button_color = 'SystemButtonFace'
 if 'linux' in sys.platform:
@@ -27,9 +28,29 @@ HIGHT_ROOT_FOLDER_LF = 50
 INVALID_ROOT_FOLDER_STRING = "<-- Please select your duckyPad root folder"
 last_rgb = (238,130,238)
 dp_settings = duck_objs.dp_global_settings()
+discord_link_url = "https://raw.githubusercontent.com/dekuNukem/duckyPad/master/resources/discord_link.txt"
+
+def open_discord_link():
+    try:
+        webbrowser.open(str(urllib.request.urlopen(discord_link_url).read().decode('utf-8')).split('\n')[0])
+    except Exception as e:
+        messagebox.showerror("Error", "Failed to open discord link!\n"+str(e))
 
 def create_help_window():
     help_window = Toplevel(root)
+    help_window.title("duckyPad help")
+    help_window.geometry("280x130")
+    help_window.resizable(width=FALSE, height=FALSE)
+
+    user_manual_label = Label(master=help_window, text="Not sure what to do? Please read...")
+    user_manual_label.place(x=40, y=5)
+    user_manual_button = Button(help_window, text="User Manual", command=open_duckypad_user_manual_url)
+    user_manual_button.place(x=60, y=30, width=160)
+
+    discord_label = Label(master=help_window, text="Questions or comments? Feel free to ask in...")
+    discord_label.place(x=20, y=60)
+    discord_button = Button(help_window, text="Official Discord Chatroom", command=open_discord_link)
+    discord_button.place(x=60, y=85, width=160)
 
 def open_duckypad_user_manual_url():
     webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/getting_started.md')
@@ -507,8 +528,8 @@ root_folder_lf = LabelFrame(root, text="Files", width=779, height=HIGHT_ROOT_FOL
 root_folder_lf.place(x=PADDING, y=0) 
 root.update()
 
-user_manual_button = Button(root_folder_lf, text="Help...", command=create_help_window)
-user_manual_button.place(x=5, y=0, width=85)
+help_button = Button(root_folder_lf, text="How do I...", command=create_help_window)
+help_button.place(x=5, y=0, width=85)
 
 root_folder_select_button = Button(root_folder_lf, text="Open...", command=select_root_folder)
 root_folder_select_button.place(x=95, y=0, width=60)

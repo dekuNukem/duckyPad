@@ -42,6 +42,11 @@ If you decide to use your own SD card, it should be formatted in [FAT32 format](
 
 * The software is in early stages of development. If you run into any problems, please don't hesitate to [open an issue](https://github.com/dekuNukem/duckypad/issues), DM me on discord `dekuNukem#6998`, ask in the [official duckyPad discord](https://discord.gg/4sJCBx5), or contact me through `dekuNukem`@`gmail`.`com`.
 
+
+
+
+
+
 Extract the `.zip` file and launch the application by clicking `duckypad_config.exe`:
 
 ![Alt text](resources/pics/app/duckexe.png)
@@ -302,6 +307,8 @@ Press +/- button to change profiles.
 
 ## Questions or Comments?
 
-Please feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), DM me on discord `dekuNukem#6998`, or email `dekuNukem`@`gmail`.`com` for inquires.
+Please feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), ask in the [official duckyPad discord](https://discord.gg/4sJCBx5), DM me on discord `dekuNukem#6998`, or email `dekuNukem`@`gmail`.`com` for inquires.
 
-There is also an [official duckyPad discord](https://discord.gg/4sJCBx5), so feel free to join for updates, tech supports, and chats.
+
+
+
