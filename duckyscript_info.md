@@ -138,6 +138,10 @@ Those modifier keys can be used on their own:
 
 * **`UP TO 3 KEYS`** can be pressed simultaneously.
 
+* On macOS, `Command` is `WINDOWS` key, `Option` is `ALT` key.
+
+* Use `WINDOWS` for `Meta`, `Command`, `Search` keys on other operating systems.
+
 * That's pretty much it!
 
 ## Examples
