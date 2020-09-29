@@ -126,7 +126,7 @@ Those modifier keys can be used on their own:
 
 `WINDOWS`
 
-...or can be combined with a letter to form shortcuts:
+...or can be combined with a character to form shortcuts:
 
 `WINDOWS s`
 
@@ -134,15 +134,15 @@ Those modifier keys can be used on their own:
 
 `WINDOWS SHIFT s`
 
+------
+
 * Type the key names as-is in **`ALL CAPS`**.
 
 * **`UP TO 3 KEYS`** can be pressed simultaneously.
 
-* On macOS, `Command` is `WINDOWS` key, `Option` is `ALT` key.
-
 * Use `WINDOWS` for `Meta`, `Command`, `Search` keys on other operating systems.
 
-* That's pretty much it!
+* On macOS, `Command` is `WINDOWS`, `Option` is `ALT`.
 
 ## Examples
 
