@@ -103,7 +103,7 @@ def ui_reset():
 
 def check_firmware_update():
     filelist = os.listdir(dp_root_folder_path)
-    if 'last_profile.txt' in filelist and 'dp_stats.txt' not in filelist:
+    if 'last_profile.kbd' in filelist and 'dp_stats.txt' not in filelist:
         return 1, None
     if 'dp_stats.txt' in filelist:
         with open(os.path.join(dp_root_folder_path, 'dp_stats.txt')) as dp_stats_file:
