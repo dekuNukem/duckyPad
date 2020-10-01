@@ -749,10 +749,9 @@ void keypress_wrap(uint8_t keynum)
     result = parse_line(read_buffer);
     if(result == PARSE_ERROR)
     {
-      error_animation(0);
       ssd1306_Fill(Black);
       ssd1306_SetCursor(5, 0);
-      ssd1306_WriteString("Parse error in", Font_6x10,White);
+      ssd1306_WriteString("Parse error in key:", Font_6x10,White);
       ssd1306_SetCursor(5, 12);
       ssd1306_WriteString(p_cache.key_fn[keynum], Font_6x10,White);
       memset(temp_buf, 0, PATH_SIZE);
@@ -763,6 +762,7 @@ void keypress_wrap(uint8_t keynum)
       ssd1306_SetCursor(5, 42);
       ssd1306_WriteString(read_buffer, Font_6x10,White);
       ssd1306_UpdateScreen();
+      error_animation(0);
       osDelay(10000);
       error_animation(1);
       print_legend(0, 0);

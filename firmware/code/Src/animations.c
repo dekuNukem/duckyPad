@@ -13,7 +13,7 @@ uint8_t green_buf[NEOPIXEL_COUNT];
 uint8_t blue_buf[NEOPIXEL_COUNT];
 led_animation neo_anime[NEOPIXEL_COUNT];
 uint8_t error_color_red[THREE] = {255, 0, 0};
-uint8_t error_color_blue[THREE] = {0, 0, 255};
+uint8_t error_color_black[THREE] = {0, 0, 0};
 uint8_t rand_order_buf[NEOPIXEL_COUNT];
 uint8_t color_black[THREE] = {0,0,0};
 
@@ -150,11 +150,11 @@ void error_animation(uint8_t stage)
     for (int j = 0; j < 5; ++j)
     {
       for (int i = 0; i < NEOPIXEL_COUNT; ++i)
-        led_start_animation(&neo_anime[i], error_color_blue, ANIMATION_CROSS_FADE, 2);
-      osDelay(100);
+        led_start_animation(&neo_anime[i], error_color_black, ANIMATION_CROSS_FADE, 2);
+      osDelay(250);
       for (int i = 0; i < NEOPIXEL_COUNT; ++i)
         led_start_animation(&neo_anime[i], error_color_red, ANIMATION_CROSS_FADE, 2);
-      osDelay(100);
+      osDelay(250);
     }
   }
   else
