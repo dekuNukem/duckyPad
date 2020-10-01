@@ -6,11 +6,9 @@
 
 ## Overview
 
-duckyScript is a simple scripting language developed for [USB Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky-deluxe), which can `"inject keystrokes at superhuman speeds"` to `"install backdoors, exfiltrate documents, or capture credentials"`. This is known as [BadUSB attack](https://arstechnica.com/information-technology/2014/07/this-thumbdrive-hacks-computers-badusb-exploit-makes-devices-turn-evil/).
+duckyScript is a simple scripting language for automating keypresses. It was originally developed for [USB Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky-deluxe).
 
-However, there is no reason why we can't use duckyScript to do something productive! After all, it's just for automating keypresses!
-
-This guide gives an concise overview of duckyScript. For more detailed information, [see this page](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Duckyscript).
+This guide gives an concise overview of duckyScript. For more information, [see this page](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Duckyscript).
 
 ## Syntax
 
@@ -34,8 +32,6 @@ REM duckyPad will wait 100ms between each subsequent command
 ```
 
 ### DEFAULTCHARDELAY
-
-⚠️ This command only works duckyPad! (for now)
 
 `DEFAULTCHARDELAY` specifies how long (in milliseconds) to wait between each **`key stroke`**.
 
@@ -72,7 +68,7 @@ Repeats the last command **`n`** times.
 STRING Hello world
 REPEAT 10
 
-REM types out "Hello world!!!" 11 times (1 original + 10 repeats)
+REM types out "Hello world" 11 times (1 original + 10 repeats)
 ```
 
 ### Modifier Keys
@@ -84,6 +80,7 @@ CTRL
 SHIFT
 ALT
 WINDOWS
+GUI
 ESC
 ENTER
 UP
@@ -104,6 +101,7 @@ PAGEUP
 PAGEDOWN
 DELETE
 END
+MENU
 F1
 F2
 F3
@@ -116,10 +114,15 @@ F9
 F10
 F11
 F12
-VOLUP
-VOLDOWN
-MUTE
-MENU (the `right click` key on windows keyboard that nobody uses)
+
+(media keys)
+MK_VOLUP
+MK_VOLDOWN
+MK_MUTE
+MK_PREV
+MK_NEXT
+MK_PP (play/pause)
+MK_STOP
 ```
 
 Those modifier keys can be used on their own:
@@ -140,9 +143,7 @@ Those modifier keys can be used on their own:
 
 * **`UP TO 3 KEYS`** can be pressed simultaneously.
 
-* Use `WINDOWS` for `Meta`, `Command`, `Search` keys on other operating systems.
-
-* On macOS, `Command` is `WINDOWS`, `Option` is `ALT`.
+* For macOS, use `WINDOWS` for `Command` key, use `ALT` for `Option` key.
 
 ## Examples
 
@@ -150,7 +151,7 @@ As you will see, those are very straightforward and simple.
 
 Check out the [sample profiles](https://github.com/dekuNukem/duckyPad/tree/master/sample_profiles) for more examples.
 
-### Open a certain webpage on windows
+### Open a webpage on windows
 
 ```
 WINDOWS r
