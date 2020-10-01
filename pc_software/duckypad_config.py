@@ -422,6 +422,7 @@ def ensure_dir(dir_path):
 
 def save_everything(save_path):
     global last_save
+    save_result_label.config(text='Saving...', fg="white", bg="blue", cursor="")
     try:
         validate_data_objs(save_path)
         ensure_dir(save_path)
