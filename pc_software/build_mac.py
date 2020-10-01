@@ -38,6 +38,8 @@ if THIS_VERSION is None:
 print(THIS_VERSION)
 os.system("python3 setup.py py2app --packages=PIL")
 
+input("PRESS ANY KEY TO CONTINUE...")
+
 output_folder_path = os.path.join('.', "dist")
 original_name = os.path.join(output_folder_path, "duckypad_config.app")
 new_name = os.path.join(output_folder_path, "duckypad_config_" + THIS_VERSION + "_macOS.app")

@@ -130,7 +130,9 @@ Finally, the rightmost column is for *scripts*:
 
 * Test-run starts after a 2-second delay.
 
-* Test-run duckyScript can't get past [Windows User Account Control](resources/pics/app/uac.png) screens. You'll have to run it on real thing.
+* Test-run can't get past [Windows User Account Control](resources/pics/app/uac.png) screens. You'll have to run it on real thing.
+
+* On macOS, if test-run doesn't work, [go to Settings -> Security & Privacy -> Accessibility](resources/pics/app/macos.png), unlock and allow the app. Even then, some key combos might not work. Better test it on the real thing.
 
 -----
 
