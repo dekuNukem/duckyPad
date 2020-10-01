@@ -40,3 +40,8 @@ print(new_name)
 os.rename(original_name, new_name)
 zip_file_name = "duckypad_config_" + THIS_VERSION + "_win10_x64.zip"
 os.system('7z.exe a ' + zip_file_name + ' -r ' + new_name)
+
+os.system('rm -rfv ./__pycache__')
+os.system('rm -rfv ./build')
+os.system('rm -rfv ./dist')
+os.system('rm -rfv ./*.spec')
