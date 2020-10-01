@@ -8,8 +8,8 @@
 #include "keyboard.h"
 #include "animations.h"
 
-#define DEFAULT_CMD_DELAY_MS 20
-#define DEFAULT_CHAR_DELAY_MS 20
+#define DEFAULT_CMD_DELAY_MS 18
+#define DEFAULT_CHAR_DELAY_MS 18
 
 static const uint8_t col_lookup[7][3] = {  
    {18, 60, 103},
@@ -601,7 +601,7 @@ uint8_t parse_special_key(char* msg)
   return 0;
 }
 
-// able to press 4 keys at once
+// able to press 3 keys at once
 void parse_combo(char* line, uint8_t key)
 {
   uint8_t special_key_1 = 0;
@@ -641,7 +641,22 @@ void parse_combo(char* line, uint8_t key)
     keyboard_press(special_key_3, 0);
     osDelay(char_delay);
   }
-  keyboard_release_all();
+  if(arg3 != NULL)
+  {
+    keyboard_release(special_key_3);
+    osDelay(char_delay);
+  }
+  if(arg2 != NULL)
+  {
+    keyboard_release(special_key_2);
+    osDelay(char_delay);
+  }
+  if(arg1 != NULL)
+  {
+    keyboard_release(special_key_1);
+    osDelay(char_delay);
+  }
+  keyboard_release(key);
   osDelay(char_delay);
 }
 

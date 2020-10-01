@@ -151,8 +151,8 @@ void print_kb_buf(void)
 
 void keyboard_release_all(void)
 {
-  for (int i = 1; i < KB_BUF_SIZE; ++i)
-    kb_buf[i] = 0;
+  memset(kb_buf, 0, KB_BUF_SIZE);
+  kb_buf[0] = 1;
   USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, KB_BUF_SIZE);
 }
 
@@ -194,11 +194,13 @@ uint8_t get_media_key_code(uint8_t k)
   return mk_code;
 }
 
-void media_key_release(uint8_t k)
+void media_key_release()
 {
   memset(kb_buf, 0, KB_BUF_SIZE);
-  kb_buf[1] = get_media_key_code(k);
-  USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, 2);
+  kb_buf[0] = 0x02;
+  USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, 3);
+  memset(kb_buf, 0, KB_BUF_SIZE);
+  kb_buf[0] = 1;
 }
 
 void media_key_press(uint8_t k)
@@ -250,7 +252,7 @@ void keyboard_release(uint8_t k)
 
   if(is_media_key(k))
   {
-    media_key_release(k);
+    media_key_release();
     return;
   }
 
