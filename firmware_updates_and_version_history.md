@@ -36,7 +36,7 @@ In the `Available DUF Devices` section at top left corner, you should see a `STM
 
 Press the `Choose...` button and select a firmware file in `.dfu` format.
 
-* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.3.0.dfu) to download the latest firmware (v0.3.0)
+* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.4.0.dfu) to download the latest firmware (v0.4.0)
 
 * ...or [scroll down](#firmware-version-history) for older firmware versions.
 
@@ -57,6 +57,14 @@ After uploading is complete, unplug and plug it back in to start using the new f
 ------
 
 ## Firmware Version History
+
+### 0.4.0
+
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.4.0.dfu)
+
+* Added support media keys (volume up/down, play/pause, mute, prev/next track, etc)
+
+* [More details](duckyscript_info.md).
 
 ### 0.3.0
 
