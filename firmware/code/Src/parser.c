@@ -95,9 +95,15 @@ const char cmd_BG_COLOR[] = "BG_COLOR ";
 const char cmd_KD_COLOR[] = "KEYDOWN_COLOR ";
 const char cmd_SWCOLOR[] = "SWCOLOR_";
 const char cmd_DIM_UNUSED_KEYS[] = "DIM_UNUSED_KEYS ";
-const char cmd_VOLUP[] = "VOLUP";
-const char cmd_VOLDOWN[] = "VOLDOWN";
-const char cmd_VOLMUTE[] = "MUTE";
+
+const char cmd_MK_VOLUP[] = "MK_VOLUP";
+const char cmd_MK_VOLDOWN[] = "MK_VOLDOWN";
+const char cmd_MK_VOLMUTE[] = "MK_MUTE";
+const char cmd_MK_PREV[] = "MK_PREV";
+const char cmd_MK_NEXT[] = "MK_NEXT";
+const char cmd_MK_PLAYPAUSE[] = "MK_PP";
+const char cmd_MK_STOP[] = "MK_STOP";
+
 const char cmd_MENU[] = "MENU";
 const char cmd_APP[] = "APP";
 
@@ -570,12 +576,24 @@ uint8_t parse_special_key(char* msg)
     return KEY_LEFT_CTRL;
   else if(strncmp(msg, cmd_SPACE, strlen(cmd_SPACE)) == 0)
     return ' ';
-  else if(strncmp(msg, cmd_VOLUP, strlen(cmd_VOLUP)) == 0)
-    return KEY_VOL_UP;
-  else if(strncmp(msg, cmd_VOLDOWN, strlen(cmd_VOLDOWN)) == 0)
-    return KEY_VOL_DOWN;
-  else if(strncmp(msg, cmd_VOLMUTE, strlen(cmd_VOLMUTE)) == 0)
-    return KEY_VOL_MUTE;
+
+  else if(strncmp(msg, cmd_MK_VOLUP, strlen(cmd_MK_VOLUP)) == 0)
+    return KEY_MK_VOLUP;
+  else if(strncmp(msg, cmd_MK_VOLDOWN, strlen(cmd_MK_VOLDOWN)) == 0)
+    return KEY_MK_VOLDOWN;
+  else if(strncmp(msg, cmd_MK_VOLMUTE, strlen(cmd_MK_VOLMUTE)) == 0)
+    return KEY_MK_VOLMUTE;
+  else if(strncmp(msg, cmd_MK_PREV, strlen(cmd_MK_PREV)) == 0)
+    return KEY_MK_PREV;
+  else if(strncmp(msg, cmd_MK_NEXT, strlen(cmd_MK_NEXT)) == 0)
+    return KEY_MK_NEXT;
+  else if(strncmp(msg, cmd_MK_PLAYPAUSE, strlen(cmd_MK_PLAYPAUSE)) == 0)
+    return KEY_MK_PLAYPAUSE;
+  else if(strncmp(msg, cmd_MK_VOLMUTE, strlen(cmd_MK_VOLMUTE)) == 0)
+    return KEY_MK_VOLMUTE;
+  else if(strncmp(msg, cmd_MK_STOP, strlen(cmd_MK_STOP)) == 0)
+    return KEY_MK_STOP;
+
   else if(strncmp(msg, cmd_MENU, strlen(cmd_MENU)) == 0)
     return KEY_MENU;
   else if(strncmp(msg, cmd_APP, strlen(cmd_APP)) == 0)

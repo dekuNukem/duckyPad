@@ -158,23 +158,55 @@ void keyboard_release_all(void)
 
 uint8_t is_media_key(uint8_t k)
 {
-  return k == KEY_VOL_UP || k == KEY_VOL_DOWN || k == KEY_VOL_MUTE;
+  return k >= KEY_MK_STOP;
+}
+
+/*
+
+see USB HID descriptor in usbd_hid.c, Consumer section
+  0x95, 0x08,        //   Report Count (8)
+  usages...
+
+bit position corresponds to that
+0x80 voldown
+0x40 vol up
+0x20 mute
+etc
+*/
+
+uint8_t get_media_key_code(uint8_t k)
+{
+  uint8_t mk_code = 0;
+  if(k == KEY_MK_VOLDOWN)
+    mk_code = 0x80;
+  else if(k == KEY_MK_VOLUP)
+    mk_code = 0x40;
+  else if(k == KEY_MK_VOLMUTE)
+    mk_code = 0x20;
+  else if(k == KEY_MK_PLAYPAUSE)
+    mk_code = 0x10;
+  else if(k == KEY_MK_STOP)
+    mk_code = 0x4;
+  else if(k == KEY_MK_PREV)
+    mk_code = 0x2;
+  else if(k == KEY_MK_NEXT)
+    mk_code = 0x1;
+  return mk_code;
+}
+
+void media_key_release(uint8_t k)
+{
+  memset(kb_buf, 0, KB_BUF_SIZE);
+  kb_buf[1] = get_media_key_code(k);
+  USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, 2);
 }
 
 void media_key_press(uint8_t k)
 {
-  uint8_t usage_id = 0;
-  if(k == KEY_VOL_UP)
-    usage_id = 0x80;
-  else if(k == KEY_VOL_DOWN)
-    usage_id = 0x81;
-  else if(k == KEY_VOL_MUTE)
-    usage_id = 0x7f;
-
-  for (int i = 1; i < KB_BUF_SIZE; ++i)
-    kb_buf[i] = 0;
-  kb_buf[2] = usage_id;
-  USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, KB_BUF_SIZE);
+  memset(kb_buf, 0, KB_BUF_SIZE);
+  kb_buf[0] = 0x02;
+  kb_buf[1] = get_media_key_code(k);
+  USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, 2);
 }
 
 // adopted from arduino keyboard.c
@@ -218,7 +250,7 @@ void keyboard_release(uint8_t k)
 
   if(is_media_key(k))
   {
-    keyboard_release_all();
+    media_key_release(k);
     return;
   }
 

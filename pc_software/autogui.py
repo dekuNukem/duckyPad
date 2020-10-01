@@ -46,11 +46,16 @@ autogui_map = {"ESCAPE":"escape",
 "WINDOWS":"win",
 "CONTROL":"ctrl",
 "CTRL":"ctrl",
-"VOLUP":"volumeup",
-"VOLDOWN":"volumedown",
+"MK_VOLUP":"volumeup",
+"MK_VOLDOWN":"volumedown",
+"MK_MUTE":"volumemute",
+"MK_PREV":"prevtrack",
+"MK_NEXT":"nexttrack",
+"MK_PP":"playpause",
+"MK_STOP":"stop",
 "MENU":"apps",
-"APP":"apps",
-"MUTE":"volumemute"}
+"APP":"apps"
+}
 
 valid_chars = ['!', '"', '#', '$', '%', '&', "'", '(',
 ')', '*', '+', ',', '-', '.', '/', '0', '1', '2', '3', '4', '5', '6', '7',

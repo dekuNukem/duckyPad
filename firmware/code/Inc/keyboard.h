@@ -48,9 +48,13 @@
 #define KEY_UP_ARROW (0X52+0x88)
 #define KEY_MENU (0xED)
 
-#define KEY_VOL_UP 0xff
-#define KEY_VOL_DOWN 0xfe
-#define KEY_VOL_MUTE 0xfd
+#define KEY_MK_VOLUP 0xff
+#define KEY_MK_VOLDOWN 0xfe
+#define KEY_MK_VOLMUTE 0xfd
+#define KEY_MK_PREV 0xfc
+#define KEY_MK_NEXT 0xfb
+#define KEY_MK_PLAYPAUSE 0xfa
+#define KEY_MK_STOP 0xf9
 
 #define KB_BUF_SIZE 5
 

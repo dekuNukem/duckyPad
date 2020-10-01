@@ -5,6 +5,27 @@ the key should be breathing
 32 frame lookup table
 after its done then fade back to background color
 */
+
+void media_key_press(uint8_t k)
+{
+  // uint8_t usage_id = 0;
+  // if(k == KEY_VOL_UP)
+  //   usage_id = 0x80;
+  // else if(k == KEY_VOL_DOWN)
+  //   usage_id = 0x81;
+  // else if(k == KEY_VOL_MUTE)
+  //   usage_id = 0x7f;
+
+  memset(kb_buf, 0, KB_BUF_SIZE);
+  kb_buf[0] = 0x02;
+  kb_buf[1] = 0x80;
+  USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, 2);
+  // osDelay(30);
+  // memset(kb_buf, 0, KB_BUF_SIZE);
+  // kb_buf[1] = 0x40;
+  // USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, 2);
+}
+
   // ssd1306_SetCursor(18, 20);
   // ssd1306_WriteString(project_url,Font_6x10,White);
   // memset(temp_buf, 0, PATH_SIZE);
