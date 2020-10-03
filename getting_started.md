@@ -212,11 +212,11 @@ If you mount the SD card on your computer, you might see some examples like thes
 
 [Existing examples](https://github.com/dekuNukem/duckypad/raw/master/sample_profiles.zip) are an excellent starting point of making your own profiles and scripts.
 
-Up to 16 profiles are supported.
+Up to 32 profiles are supported.
 
 ### Step 2: Preparing Scripts
 
-Now you're ready to write some scripts inside the profile folders. The script used in this project is Duckyscript, [click here to read its usage](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Duckyscript).
+Now you're ready to write some scripts inside the profile folders. The script used in this project is Duckyscript, [read more about it here](duckyscript_info.md).
 
 Each key has its own script file, named like `key#.txt`, where `#` is the key number(top left is 1, bottom right is 15). 
 
