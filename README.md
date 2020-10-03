@@ -70,9 +70,13 @@ Please see [the instruction manual](./getting_started.md) on how to use your duc
 
 Please see [this guide](./build_it_yourself.md).
 
-------
+## Derivatives
 
-Honorable mention: simonCor ported this project to a [STM32F4 black pill](https://github.com/simonCor/poor-mans-ducky-pad), with hand-soldered connections and 3D-printed case, very neat!
+A number of projects are based on duckyPad, they are listed here!
+
+* simonCor ported this project to a [STM32F4 black pill](https://github.com/simonCor/poor-mans-ducky-pad), with hand-soldered connections and 3D-printed case, very neat!
+
+* headslash is working on [Frankenduck](https://github.com/headslash/Frankenduck), with redesigned PCB, 3D-printed case, and extra switches.
 
 ## Questions or Comments?
 
