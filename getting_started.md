@@ -28,13 +28,15 @@ Chances are you want to write your own scripts. So here's how!
 
 ### Notes on SD Card
 
-To remove the SD card, push inwards to unlock.
+* It is recommended to unplug your duckyPad before handling the SD card.
 
-To install the SD card, insert logo side up, push until it clicks in place:
+* To remove the SD card, push inwards to unlock.
+
+* To install the SD card, insert logo side up, push until it clicks in place:
 
 ![Alt text](resources/pics/sd_slot.jpg)
 
-If you decide to use your own SD card, it should be formatted in [FAT32 format](resources/pics/format.PNG).
+* If you decide to use your own SD card, it should be formatted in [FAT32 format](resources/pics/format.PNG).
 
 ### Download the duckyPad configurator
 
