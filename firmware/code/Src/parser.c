@@ -404,7 +404,7 @@ void save_last_profile(uint8_t profile_id)
   if(f_open(&sd_file, "dp_stats.txt", FA_CREATE_ALWAYS | FA_WRITE) != 0)
     goto slp_end;
   memset(temp_buf, 0, PATH_SIZE);
-  sprintf(temp_buf, "lp %d\nfw %d.%d.%d\n", profile_id, fw_version_major, fw_version_minor, fw_version_patch);
+  sprintf(temp_buf, "lp %d\nfw %d.%d.%d\nbi %d\n", profile_id, fw_version_major, fw_version_minor, fw_version_patch, brightness_index);
   f_write(&sd_file, temp_buf, strlen(temp_buf), &ignore_this);
 	slp_end:
   f_close(&sd_file);
@@ -418,8 +418,14 @@ uint8_t get_last_profile(void)
   memset(temp_buf, 0, PATH_SIZE);
 
   while(f_gets(temp_buf, PATH_SIZE, &sd_file))
+  {
     if(strncmp(temp_buf, "lp ", 3) == 0)
       ret = atoi(temp_buf+3);
+    if(strncmp(temp_buf, "bi ", 3) == 0)
+      brightness_index = atoi(temp_buf+3);
+    if(brightness_index >= BRIGHTNESS_LEVELS)
+      brightness_index = BRIGHTNESS_LEVELS - 1;
+  }
 
   if(ret >= MAX_PROFILES || p_cache.available_profile[ret] == 0)
     ret = 0;
@@ -449,6 +455,7 @@ void restore_profile(uint8_t profile_id)
   has_valid_profiles = 1;
   f_closedir(&dir);
   f_close(&sd_file);
+  save_last_profile(profile_id);
 }
 
 void change_profile(uint8_t direction)
@@ -483,7 +490,6 @@ void change_profile(uint8_t direction)
       break;
   }
   restore_profile(next_profile);
-  save_last_profile(next_profile);
 }
 
 uint8_t parse_special_key(char* msg)

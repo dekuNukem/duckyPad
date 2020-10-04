@@ -17,6 +17,7 @@
 #define DEFAULT_KD_RED 255
 #define DEFAULT_KD_GREEN 255
 #define DEFAULT_KD_BLUE 255
+#define BRIGHTNESS_LEVELS 5
 
 typedef struct
 {
@@ -34,10 +35,13 @@ void anime_init(void);
 void keydown_anime_start(uint8_t idx);
 void keydown_anime_end(uint8_t idx);
 void error_animation(uint8_t stage);
+void redraw_bg(void);
 void change_bg(void);
 void neopixel_off(void);
 void key_led_shutdown(void);
 
+extern int8_t brightness_index;
+extern uint8_t brightness_values[BRIGHTNESS_LEVELS];
 #ifdef __cplusplus
 }
 #endif

@@ -27,6 +27,7 @@ extern DIR dir;
 extern FILINFO fno;
 extern uint8_t mount_result;
 extern uint8_t has_valid_profiles;
+extern char temp_buf[PATH_SIZE];
 
 typedef struct
 {
@@ -51,6 +52,7 @@ void restore_profile(uint8_t profile_id);
 void keypress_wrap(uint8_t keynum);
 void print_legend(int8_t x_offset, int8_t y_offset);
 void get_global_settings(void);
+void save_last_profile(uint8_t profile_id);
 
 extern profile_cache p_cache;
 extern char temp_buf[PATH_SIZE];

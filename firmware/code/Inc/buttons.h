@@ -7,7 +7,7 @@
 
 #include "stm32f0xx_hal.h"
 
-#define KEY_COUNT 23
+#define KEY_COUNT 17
 #define MAPPABLE_KEY_COUNT 15
 #define KEY_0 0
 #define KEY_1 1
@@ -24,8 +24,8 @@
 #define KEY_12 12
 #define KEY_13 13
 #define KEY_14 14
-#define KEY_BUTTON1 21
-#define KEY_BUTTON2 22
+#define KEY_BUTTON1 15
+#define KEY_BUTTON2 16
 #define BUTTON_SERVICE_UNSERVICED 0
 #define BUTTON_SERVICE_SERVICED 1
 #define BUTTON_RELEASED 0   

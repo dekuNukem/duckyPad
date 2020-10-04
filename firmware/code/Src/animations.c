@@ -16,7 +16,9 @@ uint8_t error_color_red[THREE] = {255, 0, 0};
 uint8_t error_color_black[THREE] = {0, 0, 0};
 uint8_t rand_order_buf[NEOPIXEL_COUNT];
 uint8_t color_black[THREE] = {0,0,0};
-
+int8_t brightness_index = BRIGHTNESS_LEVELS - 1;
+uint8_t brightness_values[BRIGHTNESS_LEVELS] = {0, 20, 50, 70, 100};
+uint16_t temp_r, temp_g, temp_b;
 uint32_t get_adc_reading(void)
 {
   uint32_t result = 0;
@@ -51,9 +53,9 @@ void neopixel_off(void)
 
 void set_pixel_color(uint8_t which, uint8_t r, uint8_t g, uint8_t b)
 {
-  red_buf[pixel_map[which]] = r;
-  green_buf[pixel_map[which]] = g;
-  blue_buf[pixel_map[which]] = b;
+  red_buf[pixel_map[which]] = (uint8_t)((uint16_t)r * (uint16_t)brightness_values[brightness_index] / (uint16_t)100);
+  green_buf[pixel_map[which]] = (uint8_t)((uint16_t)g * (uint16_t)brightness_values[brightness_index] / (uint16_t)100);
+  blue_buf[pixel_map[which]] = (uint8_t)((uint16_t)b * (uint16_t)brightness_values[brightness_index] / (uint16_t)100);
 }
 
 // this runs every single frame
@@ -130,6 +132,12 @@ void anime_init(void)
   change_bg();
 }
 
+void redraw_bg(void)
+{
+  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+    led_start_animation(&neo_anime[i], p_cache.individual_key_color[i], ANIMATION_FULLY_ON, 2);
+}
+
 void change_bg(void)
 {
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
@@ -171,12 +179,11 @@ void keydown_anime_start(uint8_t idx)
 
 void keydown_anime_end(uint8_t idx)
 {
-  led_start_animation(&neo_anime[idx], p_cache.individual_key_color[idx], ANIMATION_CROSS_FADE, 50);
+  led_start_animation(&neo_anime[idx], p_cache.individual_key_color[idx], ANIMATION_CROSS_FADE, 70);
 }
 
 void key_led_shutdown(void)
 {
-  printf("hello\n");
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
   {
     led_start_animation(&neo_anime[i], color_black, ANIMATION_CROSS_FADE, 8);
