@@ -119,13 +119,13 @@ def fw_update_click(what):
 def print_fw_update_label():
     fw_result, this_version = check_firmware_update()
     if fw_result == 0:
-        dp_fw_update_label.config(text='Firmware (' + str(this_version) +'): Up to date')
+        dp_fw_update_label.config(text='Firmware (' + str(this_version) +'): Up to date', fg='black', bg=default_button_color)
         dp_fw_update_label.unbind("<Button-1>")
     elif fw_result == 1:
         dp_fw_update_label.config(text='Firmware (' + str(this_version) +'): Update available! Click me!', fg='black', bg='orange', cursor="hand2")
         dp_fw_update_label.bind("<Button-1>", fw_update_click)
     else:
-        dp_fw_update_label.config(text='Firmware: Unknown')
+        dp_fw_update_label.config(text='Firmware: Unknown', fg='black', bg=default_button_color)
         dp_fw_update_label.unbind("<Button-1>")
 
 def select_root_folder():
@@ -963,12 +963,14 @@ pc_app_update_label.place(x=5, y=-2)
 update_stats = check_update.get_pc_app_update_status(THIS_VERSION_NUMBER)
 
 if update_stats == 0:
-    pc_app_update_label.config(text='This app (' + str(THIS_VERSION_NUMBER) + '): Up to date')
+    pc_app_update_label.config(text='This app (' + str(THIS_VERSION_NUMBER) + '): Up to date', fg='black', bg=default_button_color)
+    pc_app_update_label.unbind("<Button-1>")
 elif update_stats == 1:
     pc_app_update_label.config(text='This app (' + str(THIS_VERSION_NUMBER) + '): Update available! Click me!', fg='black', bg='orange', cursor="hand2")
     pc_app_update_label.bind("<Button-1>", app_update_click)
 else:
-    pc_app_update_label.config(text='This app (' + str(THIS_VERSION_NUMBER) + '): Unknown')
+    pc_app_update_label.config(text='This app (' + str(THIS_VERSION_NUMBER) + '): Unknown', fg='black', bg=default_button_color)
+    pc_app_update_label.unbind("<Button-1>")
 
 dp_fw_update_label = Label(master=updates_lf, text="Firmware: Unknown")
 dp_fw_update_label.place(x=5, y=20)

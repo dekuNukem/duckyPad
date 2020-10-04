@@ -72,8 +72,8 @@ cmd_DELAY = "DELAY "
 cmd_STRING = "STRING "
 cmd_UARTPRINT = "UARTPRINT "
 
-default_cmd_delay_ms = 17
-default_char_delay_ms = 17
+default_cmd_delay_ms = 18
+default_char_delay_ms = 18
 prev_line = ""
 
 PARSE_OK = 0
