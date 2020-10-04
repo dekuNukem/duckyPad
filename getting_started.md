@@ -20,6 +20,8 @@ Simply plug it into your computer, and voilà:
 
 * Use `+` and `-` button to switch profiles.
 
+* Hold down `+` or `-` button to change RGB LED brightness.
+
 * Press a key to execute the corresponding script. Hold it down to repeat.
 
 ## Customizing Your Own Scripts
