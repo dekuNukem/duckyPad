@@ -4,6 +4,7 @@ import time
 import copy
 import shutil
 import pathlib
+import traceback
 import duck_objs
 import webbrowser
 import check_update
@@ -185,29 +186,29 @@ def debug_set_root_folder():
 def profile_shift_up():
     global profile_var
     global profile_list
-    selection = profile_listbox.curselection()
+    selection = profile_lstbox.curselection()
     if len(selection) <= 0 or selection[0] == 0:
         return
     source = selection[0]
     destination = selection[0] - 1
     profile_list[destination], profile_list[source] = profile_list[source], profile_list[destination]
     update_profile_display()
-    profile_listbox.selection_clear(0, len(profile_list))
-    profile_listbox.selection_set(destination)
+    profile_lstbox.selection_clear(0, len(profile_list))
+    profile_lstbox.selection_set(destination)
     update_profile_display()
 
 def profile_shift_down():
     global profile_var
     global profile_list
-    selection = profile_listbox.curselection()
+    selection = profile_lstbox.curselection()
     if len(selection) <= 0 or selection[0] == len(profile_list) - 1:
         return
     source = selection[0]
     destination = selection[0] + 1
     profile_list[destination], profile_list[source] = profile_list[source], profile_list[destination]
     update_profile_display()
-    profile_listbox.selection_clear(0, len(profile_list))
-    profile_listbox.selection_set(destination)
+    profile_lstbox.selection_clear(0, len(profile_list))
+    profile_lstbox.selection_set(destination)
     update_profile_display()
 
 def adapt_color(rgb_tuple):
@@ -218,9 +219,9 @@ def adapt_color(rgb_tuple):
 def update_profile_display():
     global selected_key
     profile_var.set([' '+x.name for x in profile_list]) # update profile listbox
-    if len(profile_listbox.curselection()) <= 0:
+    if len(profile_lstbox.curselection()) <= 0:
         return
-    index = profile_listbox.curselection()[0]
+    index = profile_lstbox.curselection()[0]
     bg_color_hex = rgb_to_hex(profile_list[index].bg_color)
     bg_color_button.config(background=bg_color_hex)
 
@@ -272,7 +273,7 @@ def update_key_button_appearances(profile_index):
 
 def kd_radiobutton_auto_click():
     global profile_list
-    selection = profile_listbox.curselection()
+    selection = profile_lstbox.curselection()
     if len(selection) <= 0:
         return
     profile_list[selection[0]].kd_color = None
@@ -280,7 +281,7 @@ def kd_radiobutton_auto_click():
 
 def kd_radiobutton_custom_click():
     global profile_list
-    selection = profile_listbox.curselection()
+    selection = profile_lstbox.curselection()
     if len(selection) <= 0:
         return
     profile_list[selection[0]].kd_color = last_rgb
@@ -288,19 +289,19 @@ def kd_radiobutton_custom_click():
 
 def dim_unused_keys_click():
     global profile_list
-    selection = profile_listbox.curselection()
+    selection = profile_lstbox.curselection()
     if len(selection) <= 0:
         return
     profile_list[selection[0]].dim_unused = bool(dim_unused_keys_checkbox_var.get())
     update_profile_display()
 
-def on_profile_listbox_select(event):
+def on_profile_lstbox_select(event):
     update_profile_display()
     
 def bg_color_click(event):
     global profile_list
     global last_rgb
-    selection = profile_listbox.curselection()
+    selection = profile_lstbox.curselection()
     if len(selection) <= 0:
         return
     result = askcolor()[-1]
@@ -312,7 +313,7 @@ def bg_color_click(event):
 
 def kd_color_click(event):
     global profile_list
-    selection = profile_listbox.curselection()
+    selection = profile_lstbox.curselection()
     if len(selection) <= 0 or kd_color_var.get() == 0:
         return
     result = askcolor()[-1]
@@ -341,12 +342,12 @@ def profile_add_click():
     if answer is None:
         return
     answer = clean_input(answer, 13)
-    if len(answer) <= 0 or answer in [x.name for x in profile_list]:
+    if len(answer) <= 0:# or answer in [x.name for x in profile_list]:
         return
 
     insert_point = len(profile_list)
     try:
-        insert_point = profile_listbox.curselection()[0] + 1
+        insert_point = profile_lstbox.curselection()[0] + 1
     except Exception as e:
         # print('insert:', e)
         pass
@@ -355,46 +356,46 @@ def profile_add_click():
     new_profile.name = answer
     profile_list.insert(insert_point, new_profile)
     update_profile_display()
-    profile_listbox.selection_clear(0, len(profile_list))
-    profile_listbox.selection_set(insert_point)
+    profile_lstbox.selection_clear(0, len(profile_list))
+    profile_lstbox.selection_set(insert_point)
     update_profile_display()
 
 def profile_remove_click():
     global profile_list
-    selection = profile_listbox.curselection()
+    selection = profile_lstbox.curselection()
     if len(selection) <= 0:
         return
     profile_list.pop(selection[0])
     update_profile_display()
-    profile_listbox.selection_clear(0, len(profile_list))
-    profile_listbox.selection_set(selection[0])
+    profile_lstbox.selection_clear(0, len(profile_list))
+    profile_lstbox.selection_set(selection[0])
     update_profile_display()
-    if len(profile_list) <= 0 or len(profile_listbox.curselection()) <= 0:
+    if len(profile_list) <= 0 or len(profile_lstbox.curselection()) <= 0:
         update_key_button_appearances(None)
         reset_key_button_relief()
 
 def profile_dupe_click():
     global profile_list
-    selection = profile_listbox.curselection()
+    selection = profile_lstbox.curselection()
     if len(selection) <= 0:
         return
     answer = simpledialog.askstring("Input", "New name?", parent=profiles_lf, initialvalue=profile_list[selection[0]].name)
     if answer is None:
         return
     answer = clean_input(answer, 13)
-    if len(answer) <= 0 or answer in [x.name for x in profile_list]:
+    if len(answer) <= 0: # or answer in [x.name for x in profile_list]:
         return
     new_profile = copy.deepcopy(profile_list[selection[0]])
     new_profile.name = answer
     profile_list.insert(selection[0] + 1, new_profile)
     update_profile_display()
-    profile_listbox.selection_clear(0, len(profile_list))
-    profile_listbox.selection_set(selection[0] + 1)
+    profile_lstbox.selection_clear(0, len(profile_list))
+    profile_lstbox.selection_set(selection[0] + 1)
     update_profile_display()
 
 def profile_rename_click():
     global profile_list
-    selection = profile_listbox.curselection()
+    selection = profile_lstbox.curselection()
     if len(selection) <= 0:
         return
     answer = simpledialog.askstring("Input", "New name?", parent=profiles_lf, initialvalue=profile_list[selection[0]].name)
@@ -462,7 +463,7 @@ def save_everything(save_path):
 
     except Exception as e:
         # print('save_click:', e)
-        messagebox.showerror("Error", "Save Failed!\n"+str(e))
+        messagebox.showerror("Error", "Save Failed!\n"+str(traceback.format_exc()))
         save_result_label.config(text='Save FAILED!', fg="red", bg=default_button_color, cursor="")
         save_result_label.unbind("<Button-1>")
     last_save = time.time()
@@ -483,9 +484,9 @@ def key_button_click(button_widget):
     global last_rgb
     global selected_key
     global key_button_clicked_at
-    if len(profile_listbox.curselection()) <= 0:
+    if len(profile_lstbox.curselection()) <= 0:
         return
-    profile_index = profile_listbox.curselection()[0]
+    profile_index = profile_lstbox.curselection()[0]
     selected_key = key_button_list.index(button_widget)
     reset_key_button_relief()
     button_widget.config(borderwidth=7, relief='sunken')
@@ -560,9 +561,9 @@ profiles_lf = LabelFrame(root, text="Profiles", width=int(MAIN_WINDOW_WIDTH / 3 
 profiles_lf.place(x=PADDING, y=HIGHT_ROOT_FOLDER_LF)
 root.update()
 
-profile_listbox = Listbox(profiles_lf, listvariable=profile_var, height=16, exportselection=0) #, selectmode='single'?
-profile_listbox.place(x=32, y=PADDING, width=182, height=270)
-profile_listbox.bind('<<ListboxSelect>>', on_profile_listbox_select)
+profile_lstbox = Listbox(profiles_lf, listvariable=profile_var, height=16, exportselection=0) #, selectmode='single'?
+profile_lstbox.place(x=32, y=PADDING, width=182, height=270)
+profile_lstbox.bind('<<ListboxSelect>>', on_profile_lstbox_select)
 
 profile_up_button = Button(profiles_lf, text="↑", command=profile_shift_up, state=DISABLED)
 profile_up_button.place(x=5, y=80, width=20, height=40)
@@ -641,9 +642,9 @@ drag_destination_button_index = None
 def button_drag_start(event):
     global drag_source_button_index
     global drag_destination_button_index
-    if len(profile_listbox.curselection()) <= 0:
+    if len(profile_lstbox.curselection()) <= 0:
         return
-    profile_index = profile_listbox.curselection()[0]
+    profile_index = profile_lstbox.curselection()[0]
     drag_source_button_index = key_button_list.index(event.widget)
     # if empty button
     if profile_list[profile_index].keylist[drag_source_button_index] is None:
@@ -663,9 +664,9 @@ def button_drag_start(event):
         update_key_button_appearances(profile_index)
 
 def update_keylist_index():
-    if len(profile_listbox.curselection()) <= 0:
+    if len(profile_lstbox.curselection()) <= 0:
         return
-    profile_index = profile_listbox.curselection()[0]
+    profile_index = profile_lstbox.curselection()[0]
     for index, item in enumerate(profile_list[profile_index].keylist):
         if item is not None:
             item.index = index + 1
@@ -673,14 +674,14 @@ def update_keylist_index():
 def button_drag_release(event):
     global drag_source_button_index
     global drag_destination_button_index
-    if len(profile_listbox.curselection()) <= 0:
+    if len(profile_lstbox.curselection()) <= 0:
         return
     if drag_source_button_index == drag_destination_button_index:
         return
     # print('source:', drag_source_button_index)
     # print('destination:', drag_destination_button_index)
     # print('------')
-    profile_index = profile_listbox.curselection()[0]
+    profile_index = profile_lstbox.curselection()[0]
     update_key_button_appearances(profile_index)
     reset_key_button_relief()
     if drag_source_button_index is not None and drag_destination_button_index is not None:
@@ -721,9 +722,9 @@ KEY_BUTTON_GAP = int((keys_lf.winfo_width() - 2 * BUTTON_WIDTH) / 3.5)
 def key_rename_click():
     if is_key_selected() == False:
         return
-    profile_index = profile_listbox.curselection()[0]
+    profile_index = profile_lstbox.curselection()[0]
     result = clean_input(key_name_entrybox.get(), 7, clean_filename=False)
-    if len(result) <= 0 or result in [x.name for x in profile_list[profile_index].keylist if x is not None]:
+    if len(result) <= 0: # or result in [x.name for x in profile_list[profile_index].keylist if x is not None]
         return
     if profile_list[profile_index].keylist[selected_key] is not None:
         profile_list[profile_index].keylist[selected_key].name = result
@@ -739,7 +740,7 @@ def key_rename_click():
 def key_remove_click():
     if is_key_selected() == False:
         return
-    profile_index = profile_listbox.curselection()[0]
+    profile_index = profile_lstbox.curselection()[0]
     profile_list[profile_index].keylist[selected_key] = None
     update_key_button_appearances(profile_index)
     key_button_click(key_button_list[selected_key])
@@ -757,7 +758,7 @@ root.update()
 def key_color_rb1_click():
     if is_key_selected() == False:
         return
-    profile_index = profile_listbox.curselection()[0]
+    profile_index = profile_lstbox.curselection()[0]
     if profile_list[profile_index].keylist[selected_key] is not None:
         profile_list[profile_index].keylist[selected_key].color = None
     update_key_button_appearances(profile_index)
@@ -766,14 +767,14 @@ def key_color_rb1_click():
 def key_color_rb2_click():
     if is_key_selected() == False:
         return
-    profile_index = profile_listbox.curselection()[0]
+    profile_index = profile_lstbox.curselection()[0]
     if profile_list[profile_index].keylist[selected_key] is not None:
         profile_list[profile_index].keylist[selected_key].color = last_rgb
     update_key_button_appearances(profile_index)
     key_button_click(key_button_list[selected_key])
 
 def is_key_selected():
-    if len(profile_listbox.curselection()) <= 0:
+    if len(profile_lstbox.curselection()) <= 0:
         return False
     if selected_key is None:
         return False
@@ -783,7 +784,7 @@ def key_color_button_click(event):
     global last_rgb
     if is_key_selected() == False:
         return
-    profile_index = profile_listbox.curselection()[0]
+    profile_index = profile_lstbox.curselection()[0]
     if profile_list[profile_index].keylist[selected_key] is not None:
         result = askcolor()[-1]
         if result is None:
@@ -831,7 +832,7 @@ def script_textbox_modified():
         return
     modified_count += 1
     last_textbox_edit = time.time()
-    profile_index = profile_listbox.curselection()[0]
+    profile_index = profile_lstbox.curselection()[0]
     cantthinkofaname = ""
     if modified_count - key_button_clicked_at > 2:
         if profile_list[profile_index].keylist[selected_key] is not None:
@@ -902,7 +903,7 @@ def check_syntax_click():
     if is_key_selected() == False:
         return
     has_errors = False
-    profile_index = profile_listbox.curselection()[0]
+    profile_index = profile_lstbox.curselection()[0]
     if profile_list[profile_index].keylist[selected_key] is None:
         return
     script_textbox.tag_remove("error", '1.0', 'end')
