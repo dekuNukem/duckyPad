@@ -404,7 +404,7 @@ void save_last_profile(uint8_t profile_id)
   if(f_open(&sd_file, "dp_stats.txt", FA_CREATE_ALWAYS | FA_WRITE) != 0)
     goto slp_end;
   memset(temp_buf, 0, PATH_SIZE);
-  sprintf(temp_buf, "lp %d\nfw %d.%d.%d\nbi %d\n", profile_id, fw_version_major, fw_version_minor, fw_version_patch, brightness_index);
+  sprintf(temp_buf, "lp %d\nfw %d.%d.%d\nbi %d\nkbl %d\n", profile_id, fw_version_major, fw_version_minor, fw_version_patch, brightness_index, curr_kb_layout);
   f_write(&sd_file, temp_buf, strlen(temp_buf), &ignore_this);
 	slp_end:
   f_close(&sd_file);

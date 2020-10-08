@@ -29,13 +29,18 @@ void draw_brightness_value()
     ssd1306_UpdateScreen();
 }
 
-void set_brightness(uint8_t index)
+void service_all(void)
 {
-    // printf("%d\n", brightness_index);
+  for (int i = 0; i < KEY_COUNT; ++i)
+    service_press(&button_status[i]);
+}
+
+void set_brightness(void)
+{
     draw_brightness_value();
     redraw_bg();
     osDelay(30);
-    service_press(&button_status[index]);
+    service_all();
     save_last_profile(p_cache.current_profile);
 }
 
@@ -55,8 +60,7 @@ void change_brightness()
     ssd1306_WriteString("Press any key to exit",Font_6x10,White);
     ssd1306_UpdateScreen();
     draw_brightness_value();
-    service_press(&button_status[KEY_BUTTON1]);
-    service_press(&button_status[KEY_BUTTON2]);
+    service_all();
     while(1)
     {
         HAL_IWDG_Refresh(&hiwdg);
@@ -75,14 +79,14 @@ void change_brightness()
             brightness_index--;
             if(brightness_index < 0)
                 brightness_index = 0;
-            set_brightness(KEY_BUTTON1);
+            set_brightness();
         }
         if(is_pressed(&button_status[KEY_BUTTON2])) // -
         {
             brightness_index++;
             if(brightness_index >= BRIGHTNESS_LEVELS)
                 brightness_index = BRIGHTNESS_LEVELS - 1;
-            set_brightness(KEY_BUTTON2);
+            set_brightness();
         }
     }
 }
@@ -114,10 +118,60 @@ void handle_button_press(uint8_t button_num)
     }
 }
 
+void enter_config(void)
+{
+  keyboard_update();
+  if(is_pressed(&button_status[0]) == 0)
+    return;
+  all_led_off();
+  osDelay(50);
+  service_all();
+  is_in_settings = 1;
+  ssd1306_Fill(Black);
+  ssd1306_SetCursor(19, 0);
+  ssd1306_WriteString("Keyboard Layout:",Font_6x10,White);
+  ssd1306_SetCursor(10, 12);
+  ssd1306_WriteString("1: WQERTY",Font_6x10,White);
+  ssd1306_SetCursor(10, 24);
+  ssd1306_WriteString("2: AZERTY",Font_6x10,White);
+  ssd1306_SetCursor(10, 36);
+  ssd1306_WriteString("3: DVORAK",Font_6x10,White);
+  ssd1306_SetCursor(5, 53);
+  ssd1306_WriteString("Select with keypad",Font_6x10,White);
+  ssd1306_UpdateScreen();
+  while(1)
+  {
+    keyboard_update();
+    HAL_IWDG_Refresh(&hiwdg);
+    if(is_pressed(&button_status[0]))
+    {
+      curr_kb_layout = KB_LAYOUT_WQERTY;
+      break;
+    }
+    else if(is_pressed(&button_status[1]))
+    {
+      curr_kb_layout = KB_LAYOUT_AZERTY;
+      break;
+    }
+    else if(is_pressed(&button_status[2]))
+    {
+      curr_kb_layout = KB_LAYOUT_DVORAK;
+      break;
+    }
+  }
+  save_last_profile(p_cache.current_profile);
+  service_all();
+  is_in_settings = 0;
+  print_legend(0, 0);
+}
+
 void keypress_task_start(void const * argument)
 {
   while(init_complete == 0)
     osDelay(16);
+  enter_config();
+  change_bg();
+  service_all();
   for(;;)
   {
     for (int i = 0; i < KEY_COUNT; ++i)

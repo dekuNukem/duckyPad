@@ -86,7 +86,7 @@ osThreadId kb_scanHandle;
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 uint8_t fw_version_major = 0;
-uint8_t fw_version_minor = 5;
+uint8_t fw_version_minor = 6;
 uint8_t fw_version_patch = 0;
 char instruction[] = "For instructions, see";
 char project_url[] = "git.io/duckypad";
@@ -543,7 +543,7 @@ void kb_scan_task(void const * argument)
     change_profile(NEXT_PROFILE);
   else
     restore_profile(last_profile);
-   
+  
   init_complete = 1;
   /* Infinite loop */
   for(;;)

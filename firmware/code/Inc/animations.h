@@ -39,7 +39,7 @@ void redraw_bg(void);
 void change_bg(void);
 void neopixel_off(void);
 void key_led_shutdown(void);
-
+void all_led_off(void);
 extern int8_t brightness_index;
 extern uint8_t brightness_values[BRIGHTNESS_LEVELS];
 #ifdef __cplusplus

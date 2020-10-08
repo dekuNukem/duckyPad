@@ -129,7 +129,7 @@ void anime_init(void)
 {
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
     led_animation_init(&neo_anime[i], i);
-  change_bg();
+  // change_bg();
 }
 
 void redraw_bg(void)
@@ -189,4 +189,10 @@ void key_led_shutdown(void)
     led_start_animation(&neo_anime[i], color_black, ANIMATION_CROSS_FADE, 8);
     neo_anime[i].animation_start += 1.5 * rand_order_buf[i];
   }
+}
+
+void all_led_off(void)
+{
+  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+    led_start_animation(&neo_anime[i], color_black, ANIMATION_FULLY_ON, 2);
 }

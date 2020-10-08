@@ -58,11 +58,17 @@
 
 #define KB_BUF_SIZE 5
 
+#define KB_LAYOUT_WQERTY 0
+#define KB_LAYOUT_AZERTY 1
+#define KB_LAYOUT_DVORAK 2
+
 void kb_test(void);
 void kb_print(char* msg, uint16_t chardelay);
 void keyboard_release(uint8_t k);
 void keyboard_press(uint8_t k, uint8_t use_mod);
 void keyboard_release_all(void);
+
+extern uint8_t curr_kb_layout;
 
 #ifdef __cplusplus
 }
