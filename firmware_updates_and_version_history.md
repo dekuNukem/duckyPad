@@ -8,7 +8,7 @@
 
 ### 0.6.0
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.5.0.dfu)
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.6.0.dfu)
 
 * Added support for `AZERTY (French)`, `AZERTY (Belgium)`, and `Dvorak` layout.
 
@@ -72,7 +72,7 @@ After uploading is complete, unplug and plug it back in to start using the new f
 
 ### 0.6.0
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.5.0.dfu)
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.6.0.dfu)
 
 * Added support for `AZERTY (French)`, `AZERTY (Belgium)`, and `Dvorak` layout.
 
