@@ -130,14 +130,14 @@ void enter_config(void)
   ssd1306_Fill(Black);
   ssd1306_SetCursor(19, 0);
   ssd1306_WriteString("Keyboard Layout:",Font_6x10,White);
-  ssd1306_SetCursor(10, 12);
+  ssd1306_SetCursor(10, 12+3);
   ssd1306_WriteString("1: WQERTY",Font_6x10,White);
-  ssd1306_SetCursor(10, 24);
+  ssd1306_SetCursor(10, 24+3);
   ssd1306_WriteString("2: AZERTY(FR)",Font_6x10,White);
-  ssd1306_SetCursor(10, 36);
-  ssd1306_WriteString("3: DVORAK",Font_6x10,White);
-  ssd1306_SetCursor(5, 53);
-  ssd1306_WriteString("Select with keypad",Font_6x10,White);
+  ssd1306_SetCursor(10, 36+3);
+  ssd1306_WriteString("3: AZERTY(BE)",Font_6x10,White);
+  ssd1306_SetCursor(10, 48+3);
+  ssd1306_WriteString("4: DVORAK",Font_6x10,White);
   ssd1306_UpdateScreen();
   while(1)
   {
@@ -150,10 +150,15 @@ void enter_config(void)
     }
     else if(is_pressed(&button_status[1]))
     {
-      curr_kb_layout = KB_LAYOUT_AZERTY;
+      curr_kb_layout = KB_LAYOUT_AZERTY_FR;
       break;
     }
     else if(is_pressed(&button_status[2]))
+    {
+      curr_kb_layout = KB_LAYOUT_AZERTY_BE;
+      break;
+    }
+    else if(is_pressed(&button_status[3]))
     {
       curr_kb_layout = KB_LAYOUT_DVORAK;
       break;

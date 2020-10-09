@@ -47,7 +47,6 @@
 #define KEY_DOWN_ARROW 0X51
 #define KEY_UP_ARROW 0X52
 
-
 #define KEY_MENU 0x65
 
 #define KEY_MK_VOLDOWN 0x80
@@ -61,8 +60,9 @@
 #define KB_BUF_SIZE 5
 
 #define KB_LAYOUT_WQERTY 0
-#define KB_LAYOUT_AZERTY 1
-#define KB_LAYOUT_DVORAK 2
+#define KB_LAYOUT_AZERTY_FR 1
+#define KB_LAYOUT_AZERTY_BE 2
+#define KB_LAYOUT_DVORAK 3
 
 #define KEY_TYPE_UNKNOWN 0
 #define KEY_TYPE_CHAR 1

@@ -20,9 +20,11 @@ Simply plug it into your computer, and voilà:
 
 * Use `+` and `-` button to switch profiles.
 
+* Press a key to execute the corresponding script. Hold it down to repeat.
+
 * Hold down `+` or `-` button to change RGB LED brightness.
 
-* Press a key to execute the corresponding script. Hold it down to repeat.
+* If you use `AZERTY` or `Dvorak` layout, **`HOLD DOWN TOP LEFT KEY while PLUGGING IT IN`**, then select your layout.
 
 ## Customizing Your Own Scripts
 

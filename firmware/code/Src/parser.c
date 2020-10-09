@@ -797,7 +797,7 @@ void parse_combo(char* line, my_key* first_key)
 {
   if(line == NULL || first_key == NULL)
     return;
-  // printf("first %d %d\n", first_key->key_type, first_key->code);
+
   my_key key_1, key_2;
   char* line_end = line + strlen(line);
   char *arg1 = goto_next_arg(line, line_end);

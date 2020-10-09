@@ -7,6 +7,13 @@ after its done then fade back to background color
 */
       // printf("%d %c 0x%x\n", this_key->code, this_key->code, usage_id);
 
+// void print_kb_buf(void)
+// {
+//   for (int i = 0; i < KB_BUF_SIZE; ++i)
+//     printf("0x%x ", kb_buf[i]);
+//   printf("\n");
+// }
+
 void media_key_press(uint8_t k)
 {
   // uint8_t usage_id = 0;

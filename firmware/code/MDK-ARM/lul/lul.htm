@@ -3,7 +3,7 @@
 <title>Static Call Graph - [lul\lul.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image lul\lul.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Oct 09 16:31:29 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Oct 09 17:18:06 2020
 <BR><P>
 <H3>Maximum Stack Usage =        416 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -234,13 +234,13 @@ Global Symbols
 <P><STRONG><a name="[46]"></a>__aeabi_uidivmod</STRONG> (Thumb, 44 bytes, Stack size 12 bytes, uidiv.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = __aeabi_uidivmod
 </UL>
-<BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_ConfigChannel
+<BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_DataInStage
+<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_ConfigChannel
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
 <LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_pixel_color
 <LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_keyname
 <LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_Enable
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_InitTick
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_DataInStage
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_GetSysClockFreq
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_SetConfig
 <LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_volume
@@ -1894,7 +1894,7 @@ Global Symbols
 <LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_brightness
 </UL>
 
-<P><STRONG><a name="[12e]"></a>enter_config</STRONG> (Thumb, 230 bytes, Stack size 24 bytes, my_tasks.o(i.enter_config))
+<P><STRONG><a name="[12e]"></a>enter_config</STRONG> (Thumb, 246 bytes, Stack size 24 bytes, my_tasks.o(i.enter_config))
 <BR><BR>[Stack]<UL><LI>Max Depth = 360<LI>Call Chain = enter_config &rArr; save_last_profile &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
@@ -2235,7 +2235,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_scan_task
 </UL>
 
-<P><STRONG><a name="[171]"></a>get_scancode</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, keyboard.o(i.get_scancode))
+<P><STRONG><a name="[171]"></a>get_scancode</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, keyboard.o(i.get_scancode))
 <BR><BR>[Called By]<UL><LI><a href="#[16d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_release
 <LI><a href="#[16c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_press
 </UL>
@@ -2362,7 +2362,7 @@ Global Symbols
 <LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_combo
 </UL>
 
-<P><STRONG><a name="[16d]"></a>keyboard_release</STRONG> (Thumb, 116 bytes, Stack size 8 bytes, keyboard.o(i.keyboard_release))
+<P><STRONG><a name="[16d]"></a>keyboard_release</STRONG> (Thumb, 114 bytes, Stack size 8 bytes, keyboard.o(i.keyboard_release))
 <BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = keyboard_release &rArr; media_key_release &rArr; USBD_HID_SendReport &rArr; USBD_LL_Transmit &rArr; HAL_PCD_EP_Transmit &rArr; PCD_WritePMA
 </UL>
 <BR>[Calls]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_HID_SendReport
