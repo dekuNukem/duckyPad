@@ -6,13 +6,15 @@
 
 ## Latest Firmware
 
-### 0.5.0
+### 0.6.0
 
 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.5.0.dfu)
 
-* Added RGB LED brightness adjustment
+* Added support for `AZERTY (French)`, `AZERTY (Belgium)`, and `Dvorak` layout.
 
-* Hold down +/- button to change brightness
+* **`HOLD DOWN TOP LEFT KEY`** while **`PLUGGING IT IN`** to switch layouts.
+
+* Some behind-the-scene optimisation
 
 ## USB Firmware Updates
 
@@ -67,6 +69,16 @@ After uploading is complete, unplug and plug it back in to start using the new f
 ------
 
 ## Firmware Version History
+
+### 0.6.0
+
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.5.0.dfu)
+
+* Added support for `AZERTY (French)`, `AZERTY (Belgium)`, and `Dvorak` layout.
+
+* **`HOLD DOWN TOP LEFT KEY`** while **`PLUGGING IT IN`** to switch layouts.
+
+* Some behind-the-scene optimisation
 
 ### 0.5.0
 

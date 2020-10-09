@@ -24,7 +24,7 @@ Simply plug it into your computer, and voilà:
 
 * Hold down `+` or `-` button to change RGB LED brightness.
 
-* If you use `AZERTY` or `Dvorak` layout, **`HOLD DOWN TOP LEFT KEY while PLUGGING IT IN`**, then select your layout.
+* If you use `AZERTY` or `Dvorak` layout, **`HOLD DOWN TOP LEFT KEY`** while **`PLUGGING IT IN`**, then select your layout.
 
 ## Customizing Your Own Scripts
 
