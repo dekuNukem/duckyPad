@@ -5,6 +5,7 @@ the key should be breathing
 32 frame lookup table
 after its done then fade back to background color
 */
+      // printf("%d %c 0x%x\n", this_key->code, this_key->code, usage_id);
 
 void media_key_press(uint8_t k)
 {

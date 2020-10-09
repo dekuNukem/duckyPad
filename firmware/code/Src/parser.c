@@ -427,6 +427,8 @@ uint8_t get_last_profile(void)
       brightness_index = atoi(temp_buf+3);
     if(brightness_index >= BRIGHTNESS_LEVELS)
       brightness_index = BRIGHTNESS_LEVELS - 1;
+    if(strncmp(temp_buf, "kbl ", 4) == 0)
+      curr_kb_layout = atoi(temp_buf+4);
   }
 
   if(ret >= MAX_PROFILES || p_cache.available_profile[ret] == 0)
@@ -802,7 +804,7 @@ void parse_combo(char* line, my_key* first_key)
   char *arg2 = goto_next_arg(arg1, line_end);
 
   parse_special_key(arg1, &key_1);
-  if(arg1 != NULL && key_1.key_ty   pe == KEY_TYPE_UNKNOWN)
+  if(arg1 != NULL && key_1.key_type == KEY_TYPE_UNKNOWN)
   {
     key_1.key_type = KEY_TYPE_CHAR;
     key_1.code = arg1[0];

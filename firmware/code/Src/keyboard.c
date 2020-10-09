@@ -8,10 +8,10 @@
 
 uint8_t curr_kb_layout;
 
-#define SHIFT 0x80
-#define ALT_GR 0x40
+#define SHIFT 0x100
+#define ALT_GR 0x200
 
-const uint8_t _asciimap_wqerty[128] =
+const uint16_t _asciimap_wqerty[128] =
 {
   0x00,             // NUL
   0x00,             // SOH
@@ -144,7 +144,7 @@ const uint8_t _asciimap_wqerty[128] =
   0       // DEL
 };
 
-const uint8_t _asciimap_azerty_fr[128] =
+const uint16_t _asciimap_azerty_fr[128] =
 {
   0x00,             // NUL
   0x00,             // SOH
@@ -152,16 +152,16 @@ const uint8_t _asciimap_azerty_fr[128] =
   0x00,             // ETX
   0x00,             // EOT
   0x00,             // ENQ
-  0x00,             // ACK
+  0x00,             // ACK  
   0x00,             // BEL
-  0x2a,             // BS Backspace
-  0x2b,             // TAB  Tab
-  0x28,             // LF Enter
-  0x00,             // VT
-  0x00,             // FF
-  0x00,             // CR
-  0x00,             // SO
-  0x00,             // SI
+  0x2a,     // BS Backspace
+  0x2b,     // TAB  Tab
+  0x28,     // LF Enter
+  0x00,             // VT 
+  0x00,             // FF 
+  0x00,             // CR 
+  0x00,             // SO 
+  0x00,             // SI 
   0x00,             // DEL
   0x00,             // DC1
   0x00,             // DC2
@@ -171,113 +171,113 @@ const uint8_t _asciimap_azerty_fr[128] =
   0x00,             // SYN
   0x00,             // ETB
   0x00,             // CAN
-  0x00,             // EM
+  0x00,             // EM 
   0x00,             // SUB
   0x00,             // ESC
-  0x00,             // FS
-  0x00,             // GS
-  0x00,             // RS
-  0x00,             // US
+  0x00,             // FS 
+  0x00,             // GS 
+  0x00,             // RS 
+  0x00,             // US 
 
-  0x2c,          //  ' '
-  0x38,          // !
-  0x20,          // "
-  0x20|SHIFT,    // #
-  0x30,          // $
-  0x34|SHIFT,    // % (todo)
-  0x1E,          // &
+  0x2c,      //  ' '
+  0x38,    // !
+  0x20,    // "
+  0x20|ALT_GR,    // #
+  0x30,    // $
+  0x34|SHIFT,    // %
+  0x1e,    // &
   0x21,          // '
-  0x22,         // (
-  0x2d,         // )
-  0x31,         // *
-  0x2b|SHIFT,    // +
+  0x22,    // (
+  0x2d,    // )
+  0x32,    // *
+  0x2e|SHIFT,    // +
   0x10,          // ,
   0x23,          // -
-  0x36|SHIFT,    // .
-  0x37|SHIFT,    // /
-  0x27|SHIFT,    // 0
-  0x1e|SHIFT,    // 1
-  0x1f|SHIFT,    // 2
-  0x20|SHIFT,    // 3
-  0x21|SHIFT,    // 4
-  0x22|SHIFT,    // 5
-  0x23|SHIFT,    // 6
-  0x24|SHIFT,    // 7
-  0x25|SHIFT,    // 8
-  0x26|SHIFT,    // 9
-  0x37,          // :
+  0x36|SHIFT,          // .
+  0x37|SHIFT,          // /
+  0x27|SHIFT,          // 0
+  0x1e|SHIFT,          // 1
+  0x1f|SHIFT,          // 2
+  0x20|SHIFT,          // 3
+  0x21|SHIFT,          // 4
+  0x22|SHIFT,          // 5
+  0x23|SHIFT,          // 6
+  0x24|SHIFT,          // 7
+  0x25|SHIFT,          // 8
+  0x26|SHIFT,          // 9
+  0x37,      // :
   0x36,          // ;
-  0x64,          // <
+  0x64,      // <
   0x2e,          // =
-  0x64|SHIFT,    // >
-  0x10|SHIFT,    // ?
-  0x1f,          // @ (todo)
-  0x14|SHIFT,    // A
-  0x05|SHIFT,    // B
-  0x06|SHIFT,    // C
-  0x07|SHIFT,    // D
-  0x08|SHIFT,    // E
-  0x09|SHIFT,    // F
-  0x0a|SHIFT,    // G
-  0x0b|SHIFT,    // H
-  0x0c|SHIFT,    // I
-  0x0d|SHIFT,    // J
-  0x0e|SHIFT,    // K
-  0x0f|SHIFT,    // L
-  0x33|SHIFT,    // M
-  0x11|SHIFT,    // N
-  0x12|SHIFT,    // O
-  0x13|SHIFT,    // P
-  0x04|SHIFT,    // Q
-  0x15|SHIFT,    // R
-  0x16|SHIFT,    // S
-  0x17|SHIFT,    // T
-  0x18|SHIFT,    // U
-  0x19|SHIFT,    // V
-  0x1d|SHIFT,    // W
-  0x1b|SHIFT,    // X
-  0x1c|SHIFT,    // Y
-  0x1a|SHIFT,    // Z
-  0x0c,          // [ TODO 2F
-  0x31,          // bslash
-  0x0d,          // ] TODO 30
-  0x2F,          // ^
-  0x25,          // _
-  0x35,          // ` TODO
-  0x14,          // a
-  0x05,          // b
-  0x06,          // c
-  0x07,          // d
-  0x08,          // e
-  0x09,          // f
-  0x0a,          // g
-  0x0b,          // h
-  0x0c,          // i
-  0x0d,          // j
-  0x0e,          // k
-  0x0f,          // l
-  0x33,          // m
-  0x11,          // n
-  0x12,          // o
-  0x13,          // p
-  0x04,          // q
-  0x15,          // r
-  0x16,          // s
-  0x17,          // t
-  0x18,          // u
-  0x19,          // v
-  0x1d,          // w
-  0x1b,          // x
-  0x1c,          // y
-  0x1a,          // z
-  0x2f|SHIFT,    // {
-  0x31|SHIFT,    // | TODO
-  0x30|SHIFT,    // } TODO
-  0x35|SHIFT,    // ~ TODO
-  0              // DEL
+  0x64|SHIFT,      // >
+  0x10|SHIFT,      // ?
+  0x27|ALT_GR,      // @
+  0x14|SHIFT,      // A
+  0x05|SHIFT,      // B
+  0x06|SHIFT,      // C
+  0x07|SHIFT,      // D
+  0x08|SHIFT,      // E
+  0x09|SHIFT,      // F
+  0x0a|SHIFT,      // G
+  0x0b|SHIFT,      // H
+  0x0c|SHIFT,      // I
+  0x0d|SHIFT,      // J
+  0x0e|SHIFT,      // K
+  0x0f|SHIFT,      // L
+  0x33|SHIFT,      // M
+  0x11|SHIFT,      // N
+  0x12|SHIFT,      // O
+  0x13|SHIFT,      // P
+  0x04|SHIFT,      // Q
+  0x15|SHIFT,      // R
+  0x16|SHIFT,      // S
+  0x17|SHIFT,      // T
+  0x18|SHIFT,      // U
+  0x19|SHIFT,      // V
+  0x1d|SHIFT,      // W
+  0x1b|SHIFT,      // X
+  0x1c|SHIFT,      // Y
+  0x1a|SHIFT,      // Z
+  0x22|ALT_GR,          // [
+  0x25|ALT_GR,          // bslash
+  0x2d|ALT_GR,          // ]
+  0x26|ALT_GR,    // ^
+  0x25,    // _
+  0x24|ALT_GR,          // `
+  0x14,      // a
+  0x05,      // b
+  0x06,      // c
+  0x07,      // d
+  0x08,      // e
+  0x09,      // f
+  0x0a,      // g
+  0x0b,      // h
+  0x0c,      // i
+  0x0d,      // j
+  0x0e,      // k
+  0x0f,      // l
+  0x33,      // m
+  0x11,      // n
+  0x12,      // o
+  0x13,      // p
+  0x04,      // q
+  0x15,      // r
+  0x16,      // s
+  0x17,      // t
+  0x18,      // u
+  0x19,      // v
+  0x1d,      // w
+  0x1b,      // x
+  0x1c,      // y
+  0x1a,      // z
+  0x21|ALT_GR,    // {
+  0x23|ALT_GR,    // |
+  0x2e|ALT_GR,    // }
+  0x1f|ALT_GR,    // ~
+  0       // DEL
 };
 
-const uint8_t _asciimap_dvorak[128] =
+const uint16_t _asciimap_dvorak[128] =
 {
   0x00,             // NUL
   0x00,             // SOH
@@ -410,23 +410,23 @@ const uint8_t _asciimap_dvorak[128] =
   0       // DEL
 };
 
-uint8_t get_scancode(uint8_t index)
+uint16_t get_scancode(uint8_t index)
 {
-  // if(curr_kb_layout == KB_LAYOUT_AZERTY)
-  //   return _asciimap_azerty_fr[index];
-  // else if(curr_kb_layout == KB_LAYOUT_DVORAK)
-  //   return _asciimap_dvorak[index];
+  if(curr_kb_layout == KB_LAYOUT_AZERTY)
+    return _asciimap_azerty_fr[index];
+  else if(curr_kb_layout == KB_LAYOUT_DVORAK)
+    return _asciimap_dvorak[index];
   return _asciimap_wqerty[index];
 }
 
 uint8_t kb_buf[KB_BUF_SIZE] = {1, 0, 0, 0, 0};
 
-void print_kb_buf(void)
-{
-  for (int i = 0; i < KB_BUF_SIZE; ++i)
-    printf("0x%x ", kb_buf[i]);
-  printf("\n");
-}
+// void print_kb_buf(void)
+// {
+//   for (int i = 0; i < KB_BUF_SIZE; ++i)
+//     printf("0x%x ", kb_buf[i]);
+//   printf("\n");
+// }
 
 void keyboard_release_all(void)
 {
@@ -472,7 +472,7 @@ void media_key_press(my_key* this_key)
 
 void keyboard_press(my_key* this_key, uint8_t use_shift)
 {
-  uint8_t usage_id;
+  uint16_t usage_id;
   if(this_key->key_type == KEY_TYPE_MEDIA)
   {
     media_key_press(this_key);
@@ -496,7 +496,7 @@ void keyboard_press(my_key* this_key, uint8_t use_shift)
       kb_buf[1] |= KEY_LEFT_SHIFT;
     else if(usage_id & ALT_GR)
       kb_buf[1] |= KEY_RIGHT_ALT;
-    usage_id = usage_id & 0x7f;
+    usage_id = usage_id & 0xff;
   }
 
   if(kb_buf[2] != usage_id && kb_buf[3] != usage_id && kb_buf[4] != usage_id)
@@ -504,7 +504,7 @@ void keyboard_press(my_key* this_key, uint8_t use_shift)
     for (int i = 2; i < KB_BUF_SIZE; ++i)
       if(kb_buf[i] == 0)
       {
-        kb_buf[i] = usage_id;
+        kb_buf[i] = (uint8_t)usage_id;
         break;
       }
   }
@@ -513,7 +513,7 @@ void keyboard_press(my_key* this_key, uint8_t use_shift)
 
 void keyboard_release(my_key* this_key)
 {
-  uint8_t usage_id;
+  uint16_t usage_id;
   if(this_key->key_type == KEY_TYPE_MEDIA)
   {
     media_key_release();
@@ -537,11 +537,11 @@ void keyboard_release(my_key* this_key)
       kb_buf[1] &= ~(KEY_LEFT_SHIFT);
     else if(usage_id & ALT_GR)
       kb_buf[1] &= ~(KEY_RIGHT_ALT);
-    usage_id = usage_id & 0x7f;
+    usage_id = usage_id & 0xff;
   }
 
   for (int i = 2; i < KB_BUF_SIZE; ++i)
-    if(kb_buf[i] == usage_id)
+    if(kb_buf[i] == (uint8_t)usage_id)
       kb_buf[i] = 0;
   USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, KB_BUF_SIZE);
 }

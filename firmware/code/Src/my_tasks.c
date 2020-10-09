@@ -133,7 +133,7 @@ void enter_config(void)
   ssd1306_SetCursor(10, 12);
   ssd1306_WriteString("1: WQERTY",Font_6x10,White);
   ssd1306_SetCursor(10, 24);
-  ssd1306_WriteString("2: AZERTY",Font_6x10,White);
+  ssd1306_WriteString("2: AZERTY(FR)",Font_6x10,White);
   ssd1306_SetCursor(10, 36);
   ssd1306_WriteString("3: DVORAK",Font_6x10,White);
   ssd1306_SetCursor(5, 53);
@@ -171,7 +171,7 @@ void keypress_task_start(void const * argument)
     osDelay(16);
   enter_config();
   change_bg();
-  service_all();
+  service_all();keyboard_release_all();
   for(;;)
   {
     for (int i = 0; i < KEY_COUNT; ++i)
