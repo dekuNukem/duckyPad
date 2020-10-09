@@ -87,6 +87,8 @@ const char cmd_END[] = "END";
 const char cmd_SPACE[] = "SPACE";
 const char cmd_SHIFT[] = "SHIFT";
 const char cmd_ALT[] = "ALT";
+const char cmd_LALT[] = "LALT";
+const char cmd_RALT[] = "RALT";
 const char cmd_GUI[] = "GUI";
 const char cmd_WINDOWS[] = "WINDOWS";
 const char cmd_CONTROL[] = "CONTROL";
@@ -572,6 +574,10 @@ uint8_t parse_special_key(char* msg)
     return KEY_LEFT_SHIFT;
   else if(strncmp(msg, cmd_ALT, strlen(cmd_ALT)) == 0)
     return KEY_LEFT_ALT;
+  else if(strncmp(msg, cmd_LALT, strlen(cmd_LALT)) == 0)
+    return KEY_LEFT_ALT;
+  else if(strncmp(msg, cmd_RALT, strlen(cmd_RALT)) == 0)
+    return KEY_RIGHT_ALT;
   else if(strncmp(msg, cmd_GUI, strlen(cmd_GUI)) == 0)
     return KEY_LEFT_GUI;
   else if(strncmp(msg, cmd_WINDOWS, strlen(cmd_WINDOWS)) == 0)
@@ -607,7 +613,7 @@ uint8_t parse_special_key(char* msg)
   return 0;
 }
 
-// able to press 3 keys at once
+// able to press 4 keys at once
 void parse_combo(char* line, uint8_t key)
 {
   uint8_t special_key_1 = 0;

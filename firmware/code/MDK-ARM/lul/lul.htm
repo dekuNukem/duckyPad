@@ -3,7 +3,7 @@
 <title>Static Call Graph - [lul\lul.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image lul\lul.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu Oct 08 22:57:02 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Oct 09 11:00:31 2020
 <BR><P>
 <H3>Maximum Stack Usage =        416 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -920,8 +920,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PCD_WritePMA
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_Transmit
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PCD_EP_ISR_Handler
+<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PCD_EP_ISR_Handler
+<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_Transmit
 </UL>
 
 <P><STRONG><a name="[8e]"></a>HAL_PCD_IRQHandler</STRONG> (Thumb, 238 bytes, Stack size 16 bytes, stm32f0xx_hal_pcd.o(i.HAL_PCD_IRQHandler))
@@ -2245,7 +2245,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[173]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;media_key_press
 </UL>
 
-<P><STRONG><a name="[174]"></a>get_scancode</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, keyboard.o(i.get_scancode))
+<P><STRONG><a name="[174]"></a>get_scancode</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, keyboard.o(i.get_scancode))
 <BR><BR>[Called By]<UL><LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_release
 <LI><a href="#[16d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_press
 </UL>
@@ -2693,7 +2693,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[17a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_line
 </UL>
 
-<P><STRONG><a name="[17a]"></a>parse_line</STRONG> (Thumb, 344 bytes, Stack size 24 bytes, parser.o(i.parse_line))
+<P><STRONG><a name="[17a]"></a>parse_line</STRONG> (Thumb, 338 bytes, Stack size 24 bytes, parser.o(i.parse_line))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = parse_line &rArr; parse_combo &rArr; osDelay &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
@@ -2709,7 +2709,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
 </UL>
 
-<P><STRONG><a name="[198]"></a>parse_special_key</STRONG> (Thumb, 1564 bytes, Stack size 8 bytes, parser.o(i.parse_special_key))
+<P><STRONG><a name="[198]"></a>parse_special_key</STRONG> (Thumb, 1620 bytes, Stack size 8 bytes, parser.o(i.parse_special_key))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = parse_special_key &rArr; strncmp
 </UL>
 <BR>[Calls]<UL><LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strncmp
@@ -4040,8 +4040,8 @@ Local Symbols
 <P><STRONG><a name="[d]"></a>USBD_HID_DeInit</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, usbd_hid.o(i.USBD_HID_DeInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = USBD_HID_DeInit &rArr; USBD_LL_CloseEP &rArr; HAL_PCD_EP_Close
 </UL>
-<BR>[Calls]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_static_free
-<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_CloseEP
+<BR>[Calls]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_CloseEP
+<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_static_free
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> usbd_hid.o(.data)
 </UL>
@@ -4054,8 +4054,8 @@ Local Symbols
 <P><STRONG><a name="[c]"></a>USBD_HID_Init</STRONG> (Thumb, 46 bytes, Stack size 16 bytes, usbd_hid.o(i.USBD_HID_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = USBD_HID_Init &rArr; USBD_LL_OpenEP &rArr; HAL_PCD_EP_Open
 </UL>
-<BR>[Calls]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_static_malloc
-<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_OpenEP
+<BR>[Calls]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_OpenEP
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_static_malloc
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> usbd_hid.o(.data)
 </UL>
