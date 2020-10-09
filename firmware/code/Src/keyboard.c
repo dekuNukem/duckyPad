@@ -412,10 +412,10 @@ const uint8_t _asciimap_dvorak[128] =
 
 uint8_t get_scancode(uint8_t index)
 {
-  if(curr_kb_layout == KB_LAYOUT_AZERTY)
-    return _asciimap_azerty_fr[index];
-  else if(curr_kb_layout == KB_LAYOUT_DVORAK)
-    return _asciimap_dvorak[index];
+  // if(curr_kb_layout == KB_LAYOUT_AZERTY)
+  //   return _asciimap_azerty_fr[index];
+  // else if(curr_kb_layout == KB_LAYOUT_DVORAK)
+  //   return _asciimap_dvorak[index];
   return _asciimap_wqerty[index];
 }
 
@@ -453,26 +453,6 @@ bit position corresponds to that
 etc
 */
 
-uint8_t get_media_key_code(uint8_t k)
-{
-  uint8_t mk_code = 0;
-  if(k == KEY_MK_VOLDOWN)
-    mk_code = 0x80;
-  else if(k == KEY_MK_VOLUP)
-    mk_code = 0x40;
-  else if(k == KEY_MK_VOLMUTE)
-    mk_code = 0x20;
-  else if(k == KEY_MK_PLAYPAUSE)
-    mk_code = 0x10;
-  else if(k == KEY_MK_STOP)
-    mk_code = 0x4;
-  else if(k == KEY_MK_PREV)
-    mk_code = 0x2;
-  else if(k == KEY_MK_NEXT)
-    mk_code = 0x1;
-  return mk_code;
-}
-
 void media_key_release()
 {
   memset(kb_buf, 0, KB_BUF_SIZE);
@@ -482,37 +462,43 @@ void media_key_release()
   kb_buf[0] = 1;
 }
 
-void media_key_press(uint8_t k)
+void media_key_press(my_key* this_key)
 {
   memset(kb_buf, 0, KB_BUF_SIZE);
   kb_buf[0] = 0x02;
-  kb_buf[1] = get_media_key_code(k);
+  kb_buf[1] = this_key->code;
   USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, 2);
 }
 
-// adopted from arduino keyboard.c
-// can be found in resources folder
-void keyboard_press(uint8_t k, uint8_t use_mod)
+void keyboard_press(my_key* this_key, uint8_t use_shift)
 {
   uint8_t usage_id;
-  if(is_media_key(k))
+  if(this_key->key_type == KEY_TYPE_MEDIA)
   {
-    media_key_press(k);
+    media_key_press(this_key);
     return;
   }
-  if(k >= 0x88)
-    usage_id = k - 0x88;
-  else if(k >= 0x80)
+  else if(this_key->key_type == KEY_TYPE_MODIFIER)
   {
-    kb_buf[1] |= (1<<(k-0x80));
+    kb_buf[1] |= this_key->code;
     usage_id = 0;
   }
+  else if(this_key->key_type == KEY_TYPE_SPECIAL)
+    usage_id = this_key->code;
+  else if(this_key->key_type == KEY_TYPE_CHAR)
+    usage_id = get_scancode(this_key->code);
   else
-    usage_id = get_scancode(k);
+    return;
 
-  if(use_mod && (usage_id & 0x80))
-    kb_buf[1] |= 0x2;
-  usage_id = usage_id & 0x7f;
+  if(use_shift && this_key->key_type == KEY_TYPE_CHAR)
+  {
+    if(usage_id & SHIFT)
+      kb_buf[1] |= KEY_LEFT_SHIFT;
+    else if(usage_id & ALT_GR)
+      kb_buf[1] |= KEY_RIGHT_ALT;
+    usage_id = usage_id & 0x7f;
+  }
+
   if(kb_buf[2] != usage_id && kb_buf[3] != usage_id && kb_buf[4] != usage_id)
   {
     for (int i = 2; i < KB_BUF_SIZE; ++i)
@@ -525,49 +511,59 @@ void keyboard_press(uint8_t k, uint8_t use_mod)
   USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, KB_BUF_SIZE);
 }
 
-void keyboard_release(uint8_t k)
+void keyboard_release(my_key* this_key)
 {
   uint8_t usage_id;
-
-  if(is_media_key(k))
+  if(this_key->key_type == KEY_TYPE_MEDIA)
   {
     media_key_release();
     return;
   }
-
-  if(k >= 0x88)
-    usage_id = k - 0x88;
-  else if(k >= 0x80)
+  else if(this_key->key_type == KEY_TYPE_MODIFIER)
   {
-    kb_buf[1] &= ~(1<<(k-0x80));
+    kb_buf[1] &= ~(this_key->code);
     usage_id = 0;
   }
+  else if(this_key->key_type == KEY_TYPE_SPECIAL)
+    usage_id = this_key->code;
+  else if(this_key->key_type == KEY_TYPE_CHAR)
+    usage_id = get_scancode(this_key->code);
   else
-    usage_id = get_scancode(k);
+    return;
 
-  if(usage_id & 0x80)
-    kb_buf[1] &= ~(0x02);
-  usage_id = usage_id & 0x7f;
+  if(this_key->key_type == KEY_TYPE_CHAR)
+  {
+    if(usage_id & SHIFT)
+      kb_buf[1] &= ~(KEY_LEFT_SHIFT);
+    else if(usage_id & ALT_GR)
+      kb_buf[1] &= ~(KEY_RIGHT_ALT);
+    usage_id = usage_id & 0x7f;
+  }
 
   for (int i = 2; i < KB_BUF_SIZE; ++i)
     if(kb_buf[i] == usage_id)
       kb_buf[i] = 0;
-
   USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, KB_BUF_SIZE);
 }
 
 void kb_print(char* msg, uint16_t chardelay)
 {
+  my_key kk;
   for (int i = 0; i < strlen(msg); ++i)
   {
-    keyboard_press(msg[i], 1);
+    kk.key_type = KEY_TYPE_CHAR;
+    kk.code = msg[i];
+    keyboard_press(&kk, 1);
     osDelay(chardelay);
-    keyboard_release(msg[i]);
+    keyboard_release(&kk);
     osDelay(chardelay);
   }
 }
 
-void kb_test(void)
+void init_my_key(my_key* kk)
 {
-  ;
+  if(kk == NULL)
+    return;
+  kk->key_type = KEY_TYPE_UNKNOWN;
+  kk->code = 0;
 }

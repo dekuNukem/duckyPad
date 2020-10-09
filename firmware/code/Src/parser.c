@@ -494,181 +494,350 @@ void change_profile(uint8_t direction)
   restore_profile(next_profile);
 }
 
-uint8_t parse_special_key(char* msg)
+void parse_special_key(char* msg, my_key* this_key)
 {
-  if(msg == NULL)
-    return 0;
+  if(msg == NULL || this_key == NULL)
+    return;
+ 
+  this_key->key_type = KEY_TYPE_SPECIAL;
   if(strncmp(msg, cmd_F10, strlen(cmd_F10)) == 0)
-    return KEY_F10;
+  {
+    this_key->code = KEY_F10;
+    return;
+  }
   else if(strncmp(msg, cmd_F11, strlen(cmd_F11)) == 0)
-    return KEY_F11;
+  {
+    this_key->code = KEY_F11;
+    return;
+  }
   else if(strncmp(msg, cmd_F12, strlen(cmd_F12)) == 0)
-    return KEY_F12;
+  {
+    this_key->code = KEY_F12;
+    return;
+  }
   else if(strncmp(msg, cmd_F1, strlen(cmd_F1)) == 0)
-    return KEY_F1;
+  {
+    this_key->code = KEY_F1;
+    return;
+  }
   else if(strncmp(msg, cmd_F2, strlen(cmd_F2)) == 0)
-    return KEY_F2;
+  {
+    this_key->code = KEY_F2;
+    return;
+  }
   else if(strncmp(msg, cmd_F3, strlen(cmd_F3)) == 0)
-    return KEY_F3;
+  {
+    this_key->code = KEY_F3;
+    return;
+  }
   else if(strncmp(msg, cmd_F4, strlen(cmd_F4)) == 0)
-    return KEY_F4;
+  {
+    this_key->code = KEY_F4;
+    return;
+  }
   else if(strncmp(msg, cmd_F5, strlen(cmd_F5)) == 0)
-    return KEY_F5;
+  {
+    this_key->code = KEY_F5;
+    return;
+  }
   else if(strncmp(msg, cmd_F6, strlen(cmd_F6)) == 0)
-    return KEY_F6;
+  {
+    this_key->code = KEY_F6;
+    return;
+  }
   else if(strncmp(msg, cmd_F7, strlen(cmd_F7)) == 0)
-    return KEY_F7;
+  {
+    this_key->code = KEY_F7;
+    return;
+  }
   else if(strncmp(msg, cmd_F8, strlen(cmd_F8)) == 0)
-    return KEY_F8;
+  {
+    this_key->code = KEY_F8;
+    return;
+  }
   else if(strncmp(msg, cmd_F9, strlen(cmd_F9)) == 0)
-    return KEY_F9;
+  {
+    this_key->code = KEY_F9;
+    return;
+  }
   else if(strncmp(msg, cmd_UP, strlen(cmd_UP)) == 0)
-    return KEY_UP_ARROW;
+  {
+    this_key->code = KEY_UP_ARROW;
+    return;
+  }
   else if(strncmp(msg, cmd_DOWN, strlen(cmd_DOWN)) == 0)
-    return KEY_DOWN_ARROW;
+  {
+    this_key->code = KEY_DOWN_ARROW;
+    return;
+  }
   else if(strncmp(msg, cmd_LEFT, strlen(cmd_LEFT)) == 0)
-    return KEY_LEFT_ARROW;
+  {
+    this_key->code = KEY_LEFT_ARROW;
+    return;
+  }
   else if(strncmp(msg, cmd_RIGHT, strlen(cmd_RIGHT)) == 0)
-    return KEY_RIGHT_ARROW;
+  {
+    this_key->code = KEY_RIGHT_ARROW;
+    return;
+  }
   else if(strncmp(msg, cmd_UPARROW, strlen(cmd_UPARROW)) == 0)
-    return KEY_UP_ARROW;
+  {
+    this_key->code = KEY_UP_ARROW;
+    return;
+  }
   else if(strncmp(msg, cmd_DOWNARROW, strlen(cmd_DOWNARROW)) == 0)
-    return KEY_DOWN_ARROW;
+  {
+    this_key->code = KEY_DOWN_ARROW;
+    return;
+  }
   else if(strncmp(msg, cmd_LEFTARROW, strlen(cmd_LEFTARROW)) == 0)
-    return KEY_LEFT_ARROW;
+  {
+    this_key->code = KEY_LEFT_ARROW;
+    return;
+  }
   else if(strncmp(msg, cmd_RIGHTARROW, strlen(cmd_RIGHTARROW)) == 0)
-    return KEY_RIGHT_ARROW;
+  {
+    this_key->code = KEY_RIGHT_ARROW;
+    return;
+  }
   else if(strncmp(msg, cmd_ESCAPE, strlen(cmd_ESCAPE)) == 0)
-    return KEY_ESC;
+  {
+    this_key->code = KEY_ESC;
+    return;
+  }
   else if(strncmp(msg, cmd_ESC, strlen(cmd_ESC)) == 0)
-    return KEY_ESC;
+  {
+    this_key->code = KEY_ESC;
+    return;
+  }
   else if(strncmp(msg, cmd_ENTER, strlen(cmd_ENTER)) == 0)
-    return KEY_RETURN;
+  {
+    this_key->code = KEY_RETURN;
+    return;
+  }
   else if(strncmp(msg, cmd_BACKSPACE, strlen(cmd_BACKSPACE)) == 0)
-    return KEY_BACKSPACE;
+  {
+    this_key->code = KEY_BACKSPACE;
+    return;
+  }
   else if(strncmp(msg, cmd_TAB, strlen(cmd_TAB)) == 0)
-    return KEY_TAB;
+  {
+    this_key->code = KEY_TAB;
+    return;
+  }
   else if(strncmp(msg, cmd_CAPSLOCK, strlen(cmd_CAPSLOCK)) == 0)
-    return KEY_CAPS_LOCK;
+  {
+    this_key->code = KEY_CAPS_LOCK;
+    return;
+  }
   else if(strncmp(msg, cmd_PRINTSCREEN, strlen(cmd_PRINTSCREEN)) == 0)
-    return KEY_PRINT_SCREEN;
+  {
+    this_key->code = KEY_PRINT_SCREEN;
+    return;
+  }
   else if(strncmp(msg, cmd_SCROLLLOCK, strlen(cmd_SCROLLLOCK)) == 0)
-    return KEY_SCROLL_LOCK;
+  {
+    this_key->code = KEY_SCROLL_LOCK;
+    return;
+  }
   else if(strncmp(msg, cmd_PAUSE, strlen(cmd_PAUSE)) == 0)
-    return KEY_PAUSE;
+  {
+    this_key->code = KEY_PAUSE;
+    return;
+  }
   else if(strncmp(msg, cmd_BREAK, strlen(cmd_BREAK)) == 0)
-    return KEY_PAUSE;
+  {
+    this_key->code = KEY_PAUSE;
+    return;
+  }
   else if(strncmp(msg, cmd_INSERT, strlen(cmd_INSERT)) == 0)
-    return KEY_INSERT;
+  {
+    this_key->code = KEY_INSERT;
+    return;
+  }
   else if(strncmp(msg, cmd_HOME, strlen(cmd_HOME)) == 0)
-    return KEY_HOME;
+  {
+    this_key->code = KEY_HOME;
+    return;
+  }
   else if(strncmp(msg, cmd_PAGEUP, strlen(cmd_PAGEUP)) == 0)
-    return KEY_PAGE_UP;
+  {
+    this_key->code = KEY_PAGE_UP;
+    return;
+  }
   else if(strncmp(msg, cmd_PAGEDOWN, strlen(cmd_PAGEDOWN)) == 0)
-    return KEY_PAGE_DOWN;
+  {
+    this_key->code = KEY_PAGE_DOWN;
+    return;
+  }
   else if(strncmp(msg, cmd_DELETE, strlen(cmd_DELETE)) == 0)
-    return KEY_DELETE;
+  {
+    this_key->code = KEY_DELETE;
+    return;
+  }
   else if(strncmp(msg, cmd_END, strlen(cmd_END)) == 0)
-    return KEY_END;
-  else if(strncmp(msg, cmd_SHIFT, strlen(cmd_SHIFT)) == 0)
-    return KEY_LEFT_SHIFT;
+  {
+    this_key->code = KEY_END;
+    return;
+  }
+
+// ----------------------------------
+
+  if(strncmp(msg, cmd_SPACE, strlen(cmd_SPACE)) == 0)
+  {
+    this_key->key_type = KEY_TYPE_CHAR;
+    this_key->code = ' ';
+    return;
+  }
+
+// ----------------------------------
+
+  this_key->key_type = KEY_TYPE_MODIFIER;
+  if(strncmp(msg, cmd_SHIFT, strlen(cmd_SHIFT)) == 0)
+  {
+    this_key->code = KEY_LEFT_SHIFT;
+    return;
+  }
   else if(strncmp(msg, cmd_ALT, strlen(cmd_ALT)) == 0)
-    return KEY_LEFT_ALT;
+  {
+    this_key->code = KEY_LEFT_ALT;
+    return;
+  }
   else if(strncmp(msg, cmd_LALT, strlen(cmd_LALT)) == 0)
-    return KEY_LEFT_ALT;
+  {
+    this_key->code = KEY_LEFT_ALT;
+    return;
+  }
   else if(strncmp(msg, cmd_RALT, strlen(cmd_RALT)) == 0)
-    return KEY_RIGHT_ALT;
+  {
+    this_key->code = KEY_RIGHT_ALT;
+    return;
+  }
   else if(strncmp(msg, cmd_GUI, strlen(cmd_GUI)) == 0)
-    return KEY_LEFT_GUI;
+  {
+    this_key->code = KEY_LEFT_GUI;
+    return;
+  }
   else if(strncmp(msg, cmd_WINDOWS, strlen(cmd_WINDOWS)) == 0)
-    return KEY_LEFT_GUI;
+  {
+    this_key->code = KEY_LEFT_GUI;
+    return;
+  }
   else if(strncmp(msg, cmd_CONTROL, strlen(cmd_CONTROL)) == 0)
-    return KEY_LEFT_CTRL;
+  {
+    this_key->code = KEY_LEFT_CTRL;
+    return;
+  }
   else if(strncmp(msg, cmd_CTRL, strlen(cmd_CTRL)) == 0)
-    return KEY_LEFT_CTRL;
-  else if(strncmp(msg, cmd_SPACE, strlen(cmd_SPACE)) == 0)
-    return ' ';
-
-  else if(strncmp(msg, cmd_MK_VOLUP, strlen(cmd_MK_VOLUP)) == 0)
-    return KEY_MK_VOLUP;
-  else if(strncmp(msg, cmd_MK_VOLDOWN, strlen(cmd_MK_VOLDOWN)) == 0)
-    return KEY_MK_VOLDOWN;
-  else if(strncmp(msg, cmd_MK_VOLMUTE, strlen(cmd_MK_VOLMUTE)) == 0)
-    return KEY_MK_VOLMUTE;
-  else if(strncmp(msg, cmd_MK_PREV, strlen(cmd_MK_PREV)) == 0)
-    return KEY_MK_PREV;
-  else if(strncmp(msg, cmd_MK_NEXT, strlen(cmd_MK_NEXT)) == 0)
-    return KEY_MK_NEXT;
-  else if(strncmp(msg, cmd_MK_PLAYPAUSE, strlen(cmd_MK_PLAYPAUSE)) == 0)
-    return KEY_MK_PLAYPAUSE;
-  else if(strncmp(msg, cmd_MK_VOLMUTE, strlen(cmd_MK_VOLMUTE)) == 0)
-    return KEY_MK_VOLMUTE;
-  else if(strncmp(msg, cmd_MK_STOP, strlen(cmd_MK_STOP)) == 0)
-    return KEY_MK_STOP;
-
+  {
+    this_key->code = KEY_LEFT_CTRL;
+    return;
+  }
   else if(strncmp(msg, cmd_MENU, strlen(cmd_MENU)) == 0)
-    return KEY_MENU;
+  {
+    this_key->code = KEY_MENU;
+    return;
+  }
   else if(strncmp(msg, cmd_APP, strlen(cmd_APP)) == 0)
-    return KEY_MENU;
-  return 0;
+  {
+    this_key->code = KEY_MENU;
+    return;
+  }
+
+// ----------------------------------
+
+  this_key->key_type = KEY_TYPE_MEDIA;
+  if(strncmp(msg, cmd_MK_VOLUP, strlen(cmd_MK_VOLUP)) == 0)
+  {
+    this_key->code = KEY_MK_VOLUP;
+    return;
+  }
+  else if(strncmp(msg, cmd_MK_VOLDOWN, strlen(cmd_MK_VOLDOWN)) == 0)
+  {
+    this_key->code = KEY_MK_VOLDOWN;
+    return;
+  }
+  else if(strncmp(msg, cmd_MK_VOLMUTE, strlen(cmd_MK_VOLMUTE)) == 0)
+  {
+    this_key->code = KEY_MK_VOLMUTE;
+    return;
+  }
+  else if(strncmp(msg, cmd_MK_PREV, strlen(cmd_MK_PREV)) == 0)
+  {
+    this_key->code = KEY_MK_PREV;
+    return;
+  }
+  else if(strncmp(msg, cmd_MK_NEXT, strlen(cmd_MK_NEXT)) == 0)
+  {
+    this_key->code = KEY_MK_NEXT;
+    return;
+  }
+  else if(strncmp(msg, cmd_MK_PLAYPAUSE, strlen(cmd_MK_PLAYPAUSE)) == 0)
+  {
+    this_key->code = KEY_MK_PLAYPAUSE;
+    return;
+  }
+  else if(strncmp(msg, cmd_MK_VOLMUTE, strlen(cmd_MK_VOLMUTE)) == 0)
+  {
+    this_key->code = KEY_MK_VOLMUTE;
+    return;
+  }
+  else if(strncmp(msg, cmd_MK_STOP, strlen(cmd_MK_STOP)) == 0)
+  {
+    this_key->code = KEY_MK_STOP;
+    return;
+  }
+  init_my_key(this_key);
 }
 
-// able to press 4 keys at once
-void parse_combo(char* line, uint8_t key)
+// able to press 3 keys at once
+void parse_combo(char* line, my_key* first_key)
 {
-  uint8_t special_key_1 = 0;
-  uint8_t special_key_2 = 0;
-  uint8_t special_key_3 = 0;
+  if(line == NULL || first_key == NULL)
+    return;
+  // printf("first %d %d\n", first_key->key_type, first_key->code);
+  my_key key_1, key_2;
   char* line_end = line + strlen(line);
   char *arg1 = goto_next_arg(line, line_end);
   char *arg2 = goto_next_arg(arg1, line_end);
-  char *arg3 = goto_next_arg(arg2, line_end);
 
-  special_key_1 = parse_special_key(arg1);
-  if(arg1 != NULL && special_key_1 == 0)
-    special_key_1 = arg1[0];
+  parse_special_key(arg1, &key_1);
+  if(arg1 != NULL && key_1.key_ty   pe == KEY_TYPE_UNKNOWN)
+  {
+    key_1.key_type = KEY_TYPE_CHAR;
+    key_1.code = arg1[0];
+  }
 
-  special_key_2 = parse_special_key(arg2);
-  if(arg2 != NULL && special_key_2 == 0)
-    special_key_2 = arg2[0];
+  parse_special_key(arg2, &key_2);
+  if(arg2 != NULL && key_2.key_type == KEY_TYPE_UNKNOWN)
+  {
+    key_2.key_type = KEY_TYPE_CHAR;
+    key_2.code = arg2[0];
+  }
 
-	special_key_3 = parse_special_key(arg3);
-  if(arg3 != NULL && special_key_3 == 0)
-    special_key_3 = arg3[0];
-
-  keyboard_press(key, 1);
+  keyboard_press(first_key, 0);
   osDelay(char_delay);
   if(arg1 != NULL)
   {
-    keyboard_press(special_key_1, 0);
+    keyboard_press(&key_1, 0);
     osDelay(char_delay);
   }
   if(arg2 != NULL)
   {
-    keyboard_press(special_key_2, 0);
-    osDelay(char_delay);
-  }
-  if(arg3 != NULL)
-  {
-    keyboard_press(special_key_3, 0);
-    osDelay(char_delay);
-  }
-  if(arg3 != NULL)
-  {
-    keyboard_release(special_key_3);
+    keyboard_press(&key_2, 0);
     osDelay(char_delay);
   }
   if(arg2 != NULL)
   {
-    keyboard_release(special_key_2);
+    keyboard_release(&key_2);
     osDelay(char_delay);
   }
   if(arg1 != NULL)
   {
-    keyboard_release(special_key_1);
+    keyboard_release(&key_1);
     osDelay(char_delay);
   }
-  keyboard_release(key);
+  keyboard_release(first_key);
   osDelay(char_delay);
 }
 
@@ -698,12 +867,13 @@ uint8_t parse_line(char* line)
       line[i] = 0;
   // printf("this line: %s\n", line);
   char* line_end = line + strlen(line);
-  char special_key = parse_special_key(line);
+  my_key this_key;
+  parse_special_key(line, &this_key); //special_key
 
   if(is_empty_line(line))
     result = PARSE_EMPTY_LINE;
-  else if(special_key != 0)
-    parse_combo(line, special_key);
+  else if(this_key.key_type != KEY_TYPE_UNKNOWN)
+    parse_combo(line, &this_key);
   else if(strncmp(cmd_REM, line, strlen(cmd_REM)) == 0)
     ;
   else if(strncmp(cmd_STRING, line, strlen(cmd_STRING)) == 0)
