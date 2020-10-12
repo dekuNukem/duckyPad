@@ -170,6 +170,22 @@ DELAY 600
 CONTROL w
 ```
 
+## Table of Contents
+
+[Main page](README.md)
+
+[Buy a duckyPad](purchase_information.md)
+
+[Getting Started Guide](getting_started.md)
+
+[Kit Assembly Guide](kit_assembly_guide.md)
+
+[Using duckyScript](duckyscript_info.md)
+
+[Firmware Updates and Version History](firmware_updates_and_version_history.md)
+
+[Build a duckyPad Yourself](build_it_yourself.md)
+
 ## Questions or Comments?
 
 Please feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), ask in the [official duckyPad discord](https://discord.gg/4sJCBx5), DM me on discord `dekuNukem#6998`, or email `dekuNukem`@`gmail`.`com` for inquires.

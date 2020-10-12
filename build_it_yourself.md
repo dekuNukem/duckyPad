@@ -94,6 +94,22 @@ The microcontroller used here is a STM32F072C8T6. It costs less than a dollar, h
 
 One interesting design detail is the RGB LED. The WS2812(and its clones) requires a rather high data rate, and Arduino library achieve this by bitbanging in assembly. However the ARM processor in STM32 have some funky pipeline and caches, making asm timing somewhat unreliable. As a result I used SPI for LED control. By selecting the right speed and the right data on the MISO line, you can have the waveform look exactly like what WS2812 requires. In this case sending 0xf8 at 8MHz is bit 1, and sending 0xc0 results in a bit 0. Since SPI is also used by SD card, an AND gate is added to insulate the LED data line when SD card is active.
 
+## Table of Contents
+
+[Main page](README.md)
+
+[Buy a duckyPad](purchase_information.md)
+
+[Getting Started Guide](getting_started.md)
+
+[Kit Assembly Guide](kit_assembly_guide.md)
+
+[Using duckyScript](duckyscript_info.md)
+
+[Firmware Updates and Version History](firmware_updates_and_version_history.md)
+
+[Build a duckyPad Yourself](build_it_yourself.md)
+
 ## Questions or Comments?
 
 Please feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), ask in the [official duckyPad discord](https://discord.gg/4sJCBx5), DM me on discord `dekuNukem#6998`, or email `dekuNukem`@`gmail`.`com` for inquires.
