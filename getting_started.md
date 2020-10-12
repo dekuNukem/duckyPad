@@ -26,7 +26,7 @@ Simply plug it into your computer, and voilà:
 
 * If you use `AZERTY` or `Dvorak` layout, **`HOLD DOWN TOP LEFT KEY`** while **`PLUGGING IT IN`**, then select your layout.
 
-## Customizing Your Own Scripts
+## Writing Your Own Scripts
 
 Chances are you want to write your own scripts. So here's how! 
 
@@ -40,9 +40,9 @@ Chances are you want to write your own scripts. So here's how!
 
 ![Alt text](resources/pics/sd_slot.jpg)
 
-* If you decide to use your own SD card, it should be formatted in [FAT32 format](resources/pics/format.PNG).
+* If you decide to use your own SD card, it should be formatted in [FAT32 or FAT](resources/pics/format.PNG).
 
-### Download the duckyPad configurator
+### Download the duckyPad Configurator
 
 [Head here to download the latest release](https://github.com/dekuNukem/duckyPad/releases) for Windows, macOS, and Linux.
 
@@ -64,7 +64,7 @@ For Windows 10, click `More info` and then `Run anyway`.
 
 ![Alt text](resources/pics/app/defender.png)
 
-For macOS, **`RIGHT CLICK`** on the app and select `Open`:
+For macOS, **`RIGHT CLICK`** on the app and select `Open`. You might have to do it twice.
 
 ![Alt text](resources/pics/app/macos_warning.png)
 
@@ -100,7 +100,7 @@ It might look a bit overwhelming, but don't worry, let's break it down.
 
 * Choose a background color for the RGB backlight.
 
-* `Activation color` is the color that a key change into when you press it. On `Auto` it would be the inverse of background color, you can also choose one yourself.
+* `Activation color` is the color that a key changes into when you press it. On `Auto` it would be the inverse of background color.
 
 * By default unused keys are dimmed, you can override this by unticking the checkbox.
 
@@ -164,13 +164,71 @@ Don't forget to save!
 
 Eject the SD card from your computer, insert it into duckyPad, plug it in. It should start up and display the profile names and key names, as well as the customized colors.
 
-Press the corresponding keys to execute the scripts, if there is an error it will show up on the screen.
+* Use `+` and `-` button to switch profiles.
 
-Press +/- button to change profiles.
+* Press a key to execute the corresponding script. Hold it down to repeat.
 
-## Using Autohotkey
+* Hold down `+` or `-` button to change RGB backlight brightness.
 
-You can use [autohotkey](https://www.autohotkey.com) for even more sophisticated scripting needs, such as launching apps/scripts, control mouse moments, etc.
+## Tips and Tricks
+
+### Consolidate Keyboard Shortcuts
+
+For many applications, you can find an official list of keyboard shortcuts. Just search `app_name shortcuts` on google.
+
+Put your commonly used ones on duckyPad to speed up your workflow! Some examples:
+
+[Firefox](https://support.mozilla.org/en-US/kb/keyboard-shortcuts-perform-firefox-tasks-quickly) and [Chrome](https://support.google.com/chrome/answer/157179?co=GENIE.Platform%3DDesktop)
+
+[Windows](https://support.microsoft.com/en-gb/help/12445/windows-keyboard-shortcuts) and [macOS](https://support.apple.com/en-gb/HT201236)
+
+[Word](https://support.microsoft.com/en-us/office/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2), [Excel](https://support.microsoft.com/en-us/office/keyboard-shortcuts-in-excel-1798d9d5-842a-42b8-9c99-9b7213f0040f), [PowerPoint](https://support.microsoft.com/en-us/office/use-keyboard-shortcuts-to-create-powerpoint-presentations-ebb3d20e-dcd4-444f-a38e-bb5c5ed180f4), and other [Office apps](https://support.microsoft.com/en-us/office/keyboard-shortcuts-in-office-e765366f-24fc-4054-870d-39b214f223fd).
+
+[Photoshop](https://helpx.adobe.com/uk/photoshop/using/default-keyboard-shortcuts.html), [Final Cut Pro](https://support.apple.com/en-gb/guide/final-cut-pro/ver90ba5929/mac), and [Premiere Pro](https://helpx.adobe.com/uk/premiere-pro/using/keyboard-shortcuts.html).
+
+### Launching Apps on Windows - Using Task Bar
+
+Find the app, `Right click -> More -> Pin to taskbar`:
+
+![Alt text](resources/pics/start.png)
+
+Now you can use `WIN + number` to launch the apps on the task bar:
+
+![Alt text](resources/pics/taskbar.png)
+
+In duckyScript, it would be `WINDOWS 1`, `WINDOWS 2`, etc...
+
+### Launching Apps on Windows - Using Shortcuts
+
+This method works with **`ANY FILE`**, not just apps!
+
+`Right click` on any file, select `Send to... -> Desktop (create shortcut)`.
+
+![Alt text](resources/pics/shortcut.png)
+
+Find the new shortcut on your desktop, right click and select `Properties`
+
+![Alt text](resources/pics/right_prop.png)
+
+Set a hotkey in the `Shortcut Key` box:
+
+![Alt text](resources/pics/sc_prop.png)
+
+Then you can use duckyPad to press this combo to launch anything with a push of a button!
+
+In this case, the duckyScript would be `CONTROL ALT D`.
+
+### Launching Apps on macOS
+
+Go to `System Preferences` -> `Keyboard` -> `Shortcuts` -> `App Shortcuts`:
+
+Press the `+` button, select an app to open, assign a hotkey, and set up duckyPad accordingly:
+
+![Alt text](resources/pics/mac_sc.png)
+
+### Advanced Scripting with Autohotkey
+
+You can use the free and open-source [autohotkey](https://www.autohotkey.com) for even more sophisticated needs, such as controlling mouse moments, executing scripts, etc.
 
 To do this, duckyPad can be set up to press a simple combo like `WIN + F1`, which then get captured by autohotkey to execute a more complex custom script on your PC.
 
@@ -190,11 +248,7 @@ To do this, duckyPad can be set up to press a simple combo like `WIN + F1`, whic
 
 Check out the [official tutorials](https://www.autohotkey.com/docs_1.0/Tutorial.htm), the [autohotkey profile](sample_profiles/profile7_autohotkey), and the [sample autohotkey script](resources/duckypad_autohotkey_script.ahk) upon which you can tinker with.
 
-## macOS shortcuts
-
-You can also create custom keyboard shortcuts on macOS. [See this guide](https://support.apple.com/en-gb/guide/mac-help/mchlp2271/mac).
-
-For more advanced scripting needs, you can try [bettertouchtool](https://folivora.ai), which can be considered macOS equivalent of autohotkey.
+For macOS, you can try [bettertouchtool](https://folivora.ai).
 
 ## USB Firmware Updates
 
