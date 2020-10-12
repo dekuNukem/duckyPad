@@ -1,6 +1,6 @@
 # Purchasing a duckyPad
 
-[Main Page](/README.md) | [Official Discord](https://discord.gg/4sJCBx5) | [Table of Contents](#table-of-contents)
+[Table of Contents](#table-of-contents) | [Official Discord](https://discord.gg/4sJCBx5)
 
 ------
 
