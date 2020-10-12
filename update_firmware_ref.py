@@ -66,6 +66,13 @@ for filename in md_file_list:
 			readme_lines[index] = front + "[official duckyPad discord](" + discord_link + ")" + back
 			# print(readme_lines[index])
 			changes_made = True
+		elif '[Official Discord](' in line:
+			ssss = line.split('[Official Discord](')
+			front = ssss[0]
+			back = ssss[1].split(')')[-1]
+			readme_lines[index] = front + "[Official Discord](" + discord_link + ")" + back
+			print(readme_lines[index])
+			changes_made = True
 
 	if changes_made:
 		this_md_file = open(filename, 'w', encoding='utf-8')

@@ -16,6 +16,10 @@ duckyPad offers limitless possibilities to consolidate and customise your workfl
 
 Please see [Purchase Information](./purchase_information.md).
 
+## Official Discord
+
+Feel free to join the [official duckyPad discord](https://discord.gg/4sJCBx5) for questions, discussions, and updates.
+
 ## Features
 
 * 15 Cherry MX-style mechanical switches
