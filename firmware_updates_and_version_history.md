@@ -1,6 +1,6 @@
 # duckyPad Firmware Updates and Version History
 
-[Main Page](/README.md) | [Buy duckyPad](/purchase_information.md) | [Official Discord](https://discord.gg/4sJCBx5)
+[Main Page](/README.md) | [Buy duckyPad](/purchase_information.md) | [Official Discord](https://discord.gg/4sJCBx5) | [Table of Contents](#table-of-contents)
 
 -----
 
