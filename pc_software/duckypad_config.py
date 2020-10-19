@@ -432,7 +432,10 @@ def save_everything(save_path):
         my_dirs = [x for x in my_dirs if x.startswith('profile') and x[7].isnumeric() and '_' in x]
         my_dirs = [os.path.join(save_path, d) for d in my_dirs if d.startswith("profile")]
         for item in my_dirs:
-            shutil.rmtree(item)
+            try:
+                shutil.rmtree(item)
+            except FileNotFoundError:
+                continue
         for this_profile in profile_list:
             os.mkdir(this_profile.path)
             config_file = open(os.path.join(this_profile.path, 'config.txt'), 'w')
@@ -463,7 +466,8 @@ def save_everything(save_path):
 
     except Exception as e:
         # print('save_click:', e)
-        messagebox.showerror("Error", "Save Failed!\n"+str(traceback.format_exc()))
+        messagebox.showerror("Error", "Save Failed!\n\n"+str(e))
+        # messagebox.showerror("Error", "Save Failed!\n"+str(traceback.format_exc()))
         save_result_label.config(text='Save FAILED!', fg="red", bg=default_button_color, cursor="")
         save_result_label.unbind("<Button-1>")
     last_save = time.time()

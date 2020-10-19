@@ -102,8 +102,11 @@ def parse_line(ducky_line):
 	elif ducky_line.startswith(cmd_STRING):
 		return PARSE_OK
 	elif ducky_line.startswith(cmd_REPEAT):
-		for x in range(int(ducky_line[len(cmd_REPEAT):].strip())):
-			parse_line(prev_line)
+		try:
+			int(ducky_line[len(cmd_REPEAT):].strip())
+		except Exception:
+			return PARSE_ERROR
+		return PARSE_OK
 	elif ducky_line.startswith(cmd_DELAY):
 		to_sleep = int(ducky_line[len(cmd_DELAY):].strip())/1000
 	elif ducky_line.startswith(cmd_DEFAULTDELAY):
