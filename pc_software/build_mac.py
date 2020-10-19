@@ -1,5 +1,6 @@
 import os
 import sys
+import platform
 
 """
 https://py2app.readthedocs.io/en/latest/tutorial.html
@@ -42,11 +43,11 @@ input("PRESS ANY KEY TO CONTINUE...")
 
 output_folder_path = os.path.join('.', "dist")
 original_name = os.path.join(output_folder_path, "duckypad_config.app")
-new_name = os.path.join(output_folder_path, "duckypad_config_" + THIS_VERSION + "_macOS.app")
+new_name = os.path.join(output_folder_path, "duckypad_config_" + THIS_VERSION + "_macOS_" + str(platform.mac_ver()[0]) + ".app")
 
 print(original_name)
 print(new_name)
 
 os.rename(original_name, new_name)
-zip_file_name = "duckypad_config_" + THIS_VERSION + "_macOS.zip"
+zip_file_name = "duckypad_config_" + THIS_VERSION + "_macOS_" + str(platform.mac_ver()[0]) +".zip"
 os.system('cd dist; zip -rv ' + zip_file_name + ' ' + new_name.split('/')[-1] + "; mv " + zip_file_name + " ../")
