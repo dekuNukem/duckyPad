@@ -1,12 +1,34 @@
-# duckyPad Kit Assembly Guide
+# duckyPad Assembly Guide
 
-[Table of Contents](#table-of-contents) | [Buy duckyPad](/purchase_information.md) | [Official Discord](https://discord.gg/4sJCBx5)
+[Kickstarter](README.md#help-fund-duckypad-on-kickstarter) | [Official Discord](https://discord.gg/4sJCBx5) | [Table of Contents](#table-of-contents)
 
 ------
 
 Thanks for purchasing duckyPad! Here is a short guide on how to put everything together.
 
-If yours is already assembled, please move on to the [Quick Start Guide](/getting_started.md).
+## Recommended Tools
+
+A small Phillips-head screwdriver (`+`shape) is needed, there should be one provided in the package.
+
+A pair of pliers would make tightening the fasteners easier, but it's by no means required. You can use your hand just fine.
+
+![Alt text](resources/pics/assembly/tools.jpg)
+
+## Handling Bare Circuit Boards
+
+When handling the bare circuit board, remember to:
+
+* Wash your hands first
+
+* Always hold the circuit board by its edge
+
+* Don't touch the components
+
+The reason for hand-washing is to reduce the risk of static electricity(SE) on your body zapping the board and damage it, especially in dry weather.
+
+By washing your hands, you release the existing SE through the metal water pipe, your hands are moist to prevent further SE build-up, and your clean hands won't leave greasy fingerprints all over the place, win-win-win!
+
+Of course, your hands can't be dripping wet either, but that's just common sense.
 
 ## Assembly Steps
 
@@ -14,57 +36,119 @@ By now, you should have:
 
 * 1x duckyPad circuit board
 
-* 4x Rubber feet
+* 1x Front Plate
 
-* 1x Switch plate
-
-* 15x Keycaps
+* 1x Back Plate
 
 * 15x Cherry MX-style switches
 
-![Alt text](resources/pics/tier3.jpg)
+* 15x Keycaps
 
-Start by peeling off the protective cover on the key plate:
+* 4x Silicone Anti-slip Pad
 
-![Alt text](resources/pics/assembly/peel2.jpg)
+* Fasteners
 
-Then insert the switches into the plate:
+* microSD Card
 
-![Alt text](resources/pics/assembly/solder2.jpg)
+![Alt text](resources/pics/assembly/assembly1.jpeg)
 
-Make sure the pins are all in the same orientation, and not bent:
+Start by peeling off the protective cover on the front and back plate:
 
-![Alt text](resources/pics/assembly/solder1.jpg)
+![Alt text](resources/pics/assembly/assembly2.jpeg)
 
-Insert the whole thing into the circuit board, matching up the holes:
+You should have the following fasteners:
 
-![Alt text](resources/pics/assembly/solder3.jpg)
+* 6x `8mm Screw`
 
-Make sure all the pins has come through, and stick on the rubber feet:
+* 8x `2.8mm Screw`
 
-![Alt text](resources/pics/assembly/solder4.jpg)
+* 7x `2mm Standoff`
 
-Apply some pressure to make sure the switch assembly is flat against the circuit board, and solder the pins in place.
+* 6x `4mm Standoff`
 
-If you are unfamiliar with the process, there are a lot of resources on the internet, particularly youtube. Just search "how to solder keyboard switches". Here is [a sample tutorial video](https://www.youtube.com/watch?v=cRJV1jo5vao).
+Be careful while handling them, if you drop one you'll never find it again!
 
-![Alt text](resources/pics/assembly/solder5.jpg)
+Probably safer to leave them in the bag for now.
 
-After soldering all switches in place, flip it over and install the keycaps. The "slope" side should be facing the screen-end of the board:
+![Alt text](resources/pics/assembly/assembly3.jpeg)
 
-![Alt text](resources/pics/assembly/solder6.jpg)
+Place the `Back Plate` in front of you like this. Note the orientation of the holes:
 
-Peel off the protective cover on the screen, and you're done!
+![Alt text](resources/pics/assembly/assembly4.jpeg)
 
-![Alt text](resources/pics/assembly/solder7.jpg)
+Start from a hole in the middle, put a `8mm Screw` through the back side:
 
-Congratulations! Feel free to head on down to the [Quick Start Guide](/getting_started.md) to see how to use it.
+![Alt text](resources/pics/assembly/assembly5.jpeg)
+
+Then screw on the `2mm Standoff`.
+
+Don't over-tighten! Doing so might deform or crack the acrylic plate.
+
+Finger-tight is OK, just make sure it's not loose and doesn't rattle.
+
+![Alt text](resources/pics/assembly/assembly6.jpeg)
+
+Do the same with all the holes **`EXCEPT the bottom right`**:
+
+![Alt text](resources/pics/assembly/assembly7.jpeg)
+
+Put a `2.8mm Screw` through that one:
+
+![Alt text](resources/pics/assembly/assembly8.jpeg)
+
+And install the `2mm Standoff`.
+
+This is gonna be a PITA, but you'll eventually get it :) Careful not to drop the small parts. 
+
+![Alt text](resources/pics/assembly/assembly9.jpeg)
+
+Now go wash your hands, grab the circuit board by its edge, line up and install as shown:
+
+![Alt text](resources/pics/assembly/assembly10.jpeg)
+
+Then install all 6 `4mm Standoffs`, moderately tighten.
+
+Also install the `2.8mm Screw` on the lower right.
+
+![Alt text](resources/pics/assembly/assembly11.jpeg)
+
+Line up the `Front Plate`, and install the `2.8mm Screws`.
+
+Don't tighten each one right away! Put them all on loosely first, then tighten them one-by-one.
+
+This ensures the plate is properly lined up. Again, don't over-tighten.
+
+![Alt text](resources/pics/assembly/assembly12.jpeg)
+
+Flip it over, clean the plate with a dry cloth if dirty, and stick on the anti-slip pads on each corner:
+
+![Alt text](resources/pics/assembly/assembly13.jpeg)
+
+Time to install the switches! duckyPad supports hot-swap, so no soldering is needed. 
+
+Make sure the pins are straight, then line up with the holes, gently push until it clicks in place:
+
+![Alt text](resources/pics/assembly/assembly14.jpeg)
+
+Keycaps next! Note the orientation ("slope" side pointing left in this photo). Just push it down.
+
+![Alt text](resources/pics/assembly/assembly15.jpeg)
+
+All the keys should be lined up evenly. If not, try push down or wiggle it into place.
+
+Finally, peel off the protective cover on the OLED screen:
+
+![Alt text](resources/pics/assembly/peel.jpg)
+
+And you're done! Congratulations!
+
+Feel free to head on down to the [Quick Start Guide](/getting_started.md) to see how to use it.
+
+![Alt text](resources/pics/assembly/assembly16.jpeg)
 
 ## Table of Contents
 
 [Main page](README.md)
-
-[Buy a duckyPad](purchase_information.md)
 
 [Getting Started Guide](getting_started.md)
 
@@ -73,6 +157,8 @@ Congratulations! Feel free to head on down to the [Quick Start Guide](/getting_s
 [Using duckyScript](duckyscript_info.md)
 
 [Firmware Updates and Version History](firmware_updates_and_version_history.md)
+
+[Manual Setup](./manual_setup.md)
 
 [Build a duckyPad Yourself](build_it_yourself.md)
 

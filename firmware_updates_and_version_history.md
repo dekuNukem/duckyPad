@@ -1,6 +1,6 @@
 # duckyPad Firmware Updates and Version History
 
-[Table of Contents](#table-of-contents) | [Buy duckyPad](/purchase_information.md) | [Official Discord](https://discord.gg/4sJCBx5)
+[Kickstarter](README.md#help-fund-duckypad-on-kickstarter) | [Official Discord](https://discord.gg/4sJCBx5) | [Table of Contents](#table-of-contents)
 
 -----
 
@@ -22,7 +22,10 @@ You can update duckyPad's firmware via USB, for bug fixes and and/or new feature
 
 To do this, download and install the [STM32 DfuSe tool](resources/en.stsw-stm32080_stm32_DfuSe.zip) from this repo. (You can also download it from [the official website](https://www.st.com/en/development-tools/stsw-stm32080.html), but it requires creating an account.)
 
-First, locate the debug buttons on the board:
+First, locate the **`DFU`** button on the board:
+
+![Alt text](resources/pics/dfu_buttons_new.jpg)
+
 
 ![Alt text](resources/pics/buttons.jpg)
 
@@ -30,9 +33,9 @@ To update firmware:
 
 * Make sure the board is unplugged.
 
-* **Press and hold down the DFU button (one on the left)** while plugging it into a computer.
+* **`Hold down DFU button`** while plugging it into a computer.
 
-* Once it is plugged in, you can release the button.
+* Once plugged in, you can release the button.
 
 If all went well, the backlight and display should stay off.
 
@@ -134,8 +137,6 @@ Initial Release
 
 [Main page](README.md)
 
-[Buy a duckyPad](purchase_information.md)
-
 [Getting Started Guide](getting_started.md)
 
 [Kit Assembly Guide](kit_assembly_guide.md)
@@ -144,8 +145,9 @@ Initial Release
 
 [Firmware Updates and Version History](firmware_updates_and_version_history.md)
 
-[Build a duckyPad Yourself](build_it_yourself.md)
+[Manual Setup](./manual_setup.md)
 
+[Build a duckyPad Yourself](build_it_yourself.md)
 ## Questions or Comments?
 
 Please feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), ask in the [official duckyPad discord](https://discord.gg/4sJCBx5), DM me on discord `dekuNukem#6998`, or email `dekuNukem`@`gmail`.`com` for inquires.

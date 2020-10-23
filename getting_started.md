@@ -1,6 +1,6 @@
 # Getting Started with duckyPad
 
-[Table of Contents](#table-of-contents) | [Buy duckyPad](/purchase_information.md) | [Official Discord](https://discord.gg/4sJCBx5)
+[Kickstarter](README.md#help-fund-duckypad-on-kickstarter) | [Official Discord](https://discord.gg/4sJCBx5) | [Table of Contents](#table-of-contents)
 
 ------
 
@@ -16,11 +16,11 @@ Your duckyPad should come with a SD card already installed, containing some demo
 
 Simply plug it into your computer, and voilà:
 
-![Alt text](resources/pics/firefox_example.JPG)
+![Alt text](resources/pics/win_laptop.png)
 
-* Use `+` and `-` button to switch profiles.
+* Press a key to execute the corresponding script.
 
-* Press a key to execute the corresponding script. Hold it down to repeat.
+* Press `+` and `-` button to switch profiles.
 
 * Hold down `+` or `-` button to change RGB LED brightness.
 
@@ -32,13 +32,15 @@ Chances are you want to write your own scripts. So here's how!
 
 ### Notes on SD Card
 
-* It is recommended to unplug your duckyPad before handling the SD card.
+* It is recommended to unplug duckyPad when you insert/remove the SD card.
+
+* You *can* do it while duckyPad is on, but it might corrupt SD card content, so make backups.
 
 * To remove the SD card, push inwards to unlock.
 
-* To install the SD card, insert logo side up, push until it clicks in place:
+* To install the SD card, insert logo side up, push until it clicks in place.
 
-![Alt text](resources/pics/sd_slot.jpg)
+![Alt text](resources/pics/sd.jpg)
 
 * If you decide to use your own SD card, it should be formatted in [FAT32 or FAT](resources/pics/format.PNG).
 
@@ -164,11 +166,13 @@ Don't forget to save!
 
 Eject the SD card from your computer, insert it into duckyPad, plug it in. It should start up and display the profile names and key names, as well as the customized colors.
 
-* Use `+` and `-` button to switch profiles.
+* Press a key to execute the corresponding script.
 
-* Press a key to execute the corresponding script. Hold it down to repeat.
+* Press `+` and `-` button to switch profiles.
 
-* Hold down `+` or `-` button to change RGB backlight brightness.
+* Hold down `+` or `-` button to change RGB LED brightness.
+
+* If you use `AZERTY` or `Dvorak` layout, **`HOLD DOWN TOP LEFT KEY`** while **`PLUGGING IT IN`**, then select your layout.
 
 ## Tips and Tricks
 
@@ -278,8 +282,6 @@ If you don't trust or unable to run the software, you can also configure duckyPa
 
 [Main page](README.md)
 
-[Buy a duckyPad](purchase_information.md)
-
 [Getting Started Guide](getting_started.md)
 
 [Kit Assembly Guide](kit_assembly_guide.md)
@@ -287,6 +289,8 @@ If you don't trust or unable to run the software, you can also configure duckyPa
 [Using duckyScript](duckyscript_info.md)
 
 [Firmware Updates and Version History](firmware_updates_and_version_history.md)
+
+[Manual Setup](./manual_setup.md)
 
 [Build a duckyPad Yourself](build_it_yourself.md)
 
