@@ -10,7 +10,7 @@ Thanks for purchasing duckyPad! Here is a short guide on how to put everything t
 
 A small Phillips-head screwdriver (`+`shape) is needed, there should be one provided in the package.
 
-A pair of pliers would make tightening the fasteners easier, but it's by no means required. You can use your hand just fine.
+A pair of pliers would make tightening the fasteners easier, but by no means required. You can use your hand just fine.
 
 ![Alt text](resources/pics/assembly/tools.jpg)
 
@@ -52,10 +52,6 @@ By now, you should have:
 
 ![Alt text](resources/pics/assembly/assembly1.jpeg)
 
-Start by peeling off the protective cover on the front and back plate:
-
-![Alt text](resources/pics/assembly/assembly2.jpeg)
-
 You should have the following fasteners:
 
 * 6x `8mm Screw`
@@ -71,6 +67,10 @@ Be careful while handling them, if you drop one you'll never find it again!
 Probably safer to leave them in the bag for now.
 
 ![Alt text](resources/pics/assembly/assembly3.jpeg)
+
+Start by peeling off the protective cover on the front and back plate:
+
+![Alt text](resources/pics/assembly/assembly2.jpeg)
 
 Place the `Back Plate` in front of you like this. Note the orientation of the holes:
 
@@ -114,7 +114,7 @@ Also install the `2.8mm Screw` on the lower right.
 
 Line up the `Front Plate`, and install the `2.8mm Screws`.
 
-Don't tighten each one right away! Put them all on loosely first, then tighten them one-by-one.
+**`DO NOT`** tighten each screw as you install it! Put them all on loosely first, then tighten them one-by-one.
 
 This ensures the plate is properly lined up. Again, don't over-tighten.
 
@@ -134,7 +134,7 @@ Keycaps next! Note the orientation ("slope" side pointing left in this photo). J
 
 ![Alt text](resources/pics/assembly/assembly15.jpeg)
 
-All the keys should be lined up evenly. If not, try push down or wiggle it into place.
+All the keys should be lined up evenly. If not, try push down or wiggle it a little.
 
 Finally, peel off the protective cover on the OLED screen:
 
@@ -142,7 +142,7 @@ Finally, peel off the protective cover on the OLED screen:
 
 And you're done! Congratulations!
 
-Feel free to head on down to the [Quick Start Guide](/getting_started.md) to see how to use it.
+Head on down to the [Quick Start Guide](/getting_started.md) to see how to use it.
 
 ![Alt text](resources/pics/assembly/assembly16.jpeg)
 
