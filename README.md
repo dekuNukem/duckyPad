@@ -1,6 +1,6 @@
 # duckyPad: Do-It-All Mechanical Macropad
 
-[Kickstarter](#help-fund-duckypad-on-kickstarter) | [Official Discord](https://discord.gg/4sJCBx5)
+[Kickstarter](#help-fund-duckypad-on-kickstarter) | [Official Discord](https://discord.gg/4sJCBx5) | [Getting Started](getting_started.md) | [Table of Contents](#table-of-contents)
 
 ![Alt text](resources/pics/title.png)
 
