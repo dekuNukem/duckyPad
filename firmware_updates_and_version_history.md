@@ -1,20 +1,16 @@
 # duckyPad Firmware Updates and Version History
 
-[Kickstarter](README.md#help-fund-duckypad-on-kickstarter) | [Official Discord](https://discord.gg/4sJCBx5) | [Table of Contents](#table-of-contents)
+[Kickstarter](README.md#help-fund-duckypad-on-kickstarter) | [Official Discord](https://discord.gg/4sJCBx5)
 
 -----
 
 ## Latest Firmware
 
-### 0.6.0
+### 0.7.0
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.6.0.dfu)
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.7.0.dfu)
 
-* Added support for `AZERTY (French)`, `AZERTY (Belgium)`, and `Dvorak` layout.
-
-* **`HOLD DOWN TOP LEFT KEY`** while **`PLUGGING IT IN`** to switch layouts.
-
-* Some behind-the-scene optimisation
+* Added support for numpad keys. See [this guide](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md) for details. 
 
 ## USB Firmware Updates
 
@@ -51,7 +47,7 @@ In the `Available DUF Devices` section at top left corner, you should see a `STM
 
 Press the `Choose...` button and select a firmware file in `.dfu` format.
 
-* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.6.0.dfu) to download the latest firmware (v0.6.0)
+* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.7.0.dfu) to download the latest firmware (v0.7.0)
 
 * ...or [scroll down](#firmware-version-history) for older firmware versions.
 
@@ -72,6 +68,14 @@ After uploading is complete, unplug and plug it back in to start using the new f
 ------
 
 ## Firmware Version History
+
+## Latest Firmware
+
+### 0.7.0
+
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.7.0.dfu)
+
+* Added support for numpad keys. See [this guide](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md) for details. 
 
 ### 0.6.0
 

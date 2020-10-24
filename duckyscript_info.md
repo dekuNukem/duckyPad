@@ -1,6 +1,6 @@
 # Writing duckyScript
 
-[Kickstarter](README.md#help-fund-duckypad-on-kickstarter) | [Official Discord](https://discord.gg/4sJCBx5) | [Table of Contents](#table-of-contents)
+[Kickstarter](README.md#help-fund-duckypad-on-kickstarter) | [Official Discord](https://discord.gg/4sJCBx5)
 
 ------
 
@@ -71,9 +71,9 @@ REPEAT 10
 REM types out "Hello world" 11 times (1 original + 10 repeats)
 ```
 
-### Modifier Keys
+### Special Keys
 
-duckyScript also supports a whole bunch of modifier keys:
+duckyScript also supports a whole bunch of special keys:
 
 ```
 CTRL
@@ -123,9 +123,29 @@ MK_PREV
 MK_NEXT
 MK_PP (play/pause)
 MK_STOP
+
+(numpad keys)
+NUMLOCK
+KP_SLASH
+KP_ASTERISK
+KP_MINUS
+KP_PLUS
+KP_ENTER
+KP_0
+KP_1
+KP_2
+KP_3
+KP_4
+KP_5
+KP_6
+KP_7
+KP_8
+KP_9
+KP_DOT
+KP_EQUAL
 ```
 
-Those modifier keys can be used on their own:
+Those special keys can be used on their own:
 
 `WINDOWS`
 
@@ -133,7 +153,7 @@ Those modifier keys can be used on their own:
 
 `WINDOWS s`
 
-...or can be combined with other modifier keys:
+...or can be combined with other special keys:
 
 `WINDOWS SHIFT s`
 

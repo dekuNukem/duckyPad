@@ -1,6 +1,6 @@
 # Getting Started with duckyPad
 
-[Kickstarter](README.md#help-fund-duckypad-on-kickstarter) | [Official Discord](https://discord.gg/4sJCBx5) | [Table of Contents](#table-of-contents)
+[Kickstarter](README.md#help-fund-duckypad-on-kickstarter) | [Official Discord](https://discord.gg/4sJCBx5)
 
 ------
 
@@ -128,7 +128,7 @@ Finally, the rightmost column is for *scripts*:
 
 ![Alt text](resources/pics/app/scripts.png)
 
-* Once you have selected a key, the script that this key will execute is displayed here.
+* When you select a key, the script that it will execute is displayed here.
 
 * duckyPad uses duckyScript, please [read about its usage here](duckyscript_info.md).
 
@@ -140,7 +140,9 @@ Finally, the rightmost column is for *scripts*:
 
 * Test-run can't get past [Windows User Account Control](resources/pics/app/uac.png) screens. You'll have to run it on real thing.
 
-* On macOS, if test-run doesn't work, [go to Settings -> Security & Privacy -> Accessibility](resources/pics/app/macos.png), unlock and allow the app. Even then, some key combos might not work. Better test it on the real thing.
+* On macOS, if test-run doesn't work, [go to System Preferences -> Security & Privacy -> Accessibility](resources/pics/app/macos.png), unlock, remove then add the app.
+
+* Test-run might not be 100% accruate, some keys like `Capslock` and `Numlock` can't be emulated in software. Run your scripts on the real thing if you're not sure.
 
 -----
 

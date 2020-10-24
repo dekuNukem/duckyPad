@@ -1,6 +1,6 @@
 # Configure duckyPad Manually
 
-[Kickstarter](README.md#help-fund-duckypad-on-kickstarter) | [Official Discord](https://discord.gg/4sJCBx5) | [Table of Contents](#table-of-contents)
+[Kickstarter](README.md#help-fund-duckypad-on-kickstarter) | [Official Discord](https://discord.gg/4sJCBx5)
 
 ------
 

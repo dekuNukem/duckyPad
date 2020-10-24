@@ -1,3 +1,4 @@
+import sys
 import time
 import pyautogui
 
@@ -54,7 +55,25 @@ autogui_map = {"ESCAPE":"escape",
 "MK_PP":"playpause",
 "MK_STOP":"stop",
 "MENU":"apps",
-"APP":"apps"
+"APP":"apps",
+"NUMLOCK":"numlock",
+"KP_SLASH":"/",
+"KP_ASTERISK":"*",
+"KP_MINUS":"-",
+"KP_PLUS":"+",
+"KP_ENTER":"enter",
+"KP_1":"num1",
+"KP_2":"num2",
+"KP_3":"num3",
+"KP_4":"num4",
+"KP_5":"num5",
+"KP_6":"num6",
+"KP_7":"num7",
+"KP_8":"num8",
+"KP_9":"num9",
+"KP_0":"num0",
+"KP_DOT":".",
+"KP_EQUAL":"="
 }
 
 valid_chars = ['!', '"', '#', '$', '%', '&', "'", '(',
@@ -90,7 +109,13 @@ def parse_combo(combo_line):
 	autogui_args = []
 	for item in combo_keys:
 		if item in autogui_map:
-			autogui_args.append(autogui_map[item])
+			# ugly hack, not my fault!
+			# https://stackoverflow.com/questions/51367311/why-keydownshift-function-is-not-working-for-python-pyautogui-for-excel-automa/63007185#63007185
+			if item == "SHIFT" and 'win' in sys.platform: 
+				autogui_args.append('shiftleft')
+				autogui_args.append('shiftright')
+			else:
+				autogui_args.append(autogui_map[item])
 		else:
 			autogui_args.append(item.lower())
 	pyautogui.hotkey(*autogui_args, interval=default_char_delay_ms/1000)

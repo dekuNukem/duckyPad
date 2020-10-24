@@ -51,7 +51,25 @@ autogui_map = {"ESCAPE":"escape",
 "MK_PP":"playpause",
 "MK_STOP":"stop",
 "MENU":"apps",
-"APP":"apps"
+"APP":"apps",
+"NUMLOCK":"numlock",
+"KP_SLASH":"/",
+"KP_ASTERISK":"*",
+"KP_MINUS":"-",
+"KP_PLUS":"+",
+"KP_ENTER":"enter",
+"KP_1":"num1",
+"KP_2":"num2",
+"KP_3":"num3",
+"KP_4":"num4",
+"KP_5":"num5",
+"KP_6":"num6",
+"KP_7":"num7",
+"KP_8":"num8",
+"KP_9":"num9",
+"KP_0":"num0",
+"KP_DOT":".",
+"KP_EQUAL":"="
 }
 
 valid_chars = ['!', '"', '#', '$', '%', '&', "'", '(',
@@ -71,7 +89,6 @@ cmd_UARTPRINT = "UARTPRINT "
 
 PARSE_OK = 0
 PARSE_ERROR = 1
-PARSE_EMPTY_LINE = 3
 
 def parse_combo(combo_line):
 	combo_keys = combo_line.split(' ')

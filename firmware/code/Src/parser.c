@@ -98,6 +98,25 @@ const char cmd_KD_COLOR[] = "KEYDOWN_COLOR ";
 const char cmd_SWCOLOR[] = "SWCOLOR_";
 const char cmd_DIM_UNUSED_KEYS[] = "DIM_UNUSED_KEYS ";
 
+const char cmd_NUMLOCK[] = "NUMLOCK"; // Keyboard Num Lock and Clear
+const char cmd_KPSLASH[] = "KP_SLASH"; // Keypad /
+const char cmd_KPASTERISK[] = "KP_ASTERISK"; // Keypad *
+const char cmd_KPMINUS[] = "KP_MINUS"; // Keypad -
+const char cmd_KPPLUS[] = "KP_PLUS"; // Keypad +
+const char cmd_KPENTER[] = "KP_ENTER"; // Keypad ENTER
+const char cmd_KP1[] = "KP_1"; // Keypad 1 and End
+const char cmd_KP2[] = "KP_2"; // Keypad 2 and Down Arrow
+const char cmd_KP3[] = "KP_3"; // Keypad 3 and PageDn
+const char cmd_KP4[] = "KP_4"; // Keypad 4 and Left Arrow
+const char cmd_KP5[] = "KP_5"; // Keypad 5
+const char cmd_KP6[] = "KP_6"; // Keypad 6 and Right Arrow
+const char cmd_KP7[] = "KP_7"; // Keypad 7 and Home
+const char cmd_KP8[] = "KP_8"; // Keypad 8 and Up Arrow
+const char cmd_KP9[] = "KP_9"; // Keypad 9 and Page Up
+const char cmd_KP0[] = "KP_0"; // Keypad 0 and Insert
+const char cmd_KPDOT[] = "KP_DOT"; // Keypad . and Delete
+const char cmd_KPEQUAL[] = "KP_EQUAL"; // Keypad EQUAL
+
 const char cmd_MK_VOLUP[] = "MK_VOLUP";
 const char cmd_MK_VOLDOWN[] = "MK_VOLDOWN";
 const char cmd_MK_VOLMUTE[] = "MK_MUTE";
@@ -683,11 +702,103 @@ void parse_special_key(char* msg, my_key* this_key)
     return;
   }
 
-// ----------------------------------
+  else if(strncmp(msg, cmd_NUMLOCK, strlen(cmd_NUMLOCK)) == 0)
+  {
+    this_key->code = KEY_NUMLOCK;
+    return;
+  }
 
+  else if(strncmp(msg, cmd_KPSLASH, strlen(cmd_KPSLASH)) == 0)
+  {
+    this_key->code = KEY_KPSLASH;
+    return;
+  }
+  else if(strncmp(msg, cmd_KPASTERISK, strlen(cmd_KPASTERISK)) == 0)
+  {
+    this_key->code = KEY_KPASTERISK;
+    return;
+  }
+  else if(strncmp(msg, cmd_KPMINUS, strlen(cmd_KPMINUS)) == 0)
+  {
+    this_key->code = KEY_KPMINUS;
+    return;
+  }
+  else if(strncmp(msg, cmd_KPPLUS, strlen(cmd_KPPLUS)) == 0)
+  {
+    this_key->code = KEY_KPPLUS;
+    return;
+  }
+  else if(strncmp(msg, cmd_KPENTER, strlen(cmd_KPENTER)) == 0)
+  {
+    this_key->code = KEY_KPENTER;
+    return;
+  }
+  else if(strncmp(msg, cmd_KP1, strlen(cmd_KP1)) == 0)
+  {
+    this_key->code = KEY_KP1;
+    return;
+  }
+  else if(strncmp(msg, cmd_KP2, strlen(cmd_KP2)) == 0)
+  {
+    this_key->code = KEY_KP2;
+    return;
+  }
+  else if(strncmp(msg, cmd_KP3, strlen(cmd_KP3)) == 0)
+  {
+    this_key->code = KEY_KP3;
+    return;
+  }
+  else if(strncmp(msg, cmd_KP4, strlen(cmd_KP4)) == 0)
+  {
+    this_key->code = KEY_KP4;
+    return;
+  }
+  else if(strncmp(msg, cmd_KP5, strlen(cmd_KP5)) == 0)
+  {
+    this_key->code = KEY_KP5;
+    return;
+  }
+  else if(strncmp(msg, cmd_KP6, strlen(cmd_KP6)) == 0)
+  {
+    this_key->code = KEY_KP6;
+    return;
+  }
+  else if(strncmp(msg, cmd_KP7, strlen(cmd_KP7)) == 0)
+  {
+    this_key->code = KEY_KP7;
+    return;
+  }
+  else if(strncmp(msg, cmd_KP8, strlen(cmd_KP8)) == 0)
+  {
+    this_key->code = KEY_KP8;
+    return;
+  }
+  else if(strncmp(msg, cmd_KP9, strlen(cmd_KP9)) == 0)
+  {
+    this_key->code = KEY_KP9;
+    return;
+  }
+  else if(strncmp(msg, cmd_KP0, strlen(cmd_KP0)) == 0)
+  {
+    this_key->code = KEY_KP0;
+    return;
+  }
+  else if(strncmp(msg, cmd_KPDOT, strlen(cmd_KPDOT)) == 0)
+  {
+    this_key->code = KEY_KPDOT;
+    return;
+  }
+
+  else if(strncmp(msg, cmd_KPEQUAL, strlen(cmd_KPEQUAL)) == 0)
+  {
+    this_key->code = KEY_KPEQUAL;
+    return;
+  }
+
+// ----------------------------------
+  this_key->key_type = KEY_TYPE_CHAR;
   if(strncmp(msg, cmd_SPACE, strlen(cmd_SPACE)) == 0)
   {
-    this_key->key_type = KEY_TYPE_CHAR;
     this_key->code = ' ';
     return;
   }

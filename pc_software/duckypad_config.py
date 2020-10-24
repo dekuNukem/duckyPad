@@ -20,7 +20,7 @@ default_button_color = 'SystemButtonFace'
 if 'linux' in sys.platform:
     default_button_color = 'grey'
 
-THIS_VERSION_NUMBER = '0.5.0'
+THIS_VERSION_NUMBER = '0.6.0'
 MAIN_WINDOW_WIDTH = 800
 MAIN_WINDOW_HEIGHT = 600
 MAIN_COLOUM_HEIGHT = 533
@@ -856,8 +856,11 @@ def run_script():
     global script_exe_warning_showed
     if len(script_textbox.get("1.0",END)) <= 2:
         return
+    warning_msg = "You are about to execute this script.\n> MAKE SURE YOU TRUST IT!\n> Result might differ than real duckyPad.\n\nExecution will start after a 2-second delay."
+    if 'darwin' in sys.platform:
+        warning_msg = "You are about to execute this script.\n> MAKE SURE YOU TRUST IT!\n> Result might differ than real duckyPad.\n> If nothing happens, give this app Accessibility permission.\n> Check Getting Started Guide for details. \n\nExecution will start after a 2-second delay."
     if(script_exe_warning_showed is False):
-        if(messagebox.askokcancel("Warning", "You are about to run this script on your PC.\nMAKE SURE YOU TRUST IT!\n\nExecution will start after a 2-second delay.") == False):
+        if(messagebox.askokcancel("Warning", warning_msg) == False):
             return
     try:
         import autogui
