@@ -233,6 +233,10 @@ A Kickstarter campaign is planned around `early November` for a public release o
 
 In the meantime, please join the [official duckyPad discord](https://discord.gg/4sJCBx5) to keep up with announcements and updates, feel free to post any questions and comments you might have!
 
+## Press Kit / More Photos
+
+[Click me](https://drive.google.com/drive/folders/1unbhvTEYcIKlmMEPPsL88o1tNOvzpQyo?usp=sharing) to download some high-resolution photos of duckyPad, feel free to share them.
+
 ## Getting started
 
 Please see [the instruction manual](./getting_started.md) on how to use your duckyPad.
