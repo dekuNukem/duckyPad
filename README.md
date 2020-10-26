@@ -1,6 +1,6 @@
 # duckyPad: Do-It-All Mechanical Macropad
 
-[Kickstarter](#help-fund-duckypad-on-kickstarter) | [Official Discord](https://discord.gg/4sJCBx5) | [Getting Started](getting_started.md) | [Table of Contents](#table-of-contents)
+[Kickstarter](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) | [Official Discord](https://discord.gg/4sJCBx5) | [Getting Started](getting_started.md) | [Table of Contents](#table-of-contents)
 
 ![Alt text](resources/pics/title.png)
 
@@ -18,9 +18,11 @@ The scripts can be as simple as shortcuts like `Control + C`, or as sophisticate
 
 ## Help fund duckyPad on Kickstarter!
 
-A Kickstarter campaign is planned around `early November` for a public release of duckyPad. The project is currently under review.
+[Click me to get duckyPad Kickstarter launch notification!](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad)
 
-In the meantime, please join the [official duckyPad discord](https://discord.gg/4sJCBx5) to keep up with announcements and updates, feel free to post any questions and comments you might have!
+A Kickstarter campaign for duckyPad is currently scheduled to launch around **`early November`**. Please [sign up for notification](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) if you're interested!
+
+Also, feel free to join the [official duckyPad discord](https://discord.gg/4sJCBx5) to keep up with announcements and updates, and post any questions and comments you might have!
 
 ## Highlights
 
@@ -229,9 +231,11 @@ More will be available if needed.
 
 ## I want one!
 
-A Kickstarter campaign is planned around `early November` for a public release of duckyPad. The project is currently under review.
+[Click me to get duckyPad Kickstarter launch notification!](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad)
 
-In the meantime, please join the [official duckyPad discord](https://discord.gg/4sJCBx5) to keep up with announcements and updates, feel free to post any questions and comments you might have!
+A Kickstarter campaign for duckyPad is currently scheduled to launch around **`early November`**. Please [sign up for notification](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) if you're interested!
+
+Also, feel free to join the [official duckyPad discord](https://discord.gg/4sJCBx5) to keep up with announcements and updates, and post any questions and comments you might have!
 
 ## Press Kit / More Photos
 
