@@ -30,11 +30,11 @@ Also, feel free to join the [official duckyPad discord](https://discord.gg/4sJCB
 * **`Hot-Swap`** Sockets
 * Per-Key **`RGB Lighting`** 
 * **`OLED Screen`**, showing profile and key names.
-* 32 profiles of 480 [duckyScripts](duckyscript_info.md)
+* 32 profiles a 15 shortcuts for a total of 480 [duckyScripts](duckyscript_info.md)
 * microSD storage
 * USB-C Connector
 * Works with all major OSs, no driver needed.
-* Multiple keyboard layouts (WQERTY, AERTY, Dvorak)
+* Multiple keyboard layouts (QWERTY, AZERTY, Dvorak)
 * Fully Open Source!
 
 ## Showcase
@@ -222,7 +222,7 @@ duckyPad’s firmware can also be easily updated via USB-C for new features and 
 
 duckyPad supports multiple keyboard layouts:
 
-* WQERTY
+* QWERTY
 * AZERTY (French)
 * AZERTY (Belgium)
 * Dvorak
