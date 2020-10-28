@@ -39,6 +39,7 @@ char prev_line[READ_BUF_SIZE];
 char nonexistent_keyname[] = "\253";
 profile_cache p_cache;
 dp_global_settings dp_settings;
+uint8_t key_being_held[MAPPABLE_KEY_COUNT];
 
 const char cmd_REPEAT[] = "REPEAT ";
 const char cmd_REM[] = "REM ";
@@ -127,10 +128,11 @@ const char cmd_MK_STOP[] = "MK_STOP";
 
 const char cmd_MENU[] = "MENU";
 const char cmd_APP[] = "APP";
+const char cmd_HOLD[] = "HOLD ";
 
 char* goto_next_arg(char* buf, char* buf_end)
 {
-  char* curr = buf;
+  char* curr = buf;  
   if(buf == NULL || curr >= buf_end)
     return NULL;
   while(curr < buf_end && *curr != ' ')
@@ -903,8 +905,13 @@ void parse_special_key(char* msg, my_key* this_key)
   init_my_key(this_key);
 }
 
-// able to press 3 keys at once
-void parse_combo(char* line, my_key* first_key)
+/* able to press 3 keys at once
+action type
+0 press then release
+1 press only
+2 release only
+*/
+void parse_combo(char* line, my_key* first_key, uint8_t action_type)
 {
   if(line == NULL || first_key == NULL)
     return;
@@ -928,6 +935,9 @@ void parse_combo(char* line, my_key* first_key)
     key_2.code = arg2[0];
   }
 
+  if(action_type == 2)
+    goto release_only;
+
   keyboard_press(first_key, 0);
   osDelay(char_delay);
   if(arg1 != NULL)
@@ -940,6 +950,11 @@ void parse_combo(char* line, my_key* first_key)
     keyboard_press(&key_2, 0);
     osDelay(char_delay);
   }
+
+  if(action_type == 1)
+    return;
+
+  release_only:
   if(arg2 != NULL)
   {
     keyboard_release(&key_2);
@@ -970,7 +985,43 @@ uint8_t is_empty_line(char* line)
   return 1;
 }
 
-uint8_t parse_line(char* line)
+uint8_t parse_hold(char* line, uint8_t keynum, uint8_t is_key_release)
+{
+  line = goto_next_arg(line, line + strlen(line));
+  my_key this_key;
+  parse_special_key(line, &this_key);
+  if(this_key.key_type == KEY_TYPE_UNKNOWN)
+  {
+    this_key.key_type = KEY_TYPE_CHAR;
+    this_key.code = line[0];
+    if(is_key_release)
+    {
+      keyboard_release(&this_key);
+      key_being_held[keynum] = 0;
+    }
+    else
+    {
+      keyboard_press(&this_key, 0);
+      key_being_held[keynum] = 1;
+    }
+  }
+  else
+  {
+    if(is_key_release)
+    {
+      parse_combo(line, &this_key, 2);
+      key_being_held[keynum] = 0;
+    }
+    else
+    {
+      parse_combo(line, &this_key, 1);
+      key_being_held[keynum] = 1;
+    }
+  }
+  return PARSE_OK;
+}
+
+uint8_t parse_line(char* line, uint8_t keynum, uint8_t is_key_release)
 {
   uint8_t result = PARSE_OK;
 
@@ -980,13 +1031,19 @@ uint8_t parse_line(char* line)
       line[i] = 0;
   // printf("this line: %s\n", line);
   char* line_end = line + strlen(line);
+
+  if(strncmp(cmd_HOLD, line, strlen(cmd_HOLD)) == 0)
+  {
+    result = parse_hold(line, keynum, is_key_release);
+    goto parse_end;
+  }
+
   my_key this_key;
   parse_special_key(line, &this_key); //special_key
-
   if(is_empty_line(line))
     result = PARSE_EMPTY_LINE;
   else if(this_key.key_type != KEY_TYPE_UNKNOWN)
-    parse_combo(line, &this_key);
+    parse_combo(line, &this_key, 0);
   else if(strncmp(cmd_REM, line, strlen(cmd_REM)) == 0)
     ;
   else if(strncmp(cmd_STRING, line, strlen(cmd_STRING)) == 0)
@@ -1035,7 +1092,7 @@ uint8_t parse_line(char* line)
   return result;
 }
 
-void keypress_wrap(uint8_t keynum)
+void keypress_wrap(uint8_t keynum, uint8_t is_key_release)
 {
   uint16_t line_num = 0;
   uint8_t result;
@@ -1053,10 +1110,10 @@ void keypress_wrap(uint8_t keynum)
     {
       uint8_t repeats = atoi(goto_next_arg(read_buffer, read_buffer + strlen(read_buffer)));
       for (int i = 0; i < repeats; ++i)
-        parse_line(prev_line);
+        parse_line(prev_line, keynum, is_key_release);
       continue;
     }
-    result = parse_line(read_buffer);
+    result = parse_line(read_buffer, keynum, is_key_release);
     if(result == PARSE_ERROR)
     {
       ssd1306_Fill(Black);
@@ -1091,7 +1148,14 @@ void keypress_wrap(uint8_t keynum)
 
 void handle_keypress(uint8_t keynum, but_status* b_status)
 {
-  keypress_wrap(keynum);
+  keypress_wrap(keynum, 0);
+  
+  // if any key is being held down via HOLD command, don't repeat
+  for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+    if(key_being_held[i])
+      return;
+
+  // wait 500ms
   uint32_t hold_start = HAL_GetTick();
   while(1)
   {
@@ -1103,11 +1167,12 @@ void handle_keypress(uint8_t keynum, but_status* b_status)
       break;
   }
 
+  // start repeating
   while(1)
   {
     HAL_IWDG_Refresh(&hiwdg);
     keyboard_update();
-    keypress_wrap(keynum);
+    keypress_wrap(keynum, 0);
     if(b_status->button_state == BUTTON_RELEASED)
       return;
   }

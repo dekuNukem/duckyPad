@@ -49,7 +49,7 @@ void handle_keypress(uint8_t key_num, but_status* b_status);
 void scan_profiles(void);
 uint8_t get_last_profile(void);
 void restore_profile(uint8_t profile_id);
-void keypress_wrap(uint8_t keynum);
+void keypress_wrap(uint8_t keynum, uint8_t for_release);
 void print_legend(int8_t x_offset, int8_t y_offset);
 void get_global_settings(void);
 void save_last_profile(uint8_t profile_id);
@@ -57,6 +57,7 @@ void save_last_profile(uint8_t profile_id);
 extern profile_cache p_cache;
 extern char temp_buf[PATH_SIZE];
 extern dp_global_settings dp_settings;
+extern uint8_t key_being_held[MAPPABLE_KEY_COUNT];
 
 #ifdef __cplusplus
 }

@@ -100,7 +100,7 @@ void keyboard_release(my_key* this_key);
 void keyboard_press(my_key* this_key, uint8_t use_shift);
 void keyboard_release_all(void);
 void init_my_key(my_key* kk);
-
+void media_key_release(void);
 extern uint8_t curr_kb_layout;
 
 #ifdef __cplusplus

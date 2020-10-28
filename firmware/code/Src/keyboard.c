@@ -576,7 +576,7 @@ bit position corresponds to that
 etc
 */
 
-void media_key_release()
+void media_key_release(void)
 {
   memset(kb_buf, 0, KB_BUF_SIZE);
   kb_buf[0] = 0x02;

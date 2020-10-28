@@ -104,6 +104,9 @@ void handle_button_press(uint8_t button_num)
         if(button_hold_duration > LONG_PRESS_MS)
             break;
     }
+    keyboard_release_all();
+    media_key_release();
+    memset(key_being_held, 0, MAPPABLE_KEY_COUNT);
     if(button_hold_duration < LONG_PRESS_MS)
     {
         if(button_num == KEY_BUTTON1) // -
@@ -180,6 +183,7 @@ void keypress_task_start(void const * argument)
   for(;;)
   {
     for (int i = 0; i < KEY_COUNT; ++i)
+    {
       if(is_pressed(&button_status[i]))
       {
         last_keypress = HAL_GetTick();
@@ -201,11 +205,21 @@ void keypress_task_start(void const * argument)
         }
 
         else if(i == KEY_BUTTON1 || i == KEY_BUTTON2)
-            handle_button_press(i);
-
-        key_task_end:
-        service_press(&button_status[i]);
+          handle_button_press(i);
       }
+      if(is_released_but_not_serviced(&button_status[i]))
+      {
+        // printf("but %d released\n", i);
+        // for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+        //   printf("%d ", key_being_held[i]);
+        // printf("\n");
+        last_keypress = HAL_GetTick();
+        if(key_being_held[i])
+					keypress_wrap(i, 1);
+      }
+      key_task_end:
+      service_press(&button_status[i]);
+    } 
     osDelay(16);
   }
 }
