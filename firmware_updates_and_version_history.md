@@ -10,13 +10,11 @@
 
 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.8.0.dfu)
 
-* Added `HOLD` command, where duckyPad will hold a key when you press it, and release only when you release it.
+* Added **`HOLD`** command, where duckyPad will hold down a key when you press it, and release only when you release it.
 
-* See [this guide](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md) for details. 
+* This command makes duckyPad behave more like a traditional keyboard.
 
-* This command makes it behave more like a traditional keyboard.
-
-* You can use this command to turn duckyPad into a WASD game pad for example.
+* See [this guide](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#hold) for details. 
 
 * Adjusted configuration file structure. You might need to set your keyboard layout again.
 

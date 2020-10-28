@@ -244,9 +244,9 @@ More will be available if needed.
 
 ## I want one!
 
-[Click me to get duckyPad Kickstarter launch notification!](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad)
+[Click me to get duckyPad Kickstarter launch notification!](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) This way you won't miss out on **limited-quantity early bird rewards** with a **discount** AND **immediate shipping**!
 
-A Kickstarter campaign for duckyPad is currently scheduled to launch around **`early November`**. Please [sign up for notification](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) if you're interested!
+The campaign is currently scheduled to launch around **`early November`**. Pricing will be announced when campaign launches, but I can say it will be **well within double digits in USD**.
 
 Also, feel free to join the [official duckyPad discord](https://discord.gg/4sJCBx5) to keep up with announcements and updates, and post any questions and comments you might have!
 

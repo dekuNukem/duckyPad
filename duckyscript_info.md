@@ -162,11 +162,19 @@ Those special keys can be used on their own:
 
 `WINDOWS SHIFT s`
 
+------
+
+* Type the key names as-is in **`ALL CAPS`**.
+
+* **`UP TO 3 KEYS`** can be pressed simultaneously.
+
+* For macOS, use `WINDOWS` for `Command` key, use `ALT` for `Option` key.
+
 ### HOLD
 
 Holds a key when you press it, and release only when you release it.
 
-`HOLD` command must be followed by **`ONE`** key, it can be a character or a special key.
+`HOLD` command must be followed by a single key, it can be a character or a special key.
 
 ```
 HOLD w
@@ -177,21 +185,21 @@ HOLD SHIFT
 
 You should only use `HOLD` command on its own, i.e. the script should only have a single line of `HOLD` command and nothing else.
 
-This command makes duckyPad behave more like a traditional keyboard. You can probably use it as a WASD gamepad this way.
+This command makes duckyPad behave more like a traditional keyboard.
 
-------
-
-* Type the key names as-is in **`ALL CAPS`**.
-
-* **`UP TO 3 KEYS`** can be pressed simultaneously.
-
-* For macOS, use `WINDOWS` for `Command` key, use `ALT` for `Option` key.
+You can probably use it as a WASD gamepad this way.
 
 ## Examples
 
-As you will see, those are very straightforward and simple.
+duckyScript is very easy and straightforward to write, here are some examples. 
 
-Check out the [sample profiles](https://github.com/dekuNukem/duckyPad/tree/master/sample_profiles) for more examples.
+Check out the [sample profiles](https://github.com/dekuNukem/duckyPad/tree/master/sample_profiles) for more.
+
+### Open Task Manager
+
+```
+CONTROL SHIFT ESC
+```
 
 ### Open a webpage on windows
 
