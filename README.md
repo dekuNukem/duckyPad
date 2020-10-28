@@ -24,6 +24,13 @@ The campaign is currently scheduled to launch around **`early November`**. Prici
 
 Also, feel free to join the [official duckyPad discord](https://discord.gg/4sJCBx5) to keep up with announcements and updates, and post any questions and comments you might have!
 
+Finally, feel free to check out a video of duckyPad in action!
+<table>
+  <tr>
+    <td><a href="https://www.youtube.com/watch?v=dqWWlOURo6A" title="YouTube" rel="noopener"><img src="https://i.imgur.com/767Nnyt.png"></a></td>
+  </tr>
+</table>
+
 ## Highlights
 
 * 15 Mechanical Switches (Gateron Green by default)
@@ -228,6 +235,14 @@ duckyPad supports multiple keyboard layouts:
 * Dvorak
 
 More will be available if needed.
+
+### Diamensions
+
+[Click me](pcb/plates) for vector files of front and back plates.
+
+Diamension drawings:
+
+![Alt text](resources/pics/diamensions.png)
 
 ## I want one!
 

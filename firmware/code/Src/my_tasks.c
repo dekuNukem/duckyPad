@@ -204,7 +204,8 @@ void keypress_task_start(void const * argument)
         {
           keydown_anime_start(i);
           handle_keypress(i, &button_status[i]); // handle the button state inside here for repeats
-          keydown_anime_end(i);
+          if(key_being_held[i] == 0)
+            keydown_anime_end(i);
         }
 
         else if(i == KEY_BUTTON1 || i == KEY_BUTTON2)
@@ -212,13 +213,16 @@ void keypress_task_start(void const * argument)
       }
       else if(is_released_but_not_serviced(&button_status[i]))
       {
-        // printf("but %d released\n", i);
+        // printf("button %d released\n", i);
         // for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
         //   printf("%d ", key_being_held[i]);
         // printf("\n");
         last_keypress = HAL_GetTick();
         if(key_being_held[i])
+        {
 					keypress_wrap(i, 1);
+          keydown_anime_end(i);
+        }
       }
       key_task_end:
       service_press(&button_status[i]);

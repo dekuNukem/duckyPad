@@ -24,21 +24,24 @@ This guide gives an concise overview of duckyScript. For more information, [see 
 
 `DEFAULTDELAY` specifies how long (in milliseconds) to wait between each **`line of command`**.
 
-If unspecified, `DEFAULTDELAY` is 20ms in duckyPad.
+If unspecified, `DEFAULTDELAY` is 18ms in duckyPad.
 
 ```
 DEFAULTDELAY 100
+
 REM duckyPad will wait 100ms between each subsequent command
 ```
+
 
 ### DEFAULTCHARDELAY
 
 `DEFAULTCHARDELAY` specifies how long (in milliseconds) to wait between each **`key stroke`**.
 
-If unspecified, `DEFAULTCHARDELAY` is 20ms in duckyPad.
+If unspecified, `DEFAULTCHARDELAY` is 18ms in duckyPad.
 
 ```
 DEFAULTCHARDELAY 50
+
 REM duckyPad will wait 50ms between pressing each key
 ```
 
@@ -48,6 +51,7 @@ REM duckyPad will wait 50ms between pressing each key
 
 ```
 DELAY 1000
+
 REM waits 1000 milliseconds, or 1 second
 ```
 
@@ -57,6 +61,7 @@ REM waits 1000 milliseconds, or 1 second
 
 ```
 STRING Hello world!!!
+
 REM types out "Hello world!!!"
 ```
 
@@ -156,6 +161,23 @@ Those special keys can be used on their own:
 ...or can be combined with other special keys:
 
 `WINDOWS SHIFT s`
+
+### HOLD
+
+Holds a key when you press it, and release only when you release it.
+
+`HOLD` command must be followed by **`ONE`** key, it can be a character or a special key.
+
+```
+HOLD w
+```
+```
+HOLD SHIFT
+```
+
+You should only use `HOLD` command on its own, i.e. the script should only have a single line of `HOLD` command and nothing else.
+
+This command makes duckyPad behave more like a traditional keyboard. You can probably use it as a WASD gamepad this way.
 
 ------
 

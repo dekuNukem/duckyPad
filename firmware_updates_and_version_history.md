@@ -6,11 +6,19 @@
 
 ## Latest Firmware
 
-### 0.7.0
+### 0.8.0
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.7.0.dfu)
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.8.0.dfu)
 
-* Added support for numpad keys. See [this guide](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md) for details. 
+* Added `HOLD` command, where duckyPad will hold a key when you press it, and release only when you release it.
+
+* See [this guide](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md) for details. 
+
+* This command makes it behave more like a traditional keyboard.
+
+* You can use this command to turn duckyPad into a WASD game pad for example.
+
+* Adjusted configuration file structure. You might need to set your keyboard layout again.
 
 ## USB Firmware Updates
 
@@ -47,7 +55,7 @@ In the `Available DUF Devices` section at top left corner, you should see a `STM
 
 Press the `Choose...` button and select a firmware file in `.dfu` format.
 
-* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.7.0.dfu) to download the latest firmware (v0.7.0)
+* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.8.0.dfu) to download the latest firmware (v0.8.0)
 
 * ...or [scroll down](#firmware-version-history) for older firmware versions.
 
@@ -70,6 +78,21 @@ After uploading is complete, unplug and plug it back in to start using the new f
 ## Firmware Version History
 
 ## Latest Firmware
+
+### 0.8.0
+
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.8.0.dfu)
+
+* Added `HOLD` command, where duckyPad will hold a key when you press it, and release only when you release it.
+
+* See [this guide](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md) for details. 
+
+* This command makes it behave more like a traditional keyboard.
+
+* You can use this command to turn duckyPad into a WASD game pad for example.
+
+* Adjusted configuration file structure. You might need to set your keyboard layout again.
+
 
 ### 0.7.0
 
