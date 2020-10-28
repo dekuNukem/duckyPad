@@ -236,13 +236,11 @@ duckyPad supports multiple keyboard layouts:
 
 More will be available if needed.
 
-### Diamensions
+### Dimensions
 
 [Click me](pcb/plates) for vector files of front and back plates.
 
-Diamension drawings:
-
-![Alt text](resources/pics/diamensions.png)
+[Click me](resources/pics/dimensions.png) for dimensions drawings.
 
 ## I want one!
 
