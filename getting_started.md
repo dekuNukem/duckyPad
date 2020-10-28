@@ -28,19 +28,19 @@ Simply plug it into your computer, and voilà:
 
 ## Writing Your Own Scripts
 
-Chances are you want to write your own scripts. So here's how! 
+The samples might be fun, but duckyPad's true purpose is to do what YOU want it to do! So here's how.
 
 ### Notes on SD Card
-
-* It is recommended to unplug duckyPad when you insert/remove the SD card.
-
-* You *can* do it while duckyPad is on, but it might corrupt SD card content, so make backups.
 
 * To remove the SD card, push inwards to unlock.
 
 * To install the SD card, insert logo side up, push until it clicks in place.
 
 ![Alt text](resources/pics/sd.jpg)
+
+* You *can* insert/remove the SD card while duckyPad is on.
+
+* But doing so might corrupt SD card content, so make backups.
 
 * If you decide to use your own SD card, it should be formatted in [FAT32 or FAT](resources/pics/format.PNG).
 
@@ -180,9 +180,11 @@ Eject the SD card from your computer, insert it into duckyPad, plug it in. It sh
 
 ### Consolidate Keyboard Shortcuts
 
+The most obvious use case is putting your commonly used hotkeys on duckyPad! Simply create a profile and add them in.
+
 For many applications, you can find an official list of keyboard shortcuts. Just search `app_name shortcuts` on google.
 
-Put your commonly used ones on duckyPad to speed up your workflow! Some examples:
+Some examples:
 
 [Firefox](https://support.mozilla.org/en-US/kb/keyboard-shortcuts-perform-firefox-tasks-quickly) and [Chrome](https://support.google.com/chrome/answer/157179?co=GENIE.Platform%3DDesktop)
 
@@ -258,7 +260,7 @@ For macOS, you can try [bettertouchtool](https://folivora.ai).
 
 ## Getting Sluggish?
 
-If you find duckyPad is getting slower at starting up and switching profiles, it's usually because of the SD card fragmentation. 
+If you find duckyPad is getting slower at starting up and switching profiles, it's usually because of the SD card fragmentation.
 
 * Make a backup of the files on SD card.
 
