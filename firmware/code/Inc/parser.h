@@ -51,7 +51,8 @@ uint8_t get_last_profile(void);
 void restore_profile(uint8_t profile_id);
 void keypress_wrap(uint8_t keynum, uint8_t is_key_release);
 void print_legend(int8_t x_offset, int8_t y_offset);
-void get_global_settings(void);
+void save_settings(void);
+void load_settings(void);
 void save_last_profile(uint8_t profile_id);
 
 extern profile_cache p_cache;

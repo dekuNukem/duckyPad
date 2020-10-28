@@ -427,7 +427,7 @@ void save_last_profile(uint8_t profile_id)
   if(f_open(&sd_file, "dp_stats.txt", FA_CREATE_ALWAYS | FA_WRITE) != 0)
     goto slp_end;
   memset(temp_buf, 0, PATH_SIZE);
-  sprintf(temp_buf, "lp %d\nfw %d.%d.%d\nbi %d\nkbl %d\n", profile_id, fw_version_major, fw_version_minor, fw_version_patch, brightness_index, curr_kb_layout);
+  sprintf(temp_buf, "lp %d\nfw %d.%d.%d\n", profile_id, fw_version_major, fw_version_minor, fw_version_patch);
   f_write(&sd_file, temp_buf, strlen(temp_buf), &ignore_this);
 	slp_end:
   f_close(&sd_file);
@@ -441,16 +441,8 @@ uint8_t get_last_profile(void)
   memset(temp_buf, 0, PATH_SIZE);
 
   while(f_gets(temp_buf, PATH_SIZE, &sd_file))
-  {
     if(strncmp(temp_buf, "lp ", 3) == 0)
       ret = atoi(temp_buf+3);
-    if(strncmp(temp_buf, "bi ", 3) == 0)
-      brightness_index = atoi(temp_buf+3);
-    if(brightness_index >= BRIGHTNESS_LEVELS)
-      brightness_index = BRIGHTNESS_LEVELS - 1;
-    if(strncmp(temp_buf, "kbl ", 4) == 0)
-      curr_kb_layout = atoi(temp_buf+4);
-  }
 
   if(ret >= MAX_PROFILES || p_cache.available_profile[ret] == 0)
     ret = 0;
@@ -459,7 +451,18 @@ uint8_t get_last_profile(void)
   return ret;
 }
 
-void get_global_settings(void)
+void save_settings(void)
+{
+  if(f_open(&sd_file, "dp_settings.txt", FA_CREATE_ALWAYS | FA_WRITE) != 0)
+    goto ss_end;
+  memset(temp_buf, 0, PATH_SIZE);
+  sprintf(temp_buf, "sleep_after_min %d\nbi %d\nkbl %d\n", dp_settings.sleep_after_ms/60000, brightness_index, curr_kb_layout);
+  f_write(&sd_file, temp_buf, strlen(temp_buf), &ignore_this);
+  ss_end:
+  f_close(&sd_file);
+}
+
+void load_settings(void)
 {
   if(f_open(&sd_file, "dp_settings.txt", FA_READ) != 0)
     goto ggs_end;
@@ -468,6 +471,12 @@ void get_global_settings(void)
   {
     if(strncmp(temp_buf, "sleep_after_min", 15) == 0)
       dp_settings.sleep_after_ms = atoi(temp_buf+15) * 60000;
+    if(strncmp(temp_buf, "bi ", 3) == 0)
+      brightness_index = atoi(temp_buf+3);
+    if(brightness_index >= BRIGHTNESS_LEVELS)
+      brightness_index = BRIGHTNESS_LEVELS - 1;
+    if(strncmp(temp_buf, "kbl ", 4) == 0)
+      curr_kb_layout = atoi(temp_buf+4);
   }
   ggs_end:
   f_close(&sd_file);

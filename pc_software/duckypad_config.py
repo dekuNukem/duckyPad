@@ -20,7 +20,7 @@ default_button_color = 'SystemButtonFace'
 if 'linux' in sys.platform:
     default_button_color = 'grey'
 
-THIS_VERSION_NUMBER = '0.6.0'
+THIS_VERSION_NUMBER = '0.7.0'
 MAIN_WINDOW_WIDTH = 800
 MAIN_WINDOW_HEIGHT = 600
 MAIN_COLOUM_HEIGHT = 533
@@ -459,8 +459,20 @@ def save_everything(save_path):
                     config_file.write('SWCOLOR_%d %d %d %d\n' % (this_key.index, this_key.color[0], this_key.color[1], this_key.color[2]))
             config_file.close()
 
-        with open(os.path.join(save_path, 'dp_settings.txt'), 'w') as setting_file:
-            setting_file.write("sleep_after_min " + str(sleepmode_slider.get()) + "\n")
+        dps_path = os.path.join(save_path, 'dp_settings.txt')
+        dps_lines = ["sleep_after_min " + str(sleepmode_slider.get()) + "\n"]
+        try:
+            dps_file = open(dps_path, encoding='utf-8')
+            dps_lines = dps_file.readlines()
+            dps_file.close()
+            for index, line in enumerate(dps_lines):
+                if 'sleep_after_min' in line:
+                    dps_lines[index] = "sleep_after_min " + str(sleepmode_slider.get()) + "\n";
+        except Exception:
+            pass
+
+        with open(dps_path, 'w+') as setting_file:
+            setting_file.writelines(dps_lines);
         save_result_label.config(text='Saved!', fg="green", bg=default_button_color, cursor="")
         save_result_label.unbind("<Button-1>")
 

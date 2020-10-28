@@ -117,6 +117,7 @@ void handle_button_press(uint8_t button_num)
     else
     {
         change_brightness();
+        save_settings();
         print_legend(0, 0);
     }
 }
@@ -171,6 +172,7 @@ void enter_config(void)
   service_all();
   is_in_settings = 0;
   print_legend(0, 0);
+  save_settings();
 }
 
 void keypress_task_start(void const * argument)
@@ -179,8 +181,8 @@ void keypress_task_start(void const * argument)
     osDelay(16);
   enter_config();
   change_bg();
-  service_all()
-  ;keyboard_release_all();
+  service_all();
+  keyboard_release_all();
   for(;;)
   {
     for (int i = 0; i < KEY_COUNT; ++i)

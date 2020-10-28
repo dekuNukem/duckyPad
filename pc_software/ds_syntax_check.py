@@ -86,6 +86,7 @@ cmd_DEFAULTCHARDELAY = "DEFAULTCHARDELAY "
 cmd_DELAY = "DELAY "
 cmd_STRING = "STRING "
 cmd_UARTPRINT = "UARTPRINT "
+cmd_HOLD = "HOLD "
 
 PARSE_OK = 0
 PARSE_ERROR = 1
@@ -116,6 +117,15 @@ def parse_line(ducky_line):
 		return PARSE_ERROR
 	elif ducky_line.startswith(cmd_REM) or ducky_line.startswith(cmd_UARTPRINT):
 		return PARSE_OK
+	elif ducky_line.startswith(cmd_HOLD):
+		sssss = ducky_line[len(cmd_HOLD):].strip().split(' ')
+		if len(sssss) > 1:
+			return PARSE_ERROR
+		if sssss[0] in autogui_map.keys():
+			return PARSE_OK
+		elif len(sssss[0]) == 1:
+			return PARSE_OK
+		return PARSE_ERROR
 	elif ducky_line.startswith(cmd_STRING):
 		return PARSE_OK
 	elif ducky_line.startswith(cmd_REPEAT):
@@ -125,13 +135,37 @@ def parse_line(ducky_line):
 			return PARSE_ERROR
 		return PARSE_OK
 	elif ducky_line.startswith(cmd_DELAY):
-		to_sleep = int(ducky_line[len(cmd_DELAY):].strip())/1000
+		try:
+			if int(ducky_line[len(cmd_DELAY):].strip())/1000 <= 0:
+				return PARSE_ERROR
+			else:
+				return PARSE_OK
+		except Exception:
+			return PARSE_ERROR
 	elif ducky_line.startswith(cmd_DEFAULTDELAY):
-		default_cmd_delay_ms = int(ducky_line[len(cmd_DEFAULTDELAY):].strip())
+		try:
+			if int(ducky_line[len(cmd_DEFAULTDELAY):].strip()) <= 0:
+				return PARSE_ERROR
+			else:
+				return PARSE_OK
+		except Exception:
+			return PARSE_ERROR
 	elif ducky_line.startswith(cmd_DEFAULT_DELAY):
-		default_cmd_delay_ms = int(ducky_line[len(cmd_DEFAULT_DELAY):].strip())
+		try:
+			if int(ducky_line[len(cmd_DEFAULT_DELAY):].strip()) <= 0:
+				return PARSE_ERROR
+			else:
+				return PARSE_OK
+		except Exception:
+			return PARSE_ERROR
 	elif ducky_line.startswith(cmd_DEFAULTCHARDELAY):
-		default_char_delay_ms = int(ducky_line[len(cmd_DEFAULTCHARDELAY):].strip())
+		try:
+			if int(ducky_line[len(cmd_DEFAULTCHARDELAY):].strip()) <= 0:
+				return PARSE_ERROR
+			else:
+				return PARSE_OK
+		except Exception:
+			return PARSE_ERROR
 	elif ducky_line.split(' ')[0] in autogui_map.keys():
 		parse_result = parse_combo(ducky_line)
 	else:

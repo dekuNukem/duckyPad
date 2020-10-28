@@ -535,7 +535,7 @@ void kb_scan_task(void const * argument)
     }
   }
 
-  get_global_settings();
+  load_settings();
   scan_profiles();
   // this line must be after scan_profiles()
   uint8_t last_profile = get_last_profile();

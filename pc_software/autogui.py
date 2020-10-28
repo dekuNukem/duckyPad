@@ -90,6 +90,7 @@ cmd_DEFAULTCHARDELAY = "DEFAULTCHARDELAY "
 cmd_DELAY = "DELAY "
 cmd_STRING = "STRING "
 cmd_UARTPRINT = "UARTPRINT "
+cmd_HOLD = "HOLD "
 
 default_cmd_delay_ms = 18
 default_char_delay_ms = 18
@@ -138,6 +139,8 @@ def parse_line(ducky_line):
 	elif ducky_line.startswith(cmd_REPEAT):
 		for x in range(int(ducky_line[len(cmd_REPEAT):].strip())):
 			parse_line(prev_line)
+	elif ducky_line.startswith(cmd_HOLD):
+		pass
 	elif ducky_line.startswith(cmd_DELAY):
 		time.sleep(int(ducky_line[len(cmd_DELAY):].strip())/1000)
 	elif ducky_line.startswith(cmd_DEFAULTDELAY):
