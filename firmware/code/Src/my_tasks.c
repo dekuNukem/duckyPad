@@ -179,7 +179,8 @@ void keypress_task_start(void const * argument)
     osDelay(16);
   enter_config();
   change_bg();
-  service_all();keyboard_release_all();
+  service_all()
+  ;keyboard_release_all();
   for(;;)
   {
     for (int i = 0; i < KEY_COUNT; ++i)
@@ -207,7 +208,7 @@ void keypress_task_start(void const * argument)
         else if(i == KEY_BUTTON1 || i == KEY_BUTTON2)
           handle_button_press(i);
       }
-      if(is_released_but_not_serviced(&button_status[i]))
+      else if(is_released_but_not_serviced(&button_status[i]))
       {
         // printf("but %d released\n", i);
         // for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
