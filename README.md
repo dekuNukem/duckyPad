@@ -30,7 +30,7 @@ Also, feel free to join the [official duckyPad discord](https://discord.gg/4sJCB
 * **`Hot-Swap`** Sockets
 * Per-Key **`RGB Lighting`** 
 * **`OLED Screen`**, showing profile and key names.
-* 32 profiles a 15 shortcuts for a total of 480 [duckyScripts](duckyscript_info.md)
+* 32 profiles of 15 keys for a total of 480 [duckyScripts](duckyscript_info.md)
 * microSD storage
 * USB-C Connector
 * Works with all major OSs, no driver needed.
