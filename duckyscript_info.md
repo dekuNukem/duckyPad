@@ -10,6 +10,39 @@ duckyScript is a simple scripting language for automating keypresses. It was ori
 
 This guide gives an concise overview of duckyScript. For more information, [see this page](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Duckyscript).
 
+## Examples
+
+duckyScript is very easy and straightforward to write, let's take a look at some examples first. 
+
+### Open Task Manager
+
+```
+CONTROL SHIFT ESC
+```
+
+### Open a webpage on windows
+
+```
+WINDOWS r
+DELAY 400
+STRING https://www.youtube.com/watch?v=dQw4w9WgXcQ
+ENTER
+```
+
+### Save a webpage then close it
+
+```
+CONTROL s
+DELAY 600
+ENTER
+DELAY 600
+CONTROL w
+```
+
+------
+
+* Check out the [sample profiles](https://github.com/dekuNukem/duckyPad/tree/master/sample_profiles) for more examples.
+
 ## Syntax
 
 * One command per line. **`Each line has a 256 character limit!`**
@@ -31,7 +64,6 @@ DEFAULTDELAY 100
 
 REM duckyPad will wait 100ms between each subsequent command
 ```
-
 
 ### DEFAULTCHARDELAY
 
@@ -188,37 +220,6 @@ You should only use `HOLD` command on its own, i.e. the script should only have 
 This command makes duckyPad behave more like a traditional keyboard.
 
 You can probably use it as a WASD gamepad this way.
-
-## Examples
-
-duckyScript is very easy and straightforward to write, here are some examples. 
-
-Check out the [sample profiles](https://github.com/dekuNukem/duckyPad/tree/master/sample_profiles) for more.
-
-### Open Task Manager
-
-```
-CONTROL SHIFT ESC
-```
-
-### Open a webpage on windows
-
-```
-WINDOWS r
-DELAY 400
-STRING https://www.youtube.com/watch?v=dQw4w9WgXcQ
-ENTER
-```
-
-### Save a webpage then close it
-
-```
-CONTROL s
-DELAY 600
-ENTER
-DELAY 600
-CONTROL w
-```
 
 ## Table of Contents
 
