@@ -136,7 +136,7 @@ Keycaps next! Note the orientation ("slope" side pointing left in this photo). J
 
 All the keys should be lined up evenly. If not, try push down or wiggle it a little.
 
-Finally, peel off the protective cover on the OLED screen:
+Finally, if it hasn't already been done, peel off the protective cover on the OLED screen:
 
 ![Alt text](resources/pics/assembly/peel.jpg)
 
