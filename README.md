@@ -6,11 +6,11 @@
 
 duckyPad is a 15-key mechanical macropad that helps **consolidate and speed up your workflow** by automating keyboard inputs. 
 
-duckyPad offers a sleek design and features of a high-end mechanical keyboard (**`Hot-swap`**, **`RGB lighting`**, **`USB-C`**), along with macropad-specific innovations such as **`OLED display`**, **`duckyScript`**, **`SD-card storage`**, and more.
+duckyPad offers a sleek design and features of a high-end mechanical keyboard (**`Hot-swap`**, **`RGB lighting`**, **`USB-C`**), along with macropad-specific innovations such as **`OLED display`**, **`multi-line scripting`**, **`SD-card storage`**, and more.
 
 ![Alt text](resources/pics/teaser.gif)
 
-When pressed, each key executes a user-created script to automate keyboard actions:
+When pressed, each key executes a user-created *`duckyScript`* to automate keyboard actions:
 
 ![Alt text](resources/pics/header.gif)
 
@@ -37,7 +37,8 @@ Finally, feel free to check out a video of duckyPad in action!
 * **`Hot-Swap`** Sockets
 * Per-Key **`RGB Lighting`** 
 * **`OLED Screen`**, showing profile and key names.
-* 32 profiles of 15 keys for a total of 480 [duckyScripts](duckyscript_info.md)
+* Powerful multi-line scripting with [duckyScript](duckyscript_info.md).
+* 32 profiles of 15 keys, for a total of 480 scripts.
 * microSD storage
 * USB-C Connector
 * Works with all major OSs, no driver needed.
@@ -60,12 +61,6 @@ With the press of a key, you can switch scenes, start/stop stream, start/stop re
 
 ![Alt text](resources/pics/obs.gif)
 
-### Launching Applications  
-
-You can set up duckyPad to open your favourite app with the press of a button: 
-
-![Alt text](resources/pics/winapps.gif)
-
 ### Security Research
 
 With the ability to automate keyboard inputs, it is possible to take over an entire computer with the push of a button.
@@ -76,6 +71,11 @@ But of course, it's up to you to decide what to do!
 
 ![Alt text](resources/pics/badusb.gif)
 
+### Launching Applications  
+
+You can set up duckyPad to open your favourite app with the press of a button: 
+
+![Alt text](resources/pics/winapps.gif)
 
 ### One-finger Twitch Chat
 
@@ -140,19 +140,21 @@ duckyPad has an OLED screen. It displays current **`profile and key names`**, so
 
 ### duckyScript
 
-duckyPad uses [duckyScript](duckyscript_info.md), a simple scripting language for keyboard automation. It was originally developed for [USB Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky-deluxe).
+duckyPad uses [duckyScript](duckyscript_info.md), a scripting language for keyboard automation. It was originally developed for [USB Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky-deluxe).
 
 duckyScript is easy and straightforward to write, but can also achieve powerful results.
 
-As a simple example, let's say you want to open Task Manager, the script would look like this:
+A simple example would look like this:
 
 `CONTROL SHIFT ESC`
 
-Wasn't that bad was it? Now when you press the key, duckyPad will execute the script and bring up the task manager, eliminating the need for memorising and pressing a 3-key combo.
+Now when you press a key on duckyPad, it will execute this script and bring up the Task Manager, eliminating the need for memorising and pressing a 3-key combo.
 
 ![Alt text](resources/pics/task.gif)
 
 Of course, duckyScript can do much more than that!
+
+Instead of just hotkeys, you can write multi-line scripts for complex keyboard automation tasks.
 
 Here is a multi-line example that open up notepad, types "Hello world", and increases text size:
 
@@ -172,7 +174,7 @@ Note how simple and intuitive it is. You can write you own duckyScript very easi
 
 ![Alt text](resources/pics/hello.gif)
 
-Whether it's a simple hotkey or multi-line epic, duckyScript is ready to meet all your keyboard automation needs!
+Whether it's for simple hotkeys or multi-line epic, duckyScript is ready to meet all your keyboard automation needs!
 
 ### SD Card Storage
 
