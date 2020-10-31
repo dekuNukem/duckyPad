@@ -105,9 +105,15 @@ void profile_quickswitch(void)
     for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
       if(is_pressed(&button_status[i]))
       {
-        restore_profile(pqs_page * MAPPABLE_KEY_COUNT + i + 1);
-        return;
+        uint8_t this_profile = pqs_page * MAPPABLE_KEY_COUNT + i + 1;
+        if(p_cache.available_profile[this_profile])
+        {
+          restore_profile(this_profile);
+          return;
+        }
+        service_all();
       }
+      
 
     if(is_pressed(&button_status[KEY_BUTTON1])) // -
     {
