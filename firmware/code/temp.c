@@ -5,7 +5,69 @@ the key should be breathing
 32 frame lookup table
 after its done then fade back to background color
 */
+
+void print_keyname(char* keyname, uint8_t keynum, int8_t x_offset, int8_t y_offset)
+{
+  memset(key_name_buf, 0, FILENAME_SIZE);
+  if(keyname != NULL)
+    strcpy(key_name_buf, keyname);
+  if(keyname == NULL || (key_name_buf[0] == nonexistent_keyname[0] && key_name_buf[1] == 0))
+    key_name_buf[0] = '-';
+  if(strlen(key_name_buf) > 7)
+    key_name_buf[7] = 0;
+  uint8_t row = keynum / 3;
+  uint8_t col = keynum - row * 3;
+  int8_t x_start = col_lookup[strlen(key_name_buf) - 1][col] + x_offset;
+  int8_t y_start = (row + 1) * 10 + 2 + y_offset;
+  if(x_start < 0)
+    x_start = 0;
+  if(y_start < 0)
+    y_start = 0;
+  ssd1306_SetCursor((uint8_t)x_start, (uint8_t)y_start);
+  ssd1306_WriteString(key_name_buf, Font_6x10,White);
+}
+void list_profiles(uint8_t page)
+{
+  // char* profile_name = find_profile(6);
+  // if(profile_name == NULL)
+  //   return;
+  // printf("%s\n", profile_name);
+   // for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+    //   if(is_pressed(&button_status[i]))
+    //   {
+    //       service_press(&button_status[i]);
+    //       is_in_settings = 0;
+    //       return;
+    //   }
+  uint32_t start = HAL_GetTick();
+  for (uint8_t i = 0; i < 15; ++i)
+  {
+    printf("%i %s\n", i, find_profile(i));
+    // print_keyname(find_profile(i), i, 0, 0);
+  }
+  printf("took %dms\n", HAL_GetTick() - start);
+  // ssd1306_UpdateScreen();
+
+  // while(1)
+  // {
+  //   HAL_IWDG_Refresh(&hiwdg);
+  // }
+}
       // printf("%d %c 0x%x\n", this_key->code, this_key->code, usage_id);
+void list_profiles(uint8_t page)
+{
+  fno.lfname = lfn_buf; 
+  fno.lfsize = FILENAME_SIZE - 1;
+
+  sd_fresult = f_findfirst(&dir, &fno, "", "profile5_*");
+  printf("find: %s\n", fno.fname);
+
+  f_closedir(&dir);
+  // for (int i = 0; i < MAX_PROFILES; ++i)
+  // {
+  //   printf("%d: %d\n", i, p_cache.available_profile[i]);
+  // }
+}
 
 // void print_kb_buf(void)
 // {
@@ -13,7 +75,39 @@ after its done then fade back to background color
 //     printf("0x%x ", kb_buf[i]);
 //   printf("\n");
 // }
+void list_profiles(uint8_t page)
+{
+  char* profile_fn;
+  fno.lfname = lfn_buf; 
+  fno.lfsize = FILENAME_SIZE - 1;
 
+  if (f_opendir(&dir, "/") != FR_OK)
+    return;
+
+  memset(temp_buf, 0, PATH_SIZE);
+  sprintf(temp_buf, "profile");
+  while(1)
+  {
+    memset(lfn_buf, 0, FILENAME_SIZE);
+    if (f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)
+      break;
+    if (fno.fattrib & AM_DIR)
+    {
+      profile_fn = fno.lfname[0] ? fno.lfname : fno.fname;
+      printf("%s\n", profile_fn);
+      if(strncmp(temp_buf, profile_fn, strlen(temp_buf)) == 0)
+      {
+        uint8_t num = atoi(profile_fn + strlen(temp_buf));
+        if(num == 0)
+          continue;
+        // if(num >= MAX_PROFILES)
+        //   break;
+        printf("^ok\n");
+      }
+    }
+  }
+  f_closedir(&dir);
+}
 void media_key_press(uint8_t k)
 {
   // uint8_t usage_id = 0;

@@ -4,7 +4,7 @@ import string
 import shutil
 import random
 
-profile_number = 100
+profile_number = 50
 
 root_name = 'duck_test'
 

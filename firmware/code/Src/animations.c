@@ -14,6 +14,7 @@ uint8_t blue_buf[NEOPIXEL_COUNT];
 led_animation neo_anime[NEOPIXEL_COUNT];
 uint8_t error_color_red[THREE] = {255, 0, 0};
 uint8_t error_color_black[THREE] = {0, 0, 0};
+uint8_t profile_quickswitch_color[THREE] = {128, 128, 128};
 uint8_t rand_order_buf[NEOPIXEL_COUNT];
 uint8_t color_black[THREE] = {0,0,0};
 int8_t brightness_index = BRIGHTNESS_LEVELS - 1;
@@ -170,6 +171,13 @@ void error_animation(uint8_t stage)
     for (int i = 0; i < NEOPIXEL_COUNT; ++i)
       led_start_animation(&neo_anime[i], p_cache.individual_key_color[i], ANIMATION_CROSS_FADE, 20);
   }
+}
+
+void profile_quickswitch_animation(void)
+{
+  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+    led_start_animation(&neo_anime[i], profile_quickswitch_color, ANIMATION_FULLY_ON, 2);
+  osDelay(30);
 }
 
 void keydown_anime_start(uint8_t idx)

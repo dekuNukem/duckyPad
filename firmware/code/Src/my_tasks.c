@@ -46,7 +46,6 @@ void set_brightness(void)
 
 void change_brightness()
 {   
-    is_in_settings = 1;
     redraw_bg();
     osDelay(30);
     ssd1306_Fill(Black);
@@ -63,32 +62,71 @@ void change_brightness()
     service_all();
     while(1)
     {
-        HAL_IWDG_Refresh(&hiwdg);
-        keyboard_update();
+      HAL_IWDG_Refresh(&hiwdg);
+      keyboard_update();
 
-        for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
-            if(is_pressed(&button_status[i]))
-            {
-                service_press(&button_status[i]);
-                is_in_settings = 0;
-                return;
-            }
+      for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+          if(is_pressed(&button_status[i]))
+              return;
 
-        if(is_pressed(&button_status[KEY_BUTTON1])) // -
-        {
-            brightness_index--;
-            if(brightness_index < 0)
-                brightness_index = 0;
-            set_brightness();
-        }
-        if(is_pressed(&button_status[KEY_BUTTON2])) // -
-        {
-            brightness_index++;
-            if(brightness_index >= BRIGHTNESS_LEVELS)
-                brightness_index = BRIGHTNESS_LEVELS - 1;
-            set_brightness();
-        }
+      if(is_pressed(&button_status[KEY_BUTTON1])) // -
+      {
+          brightness_index--;
+          if(brightness_index < 0)
+              brightness_index = 0;
+          set_brightness();
+      }
+      if(is_pressed(&button_status[KEY_BUTTON2])) // +
+      {
+          brightness_index++;
+          if(brightness_index >= BRIGHTNESS_LEVELS)
+              brightness_index = BRIGHTNESS_LEVELS - 1;
+          set_brightness();
+      }
+      osDelay(50);
     }
+}
+
+#define MAX_PQS_PAGES 2
+void profile_quickswitch(void)
+{
+  int8_t pqs_page = p_cache.current_profile / MAPPABLE_KEY_COUNT;
+  if(pqs_page >= MAX_PQS_PAGES)
+    pqs_page = MAX_PQS_PAGES - 1;
+  profile_quickswitch_animation();
+  list_profiles(pqs_page);
+  service_all();
+
+  while(1)
+  {
+    HAL_IWDG_Refresh(&hiwdg);
+    keyboard_update();
+
+    for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+      if(is_pressed(&button_status[i]))
+      {
+        restore_profile(pqs_page * MAPPABLE_KEY_COUNT + i + 1);
+        return;
+      }
+
+    if(is_pressed(&button_status[KEY_BUTTON1])) // -
+    {
+        pqs_page--;
+        if(pqs_page < 0)
+            pqs_page = MAX_PQS_PAGES-1;
+        list_profiles(pqs_page);
+        service_all();
+    }
+    if(is_pressed(&button_status[KEY_BUTTON2])) // +
+    {
+        pqs_page++;
+        if(pqs_page >= MAX_PQS_PAGES)
+            pqs_page = 0;
+        list_profiles(pqs_page);
+        service_all();
+    }
+    osDelay(50);
+  }
 }
 
 void handle_button_press(uint8_t button_num)
@@ -107,18 +145,29 @@ void handle_button_press(uint8_t button_num)
     keyboard_release_all();
     media_key_release();
     memset(key_being_held, 0, MAPPABLE_KEY_COUNT);
-    if(button_hold_duration < LONG_PRESS_MS)
+    if(button_hold_duration < LONG_PRESS_MS) // short press
     {
         if(button_num == KEY_BUTTON1) // -
           change_profile(PREV_PROFILE);
         else if(button_num == KEY_BUTTON2) // +
           change_profile(NEXT_PROFILE);
     }
-    else
+    else // long press
     {
+      is_in_settings = 1;
+      if(button_num == KEY_BUTTON1) // -
+      {
         change_brightness();
         save_settings();
-        print_legend(0, 0);
+      }
+      else if(button_num == KEY_BUTTON2) // +
+      {
+        profile_quickswitch();
+      }
+
+      is_in_settings = 0;
+      print_legend(0, 0);
+      service_all();
     }
 }
 
@@ -220,7 +269,7 @@ void keypress_task_start(void const * argument)
         last_keypress = HAL_GetTick();
         if(key_being_held[i])
         {
-					keypress_wrap(i, 1);
+          keypress_wrap(i, 1);
           keydown_anime_end(i);
         }
       }
