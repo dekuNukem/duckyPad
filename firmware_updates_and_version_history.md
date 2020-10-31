@@ -22,16 +22,13 @@
 
 You can update duckyPad's firmware via USB, for bug fixes and and/or new features. 
 
-To do this, download and install the [STM32 DfuSe tool](resources/en.stsw-stm32080_stm32_DfuSe.zip) from this repo. (You can also download it from [the official website](https://www.st.com/en/development-tools/stsw-stm32080.html), but it requires creating an account.)
+### Enter DFU Mode
 
-First, locate the **`DFU`** button on the board:
+Locate the **`DFU`** button on the board:
 
 ![Alt text](resources/pics/dfu_buttons_new.jpg)
 
-
 ![Alt text](resources/pics/buttons.jpg)
-
-To update firmware:
 
 * Make sure the board is unplugged.
 
@@ -41,7 +38,11 @@ To update firmware:
 
 If all went well, the backlight and display should stay off.
 
-Now launch the `DfuSeDemo` software:
+### Windows
+
+Download and install the [STM32 DfuSe tool](resources/en.stsw-stm32080_stm32_DfuSe.zip) from this repo. (You can also download it from [the official website](https://www.st.com/en/development-tools/stsw-stm32080.html), but it requires creating an account.)
+
+Launch the `DfuSeDemo` software:
 
 ![Alt text](resources/pics/dfu_start.png)
 
@@ -67,15 +68,23 @@ And now the firmware is being updated!
 
 ![Alt text](resources/pics/dfu_uploading.png)
 
-It could take anywhere between a few seconds to a few minutes. Try using different USB ports if it is particularly slow. 
+It can take anywhere between a few seconds to a few minutes. Try using a USB hub if it's particularly slow. 
 
-After uploading is complete, unplug and plug it back in to start using the new firmware. 
+After completion, press **`RESET`** button (or power-cycle) to start using the new firmware. 
 
-------
+### macOS / Linux
+
+Using terminal, install [dfu-util](http://dfu-util.sourceforge.net/) with a package manager. For macOS you can use [Brew](https://brew.sh/):
+
+`brew install dfu-util`
+
+Hold DFU button and connect duckyPad, then run:
+
+`dfu-util --device ,0483:df11 -a 0 -D /path/to/duckypad_firmware.dfu`
+
+After completion, press **`RESET`** button (or power-cycle) to start using the new firmware. 
 
 ## Firmware Version History
-
-## Latest Firmware
 
 ### 0.8.0
 
