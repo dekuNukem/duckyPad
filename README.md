@@ -216,7 +216,7 @@ You can use duckyPad out-of-box on nearly anything that supports USB keyboards, 
 * PC
 * Mac
 * Linux
-* Raspberry Pi (yes i know it's linux too)
+* Raspberry Pi
 * iPhone / iPad
 * Android phones and tablets
 * Chromebooks
@@ -225,7 +225,7 @@ You can use duckyPad out-of-box on nearly anything that supports USB keyboards, 
 
 ![Alt text](resources/pics/devices.gif)
 
-duckyPad’s firmware can also be easily updated via USB-C for new features and bug fixes.
+duckyPad’s firmware can also be [easily updated via USB-C](firmware_updates_and_version_history.md) for new features and bug fixes.
 
 ### Keyboard Layouts
 
