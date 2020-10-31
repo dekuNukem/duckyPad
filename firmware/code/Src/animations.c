@@ -14,7 +14,7 @@ uint8_t blue_buf[NEOPIXEL_COUNT];
 led_animation neo_anime[NEOPIXEL_COUNT];
 uint8_t error_color_red[THREE] = {255, 0, 0};
 uint8_t error_color_black[THREE] = {0, 0, 0};
-uint8_t profile_quickswitch_color[THREE] = {128, 128, 128};
+uint8_t profile_quickswitch_color[THREE] = {50, 50, 50};
 uint8_t rand_order_buf[NEOPIXEL_COUNT];
 uint8_t color_black[THREE] = {0,0,0};
 int8_t brightness_index = BRIGHTNESS_LEVELS - 1;
