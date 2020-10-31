@@ -114,7 +114,6 @@ void profile_quickswitch(void)
         service_all();
       }
       
-
     if(is_pressed(&button_status[KEY_BUTTON1])) // -
     {
         pqs_page--;

@@ -22,7 +22,9 @@ Simply plug it into your computer, and voilà:
 
 * Press `+` and `-` button to switch profiles.
 
-* Hold down `+` or `-` button to change RGB LED brightness.
+* **`Hold down`** `+` button for profile quickswitch.
+
+* **`Hold down`** `-` button to change RGB backlight brightness.
 
 * If you use `AZERTY` or `Dvorak` layout, **`HOLD DOWN TOP LEFT KEY`** while **`PLUGGING IT IN`**, then select your layout.
 
