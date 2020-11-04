@@ -41,13 +41,13 @@ CONTROL w
 
 ------
 
-* Check out the [sample profiles](https://github.com/dekuNukem/duckyPad/tree/master/sample_profiles) for more examples.
-
-## Syntax
-
 * One command per line. **`Each line has a 256 character limit!`**
 
 * 1000 milliseconds = 1 second
+
+* Check out the [sample profiles](https://github.com/dekuNukem/duckyPad/tree/master/sample_profiles) for more examples.
+
+## Syntax
 
 ### REM
 
@@ -202,9 +202,9 @@ Those special keys can be used on their own:
 
 * For macOS, use `WINDOWS` for `Command` key, use `ALT` for `Option` key.
 
-### HOLD
+### HOLD (experimental)
 
-Holds a key when you press it, and release only when you release it.
+Holds a key when you press it, and release only when you release it. This command makes duckyPad behave more like a traditional keyboard.
 
 `HOLD` command must be followed by a single key, it can be a character or a special key.
 
@@ -217,9 +217,9 @@ HOLD SHIFT
 
 You should only use `HOLD` command on its own, i.e. the script should only have a single line of `HOLD` command and nothing else.
 
-This command makes duckyPad behave more like a traditional keyboard.
+Possible uses include push-to-talk voice chat, or WASD gamepad.
 
-You can probably use it as a WASD gamepad this way.
+This command is experimental, if you run into any bugs, [let me know](#questions-or-comments)!
 
 ## Table of Contents
 
