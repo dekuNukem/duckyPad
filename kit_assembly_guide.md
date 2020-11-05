@@ -1,6 +1,6 @@
 # duckyPad Assembly Guide
 
-[Kickstarter](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) ([Nov 4 launch details](kickstarter_info.md)) | [Official Discord](https://discord.gg/4sJCBx5) | [Table of Contents](#table-of-contents)
+[Support on Kickstarter!](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) | [Official Discord](https://discord.gg/4sJCBx5) | [Table of Contents](#table-of-contents)
 
 ------
 

@@ -1,6 +1,6 @@
 # duckyPad: Do-It-All Mechanical Macropad
 
-[Kickstarter](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) ([Nov 4 launch details](kickstarter_info.md)) | [Official Discord](https://discord.gg/4sJCBx5) | [Getting Started](getting_started.md) | [Table of Contents](#table-of-contents)
+[Support on Kickstarter!](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) | [Official Discord](https://discord.gg/4sJCBx5) | [Getting Started](getting_started.md) | [Table of Contents](#table-of-contents)
 
 ![Alt text](resources/pics/title.png)
 
@@ -16,17 +16,13 @@ When pressed, each key executes a user-created *`duckyScript`* to automate keybo
 
 The scripts can be as simple as shortcuts like `Control + C`, or as sophisticated as launching applications, managing livestreams, or even [creating root backdoors](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---OSX-Root-Backdoor) or [grabbing passwords](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---download-mimikatz%2C-grab-passwords-and-email-them-via-gmail). It's all up to you!
 
-## Help fund duckyPad on Kickstarter!
+## Support duckyPad on Kickstarter!
 
-The campaign is currently scheduled to launch on **`November 4th`**.
-
-For details, please see [**`Important kickstarter information`**](kickstarter_info.md).
-
-[Click me to get duckyPad Kickstarter launch notification!](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) This way you won't miss out on **limited-quantity early bird rewards** with a **discount** AND **immediate shipping**!
+[Kickstarter campaign is LIVE!](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) There might still be a few **early bird rewards** left, with **a discount** AND **immediate shipping**!
 
 Also, feel free to join the [official duckyPad discord](https://discord.gg/4sJCBx5) to keep up with announcements and updates, and post any questions and comments you might have!
 
-Finally, feel free to check out a video of duckyPad in action!
+Finally, here's a video of duckyPad in action!
 <table>
   <tr>
     <td><a href="https://www.youtube.com/watch?v=dqWWlOURo6A" title="YouTube" rel="noopener"><img src="https://i.imgur.com/767Nnyt.png"></a></td>
@@ -248,9 +244,7 @@ More will be available if needed.
 
 ## I want one!
 
-[Click me to get duckyPad Kickstarter launch notification!](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) This way you won't miss out on **limited-quantity early bird rewards** with a **discount** AND **immediate shipping**!
-
-The campaign is currently scheduled to launch around **`early November`**. Pricing will be announced when campaign launches, but I can say it will be **well within double digits in USD**.
+[Kickstarter campaign is LIVE!](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) There might still be a few **early bird rewards** left, with **a discount** AND **immediate shipping**!
 
 Also, feel free to join the [official duckyPad discord](https://discord.gg/4sJCBx5) to keep up with announcements and updates, and post any questions and comments you might have!
 
