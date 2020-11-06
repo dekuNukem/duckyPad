@@ -2,11 +2,27 @@
 
 [Support on Kickstarter!](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) | [Official Discord](https://discord.gg/4sJCBx5) | [Getting Started](getting_started.md) | [Table of Contents](#table-of-contents)
 
-![Alt text](resources/pics/title.png)
+----
 
 duckyPad is a 15-key mechanical macropad that helps **consolidate and speed up your workflow** by automating keyboard inputs. 
 
-duckyPad offers a sleek design and features of a high-end mechanical keyboard (**`Hot-swap`**, **`RGB lighting`**, **`USB-C`**), along with macropad-specific innovations such as **`OLED display`**, **`multi-line scripting`**, **`SD-card storage`**, and more.
+![Alt text](resources/pics/title.png)
+
+duckyPad features a sleek design and all the goodies of a high-end mechanical keyboard:
+
+* Mechanical switches
+* **Hot-swap**
+* **RGB**
+* **USB-C**
+* Open-source
+
+But more crucially, duckyPad also features **previous-unseen-in-macropads** innovations such as:
+
+* **OLED** screen showing what each key does
+* Sophisticated **multi-line scripting** with [duckyScript](duckyscript_info.md)
+* **32 profiles** of 15 keys, 480 macros total.
+* microSD card storage, move between devices without losing macros.
+* No driver needed, works out-of-box on anything that supports USB keyboards.
 
 ![Alt text](resources/pics/teaser.gif)
 
