@@ -34,7 +34,7 @@ The scripts can be as simple as shortcuts like `Control + C`, or as sophisticate
 
 ## Support duckyPad on Kickstarter!
 
-[Kickstarter campaign is LIVE!](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) There might still be a few **early bird rewards** left, with **a discount** AND **immediate shipping**!
+[Kickstarter campaign is LIVE!](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) Please consider supporting this project if you're interested!
 
 Also, feel free to join the [official duckyPad discord](https://discord.gg/4sJCBx5) to keep up with announcements and updates, and post any questions and comments you might have!
 
@@ -260,7 +260,7 @@ More will be available if needed.
 
 ## I want one!
 
-[Kickstarter campaign is LIVE!](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) There might still be a few **early bird rewards** left, with **a discount** AND **immediate shipping**!
+[Kickstarter campaign is LIVE!](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) Please consider supporting this project if you're interested!
 
 Also, feel free to join the [official duckyPad discord](https://discord.gg/4sJCBx5) to keep up with announcements and updates, and post any questions and comments you might have!
 
