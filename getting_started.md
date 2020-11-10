@@ -30,7 +30,7 @@ Simply plug it into your computer, and voilà:
 
 ## Writing Your Own Scripts
 
-The samples might be fun, but duckyPad's true purpose is to do what YOU want it to do! So here's how.
+The samples might be fun, but duckyPad's true purpose is to do what YOU want! So here's how.
 
 ### SD Card
 
@@ -74,7 +74,7 @@ For macOS, **`RIGHT CLICK`** on the app and select `Open`. You might have to do 
 
 ### Using the duckyPad configurator
 
-Mount the SD card on your computer and launch the app. It should look like this:
+Remove the SD card from duckyPad, mount it on your computer and launch the app. It should look like this:
 
 ![Alt text](resources/pics/app/unselected.png)
 
@@ -174,7 +174,9 @@ Eject the SD card from your computer, insert it into duckyPad, plug it in. It sh
 
 * Press `+` and `-` button to switch profiles.
 
-* Hold down `+` or `-` button to change RGB LED brightness.
+* **`Hold down`** `+` button for profile quickswitch.
+
+* **`Hold down`** `-` button to change RGB backlight brightness.
 
 * If you use `AZERTY` or `Dvorak` layout, **`HOLD DOWN TOP LEFT KEY`** while **`PLUGGING IT IN`**, then select your layout.
 
@@ -197,6 +199,8 @@ Some examples:
 [Photoshop](https://helpx.adobe.com/uk/photoshop/using/default-keyboard-shortcuts.html), [Final Cut Pro](https://support.apple.com/en-gb/guide/final-cut-pro/ver90ba5929/mac), and [Premiere Pro](https://helpx.adobe.com/uk/premiere-pro/using/keyboard-shortcuts.html).
 
 ### Launching Apps on Windows - Using Task Bar
+
+Another popular usage is launching apps. There are two ways of doing this. Here is the frist:
 
 Find the app, `Right click -> More -> Pin to taskbar`:
 
