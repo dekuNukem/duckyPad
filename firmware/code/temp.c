@@ -6,6 +6,33 @@ the key should be breathing
 after its done then fade back to background color
 */
 
+  // if any key is being held down via HOLD command, don't repeat
+  for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+    if(key_being_held[i])
+      return;
+          // printf("ph: %d %d\n", hold_cache[i].key_type, hold_cache[i].code);
+else if(is_released_but_not_serviced(&button_status[i]))
+      {
+        last_keypress = HAL_GetTick();
+        if(key_being_held[i])
+        {
+          keypress_wrap(i);
+          keydown_anime_end(i);
+        }
+      }
+if(i <= KEY_14)
+        {
+          // printf("ph: %d %d\n", hold_cache[i].key_type, hold_cache[i].code);
+          keydown_anime_start(i);
+          handle_keypress(i, &button_status[i]); // handle the button state inside here for repeats
+          if(key_being_held[i] == 0)
+            keydown_anime_end(i);
+        }
+
+// printf("button %d released\n", i);
+        // for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+        //   printf("%d ", key_being_held[i]);
+        // printf("\n");
 void print_keyname(char* keyname, uint8_t keynum, int8_t x_offset, int8_t y_offset)
 {
   memset(key_name_buf, 0, FILENAME_SIZE);

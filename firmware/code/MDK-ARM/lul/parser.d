@@ -60,7 +60,7 @@ lul\parser.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 lul\parser.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 lul\parser.o: ../Inc/buttons.h
 lul\parser.o: ../Inc/parser.h
+lul\parser.o: ../Inc/keyboard.h
 lul\parser.o: ../Inc/ssd1306.h
 lul\parser.o: ../Inc/fonts.h
-lul\parser.o: ../Inc/keyboard.h
 lul\parser.o: ../Inc/animations.h

@@ -7,7 +7,7 @@
 
 #include "stm32f0xx_hal.h"
 #include "buttons.h"
-
+#include "keyboard.h"
 #define READ_BUF_SIZE 256
 #define MAX_PROFILES 32
 #define PATH_SIZE 40
@@ -49,7 +49,7 @@ void handle_keypress(uint8_t key_num, but_status* b_status);
 void scan_profiles(void);
 uint8_t get_last_profile(void);
 void restore_profile(uint8_t profile_id);
-void keypress_wrap(uint8_t keynum, uint8_t is_key_release);
+void keypress_wrap(uint8_t keynum);
 void print_legend(int8_t x_offset, int8_t y_offset);
 void save_settings(void);
 void load_settings(void);
@@ -60,7 +60,7 @@ void print_keyname(char* keyname, uint8_t keynum, int8_t x_offset, int8_t y_offs
 extern profile_cache p_cache;
 extern char temp_buf[PATH_SIZE];
 extern dp_global_settings dp_settings;
-extern uint8_t key_being_held[MAPPABLE_KEY_COUNT];
+extern my_key hold_cache[MAPPABLE_KEY_COUNT];
 
 #ifdef __cplusplus
 }

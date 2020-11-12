@@ -6,13 +6,11 @@
 
 ## Latest Firmware
 
-### 0.9.0
+### 0.10.0
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.9.0.dfu)
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.10.0.dfu)
 
-* Added profile quickswitching
-
-* **`Hold down`** `+` button and jump between profiles!
+* Improved `HOLD` command performance
 
 ## USB Firmware Updates
 
@@ -50,7 +48,7 @@ In the `Available DUF Devices` section at top left corner, you should see a `STM
 
 Press the `Choose...` button and select a firmware file in `.dfu` format.
 
-* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.9.0.dfu) to download the latest firmware (v0.9.0)
+* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.10.0.dfu) to download the latest firmware (v0.10.0)
 
 * ...or [scroll down](#firmware-version-history) for older firmware versions.
 
@@ -81,6 +79,12 @@ Hold DFU button and connect duckyPad, then run:
 After completion, press **`RESET`** button (or power-cycle) to start using the new firmware. 
 
 ## Firmware Version History
+
+### 0.10.0
+
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.10.0.dfu)
+
+* Improved `HOLD` command performance
 
 ### 0.9.0
 

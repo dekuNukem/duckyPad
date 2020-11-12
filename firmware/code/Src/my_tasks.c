@@ -149,7 +149,6 @@ void handle_button_press(uint8_t button_num)
     }
     keyboard_release_all();
     media_key_release();
-    memset(key_being_held, 0, MAPPABLE_KEY_COUNT);
     if(button_hold_duration < LONG_PRESS_MS) // short press
     {
         if(button_num == KEY_BUTTON1) // -
@@ -253,30 +252,27 @@ void keypress_task_start(void const * argument)
           is_sleeping = 0;
           goto key_task_end;
         }
-
         if(i <= KEY_14)
         {
           keydown_anime_start(i);
-          handle_keypress(i, &button_status[i]); // handle the button state inside here for repeats
-          if(key_being_held[i] == 0)
+          if(hold_cache[i].key_type != KEY_TYPE_UNKNOWN && hold_cache[i].code != 0)
+          {
+            keyboard_press(&hold_cache[i], 0);
+          }
+          else
+          {
+            handle_keypress(i, &button_status[i]); // handle the button state inside here for repeats
             keydown_anime_end(i);
+          }
         }
-
         else if(i == KEY_BUTTON1 || i == KEY_BUTTON2)
           handle_button_press(i);
       }
-      else if(is_released_but_not_serviced(&button_status[i]))
+      if(is_released_but_not_serviced(&button_status[i]) && hold_cache[i].key_type != KEY_TYPE_UNKNOWN && hold_cache[i].code != 0)
       {
-        // printf("button %d released\n", i);
-        // for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
-        //   printf("%d ", key_being_held[i]);
-        // printf("\n");
         last_keypress = HAL_GetTick();
-        if(key_being_held[i])
-        {
-          keypress_wrap(i, 1);
-          keydown_anime_end(i);
-        }
+        keyboard_release(&hold_cache[i]);
+        keydown_anime_end(i);
       }
       key_task_end:
       service_press(&button_status[i]);

@@ -62,3 +62,4 @@ lul\animations.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 lul\animations.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 lul\animations.o: ../Inc/parser.h
 lul\animations.o: ../Inc/buttons.h
+lul\animations.o: ../Inc/keyboard.h

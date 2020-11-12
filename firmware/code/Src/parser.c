@@ -43,7 +43,7 @@ char prev_line[READ_BUF_SIZE];
 char nonexistent_keyname[] = "\253";
 profile_cache p_cache;
 dp_global_settings dp_settings;
-uint8_t key_being_held[MAPPABLE_KEY_COUNT];
+my_key hold_cache[MAPPABLE_KEY_COUNT];
 
 const char cmd_REPEAT[] = "REPEAT ";
 const char cmd_REM[] = "REM ";
@@ -516,6 +516,15 @@ void load_settings(void)
   f_close(&sd_file);
 }
 
+void reset_hold_cache(void)
+{
+  for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+  {
+    hold_cache[i].key_type = KEY_TYPE_UNKNOWN;
+    hold_cache[i].code = 0;
+  }
+}
+
 void restore_profile(uint8_t profile_id)
 {
   load_profile(profile_id);
@@ -524,6 +533,7 @@ void restore_profile(uint8_t profile_id)
   f_closedir(&dir);
   f_close(&sd_file);
   save_last_profile(profile_id);
+  reset_hold_cache();
 }
 
 void change_profile(uint8_t direction)
@@ -1028,43 +1038,25 @@ uint8_t is_empty_line(char* line)
   return 1;
 }
 
-uint8_t parse_hold(char* line, uint8_t keynum, uint8_t is_key_release)
+uint8_t parse_hold(char* line, uint8_t keynum)
 {
   line = goto_next_arg(line, line + strlen(line));
+  if(line == NULL)
+    return PARSE_ERROR;
   my_key this_key;
   parse_special_key(line, &this_key);
   if(this_key.key_type == KEY_TYPE_UNKNOWN)
   {
     this_key.key_type = KEY_TYPE_CHAR;
     this_key.code = line[0];
-    if(is_key_release)
-    {
-      keyboard_release(&this_key);
-      key_being_held[keynum] = 0;
-    }
-    else
-    {
-      keyboard_press(&this_key, 0);
-      key_being_held[keynum] = 1;
-    }
   }
-  else
-  {
-    if(is_key_release)
-    {
-      parse_combo(line, &this_key, 2);
-      key_being_held[keynum] = 0;
-    }
-    else
-    {
-      parse_combo(line, &this_key, 1);
-      key_being_held[keynum] = 1;
-    }
-  }
+  hold_cache[keynum].key_type = this_key.key_type;
+  hold_cache[keynum].code = this_key.code;
+  keyboard_press(&this_key, 0);
   return PARSE_OK;
 }
 
-uint8_t parse_line(char* line, uint8_t keynum, uint8_t is_key_release)
+uint8_t parse_line(char* line, uint8_t keynum)
 {
   uint8_t result = PARSE_OK;
 
@@ -1077,7 +1069,7 @@ uint8_t parse_line(char* line, uint8_t keynum, uint8_t is_key_release)
 
   if(strncmp(cmd_HOLD, line, strlen(cmd_HOLD)) == 0)
   {
-    result = parse_hold(line, keynum, is_key_release);
+    result = parse_hold(line, keynum);
     goto parse_end;
   }
 
@@ -1135,7 +1127,7 @@ uint8_t parse_line(char* line, uint8_t keynum, uint8_t is_key_release)
   return result;
 }
 
-void keypress_wrap(uint8_t keynum, uint8_t is_key_release)
+void keypress_wrap(uint8_t keynum)
 {
   uint16_t line_num = 0;
   uint8_t result;
@@ -1153,10 +1145,10 @@ void keypress_wrap(uint8_t keynum, uint8_t is_key_release)
     {
       uint8_t repeats = atoi(goto_next_arg(read_buffer, read_buffer + strlen(read_buffer)));
       for (int i = 0; i < repeats; ++i)
-        parse_line(prev_line, keynum, is_key_release);
+        parse_line(prev_line, keynum);
       continue;
     }
-    result = parse_line(read_buffer, keynum, is_key_release);
+    result = parse_line(read_buffer, keynum);
     if(result == PARSE_ERROR)
     {
       ssd1306_Fill(Black);
@@ -1191,13 +1183,7 @@ void keypress_wrap(uint8_t keynum, uint8_t is_key_release)
 
 void handle_keypress(uint8_t keynum, but_status* b_status)
 {
-  keypress_wrap(keynum, 0);
-  
-  // if any key is being held down via HOLD command, don't repeat
-  for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
-    if(key_being_held[i])
-      return;
-
+  keypress_wrap(keynum);
   // wait 500ms
   uint32_t hold_start = HAL_GetTick();
   while(1)
@@ -1215,7 +1201,7 @@ void handle_keypress(uint8_t keynum, but_status* b_status)
   {
     HAL_IWDG_Refresh(&hiwdg);
     keyboard_update();
-    keypress_wrap(keynum, 0);
+    keypress_wrap(keynum);
     if(b_status->button_state == BUTTON_RELEASED)
       return;
   }
