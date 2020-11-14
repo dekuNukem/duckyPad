@@ -453,7 +453,7 @@ def save_everything(save_path):
             for this_key in this_profile.keylist:
                 if this_key is None:
                     continue
-                with open(this_key.path, 'w') as key_file:
+                with open(this_key.path, 'w', encoding='utf8') as key_file:
                     key_file.write(this_key.script)
                 if this_key.color is not None:
                     config_file.write('SWCOLOR_%d %d %d %d\n' % (this_key.index, this_key.color[0], this_key.color[1], this_key.color[2]))

@@ -5,7 +5,7 @@ MAX_PROFILE_COUNT = 32
 
 class dp_key(object):
 	def load_script(self, path):
-		with open(path) as keyfile:
+		with open(path, encoding='utf8') as keyfile:
 			return keyfile.read()
 
 	def read_color(self, config_path):
