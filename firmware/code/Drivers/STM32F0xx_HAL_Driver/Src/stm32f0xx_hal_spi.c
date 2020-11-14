@@ -1151,7 +1151,6 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, uint8_t *pTxD
         errorcode = HAL_TIMEOUT;
         goto error;
       }
-			
     }
   }
 
