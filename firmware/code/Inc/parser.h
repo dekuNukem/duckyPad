@@ -72,6 +72,7 @@ extern char lfn_buf[FILENAME_SIZE];
 extern char read_buffer[READ_BUF_SIZE];
 extern char curr_kb_layout[FILENAME_SIZE];
 extern char project_url[];
+
 #ifdef __cplusplus
 }
 #endif

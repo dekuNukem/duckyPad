@@ -88,6 +88,11 @@
 #define KEY_TYPE_MODIFIER 2
 #define KEY_TYPE_SPECIAL 3
 #define KEY_TYPE_MEDIA 4
+#define KEY_TYPE_DEAD_GRAVE_ACCENT 5
+#define KEY_TYPE_DEAD_ACUTE_ACCENT 6
+#define KEY_TYPE_DEAD_CIRCUMFLEX 7
+#define KEY_TYPE_DEAD_TILDE 8
+#define KEY_TYPE_DEAD_DIAERESIS 9
 
 #define ASCII_MAP_SIZE 256
 
@@ -103,6 +108,13 @@ void keyboard_press(my_key* this_key, uint8_t use_shift);
 void keyboard_release_all(void);
 void init_my_key(my_key* kk);
 void media_key_release(void);
+
+extern uint16_t circumflex;
+extern uint16_t diaeresis;
+extern uint16_t grave_accent;
+extern uint16_t acute_accent;
+extern uint16_t tilde;
+
 extern uint16_t _asciimap[ASCII_MAP_SIZE];
 
 #ifdef __cplusplus

@@ -1,4 +1,12 @@
 
+  // printf("%c %x %x %x\n", kk->code, kk->code, duckcode, duckcode >> 12);
+  // keyboard_press(kk, 1);
+  // osDelay(chardelay);
+
+Program Size: Code=44124 RO-data=4356 RW-data=1084 ZI-data=14836  
+      // printf("%d\n%s\n---\n", circumflex, read_buffer);
+  printf("%x %x %x %x %x\n", circumflex, diaeresis, grave_accent, acute_accent, tilde);
+
 /*
 when key down and script is executing, 
 the key should be breathing

@@ -217,6 +217,12 @@ void scan_keymaps(void)
   f_closedir(&dir);
 }
 
+const char str_circumflex[] = "dk_circumflex";
+const char str_diaeresis[] = "dk_diaeresis";
+const char str_grave_accent[] = "dk_grave_accent";
+const char str_acute_accent[] = "dk_acute_accent";
+const char str_tilde[] = "dk_tilde";
+
 uint8_t load_keymap_by_name(char* name)
 {
   char* next;
@@ -238,9 +244,37 @@ uint8_t load_keymap_by_name(char* name)
 
   while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
   {
+    if(strncmp(read_buffer, str_circumflex, strlen(str_circumflex)) == 0)
+    {
+      circumflex = strtoul(read_buffer + strlen(str_circumflex), NULL, 0);
+      goto read_keymap_loop_end;
+    }
+    if(strncmp(read_buffer, str_diaeresis, strlen(str_diaeresis)) == 0)
+    {
+      diaeresis = strtoul(read_buffer + strlen(str_diaeresis), NULL, 0);
+      goto read_keymap_loop_end;
+    }
+    if(strncmp(read_buffer, str_grave_accent, strlen(str_grave_accent)) == 0)
+    {
+      grave_accent = strtoul(read_buffer + strlen(str_grave_accent), NULL, 0);
+      goto read_keymap_loop_end;
+    }
+    if(strncmp(read_buffer, str_acute_accent, strlen(str_acute_accent)) == 0)
+    {
+      acute_accent = strtoul(read_buffer + strlen(str_acute_accent), NULL, 0);
+      goto read_keymap_loop_end;
+    }
+    if(strncmp(read_buffer, str_tilde, strlen(str_tilde)) == 0)
+    {
+      tilde = strtoul(read_buffer + strlen(str_tilde), NULL, 0);
+      goto read_keymap_loop_end;
+    }
+
     ascii_index = strtoul(read_buffer, &next, 0);
     keycode = strtoul(next, NULL, 0);
     _asciimap[ascii_index] = keycode;
+
+    read_keymap_loop_end:
     memset(read_buffer, 0, READ_BUF_SIZE);
   }
   strcpy(curr_kb_layout, name);

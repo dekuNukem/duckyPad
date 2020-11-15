@@ -9,6 +9,14 @@
 #define SHIFT 0x100
 #define ALT_GR 0x200
 
+uint16_t circumflex;
+uint16_t diaeresis;
+uint16_t grave_accent;
+uint16_t acute_accent;
+uint16_t tilde;
+static uint8_t c1;
+my_key deadkey;
+
 uint16_t _asciimap[ASCII_MAP_SIZE] =
 {
   0x00,             // NUL
@@ -314,6 +322,20 @@ void media_key_press(my_key* this_key)
   USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, 2);
 }
 
+uint8_t should_use_mod(uint8_t ttt)
+{
+  switch(ttt)
+  {
+    case KEY_TYPE_CHAR: return 1;
+    case KEY_TYPE_DEAD_GRAVE_ACCENT: return 1;
+    case KEY_TYPE_DEAD_ACUTE_ACCENT: return 1;
+    case KEY_TYPE_DEAD_CIRCUMFLEX: return 1;
+    case KEY_TYPE_DEAD_TILDE: return 1;
+    case KEY_TYPE_DEAD_DIAERESIS: return 1;
+  }
+  return 0;
+}
+
 void keyboard_press(my_key* this_key, uint8_t use_mod)
 {
   uint16_t usage_id;
@@ -331,10 +353,20 @@ void keyboard_press(my_key* this_key, uint8_t use_mod)
     usage_id = this_key->code;
   else if(this_key->key_type == KEY_TYPE_CHAR)
     usage_id = get_scancode(this_key->code);
+  else if(this_key->key_type == KEY_TYPE_DEAD_GRAVE_ACCENT)
+    usage_id = grave_accent;
+  else if(this_key->key_type == KEY_TYPE_DEAD_ACUTE_ACCENT)
+    usage_id = acute_accent;
+  else if(this_key->key_type == KEY_TYPE_DEAD_CIRCUMFLEX)
+    usage_id = circumflex;
+  else if(this_key->key_type == KEY_TYPE_DEAD_TILDE)
+    usage_id = tilde;
+  else if(this_key->key_type == KEY_TYPE_DEAD_DIAERESIS)
+    usage_id = diaeresis;
   else
     return;
 
-  if(use_mod && this_key->key_type == KEY_TYPE_CHAR)
+  if(use_mod && should_use_mod(this_key->key_type))
   {
     if(usage_id & SHIFT)
       kb_buf[1] |= KEY_LEFT_SHIFT;
@@ -371,10 +403,20 @@ void keyboard_release(my_key* this_key)
     usage_id = this_key->code;
   else if(this_key->key_type == KEY_TYPE_CHAR)
     usage_id = get_scancode(this_key->code);
+  else if(this_key->key_type == KEY_TYPE_DEAD_GRAVE_ACCENT)
+    usage_id = grave_accent;
+  else if(this_key->key_type == KEY_TYPE_DEAD_ACUTE_ACCENT)
+    usage_id = acute_accent;
+  else if(this_key->key_type == KEY_TYPE_DEAD_CIRCUMFLEX)
+    usage_id = circumflex;
+  else if(this_key->key_type == KEY_TYPE_DEAD_TILDE)
+    usage_id = tilde;
+  else if(this_key->key_type == KEY_TYPE_DEAD_DIAERESIS)
+    usage_id = diaeresis;
   else
     return;
 
-  if(this_key->key_type == KEY_TYPE_CHAR)
+  if(should_use_mod(this_key->key_type))
   {
     if(usage_id & SHIFT)
       kb_buf[1] &= ~(KEY_LEFT_SHIFT);
@@ -388,15 +430,12 @@ void keyboard_release(my_key* this_key)
   USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, KB_BUF_SIZE);
 }
 
-static uint8_t c1;
-
 uint8_t utf8ascii(uint8_t ascii) {
   if(ascii<128) // Standard ASCII-set 0..0x7F handling  
   {   
     c1=0;
     return ascii;
   }
-
   // get previous input
   uint8_t last = c1; // get last char
   c1=ascii; // remember actual character
@@ -410,19 +449,51 @@ uint8_t utf8ascii(uint8_t ascii) {
   return 0; // otherwise: return zero, if character has to be ignored
 }
 
+uint16_t duckcode;
+void kb_print_char(my_key *kk, uint16_t chardelay)
+{
+  /*
+  kk.code is the ASCII character
+  look it up in the keymap, result is uint16_t
+  top 4 bits map to dead key
+  if no dead key, press as normal
+  if has dead key, press it first
+  */
+  duckcode = _asciimap[kk->code];
+  uint16_t wtf = duckcode & 0xf000;
+  if(wtf != 0) // deadkey
+  {
+    // printf("%c %x %x\n", kk->code, kk->code, duckcode);
+    switch(duckcode >> 12)
+    {
+      case 1: deadkey.key_type = KEY_TYPE_DEAD_GRAVE_ACCENT; break;
+      case 2: deadkey.key_type = KEY_TYPE_DEAD_ACUTE_ACCENT; break;
+      case 3: deadkey.key_type = KEY_TYPE_DEAD_CIRCUMFLEX; break;
+      case 4: deadkey.key_type = KEY_TYPE_DEAD_TILDE; break;
+      case 5: deadkey.key_type = KEY_TYPE_DEAD_DIAERESIS; break;
+      default: deadkey.key_type = KEY_TYPE_UNKNOWN; deadkey.code = 0;
+    }
+    keyboard_press(&deadkey, 1);
+    osDelay(chardelay);
+    keyboard_release(&deadkey);
+    osDelay(chardelay);
+  }
+  keyboard_press(kk, 1);
+  osDelay(chardelay);
+  keyboard_release(kk);
+  osDelay(chardelay);
+}
+
 void kb_print(char* msg, uint16_t chardelay)
 {
   my_key kk;
   for (int i = 0; i < strlen(msg); ++i)
   {
     kk.key_type = KEY_TYPE_CHAR;
-    // kk.code = msg[i];
     kk.code = utf8ascii(msg[i]);
-    // printf("%d %c\n", kk.code, msg[i]);
-    keyboard_press(&kk, 1);
-    osDelay(chardelay);
-    keyboard_release(&kk);
-    osDelay(chardelay);
+    if(kk.code == 0)
+      continue;
+    kb_print_char(&kk, chardelay);
   }
 }
 
