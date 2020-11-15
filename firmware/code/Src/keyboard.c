@@ -388,6 +388,29 @@ void keyboard_release(my_key* this_key)
   USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, KB_BUF_SIZE);
 }
 
+static uint8_t c1;
+
+uint8_t utf8ascii(uint8_t ascii) {
+  if(ascii<128) // Standard ASCII-set 0..0x7F handling  
+  {   
+    c1=0;
+    return ascii;
+  }
+
+  // get previous input
+  uint8_t last = c1;   // get last char
+  c1=ascii;         // remember actual character
+
+  switch (last)     // conversion depending on first UTF8-character
+  {   
+    case 0xC2: return  (ascii);  break;
+    case 0xC3: return  (ascii | 0xC0);  break;
+    case 0x82: if(ascii==0xAC) return(0x80);       // special case Euro-symbol
+  }
+
+  return 0;                                     // otherwise: return zero, if character has to be ignored
+}
+
 void kb_print(char* msg, uint16_t chardelay)
 {
   my_key kk;
@@ -395,6 +418,8 @@ void kb_print(char* msg, uint16_t chardelay)
   {
     kk.key_type = KEY_TYPE_CHAR;
     kk.code = msg[i];
+    kk.code = utf8ascii(msg[i]);
+    // printf("%d %c\n", kk.code, msg[i]);
     keyboard_press(&kk, 1);
     osDelay(chardelay);
     keyboard_release(&kk);
