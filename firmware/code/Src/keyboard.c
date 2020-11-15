@@ -398,17 +398,16 @@ uint8_t utf8ascii(uint8_t ascii) {
   }
 
   // get previous input
-  uint8_t last = c1;   // get last char
-  c1=ascii;         // remember actual character
+  uint8_t last = c1; // get last char
+  c1=ascii; // remember actual character
 
-  switch (last)     // conversion depending on first UTF8-character
+  switch (last) // conversion depending on first UTF8-character
   {   
     case 0xC2: return  (ascii);  break;
     case 0xC3: return  (ascii | 0xC0);  break;
-    case 0x82: if(ascii==0xAC) return(0x80);       // special case Euro-symbol
+    case 0x82: if(ascii==0xAC) return(0x80); // special case Euro-symbol
   }
-
-  return 0;                                     // otherwise: return zero, if character has to be ignored
+  return 0; // otherwise: return zero, if character has to be ignored
 }
 
 void kb_print(char* msg, uint16_t chardelay)
@@ -417,7 +416,7 @@ void kb_print(char* msg, uint16_t chardelay)
   for (int i = 0; i < strlen(msg); ++i)
   {
     kk.key_type = KEY_TYPE_CHAR;
-    kk.code = msg[i];
+    // kk.code = msg[i];
     kk.code = utf8ascii(msg[i]);
     // printf("%d %c\n", kk.code, msg[i]);
     keyboard_press(&kk, 1);
