@@ -89,6 +89,8 @@
 #define KEY_TYPE_SPECIAL 3
 #define KEY_TYPE_MEDIA 4
 
+#define ASCII_MAP_SIZE 256
+
 typedef struct
 {
   uint8_t key_type;
@@ -101,7 +103,7 @@ void keyboard_press(my_key* this_key, uint8_t use_shift);
 void keyboard_release_all(void);
 void init_my_key(my_key* kk);
 void media_key_release(void);
-extern uint8_t curr_kb_layout;
+extern uint16_t _asciimap[ASCII_MAP_SIZE];
 
 #ifdef __cplusplus
 }

@@ -6,12 +6,10 @@
 #include "shared.h"
 #include "keyboard.h"
 
-uint8_t curr_kb_layout;
-
 #define SHIFT 0x100
 #define ALT_GR 0x200
 
-const uint16_t _asciimap_wqerty[128] =
+uint16_t _asciimap[ASCII_MAP_SIZE] =
 {
   0x00,             // NUL
   0x00,             // SOH
@@ -21,9 +19,9 @@ const uint16_t _asciimap_wqerty[128] =
   0x00,             // ENQ
   0x00,             // ACK  
   0x00,             // BEL
-  0x2a,     // BS Backspace
-  0x2b,     // TAB  Tab
-  0x28,     // LF Enter
+  0x2a,             // BS Backspace
+  0x2b,             // TAB  Tab
+  0x28,             // LF Enter
   0x00,             // VT 
   0x00,             // FF 
   0x00,             // CR 
@@ -46,7 +44,7 @@ const uint16_t _asciimap_wqerty[128] =
   0x00,             // RS 
   0x00,             // US 
 
-  0x2c,      //  ' '
+  0x2c,          //  ' '
   0x1e|SHIFT,    // !
   0x34|SHIFT,    // "
   0x20|SHIFT,    // #
@@ -141,417 +139,140 @@ const uint16_t _asciimap_wqerty[128] =
   0x31|SHIFT,    // |
   0x30|SHIFT,    // }
   0x35|SHIFT,    // ~
-  0       // DEL
-};
-
-const uint16_t _asciimap_azerty_fr[128] =
-{
-  0x00,             // NUL
-  0x00,             // SOH
-  0x00,             // STX
-  0x00,             // ETX
-  0x00,             // EOT
-  0x00,             // ENQ
-  0x00,             // ACK  
-  0x00,             // BEL
-  0x2a,     // BS Backspace
-  0x2b,     // TAB  Tab
-  0x28,     // LF Enter
-  0x00,             // VT 
-  0x00,             // FF 
-  0x00,             // CR 
-  0x00,             // SO 
-  0x00,             // SI 
-  0x00,             // DEL
-  0x00,             // DC1
-  0x00,             // DC2
-  0x00,             // DC3
-  0x00,             // DC4
-  0x00,             // NAK
-  0x00,             // SYN
-  0x00,             // ETB
-  0x00,             // CAN
-  0x00,             // EM 
-  0x00,             // SUB
-  0x00,             // ESC
-  0x00,             // FS 
-  0x00,             // GS 
-  0x00,             // RS 
-  0x00,             // US 
-
-  0x2c,      //  ' '
-  0x38,    // !
-  0x20,    // "
-  0x20|ALT_GR,    // #
-  0x30,    // $
-  0x34|SHIFT,    // %
-  0x1e,    // &
-  0x21,          // '
-  0x22,    // (
-  0x2d,    // )
-  0x32,    // *
-  0x2e|SHIFT,    // +
-  0x10,          // ,
-  0x23,          // -
-  0x36|SHIFT,          // .
-  0x37|SHIFT,          // /
-  0x27|SHIFT,          // 0
-  0x1e|SHIFT,          // 1
-  0x1f|SHIFT,          // 2
-  0x20|SHIFT,          // 3
-  0x21|SHIFT,          // 4
-  0x22|SHIFT,          // 5
-  0x23|SHIFT,          // 6
-  0x24|SHIFT,          // 7
-  0x25|SHIFT,          // 8
-  0x26|SHIFT,          // 9
-  0x37,      // :
-  0x36,          // ;
-  0x64,      // <
-  0x2e,          // =
-  0x64|SHIFT,      // >
-  0x10|SHIFT,      // ?
-  0x27|ALT_GR,      // @
-  0x14|SHIFT,      // A
-  0x05|SHIFT,      // B
-  0x06|SHIFT,      // C
-  0x07|SHIFT,      // D
-  0x08|SHIFT,      // E
-  0x09|SHIFT,      // F
-  0x0a|SHIFT,      // G
-  0x0b|SHIFT,      // H
-  0x0c|SHIFT,      // I
-  0x0d|SHIFT,      // J
-  0x0e|SHIFT,      // K
-  0x0f|SHIFT,      // L
-  0x33|SHIFT,      // M
-  0x11|SHIFT,      // N
-  0x12|SHIFT,      // O
-  0x13|SHIFT,      // P
-  0x04|SHIFT,      // Q
-  0x15|SHIFT,      // R
-  0x16|SHIFT,      // S
-  0x17|SHIFT,      // T
-  0x18|SHIFT,      // U
-  0x19|SHIFT,      // V
-  0x1d|SHIFT,      // W
-  0x1b|SHIFT,      // X
-  0x1c|SHIFT,      // Y
-  0x1a|SHIFT,      // Z
-  0x22|ALT_GR,          // [
-  0x25|ALT_GR,          // bslash
-  0x2d|ALT_GR,          // ]
-  0x26|ALT_GR,    // ^
-  0x25,    // _
-  0x24|ALT_GR,          // `
-  0x14,      // a
-  0x05,      // b
-  0x06,      // c
-  0x07,      // d
-  0x08,      // e
-  0x09,      // f
-  0x0a,      // g
-  0x0b,      // h
-  0x0c,      // i
-  0x0d,      // j
-  0x0e,      // k
-  0x0f,      // l
-  0x33,      // m
-  0x11,      // n
-  0x12,      // o
-  0x13,      // p
-  0x04,      // q
-  0x15,      // r
-  0x16,      // s
-  0x17,      // t
-  0x18,      // u
-  0x19,      // v
-  0x1d,      // w
-  0x1b,      // x
-  0x1c,      // y
-  0x1a,      // z
-  0x21|ALT_GR,    // {
-  0x23|ALT_GR,    // |
-  0x2e|ALT_GR,    // }
-  0x1f|ALT_GR,    // ~
-  0       // DEL
-};
-
-const uint16_t _asciimap_azerty_be[128] =
-{
-  0x00,             // NUL
-  0x00,             // SOH
-  0x00,             // STX
-  0x00,             // ETX
-  0x00,             // EOT
-  0x00,             // ENQ
-  0x00,             // ACK  
-  0x00,             // BEL
-  0x2a,     // BS Backspace
-  0x2b,     // TAB  Tab
-  0x28,     // LF Enter
-  0x00,             // VT 
-  0x00,             // FF 
-  0x00,             // CR 
-  0x00,             // SO 
-  0x00,             // SI 
-  0x00,             // DEL
-  0x00,             // DC1
-  0x00,             // DC2
-  0x00,             // DC3
-  0x00,             // DC4
-  0x00,             // NAK
-  0x00,             // SYN
-  0x00,             // ETB
-  0x00,             // CAN
-  0x00,             // EM 
-  0x00,             // SUB
-  0x00,             // ESC
-  0x00,             // FS 
-  0x00,             // GS 
-  0x00,             // RS 
-  0x00,             // US 
-
-  0x2c,      //  ' '
-  0x25,    // !
-  0x20,    // "
-  0x20|ALT_GR,    // #
-  0x30,    // $
-  0x34|SHIFT,    // %
-  0x1e,    // &
-  0x21,          // '
-  0x22,    // (
-  0x2d,    // )
-  0x30|SHIFT,    // *
-  0x38|SHIFT,    // +
-  0x10,          // ,
-  0x2e,          // -
-  0x36|SHIFT,          // .
-  0x37|SHIFT,          // /
-  0x27|SHIFT,          // 0
-  0x1e|SHIFT,          // 1
-  0x1f|SHIFT,          // 2
-  0x20|SHIFT,          // 3
-  0x21|SHIFT,          // 4
-  0x22|SHIFT,          // 5
-  0x23|SHIFT,          // 6
-  0x24|SHIFT,          // 7
-  0x25|SHIFT,          // 8
-  0x26|SHIFT,          // 9
-  0x37,      // :
-  0x36,          // ;
-  0x64,      // <
-  0x38,          // =
-  0x64|SHIFT,      // >
-  0x10|SHIFT,      // ?
-  0x1f|ALT_GR,      // @
-  0x14|SHIFT,      // A
-  0x05|SHIFT,      // B
-  0x06|SHIFT,      // C
-  0x07|SHIFT,      // D
-  0x08|SHIFT,      // E
-  0x09|SHIFT,      // F
-  0x0a|SHIFT,      // G
-  0x0b|SHIFT,      // H
-  0x0c|SHIFT,      // I
-  0x0d|SHIFT,      // J
-  0x0e|SHIFT,      // K
-  0x0f|SHIFT,      // L
-  0x33|SHIFT,      // M
-  0x11|SHIFT,      // N
-  0x12|SHIFT,      // O
-  0x13|SHIFT,      // P
-  0x04|SHIFT,      // Q
-  0x15|SHIFT,      // R
-  0x16|SHIFT,      // S
-  0x17|SHIFT,      // T
-  0x18|SHIFT,      // U
-  0x19|SHIFT,      // V
-  0x1d|SHIFT,      // W
-  0x1b|SHIFT,      // X
-  0x1c|SHIFT,      // Y
-  0x1a|SHIFT,      // Z
-  0x2f|ALT_GR,          // [
-  0x64|ALT_GR,          // bslash
-  0x30|ALT_GR,          // ]
-  0x23|ALT_GR,    // ^
-  0x2e|SHIFT,    // _
-  0x32|ALT_GR,          // `
-  0x14,      // a
-  0x05,      // b
-  0x06,      // c
-  0x07,      // d
-  0x08,      // e
-  0x09,      // f
-  0x0a,      // g
-  0x0b,      // h
-  0x0c,      // i
-  0x0d,      // j
-  0x0e,      // k
-  0x0f,      // l
-  0x33,      // m
-  0x11,      // n
-  0x12,      // o
-  0x13,      // p
-  0x04,      // q
-  0x15,      // r
-  0x16,      // s
-  0x17,      // t
-  0x18,      // u
-  0x19,      // v
-  0x1d,      // w
-  0x1b,      // x
-  0x1c,      // y
-  0x1a,      // z
-  0x26|ALT_GR,    // {
-  0x1e|ALT_GR,    // |
-  0x27|ALT_GR,    // }
-  0x38|ALT_GR,    // ~
-  0       // DEL
-};
-
-const uint16_t _asciimap_dvorak[128] =
-{
-  0x00,             // NUL
-  0x00,             // SOH
-  0x00,             // STX
-  0x00,             // ETX
-  0x00,             // EOT
-  0x00,             // ENQ
-  0x00,             // ACK  
-  0x00,             // BEL
-  0x2a,     // BS Backspace
-  0x2b,     // TAB  Tab
-  0x28,     // LF Enter
-  0x00,             // VT 
-  0x00,             // FF 
-  0x00,             // CR 
-  0x00,             // SO 
-  0x00,             // SI 
-  0x00,             // DEL
-  0x00,             // DC1
-  0x00,             // DC2
-  0x00,             // DC3
-  0x00,             // DC4
-  0x00,             // NAK
-  0x00,             // SYN
-  0x00,             // ETB
-  0x00,             // CAN
-  0x00,             // EM 
-  0x00,             // SUB
-  0x00,             // ESC
-  0x00,             // FS 
-  0x00,             // GS 
-  0x00,             // RS 
-  0x00,             // US 
-
-  0x2c,      //  ' '
-  0x1e|SHIFT,    // !
-  0x14|SHIFT,    // "
-  0x20|SHIFT,    // #
-  0x21|SHIFT,    // $
-  0x22|SHIFT,    // %
-  0x24|SHIFT,    // &
-  0x14,          // '
-  0x26|SHIFT,    // (
-  0x27|SHIFT,    // )
-  0x25|SHIFT,    // *
-  0x30|SHIFT,    // +
-  0x1a,          // ,
-  0x34,          // -
-  0x08,          // .
-  0x2f,          // /
-  0x27,          // 0
-  0x1e,          // 1
-  0x1f,          // 2
-  0x20,          // 3
-  0x21,          // 4
-  0x22,          // 5
-  0x23,          // 6
-  0x24,          // 7
-  0x25,          // 8
-  0x26,          // 9
-  0x1d|SHIFT,      // :
-  0x1d,          // ;
-  0x1a|SHIFT,      // <
-  0x30,          // =
-  0x08|SHIFT,      // >
-  0x2f|SHIFT,      // ?
-  0x1f|SHIFT,      // @
-  0x04|SHIFT,      // A
-  0x11|SHIFT,      // B
-  0x0c|SHIFT,      // C
-  0x0b|SHIFT,      // D
-  0x07|SHIFT,      // E
-  0x1c|SHIFT,      // F
-  0x18|SHIFT,      // G
-  0x0d|SHIFT,      // H
-  0x0a|SHIFT,      // I
-  0x06|SHIFT,      // J
-  0x19|SHIFT,      // K
-  0x13|SHIFT,      // L
-  0x10|SHIFT,      // M
-  0x0f|SHIFT,      // N
-  0x16|SHIFT,      // O
-  0x15|SHIFT,      // P
-  0x1b|SHIFT,      // Q
-  0x12|SHIFT,      // R
-  0x33|SHIFT,      // S
-  0x0e|SHIFT,      // T
-  0x09|SHIFT,      // U
-  0x37|SHIFT,      // V
-  0x36|SHIFT,      // W
-  0x05|SHIFT,      // X
-  0x17|SHIFT,      // Y
-  0x38|SHIFT,      // Z
-  0x2d,          // [
-  0x31,          // bslash
-  0x2e,          // ]
-  0x23|SHIFT,    // ^
-  0x34|SHIFT,    // _
-  0x35,          // `
-  0x04,      // a
-  0x11,      // b
-  0x0c,      // c
-  0x0b,      // d
-  0x07,      // e
-  0x1c,      // f
-  0x18,      // g
-  0x0d,      // h
-  0x0a,      // i
-  0x06,      // j
-  0x19,      // k
-  0x13,      // l
-  0x10,      // m
-  0x0f,      // n
-  0x16,      // o
-  0x15,      // p
-  0x1b,      // q
-  0x12,      // r
-  0x33,      // s
-  0x0e,      // t
-  0x09,      // u
-  0x37,      // v
-  0x36,      // w
-  0x05,      // x
-  0x17,      // y
-  0x38,      // z
-  0x2d|SHIFT,    // {
-  0x31|SHIFT,    // |
-  0x2e|SHIFT,    // }
-  0x35|SHIFT,    // ~
-  0       // DEL
+  0x00,          // DEL
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,// ¡
+  0x00,// ¢
+  0x00,// £
+  0x00,// ¤
+  0x00,// ¥
+  0x00,// ¦
+  0x00,// §
+  0x00,// ¨
+  0x00,// ©
+  0x00,// ª
+  0x00,// «
+  0x00,// ¬
+  0x00,
+  0x00,// ®
+  0x00,// ¯
+  0x00,// °
+  0x00,// ±
+  0x00,// ²
+  0x00,// ³
+  0x00,// ´
+  0x00,// µ
+  0x00,// ¶
+  0x00,// ·
+  0x00,// ¸
+  0x00,// ¹
+  0x00,// º
+  0x00,// »
+  0x00,// ¼
+  0x00,// ½
+  0x00,// ¾
+  0x00,// ¿
+  0x00,// À
+  0x00,// Á
+  0x00,// Â
+  0x00,// Ã
+  0x00,// Ä
+  0x00,// Å
+  0x00,// Æ
+  0x00,// Ç
+  0x00,// È
+  0x00,// É
+  0x00,// Ê
+  0x00,// Ë
+  0x00,// Ì
+  0x00,// Í
+  0x00,// Î
+  0x00,// Ï
+  0x00,// Ð
+  0x00,// Ñ
+  0x00,// Ò
+  0x00,// Ó
+  0x00,// Ô
+  0x00,// Õ
+  0x00,// Ö
+  0x00,// ×
+  0x00,// Ø
+  0x00,// Ù
+  0x00,// Ú
+  0x00,// Û
+  0x00,// Ü
+  0x00,// Ý
+  0x00,// Þ
+  0x00,// ß
+  0x00,// à
+  0x00,// á
+  0x00,// â
+  0x00,// ã
+  0x00,// ä
+  0x00,// å
+  0x00,// æ
+  0x00,// ç
+  0x00,// è
+  0x00,// é
+  0x00,// ê
+  0x00,// ë
+  0x00,// ì
+  0x00,// í
+  0x00,// î
+  0x00,// ï
+  0x00,// ð
+  0x00,// ñ
+  0x00,// ò
+  0x00,// ó
+  0x00,// ô
+  0x00,// õ
+  0x00,// ö
+  0x00,// ÷
+  0x00,// ø
+  0x00,// ù
+  0x00,// ú
+  0x00,// û
+  0x00,// ü
+  0x00,// ý
+  0x00,// þ
+  0x00// ÿ
 };
 
 uint16_t get_scancode(uint8_t index)
 {
-  if(curr_kb_layout == KB_LAYOUT_AZERTY_FR)
-    return _asciimap_azerty_fr[index];
-  else if(curr_kb_layout == KB_LAYOUT_AZERTY_BE)
-    return _asciimap_azerty_be[index];
-  else if(curr_kb_layout == KB_LAYOUT_DVORAK)
-    return _asciimap_dvorak[index];
-  return _asciimap_wqerty[index];
+  return _asciimap[index];
 }
 
 uint8_t kb_buf[KB_BUF_SIZE] = {1, 0, 0, 0, 0};

@@ -87,7 +87,6 @@ uint8_t fw_version_major = 0;
 uint8_t fw_version_minor = 10;
 uint8_t fw_version_patch = 0;
 char instruction[] = "For instructions, see";
-char project_url[] = "git.io/duckypad";
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/

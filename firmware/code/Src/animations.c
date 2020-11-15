@@ -13,10 +13,10 @@ uint8_t green_buf[NEOPIXEL_COUNT];
 uint8_t blue_buf[NEOPIXEL_COUNT];
 led_animation neo_anime[NEOPIXEL_COUNT];
 uint8_t error_color_red[THREE] = {255, 0, 0};
-uint8_t error_color_black[THREE] = {0, 0, 0};
+uint8_t color_black[THREE] = {0, 0, 0};
+uint8_t color_blue[THREE] = {0, 0, 128};
 uint8_t profile_quickswitch_color[THREE] = {50, 50, 50};
 uint8_t rand_order_buf[NEOPIXEL_COUNT];
-uint8_t color_black[THREE] = {0,0,0};
 int8_t brightness_index = BRIGHTNESS_LEVELS - 1;
 uint8_t brightness_values[BRIGHTNESS_LEVELS] = {0, 20, 50, 70, 100};
 uint16_t temp_r, temp_g, temp_b;
@@ -150,7 +150,7 @@ void error_animation(uint8_t stage)
     for (int j = 0; j < 5; ++j)
     {
       for (int i = 0; i < NEOPIXEL_COUNT; ++i)
-        led_start_animation(&neo_anime[i], error_color_black, ANIMATION_CROSS_FADE, 2);
+        led_start_animation(&neo_anime[i], color_black, ANIMATION_CROSS_FADE, 2);
       osDelay(250);
       for (int i = 0; i < NEOPIXEL_COUNT; ++i)
         led_start_animation(&neo_anime[i], error_color_red, ANIMATION_CROSS_FADE, 2);
@@ -192,6 +192,8 @@ void key_led_shutdown(void)
 
 void all_led_off(void)
 {
-  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+  for (int i = 0; i < 4; ++i)
+    led_start_animation(&neo_anime[i], color_blue, ANIMATION_FULLY_ON, 2);
+  for (int i = 4; i < NEOPIXEL_COUNT; ++i)
     led_start_animation(&neo_anime[i], color_black, ANIMATION_FULLY_ON, 2);
 }

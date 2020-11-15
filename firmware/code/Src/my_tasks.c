@@ -13,12 +13,15 @@
 #include "animations.h"
 
 #define LONG_PRESS_MS 500
+#define MAX_KEYMAP_SIZE 8
 
 uint8_t init_complete;
 uint32_t last_keypress;
 uint32_t next_pixel_shift = 30000;
 uint8_t is_sleeping, is_in_settings;
 uint32_t button_hold_start, button_hold_duration;
+keymap_cache my_keymap_cache[MAX_KEYMAP_SIZE];
+char default_str[] = "default";
 
 void draw_brightness_value()
 {
@@ -175,52 +178,242 @@ void handle_button_press(uint8_t button_num)
     }
 }
 
-void enter_config(void)
+void scan_keymaps(void)
 {
+  char* keymap_filename;
+  fno.lfname = lfn_buf;
+  fno.lfsize = FILENAME_SIZE - 1;
+  if (f_opendir(&dir, "/keymaps") != FR_OK)
+    goto scan_keymaps_end;
+
+  memset(temp_buf, 0, PATH_SIZE);
+  sprintf(temp_buf, "dpkm_");
+  while(1)
+  {
+    memset(lfn_buf, 0, FILENAME_SIZE);
+    if (f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)
+      break;
+    if(fno.fattrib & AM_DIR)
+      continue;
+
+    keymap_filename = fno.lfname[0] ? fno.lfname : fno.fname;
+    if(strncmp(temp_buf, keymap_filename, strlen(temp_buf)) != 0)
+      continue;
+
+    if(strncmp(keymap_filename + strlen(keymap_filename) - 4, ".txt", 4) != 0)
+      continue;
+
+    for (int i = 0; i < MAX_KEYMAP_SIZE; ++i)
+    {
+      if(my_keymap_cache[i].is_in_use)
+        continue;
+      my_keymap_cache[i].is_in_use = 1;
+      strcpy(my_keymap_cache[i].name, keymap_filename);
+      my_keymap_cache[i].name[FILENAME_SIZE-1] = 0; // just in case
+      break;
+    }
+  }
+  scan_keymaps_end:
+  f_closedir(&dir);
+}
+
+uint8_t load_keymap_by_name(char* name)
+{
+  char* next;
+  uint8_t result = 0;
+  uint8_t ascii_index;
+  uint16_t keycode;
+  if(name == NULL)
+    return 1;
+  if(strcmp(name, default_str) == 0)
+    return 0;
+  memset(temp_buf, 0, PATH_SIZE);
+  sprintf(temp_buf, "/keymaps/%s", name);
+
+  if(f_open(&sd_file, temp_buf, FA_READ) != 0)
+  {
+    result = 2;
+    goto load_keymap_end;
+  }
+
+  while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
+  {
+    ascii_index = strtoul(read_buffer, &next, 0);
+    keycode = strtoul(next, NULL, 0);
+    _asciimap[ascii_index] = keycode;
+    memset(read_buffer, 0, READ_BUF_SIZE);
+  }
+  strcpy(curr_kb_layout, name);
+  load_keymap_end:
+  f_close(&sd_file);
+  return result;
+}
+
+uint8_t load_keymap_by_index(uint8_t index)
+{
+  if(index >= MAX_KEYMAP_SIZE)
+    return 3;
+  if(my_keymap_cache[index].is_in_use == 0)
+    return 4;
+  return load_keymap_by_name(my_keymap_cache[index].name);
+}
+
+#define MAX_KEYMAP_PAGES 2
+
+void clean_keymap_name(char* orig, char* output, uint8_t prefix)
+{
+  sprintf(output, "%d. ", prefix);
+  strncpy(output+3, orig+5, strlen(orig)-9);
+}
+
+void print_keymap(uint8_t page)
+{
+  ssd1306_Fill(Black);
+  ssd1306_SetCursor(5, 0);
+  ssd1306_WriteString("- Keyboard Layout +", Font_6x10,White);
+  if(page == 0)
+  {
+    ssd1306_SetCursor(5, 12+3);
+    ssd1306_WriteString("1. QWERTY (default)",Font_6x10,White);
+
+    for (int i = 0; i<=2; ++i)
+    {
+      if(my_keymap_cache[i].is_in_use)
+      {
+        memset(temp_buf, 0, PATH_SIZE);
+        clean_keymap_name(my_keymap_cache[i].name, temp_buf, i+2);
+        ssd1306_SetCursor(5, 27+12*i);
+        ssd1306_WriteString(temp_buf,Font_6x10,White);
+      }
+    }
+  }
+  else if(page == 1)
+  {
+    for (int i = 3; i<=7; ++i)
+    {
+      if(my_keymap_cache[i].is_in_use)
+      {
+        memset(temp_buf, 0, PATH_SIZE);
+        clean_keymap_name(my_keymap_cache[i].name, temp_buf, i-2);
+        ssd1306_SetCursor(5, 15+12*(i-3));
+        ssd1306_WriteString(temp_buf,Font_6x10,White);
+      }
+    }
+  }
+  ssd1306_UpdateScreen();
+}
+
+uint8_t validate_keymap(void)
+{
+  if(strcmp(curr_kb_layout, default_str) == 0)
+    return 0;
+  for (int i = 0; i < MAX_KEYMAP_SIZE; ++i)
+  {
+    if(my_keymap_cache[i].is_in_use == 0)
+      continue;
+    if(strcmp(curr_kb_layout, my_keymap_cache[i].name) == 0)
+      return 0;
+  }
+  return 1;
+}
+
+uint8_t is_keymap_missing(void)
+{
+  for (int i = 0; i < MAX_KEYMAP_SIZE; ++i)
+    if(my_keymap_cache[i].is_in_use)
+      return 0;
+  return 1;
+}
+
+void print_no_keymap_error(void)
+{
+  ssd1306_Fill(Black);
+  ssd1306_SetCursor(15, 0);
+  ssd1306_WriteString("Keymap not found!", Font_6x10,White);
+  ssd1306_SetCursor(5, 18);
+  ssd1306_WriteString("Open & save SD card", Font_6x10,White);
+  ssd1306_SetCursor(5, 30);
+  ssd1306_WriteString("with latest PC app", Font_6x10,White);
+  ssd1306_SetCursor(18, 50);
+  ssd1306_WriteString(project_url,Font_6x10,White);
+  ssd1306_UpdateScreen();
+  error_animation(0);
+  osDelay(10000);
+  error_animation(1);
+}
+
+void keymap_config(void)
+{
+  int8_t current_keymap_page = 0;
+  scan_keymaps();
+  if(is_keymap_missing())
+  {
+    print_no_keymap_error();
+    goto keymap_setting_end;
+  }
+  if(validate_keymap())
+    goto force_keymap_setting;
   keyboard_update();
   if(is_pressed(&button_status[0]) == 0)
+  {
+    if(load_keymap_by_name(curr_kb_layout) != 0)
+      goto force_keymap_setting;
     return;
+  }
+  force_keymap_setting:
   all_led_off();
   osDelay(50);
   service_all();
   is_in_settings = 1;
-  ssd1306_Fill(Black);
-  ssd1306_SetCursor(19, 0);
-  ssd1306_WriteString("Keyboard Layout:",Font_6x10,White);
-  ssd1306_SetCursor(10, 12+3);
-  ssd1306_WriteString("1: WQERTY",Font_6x10,White);
-  ssd1306_SetCursor(10, 24+3);
-  ssd1306_WriteString("2: AZERTY(FR)",Font_6x10,White);
-  ssd1306_SetCursor(10, 36+3);
-  ssd1306_WriteString("3: AZERTY(BE)",Font_6x10,White);
-  ssd1306_SetCursor(10, 48+3);
-  ssd1306_WriteString("4: DVORAK",Font_6x10,White);
-  ssd1306_UpdateScreen();
+  print_keymap(current_keymap_page);
+
   while(1)
   {
-    keyboard_update();
     HAL_IWDG_Refresh(&hiwdg);
-    if(is_pressed(&button_status[0]))
+    keyboard_update();
+
+    for (int i = 0; i < 4; ++i)
     {
-      curr_kb_layout = KB_LAYOUT_WQERTY;
-      break;
+      if(is_pressed(&button_status[i]))
+      {
+        if(current_keymap_page == 0)
+        {
+          if(i == 0)
+          {
+            strcpy(curr_kb_layout, default_str);
+            goto keymap_setting_end;
+          }
+          if(load_keymap_by_index(i-1) == 0)
+            goto keymap_setting_end;
+        }
+        else if(current_keymap_page == 1)
+        {
+          if(load_keymap_by_index(i+3) == 0)
+            goto keymap_setting_end;
+        }
+        service_all();
+      }
     }
-    else if(is_pressed(&button_status[1]))
+
+    if(is_pressed(&button_status[KEY_BUTTON1])) // -
     {
-      curr_kb_layout = KB_LAYOUT_AZERTY_FR;
-      break;
+        current_keymap_page--;
+        if(current_keymap_page < 0)
+            current_keymap_page = MAX_KEYMAP_PAGES-1;
+        print_keymap(current_keymap_page);
+        service_all();
     }
-    else if(is_pressed(&button_status[2]))
+    if(is_pressed(&button_status[KEY_BUTTON2])) // +
     {
-      curr_kb_layout = KB_LAYOUT_AZERTY_BE;
-      break;
+        current_keymap_page++;
+        if(current_keymap_page >= MAX_KEYMAP_PAGES)
+            current_keymap_page = 0;
+        print_keymap(current_keymap_page);
+        service_all();
     }
-    else if(is_pressed(&button_status[3]))
-    {
-      curr_kb_layout = KB_LAYOUT_DVORAK;
-      break;
-    }
+    osDelay(50);
   }
+  keymap_setting_end:
   save_last_profile(p_cache.current_profile);
   service_all();
   is_in_settings = 0;
@@ -232,7 +425,7 @@ void keypress_task_start(void const * argument)
 {
   while(init_complete == 0)
     osDelay(16);
-  enter_config();
+  keymap_config();
   change_bg();
   service_all();
   keyboard_release_all();

@@ -44,7 +44,9 @@ char nonexistent_keyname[] = "\253";
 profile_cache p_cache;
 dp_global_settings dp_settings;
 my_key hold_cache[MAPPABLE_KEY_COUNT];
+char curr_kb_layout[FILENAME_SIZE] = "default";
 
+char project_url[] = "git.io/duckypad";
 const char cmd_REPEAT[] = "REPEAT ";
 const char cmd_REM[] = "REM ";
 const char cmd_DEFAULTDELAY[] = "DEFAULTDELAY ";
@@ -331,7 +333,7 @@ void scan_profiles(void)
   memset(p_cache.available_profile, 0, MAX_PROFILES);
 
   if (f_opendir(&dir, "/") != FR_OK)
-    return;
+    goto scan_profiles_end;
 
   memset(temp_buf, 0, PATH_SIZE);
   sprintf(temp_buf, "profile");
@@ -356,6 +358,7 @@ void scan_profiles(void)
       }
     }
   }
+  scan_profiles_end:
   f_closedir(&dir);
 }
 
@@ -490,7 +493,7 @@ void save_settings(void)
   if(f_open(&sd_file, "dp_settings.txt", FA_CREATE_ALWAYS | FA_WRITE) != 0)
     goto ss_end;
   memset(temp_buf, 0, PATH_SIZE);
-  sprintf(temp_buf, "sleep_after_min %d\nbi %d\nkbl %d\n", dp_settings.sleep_after_ms/60000, brightness_index, curr_kb_layout);
+  sprintf(temp_buf, "sleep_after_min %d\nbi %d\nkbl %s\n", dp_settings.sleep_after_ms/60000, brightness_index, curr_kb_layout);
   f_write(&sd_file, temp_buf, strlen(temp_buf), &ignore_this);
   ss_end:
   f_close(&sd_file);
@@ -510,7 +513,12 @@ void load_settings(void)
     if(brightness_index >= BRIGHTNESS_LEVELS)
       brightness_index = BRIGHTNESS_LEVELS - 1;
     if(strncmp(temp_buf, "kbl ", 4) == 0)
-      curr_kb_layout = atoi(temp_buf+4);
+    {
+      strcpy(curr_kb_layout, temp_buf + 4);
+      for (int i = 0; i < FILENAME_SIZE; ++i)
+        if(curr_kb_layout[i] == '\r' || curr_kb_layout[i] == '\n')
+          curr_kb_layout[i] = 0;
+    }
   }
   ggs_end:
   f_close(&sd_file);
@@ -964,7 +972,7 @@ action type
 1 press only
 2 release only
 */
-void parse_combo(char* line, my_key* first_key, uint8_t action_type)
+void parse_combo(char* line, my_key* first_key)
 {
   if(line == NULL || first_key == NULL)
     return;
@@ -988,9 +996,6 @@ void parse_combo(char* line, my_key* first_key, uint8_t action_type)
     key_2.code = arg2[0];
   }
 
-  if(action_type == 2)
-    goto release_only;
-
   keyboard_press(first_key, 0);
   osDelay(char_delay);
   if(arg1 != NULL)
@@ -1004,10 +1009,6 @@ void parse_combo(char* line, my_key* first_key, uint8_t action_type)
     osDelay(char_delay);
   }
 
-  if(action_type == 1)
-    return;
-
-  release_only:
   if(arg2 != NULL)
   {
     keyboard_release(&key_2);
@@ -1078,7 +1079,7 @@ uint8_t parse_line(char* line, uint8_t keynum)
   if(is_empty_line(line))
     result = PARSE_EMPTY_LINE;
   else if(this_key.key_type != KEY_TYPE_UNKNOWN)
-    parse_combo(line, &this_key, 0);
+    parse_combo(line, &this_key);
   else if(strncmp(cmd_REM, line, strlen(cmd_REM)) == 0)
     ;
   else if(strncmp(cmd_STRING, line, strlen(cmd_STRING)) == 0)

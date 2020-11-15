@@ -27,41 +27,11 @@ Project File Date:  11/14/2020
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'lul'
-compiling user_diskio.c...
-compiling neopixel.c...
-compiling buttons.c...
 compiling my_tasks.c...
-compiling keyboard.c...
-compiling animations.c...
-compiling sd_util.c...
-..\Src\sd_util.c(262): warning:  #546-D: transfer of control bypasses initialization of:
-            variable "hcs"  (declared at line 328)
-      goto err_spi;
-      ^
-..\Src\sd_util.c(280): warning:  #546-D: transfer of control bypasses initialization of:
-            variable "hcs"  (declared at line 328)
-      goto err_spi;
-      ^
-..\Src\sd_util.c(303): warning:  #546-D: transfer of control bypasses initialization of:
-            variable "hcs"  (declared at line 328)
-      goto err_spi;
-      ^
-..\Src\sd_util.c(266): warning:  #546-D: transfer of control bypasses initialization of:
-            variable "hcs"  (declared at line 328)
-      goto err;
-      ^
-..\Src\sd_util.c(515): warning:  #550-D: variable "b"  was set but never used
-    u8 b[16];
-..\Src\sd_util.c: 5 warnings, 0 errors
-compiling main.c...
-compiling parser.c...
-..\Src\parser.c(311): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
-        print_keyname(pf_name_cache[i], i - p_start, 0, 0);
-..\Src\parser.c: 1 warning, 0 errors
 linking...
-Program Size: Code=43008 RO-data=5380 RW-data=540 ZI-data=14548  
+Program Size: Code=44060 RO-data=4356 RW-data=1084 ZI-data=14748  
 FromELF: creating hex file...
-"lul\lul.axf" - 0 Error(s), 6 Warning(s).
+"lul\lul.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -84,7 +54,7 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.3.0
-Build Time Elapsed:  00:00:07
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

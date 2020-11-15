@@ -41,6 +41,12 @@ typedef struct
 
 typedef struct
 {
+  uint8_t is_in_use;
+  char name[FILENAME_SIZE];
+} keymap_cache;
+
+typedef struct
+{
   uint32_t sleep_after_ms;
 } dp_global_settings;
 
@@ -56,12 +62,16 @@ void load_settings(void);
 void save_last_profile(uint8_t profile_id);
 void list_profiles(uint8_t page);
 void print_keyname(char* keyname, uint8_t keynum, int8_t x_offset, int8_t y_offset);
+char* goto_next_arg(char* buf, char* buf_end);
 
 extern profile_cache p_cache;
 extern char temp_buf[PATH_SIZE];
 extern dp_global_settings dp_settings;
 extern my_key hold_cache[MAPPABLE_KEY_COUNT];
-
+extern char lfn_buf[FILENAME_SIZE];
+extern char read_buffer[READ_BUF_SIZE];
+extern char curr_kb_layout[FILENAME_SIZE];
+extern char project_url[];
 #ifdef __cplusplus
 }
 #endif
