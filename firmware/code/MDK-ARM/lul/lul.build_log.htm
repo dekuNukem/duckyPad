@@ -27,11 +27,23 @@ Project File Date:  11/14/2020
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'lul'
+compiling animations.c...
+compiling keyboard.c...
+..\Src\keyboard.c(445): warning:  #111-D: statement is unreachable
+      case 0xC2: return  (ascii);  break;
+..\Src\keyboard.c(446): warning:  #111-D: statement is unreachable
+      case 0xC3: return  (ascii | 0xC0);  break;
+..\Src\keyboard.c: 2 warnings, 0 errors
+compiling my_tasks.c...
+compiling parser.c...
+..\Src\parser.c(314): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
+        print_keyname(pf_name_cache[i], i - p_start, 0, 0);
+..\Src\parser.c: 1 warning, 0 errors
 compiling main.c...
 linking...
-Program Size: Code=44616 RO-data=4424 RW-data=1100 ZI-data=14748  
+Program Size: Code=44652 RO-data=4428 RW-data=1100 ZI-data=14748  
 FromELF: creating hex file...
-"lul\lul.axf" - 0 Error(s), 0 Warning(s).
+"lul\lul.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -54,7 +66,7 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.3.0
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

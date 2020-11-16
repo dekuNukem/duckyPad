@@ -1,3 +1,4 @@
+    // printf("%c %x %x\n", kk->code, kk->code, duckcode);
 
   // printf("%c %x %x %x\n", kk->code, kk->code, duckcode, duckcode >> 12);
   // keyboard_press(kk, 1);

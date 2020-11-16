@@ -135,6 +135,7 @@ const char cmd_MK_STOP[] = "MK_STOP";
 const char cmd_MENU[] = "MENU";
 const char cmd_APP[] = "APP";
 const char cmd_HOLD[] = "HOLD ";
+const char cmd_POWER[] = "POWER";
 
 char* goto_next_arg(char* buf, char* buf_end)
 {
@@ -851,10 +852,14 @@ void parse_special_key(char* msg, my_key* this_key)
     this_key->code = KEY_KPDOT;
     return;
   }
-
   else if(strncmp(msg, cmd_KPEQUAL, strlen(cmd_KPEQUAL)) == 0)
   {
     this_key->code = KEY_KPEQUAL;
+    return;
+  }
+  else if(strncmp(msg, cmd_POWER, strlen(cmd_POWER)) == 0)
+  {
+    this_key->code = KEY_POWER;
     return;
   }
 

@@ -67,6 +67,7 @@
 #define KEY_KPEQUAL 0x67 // Keypad =
 
 #define KEY_MENU 0x65
+#define KEY_POWER 0x66 // Keyboard Power
 
 #define KEY_MK_VOLDOWN 0x80
 #define KEY_MK_VOLUP 0x40

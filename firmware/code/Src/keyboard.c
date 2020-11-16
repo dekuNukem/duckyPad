@@ -460,10 +460,11 @@ void kb_print_char(my_key *kk, uint16_t chardelay)
   if has dead key, press it first
   */
   duckcode = _asciimap[kk->code];
+  if(duckcode == 0)
+  	return;
   uint16_t wtf = duckcode & 0xf000;
   if(wtf != 0) // deadkey
   {
-    // printf("%c %x %x\n", kk->code, kk->code, duckcode);
     switch(duckcode >> 12)
     {
       case 1: deadkey.key_type = KEY_TYPE_DEAD_GRAVE_ACCENT; break;
