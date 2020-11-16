@@ -10,7 +10,6 @@
 
 #define DEFAULT_CMD_DELAY_MS 18
 #define DEFAULT_CHAR_DELAY_MS 18
-
 #define PF_CACHE_FILENAME_MAXLEN 7
 
 uint8_t pf_name_cache[MAX_PROFILES][PF_CACHE_FILENAME_MAXLEN];
@@ -24,6 +23,8 @@ static const uint8_t col_lookup[7][3] = {
    {3, 45, 88},
    {0, 42, 85}
 };
+
+static const uint8_t f_key_lookup[24] = {0X3A, 0X3B, 0X3C, 0X3D, 0X3E, 0X3F, 0X40, 0X41, 0X42, 0X43, 0X44, 0X45, 0x68, 0x69, 0x6a, 0x6b, 0x6c, 0x6d, 0x6e, 0x6f, 0x70, 0x71, 0x72, 0x73};
 
 FRESULT sd_fresult;
 FATFS sd_fs;
@@ -66,18 +67,6 @@ const char cmd_UPARROW[] = "UPARROW";
 const char cmd_DOWNARROW[] = "DOWNARROW";
 const char cmd_LEFTARROW[] = "LEFTARROW";
 const char cmd_RIGHTARROW[] = "RIGHTARROW";
-const char cmd_F1[] = "F1";
-const char cmd_F2[] = "F2";
-const char cmd_F3[] = "F3";
-const char cmd_F4[] = "F4";
-const char cmd_F5[] = "F5";
-const char cmd_F6[] = "F6";
-const char cmd_F7[] = "F7";
-const char cmd_F8[] = "F8";
-const char cmd_F9[] = "F9";
-const char cmd_F10[] = "F10";
-const char cmd_F11[] = "F11";
-const char cmd_F12[] = "F12";
 const char cmd_BACKSPACE[] = "BACKSPACE";
 const char cmd_TAB[] = "TAB";
 const char cmd_CAPSLOCK[] = "CAPSLOCK";
@@ -585,67 +574,7 @@ void parse_special_key(char* msg, my_key* this_key)
     return;
  
   this_key->key_type = KEY_TYPE_SPECIAL;
-  if(strncmp(msg, cmd_F10, strlen(cmd_F10)) == 0)
-  {
-    this_key->code = KEY_F10;
-    return;
-  }
-  else if(strncmp(msg, cmd_F11, strlen(cmd_F11)) == 0)
-  {
-    this_key->code = KEY_F11;
-    return;
-  }
-  else if(strncmp(msg, cmd_F12, strlen(cmd_F12)) == 0)
-  {
-    this_key->code = KEY_F12;
-    return;
-  }
-  else if(strncmp(msg, cmd_F1, strlen(cmd_F1)) == 0)
-  {
-    this_key->code = KEY_F1;
-    return;
-  }
-  else if(strncmp(msg, cmd_F2, strlen(cmd_F2)) == 0)
-  {
-    this_key->code = KEY_F2;
-    return;
-  }
-  else if(strncmp(msg, cmd_F3, strlen(cmd_F3)) == 0)
-  {
-    this_key->code = KEY_F3;
-    return;
-  }
-  else if(strncmp(msg, cmd_F4, strlen(cmd_F4)) == 0)
-  {
-    this_key->code = KEY_F4;
-    return;
-  }
-  else if(strncmp(msg, cmd_F5, strlen(cmd_F5)) == 0)
-  {
-    this_key->code = KEY_F5;
-    return;
-  }
-  else if(strncmp(msg, cmd_F6, strlen(cmd_F6)) == 0)
-  {
-    this_key->code = KEY_F6;
-    return;
-  }
-  else if(strncmp(msg, cmd_F7, strlen(cmd_F7)) == 0)
-  {
-    this_key->code = KEY_F7;
-    return;
-  }
-  else if(strncmp(msg, cmd_F8, strlen(cmd_F8)) == 0)
-  {
-    this_key->code = KEY_F8;
-    return;
-  }
-  else if(strncmp(msg, cmd_F9, strlen(cmd_F9)) == 0)
-  {
-    this_key->code = KEY_F9;
-    return;
-  }
-  else if(strncmp(msg, cmd_UP, strlen(cmd_UP)) == 0)
+  if(strncmp(msg, cmd_UP, strlen(cmd_UP)) == 0)
   {
     this_key->code = KEY_UP_ARROW;
     return;
@@ -860,6 +789,17 @@ void parse_special_key(char* msg, my_key* this_key)
   else if(strncmp(msg, cmd_POWER, strlen(cmd_POWER)) == 0)
   {
     this_key->code = KEY_POWER;
+    return;
+  }
+  else if(msg[0] == 'F')
+  {
+    uint8_t f_number = atoi(msg+1);
+    if(f_number == 0 || f_number > 24)
+    {
+      init_my_key(this_key);
+      return;
+    }
+    this_key->code = f_key_lookup[f_number-1];
     return;
   }
 

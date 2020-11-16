@@ -278,11 +278,6 @@ uint16_t _asciimap[ASCII_MAP_SIZE] =
   0x00// ÿ
 };
 
-uint16_t get_scancode(uint8_t index)
-{
-  return _asciimap[index];
-}
-
 uint8_t kb_buf[KB_BUF_SIZE] = {1, 0, 0, 0, 0};
 
 void keyboard_release_all(void)
@@ -352,7 +347,7 @@ void keyboard_press(my_key* this_key, uint8_t use_mod)
   else if(this_key->key_type == KEY_TYPE_SPECIAL)
     usage_id = this_key->code;
   else if(this_key->key_type == KEY_TYPE_CHAR)
-    usage_id = get_scancode(this_key->code);
+    usage_id = _asciimap[this_key->code];
   else if(this_key->key_type == KEY_TYPE_DEAD_GRAVE_ACCENT)
     usage_id = grave_accent;
   else if(this_key->key_type == KEY_TYPE_DEAD_ACUTE_ACCENT)
@@ -402,7 +397,7 @@ void keyboard_release(my_key* this_key)
   else if(this_key->key_type == KEY_TYPE_SPECIAL)
     usage_id = this_key->code;
   else if(this_key->key_type == KEY_TYPE_CHAR)
-    usage_id = get_scancode(this_key->code);
+    usage_id = _asciimap[this_key->code];
   else if(this_key->key_type == KEY_TYPE_DEAD_GRAVE_ACCENT)
     usage_id = grave_accent;
   else if(this_key->key_type == KEY_TYPE_DEAD_ACUTE_ACCENT)

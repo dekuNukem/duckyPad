@@ -147,15 +147,18 @@ void error_animation(uint8_t stage)
 {
   if(stage == 0)
   {
-    for (int j = 0; j < 5; ++j)
+    for (int j = 0; j < 3; ++j)
     {
       for (int i = 0; i < NEOPIXEL_COUNT; ++i)
-        led_start_animation(&neo_anime[i], color_black, ANIMATION_CROSS_FADE, 2);
-      osDelay(250);
-      for (int i = 0; i < NEOPIXEL_COUNT; ++i)
         led_start_animation(&neo_anime[i], error_color_red, ANIMATION_CROSS_FADE, 2);
-      osDelay(250);
+      osDelay(500);
+      for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+        led_start_animation(&neo_anime[i], color_black, ANIMATION_CROSS_FADE, 2);
+      osDelay(500);
     }
+    for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+      led_start_animation(&neo_anime[i], error_color_red, ANIMATION_CROSS_FADE, 2);
+    osDelay(50);
   }
   else
   {
