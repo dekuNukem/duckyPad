@@ -1066,20 +1066,20 @@ def create_keyboard_layout_window():
     kbl_online_listbox = Listbox(kbl_window, listvariable=online_keymap_var, height=8, exportselection=0) #, selectmode='single'?
     kbl_online_listbox.place(x=20, y=30, width=160, height=150)
 
-    online_kbl_label = Label(master=kbl_window, text="Available online layouts:")
+    online_kbl_label = Label(master=kbl_window, text="Available layouts:")
     online_kbl_label.place(x=20, y=5)
 
     kbl_on_sd_card_listbox = Listbox(kbl_window, listvariable=sd_keymap_var, height=8, exportselection=0) #, selectmode='single'?
     kbl_on_sd_card_listbox.place(x=295, y=30, width=160, height=150)
 
-    online_keymap_add_to_sd_button = Button(kbl_window, text="Add to\nSD card", command=online_keymap_add_to_sd_button_click)
+    online_keymap_add_to_sd_button = Button(kbl_window, text="Add to\nduckyPad", command=online_keymap_add_to_sd_button_click)
     online_keymap_add_to_sd_button.place(x=185, y=30, width=100)
-    remove_keymap_from_sd_card_button = Button(kbl_window, text="Remove from\nSD card", command=remove_keymap_from_sd_card_button_click)
+    remove_keymap_from_sd_card_button = Button(kbl_window, text="Remove from\nduckyPad", command=remove_keymap_from_sd_card_button_click)
     remove_keymap_from_sd_card_button.place(x=185, y=80, width=100)
-    add_local_keymap_to_sd_card_button = Button(kbl_window, text="Load local file\nto SD card", command=add_local_keymap_to_sd_card_button_click)
+    add_local_keymap_to_sd_card_button = Button(kbl_window, text="Add local file\nto duckyPad", command=add_local_keymap_to_sd_card_button_click)
     add_local_keymap_to_sd_card_button.place(x=185, y=130, width=100)
 
-    keymaps_on_sd_card_label = Label(master=kbl_window, text="Layouts on SD card (8 MAX)")
+    keymaps_on_sd_card_label = Label(master=kbl_window, text="Layouts on duckyPad (8 MAX)")
     keymaps_on_sd_card_label.place(x=295, y=5)
 
 settings_lf = LabelFrame(root, text="Settings", width=516, height=65)
@@ -1113,8 +1113,8 @@ else:
 dp_fw_update_label = Label(master=updates_lf, text="Firmware: Unknown")
 dp_fw_update_label.place(x=5, y=20)
 
-keyboard_layout_button = Button(settings_lf, text="Keyboard Layouts...", command=create_keyboard_layout_window)#, state=DISABLED)
-keyboard_layout_button.place(x=260, y=5, width=120, height=BUTTON_HEIGHT)
+keyboard_layout_button = Button(settings_lf, text="Keyboard Layouts...", command=create_keyboard_layout_window, state=DISABLED)
+keyboard_layout_button.place(x=260, y=5, width=140, height=BUTTON_HEIGHT)
 
 root.update()
 
