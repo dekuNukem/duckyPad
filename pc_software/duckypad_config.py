@@ -30,7 +30,7 @@ INVALID_ROOT_FOLDER_STRING = "<-- Please select your duckyPad root folder"
 last_rgb = (238,130,238)
 dp_settings = duck_objs.dp_global_settings()
 discord_link_url = "https://raw.githubusercontent.com/dekuNukem/duckyPad/master/resources/discord_link.txt"
-keymap_list = []
+sd_card_keymap_list = []
 
 def open_discord_link():
     try:
@@ -43,6 +43,7 @@ def create_help_window():
     help_window.title("duckyPad help")
     help_window.geometry("280x130")
     help_window.resizable(width=FALSE, height=FALSE)
+    help_window.grab_set()
 
     user_manual_label = Label(master=help_window, text="Not sure what to do? Please read...")
     user_manual_label.place(x=35, y=5)
@@ -132,7 +133,7 @@ def print_fw_update_label():
 
 def select_root_folder():
     global profile_list
-    global keymap_list
+    global sd_card_keymap_list
     global dp_root_folder_path
     dir_result = filedialog.askdirectory()
     if len(dir_result) <= 0:
@@ -142,7 +143,7 @@ def select_root_folder():
     root_folder_path_label.config(foreground='navy')
     profile_list = duck_objs.build_profile(dir_result)
     dp_settings.load_from_path(dp_root_folder_path)
-    keymap_list = duck_objs.load_keymap(dp_root_folder_path)
+    sd_card_keymap_list = duck_objs.load_keymap(dp_root_folder_path)
     print_fw_update_label()
     ui_reset()
     update_profile_display()
@@ -425,6 +426,13 @@ def ensure_dir(dir_path):
     if not os.path.exists(dir_path):
         os.mkdir(dir_path)
 
+def dump_keymap(save_path):
+    global sd_card_keymap_list
+    for item in sd_card_keymap_list:
+        file_path = os.path.join(save_path, item.file_name)
+        with open(file_path, 'w', encoding='utf8') as keymap_file:
+            keymap_file.writelines(s.replace('\n', '').replace('\r', '') + '\n' for s in item.content);
+
 def save_everything(save_path):
     global last_save
     save_result_label.config(text='Saving...', fg="white", bg="blue", cursor="")
@@ -462,6 +470,10 @@ def save_everything(save_path):
                 if this_key.color is not None:
                     config_file.write('SWCOLOR_%d %d %d %d\n' % (this_key.index, this_key.color[0], this_key.color[1], this_key.color[2]))
             config_file.close()
+
+        keymap_folder_path = os.path.join(save_path, 'keymaps')
+        ensure_dir(keymap_folder_path)
+        dump_keymap(keymap_folder_path)
 
         dps_path = os.path.join(save_path, 'dp_settings.txt')
         dps_lines = ["sleep_after_min " + str(sleepmode_slider.get()) + "\n"]
@@ -968,31 +980,107 @@ def minutes_to_str(value):
 def slider_adjust_sleepmode(value):
     enter_sleep_mode_label.config(text="Enter sleep mode after: " + minutes_to_str(value))
 
+kbl_online_listbox = None
+kbl_on_sd_card_listbox = None
+online_keymap_list = []
+online_keymap_display_list = None
+sd_card_display_list = None
+online_keymap_var = StringVar()
+sd_keymap_var = StringVar()
+
+def update_sd_listbox():
+    sd_card_display_list = [x.display_name for x in sd_card_keymap_list]
+    sd_card_display_list.insert(0, "QWERTY(default)")
+    sd_keymap_var.set(sd_card_display_list)
+
+def online_keymap_add_to_sd_button_click():
+    global sd_card_keymap_list
+    global kbl_online_listbox
+    if len(kbl_online_listbox.curselection()) <= 0: # nothing selected
+        return
+    index = kbl_online_listbox.curselection()[0]
+    if index == 0: # default keymap, already in firmware
+        return
+    if len(sd_card_keymap_list) >= 7:
+        return
+    if online_keymap_list[index-1].file_name in [x.file_name for x in sd_card_keymap_list]:
+        return;
+    sd_card_keymap_list.append(online_keymap_list[index-1])
+    update_sd_listbox()
+
+def remove_keymap_from_sd_card_button_click():
+    global sd_card_keymap_list
+    global kbl_on_sd_card_listbox
+    if len(kbl_on_sd_card_listbox.curselection()) <= 0: # nothing selected
+        return
+    index = kbl_on_sd_card_listbox.curselection()[0]
+    if index == 0: # default keymap, already in firmware
+        return
+    sd_card_keymap_list.pop(index-1)
+    update_sd_listbox()
+
+def add_local_keymap_to_sd_card_button_click():
+    local_keymap_file_path = filedialog.askopenfilename()
+    if len(local_keymap_file_path) <= 0:
+        return
+    nameonly = os.path.basename(local_keymap_file_path)
+    if not (nameonly.startswith("dpkm_") and nameonly.endswith(".txt")):
+        result = messagebox.askokcancel("Warning", "It doesn't look like a valid keymap file. Load it anyway?")
+        if result is False:
+            return
+    this_keymap = duck_objs.load_keymap_from_file(local_keymap_file_path)
+    if this_keymap.is_valid == 0:
+        return
+    if len(sd_card_keymap_list) >= 7:
+        return
+    if this_keymap.file_name in [x.file_name for x in sd_card_keymap_list]:
+        return;
+    sd_card_keymap_list.append(this_keymap)
+    update_sd_listbox()
+
 def create_keyboard_layout_window():
+    global kbl_on_sd_card_listbox
+    global online_keymap_list
+    global online_keymap_display_list
+    global online_keymap_var
+    global sd_keymap_var
+    global kbl_online_listbox
     kbl_window = Toplevel(root)
     kbl_window.title("Keyboard layouts")
-    kbl_window.geometry("480x240")
+    kbl_window.geometry("480x200")
     kbl_window.resizable(width=FALSE, height=FALSE)
+    kbl_window.grab_set()
 
-    kbl_listbox = Listbox(kbl_window, listvariable=profile_var, height=8, exportselection=0) #, selectmode='single'?
-    kbl_listbox.place(x=20, y=30, width=182, height=150)
-    # kbl_listbox.bind('<<ListboxSelect>>', on_profile_lstbox_select)
+    try:
+        if len(online_keymap_list) <= 0:
+            online_keymap_list = duck_objs.load_online_keymap()
+    except Exception as e:
+        messagebox.showerror("Error", e)
+
+    update_sd_listbox()
+
+    online_keymap_display_list = [x.display_name for x in online_keymap_list]
+    online_keymap_display_list.insert(0, "QWERTY(default)")
+    online_keymap_var.set(online_keymap_display_list)
+
+    kbl_online_listbox = Listbox(kbl_window, listvariable=online_keymap_var, height=8, exportselection=0) #, selectmode='single'?
+    kbl_online_listbox.place(x=20, y=30, width=160, height=150)
 
     online_kbl_label = Label(master=kbl_window, text="Available online layouts:")
     online_kbl_label.place(x=20, y=5)
 
+    kbl_on_sd_card_listbox = Listbox(kbl_window, listvariable=sd_keymap_var, height=8, exportselection=0) #, selectmode='single'?
+    kbl_on_sd_card_listbox.place(x=295, y=30, width=160, height=150)
 
-    kbl_selected_listbox = Listbox(kbl_window, listvariable=profile_var, height=8, exportselection=0) #, selectmode='single'?
-    kbl_selected_listbox.place(x=275, y=30, width=182, height=150)
+    online_keymap_add_to_sd_button = Button(kbl_window, text="Add to\nSD card", command=online_keymap_add_to_sd_button_click)
+    online_keymap_add_to_sd_button.place(x=185, y=30, width=100)
+    remove_keymap_from_sd_card_button = Button(kbl_window, text="Remove from\nSD card", command=remove_keymap_from_sd_card_button_click)
+    remove_keymap_from_sd_card_button.place(x=185, y=80, width=100)
+    add_local_keymap_to_sd_card_button = Button(kbl_window, text="Load local file\nto SD card", command=add_local_keymap_to_sd_card_button_click)
+    add_local_keymap_to_sd_card_button.place(x=185, y=130, width=100)
 
-
-    # user_manual_button = Button(kbl_window, text="User Manual", command=open_duckypad_user_manual_url)
-    # user_manual_button.place(x=60, y=30, width=160)
-
-    # discord_label = Label(master=kbl_window, text="Questions or comments? Ask in...")
-    # discord_label.place(x=35, y=60)
-    # discord_button = Button(kbl_window, text="Official Discord Chatroom", command=open_discord_link)
-    # discord_button.place(x=50, y=85, width=180)
+    keymaps_on_sd_card_label = Label(master=kbl_window, text="Layouts on SD card (8 MAX)")
+    keymaps_on_sd_card_label.place(x=295, y=5)
 
 settings_lf = LabelFrame(root, text="Settings", width=516, height=65)
 settings_lf.place(x=10, y=525) 

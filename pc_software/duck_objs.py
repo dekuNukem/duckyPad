@@ -1,5 +1,9 @@
 import os
 import sys
+import check_update
+import json
+import socket
+import urllib.request
 
 MAX_PROFILE_COUNT = 32
 
@@ -151,8 +155,18 @@ class dp_global_settings(object):
 class dp_keymap(object):
 	def __init__(self):
 		super(dp_keymap, self).__init__()
-		self.name = None
-		self.content = None
+		self.file_name = ''
+		self.display_name = ''
+		self.is_valid = 0
+		self.content = ''
+
+	def __str__(self):
+		ret = ""
+		ret += str(self.display_name) + '\n'
+		ret += str(self.file_name) + '\n'
+		ret += str(self.content[:5]) + '\n'
+		ret += '------------'
+		return ret
 
 def build_profile(root_dir_path):
 	my_dirs = [d for d in os.listdir(root_dir_path) if os.path.isdir(os.path.join(root_dir_path, d))]
@@ -167,13 +181,43 @@ def build_profile(root_dir_path):
 		profile_list.append(this_profile)
 	return profile_list
 
+def load_keymap_from_file(file_path):
+	this_keymap = dp_keymap()
+	this_keymap.file_name = os.path.basename(file_path)
+	this_keymap.display_name = this_keymap.file_name.replace('dpkm_', '').replace('.txt', '')
+	with open(file_path, encoding='utf8') as keymap_file:
+		this_keymap.content = keymap_file.readlines()
+	this_keymap.is_valid = 1
+	return this_keymap
+
 def load_keymap(root_dir_path):
 	keymap_folder_path = os.path.join(root_dir_path, 'keymaps')
 	if os.path.isdir(keymap_folder_path) is False:
 		return []
 	keymap_file_list = [d for d in os.listdir(keymap_folder_path) if d.startswith("dpkm_") and d.endswith(".txt")]
-	print(keymap_file_list)
+	return_list = []
 	for item in keymap_file_list:
-		with open(os.path.join(keymap_folder_path, item), encoding='utf8') as keymap_file:
-			print(keymap_file.readline())
-	return []
+		this_keymap = load_keymap_from_file(os.path.join(keymap_folder_path, item))
+		if this_keymap.is_valid:
+			return_list.append(this_keymap)
+	return return_list
+
+keymap_url = 'https://api.github.com/repos/dekuNukem/duckyPad/contents/sample_profiles/keymaps?ref=master'
+
+def load_online_keymap():
+	if check_update.is_internet_available() is False:
+		return []
+	file_list = json.loads(urllib.request.urlopen(keymap_url).read())
+	return_list = []
+	for item in file_list:
+		if not ('name' in item and 'type' in item and item['type'] == 'file'):
+			continue
+		if not (item['name'].startswith("dpkm_") and item['name'].endswith(".txt")):
+			continue
+		this_keymap = dp_keymap()
+		this_keymap.file_name = item['name']
+		this_keymap.display_name = this_keymap.file_name.replace('dpkm_', '').replace('.txt', '')
+		this_keymap.content = str(urllib.request.urlopen(item['download_url']).read().decode('utf-8')).split('\n')
+		this_keymap.is_valid = 1
+		return_list.append(this_keymap)
+	return return_list
