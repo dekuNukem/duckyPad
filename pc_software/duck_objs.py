@@ -148,6 +148,12 @@ class dp_global_settings(object):
 		super(dp_global_settings, self).__init__()
 		self.sleep_after_minutes = 30
 
+class dp_keymap(object):
+	def __init__(self):
+		super(dp_keymap, self).__init__()
+		self.name = None
+		self.content = None
+
 def build_profile(root_dir_path):
 	my_dirs = [d for d in os.listdir(root_dir_path) if os.path.isdir(os.path.join(root_dir_path, d))]
 	my_dirs = [x for x in my_dirs if x.startswith('profile') and x[7].isnumeric() and '_' in x]
@@ -161,3 +167,13 @@ def build_profile(root_dir_path):
 		profile_list.append(this_profile)
 	return profile_list
 
+def load_keymap(root_dir_path):
+	keymap_folder_path = os.path.join(root_dir_path, 'keymaps')
+	if os.path.isdir(keymap_folder_path) is False:
+		return []
+	keymap_file_list = [d for d in os.listdir(keymap_folder_path) if d.startswith("dpkm_") and d.endswith(".txt")]
+	print(keymap_file_list)
+	for item in keymap_file_list:
+		with open(os.path.join(keymap_folder_path, item), encoding='utf8') as keymap_file:
+			print(keymap_file.readline())
+	return []

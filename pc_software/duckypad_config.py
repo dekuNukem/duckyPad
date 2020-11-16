@@ -30,6 +30,7 @@ INVALID_ROOT_FOLDER_STRING = "<-- Please select your duckyPad root folder"
 last_rgb = (238,130,238)
 dp_settings = duck_objs.dp_global_settings()
 discord_link_url = "https://raw.githubusercontent.com/dekuNukem/duckyPad/master/resources/discord_link.txt"
+keymap_list = []
 
 def open_discord_link():
     try:
@@ -131,6 +132,7 @@ def print_fw_update_label():
 
 def select_root_folder():
     global profile_list
+    global keymap_list
     global dp_root_folder_path
     dir_result = filedialog.askdirectory()
     if len(dir_result) <= 0:
@@ -140,6 +142,7 @@ def select_root_folder():
     root_folder_path_label.config(foreground='navy')
     profile_list = duck_objs.build_profile(dir_result)
     dp_settings.load_from_path(dp_root_folder_path)
+    keymap_list = duck_objs.load_keymap(dp_root_folder_path)
     print_fw_update_label()
     ui_reset()
     update_profile_display()
@@ -160,6 +163,7 @@ def enable_buttons():
     key_rename_button.config(state=NORMAL)
     key_remove_button.config(state=NORMAL)
     execute_button.config(state=NORMAL, fg="red")
+    keyboard_layout_button.config(state=NORMAL)
     for button in script_command_button_list:
         button.config(state=NORMAL)
     key_name_entrybox.config(state=NORMAL)
@@ -170,18 +174,18 @@ def enable_buttons():
     sleepmode_slider.config(state=NORMAL)
     sleepmode_slider.set(dp_settings.sleep_after_minutes)
 
-def debug_set_root_folder():
-    global profile_list
-    global dp_root_folder_path
-    dir_result = "/Users/allen/Desktop/sample_profiles"
-    # dir_result = "/Users/allen/Desktop/empty"
-    dp_root_folder_path= dir_result
-    dp_root_folder_display.set("Selected: " + dir_result)
-    root_folder_path_label.config(foreground='navy')
+# def debug_set_root_folder():
+#     global profile_list
+#     global dp_root_folder_path
+#     dir_result = "/Users/allen/Desktop/sample_profiles"
+#     # dir_result = "/Users/allen/Desktop/empty"
+#     dp_root_folder_path= dir_result
+#     dp_root_folder_display.set("Selected: " + dir_result)
+#     root_folder_path_label.config(foreground='navy')
 
-    profile_list = duck_objs.build_profile(dir_result)
-    update_profile_display()
-    enable_buttons()
+#     profile_list = duck_objs.build_profile(dir_result)
+#     update_profile_display()
+#     enable_buttons()
 
 def profile_shift_up():
     global profile_var
@@ -964,13 +968,39 @@ def minutes_to_str(value):
 def slider_adjust_sleepmode(value):
     enter_sleep_mode_label.config(text="Enter sleep mode after: " + minutes_to_str(value))
 
+def create_keyboard_layout_window():
+    kbl_window = Toplevel(root)
+    kbl_window.title("Keyboard layouts")
+    kbl_window.geometry("480x240")
+    kbl_window.resizable(width=FALSE, height=FALSE)
+
+    kbl_listbox = Listbox(kbl_window, listvariable=profile_var, height=8, exportselection=0) #, selectmode='single'?
+    kbl_listbox.place(x=20, y=30, width=182, height=150)
+    # kbl_listbox.bind('<<ListboxSelect>>', on_profile_lstbox_select)
+
+    online_kbl_label = Label(master=kbl_window, text="Available online layouts:")
+    online_kbl_label.place(x=20, y=5)
+
+
+    kbl_selected_listbox = Listbox(kbl_window, listvariable=profile_var, height=8, exportselection=0) #, selectmode='single'?
+    kbl_selected_listbox.place(x=275, y=30, width=182, height=150)
+
+
+    # user_manual_button = Button(kbl_window, text="User Manual", command=open_duckypad_user_manual_url)
+    # user_manual_button.place(x=60, y=30, width=160)
+
+    # discord_label = Label(master=kbl_window, text="Questions or comments? Ask in...")
+    # discord_label.place(x=35, y=60)
+    # discord_button = Button(kbl_window, text="Official Discord Chatroom", command=open_discord_link)
+    # discord_button.place(x=50, y=85, width=180)
+
 settings_lf = LabelFrame(root, text="Settings", width=516, height=65)
 settings_lf.place(x=10, y=525) 
 enter_sleep_mode_label = Label(master=settings_lf, text="Enter sleep mode after: Never")
 enter_sleep_mode_label.place(x=10, y=0)
 
 sleepmode_slider = Scale(settings_lf)
-sleepmode_slider.config(from_=0, to=360, length=150, showvalue=0, sliderlength=20, orient=HORIZONTAL, command=slider_adjust_sleepmode)
+sleepmode_slider.config(from_=0, to=360, length=190, showvalue=0, sliderlength=20, orient=HORIZONTAL, command=slider_adjust_sleepmode)
 sleepmode_slider.set(0)
 sleepmode_slider.place(x=10, y=20)
 sleepmode_slider.config(state=DISABLED)
@@ -994,6 +1024,9 @@ else:
 
 dp_fw_update_label = Label(master=updates_lf, text="Firmware: Unknown")
 dp_fw_update_label.place(x=5, y=20)
+
+keyboard_layout_button = Button(settings_lf, text="Keyboard Layouts...", command=create_keyboard_layout_window)#, state=DISABLED)
+keyboard_layout_button.place(x=260, y=5, width=120, height=BUTTON_HEIGHT)
 
 root.update()
 
