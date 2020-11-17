@@ -1,3 +1,11 @@
+uint8_t is_keymap_missing(void)
+{
+  for (int i = 0; i < MAX_KEYMAP_SIZE; ++i)
+    if(my_keymap_cache[i].is_in_use)
+      return 0;
+  return 1;
+}
+
     // printf("%c %x %x\n", kk->code, kk->code, duckcode);
 
   // printf("%c %x %x %x\n", kk->code, kk->code, duckcode, duckcode >> 12);

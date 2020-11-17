@@ -351,14 +351,6 @@ uint8_t validate_keymap(void)
   return 1;
 }
 
-uint8_t is_keymap_missing(void)
-{
-  for (int i = 0; i < MAX_KEYMAP_SIZE; ++i)
-    if(my_keymap_cache[i].is_in_use)
-      return 0;
-  return 1;
-}
-
 void print_no_keymap_error(void)
 {
   ssd1306_Fill(Black);
@@ -380,7 +372,7 @@ void keymap_config(void)
 {
   int8_t current_keymap_page = 0;
   scan_keymaps();
-  if(is_keymap_missing())
+  if(f_stat("/keymaps", &fno))
   {
     print_no_keymap_error();
     goto keymap_setting_end;

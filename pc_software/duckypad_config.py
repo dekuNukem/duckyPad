@@ -428,6 +428,13 @@ def ensure_dir(dir_path):
 
 def dump_keymap(save_path):
     global sd_card_keymap_list
+    file_list = [d for d in os.listdir(save_path) if d.startswith("dpkm_") and d.endswith(".txt")]
+    for item in file_list:
+        file_path = os.path.join(save_path, item)
+        try:
+            os.remove(file_path)
+        except Exception:
+            pass
     for item in sd_card_keymap_list:
         file_path = os.path.join(save_path, item.file_name)
         with open(file_path, 'w', encoding='utf8') as keymap_file:
@@ -1024,15 +1031,21 @@ def add_local_keymap_to_sd_card_button_click():
     if len(local_keymap_file_path) <= 0:
         return
     nameonly = os.path.basename(local_keymap_file_path)
+    override_name_check = False
     if not (nameonly.startswith("dpkm_") and nameonly.endswith(".txt")):
-        result = messagebox.askokcancel("Warning", "It doesn't look like a valid keymap file. Load it anyway?")
-        if result is False:
+        override_name_check = messagebox.askokcancel("Warning", "It doesn't look like a valid keymap file. Load it anyway?")
+        if override_name_check is False:
             return
     this_keymap = duck_objs.load_keymap_from_file(local_keymap_file_path)
     if this_keymap.is_valid == 0:
         return
     if len(sd_card_keymap_list) >= 7:
         return
+    if override_name_check:
+        if not this_keymap.file_name.startswith("dpkm_"):
+            this_keymap.file_name = "dpkm_" + this_keymap.file_name
+        if not this_keymap.file_name.endswith(".txt"):
+            this_keymap.file_name = this_keymap.file_name + '.txt'
     if this_keymap.file_name in [x.file_name for x in sd_card_keymap_list]:
         return;
     sd_card_keymap_list.append(this_keymap)
@@ -1072,12 +1085,12 @@ def create_keyboard_layout_window():
     kbl_on_sd_card_listbox = Listbox(kbl_window, listvariable=sd_keymap_var, height=8, exportselection=0) #, selectmode='single'?
     kbl_on_sd_card_listbox.place(x=295, y=30, width=160, height=150)
 
-    online_keymap_add_to_sd_button = Button(kbl_window, text="Add to\nduckyPad", command=online_keymap_add_to_sd_button_click)
-    online_keymap_add_to_sd_button.place(x=185, y=30, width=100)
-    remove_keymap_from_sd_card_button = Button(kbl_window, text="Remove from\nduckyPad", command=remove_keymap_from_sd_card_button_click)
-    remove_keymap_from_sd_card_button.place(x=185, y=80, width=100)
-    add_local_keymap_to_sd_card_button = Button(kbl_window, text="Add local file\nto duckyPad", command=add_local_keymap_to_sd_card_button_click)
-    add_local_keymap_to_sd_card_button.place(x=185, y=130, width=100)
+    online_keymap_add_to_sd_button = Button(kbl_window, text="Add\n--->", command=online_keymap_add_to_sd_button_click)
+    online_keymap_add_to_sd_button.place(x=185, y=45, width=100)
+    remove_keymap_from_sd_card_button = Button(kbl_window, text="Remove", command=remove_keymap_from_sd_card_button_click)
+    remove_keymap_from_sd_card_button.place(x=185, y=100, width=100)
+    add_local_keymap_to_sd_card_button = Button(kbl_window, text="Add local file", command=add_local_keymap_to_sd_card_button_click)
+    add_local_keymap_to_sd_card_button.place(x=185, y=140, width=100)
 
     keymaps_on_sd_card_label = Label(master=kbl_window, text="Layouts on duckyPad (8 MAX)")
     keymaps_on_sd_card_label.place(x=295, y=5)
