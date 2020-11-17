@@ -38,6 +38,8 @@ Your feedback would be immensely helpful in improving this project for a wider l
 
 [Firmware Updates and Version History](firmware_updates_and_version_history.md)
 
+[Make Your Own Keymap](./keymap_instructions.md)
+
 [Manual Setup](./manual_setup.md)
 
 [Build a duckyPad Yourself](build_it_yourself.md)

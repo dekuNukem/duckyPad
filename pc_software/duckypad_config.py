@@ -994,7 +994,6 @@ kbl_online_listbox = None
 kbl_on_sd_card_listbox = None
 online_keymap_list = []
 online_keymap_display_list = None
-sd_card_display_list = None
 online_keymap_var = StringVar()
 sd_keymap_var = StringVar()
 
@@ -1030,6 +1029,7 @@ def remove_keymap_from_sd_card_button_click():
     update_sd_listbox()
 
 def add_local_keymap_to_sd_card_button_click():
+    global sd_card_keymap_list
     local_keymap_file_path = filedialog.askopenfilename()
     if len(local_keymap_file_path) <= 0:
         return

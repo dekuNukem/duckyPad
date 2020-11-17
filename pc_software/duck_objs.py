@@ -165,7 +165,9 @@ class dp_keymap(object):
 		ret = ""
 		ret += str(self.display_name) + '\n'
 		ret += str(self.file_name) + '\n'
-		ret += str(self.content[:5]) + '\n'
+		ret += str(self.url) + '\n'
+		ret += str(self.is_valid) + '\n'
+		ret += str(self.content[:10]) + '\n'
 		ret += '------------'
 		return ret
 

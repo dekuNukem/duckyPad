@@ -130,6 +130,8 @@ Press +/- button to change profiles.
 
 [Firmware Updates and Version History](firmware_updates_and_version_history.md)
 
+[Make Your Own Keymap](./keymap_instructions.md)
+
 [Manual Setup](./manual_setup.md)
 
 [Build a duckyPad Yourself](build_it_yourself.md)
