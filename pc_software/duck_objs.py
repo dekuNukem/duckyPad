@@ -159,6 +159,7 @@ class dp_keymap(object):
 		self.display_name = ''
 		self.is_valid = 0
 		self.content = ''
+		self.url = None
 
 	def __str__(self):
 		ret = ""
@@ -217,7 +218,8 @@ def load_online_keymap():
 		this_keymap = dp_keymap()
 		this_keymap.file_name = item['name']
 		this_keymap.display_name = this_keymap.file_name.replace('dpkm_', '').replace('.txt', '')
-		this_keymap.content = str(urllib.request.urlopen(item['download_url']).read().decode('utf-8')).split('\n')
+		# this_keymap.content = str(urllib.request.urlopen(item['download_url']).read().decode('utf-8')).split('\n')
+		this_keymap.url = item['download_url'] # download the content later, when saving
 		this_keymap.is_valid = 1
 		return_list.append(this_keymap)
 	return return_list

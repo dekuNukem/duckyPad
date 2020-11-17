@@ -436,6 +436,9 @@ def dump_keymap(save_path):
         except Exception:
             pass
     for item in sd_card_keymap_list:
+        if item.url is not None:
+            item.content = str(urllib.request.urlopen(item.url).read().decode('utf-8')).split('\n')
+    for item in sd_card_keymap_list:
         file_path = os.path.join(save_path, item.file_name)
         with open(file_path, 'w', encoding='utf8') as keymap_file:
             keymap_file.writelines(s.replace('\n', '').replace('\r', '') + '\n' for s in item.content);
