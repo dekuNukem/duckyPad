@@ -143,7 +143,10 @@ def select_root_folder():
     root_folder_path_label.config(foreground='navy')
     profile_list = duck_objs.build_profile(dir_result)
     dp_settings.load_from_path(dp_root_folder_path)
-    sd_card_keymap_list = duck_objs.load_keymap(dp_root_folder_path)
+    try:
+        sd_card_keymap_list = duck_objs.load_keymap(dp_root_folder_path)
+    except Exception as e:
+        print(e)
     print_fw_update_label()
     ui_reset()
     update_profile_display()
