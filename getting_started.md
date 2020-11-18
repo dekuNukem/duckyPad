@@ -162,7 +162,7 @@ duckyPad also supports multiple keyboard layouts.
 
 Press `Keyboard Layouts...` button to open its setting:
 
-![Alt text](resources/pics/app/kbl.png)
+![Alt text](resources/pics/app/kbl_window.png)
 
 * The app will pull [available keymaps](sample_profiles/keymaps) from this repo and display them in the left column.
 
