@@ -56,7 +56,7 @@ Finally, here's a video of duckyPad in action!
 * microSD storage
 * USB-C Connector
 * Works with all major OSs, no driver needed.
-* Multiple keyboard layouts (QWERTY, AZERTY, Dvorak)
+* Multiple keyboard layouts (French, Belgium, German, Dvorak, etc)
 * Fully Open Source!
 
 ## Showcase
@@ -245,12 +245,14 @@ duckyPad’s firmware can also be [easily updated via USB-C](firmware_updates_an
 
 duckyPad supports multiple keyboard layouts:
 
-* QWERTY
-* AZERTY (French)
-* AZERTY (Belgium)
+* English (US)
+* French
+* Belgium
+* German
 * Dvorak
+* ...and more [user-created](keymap_instructions.md) layouts!
 
-More will be available if needed.
+You can load up to *8 keyboard layouts* to duckyPad and switch them on-the-fly.
 
 ### Dimensions
 
