@@ -256,15 +256,15 @@ Afterwards, [set the dead key bits in duckcode](#duckcode) with HID code of regu
 
 You can take a look at the [completed `AZERTY Belgium` keymap here](sample_profiles/keymaps/dpkm_Belgium.txt).
 
-## Test it out!
+## Test It Out!
 
 Here are some duckyScript to test if your keymap is working properly.
 
-Make sure to set the same keyboard layout on both the duckyPad and your OS!
+Make sure to set the same keyboard layout on both duckyPad and your OS!
 
-Check to see duckyPad types everything out exactly as it appears in the script. If not, you might have made a mistake on that particular character.
+Check to see if duckyPad types everything out exactly as it appears in the script. If not, you might have made a mistake on that particular character.
 
-### Lazy Fox
+### Letters and Numbers
 
 ```
 STRING the quick brown fox jumps over the lazy dog
@@ -292,15 +292,15 @@ ENTER
 
 ### Extended ASCII Characters
 
-Only characters that exists on the current keyboard layout will be typed out.
-
-For example, if you run this on default `English (US)` layout, nothing will appear. Since none of those characters are on that keyboard layout.
-
 ```
 STRING €¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ
 ENTER
 
 ```
+
+Only characters that exists on the current keyboard layout will be typed out.
+
+For example, if you run this on default `English (US)` layout, nothing will appear. Since none of those characters are on that keyboard layout.
 
 ## Good luck!
 
