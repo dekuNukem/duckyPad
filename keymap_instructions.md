@@ -36,7 +36,7 @@ Now let's see what happens on a `Dvorak (US layout)` keyboard:
 
 ![Alt text](resources/pics/keymaps/dvorak.png)
 
-Notice how the **HID Usage ID stays the same** while **labels on the key changes!**
+Notice how the **HID Usage ID stays the same** while **labels on the key change!**
 
 Therefore, it is important to understand that the keyboard only tells `WHERE` a key is pressed, and it's **`up to the operating system`** to determine `WHAT` character the key should produce. In modern OSs, you can set multiple keyboard layouts:
 
@@ -44,7 +44,7 @@ Therefore, it is important to understand that the keyboard only tells `WHERE` a 
 
 ## Keymap Madness
 
-This creates an issue when it comes input automation on duckyPad. Consider this command:
+This creates an issue when it comes to input automation on duckyPad. Consider this command:
 
 `STRING fox`
 
@@ -64,7 +64,7 @@ To type `fox` on `Dvorak`, duckyPad needs to send `0x1c, 0x16, 0x05` instead:
 
 See the problem here? We now need to send **different codes** for the **same characters**! And there are *dozens* of keyboard layouts, each with their own minute quirks and differences.
 
-To make sure everything works, we need a way to **`map a character to its HID Usage ID`** (therefore the physical location on the keyboard) so duckyPad knows what code to send for different keyboard layouts.
+To make sure everything works, we need a way to **`map a character to its HID Usage ID`** (and therefore the physical location on the keyboard) so duckyPad knows what code to send for different keyboard layouts.
 
 And thus, the keymap is born.
 
@@ -96,7 +96,7 @@ Here is a snippet from [`Dvorak (US)`](sample_profiles/keymaps/dpkm_Dvorak.txt) 
 
 * The first **2-digit hexadecimal number** is the [ASCII code of a character](https://www.ascii-code.com/).
 
-* The second **4-digit hexadecimal number** is called `duckcode`, which will be explained below.
+* The second **4-digit hexadecimal number** is called a `duckcode`, which will be explained below.
 
 ### duckcode
 
@@ -110,7 +110,7 @@ duckcode is a `unsigned 16-bit number` containing the HID Usage Code and some ot
 
 * `Bit 9` is `Alt Gr`, which produces additional characters on European keyboards, works the same way.
 
-* `Upper 4 bits` is for `Dead Keys`. They don't produce a character on their own, but modify the appearance of the next character.
+* `Top 4 bits` are for `Dead Keys`. They don't produce a character on their own, but modify the appearance of the next character.
 
 * In this case, setting the appropriate bit adds accents on the base keys. It works like this:
 
@@ -132,7 +132,7 @@ A good idea would be starting from templates.
 
 * There are multiple layers in the svg file, you can show or hide them
 
-### Overlay template
+### Overlay the template
 
 You can probably find a diagram of your desired keyboard layout [on Wikipedia](https://en.wikipedia.org/wiki/Keyboard_layout).
 
