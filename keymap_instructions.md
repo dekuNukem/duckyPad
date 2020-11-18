@@ -144,7 +144,7 @@ Let's say you want to make a keymap for `AZERTY Belgium` layout:
 
 ### Modify keymap entries
 
-You can start from a [empty keymap](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_empty.txt), or from the [default `English (US)` keymap](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_eng_us.txt). Either way, download and open it in a text editor.
+You can start from an [empty keymap](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_empty.txt), or from the [default `English (US)` keymap](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_eng_us.txt). Either way, download and open it in a text editor.
 
 Start from the top left key:
 
