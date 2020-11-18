@@ -308,7 +308,7 @@ void print_keymap(uint8_t page)
   if(page == 0)
   {
     ssd1306_SetCursor(5, 12+3);
-    ssd1306_WriteString("1. QWERTY (default)",Font_6x10,White);
+    ssd1306_WriteString("1. English (US)",Font_6x10,White);
 
     for (int i = 0; i<=2; ++i)
     {
