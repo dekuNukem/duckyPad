@@ -144,7 +144,7 @@ Let's say you want to make a keymap for `AZERTY Belgium` layout:
 
 ### Modify keymap entries
 
-You can start from an [empty keymap](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_empty.txt), or from the [default `English (US)` keymap](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_eng_us.txt) or from a [similar existing layout](sample_profiles/keymaps). Either way, download and open it in a text editor.
+You can start from an [empty keymap](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_empty.txt), or from the [default `English (US)` keymap](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_eng_us.txt), or from a [similar existing layout](sample_profiles/keymaps). Either way, download and open it in a text editor.
 
 For this example, we'll be starting from [`English (US)` keymap](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_eng_us.txt).
 
@@ -255,6 +255,52 @@ Afterwards, [set the dead key bits in duckcode](#duckcode) with HID code of regu
 ```
 
 You can take a look at the [completed `AZERTY Belgium` keymap here](sample_profiles/keymaps/dpkm_Belgium.txt).
+
+## Test it out!
+
+Here are some duckyScript to test if your keymap is working properly.
+
+Make sure to set the same keyboard layout on both the duckyPad and your OS!
+
+Check to see duckyPad types everything out exactly as it appears in the script. If not, you might have made a mistake on that particular character.
+
+### Lazy Fox
+
+```
+STRING the quick brown fox jumps over the lazy dog
+ENTER
+STRING THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
+ENTER
+STRING 0123456789
+ENTER
+```
+
+### ASCII Symbols
+
+```
+STRING !"#$%&'
+ENTER
+STRING ()*+,-./
+ENTER
+STRING :;<=>?@
+ENTER
+STRING [\]^_`
+ENTER
+STRING {|}~
+ENTER
+```
+
+### Extended ASCII Characters
+
+Only characters that exists on the current keyboard layout will be typed out.
+
+For example, if you run this on default `English (US)` layout, nothing will appear. Since none of those characters are on that keyboard layout.
+
+```
+STRING €¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ
+ENTER
+
+```
 
 ## Good luck!
 
