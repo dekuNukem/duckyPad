@@ -144,7 +144,7 @@ Let's say you want to make a keymap for `AZERTY Belgian Comma` layout:
 
 ### Modify keymap entries
 
-[Download the default `English (US)` keymap here](sample_profiles/keymaps/eng_us_template.txt) and open in a text editor.
+[Download the default `English (US)` keymap here](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/eng_us_template.txt) and open in a text editor.
 
 Start from the top left key:
 
@@ -154,7 +154,7 @@ In `AZERTY Belgian Comma` layout, when we press this key, it will print out `²`
 
 Now we need to find it in the keymap file, and map it to the corresponding HID code.
 
-Simply search `²` in the file, we find it at line 185. Its ASCII code is `0xb2`, and right now it looks like this:
+Simply search `²` in the file, we find it at [line 185](https://github.com/dekuNukem/duckyPad/blob/7f1b565fa57540d512b1a93cce5e840228e258e6/sample_profiles/keymaps/eng_us_template.txt#L185). Its ASCII code is `0xb2`, and right now it looks like this:
 
 `0xb2 0x0000 // ²`
 
@@ -170,7 +170,7 @@ That's it for this character!
 
 However, we're not done yet! When you press this key with `SHIFT`, `³` is printed out.
 
-As before, find `³` in the file, which is at line 186:
+As before, find `³` in the file, which is at [line 186](https://github.com/dekuNukem/duckyPad/blob/7f1b565fa57540d512b1a93cce5e840228e258e6/sample_profiles/keymaps/eng_us_template.txt#L186):
 
 `0xb3 0x0000 // ³`
 
@@ -188,7 +188,7 @@ As another example, let's move on to the next key:
 
 ![Alt text](resources/pics/keymaps/be2.png)
 
-When you press this key, `&` will be print out. Yes you heard that right, it is inverted in this layout!
+When you press this key, `&` will be printed out. Yes you heard that right, it is inverted in this layout!
 
 It should be clear that duckcode for this key is `0x001e`.
 
@@ -251,6 +251,8 @@ Afterwards, [set the dead key bits in duckcode](#duckcode) with HID code of regu
 0xf5 0x4012 // õ
 0xf6 0x5012 // ö
 ```
+
+You can take a look at the [completed `AZERTY Belgian Comma` keymap here](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/dpkm_AZERTY(BE).txt).
 
 ## Good luck!
 
