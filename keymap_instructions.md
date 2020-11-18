@@ -138,23 +138,23 @@ You can probably find a diagram of your desired keyboard layout [on Wikipedia](h
 
 When you do, overlay the template over the layout to visualise the HID Usage Codes.
 
-Let's say you want to make a keymap for `AZERTY Belgian Comma` layout:
+Let's say you want to make a keymap for `AZERTY Belgian` layout:
 
 ![Alt text](resources/pics/keymaps/be.png)
 
 ### Modify keymap entries
 
-[Download the default `English (US)` keymap here](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/eng_us_template.txt) and open in a text editor.
+You can start from a completely [empty keymap]((https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_empty.txt)), or from the [default `English (US)` keymap](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_eng_us.txt). Either way, download and open it in a text editor.
 
 Start from the top left key:
 
 ![Alt text](resources/pics/keymaps/be1.png)
 
-In `AZERTY Belgian Comma` layout, when we press this key, it will print out `²` character.
+In `AZERTY Belgian` layout, when we press this key, it will print out `²` character.
 
 Now we need to find it in the keymap file, and map it to the corresponding HID code.
 
-Simply search `²` in the file, we find it at [line 185](https://github.com/dekuNukem/duckyPad/blob/7f1b565fa57540d512b1a93cce5e840228e258e6/sample_profiles/keymaps/eng_us_template.txt#L185). Its ASCII code is `0xb2`, and right now it looks like this:
+Simply search `²` in the file, we find it at [line 185](sample_profiles/keymaps/keymap_template_eng_us.txt#L185). Its ASCII code is `0xb2`, and right now it looks like this:
 
 `0xb2 0x0000 // ²`
 
@@ -170,7 +170,7 @@ That's it for this character!
 
 However, we're not done yet! When you press this key with `SHIFT`, `³` is printed out.
 
-As before, find `³` in the file, which is at [line 186](https://github.com/dekuNukem/duckyPad/blob/7f1b565fa57540d512b1a93cce5e840228e258e6/sample_profiles/keymaps/eng_us_template.txt#L186):
+As before, find `³` in the file, which is at [line 186](sample_profiles/keymaps/keymap_template_eng_us.txt#L186):
 
 `0xb3 0x0000 // ³`
 
@@ -252,7 +252,7 @@ Afterwards, [set the dead key bits in duckcode](#duckcode) with HID code of regu
 0xf6 0x5012 // ö
 ```
 
-You can take a look at the [completed `AZERTY Belgian Comma` keymap here](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/dpkm_AZERTY(BE).txt).
+You can take a look at the [completed `AZERTY Belgian` keymap here](sample_profiles/keymaps/dpkm_Belgium.txt).
 
 ## Good luck!
 
