@@ -138,19 +138,19 @@ You can probably find a diagram of your desired keyboard layout [on Wikipedia](h
 
 When you do, overlay the template over the layout to visualise the HID Usage Codes.
 
-Let's say you want to make a keymap for `AZERTY Belgian` layout:
+Let's say you want to make a keymap for `AZERTY Belgium` layout:
 
 ![Alt text](resources/pics/keymaps/be.png)
 
 ### Modify keymap entries
 
-You can start from a completely [empty keymap]((https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_empty.txt)), or from the [default `English (US)` keymap](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_eng_us.txt). Either way, download and open it in a text editor.
+You can start from a [empty keymap](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_empty.txt), or from the [default `English (US)` keymap](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_eng_us.txt). Either way, download and open it in a text editor.
 
 Start from the top left key:
 
 ![Alt text](resources/pics/keymaps/be1.png)
 
-In `AZERTY Belgian` layout, when we press this key, it will print out `²` character.
+In `AZERTY Belgium` layout, when we press this key, it will print out `²` character.
 
 Now we need to find it in the keymap file, and map it to the corresponding HID code.
 
@@ -216,7 +216,7 @@ Don't forget to set `SHIFT` bit for letter keys too, to distinguish between uppe
 
 To further complicate things, a lot of european keyboards include `Dead Keys`. They don't generate a character by themselves, but modify the appearance of the character typed immediately after.
 
-In our Belgian keyboard example, there are 4 dead keys, identified with `red marking`.
+In our Belgium keyboard example, there are 4 dead keys, identified with `red marking`.
 
 ![Alt text](resources/pics/keymaps/deadbe.png)
 
@@ -252,7 +252,7 @@ Afterwards, [set the dead key bits in duckcode](#duckcode) with HID code of regu
 0xf6 0x5012 // ö
 ```
 
-You can take a look at the [completed `AZERTY Belgian` keymap here](sample_profiles/keymaps/dpkm_Belgium.txt).
+You can take a look at the [completed `AZERTY Belgium` keymap here](sample_profiles/keymaps/dpkm_Belgium.txt).
 
 ## Good luck!
 

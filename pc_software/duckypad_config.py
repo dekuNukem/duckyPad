@@ -1002,7 +1002,7 @@ sd_keymap_var = StringVar()
 
 def update_sd_listbox():
     sd_card_display_list = [x.display_name for x in sd_card_keymap_list]
-    sd_card_display_list.insert(0, "QWERTY(default)")
+    sd_card_display_list.insert(0, "English (US)")
     sd_keymap_var.set(sd_card_display_list)
 
 def online_keymap_add_to_sd_button_click():
@@ -1079,7 +1079,7 @@ def create_keyboard_layout_window():
     update_sd_listbox()
 
     online_keymap_display_list = [x.display_name for x in online_keymap_list]
-    online_keymap_display_list.insert(0, "QWERTY(default)")
+    online_keymap_display_list.insert(0, "English (US)")
     online_keymap_var.set(online_keymap_display_list)
 
     kbl_online_listbox = Listbox(kbl_window, listvariable=online_keymap_var, height=8, exportselection=0) #, selectmode='single'?
@@ -1098,7 +1098,7 @@ def create_keyboard_layout_window():
     add_local_keymap_to_sd_card_button = Button(kbl_window, text="Add local file", command=add_local_keymap_to_sd_card_button_click)
     add_local_keymap_to_sd_card_button.place(x=185, y=140, width=100)
 
-    keymaps_on_sd_card_label = Label(master=kbl_window, text="Layouts on duckyPad (8 MAX)")
+    keymaps_on_sd_card_label = Label(master=kbl_window, text="Layouts on duckyPad:")
     keymaps_on_sd_card_label.place(x=295, y=5)
 
 settings_lf = LabelFrame(root, text="Settings", width=516, height=65)

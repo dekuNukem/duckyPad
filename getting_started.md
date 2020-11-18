@@ -154,7 +154,7 @@ One the bottom we have settings and updates section.
 
 By default, duckyPad goes to sleep after 30 minutes. Adjust the slider to set your own delay. Drag it all the way left for always-on.
 
-`Updates` section shows available updates for this app and duckyPad firmware. Click on the text for instructions.
+`Updates` section shows available updates for this app and duckyPad firmware. **Click on the text** for instructions.
 
 -----
 
