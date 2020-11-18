@@ -4,7 +4,7 @@
 
 ----
 
-duckyPad now supports custom keymaps!
+Instead of hard-coded keyboard layouts, duckyPad now support keymap files!
 
 You (or other people) can create a keymap file and load it on the SD card for duckyPad to use.
 
@@ -72,11 +72,11 @@ And thus, the keymap is born.
 
 Keymaps for duckyPad is a simple text file mapping **`256 ASCII characters to HID Usage Codes`**.
 
-### Example
+### Examples
 
 I have written a few myself, so [check it out here](sample_profiles/keymaps).
 
-Here is a snippet from [`Dvorak (US)`](sample_profiles/keymaps/dpkm_Dvorak.txt) keymap:
+Here is a snippet from [`Dvorak (US)`](sample_profiles/keymaps/dpkm_Dvorak%20(US).txt) keymap:
 
 ```
 .........
@@ -100,7 +100,7 @@ Here is a snippet from [`Dvorak (US)`](sample_profiles/keymaps/dpkm_Dvorak.txt) 
 
 ### duckcode
 
-duckcode is a `unsigned 16-bit number` containing the HID Usage Code and some other information:
+duckcode is an `unsigned 16-bit number` containing the HID Usage Code and some other information:
 
 ![Alt text](resources/pics/keymaps/duckcode.png)
 
@@ -144,7 +144,9 @@ Let's say you want to make a keymap for `AZERTY Belgium` layout:
 
 ### Modify keymap entries
 
-You can start from an [empty keymap](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_empty.txt), or from the [default `English (US)` keymap](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_eng_us.txt). Either way, download and open it in a text editor.
+You can start from an [empty keymap](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_empty.txt), or from the [default `English (US)` keymap](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_eng_us.txt) or from a [similar existing layout](sample_profiles/keymaps). Either way, download and open it in a text editor.
+
+For this example, we'll be starting from [`English (US)` keymap](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_eng_us.txt).
 
 Start from the top left key:
 
@@ -190,7 +192,7 @@ As another example, let's move on to the next key:
 
 When you press this key, `&` will be printed out. Yes you heard that right, it is inverted in this layout!
 
-It should be clear that duckcode for this key is `0x001e`.
+It should be clear that duckcode for this character is `0x001e`.
 
 As usual, go find `&` in the file, and set the duckcode:
 
