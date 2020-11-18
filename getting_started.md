@@ -26,7 +26,7 @@ Simply plug it into your computer, and voilà:
 
 * **`Hold down`** `-` button to change RGB backlight brightness.
 
-* If you use `AZERTY` or `Dvorak` layout, **`HOLD DOWN TOP LEFT KEY`** while **`PLUGGING IT IN`**, then select your layout.
+* To change keyboard layout, **`HOLD DOWN TOP LEFT KEY`** while **`PLUGGING IT IN`**, then select your layout.
 
 ## Writing Your Own Scripts
 
@@ -130,7 +130,7 @@ Finally, the rightmost column is for *scripts*:
 
 ![Alt text](resources/pics/app/scripts.png)
 
-* When you select a key, the script that it will execute is displayed here.
+* When you select a key, the script it will execute is displayed here.
 
 * duckyPad uses duckyScript, please [read about its usage here](duckyscript_info.md).
 
@@ -144,7 +144,7 @@ Finally, the rightmost column is for *scripts*:
 
 * On macOS, if test-run doesn't work, [go to System Preferences -> Security & Privacy -> Accessibility](resources/pics/app/macos.png), unlock, remove then add the app.
 
-* Test-run might not be 100% accruate, some keys like `Capslock` and `Numlock` can't be emulated in software. Run your scripts on the real thing if you're not sure.
+* Test-run might not be 100% accurate, some keys like `Capslock` and `Numlock` can't be emulated in software. Run your scripts on the real thing if you're not sure.
 
 -----
 
@@ -155,6 +155,22 @@ One the bottom we have settings and updates section.
 By default, duckyPad goes to sleep after 30 minutes. Adjust the slider to set your own delay. Drag it all the way left for always-on.
 
 `Updates` section shows available updates for this app and duckyPad firmware. Click on the text for instructions.
+
+-----
+
+duckyPad also supports multiple keyboard layouts.
+
+Press `Keyboard Layouts...` button to open its setting:
+
+![Alt text](resources/pics/app/kbl.png)
+
+* The app will pull [available keymaps](sample_profiles/keymaps) from this repo and display them in the left column.
+
+* Select one and press `Add` to add it to your duckyPad.
+
+* Up to 8 keymaps can be loaded at one time.
+
+* To make your own keymap, see [this guide](./keymap_instructions.md).
 
 -----
 
@@ -178,7 +194,7 @@ Eject the SD card from your computer, insert it into duckyPad, plug it in. It sh
 
 * **`Hold down`** `-` button to change RGB backlight brightness.
 
-* If you use `AZERTY` or `Dvorak` layout, **`HOLD DOWN TOP LEFT KEY`** while **`PLUGGING IT IN`**, then select your layout.
+* To change keyboard layout, **`HOLD DOWN TOP LEFT KEY`** while **`PLUGGING IT IN`**, then select your layout.
 
 ## Tips and Tricks
 
