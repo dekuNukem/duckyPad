@@ -65,7 +65,7 @@
 #define KEY_MK_PREV 0x2
 #define KEY_MK_NEXT 0x1
 
-#define KB_BUF_SIZE 5
+#define KB_BUF_SIZE 8
 
 #define KB_LAYOUT_WQERTY 0
 #define KB_LAYOUT_AZERTY_FR 1

@@ -922,10 +922,13 @@ void parse_combo(char* line, my_key* first_key)
   if(line == NULL || first_key == NULL)
     return;
 
-  my_key key_1, key_2;
+  my_key key_1, key_2, key_3, key_4, key_5;
   char* line_end = line + strlen(line);
   char *arg1 = goto_next_arg(line, line_end);
   char *arg2 = goto_next_arg(arg1, line_end);
+  char *arg3 = goto_next_arg(arg2, line_end);
+  char *arg4 = goto_next_arg(arg3, line_end);
+  char *arg5 = goto_next_arg(arg4, line_end);
 
   parse_special_key(arg1, &key_1);
   if(arg1 != NULL && key_1.key_type == KEY_TYPE_UNKNOWN)
@@ -933,14 +936,30 @@ void parse_combo(char* line, my_key* first_key)
     key_1.key_type = KEY_TYPE_CHAR;
     key_1.code = arg1[0];
   }
-
   parse_special_key(arg2, &key_2);
   if(arg2 != NULL && key_2.key_type == KEY_TYPE_UNKNOWN)
   {
     key_2.key_type = KEY_TYPE_CHAR;
     key_2.code = arg2[0];
   }
-
+  parse_special_key(arg3, &key_3);
+  if(arg3 != NULL && key_3.key_type == KEY_TYPE_UNKNOWN)
+  {
+    key_3.key_type = KEY_TYPE_CHAR;
+    key_3.code = arg3[0];
+  }
+  parse_special_key(arg4, &key_4);
+  if(arg4 != NULL && key_4.key_type == KEY_TYPE_UNKNOWN)
+  {
+    key_4.key_type = KEY_TYPE_CHAR;
+    key_4.code = arg4[0];
+  }
+  parse_special_key(arg5, &key_5);
+  if(arg5 != NULL && key_5.key_type == KEY_TYPE_UNKNOWN)
+  {
+    key_5.key_type = KEY_TYPE_CHAR;
+    key_5.code = arg5[0];
+  }
   keyboard_press(first_key, 0);
   osDelay(char_delay);
   if(arg1 != NULL)
@@ -953,7 +972,36 @@ void parse_combo(char* line, my_key* first_key)
     keyboard_press(&key_2, 0);
     osDelay(char_delay);
   }
-
+  if(arg3 != NULL)
+  {
+    keyboard_press(&key_3, 0);
+    osDelay(char_delay);
+  }
+  if(arg4 != NULL)
+  {
+    keyboard_press(&key_4, 0);
+    osDelay(char_delay);
+  }
+  if(arg5 != NULL)
+  {
+    keyboard_press(&key_5, 0);
+    osDelay(char_delay);
+  }
+  if(arg5 != NULL)
+  {
+    keyboard_release(&key_5);
+    osDelay(char_delay);
+  }
+  if(arg4 != NULL)
+  {
+    keyboard_release(&key_4);
+    osDelay(char_delay);
+  }
+  if(arg3 != NULL)
+  {
+    keyboard_release(&key_3);
+    osDelay(char_delay);
+  }
   if(arg2 != NULL)
   {
     keyboard_release(&key_2);
@@ -970,10 +1018,7 @@ void parse_combo(char* line, my_key* first_key)
 
 uint16_t get_arg(char* line)
 {
-  char* arg = goto_next_arg(line, line + strlen(line));
-  if(arg == NULL)
-    return PARSE_ERROR;
-  return atoi(arg);
+  return atoi(goto_next_arg(line, line + strlen(line)));
 }
 
 uint8_t is_empty_line(char* line)

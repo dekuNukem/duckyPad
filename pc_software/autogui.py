@@ -115,8 +115,8 @@ PARSE_EMPTY_LINE = 3
 
 def parse_combo(combo_line):
 	combo_keys = combo_line.split(' ')
-	if len(combo_keys) > 3:
-		return 1, "too many combos, up to 3 supported"
+	if len(combo_keys) > 6:
+		return 1, "too many combos, up to 6 supported"
 	for item in [x.lower() for x in combo_keys if x not in autogui_map.keys()]:
 		if item not in valid_chars:
 			return 1, "invalid key combos"

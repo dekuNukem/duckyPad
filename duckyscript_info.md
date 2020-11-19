@@ -1,6 +1,6 @@
 # Writing duckyScript
 
-[Support on Kickstarter!](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) | [Official Discord](https://discord.gg/4sJCBx5) | [Getting Started](getting_started.md) | [Table of Contents](#table-of-contents)
+[Support on Kickstarter!](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) | [Official Discord](https://discord.gg/4sJCBx5) | [Table of Contents](#table-of-contents) 
 
 ------
 
@@ -140,6 +140,7 @@ DELETE
 END
 MENU
 POWER
+
 F1
 F2
 F3
@@ -211,7 +212,7 @@ Those special keys can be used on their own:
 
 * Type the key names as-is in **`ALL CAPS`**.
 
-* **`UP TO 3 KEYS`** can be pressed simultaneously.
+* **`UP TO 6 KEYS`** can be pressed simultaneously.
 
 * For macOS, use `WINDOWS` for `Command` key, use `ALT` for `Option` key.
 

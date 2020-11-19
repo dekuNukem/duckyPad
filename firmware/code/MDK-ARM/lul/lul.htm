@@ -3,7 +3,7 @@
 <title>Static Call Graph - [lul\lul.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image lul\lul.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Nov 18 03:25:33 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu Nov 19 11:50:02 2020
 <BR><P>
 <H3>Maximum Stack Usage =        424 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2167,7 +2167,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ff_memfree
 </UL>
 
-<P><STRONG><a name="[150]"></a>get_arg</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, parser.o(i.get_arg))
+<P><STRONG><a name="[150]"></a>get_arg</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, parser.o(i.get_arg))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = get_arg &rArr; atoi &rArr; strtol &rArr; _strtoul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;goto_next_arg
@@ -2356,7 +2356,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animation_task_start
 </UL>
 
-<P><STRONG><a name="[166]"></a>keyboard_press</STRONG> (Thumb, 184 bytes, Stack size 8 bytes, keyboard.o(i.keyboard_press))
+<P><STRONG><a name="[166]"></a>keyboard_press</STRONG> (Thumb, 202 bytes, Stack size 8 bytes, keyboard.o(i.keyboard_press))
 <BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = keyboard_press &rArr; media_key_press &rArr; USBD_HID_SendReport &rArr; USBD_LL_Transmit &rArr; HAL_PCD_EP_Transmit &rArr; PCD_WritePMA
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_HID_SendReport
@@ -2777,8 +2777,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[19b]"></a>parse_combo</STRONG> (Thumb, 188 bytes, Stack size 32 bytes, parser.o(i.parse_combo))
-<BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = parse_combo &rArr; parse_special_key &rArr; atoi &rArr; strtol &rArr; _strtoul
+<P><STRONG><a name="[19b]"></a>parse_combo</STRONG> (Thumb, 422 bytes, Stack size 56 bytes, parser.o(i.parse_combo))
+<BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = parse_combo &rArr; parse_special_key &rArr; atoi &rArr; strtol &rArr; _strtoul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 <LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_release
@@ -2802,7 +2802,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[17d]"></a>parse_line</STRONG> (Thumb, 386 bytes, Stack size 32 bytes, parser.o(i.parse_line))
-<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = parse_line &rArr; parse_combo &rArr; parse_special_key &rArr; atoi &rArr; strtol &rArr; _strtoul
+<BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = parse_line &rArr; parse_combo &rArr; parse_special_key &rArr; atoi &rArr; strtol &rArr; _strtoul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 <LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_print

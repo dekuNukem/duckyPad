@@ -278,7 +278,7 @@ uint16_t _asciimap[ASCII_MAP_SIZE] =
   0x00// ÿ
 };
 
-uint8_t kb_buf[KB_BUF_SIZE] = {1, 0, 0, 0, 0};
+uint8_t kb_buf[KB_BUF_SIZE] = {1, 0, 0, 0, 0, 0, 0, 0};
 
 void keyboard_release_all(void)
 {
@@ -369,7 +369,7 @@ void keyboard_press(my_key* this_key, uint8_t use_mod)
       kb_buf[1] |= KEY_RIGHT_ALT;
   }
   usage_id = usage_id & 0xff;
-  if(kb_buf[2] != usage_id && kb_buf[3] != usage_id && kb_buf[4] != usage_id)
+  if(kb_buf[2] != usage_id && kb_buf[3] != usage_id && kb_buf[4] != usage_id && kb_buf[5] != usage_id && kb_buf[6] != usage_id && kb_buf[7] != usage_id)
   {
     for (int i = 2; i < KB_BUF_SIZE; ++i)
       if(kb_buf[i] == 0)
