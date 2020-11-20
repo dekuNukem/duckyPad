@@ -122,15 +122,17 @@ duckcode is an `unsigned 16-bit number` containing the HID Usage Code and some o
 
 A good idea would be starting from templates.
 
-[Click me to download the svg template](resources/ANSI_template.svg) for ANSI-style keyboard:
+[Click me to download the svg template](resources/keyboard_layout_graphics/ANSI_template.svg) for ANSI-style keyboard:
 
 ![Alt text](resources/pics/keymaps/ansi.png)
 
-[Click me to download the svg template](resources/ISO_template.svg) for ISO-style keyboard:
+[Click me to download the svg template](resources/keyboard_layout_graphics/ISO_template.svg) for ISO-style keyboard:
 
 ![Alt text](resources/pics/keymaps/iso.png)
 
-* There are multiple layers in the svg file, you can show or hide them
+* There are multiple layers in the svg file, you can show or hide them.
+
+* There are a few more svg files of different layouts, [check them out here](resources/keyboard_layout_graphics).
 
 ### Overlay the template
 
@@ -253,6 +255,18 @@ Afterwards, [set the dead key bits in duckcode](#duckcode) with HID code of regu
 0xf5 0x4012 // õ
 0xf6 0x5012 // ö
 ```
+
+To type symbols on the dead keys themselves, set the appropriate dead key bits along with HID code `0x2c`:
+
+```
+0x60 0x102c // `
+0xb4 0x202c // ´
+0x5e 0x0223 // ^
+0x7e 0x402c // ~
+0xa8 0x502c // ¨
+```
+
+Note that `^` has its own key, so you can use that instead.
 
 You can take a look at the [completed `AZERTY Belgium` keymap here](sample_profiles/keymaps/dpkm_Belgium.txt).
 

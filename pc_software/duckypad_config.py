@@ -1057,6 +1057,9 @@ def add_local_keymap_to_sd_card_button_click():
     sd_card_keymap_list.append(this_keymap)
     update_sd_listbox()
 
+def keymap_instruction_click(event):
+    webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/keymap_instructions.md')
+
 def create_keyboard_layout_window():
     global kbl_on_sd_card_listbox
     global online_keymap_list
@@ -1066,7 +1069,7 @@ def create_keyboard_layout_window():
     global kbl_online_listbox
     kbl_window = Toplevel(root)
     kbl_window.title("Keyboard layouts")
-    kbl_window.geometry("480x200")
+    kbl_window.geometry("480x210")
     kbl_window.resizable(width=FALSE, height=FALSE)
     kbl_window.grab_set()
 
@@ -1100,6 +1103,10 @@ def create_keyboard_layout_window():
 
     keymaps_on_sd_card_label = Label(master=kbl_window, text="Layouts on duckyPad:")
     keymaps_on_sd_card_label.place(x=295, y=5)
+
+    keymap_instruction_label = Label(master=kbl_window, text="Click me to learn more about keymaps, including how to make your own!", fg="blue", cursor="hand2")
+    keymap_instruction_label.place(x=45, y=185)
+    keymap_instruction_label.bind("<Button-1>", keymap_instruction_click)
 
 settings_lf = LabelFrame(root, text="Settings", width=516, height=65)
 settings_lf.place(x=10, y=525) 
