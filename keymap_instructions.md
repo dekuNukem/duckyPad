@@ -130,6 +130,8 @@ A good idea would be starting from templates.
 
 ![Alt text](resources/pics/keymaps/iso.png)
 
+* You can use [Inkscape](https://inkscape.org/) to open and edit svg files.
+
 * There are multiple layers in the svg file, you can show or hide them.
 
 * There are a few more svg files of different layouts, [check them out here](resources/keyboard_layout_graphics).

@@ -6,31 +6,15 @@
 
 ## Latest Firmware
 
-### 0.11.0
+### 0.11.1
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.11.0.dfu)
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.11.1.dfu)
 
-🆕 Added keymap file support for multiple keyboard layouts.
+* Increased maximum simultaneous key presses to 6.
 
-* Instead of hard-coded keyboard layouts, you can now download up to 8 keymap files to the SD card and use them on duckyPad.
+* Now you can type [alt codes](resources/altcodes.pdf) like `ALT KP_0 KP_1 KP_9 KP_7`.
 
-* See [the updated guide](https://github.com/dekuNukem/duckyPad/blob/master/getting_started.md#using-the-duckypad-configurator) about loading keymaps to your duckyPad.
-
-* See [this guide](https://github.com/dekuNukem/duckyPad/blob/master/keymap_instructions.md) about making your own keymaps.
-
-🆕 Added extended ASCII character support.
-
-* Now `STRING` command can type out characters like `§²µ¤³°ß` if they exist on the current keyboard layout.
-
-🆕 Added support for dead keys.
-
-* `STRING` command can now also use dead keys to type out characters with accents such as `òóôõö`.
-
-🆕 Added German keyboard layout.
-
-🆕 Added `F13` to `F24` keys.
-
-🆕 Added `POWER` key.
+* Using duckyPad as a WASD gamepad with [`HOLD` command](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#hold-experimental) becomes more viable too.
 
 ## USB Firmware Updates
 
@@ -68,7 +52,7 @@ In the `Available DUF Devices` section at top left corner, you should see a `STM
 
 Press the `Choose...` button and select a firmware file in `.dfu` format.
 
-* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.11.0.dfu) to download the latest firmware (v0.11.0)
+* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.11.1.dfu) to download the latest firmware (v0.11.1)
 
 * ...or [scroll down](#firmware-version-history) for older firmware versions.
 
