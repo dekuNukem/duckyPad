@@ -365,7 +365,7 @@ void keyboard_press(my_key* this_key, uint8_t use_mod)
   {
     if(usage_id & SHIFT)
       kb_buf[1] |= KEY_LEFT_SHIFT;
-    else if(usage_id & ALT_GR)
+    if(usage_id & ALT_GR)
       kb_buf[1] |= KEY_RIGHT_ALT;
   }
   usage_id = usage_id & 0xff;
