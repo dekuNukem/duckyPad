@@ -333,7 +333,7 @@ uint8_t should_use_mod(uint8_t ttt)
 
 void keyboard_press(my_key* this_key, uint8_t use_mod)
 {
-  uint16_t usage_id;
+  uint16_t duckcode;
   if(this_key->key_type == KEY_TYPE_MEDIA)
   {
     media_key_press(this_key);
@@ -342,39 +342,39 @@ void keyboard_press(my_key* this_key, uint8_t use_mod)
   else if(this_key->key_type == KEY_TYPE_MODIFIER)
   {
     kb_buf[1] |= this_key->code;
-    usage_id = 0;
+    duckcode = 0;
   }
   else if(this_key->key_type == KEY_TYPE_SPECIAL)
-    usage_id = this_key->code;
+    duckcode = this_key->code;
   else if(this_key->key_type == KEY_TYPE_CHAR)
-    usage_id = _asciimap[this_key->code];
+    duckcode = _asciimap[this_key->code];
   else if(this_key->key_type == KEY_TYPE_DEAD_GRAVE_ACCENT)
-    usage_id = grave_accent;
+    duckcode = grave_accent;
   else if(this_key->key_type == KEY_TYPE_DEAD_ACUTE_ACCENT)
-    usage_id = acute_accent;
+    duckcode = acute_accent;
   else if(this_key->key_type == KEY_TYPE_DEAD_CIRCUMFLEX)
-    usage_id = circumflex;
+    duckcode = circumflex;
   else if(this_key->key_type == KEY_TYPE_DEAD_TILDE)
-    usage_id = tilde;
+    duckcode = tilde;
   else if(this_key->key_type == KEY_TYPE_DEAD_DIAERESIS)
-    usage_id = diaeresis;
+    duckcode = diaeresis;
   else
     return;
 
   if(use_mod && should_use_mod(this_key->key_type))
   {
-    if(usage_id & SHIFT)
+    if(duckcode & SHIFT)
       kb_buf[1] |= KEY_LEFT_SHIFT;
-    if(usage_id & ALT_GR)
+    if(duckcode & ALT_GR)
       kb_buf[1] |= KEY_RIGHT_ALT;
   }
-  usage_id = usage_id & 0xff;
-  if(kb_buf[2] != usage_id && kb_buf[3] != usage_id && kb_buf[4] != usage_id && kb_buf[5] != usage_id && kb_buf[6] != usage_id && kb_buf[7] != usage_id)
+  duckcode = duckcode & 0xff;
+  if(kb_buf[2] != duckcode && kb_buf[3] != duckcode && kb_buf[4] != duckcode && kb_buf[5] != duckcode && kb_buf[6] != duckcode && kb_buf[7] != duckcode)
   {
     for (int i = 2; i < KB_BUF_SIZE; ++i)
       if(kb_buf[i] == 0)
       {
-        kb_buf[i] = (uint8_t)usage_id;
+        kb_buf[i] = (uint8_t)duckcode;
         break;
       }
   }
@@ -383,7 +383,7 @@ void keyboard_press(my_key* this_key, uint8_t use_mod)
 
 void keyboard_release(my_key* this_key)
 {
-  uint16_t usage_id;
+  uint16_t duckcode;
   if(this_key->key_type == KEY_TYPE_MEDIA)
   {
     media_key_release();
@@ -392,35 +392,35 @@ void keyboard_release(my_key* this_key)
   else if(this_key->key_type == KEY_TYPE_MODIFIER)
   {
     kb_buf[1] &= ~(this_key->code);
-    usage_id = 0;
+    duckcode = 0;
   }
   else if(this_key->key_type == KEY_TYPE_SPECIAL)
-    usage_id = this_key->code;
+    duckcode = this_key->code;
   else if(this_key->key_type == KEY_TYPE_CHAR)
-    usage_id = _asciimap[this_key->code];
+    duckcode = _asciimap[this_key->code];
   else if(this_key->key_type == KEY_TYPE_DEAD_GRAVE_ACCENT)
-    usage_id = grave_accent;
+    duckcode = grave_accent;
   else if(this_key->key_type == KEY_TYPE_DEAD_ACUTE_ACCENT)
-    usage_id = acute_accent;
+    duckcode = acute_accent;
   else if(this_key->key_type == KEY_TYPE_DEAD_CIRCUMFLEX)
-    usage_id = circumflex;
+    duckcode = circumflex;
   else if(this_key->key_type == KEY_TYPE_DEAD_TILDE)
-    usage_id = tilde;
+    duckcode = tilde;
   else if(this_key->key_type == KEY_TYPE_DEAD_DIAERESIS)
-    usage_id = diaeresis;
+    duckcode = diaeresis;
   else
     return;
 
   if(should_use_mod(this_key->key_type))
   {
-    if(usage_id & SHIFT)
+    if(duckcode & SHIFT)
       kb_buf[1] &= ~(KEY_LEFT_SHIFT);
-    else if(usage_id & ALT_GR)
+    else if(duckcode & ALT_GR)
       kb_buf[1] &= ~(KEY_RIGHT_ALT);
   }
-  usage_id = usage_id & 0xff;
+  duckcode = duckcode & 0xff;
   for (int i = 2; i < KB_BUF_SIZE; ++i)
-    if(kb_buf[i] == (uint8_t)usage_id)
+    if(kb_buf[i] == (uint8_t)duckcode)
       kb_buf[i] = 0;
   USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, KB_BUF_SIZE);
 }
