@@ -415,7 +415,7 @@ void keyboard_release(my_key* this_key)
   {
     if(duckcode & SHIFT)
       kb_buf[1] &= ~(KEY_LEFT_SHIFT);
-    else if(duckcode & ALT_GR)
+    if(duckcode & ALT_GR)
       kb_buf[1] &= ~(KEY_RIGHT_ALT);
   }
   duckcode = duckcode & 0xff;

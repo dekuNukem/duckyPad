@@ -6,15 +6,11 @@
 
 ## Latest Firmware
 
-### 0.11.1
+### 0.11.2
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.11.1.dfu)
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.11.2.dfu)
 
-* Increased maximum simultaneous key presses to 6.
-
-* Now you can type [alt codes](resources/altcodes.pdf) like `ALT KP_0 KP_1 KP_9 KP_7`.
-
-* Using duckyPad as a WASD gamepad with [`HOLD` command](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#hold-experimental) becomes more viable too.
+* Fixed a bug in keymap parser to allow `SHIFT` and `AltGr` to be pressed simultaneously.
 
 ## USB Firmware Updates
 
@@ -52,7 +48,7 @@ In the `Available DUF Devices` section at top left corner, you should see a `STM
 
 Press the `Choose...` button and select a firmware file in `.dfu` format.
 
-* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.11.1.dfu) to download the latest firmware (v0.11.1)
+* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.11.2.dfu) to download the latest firmware (v0.11.2)
 
 * ...or [scroll down](#firmware-version-history) for older firmware versions.
 
@@ -83,6 +79,22 @@ Hold DFU button and connect duckyPad, then run:
 After completion, press **`RESET`** button (or power-cycle) to start using the new firmware. 
 
 ## Firmware Version History
+
+### 0.11.2
+
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.11.2.dfu)
+
+* Fixed a bug in keymap parser to allow `SHIFT` and `AltGr` to be pressed simultaneously.
+
+### 0.11.1
+
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.11.1.dfu)
+
+* Increased maximum simultaneous key presses to 6.
+
+* Now you can type [alt codes](resources/altcodes.pdf) like `ALT KP_0 KP_1 KP_9 KP_7`.
+
+* Using duckyPad as a WASD gamepad with [`HOLD` command](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#hold-experimental) becomes more viable too.
 
 ### 0.11.0
 
