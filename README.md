@@ -36,8 +36,6 @@ The scripts can be as simple as shortcuts like `Control + C`, or as sophisticate
 
 Thanks to the interest and support from the amazing people like you, [duckyPad Kickstarter](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) has been a great success! With over 630% funded from 705 backers!
 
-My focus in the next few months would be to fulfill the Kickstarter orders, by shipping early-bird rewards and starting a new production run for the rest.
-
 And if you missed the campaign, don't worry! It will also be sold on my Tindie store, but only **after all Kickstarter orders have been fulfilled**. Your best bet would be to [join our discord](https://discord.gg/4sJCBx5) for latest updates, and [sign up the waitlist](https://www.tindie.com/products/21984/) to be notified.
 
 Finally, here's a video of duckyPad in action!

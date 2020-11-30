@@ -1,6 +1,7 @@
 # Make a duckyPad Yourself!
 
 [Official Discord](https://discord.gg/4sJCBx5) | [Pre-order on Tindie!](https://www.tindie.com/products/21984/) | [Getting Started](getting_started.md) | [Table of Contents](#table-of-contents)
+
 ------
 
 ## Beware of duckypad Versions!
