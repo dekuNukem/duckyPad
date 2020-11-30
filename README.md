@@ -1,6 +1,6 @@
 # duckyPad: Do-It-All Mechanical Macropad
 
-[Support on Kickstarter!](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) | [Official Discord](https://discord.gg/4sJCBx5) | [Getting Started](getting_started.md) | [Table of Contents](#table-of-contents)
+[Official Discord](https://discord.gg/4sJCBx5) | [Pre-order on Tindie!](https://www.tindie.com/products/21984/) | [Getting Started](getting_started.md) | [Table of Contents](#table-of-contents)
 
 ----
 
@@ -32,11 +32,13 @@ When pressed, each key executes a user-created *`duckyScript`* to automate keybo
 
 The scripts can be as simple as shortcuts like `Control + C`, or as sophisticated as launching applications, managing livestreams, or even [creating root backdoors](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---OSX-Root-Backdoor) or [grabbing passwords](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---download-mimikatz%2C-grab-passwords-and-email-them-via-gmail). It's all up to you!
 
-## Support duckyPad on Kickstarter!
+## Pre-order duckyPad on Tindie!
 
-[Kickstarter campaign is LIVE!](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) Please consider supporting this project if you're interested!
+Thanks to the interest and support from the amazing people like you, [duckyPad Kickstarter](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) has been a great success! With over 630% funded from 705 backers!
 
-Also, feel free to join the [official duckyPad discord](https://discord.gg/4sJCBx5) to keep up with announcements and updates, and post any questions and comments you might have!
+My focus in the next few months would be to fulfill the Kickstarter orders, by shipping early-bird rewards and starting a new production run for the rest.
+
+And if you missed the campaign, don't worry! It will also be sold on my Tindie store, but only **after all Kickstarter orders have been fulfilled**. Your best bet would be to [join our discord](https://discord.gg/4sJCBx5) for latest updates, and [sign up the waitlist](https://www.tindie.com/products/21984/) to be notified.
 
 Finally, here's a video of duckyPad in action!
 <table>
@@ -262,9 +264,9 @@ You can load up to *8 keyboard layouts* to duckyPad and switch them on-the-fly.
 
 ## I want one!
 
-[Kickstarter campaign is LIVE!](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) Please consider supporting this project if you're interested!
+If you missed the Kickstarter, don't worry! duckPad will also be sold on my Tindie store, but only **after all Kickstarter orders have been fulfilled**.
 
-Also, feel free to join the [official duckyPad discord](https://discord.gg/4sJCBx5) to keep up with announcements and updates, and post any questions and comments you might have!
+Your best bet would be to [join our discord](https://discord.gg/4sJCBx5) for latest updates, and [sign up the waitlist](https://www.tindie.com/products/21984/) to be notified.
 
 ## Press Kit / More Photos
 
