@@ -39,7 +39,7 @@ class dp_key(object):
 		try:
 			with open(os.path.join(os.path.dirname(path), "config.txt")) as ffffff:
 				for line in ffffff:
-					this_split = line.replace('\n','').replace('\r','').split(' ')
+					this_split = line.replace('\n','').replace('\r','').split(' ', 1)
 					if this_split[0].startswith('z') and int(this_split[0][1:]) == index:
 						ret = this_split[1]
 						break
