@@ -235,6 +235,34 @@ Possible uses include push-to-talk voice chat, or WASD gamepad.
 
 This command is experimental, if you run into any bugs, [let me know](#questions-or-comments)!
 
+### LOOP (experimental)
+
+This command allows you to assign different actions on the same key.
+
+You can use it to toggle / cycle through several actions like this:
+
+```
+LOOP0:
+STRING first command
+ENTER
+
+LOOP1:
+STRING second command
+ENTER
+
+LOOP2:
+STRING third command
+ENTER
+```
+
+* Up to 10 actions are supported (LOOP0 - LOOP9).
+
+* When you press a key, a counter increments, and the script at the corresponding loop is executed.
+
+* This command is not yet supported with test-run on PC app.
+
+* This command is experimental, if you run into any bugs, [let me know](#questions-or-comments)!
+
 ## Table of Contents
 
 [Main page](README.md)

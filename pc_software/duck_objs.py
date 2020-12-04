@@ -47,18 +47,36 @@ class dp_key(object):
 			print('get_keyname exception:', e)
 			pass
 		return ret
+
+	def is_loop(self, line):
+		try:
+			if line.startswith("LOOP") and line.endswith(':') and len(line) == 6 and line[4].isnumeric():
+				return True, int(line[4])
+		except Exception as e:
+			print('is_loop', e)
+			# pass
+		return False, 0
+
+	def check_loop(self):
+		for line in self.script.split('\n'):
+			line = line.replace('\n', '').replace('\r', '')
+			aaa, bbb = self.is_loop(line)
+			if aaa:
+				self.has_loop = True
+			if bbb > self.max_loop:
+				self.max_loop = bbb
 		
 	def __init__(self, path=None):
 		super(dp_key, self).__init__()
-		if path is None:
-			self.path = None
-			self.name = None
-			self.index = None
-			self.color = None
-			self.script = ''
-			return
-
 		self.path = path
+		self.name = None
+		self.index = None
+		self.color = None
+		self.has_loop = False
+		self.max_loop = 0
+		self.script = ''
+		if path is None:
+			return
 		self.index = int(os.path.basename(os.path.normpath(path)).split("_")[0].split(".txt")[0].strip('key'))
 		if '_' in os.path.basename(os.path.normpath(path)):
 			self.name = os.path.basename(os.path.normpath(path)).rsplit('.', 1)[0].split('_', 1)[-1]

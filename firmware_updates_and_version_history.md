@@ -6,11 +6,11 @@
 
 ## Latest Firmware
 
-### 0.11.3
+### 0.12.0
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.11.3.dfu)
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.12.0.dfu)
 
-* Fixed a bug that prevented `HOLD` command from working on the very first press.
+* Added an **experimental** `LOOP` command, allowing cycling through different actions on the same key.
 
 ## USB Firmware Updates
 
@@ -48,7 +48,7 @@ In the `Available DUF Devices` section at top left corner, you should see a `STM
 
 Press the `Choose...` button and select a firmware file in `.dfu` format.
 
-* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.11.3.dfu) to download the latest firmware (v0.11.3)
+* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.12.0.dfu) to download the latest firmware (v0.12.0)
 
 * ...or [scroll down](#firmware-version-history) for older firmware versions.
 

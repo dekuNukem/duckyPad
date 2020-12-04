@@ -46,6 +46,8 @@ profile_cache p_cache;
 dp_global_settings dp_settings;
 my_key hold_cache[MAPPABLE_KEY_COUNT];
 char curr_kb_layout[FILENAME_SIZE] = "default";
+uint8_t key_max_loop[MAPPABLE_KEY_COUNT];
+uint8_t key_press_count[MAPPABLE_KEY_COUNT];
 
 char project_url[] = "git.io/duckypad";
 const char cmd_REPEAT[] = "REPEAT ";
@@ -125,6 +127,8 @@ const char cmd_MENU[] = "MENU";
 const char cmd_APP[] = "APP";
 const char cmd_HOLD[] = "HOLD ";
 const char cmd_POWER[] = "POWER";
+
+const char cmd_LOOP[] = "LOOP";
 
 char* goto_next_arg(char* buf, char* buf_end)
 {
@@ -362,6 +366,7 @@ void strip_newline(char* line, uint8_t size)
 uint8_t get_keynames(profile_cache* ppppppp)
 {
   uint8_t ret = 1;
+  uint8_t this_key_index;
   if(ppppppp == NULL)
     return ret;
   memset(temp_buf, 0, PATH_SIZE);
@@ -378,15 +383,27 @@ uint8_t get_keynames(profile_cache* ppppppp)
   
   while(f_gets(temp_buf, PATH_SIZE, &sd_file))
   {
-    if(temp_buf[0] != 'z')
-      continue;
-    uint8_t this_key_index = atoi(temp_buf+1);
-    if(this_key_index == 0)
-      continue;
-    this_key_index--;
-    memset(ppppppp->key_fn[this_key_index], 0, FILENAME_SIZE);
-    strip_newline(temp_buf, PATH_SIZE);
-    strcpy(ppppppp->key_fn[this_key_index], goto_next_arg(temp_buf, temp_buf+PATH_SIZE));
+    if(temp_buf[0] == 'z')
+    {
+      this_key_index = atoi(temp_buf+1);
+      if(this_key_index == 0)
+        continue;
+      this_key_index--;
+      memset(ppppppp->key_fn[this_key_index], 0, FILENAME_SIZE);
+      strip_newline(temp_buf, PATH_SIZE);
+      strcpy(ppppppp->key_fn[this_key_index], goto_next_arg(temp_buf, temp_buf+PATH_SIZE));
+  }
+  if(temp_buf[0] == 's')
+    {
+      this_key_index = atoi(temp_buf+1);
+      if(this_key_index == 0)
+        continue;
+      this_key_index--;
+      uint8_t this_key_max_loop = atoi(goto_next_arg(temp_buf, temp_buf+PATH_SIZE));
+      if(this_key_max_loop == 0)
+        continue;
+      key_max_loop[this_key_index] = this_key_max_loop;
+    }
   }
   ret = 0;
   glk_end:
@@ -525,6 +542,8 @@ void reset_hold_cache(void)
 
 void restore_profile(uint8_t profile_id)
 {
+  memset(key_press_count, 0, MAPPABLE_KEY_COUNT);
+  memset(key_max_loop, 0, MAPPABLE_KEY_COUNT);
   load_profile(profile_id);
   print_legend(0, 0);
   has_valid_profiles = 1;
@@ -1122,6 +1141,7 @@ void keypress_wrap(uint8_t keynum)
 {
   uint16_t line_num = 0;
   uint8_t result;
+  uint8_t found_start = 0;
   memset(temp_buf, 0, PATH_SIZE);
   sprintf(temp_buf, "/%s/key%d.txt", p_cache.profile_fn, keynum+1);
   // printf("%s\n", temp_buf);
@@ -1132,6 +1152,22 @@ void keypress_wrap(uint8_t keynum)
   while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
   {
     line_num++;
+    // if this key has loops, keep going until we are at the correct starting point
+    if(key_max_loop[keynum] != 0 && found_start == 0)
+    {
+      uint8_t current_loop = key_press_count[keynum] % key_max_loop[keynum];
+      memset(temp_buf, 0, PATH_SIZE);
+      sprintf(temp_buf, "%s%d", cmd_LOOP, current_loop);
+      if(strncmp(read_buffer, temp_buf, strlen(temp_buf)) != 0)
+        continue;
+      found_start = 1;
+      continue;
+    }
+    // stop at the next loop
+    if(strncmp(cmd_LOOP, read_buffer, strlen(cmd_LOOP)) == 0)
+    {
+      goto kp_end;
+    }
     if(strncmp(cmd_REPEAT, read_buffer, strlen(cmd_REPEAT)) == 0)
     {
       uint8_t repeats = atoi(goto_next_arg(read_buffer, read_buffer + strlen(read_buffer)));
@@ -1170,6 +1206,7 @@ void keypress_wrap(uint8_t keynum)
   }
   kp_end:
   f_close(&sd_file);
+  key_press_count[keynum]++;
 }
 
 void handle_keypress(uint8_t keynum, but_status* b_status)

@@ -20,7 +20,7 @@ default_button_color = 'SystemButtonFace'
 if 'linux' in sys.platform:
     default_button_color = 'grey'
 
-THIS_VERSION_NUMBER = '0.8.2'
+THIS_VERSION_NUMBER = '0.9.0'
 MAIN_WINDOW_WIDTH = 800
 MAIN_WINDOW_HEIGHT = 600
 MAIN_COLOUM_HEIGHT = 533
@@ -468,7 +468,10 @@ def save_everything(save_path):
             for this_key in this_profile.keylist:
                 if this_key is None:
                     continue
+                this_key.check_loop()
                 config_file.write('z' + str(this_key.index) + ' ' + str(this_key.name) + '\n')
+                if this_key.has_loop:
+                    config_file.write('s' + str(this_key.index) + ' ' + str(this_key.max_loop+1) + '\n')
 
             config_file.write('BG_COLOR %d %d %d\n' % (this_profile.bg_color))
             if this_profile.kd_color is not None:
@@ -897,9 +900,9 @@ def run_script():
     global script_exe_warning_showed
     if len(script_textbox.get("1.0",END)) <= 2:
         return
-    warning_msg = "You are about to execute this script.\n> MAKE SURE YOU TRUST IT!\n> Result might differ than real duckyPad.\n\nExecution will start after a 2-second delay."
+    warning_msg = "You are about to execute this script.\n> MAKE SURE YOU TRUST IT!\n> Result might differ from real duckyPad.\n\nExecution will start after a 2-second delay."
     if 'darwin' in sys.platform:
-        warning_msg = "You are about to execute this script.\n> MAKE SURE YOU TRUST IT!\n> Result might differ than real duckyPad.\n> If nothing happens, give this app Accessibility permission.\n> Check Getting Started Guide for details. \n\nExecution will start after a 2-second delay."
+        warning_msg = "You are about to execute this script.\n> MAKE SURE YOU TRUST IT!\n> Result might differ from real duckyPad.\n> If nothing happens, give this app Accessibility permission.\n> Check Getting Started Guide for details. \n\nExecution will start after a 2-second delay."
     if(script_exe_warning_showed is False):
         if(messagebox.askokcancel("Warning", warning_msg) == False):
             return

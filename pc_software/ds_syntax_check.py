@@ -100,6 +100,7 @@ cmd_DELAY = "DELAY "
 cmd_STRING = "STRING "
 cmd_UARTPRINT = "UARTPRINT "
 cmd_HOLD = "HOLD "
+cmd_LOOP = "LOOP"
 
 PARSE_OK = 0
 PARSE_ERROR = 1
@@ -129,6 +130,8 @@ def parse_line(ducky_line):
 	elif len(ducky_line) >= 254:
 		return PARSE_ERROR
 	elif ducky_line.startswith(cmd_REM) or ducky_line.startswith(cmd_UARTPRINT):
+		return PARSE_OK
+	elif ducky_line.startswith(cmd_LOOP) and ducky_line.endswith(':') and len(ducky_line) == 6 and ducky_line[4].isnumeric():
 		return PARSE_OK
 	elif ducky_line.startswith(cmd_HOLD):
 		sssss = ducky_line[len(cmd_HOLD):].strip().split(' ')
