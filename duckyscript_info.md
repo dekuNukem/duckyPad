@@ -235,21 +235,21 @@ This command is experimental, if you run into any bugs, [let me know](#questions
 
 ### LOOP (experimental)
 
-This command allows you to **assign different actions on the same key**.
+This command allows you to **assign different actions to the same key**.
 
 You can use it to toggle / cycle through several actions like this:
 
 ```
 LOOP0:
-STRING first command
+STRING first action
 ENTER
 
 LOOP1:
-STRING second command
+STRING second action
 ENTER
 
 LOOP2:
-STRING third command
+STRING third action
 ENTER
 ```
 
