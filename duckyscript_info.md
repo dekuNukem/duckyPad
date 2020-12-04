@@ -39,15 +39,13 @@ DELAY 600
 CONTROL w
 ```
 
-------
+## Syntax Details
 
 * One command per line. **`Each line has a 256 character limit!`**
 
-* 1000 milliseconds = 1 second
+* 1000 milliseconds = 1 second.
 
 * Check out the [sample profiles](https://github.com/dekuNukem/duckyPad/tree/master/sample_profiles) for more examples.
-
-## Syntax
 
 ### REM
 
@@ -237,7 +235,7 @@ This command is experimental, if you run into any bugs, [let me know](#questions
 
 ### LOOP (experimental)
 
-This command allows you to assign different actions on the same key.
+This command allows you to **assign different actions on the same key**.
 
 You can use it to toggle / cycle through several actions like this:
 

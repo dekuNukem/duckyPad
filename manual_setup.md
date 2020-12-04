@@ -52,6 +52,14 @@ z15 save
 ```
 * The screen will only display the **first 7 characters** of the key name, so keep it short!
 
+#### Loop Flag
+
+If a key uses [`LOOP` command](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#loop-experimental), add a line like this:
+
+`s4 3`
+
+In this case, `4` is the key number, and `3` is the total number of actions. This tells duckyPad to look for the `LOOP` command instead of executing the script right away.
+
 #### Backlight Colors
 
 To set your custom background color, add the following line:

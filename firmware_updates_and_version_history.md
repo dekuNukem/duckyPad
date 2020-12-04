@@ -12,6 +12,8 @@
 
 * Added an **experimental** `LOOP` command, allowing cycling through different actions on the same key.
 
+* Read about its usage [here](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#loop-experimental).
+
 ## USB Firmware Updates
 
 You can update duckyPad's firmware via USB, for bug fixes and and/or new features. 
@@ -79,6 +81,14 @@ Hold DFU button and connect duckyPad, then run:
 After completion, press **`RESET`** button (or power-cycle) to start using the new firmware. 
 
 ## Firmware Version History
+
+### 0.12.0
+
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.12.0.dfu)
+
+* Added an **experimental** `LOOP` command, allowing cycling through different actions on the same key.
+
+* Read about its usage [here](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#loop-experimental).
 
 ### 0.11.3
 
