@@ -450,7 +450,7 @@ void kb_print_char(my_key *kk, uint16_t chardelay)
   /*
   kk.code is the ASCII character
   look it up in the keymap, result is uint16_t
-  top 4 bits map to dead key
+  top 4 bits map to dead key 
   if no dead key, press as normal
   if has dead key, press it first
   */

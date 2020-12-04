@@ -1175,6 +1175,10 @@ void keypress_wrap(uint8_t keynum)
 void handle_keypress(uint8_t keynum, but_status* b_status)
 {
   keypress_wrap(keynum);
+
+  // don't repeat if this key is HOLD command
+  if(hold_cache[keynum].key_type != KEY_TYPE_UNKNOWN && hold_cache[keynum].code != 0)
+    return;
   // wait 500ms
   uint32_t hold_start = HAL_GetTick();
   while(1)

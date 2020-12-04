@@ -6,11 +6,11 @@
 
 ## Latest Firmware
 
-### 0.11.2
+### 0.11.3
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.11.2.dfu)
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.11.3.dfu)
 
-* Fixed a bug in keymap parser to allow `SHIFT` and `AltGr` to be pressed simultaneously.
+* Fixed a bug that prevented `HOLD` command from working on the very first press.
 
 ## USB Firmware Updates
 
@@ -48,7 +48,7 @@ In the `Available DUF Devices` section at top left corner, you should see a `STM
 
 Press the `Choose...` button and select a firmware file in `.dfu` format.
 
-* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.11.2.dfu) to download the latest firmware (v0.11.2)
+* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.11.3.dfu) to download the latest firmware (v0.11.3)
 
 * ...or [scroll down](#firmware-version-history) for older firmware versions.
 
@@ -79,6 +79,12 @@ Hold DFU button and connect duckyPad, then run:
 After completion, press **`RESET`** button (or power-cycle) to start using the new firmware. 
 
 ## Firmware Version History
+
+### 0.11.3
+
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.11.3.dfu)
+
+* Fixed a bug that prevented `HOLD` command from working on the very first press.
 
 ### 0.11.2
 
