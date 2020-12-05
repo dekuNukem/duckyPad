@@ -86,9 +86,9 @@ The application should load up the data from the SD card:
 
 ![Alt text](resources/pics/app/overview.png)
 
-### Profiles
-
 It might look a bit overwhelming, but don't worry, let's break it down.
+
+### Profiles
 
 * The leftmost column is for *profiles*.
 
@@ -136,7 +136,7 @@ Finally, the rightmost column is for *scripts*:
 
 * Code check will be performed as you type, errors will be highlighted in yellow.
 
-* Press `Run this script!` button to test-run it on your computer. **`MAKE SURE YOU TRUST THE SCRIPT!`**
+* Press `Run this script!` to test-run it on your computer. **`MAKE SURE YOU TRUST THE SCRIPT!`**
 
 * Test-run starts after a 2-second delay.
 
@@ -182,15 +182,15 @@ Press `Keyboard Layouts...` button to open its setting:
 
 * No storage media is 100% reliable, so it is very important to **`make backups`**!
 
-* To do so, press `Save as...` and select a empty folder.
+* To do so, press `Save as...` and select an empty folder.
 
 * Or just manually copy everything on the SD card to somewhere else.
 
-* To restore a backup, format the SD card in [FAT or FAT32](resources/pics/format.PNG), then copy everything back.
+* To restore a backup, [format the SD card in FAT or FAT32](resources/pics/format.PNG), then copy everything back.
 
 ### Run it!
 
-Eject the SD card from your computer, insert it into duckyPad, plug it in. It should start up and display the profile names and key names, as well as the customized colors.
+Eject the SD card from your computer, insert it into duckyPad, plug it in. It should start up and display the profile names and key names, as well as the customised colours.
 
 * Press a key to execute the corresponding script.
 

@@ -70,7 +70,7 @@ And thus, the keymap is born.
 
 ## duckyPad Keymaps
 
-Keymaps for duckyPad is a simple text file mapping **`256 ASCII characters to HID Usage Codes`**.
+Keymap for duckyPad is a simple text file mapping **`256 ASCII characters to HID Usage Codes`**.
 
 ### Examples
 
@@ -92,7 +92,7 @@ Here is a snippet from [`Dvorak (US)`](sample_profiles/keymaps/dpkm_Dvorak%20(US
 
 * The file name must start with `dpkm_` and end with the extension of `.txt`.
 
-* Inside, it should contain lines of **two hexadecimal numbers** (plus optional comment) like above
+* Inside, it should contain lines of **two hexadecimal numbers** (plus optional comment) like above.
 
 * The first **2-digit hexadecimal number** is the [ASCII code of a character](https://www.ascii-code.com/).
 
@@ -278,7 +278,7 @@ Here are some duckyScript to test if your keymap is working properly.
 
 Make sure to set the same keyboard layout on both duckyPad and your OS!
 
-Check to see if duckyPad types everything out exactly as it appears in the script. If not, you might have made a mistake on that particular character.
+Check to see if duckyPad types everything out **exactly as it appears in the script**. If not, you might have made a mistake on that particular character.
 
 ### Letters and Numbers
 
@@ -320,7 +320,7 @@ For example, if you run this on default `English (US)` layout, nothing will appe
 
 ## Good luck!
 
-If you made a keymap for a new keyboard layout, feel free to sumbit a pull request or [contact me](questions-or-comments), and I'll add it for everyone to use!
+If you made a keymap for a new keyboard layout, feel free to sumbit a pull request or [contact me](#questions-or-comments), and I'll add it for everyone to use!
 
 ## Table of Contents
 
