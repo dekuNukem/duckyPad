@@ -86,7 +86,7 @@ The application should load up the data from the SD card:
 
 ![Alt text](resources/pics/app/overview.png)
 
------
+### Profiles
 
 It might look a bit overwhelming, but don't worry, let's break it down.
 
@@ -108,7 +108,7 @@ It might look a bit overwhelming, but don't worry, let's break it down.
 
 * By default unused keys are dimmed, you can override this by unticking the checkbox.
 
------
+### Keys
 
 The middle column is for *keys*:
 
@@ -124,7 +124,7 @@ The middle column is for *keys*:
 
 * Drag a key to rearrange its order.
 
------
+### Scripts
 
 Finally, the rightmost column is for *scripts*:
 
@@ -146,7 +146,7 @@ Finally, the rightmost column is for *scripts*:
 
 * Test-run might not be 100% accurate, some keys like `Capslock` and `Numlock` can't be emulated in software. Run your scripts on the real thing if you're not sure.
 
------
+### Settings & Updates
 
 One the bottom we have settings and updates section.
 
@@ -156,7 +156,7 @@ By default, duckyPad goes to sleep after 30 minutes. Adjust the slider to set yo
 
 `Updates` section shows available updates for this app and duckyPad firmware. **Click on the text** for instructions.
 
------
+### Keyboard Layouts
 
 duckyPad also supports multiple keyboard layouts.
 
@@ -172,15 +172,21 @@ Press `Keyboard Layouts...` button to open its setting:
 
 * To make your own keymap, see [this guide](./keymap_instructions.md).
 
------
-
-Don't forget to save!
-
-![Alt text](resources/pics/app/save.png)
+### Don't forget to save!
 
 * Press the `Save` button to save the changes to SD card. It might take a few seconds.
 
-* You can also press `Save as...` to make a backup somewhere else, select a empty folder first!
+![Alt text](resources/pics/app/save.png)
+
+### Making backups
+
+* No storage media is 100% reliable, so it is very important to **`make backups`**!
+
+* To do so, press `Save as...` and select a empty folder.
+
+* Or just manually copy everything on the SD card to somewhere else.
+
+* To restore a backup, format the SD card in [FAT or FAT32](resources/pics/format.PNG), then copy everything back.
 
 ### Run it!
 
@@ -202,7 +208,7 @@ Eject the SD card from your computer, insert it into duckyPad, plug it in. It sh
 
 The most obvious use case is putting your commonly used hotkeys on duckyPad! Simply create a profile and add them in.
 
-For many applications, you can find an official list of keyboard shortcuts. Just search `app_name shortcuts` on google.
+For many applications, you can find an official list of keyboard shortcuts. Just search `app_name shortcuts` on Google.
 
 Some examples:
 

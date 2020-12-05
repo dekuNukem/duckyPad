@@ -19,7 +19,9 @@
 #define PARSE_EMPTY_LINE 3
 #define NEXT_PROFILE 0
 #define PREV_PROFILE 1
-
+#define DEFAULT_CMD_DELAY_MS 18
+#define DEFAULT_CHAR_DELAY_MS 18
+#define PF_CACHE_FILENAME_MAXLEN 7
 extern FRESULT sd_fresult;
 extern FATFS sd_fs;
 extern FIL sd_file;

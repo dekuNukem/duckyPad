@@ -477,6 +477,7 @@ void keypress_task_start(void const * argument)
           if(hold_cache[i].key_type != KEY_TYPE_UNKNOWN && hold_cache[i].code != 0)
           {
             keyboard_press(&hold_cache[i], 0);
+            osDelay(DEFAULT_CHAR_DELAY_MS);
           }
           else
           {
@@ -491,6 +492,7 @@ void keypress_task_start(void const * argument)
       {
         last_keypress = HAL_GetTick();
         keyboard_release(&hold_cache[i]);
+        osDelay(DEFAULT_CHAR_DELAY_MS);
         keydown_anime_end(i);
       }
       key_task_end:

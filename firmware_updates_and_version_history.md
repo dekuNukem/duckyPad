@@ -6,13 +6,11 @@
 
 ## Latest Firmware
 
-### 0.12.0
+### 0.12.1
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.12.0.dfu)
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.12.1.dfu)
 
-* Added an **experimental** `LOOP` command, allowing cycling through different actions on the same key.
-
-* Read about its usage [here](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#loop-experimental).
+* Fixed a bug of key sticking with `HOLD` command.
 
 ## USB Firmware Updates
 
@@ -50,7 +48,7 @@ In the `Available DUF Devices` section at top left corner, you should see a `STM
 
 Press the `Choose...` button and select a firmware file in `.dfu` format.
 
-* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.12.0.dfu) to download the latest firmware (v0.12.0)
+* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.12.1.dfu) to download the latest firmware (v0.12.1)
 
 * ...or [scroll down](#firmware-version-history) for older firmware versions.
 
@@ -81,6 +79,12 @@ Hold DFU button and connect duckyPad, then run:
 After completion, press **`RESET`** button (or power-cycle) to start using the new firmware. 
 
 ## Firmware Version History
+
+### 0.12.1
+
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.12.1.dfu)
+
+* Fixed an issue of key sticking with `HOLD` command.
 
 ### 0.12.0
 
@@ -165,7 +169,6 @@ After completion, press **`RESET`** button (or power-cycle) to start using the n
 * You can use this command to turn duckyPad into a WASD game pad for example.
 
 * Adjusted configuration file structure. You might need to set your keyboard layout again.
-
 
 ### 0.7.0
 

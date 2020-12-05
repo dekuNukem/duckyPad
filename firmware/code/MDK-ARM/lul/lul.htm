@@ -3,7 +3,7 @@
 <title>Static Call Graph - [lul\lul.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image lul\lul.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Dec 04 11:46:51 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sat Dec 05 13:00:06 2020
 <BR><P>
 <H3>Maximum Stack Usage =        424 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2449,7 +2449,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_task_start
 </UL>
 
-<P><STRONG><a name="[40]"></a>keypress_task_start</STRONG> (Thumb, 220 bytes, Stack size 0 bytes, my_tasks.o(i.keypress_task_start))
+<P><STRONG><a name="[40]"></a>keypress_task_start</STRONG> (Thumb, 232 bytes, Stack size 0 bytes, my_tasks.o(i.keypress_task_start))
 <BR><BR>[Stack]<UL><LI>Max Depth = 424<LI>Call Chain = keypress_task_start &rArr; handle_button_press &rArr; profile_quickswitch &rArr; restore_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
@@ -2713,6 +2713,7 @@ Global Symbols
 <LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animation_task_start
 <LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;error_animation
 <LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_line
+<LI><a href="#[19d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_hold
 <LI><a href="#[19b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_combo
 <LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
 </UL>
@@ -2794,10 +2795,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_line
 </UL>
 
-<P><STRONG><a name="[19d]"></a>parse_hold</STRONG> (Thumb, 82 bytes, Stack size 16 bytes, parser.o(i.parse_hold))
+<P><STRONG><a name="[19d]"></a>parse_hold</STRONG> (Thumb, 88 bytes, Stack size 16 bytes, parser.o(i.parse_hold))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = parse_hold &rArr; parse_special_key &rArr; atoi &rArr; strtol &rArr; _strtoul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_press
+<BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
+<LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_press
 <LI><a href="#[19c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_special_key
 <LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;goto_next_arg
 <LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen

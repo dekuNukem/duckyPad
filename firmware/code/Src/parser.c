@@ -8,10 +8,6 @@
 #include "keyboard.h"
 #include "animations.h"
 
-#define DEFAULT_CMD_DELAY_MS 18
-#define DEFAULT_CHAR_DELAY_MS 18
-#define PF_CACHE_FILENAME_MAXLEN 7
-
 uint8_t pf_name_cache[MAX_PROFILES][PF_CACHE_FILENAME_MAXLEN];
 
 static const uint8_t col_lookup[7][3] = {  
@@ -1063,6 +1059,7 @@ uint8_t parse_hold(char* line, uint8_t keynum)
   hold_cache[keynum].key_type = this_key.key_type;
   hold_cache[keynum].code = this_key.code;
   keyboard_press(&this_key, 0);
+  osDelay(DEFAULT_CHAR_DELAY_MS);
   return PARSE_OK;
 }
 
