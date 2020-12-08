@@ -90,6 +90,7 @@ const char cmd_CTRL[] = "CTRL";
 const char cmd_BG_COLOR[] = "BG_COLOR ";
 const char cmd_KD_COLOR[] = "KEYDOWN_COLOR ";
 const char cmd_SWCOLOR[] = "SWCOLOR_";
+const char cmd_SW_SELF_COLOR[] = "SWCOLOR ";
 const char cmd_DIM_UNUSED_KEYS[] = "DIM_UNUSED_KEYS ";
 
 const char cmd_NUMLOCK[] = "NUMLOCK"; // Keyboard Num Lock and Clear
@@ -167,6 +168,29 @@ char* find_profile(uint8_t pid)
   return NULL;
 }
 
+void assign_colors(uint8_t keynum, char* curr, char* msg_end)
+{
+	curr = goto_next_arg(curr, msg_end);
+  p_cache.individual_key_color[keynum][0] = atoi(curr);
+
+  curr = goto_next_arg(curr, msg_end);
+  p_cache.individual_key_color[keynum][1] = atoi(curr);
+
+  curr = goto_next_arg(curr, msg_end);
+  p_cache.individual_key_color[keynum][2] = atoi(curr);
+}
+
+uint8_t is_sw_color_line(char* line)
+{
+	if(line == NULL)
+		return 0;
+	if(strncmp(cmd_SWCOLOR, line, strlen(cmd_SWCOLOR)) == 0)
+		return 1;
+  if(strncmp(cmd_SW_SELF_COLOR, line, strlen(cmd_SW_SELF_COLOR)) == 0)
+    return 2;
+	return 0;
+}
+
 uint8_t load_colors(char* pf_fn)
 {
   char *curr, *msg_end;
@@ -239,25 +263,18 @@ uint8_t load_colors(char* pf_fn)
       }
       has_user_kd = 1;
     }
-    else if(strncmp(cmd_SWCOLOR, read_buffer, strlen(cmd_SWCOLOR)) == 0)
+    else if(is_sw_color_line(read_buffer) == 1)
     {
       uint8_t keynum = atoi(read_buffer + strlen(cmd_SWCOLOR)) - 1;
       if(keynum > MAX_PROFILES)
         continue;
-      curr = goto_next_arg(curr, msg_end);
-      p_cache.individual_key_color[keynum][0] = atoi(curr);
+      assign_colors(keynum, curr, msg_end);
       if(has_user_kd == 0)
-        p_cache.individual_keydown_color[keynum][0] = 255 - atoi(curr);
-
-      curr = goto_next_arg(curr, msg_end);
-      p_cache.individual_key_color[keynum][1] = atoi(curr);
-      if(has_user_kd == 0)
-        p_cache.individual_keydown_color[keynum][1] = 255 - atoi(curr);
-
-      curr = goto_next_arg(curr, msg_end);
-      p_cache.individual_key_color[keynum][2] = atoi(curr);
-      if(has_user_kd == 0)
-        p_cache.individual_keydown_color[keynum][2] = 255 - atoi(curr);
+      {
+        p_cache.individual_keydown_color[keynum][0] = 255 - p_cache.individual_key_color[keynum][0];
+        p_cache.individual_keydown_color[keynum][1] = 255 - p_cache.individual_key_color[keynum][1];
+        p_cache.individual_keydown_color[keynum][2] = 255 - p_cache.individual_key_color[keynum][2];
+      }
     }
 
     else if(strncmp(cmd_DIM_UNUSED_KEYS, read_buffer, strlen(cmd_DIM_UNUSED_KEYS)) == 0)
@@ -1094,6 +1111,29 @@ uint8_t parse_line(char* line, uint8_t keynum)
   {
     printf("UART %s\n", line + strlen(cmd_UARTPRINT));
     osDelay(25);
+  }
+  else if(is_sw_color_line(line) == 1)
+  {
+    uint8_t this_key_num = atoi(line + strlen(cmd_SWCOLOR)) - 1;
+    if(this_key_num > MAX_PROFILES)
+    {
+      result = PARSE_ERROR;
+      goto parse_end;
+    }
+    assign_colors(this_key_num, line, line_end);
+    redraw_bg();
+    osDelay(char_delay);
+    goto parse_end;
+  }
+  else if(is_sw_color_line(line) == 2)
+  {
+    assign_colors(keynum, line, line_end);
+    p_cache.individual_keydown_color[keynum][0] = p_cache.individual_key_color[keynum][0];
+    p_cache.individual_keydown_color[keynum][1] = p_cache.individual_key_color[keynum][1];
+    p_cache.individual_keydown_color[keynum][2] = p_cache.individual_key_color[keynum][2];
+    redraw_bg();
+    osDelay(char_delay);
+    goto parse_end;
   }
   else if(strncmp(cmd_DELAY, line, strlen(cmd_DELAY)) == 0)
   {

@@ -104,6 +104,8 @@ cmd_DELAY = "DELAY "
 cmd_STRING = "STRING "
 cmd_UARTPRINT = "UARTPRINT "
 cmd_HOLD = "HOLD "
+cmd_SWCOLOR = "SWCOLOR_";
+cmd_SW_SELF_COLOR = "SWCOLOR ";
 
 default_cmd_delay_ms = 18
 default_char_delay_ms = 18
@@ -145,7 +147,7 @@ def parse_line(ducky_line):
 		ducky_line = ducky_line.strip()
 	if len(ducky_line) <= 0:
 		return PARSE_EMPTY_LINE, parse_note
-	elif ducky_line.startswith(cmd_REM) or ducky_line.startswith(cmd_UARTPRINT):
+	elif ducky_line.startswith(cmd_REM) or ducky_line.startswith(cmd_UARTPRINT) or ducky_line.startswith(cmd_SWCOLOR) or ducky_line.startswith(cmd_SW_SELF_COLOR):
 		return PARSE_OK, parse_note
 	elif ducky_line.startswith(cmd_STRING):
 		pyautogui.write(ducky_line[len(cmd_STRING):], interval=default_char_delay_ms/1000)
