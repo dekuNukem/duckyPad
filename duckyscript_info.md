@@ -214,6 +214,20 @@ Those special keys can be used on their own:
 
 * For macOS, use `WINDOWS` for `Command` key, use `ALT` for `Option` key.
 
+### SWCOLOR (experimental)
+
+You can change the colour of a key on-the-fly with `SWCOLOR` command.
+
+To change the colour of the **current key**, use `SWCOLOR R G B`:
+
+`SWCOLOR 128 0 0`
+
+To change the colour of a **particular key**, use `SWCOLOR_n R G B`:
+
+`SWCOLOR_1 0 128 0`
+
+* The `R G B` value should between `0` and `255`. 0 being off, 255 brightest.
+
 ### HOLD (experimental)
 
 Holds a key when you press it, and release only when you release it. This command makes duckyPad behave more like a traditional keyboard.

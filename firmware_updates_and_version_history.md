@@ -6,11 +6,13 @@
 
 ## Latest Firmware
 
-### 0.12.1
+### 0.13.0
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.12.1.dfu)
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.13.0.dfu)
 
-* Fixed a bug of key sticking with `HOLD` command.
+* Added `SWCOLOR` command to change the colour of a key inside a script.
+
+* Read about its usage [here](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#swcolor-experimental).
 
 ## USB Firmware Updates
 
@@ -79,6 +81,14 @@ Hold DFU button and connect duckyPad, then run:
 After completion, press **`RESET`** button (or power-cycle) to start using the new firmware. 
 
 ## Firmware Version History
+
+### 0.13.0
+
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.13.0.dfu)
+
+* Added `SWCOLOR` command to change the colour of a key inside a script.
+
+* Read about its usage [here](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#swcolor-experimental).
 
 ### 0.12.1
 
