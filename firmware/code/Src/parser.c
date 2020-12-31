@@ -126,6 +126,7 @@ const char cmd_HOLD[] = "HOLD ";
 const char cmd_POWER[] = "POWER";
 
 const char cmd_LOOP[] = "LOOP";
+const char cmd_LCR[] = "LCR";
 
 char* goto_next_arg(char* buf, char* buf_end)
 {
@@ -1105,6 +1106,12 @@ uint8_t parse_line(char* line, uint8_t keynum)
     parse_combo(line, &this_key);
   else if(strncmp(cmd_REM, line, strlen(cmd_REM)) == 0)
     ;
+  else if(strncmp(cmd_LCR, line, strlen(cmd_LCR)) == 0)
+  {
+    memset(key_press_count, 0, MAPPABLE_KEY_COUNT);
+    result = PARSE_OK;
+    goto parse_end;
+  }
   else if(strncmp(cmd_STRING, line, strlen(cmd_STRING)) == 0)
     kb_print(line + strlen(cmd_STRING), char_delay);
   else if(strncmp(cmd_UARTPRINT, line, strlen(cmd_UARTPRINT)) == 0)
