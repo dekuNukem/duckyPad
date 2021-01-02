@@ -286,17 +286,11 @@ Check out the [official tutorials](https://www.autohotkey.com/docs_1.0/Tutorial.
 
 For macOS, you can try [bettertouchtool](https://folivora.ai).
 
-## Getting Sluggish?
+## I'm having issues!
 
-If you find duckyPad is getting slower at starting up and switching profiles, it's usually because of the SD card fragmentation.
+Please take a look at the [Common issues / Troubleshooting](troubleshooting.md) guide.
 
-* Make a backup of the files on SD card.
-
-* Format it in [FAT32 or FAT](resources/pics/format.PNG).
-
-* Copy the files back, it should be much faster now.
-
-You can also use your own faster SD card.
+If that doesn't help, feel free to contact me by [opening an issue](https://github.com/dekuNukem/duckypad/issues) or ask in the [official duckyPad discord](https://discord.gg/4sJCBx5).
 
 ## USB Firmware Updates
 
@@ -319,6 +313,8 @@ If you don't trust or unable to run the software, you can also configure duckyPa
 [Kit Assembly Guide](kit_assembly_guide.md)
 
 [Using duckyScript](duckyscript_info.md)
+
+[Common issues / Troubleshooting](troubleshooting.md)
 
 [Firmware Updates and Version History](firmware_updates_and_version_history.md)
 

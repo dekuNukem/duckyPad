@@ -36,6 +36,8 @@ Your feedback would be immensely helpful in improving this project for a wider l
 
 [Using duckyScript](duckyscript_info.md)
 
+[Common issues / Troubleshooting](troubleshooting.md)
+
 [Firmware Updates and Version History](firmware_updates_and_version_history.md)
 
 [Make Your Own Keymap](./keymap_instructions.md)

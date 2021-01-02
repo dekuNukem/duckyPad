@@ -256,6 +256,8 @@ Initial Release
 
 [Using duckyScript](duckyscript_info.md)
 
+[Common issues / Troubleshooting](troubleshooting.md)
+
 [Firmware Updates and Version History](firmware_updates_and_version_history.md)
 
 [Make Your Own Keymap](./keymap_instructions.md)
@@ -263,6 +265,7 @@ Initial Release
 [Manual Setup](./manual_setup.md)
 
 [Build a duckyPad Yourself](build_it_yourself.md)
+
 ## Questions or Comments?
 
 Please feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), ask in the [official duckyPad discord](https://discord.gg/4sJCBx5), DM me on discord `dekuNukem#6998`, or email `dekuNukem`@`gmail`.`com` for inquires.

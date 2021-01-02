@@ -104,6 +104,8 @@ One interesting design detail is the RGB LED. The WS2812(and its clones) require
 
 [Using duckyScript](duckyscript_info.md)
 
+[Common issues / Troubleshooting](troubleshooting.md)
+
 [Firmware Updates and Version History](firmware_updates_and_version_history.md)
 
 [Make Your Own Keymap](./keymap_instructions.md)
