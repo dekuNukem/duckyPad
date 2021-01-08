@@ -236,6 +236,7 @@ dk_acute_accent 0x0234
 dk_circumflex 0x002f
 dk_tilde 0x0238
 dk_diaeresis 0x012f
+dk_cedilla 0x0000
 ```
 
 The hexadecimal number is the duckcode for the dead key, and some of them will need `SHIFT` or `AltGr`.
