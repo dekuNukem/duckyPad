@@ -244,6 +244,10 @@ uint8_t load_keymap_by_name(char* name)
 
   while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
   {
+  	if(strncmp(read_buffer, "//", 2) == 0)
+    {
+      goto read_keymap_loop_end;
+    }
     if(strncmp(read_buffer, str_circumflex, strlen(str_circumflex)) == 0)
     {
       circumflex = strtoul(read_buffer + strlen(str_circumflex), NULL, 0);
@@ -280,6 +284,7 @@ uint8_t load_keymap_by_name(char* name)
   strcpy(curr_kb_layout, name);
   load_keymap_end:
   f_close(&sd_file);
+  _asciimap[0] = 0;
   return result;
 }
 
