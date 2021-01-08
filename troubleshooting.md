@@ -12,7 +12,7 @@ Click a question below to jump to the answer!
 
 * [The letters and symbols come out wrong!](#The-letters-and-symbols-come-out-wrong)
 
-* [F13 - F24 keys doesn't work!](#f13-f24-keys-doesnt-work!)
+* [F13 - F24 keys doesn't work!](#f13---f24-keys-doesnt-work)
 
 * [My macro script behaves inconsistently!](#My-macro-script-behaves-inconsistently)
 
@@ -79,6 +79,8 @@ You can slow it down by using `DELAY` commands.
 * `DEFAULTDELAY n` sets the amount of time to wait between **`each line`** of command.
 
 * `DEFAULTCHARDELAY n` sets the amount of time to wait between **`each keystroke`**.
+
+* [More info here](duckyscript_info.md#defaultdelay)
 
 ## My duckyPad seems to be getting sluggish!
 
