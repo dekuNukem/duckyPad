@@ -222,6 +222,7 @@ const char str_diaeresis[] = "dk_diaeresis";
 const char str_grave_accent[] = "dk_grave_accent";
 const char str_acute_accent[] = "dk_acute_accent";
 const char str_tilde[] = "dk_tilde";
+const char str_cedilla[] = "dk_cedilla";
 
 uint8_t load_keymap_by_name(char* name)
 {
@@ -271,6 +272,11 @@ uint8_t load_keymap_by_name(char* name)
     if(strncmp(read_buffer, str_tilde, strlen(str_tilde)) == 0)
     {
       tilde = strtoul(read_buffer + strlen(str_tilde), NULL, 0);
+      goto read_keymap_loop_end;
+    }
+    if(strncmp(read_buffer, str_cedilla, strlen(str_cedilla)) == 0)
+    {
+      cedilla = strtoul(read_buffer + strlen(str_cedilla), NULL, 0);
       goto read_keymap_loop_end;
     }
 

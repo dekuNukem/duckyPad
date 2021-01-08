@@ -14,6 +14,8 @@ uint16_t diaeresis;
 uint16_t grave_accent;
 uint16_t acute_accent;
 uint16_t tilde;
+uint16_t cedilla;
+
 static uint8_t c1;
 my_key deadkey;
 
@@ -327,6 +329,7 @@ uint8_t should_use_mod(uint8_t ttt)
     case KEY_TYPE_DEAD_CIRCUMFLEX: return 1;
     case KEY_TYPE_DEAD_TILDE: return 1;
     case KEY_TYPE_DEAD_DIAERESIS: return 1;
+    case KEY_TYPE_DEAD_CEDILLA: return 1;
   }
   return 0;
 }
@@ -358,6 +361,8 @@ void keyboard_press(my_key* this_key, uint8_t use_mod)
     duckcode = tilde;
   else if(this_key->key_type == KEY_TYPE_DEAD_DIAERESIS)
     duckcode = diaeresis;
+  else if(this_key->key_type == KEY_TYPE_DEAD_CEDILLA)
+    duckcode = cedilla;
   else
     return;
 
@@ -408,6 +413,8 @@ void keyboard_release(my_key* this_key)
     duckcode = tilde;
   else if(this_key->key_type == KEY_TYPE_DEAD_DIAERESIS)
     duckcode = diaeresis;
+  else if(this_key->key_type == KEY_TYPE_DEAD_CEDILLA)
+    duckcode = cedilla;
   else
     return;
 
@@ -467,6 +474,7 @@ void kb_print_char(my_key *kk, uint16_t chardelay)
       case 3: deadkey.key_type = KEY_TYPE_DEAD_CIRCUMFLEX; break;
       case 4: deadkey.key_type = KEY_TYPE_DEAD_TILDE; break;
       case 5: deadkey.key_type = KEY_TYPE_DEAD_DIAERESIS; break;
+      case 6: deadkey.key_type = KEY_TYPE_DEAD_CEDILLA; break;
       default: deadkey.key_type = KEY_TYPE_UNKNOWN; deadkey.code = 0;
     }
     keyboard_press(&deadkey, 1);

@@ -3,7 +3,7 @@
 <title>Static Call Graph - [lul\lul.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image lul\lul.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Jan 08 18:50:40 2021
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Jan 08 19:07:21 2021
 <BR><P>
 <H3>Maximum Stack Usage =        424 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2336,7 +2336,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_line
 </UL>
 
-<P><STRONG><a name="[167]"></a>kb_print_char</STRONG> (Thumb, 134 bytes, Stack size 16 bytes, keyboard.o(i.kb_print_char))
+<P><STRONG><a name="[167]"></a>kb_print_char</STRONG> (Thumb, 140 bytes, Stack size 16 bytes, keyboard.o(i.kb_print_char))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = kb_print_char &rArr; osDelay &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
@@ -2385,7 +2385,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animation_task_start
 </UL>
 
-<P><STRONG><a name="[168]"></a>keyboard_press</STRONG> (Thumb, 204 bytes, Stack size 8 bytes, keyboard.o(i.keyboard_press))
+<P><STRONG><a name="[168]"></a>keyboard_press</STRONG> (Thumb, 212 bytes, Stack size 8 bytes, keyboard.o(i.keyboard_press))
 <BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = keyboard_press &rArr; media_key_press &rArr; USBD_HID_SendReport &rArr; USBD_LL_Transmit &rArr; HAL_PCD_EP_Transmit &rArr; PCD_WritePMA
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_HID_SendReport
@@ -2398,7 +2398,7 @@ Global Symbols
 <LI><a href="#[19d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_combo
 </UL>
 
-<P><STRONG><a name="[169]"></a>keyboard_release</STRONG> (Thumb, 164 bytes, Stack size 8 bytes, keyboard.o(i.keyboard_release))
+<P><STRONG><a name="[169]"></a>keyboard_release</STRONG> (Thumb, 172 bytes, Stack size 8 bytes, keyboard.o(i.keyboard_release))
 <BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = keyboard_release &rArr; media_key_release &rArr; USBD_HID_SendReport &rArr; USBD_LL_Transmit &rArr; HAL_PCD_EP_Transmit &rArr; PCD_WritePMA
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_HID_SendReport
@@ -2607,7 +2607,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[175]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keymap_config
 </UL>
 
-<P><STRONG><a name="[179]"></a>load_keymap_by_name</STRONG> (Thumb, 380 bytes, Stack size 32 bytes, my_tasks.o(i.load_keymap_by_name))
+<P><STRONG><a name="[179]"></a>load_keymap_by_name</STRONG> (Thumb, 426 bytes, Stack size 32 bytes, my_tasks.o(i.load_keymap_by_name))
 <BR><BR>[Stack]<UL><LI>Max Depth = 344<LI>Call Chain = load_keymap_by_name &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
@@ -3137,7 +3137,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_animation_handler
 </UL>
 
-<P><STRONG><a name="[16e]"></a>should_use_mod</STRONG> (Thumb, 28 bytes, Stack size 4 bytes, keyboard.o(i.should_use_mod))
+<P><STRONG><a name="[16e]"></a>should_use_mod</STRONG> (Thumb, 30 bytes, Stack size 4 bytes, keyboard.o(i.should_use_mod))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = should_use_mod &rArr; __ARM_common_switch8
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_common_switch8

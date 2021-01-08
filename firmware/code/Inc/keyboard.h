@@ -82,6 +82,7 @@
 #define KEY_TYPE_DEAD_CIRCUMFLEX 7
 #define KEY_TYPE_DEAD_TILDE 8
 #define KEY_TYPE_DEAD_DIAERESIS 9
+#define KEY_TYPE_DEAD_CEDILLA 10
 
 #define ASCII_MAP_SIZE 256
 
@@ -103,6 +104,7 @@ extern uint16_t diaeresis;
 extern uint16_t grave_accent;
 extern uint16_t acute_accent;
 extern uint16_t tilde;
+extern uint16_t cedilla;
 
 extern uint16_t _asciimap[ASCII_MAP_SIZE];
 
