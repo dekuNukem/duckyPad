@@ -12,9 +12,13 @@ Click a question below to jump to the answer!
 
 * [The letters and symbols come out wrong!](#The-letters-and-symbols-come-out-wrong)
 
+* [F13 - F24 keys doesn't work!](#f13-f24-keys-doesnt-work!)
+
 * [My macro script behaves inconsistently!](#My-macro-script-behaves-inconsistently)
 
 * [My duckyPad seems to be getting sluggish!](#My-duckyPad-seems-to-be-getting-sluggish)
+
+* [The RGB backlight is flickering slightly!](#The-RGB-backlight-is-flickering-slightly)
 
 * [The RGB backlight is too bright!](#The-RGB-backlight-is-too-bright)
 
@@ -30,15 +34,25 @@ Click a question below to jump to the answer!
 
 ## I press a key and nothing happens!
 
-* Make sure the key has a valid script mapped to it.
+First, make sure the key has a valid script mapped to it. If in doubt, use one of the sample profiles.
 
-* If in doubt, try one of the sample profiles.
+### If *none* of the keys work
 
-* If it still doesn't work, take off the switch and inspect the pins, chances are one of them is bent:
+* Check that the cable is plugged all the way in.
+
+* Try a different cable.
+
+* Try a different USB port.
+
+* Try a different computer.
+
+### If a certain key doesn't work
+
+Take off the switch and inspect the pins, chances are one of them is bent:
 
 ![Alt text](resources/pics/bent.jpg)
 
-* If so, straighten it up with a pair of pliers, then insert again. Make sure the **pins are straight** and aim for hot-swap socket holes.
+If so, straighten it up with a pair of pliers, then insert again. Make sure the **pins are straight** and aim for hot-swap socket holes.
 
 ## The letters and symbols come out wrong!
 
@@ -50,9 +64,13 @@ You'll need select a different keyboard layout.
 
 * Read more about [adding keyboard layouts](getting_started.md#keyboard-layouts) and [writing keymaps](keymap_instructions.md).
 
+## F13 - F24 Keys doesn't work!
+
+Windows **DOES NOT** support `F13 - F24` keys. They only work on macOS / linux.
+
 ## My macro script behaves inconsistently!
 
-It might be duckyPad is typing too fast for your computer.
+duckyPad might be typing too fast for your computer.
 
 You can slow it down by using `DELAY` commands.
 
@@ -64,7 +82,7 @@ You can slow it down by using `DELAY` commands.
 
 ## My duckyPad seems to be getting sluggish!
 
-If you find duckyPad is getting slower at starting up and switching profiles, it's usually because of the SD card fragmentation.
+If your duckyPad is getting slower at starting up and switching profiles, it's usually because of the SD card fragmentation.
 
 * Make a backup of the files on SD card.
 
@@ -73,6 +91,14 @@ If you find duckyPad is getting slower at starting up and switching profiles, it
 * Copy the files back, it should be much faster now.
 
 You can also use your own faster SD card.
+
+## The RGB backlight is flickering slightly!
+
+* Make sure the USB port can provide enough power.
+
+* Try plugging it directly into the computer, instead of through a USB hub.
+
+* Also try a different cable if possible.
 
 ## The RGB backlight is too bright!
 
