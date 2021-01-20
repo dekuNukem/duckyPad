@@ -6,13 +6,13 @@
 
 ## Latest Firmware
 
-### 0.13.0
+### 0.14.0
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.13.0.dfu)
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.14.0.dfu)
 
-* Added `SWCOLOR` command to change the colour of a key inside a script.
+* Added attributions and metadata in keymap files, updated firmware to handle them.
 
-* Read about its usage [here](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#swcolor-experimental).
+* Added support for cedilla deadkey in keymaps.
 
 ## USB Firmware Updates
 
@@ -32,7 +32,7 @@ Locate the **`DFU`** button on the board:
 
 * Once plugged in, you can release the button.
 
-If all went well, the backlight and display should stay off.
+If all went well, `the backlight and display should stay off`.
 
 ### Windows
 
@@ -50,7 +50,7 @@ In the `Available DUF Devices` section at top left corner, you should see a `STM
 
 Press the `Choose...` button and select a firmware file in `.dfu` format.
 
-* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.13.0.dfu) to download the latest firmware (v0.13.0)
+* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.14.0.dfu) to download the latest firmware (v0.14.0)
 
 * ...or [scroll down](#firmware-version-history) for older firmware versions.
 
@@ -81,6 +81,14 @@ Hold DFU button and connect duckyPad, then run:
 After completion, press **`RESET`** button (or power-cycle) to start using the new firmware. 
 
 ## Firmware Version History
+
+### 0.14.0
+
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.14.0.dfu)
+
+* Added attributions and metadata in keymap files, updated firmware to handle them.
+
+* Added support for cedilla deadkey in keymaps.
 
 ### 0.13.0
 
