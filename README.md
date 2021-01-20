@@ -34,7 +34,8 @@ The scripts can be as simple as shortcuts like `Control + C`, or as sophisticate
 
 ## Pre-order duckyPad on Tindie!
 
-Thanks to the interest and support from the amazing people like you, [duckyPad Kickstarter](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) has been a great success! With over 630% funded from 705 backers!
+Thanks to the interest and support from the [amazing people like you](kickstarter_backers.md)
+, the [duckyPad Kickstarter](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) has been a great success! With over 630% funded from 705 backers!
 
 And if you missed the campaign, don't worry! It will also be sold on my Tindie store, but only **after all Kickstarter orders have been fulfilled**. Your best bet would be to [join our discord](https://discord.gg/4sJCBx5) for latest updates, and [sign up the waitlist](https://www.tindie.com/products/21984/) to be notified.
 
@@ -305,6 +306,8 @@ A number of projects are based on duckyPad, they are listed here!
 [Manual Setup](./manual_setup.md)
 
 [Build a duckyPad Yourself](build_it_yourself.md)
+
+[Kickstarter Backer Acknowledgments](kickstarter_backers.md)
 
 ## Questions or Comments?
 

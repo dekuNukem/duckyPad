@@ -162,4 +162,4 @@ Media enquiries? Email `dekuNukem` `gmail`.`com`, or DM me on discord `dekuNukem
 
 [Build a duckyPad Yourself](build_it_yourself.md)
 
-
+[Kickstarter Backer Acknowledgments](kickstarter_backers.md)
