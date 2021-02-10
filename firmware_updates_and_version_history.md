@@ -6,13 +6,15 @@
 
 ## Latest Firmware
 
-### 0.14.0
+### 0.15.0
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.14.0.dfu)
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.15.0.dfu)
 
-* Added attributions and metadata in keymap files, updated firmware to handle them.
+* Added `DP_SLEEP` command to make duckyPad to go sleep.
 
-* Added support for cedilla deadkey in keymaps.
+* Added `PREV_PROFILE`, `NEXT_PROFILE`, and `GOTO_PROFILE` commands for profile switching.
+
+* Fixed a bug, `F13 - F24` keys should work properly now.
 
 ## USB Firmware Updates
 
@@ -50,7 +52,7 @@ In the `Available DUF Devices` section at top left corner, you should see a `STM
 
 Press the `Choose...` button and select a firmware file in `.dfu` format.
 
-* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.14.0.dfu) to download the latest firmware (v0.14.0)
+* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.15.0.dfu) to download the latest firmware (v0.15.0)
 
 * ...or [scroll down](#firmware-version-history) for older firmware versions.
 
@@ -62,9 +64,9 @@ Press `Upgrade` button to start uploading the new firmware into the microcontrol
 
 And now the firmware is being updated!
 
-![Alt text](resources/pics/dfu_uploading.png)
-
 **It should only take a few seconds!** **`Try using a USB hub`** if it is particularly slow.
+
+![Alt text](resources/pics/dfu_uploading.png)
 
 After completion, press **`RESET`** button (or power-cycle) to start using the new firmware. 
 
@@ -81,6 +83,16 @@ Hold DFU button and connect duckyPad, then run:
 After completion, press **`RESET`** button (or power-cycle) to start using the new firmware. 
 
 ## Firmware Version History
+
+### 0.15.0
+
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.15.0.dfu)
+
+* Added `DP_SLEEP` command to make duckyPad to go sleep.
+
+* Added `PREV_PROFILE`, `NEXT_PROFILE`, and `GOTO_PROFILE` commands for profile switching.
+
+* Fixed a bug, `F13 - F24` keys should work properly now.
 
 ### 0.14.0
 

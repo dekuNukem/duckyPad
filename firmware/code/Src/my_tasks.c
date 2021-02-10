@@ -496,7 +496,6 @@ void keypress_task_start(void const * argument)
             keydown_anime_end(i);
             if(my_dpc.type == DPC_SLEEP)
             {
-              osDelay(250);
               start_sleeping();
               dpc_init(&my_dpc);
             }
