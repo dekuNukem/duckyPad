@@ -129,7 +129,9 @@ const char cmd_LOOP[] = "LOOP";
 const char cmd_LCR[] = "LCR"; // loop counter reset
 
 const char cmd_SLEEP[] = "SLEEP";
-
+const char cmd_PREV_PROFILE[] = "PREV_PROFILE";
+const char cmd_NEXT_PROFILE[] = "NEXT_PROFILE";
+const char cmd_GOTO_PROFILE[] = "GOTO_PROFILE";
 
 char* goto_next_arg(char* buf, char* buf_end)
 {
@@ -1225,6 +1227,16 @@ void keypress_wrap(uint8_t keynum)
     if(strncmp(cmd_SLEEP, read_buffer, strlen(cmd_SLEEP)) == 0)
     {
       my_dpc.type = DPC_SLEEP;
+      goto kp_end;
+    }
+    if(strncmp(cmd_PREV_PROFILE, read_buffer, strlen(cmd_PREV_PROFILE)) == 0)
+    {
+      my_dpc.type = DPC_PREV_PROFILE;
+      goto kp_end;
+    }
+    if(strncmp(cmd_NEXT_PROFILE, read_buffer, strlen(cmd_NEXT_PROFILE)) == 0)
+    {
+      my_dpc.type = DPC_NEXT_PROFILE;
       goto kp_end;
     }
     result = parse_line(read_buffer, keynum);

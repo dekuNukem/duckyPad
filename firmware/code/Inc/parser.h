@@ -54,7 +54,9 @@ typedef struct
 
 #define DPC_NONE 0
 #define DPC_SLEEP 1
-#define DPC_SWITCH_PROFILE 2
+#define DPC_PREV_PROFILE 2
+#define DPC_NEXT_PROFILE 3
+#define DPC_GOTO_PROFILE 4
 
 typedef struct
 {

@@ -500,6 +500,16 @@ void keypress_task_start(void const * argument)
               start_sleeping();
               dpc_init(&my_dpc);
             }
+            if(my_dpc.type == DPC_PREV_PROFILE)
+            {
+              change_profile(PREV_PROFILE);
+              dpc_init(&my_dpc);
+            }
+            if(my_dpc.type == DPC_NEXT_PROFILE)
+            {
+              change_profile(NEXT_PROFILE);
+              dpc_init(&my_dpc);
+            }
           }
         }
         else if(i == KEY_BUTTON1 || i == KEY_BUTTON2)
