@@ -64,7 +64,7 @@ And now the firmware is being updated!
 
 ![Alt text](resources/pics/dfu_uploading.png)
 
-It can take anywhere between a few seconds to a few minutes. Try using a USB hub if it's particularly slow. 
+**It should only take a few seconds!** **`Try using a USB hub`** if it is particularly slow.
 
 After completion, press **`RESET`** button (or power-cycle) to start using the new firmware. 
 
