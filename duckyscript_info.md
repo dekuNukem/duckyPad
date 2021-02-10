@@ -214,7 +214,7 @@ Those special keys can be used on their own:
 
 * For macOS, use `WINDOWS` for `Command` key, use `ALT` for `Option` key.
 
-### SWCOLOR (experimental)
+### SWCOLOR
 
 You can change the colour of a key on-the-fly with `SWCOLOR` command.
 
@@ -227,6 +227,24 @@ To change the colour of a **particular key**, use `SWCOLOR_n R G B`:
 `SWCOLOR_1 0 128 0`
 
 * The `R G B` value should between `0` and `255`. 0 being off, 255 brightest.
+
+### DP_SLEEP
+
+You can use `DP_SLEEP` command to make duckyPad go to sleep.
+
+Backlight and screen are turned off.
+
+Press any key to wake it up.
+
+### PREV_PROFILE / NEXT_PROFILE
+
+You can use `PREV_PROFILE` or `NEXT_PROFILE` command to switch to the previous / next profile.
+
+### GOTO_PROFILE
+
+Use this command to jump to a particular profile.
+
+`GOTO_PROFILE 3` // jump to profile #3
 
 ### HOLD (experimental)
 

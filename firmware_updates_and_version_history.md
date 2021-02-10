@@ -14,7 +14,9 @@
 
 * Added `PREV_PROFILE`, `NEXT_PROFILE`, and `GOTO_PROFILE` commands for profile switching.
 
-* Fixed a bug, `F13 - F24` keys should work properly now.
+* [Click me](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#DP_SLEEP) to learn more.
+
+* Fixed a bug, now `F13 - F24` keys should work properly in both Windows and macOS.
 
 ## USB Firmware Updates
 
