@@ -41,7 +41,7 @@ def open_discord_link():
 def create_help_window():
     help_window = Toplevel(root)
     help_window.title("duckyPad help")
-    help_window.geometry("280x130")
+    help_window.geometry("280x180")
     help_window.resizable(width=FALSE, height=FALSE)
     help_window.grab_set()
 
@@ -50,13 +50,21 @@ def create_help_window():
     user_manual_button = Button(help_window, text="User Manual", command=open_duckypad_user_manual_url)
     user_manual_button.place(x=60, y=30, width=160)
 
+    troubleshoot_label = Label(master=help_window, text="Problems? Please see...")
+    troubleshoot_label.place(x=35, y=60)
+    troubleshoot_button = Button(help_window, text="Troubleshooting Guides", command=open_duckypad_troubleshooting_url)
+    troubleshoot_button.place(x=50, y=85, width=180)
+
     discord_label = Label(master=help_window, text="Questions or comments? Ask in...")
-    discord_label.place(x=35, y=60)
+    discord_label.place(x=35, y=60+55)
     discord_button = Button(help_window, text="Official Discord Chatroom", command=open_discord_link)
-    discord_button.place(x=50, y=85, width=180)
+    discord_button.place(x=50, y=85+55, width=180)
 
 def open_duckypad_user_manual_url():
     webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/getting_started.md')
+
+def open_duckypad_troubleshooting_url():
+    webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/troubleshooting.md')
 
 def reset_key_button_relief():
     for item in key_button_list:
