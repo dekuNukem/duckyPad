@@ -1219,7 +1219,7 @@ void keypress_wrap(uint8_t keynum)
     }
     if(strncmp(cmd_REPEAT, read_buffer, strlen(cmd_REPEAT)) == 0)
     {
-      uint8_t repeats = atoi(goto_next_arg(read_buffer, read_buffer + strlen(read_buffer)));
+      uint8_t repeats = atoi(goto_next_arg(read_buffer, read_buffer + READ_BUF_SIZE));
       for (int i = 0; i < repeats; ++i)
         parse_line(prev_line, keynum);
       continue;
@@ -1237,6 +1237,12 @@ void keypress_wrap(uint8_t keynum)
     if(strncmp(cmd_NEXT_PROFILE, read_buffer, strlen(cmd_NEXT_PROFILE)) == 0)
     {
       my_dpc.type = DPC_NEXT_PROFILE;
+      goto kp_end;
+    }
+    if(strncmp(cmd_GOTO_PROFILE, read_buffer, strlen(cmd_GOTO_PROFILE)) == 0)
+    {
+      my_dpc.type = DPC_GOTO_PROFILE;
+      my_dpc.data = atoi(goto_next_arg(read_buffer, read_buffer + READ_BUF_SIZE));
       goto kp_end;
     }
     result = parse_line(read_buffer, keynum);

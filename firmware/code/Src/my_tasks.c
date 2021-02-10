@@ -510,6 +510,12 @@ void keypress_task_start(void const * argument)
               change_profile(NEXT_PROFILE);
               dpc_init(&my_dpc);
             }
+            if(my_dpc.type == DPC_GOTO_PROFILE)
+            {
+              if(p_cache.available_profile[my_dpc.data])
+                restore_profile(my_dpc.data);
+              dpc_init(&my_dpc);
+            }
           }
         }
         else if(i == KEY_BUTTON1 || i == KEY_BUTTON2)
