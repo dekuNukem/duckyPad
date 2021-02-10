@@ -494,6 +494,12 @@ void keypress_task_start(void const * argument)
           {
             handle_keypress(i, &button_status[i]); // handle the button state inside here for repeats
             keydown_anime_end(i);
+            if(my_dpc.type == DPC_SLEEP)
+            {
+              osDelay(250);
+              start_sleeping();
+              dpc_init(&my_dpc);
+            }
           }
         }
         else if(i == KEY_BUTTON1 || i == KEY_BUTTON2)
@@ -513,6 +519,14 @@ void keypress_task_start(void const * argument)
   }
 }
 
+void start_sleeping(void)
+{
+  key_led_shutdown();
+  ssd1306_Fill(Black);
+  ssd1306_UpdateScreen();
+  is_sleeping = 1;
+}
+
 void animation_task_start(void const * argument)
 {
   while(init_complete == 0)
@@ -520,24 +534,23 @@ void animation_task_start(void const * argument)
   anime_init();
   for(;;)
   {
+    osDelay(20);
     led_animation_handler();
-    if(dp_settings.sleep_after_ms != 0 && is_sleeping == 0 && HAL_GetTick() - last_keypress > dp_settings.sleep_after_ms)
-    {
-      key_led_shutdown();
-      ssd1306_Fill(Black);
-      ssd1306_UpdateScreen();
-      is_sleeping = 1;
-    }
+    if(is_sleeping)
+      continue;
+
+    if(dp_settings.sleep_after_ms != 0 && HAL_GetTick() - last_keypress > dp_settings.sleep_after_ms)
+      start_sleeping();
     // dim OLED screen after 5 minutes of idle to prevent burn-in
     if(HAL_GetTick() - last_keypress > 300000)
       ssd1306_dim(1);
     // shift pixels around every 2 minutes to prevent burn-in
-    if(is_sleeping == 0 && is_in_settings == 0 && HAL_GetTick() > next_pixel_shift)
+    if(is_in_settings == 0 && HAL_GetTick() > next_pixel_shift)
     {
       if(has_valid_profiles)
         print_legend(rand()%3-1, rand()%3-1); // -1 to 1
       next_pixel_shift = HAL_GetTick() + 120000;
     }
-    osDelay(20);
+    
   }
 }

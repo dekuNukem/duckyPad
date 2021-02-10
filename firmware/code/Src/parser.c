@@ -31,7 +31,7 @@ uint8_t mount_result;
 uint8_t has_valid_profiles;
 uint16_t cmd_delay, char_delay;
 unsigned int ignore_this;
-
+duckypad_parsed_command my_dpc;
 char temp_buf[PATH_SIZE];
 char lfn_buf[FILENAME_SIZE];
 char key_name_buf[FILENAME_SIZE];
@@ -126,7 +126,10 @@ const char cmd_HOLD[] = "HOLD ";
 const char cmd_POWER[] = "POWER";
 
 const char cmd_LOOP[] = "LOOP";
-const char cmd_LCR[] = "LCR";
+const char cmd_LCR[] = "LCR"; // loop counter reset
+
+const char cmd_SLEEP[] = "SLEEP";
+
 
 char* goto_next_arg(char* buf, char* buf_end)
 {
@@ -1219,6 +1222,11 @@ void keypress_wrap(uint8_t keynum)
         parse_line(prev_line, keynum);
       continue;
     }
+    if(strncmp(cmd_SLEEP, read_buffer, strlen(cmd_SLEEP)) == 0)
+    {
+      my_dpc.type = DPC_SLEEP;
+      goto kp_end;
+    }
     result = parse_line(read_buffer, keynum);
     if(result == PARSE_ERROR)
     {
@@ -1253,10 +1261,19 @@ void keypress_wrap(uint8_t keynum)
   key_press_count[keynum]++;
 }
 
+void dpc_init(duckypad_parsed_command* dpc)
+{
+  dpc->type = DPC_NONE;
+  dpc->data = 0;
+}
+
 void handle_keypress(uint8_t keynum, but_status* b_status)
 {
+  dpc_init(&my_dpc);
   keypress_wrap(keynum);
-
+  // don't repeat if this key asks to sleep or change profiles
+  if(my_dpc.type != DPC_NONE)
+    return;
   // don't repeat if this key is HOLD command
   if(hold_cache[keynum].key_type != KEY_TYPE_UNKNOWN && hold_cache[keynum].code != 0)
     return;
