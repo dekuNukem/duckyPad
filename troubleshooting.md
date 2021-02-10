@@ -18,6 +18,8 @@ Click a question below to jump to the answer!
 
 * [My duckyPad seems to be getting sluggish!](#My-duckyPad-seems-to-be-getting-sluggish)
 
+* [I want to use my own SD card!](#i-want-to-use-my-own-sd-card)
+
 * [The RGB backlight is flickering slightly!](#The-RGB-backlight-is-flickering-slightly)
 
 * [The RGB backlight is too bright!](#The-RGB-backlight-is-too-bright)
