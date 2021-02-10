@@ -128,7 +128,7 @@ const char cmd_POWER[] = "POWER";
 const char cmd_LOOP[] = "LOOP";
 const char cmd_LCR[] = "LCR"; // loop counter reset
 
-const char cmd_SLEEP[] = "SLEEP";
+const char cmd_SLEEP[] = "DP_SLEEP";
 const char cmd_PREV_PROFILE[] = "PREV_PROFILE";
 const char cmd_NEXT_PROFILE[] = "NEXT_PROFILE";
 const char cmd_GOTO_PROFILE[] = "GOTO_PROFILE";
