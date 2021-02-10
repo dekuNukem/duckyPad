@@ -92,7 +92,23 @@ If your duckyPad is getting slower at starting up and switching profiles, it's u
 
 * Copy the files back, it should be much faster now.
 
-You can also use your own faster SD card.
+You can also use your [own faster SD card](#i-want-to-use-my-own-sd-card).
+
+## I want to use my own SD card!
+
+* (Optional) Make a backup of the contents of the original SD card.
+
+* Format the new SD card in `FAT or FAT32`:
+
+![Alt text](resources/pics/format.PNG)
+
+![Alt text](resources/pics/macfat.png)
+
+* Copy all the files back.
+
+* You can also download the [sample profiles](https://github.com/dekuNukem/duckyPad/raw/master/sample_profiles.zip) and copy everything to the **root of your SD card**:
+
+![Alt text](resources/pics/sample_pf.png)
 
 ## The RGB backlight is flickering slightly!
 
