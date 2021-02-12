@@ -14,7 +14,7 @@ Click a question below to jump to the answer!
 
 * [F13 - F24 keys doesn't work!](#f13---f24-keys-doesnt-work)
 
-* [My macro script behaves inconsistently!](#My-macro-script-behaves-inconsistently)
+* [My script behaves inconsistently!](#My-script-behaves-inconsistently)
 
 * [My duckyPad seems to be getting sluggish!](#My-duckyPad-seems-to-be-getting-sluggish)
 
@@ -68,9 +68,9 @@ You'll need select a different keyboard layout.
 
 ## F13 - F24 Keys doesn't work!
 
-Windows **DOES NOT** support `F13 - F24` keys. They only work on macOS / linux.
+Please [update your duckyPad to the latest firmware](https://github.com/dekuNukem/duckyPad/blob/master/firmware_updates_and_version_history.md) to fix this issue.
 
-## My macro script behaves inconsistently!
+## My script behaves inconsistently!
 
 duckyPad might be typing too fast for your computer.
 
