@@ -60,13 +60,13 @@ Press the `Choose...` button and select a firmware file in `.dfu` format.
 
 Press `Upgrade` button to start uploading the new firmware into the microcontroller.
 
-![Alt text](resources/pics/dfu_upgrade.png)
+![Alt text](resources/pics/dfu_upgrade2.png)
 
 And now the firmware is being updated!
 
 **It should only take a few seconds!** **`Try using a USB hub`** if it is particularly slow.
 
-![Alt text](resources/pics/dfu_uploading.png)
+![Alt text](resources/pics/dfu_uploading2.png)
 
 After completion, press **`RESET`** button (or power-cycle) to start using the new firmware. 
 
