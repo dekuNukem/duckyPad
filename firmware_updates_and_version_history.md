@@ -28,8 +28,6 @@ Locate the **`DFU`** button on the board:
 
 ![Alt text](resources/pics/dfu_buttons_new.jpg)
 
-![Alt text](resources/pics/buttons.jpg)
-
 * Make sure the board is unplugged.
 
 * **`Hold down DFU button`** while plugging it into a computer.
