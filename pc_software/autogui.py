@@ -142,10 +142,12 @@ def parse_combo(combo_line):
 			if item == "SHIFT" and 'win' in sys.platform: 
 				autogui_args.append('shiftleft')
 				autogui_args.append('shiftright')
-			if (item == "GUI" or item == "WINDOWS") and 'darwin' in sys.platform:
+			elif (item == "GUI" or item == "WINDOWS" or item == "RWINDOWS" or item == "RCOMMAND") and 'darwin' in sys.platform:
 				autogui_args.append('command')
-			if item == "ALT" and 'darwin' in sys.platform:
+			elif item == "ALT" and 'darwin' in sys.platform:
 				autogui_args.append('option')
+			elif item == "RALT" and 'darwin' in sys.platform:
+				autogui_args.append('optionright')
 			else:
 				autogui_args.append(autogui_map[item])
 		else:
