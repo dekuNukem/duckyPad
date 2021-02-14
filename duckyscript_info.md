@@ -111,11 +111,12 @@ REM types out "Hello world" 11 times (1 original + 10 repeats)
 duckyScript also supports a whole bunch of special keys:
 
 ```
-CTRL
-SHIFT
-ALT
-WINDOWS
-GUI
+CTRL / RCTRL
+SHIFT / RSHIFT
+ALT / RALT
+WINDOWS / RWINDOWS
+COMMAND / RCOMMAND (mac)
+OPTION / ROPTION (mac)
 ESC
 ENTER
 UP
@@ -212,8 +213,6 @@ Those special keys can be used on their own:
 
 * **`UP TO 6 KEYS`** can be pressed simultaneously.
 
-* For macOS, use `WINDOWS` for `Command` key, use `ALT` for `Option` key.
-
 ### SWCOLOR
 
 You can change the colour of a key on-the-fly with `SWCOLOR` command.
@@ -250,6 +249,8 @@ Use this command to jump to a particular profile.
 
 Holds a key when you press it, and release only when you release it. This command makes duckyPad behave more like a traditional keyboard.
 
+Possible uses include push-to-talk voice chat, or WASD gamepad.
+
 `HOLD` command must be followed by a single key, it can be a character or a special key.
 
 ```
@@ -260,8 +261,6 @@ HOLD SHIFT
 ```
 
 You should only use `HOLD` command on its own, i.e. the script should only have a single line of `HOLD` command and nothing else.
-
-Possible uses include push-to-talk voice chat, or WASD gamepad.
 
 This command is experimental, if you run into any bugs, [let me know](#questions-or-comments)!
 
