@@ -6,17 +6,15 @@
 
 ## Latest Firmware
 
-### 0.15.0
+### 0.16.0
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.15.0.dfu)
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.16.0.dfu)
 
-* Added `DP_SLEEP` command to make duckyPad to go sleep.
+* Added `COMMAND` and `OPTION` aliases for macOS. 
 
-* Added `PREV_PROFILE`, `NEXT_PROFILE`, and `GOTO_PROFILE` commands for profile switching.
+* Added support for right-side modifier keys, such as `RCTRL`, `RSHFIT`, `RALT`, etc.
 
-* [Click me](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#DP_SLEEP) to learn more.
-
-* Fixed a bug, now `F13 - F24` keys should work properly in both Windows and macOS.
+* [Click me](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#special-keys) to learn more.
 
 ## USB Firmware Updates
 
@@ -52,7 +50,7 @@ In the `Available DUF Devices` section at top left corner, you should see a `STM
 
 Press the `Choose...` button and select a firmware file in `.dfu` format.
 
-* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.15.0.dfu) to download the latest firmware (v0.15.0)
+* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.16.0.dfu) to download the latest firmware (v0.16.0)
 
 * ...or [scroll down](#firmware-version-history) for older firmware versions.
 
@@ -83,6 +81,16 @@ Hold DFU button and connect duckyPad, then run:
 After completion, press **`RESET`** button (or power-cycle) to start using the new firmware. 
 
 ## Firmware Version History
+
+### 0.16.0
+
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.16.0.dfu)
+
+* Added `COMMAND` and `OPTION` aliases for macOS. 
+
+* Added support for right-side modifier keys, such as `RCTRL`, `RSHFIT`, `RALT`, etc.
+
+* [Click me](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#special-keys) to learn more.
 
 ### 0.15.0
 
