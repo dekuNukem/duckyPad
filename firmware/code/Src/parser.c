@@ -79,14 +79,25 @@ const char cmd_PAGEDOWN[] = "PAGEDOWN";
 const char cmd_DELETE[] = "DELETE";
 const char cmd_END[] = "END";
 const char cmd_SPACE[] = "SPACE";
+
 const char cmd_SHIFT[] = "SHIFT";
+const char cmd_RSHIFT[] = "RSHIFT";
+
 const char cmd_ALT[] = "ALT";
-const char cmd_LALT[] = "LALT";
 const char cmd_RALT[] = "RALT";
+const char cmd_OPTION[] = "OPTION";
+const char cmd_ROPTION[] = "ROPTION";
+
 const char cmd_GUI[] = "GUI";
 const char cmd_WINDOWS[] = "WINDOWS";
+const char cmd_COMMAND[] = "COMMAND";
+const char cmd_RWINDOWS[] = "RWINDOWS";
+const char cmd_RCOMMAND[] = "RCOMMAND";
+
 const char cmd_CONTROL[] = "CONTROL";
 const char cmd_CTRL[] = "CTRL";
+const char cmd_RCTRL[] = "RCTRL";
+
 const char cmd_BG_COLOR[] = "BG_COLOR ";
 const char cmd_KD_COLOR[] = "KEYDOWN_COLOR ";
 const char cmd_SWCOLOR[] = "SWCOLOR_";
@@ -857,39 +868,39 @@ void parse_special_key(char* msg, my_key* this_key)
     this_key->code = KEY_LEFT_SHIFT;
     return;
   }
-  else if(strncmp(msg, cmd_ALT, strlen(cmd_ALT)) == 0)
+  if(strncmp(msg, cmd_RSHIFT, strlen(cmd_RSHIFT)) == 0)
+  {
+    this_key->code = KEY_RIGHT_SHIFT;
+    return;
+  }
+  else if((strncmp(msg, cmd_ALT, strlen(cmd_ALT)) == 0) || strncmp(msg, cmd_OPTION, strlen(cmd_OPTION)) == 0)
   {
     this_key->code = KEY_LEFT_ALT;
     return;
   }
-  else if(strncmp(msg, cmd_LALT, strlen(cmd_LALT)) == 0)
-  {
-    this_key->code = KEY_LEFT_ALT;
-    return;
-  }
-  else if(strncmp(msg, cmd_RALT, strlen(cmd_RALT)) == 0)
+  else if((strncmp(msg, cmd_RALT, strlen(cmd_RALT)) == 0) || strncmp(msg, cmd_ROPTION, strlen(cmd_ROPTION)) == 0)
   {
     this_key->code = KEY_RIGHT_ALT;
     return;
   }
-  else if(strncmp(msg, cmd_GUI, strlen(cmd_GUI)) == 0)
+  else if((strncmp(msg, cmd_GUI, strlen(cmd_GUI)) == 0) || (strncmp(msg, cmd_WINDOWS, strlen(cmd_WINDOWS)) == 0) || (strncmp(msg, cmd_COMMAND, strlen(cmd_COMMAND)) == 0))
   {
     this_key->code = KEY_LEFT_GUI;
     return;
   }
-  else if(strncmp(msg, cmd_WINDOWS, strlen(cmd_WINDOWS)) == 0)
+  else if((strncmp(msg, cmd_RWINDOWS, strlen(cmd_RWINDOWS)) == 0) || (strncmp(msg, cmd_RCOMMAND, strlen(cmd_RCOMMAND)) == 0))
   {
-    this_key->code = KEY_LEFT_GUI;
+    this_key->code = KEY_RIGHT_GUI;
     return;
   }
-  else if(strncmp(msg, cmd_CONTROL, strlen(cmd_CONTROL)) == 0)
+  else if((strncmp(msg, cmd_CTRL, strlen(cmd_CTRL)) == 0) || (strncmp(msg, cmd_CONTROL, strlen(cmd_CONTROL)) == 0))
   {
     this_key->code = KEY_LEFT_CTRL;
     return;
   }
-  else if(strncmp(msg, cmd_CTRL, strlen(cmd_CTRL)) == 0)
+  else if(strncmp(msg, cmd_RCTRL, strlen(cmd_RCTRL)) == 0)
   {
-    this_key->code = KEY_LEFT_CTRL;
+    this_key->code = KEY_RIGHT_CTRL;
     return;
   }
   else if(strncmp(msg, cmd_MENU, strlen(cmd_MENU)) == 0)
