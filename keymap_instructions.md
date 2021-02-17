@@ -2,14 +2,6 @@
 
 [Official Discord](https://discord.gg/4sJCBx5) | [Pre-order on Tindie!](https://www.tindie.com/products/21984/) | [Getting Started](getting_started.md) | [Table of Contents](#table-of-contents)
 
-----
-
-Instead of hard-coded keyboard layouts, duckyPad now support keymap files!
-
-You (or other people) can create a keymap file and load it on the SD card for duckyPad to use.
-
----
-
 This guide describes how keymap works, and how to write your own.
 
 Note that I'm no expert on keyboard technicalities, I barely got this thing to work! So [feel free to correct me](#questions-or-comments) if you spot anything wrong.
