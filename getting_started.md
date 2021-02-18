@@ -172,6 +172,8 @@ Press `Keyboard Layouts...` button to open its setting:
 
 * To make your own keymap, see [this guide](./keymap_instructions.md).
 
+* To change keyboard layout, **`HOLD DOWN TOP LEFT KEY`** while **`PLUGGING DUCKYPAD IN`**, then select your layout.
+
 ### Don't forget to save!
 
 * Press the `Save` button to save the changes to SD card. It might take a few seconds.
@@ -199,8 +201,6 @@ Eject the SD card from your computer, insert it into duckyPad, plug it in. It sh
 * **`Hold down`** `+` button for profile quickswitch.
 
 * **`Hold down`** `-` button to change RGB backlight brightness.
-
-* To change keyboard layout, **`HOLD DOWN TOP LEFT KEY`** while **`PLUGGING IT IN`**, then select your layout.
 
 ## Tips and Tricks
 
