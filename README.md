@@ -1,6 +1,6 @@
 # duckyPad: Do-It-All Mechanical Macropad
 
-[Official Discord](https://discord.gg/4sJCBx5) | [Pre-order on Tindie!](https://www.tindie.com/products/21984/) | [Getting Started](getting_started.md) | [Table of Contents](#table-of-contents)
+[Get duckyPad](https://www.tindie.com/products/21984/) | [Official Discord](https://discord.gg/4sJCBx5) | [Getting Started](getting_started.md) | [Table of Contents](#table-of-contents)
 
 ----
 
@@ -32,12 +32,12 @@ When pressed, each key executes a user-created *`duckyScript`* to automate keybo
 
 The scripts can be as simple as shortcuts like `Control + C`, or as sophisticated as launching applications, managing livestreams, or even [creating root backdoors](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---OSX-Root-Backdoor) or [grabbing passwords](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---download-mimikatz%2C-grab-passwords-and-email-them-via-gmail). It's all up to you!
 
-## Pre-order duckyPad on Tindie!
+## Get duckyPad on Tindie!
 
-Thanks to the interest and support from the [amazing people like you](kickstarter_backers.md)
+duckyPad is [now available on Tindie!](https://www.tindie.com/products/21984), feel free to grab one there!
+
+And thanks to the interest and support from the [amazing people like you](kickstarter_backers.md)
 , the [duckyPad Kickstarter](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) has been a great success! With over 630% funded from 705 backers!
-
-And if you missed the campaign, don't worry! It will also be sold on my Tindie store, but only **after all Kickstarter orders have been fulfilled**. Your best bet would be to [join our discord](https://discord.gg/4sJCBx5) for latest updates, and [sign up the waitlist](https://www.tindie.com/products/21984/) to be notified.
 
 Finally, here's a video of duckyPad in action!
 <table>
@@ -263,9 +263,9 @@ You can load up to *8 keyboard layouts* to duckyPad and switch them on-the-fly.
 
 ## I want one!
 
-If you missed the Kickstarter, don't worry! duckPad will also be sold on my Tindie store, but only **after all Kickstarter orders have been fulfilled**.
+duckyPad is [now available on Tindie!](https://www.tindie.com/products/21984), feel free to grab one there!
 
-Your best bet would be to [join our discord](https://discord.gg/4sJCBx5) for latest updates, and [sign up the waitlist](https://www.tindie.com/products/21984/) to be notified.
+Also consider [joining our discord](https://discord.gg/4sJCBx5) for latest updates and discussions.
 
 ## Press Kit / More Photos
 
