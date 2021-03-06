@@ -8,6 +8,7 @@
 #include "stm32f0xx_hal.h"
 #include "buttons.h"
 #include "keyboard.h"
+#include "shared.h"
 #define READ_BUF_SIZE 256
 #define MAX_PROFILES 32
 #define PATH_SIZE 40
@@ -37,8 +38,13 @@ typedef struct
   uint8_t available_profile[MAX_PROFILES];
   char profile_fn[FILENAME_SIZE];
   char key_fn[MAPPABLE_KEY_COUNT][FILENAME_SIZE];
-  uint8_t individual_key_color[MAPPABLE_KEY_COUNT][3];
-  uint8_t individual_keydown_color[MAPPABLE_KEY_COUNT][3];
+	#ifdef FRANKENDUCK
+		uint8_t individual_key_color[KEY_COUNT][3];
+		uint8_t individual_keydown_color[KEY_COUNT][3];
+	#else
+		uint8_t individual_key_color[MAPPABLE_KEY_COUNT][3];
+		uint8_t individual_keydown_color[MAPPABLE_KEY_COUNT][3];
+	#endif
 } profile_cache;
 
 typedef struct

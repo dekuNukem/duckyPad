@@ -7,7 +7,11 @@
 #include "parser.h"
 
 uint32_t frame_counter;
-uint8_t pixel_map[NEOPIXEL_COUNT] = {2, 1, 0, 3, 4, 5, 8, 7, 6, 9, 10, 11, 14, 13, 12};
+#ifdef FRANKENDUCK
+	uint8_t pixel_map[NEOPIXEL_COUNT] = {2, 1, 0, 3, 4, 5, 8, 7, 6, 9, 10, 11, 14, 13, 12, 15, 16};
+#else
+	uint8_t pixel_map[NEOPIXEL_COUNT] = {2, 1, 0, 3, 4, 5, 8, 7, 6, 9, 10, 11, 14, 13, 12};
+#endif
 uint8_t red_buf[NEOPIXEL_COUNT];
 uint8_t green_buf[NEOPIXEL_COUNT];
 uint8_t blue_buf[NEOPIXEL_COUNT];
@@ -18,7 +22,11 @@ uint8_t color_blue[THREE] = {0, 0, 128};
 uint8_t profile_quickswitch_color[THREE] = {50, 50, 50};
 uint8_t rand_order_buf[NEOPIXEL_COUNT];
 int8_t brightness_index = BRIGHTNESS_LEVELS - 1;
-uint8_t brightness_values[BRIGHTNESS_LEVELS] = {0, 20, 50, 70, 100};
+#ifdef FRANKENDUCK
+	uint8_t brightness_values[BRIGHTNESS_LEVELS] = {0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
+#else
+	uint8_t brightness_values[BRIGHTNESS_LEVELS] = {0, 20, 50, 70, 100};
+#endif
 uint16_t temp_r, temp_g, temp_b;
 
 void shuffle(uint8_t *array, uint8_t array_size)
@@ -88,6 +96,8 @@ void led_animation_handler(void)
       set_pixel_color(neo_anime[idx].index, neo_anime[idx].current_color[0], neo_anime[idx].current_color[1], neo_anime[idx].current_color[2]);
     }  
   }
+	//set_pixel_color(15, 255, 255, 255);
+	//set_pixel_color(16, 255, 255, 255);
   taskENTER_CRITICAL();
   neopixel_show(red_buf, green_buf, blue_buf);
   taskEXIT_CRITICAL();
