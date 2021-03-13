@@ -24,6 +24,8 @@ Click a question below to jump to the answer!
 
 * [The RGB backlight is too bright!](#The-RGB-backlight-is-too-bright)
 
+* [The OLED screen isn't working properly!](#the-oled-screen-isnt-working-properly)
+
 * [Will the OLED suffer burn-in?](#Will-the-OLED-suffer-burn-in)
 
 * [Numpad keys doesn't work!](#Numpad-keys-doesnt-work)
@@ -31,6 +33,10 @@ Click a question below to jump to the answer!
 * [In-app test-run doesn't work!](#In-app-test-run-doesnt-work)
 
 * [SD Card doesn't work on mac!](#SD-Card-doesnt-work-on-mac)
+
+## Join Our Discord!
+
+If you have some issues that's not in this list, feel free to join our [Official Discord](https://discord.gg/4sJCBx5) to ask about it! We also have discussions, script sharing, and latest updates!
 
 ----
 
@@ -133,6 +139,28 @@ Measures have been taken to prevent OLED burn-in.
 * The screen dims after 5 minutes.
 
 * duckyPad goes to sleep after 30 minutes ([adjustable](getting_started.md#settings--updates)).
+
+## The OLED screen isn't working properly!
+
+If your OLED screen is acting weird, you might want to try to re-seat its ribbon cable.
+
+* Disassemble until you can remove the circuit board. You can [follow this in reverse](kit_assembly_guide.md).
+
+* Locate the tabs on the ribbon cable connector:
+
+![Alt text](resources/pics/tab_locked.jpg)
+
+* Push it outwards **gently** to loosen the tab:
+
+![Alt text](resources/pics/tab_released.jpg)
+
+* Pull out the ribbon cable, and wipe the golden contacts with a dry cloth.
+
+* Insert it back all the way. Look at the above photos for reference.
+
+* Push the tab back in to lock in place.
+
+* Try it out, if it still doesn't work, [let me know](#questions-or-comments)!
 
 ## Numpad keys doesn't work!
 

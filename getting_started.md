@@ -6,6 +6,10 @@
 
 Congratulations on your new toy! Here is a short guide on how to use your duckyPad.
 
+## Join Our Discord!
+
+Feel free to join our [Official Discord](https://discord.gg/4sJCBx5) for discussions, asking questions, sharing scripts, and latest updates!
+
 ## Kit Assembly
 
 If your duckyPad has not been assembled yet, [see this guide](/kit_assembly_guide.md) to put it together.

@@ -32,6 +32,10 @@ When pressed, each key executes a user-created *`duckyScript`* to automate keybo
 
 The scripts can be as simple as shortcuts like `Control + C`, or as sophisticated as launching applications, managing livestreams, or even [creating root backdoors](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---OSX-Root-Backdoor) or [grabbing passwords](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---download-mimikatz%2C-grab-passwords-and-email-them-via-gmail). It's all up to you!
 
+## Join Our Discord!
+
+Feel free to join our [Official Discord](https://discord.gg/4sJCBx5) for discussions, asking questions, sharing scripts, and latest updates!
+
 ## Get duckyPad on Tindie!
 
 duckyPad is [now available on Tindie!](https://www.tindie.com/products/21984), feel free to grab one there!
