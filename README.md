@@ -120,7 +120,7 @@ Those are just some examples! You can use duckyPad to do whatever **`you`** want
 
 duckyPad is compatible with Cherry MX-style mechanical switches (3 or 5-pin).
 
-By default, duckyPad comes with **`Gateron Green`** switches, which are linear and clicky.
+By default, duckyPad comes with **`Gateron Green`** switches, which are firm and clicky.
 
 ![Alt text](resources/pics/switch.jpg)
 
