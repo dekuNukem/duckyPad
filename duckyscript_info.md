@@ -12,7 +12,9 @@ This guide gives an concise overview of duckyScript. For more information, [see 
 
 ## Examples
 
-duckyScript is very easy and straightforward to write, let's take a look at some examples first. 
+duckyScript is very easy and straightforward to write, you basically just tell it what key to press!
+
+Let's take a look at some examples first:
 
 ### Open Task Manager
 
@@ -108,7 +110,7 @@ REM types out "Hello world" 11 times (1 original + 10 repeats)
 
 ### Special Keys
 
-duckyScript also supports a whole bunch of special keys:
+duckyScript also supports a bunch of special keys:
 
 ```
 CTRL / RCTRL
