@@ -52,6 +52,8 @@ First, make sure the key has a valid script mapped to it. If in doubt, use one o
 
 * Try a different USB port.
 
+* Try plugging it directly into a computer instead of through a USB hub.
+
 * Try a different computer.
 
 ### If a certain key doesn't work
