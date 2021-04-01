@@ -214,8 +214,16 @@ uint8_t load_colors(char* pf_fn)
   uint8_t ret;
   uint8_t is_unused_keys_dimmed = 1;
   uint8_t has_user_kd = 0;
-
-  for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+	uint8_t count_to;
+	#ifdef FRANKENDUCK
+		count_to = KEY_COUNT;
+	#else
+		count_to = MAPPABLE_KEY_COUNT;
+	#endif
+	
+	
+	
+  for (int i = 0; i < count_to; ++i)
   {
     p_cache.individual_key_color[i][0] = DEFAULT_BG_RED;
     p_cache.individual_key_color[i][1] = DEFAULT_BG_GREEN;
@@ -250,7 +258,7 @@ uint8_t load_colors(char* pf_fn)
       uint8_t ggg = atoi(curr);
       curr = goto_next_arg(curr, msg_end);
       uint8_t bbb = atoi(curr);
-      for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+      for (int i = 0; i < count_to; ++i)
       {
         p_cache.individual_key_color[i][0] = rrr;
         p_cache.individual_key_color[i][1] = ggg;
@@ -272,7 +280,7 @@ uint8_t load_colors(char* pf_fn)
       uint8_t ggg = atoi(curr);
       curr = goto_next_arg(curr, msg_end);
       uint8_t bbb = atoi(curr);
-      for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+      for (int i = 0; i < count_to; ++i)
       {
         p_cache.individual_keydown_color[i][0] = rrr;
         p_cache.individual_keydown_color[i][1] = ggg;
@@ -305,7 +313,7 @@ uint8_t load_colors(char* pf_fn)
   f_close(&sd_file);
   if(is_unused_keys_dimmed)
   {
-    for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+    for (int i = 0; i < count_to; ++i)
     {
       if(strcmp(p_cache.key_fn[i], nonexistent_keyname) == 0)
       {

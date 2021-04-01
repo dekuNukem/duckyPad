@@ -85,8 +85,12 @@ osThreadId kb_scanHandle;
 /* Private variables ---------------------------------------------------------*/
 uint8_t fw_version_major = 0;
 uint8_t fw_version_minor = 16;
-uint8_t fw_version_patch = 0;
+uint8_t fw_version_patch = 8;
+
+uint8_t fw_version_major_fd = 1;
+
 char instruction[] = "For instructions, see";
+uint8_t startup = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -146,6 +150,9 @@ int main(void)
   MX_IWDG_Init();
   /* USER CODE BEGIN 2 */
   printf("duckypad V2\ndekuNukem 2020\n");
+	#ifdef FRANKENDUCK
+		printf("Frankenduck V2\nPiTronica 2021\n");
+	#endif
   /* USER CODE END 2 */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -465,7 +472,30 @@ void kb_scan_task(void const * argument)
   osDelay(20);
   ssd1306_Init();
   ssd1306_Fill(Black);
- 
+	#ifdef FRANKENDUCK
+  if (startup == 0)
+	{
+		startup = 1;
+		ssd1306_Fill(Black);
+		ssd1306_SetCursor(18,5);		
+    ssd1306_WriteString("The FrankenDuck",Font_6x10,White);
+		
+    memset(temp_buf, 0, PATH_SIZE);
+    sprintf(temp_buf, "FW V%d.%d.%d", fw_version_major_fd, fw_version_minor, fw_version_patch);
+    ssd1306_SetCursor(35, 52);
+    ssd1306_WriteString(temp_buf,Font_6x10,White);
+
+    ssd1306_SetCursor(5, 25);
+    ssd1306_WriteString("A DuckyPad Derivative",Font_6x10,White);
+    ssd1306_UpdateScreen();
+		for(int i = 0; i < 100; i++)
+		{			
+      HAL_IWDG_Refresh(&hiwdg);
+			osDelay(30);
+		}
+	}
+	startup = 1;
+	#endif
   if(mount_result)
   {
     ssd1306_Fill(Black);

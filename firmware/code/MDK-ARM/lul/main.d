@@ -73,9 +73,9 @@ lul\main.o: ../Inc/ssd1306.h
 lul\main.o: ../Inc/fonts.h
 lul\main.o: ../Inc/fonts.h
 lul\main.o: ../Inc/neopixel.h
+lul\main.o: ../Inc/shared.h
 lul\main.o: ../Inc/buttons.h
 lul\main.o: ../Inc/keyboard.h
 lul\main.o: ../Inc/parser.h
-lul\main.o: ../Inc/shared.h
 lul\main.o: ../Inc/my_tasks.h
 lul\main.o: ../Inc/animations.h

@@ -38,7 +38,6 @@ lul\animations.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim.h
 lul\animations.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim_ex.h
 lul\animations.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h
 lul\animations.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h
-lul\animations.o: ../Inc/neopixel.h
 lul\animations.o: ../Inc/shared.h
 lul\animations.o: ../Middlewares/Third_Party/FatFs/src/ff.h
 lul\animations.o: ../Middlewares/Third_Party/FatFs/src/integer.h
@@ -58,6 +57,7 @@ lul\animations.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
 lul\animations.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 lul\animations.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 lul\animations.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
+lul\animations.o: ../Inc/neopixel.h
 lul\animations.o: ../Inc/parser.h
 lul\animations.o: ../Inc/buttons.h
 lul\animations.o: ../Inc/keyboard.h
