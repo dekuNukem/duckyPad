@@ -111,7 +111,7 @@ void profile_quickswitch(void)
         uint8_t this_profile = pqs_page * MAPPABLE_KEY_COUNT + i + 1;
         if(p_cache.available_profile[this_profile])
         {
-          restore_profile(this_profile, 1);
+          restore_profile(this_profile, 1, 1);
           return;
         }
         service_all();
@@ -477,8 +477,8 @@ void keypress_task_start(void const * argument)
 
         if(is_sleeping) // wake up from sleep
         {
-          change_bg();
-          restore_profile(p_cache.current_profile, 0);
+          // change_bg();
+          restore_profile(p_cache.current_profile, 0, 0);
           is_sleeping = 0;
           goto key_task_end;
         }
@@ -512,7 +512,7 @@ void keypress_task_start(void const * argument)
             if(my_dpc.type == DPC_GOTO_PROFILE)
             {
               if(p_cache.available_profile[my_dpc.data])
-                restore_profile(my_dpc.data, 1);
+                restore_profile(my_dpc.data, 1, 1);
               dpc_init(&my_dpc);
             }
           }

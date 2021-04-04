@@ -441,7 +441,7 @@ uint8_t get_keynames(profile_cache* ppppppp)
   return ret;
 }
 
-void load_profile(uint8_t pid)
+void load_profile(uint8_t pid, uint8_t reload_colors)
 {
   char* profile_name = find_profile(pid);
   if(profile_name == NULL)
@@ -449,7 +449,8 @@ void load_profile(uint8_t pid)
   memset(p_cache.profile_fn, 0, FILENAME_SIZE);
   strcpy(p_cache.profile_fn, profile_name);
   get_keynames(&p_cache);
-  load_colors(p_cache.profile_fn);
+  if(reload_colors)
+    load_colors(p_cache.profile_fn);
   change_bg();
   p_cache.current_profile = pid;
 }
@@ -570,12 +571,12 @@ void reset_hold_cache(void)
   }
 }
 
-void restore_profile(uint8_t profile_id, uint8_t reset_loop_count)
+void restore_profile(uint8_t profile_id, uint8_t reset_loop_count, uint8_t reload_colors)
 {
   if(reset_loop_count)
     memset(key_press_count, 0, MAPPABLE_KEY_COUNT);
   memset(key_max_loop, 0, MAPPABLE_KEY_COUNT);
-  load_profile(profile_id);
+  load_profile(profile_id, reload_colors);
   print_legend(0, 0);
   has_valid_profiles = 1;
   f_closedir(&dir);
@@ -615,7 +616,7 @@ void change_profile(uint8_t direction)
     if(p_cache.available_profile[next_profile])
       break;
   }
-  restore_profile(next_profile, 1);
+  restore_profile(next_profile, 1, 1);
 }
 
 void parse_special_key(char* msg, my_key* this_key)

@@ -496,7 +496,7 @@ void kb_scan_task(void const * argument)
   if(last_profile == 0)
     change_profile(NEXT_PROFILE);
   else
-    restore_profile(last_profile, 1);
+    restore_profile(last_profile, 1, 1);
   
   init_complete = 1;
   /* Infinite loop */
