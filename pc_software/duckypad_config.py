@@ -357,9 +357,6 @@ def profile_add_click():
     answer = simpledialog.askstring("Input", "New profile name?", parent=profiles_lf)
     if answer is None:
         return
-    answer = clean_input(answer, 13)
-    if len(answer) <= 0:# or answer in [x.name for x in profile_list]:
-        return
 
     insert_point = len(profile_list)
     try:
@@ -367,6 +364,14 @@ def profile_add_click():
     except Exception as e:
         # print('insert:', e)
         pass
+
+    if insert_point >= 9:
+        answer = clean_input(answer, 12)
+    else:
+        answer = clean_input(answer, 13)
+        
+    if len(answer) <= 0:# or answer in [x.name for x in profile_list]:
+        return
 
     new_profile = duck_objs.dp_profile()
     new_profile.name = answer
@@ -467,12 +472,13 @@ def save_everything(save_path):
         for item in my_dirs:
             try:
                 shutil.rmtree(item)
+                time.sleep(0.05)
             except FileNotFoundError:
                 continue
         for this_profile in profile_list:
             os.mkdir(this_profile.path)
+            time.sleep(0.05)
             config_file = open(os.path.join(this_profile.path, 'config.txt'), 'w')
-
             for this_key in this_profile.keylist:
                 if this_key is None:
                     continue
