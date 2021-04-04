@@ -187,7 +187,7 @@ char* find_profile(uint8_t pid)
 
 void assign_colors(uint8_t keynum, char* curr, char* msg_end)
 {
-	curr = goto_next_arg(curr, msg_end);
+  curr = goto_next_arg(curr, msg_end);
   p_cache.individual_key_color[keynum][0] = atoi(curr);
 
   curr = goto_next_arg(curr, msg_end);
@@ -199,13 +199,13 @@ void assign_colors(uint8_t keynum, char* curr, char* msg_end)
 
 uint8_t is_sw_color_line(char* line)
 {
-	if(line == NULL)
-		return 0;
-	if(strncmp(cmd_SWCOLOR, line, strlen(cmd_SWCOLOR)) == 0)
-		return 1;
+  if(line == NULL)
+    return 0;
+  if(strncmp(cmd_SWCOLOR, line, strlen(cmd_SWCOLOR)) == 0)
+    return 1;
   if(strncmp(cmd_SW_SELF_COLOR, line, strlen(cmd_SW_SELF_COLOR)) == 0)
     return 2;
-	return 0;
+  return 0;
 }
 
 uint8_t load_colors(char* pf_fn)
@@ -570,9 +570,10 @@ void reset_hold_cache(void)
   }
 }
 
-void restore_profile(uint8_t profile_id)
+void restore_profile(uint8_t profile_id, uint8_t reset_loop_count)
 {
-  memset(key_press_count, 0, MAPPABLE_KEY_COUNT);
+  if(reset_loop_count)
+    memset(key_press_count, 0, MAPPABLE_KEY_COUNT);
   memset(key_max_loop, 0, MAPPABLE_KEY_COUNT);
   load_profile(profile_id);
   print_legend(0, 0);
@@ -614,7 +615,7 @@ void change_profile(uint8_t direction)
     if(p_cache.available_profile[next_profile])
       break;
   }
-  restore_profile(next_profile);
+  restore_profile(next_profile, 1);
 }
 
 void parse_special_key(char* msg, my_key* this_key)
@@ -851,6 +852,16 @@ void parse_special_key(char* msg, my_key* this_key)
     this_key->code = f_key_lookup[f_number-1];
     return;
   }
+  else if(strncmp(msg, cmd_MENU, strlen(cmd_MENU)) == 0)
+  {
+    this_key->code = KEY_MENU;
+    return;
+  }
+  else if(strncmp(msg, cmd_APP, strlen(cmd_APP)) == 0)
+  {
+    this_key->code = KEY_MENU;
+    return;
+  }
 
 // ----------------------------------
   this_key->key_type = KEY_TYPE_CHAR;
@@ -901,16 +912,6 @@ void parse_special_key(char* msg, my_key* this_key)
   else if(strncmp(msg, cmd_RCTRL, strlen(cmd_RCTRL)) == 0)
   {
     this_key->code = KEY_RIGHT_CTRL;
-    return;
-  }
-  else if(strncmp(msg, cmd_MENU, strlen(cmd_MENU)) == 0)
-  {
-    this_key->code = KEY_MENU;
-    return;
-  }
-  else if(strncmp(msg, cmd_APP, strlen(cmd_APP)) == 0)
-  {
-    this_key->code = KEY_MENU;
     return;
   }
 

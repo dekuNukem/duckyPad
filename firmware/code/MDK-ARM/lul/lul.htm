@@ -3,7 +3,7 @@
 <title>Static Call Graph - [lul\lul.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image lul\lul.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sun Feb 14 01:49:44 2021
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sun Apr 04 06:43:54 2021
 <BR><P>
 <H3>Maximum Stack Usage =        424 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1830,7 +1830,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_button_press
 </UL>
 
-<P><STRONG><a name="[10a]"></a>change_profile</STRONG> (Thumb, 150 bytes, Stack size 16 bytes, parser.o(i.change_profile))
+<P><STRONG><a name="[10a]"></a>change_profile</STRONG> (Thumb, 152 bytes, Stack size 16 bytes, parser.o(i.change_profile))
 <BR><BR>[Stack]<UL><LI>Max Depth = 392<LI>Call Chain = change_profile &rArr; restore_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_WriteString
@@ -2350,7 +2350,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_print
 </UL>
 
-<P><STRONG><a name="[3f]"></a>kb_scan_task</STRONG> (Thumb, 264 bytes, Stack size 8 bytes, main.o(i.kb_scan_task))
+<P><STRONG><a name="[3f]"></a>kb_scan_task</STRONG> (Thumb, 266 bytes, Stack size 8 bytes, main.o(i.kb_scan_task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 400<LI>Call Chain = kb_scan_task &rArr; change_profile &rArr; restore_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
@@ -2478,7 +2478,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_task_start
 </UL>
 
-<P><STRONG><a name="[40]"></a>keypress_task_start</STRONG> (Thumb, 316 bytes, Stack size 0 bytes, my_tasks.o(i.keypress_task_start))
+<P><STRONG><a name="[40]"></a>keypress_task_start</STRONG> (Thumb, 320 bytes, Stack size 0 bytes, my_tasks.o(i.keypress_task_start))
 <BR><BR>[Stack]<UL><LI>Max Depth = 424<LI>Call Chain = keypress_task_start &rArr; handle_button_press &rArr; profile_quickswitch &rArr; restore_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
@@ -2863,7 +2863,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
 </UL>
 
-<P><STRONG><a name="[1a0]"></a>parse_special_key</STRONG> (Thumb, 2022 bytes, Stack size 24 bytes, parser.o(i.parse_special_key))
+<P><STRONG><a name="[1a0]"></a>parse_special_key</STRONG> (Thumb, 2012 bytes, Stack size 24 bytes, parser.o(i.parse_special_key))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = parse_special_key &rArr; atoi &rArr; strtol &rArr; _strtoul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_my_key
@@ -2935,7 +2935,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[176]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keymap_config
 </UL>
 
-<P><STRONG><a name="[15b]"></a>profile_quickswitch</STRONG> (Thumb, 168 bytes, Stack size 24 bytes, my_tasks.o(i.profile_quickswitch))
+<P><STRONG><a name="[15b]"></a>profile_quickswitch</STRONG> (Thumb, 170 bytes, Stack size 24 bytes, my_tasks.o(i.profile_quickswitch))
 <BR><BR>[Stack]<UL><LI>Max Depth = 400<LI>Call Chain = profile_quickswitch &rArr; restore_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
@@ -3004,7 +3004,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_profile
 </UL>
 
-<P><STRONG><a name="[10b]"></a>restore_profile</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, parser.o(i.restore_profile))
+<P><STRONG><a name="[10b]"></a>restore_profile</STRONG> (Thumb, 72 bytes, Stack size 8 bytes, parser.o(i.restore_profile))
 <BR><BR>[Stack]<UL><LI>Max Depth = 376<LI>Call Chain = restore_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_closedir
