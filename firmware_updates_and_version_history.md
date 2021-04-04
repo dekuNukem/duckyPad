@@ -6,15 +6,15 @@
 
 ## Latest Firmware
 
-### 0.16.0
+### 0.17.0
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.16.0.dfu)
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.17.0.dfu)
 
-* Added `COMMAND` and `OPTION` aliases for macOS. 
+* `LOOP` counter is no longer reset during sleep.
 
-* Added support for right-side modifier keys, such as `RCTRL`, `RSHFIT`, `RALT`, etc.
+* Key colour changes also persist through sleep now.
 
-* [Click me](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#special-keys) to learn more.
+* `MENU` key now works properly.
 
 ## USB Firmware Updates
 
@@ -50,7 +50,7 @@ In the `Available DUF Devices` section at top left corner, you should see a `STM
 
 Press the `Choose...` button and select a firmware file in `.dfu` format.
 
-* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.16.0.dfu) to download the latest firmware (v0.16.0)
+* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.17.0.dfu) to download the latest firmware (v0.17.0)
 
 * ...or [scroll down](#firmware-version-history) for older firmware versions.
 
@@ -81,6 +81,17 @@ Hold DFU button and connect duckyPad, then run:
 After completion, press **`RESET`** button (or power-cycle) to start using the new firmware. 
 
 ## Firmware Version History
+
+### 0.17.0
+
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.17.0.dfu)
+
+* `LOOP` counter will no longer reset during sleep.
+
+* Key colour changes will also now persist through sleep.
+
+* `MENU` key now works properly.
+
 
 ### 0.16.0
 
