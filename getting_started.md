@@ -1,10 +1,27 @@
 # Getting Started with duckyPad
 
-[Official Discord](https://discord.gg/4sJCBx5) | [Pre-order on Tindie!](https://www.tindie.com/products/21984/) | [Getting Started](getting_started.md) | [Table of Contents](#table-of-contents)
+[Get duckyPad](https://www.tindie.com/products/21984/) | [Official Discord](https://discord.gg/4sJCBx5) | [Getting Started](getting_started.md) | [Table of Contents](#table-of-contents)
 
 ------
 
 Congratulations on your new toy! Here is a short guide on how to use your duckyPad.
+
+[Kit Assembly](#kit-assembly)
+
+[Quick Start](#quick-start)
+
+[Writing Your Own Scripts](#writing-your-own-scripts)
+
+[Tips and Tricks](#tips-and-tricks)
+
+[Troubleshooting](#im-having-issues)
+
+[USB Firmware Updates](#usb-firmware-updates)
+
+[Configure duckyPad Manually](#configure-duckypad-manually)
+
+[Questions or Comments?](#questions-or-comments)
+
 
 ## Join Our Discord!
 
@@ -268,7 +285,7 @@ Press the `+` button, select an app to open, assign a hotkey, and set up duckyPa
 
 ### Advanced Scripting with Autohotkey
 
-You can use the free and open-source [autohotkey](https://www.autohotkey.com) for even more sophisticated needs, such as controlling mouse moments, executing scripts, etc.
+You can use the free and open-source [autohotkey](https://www.autohotkey.com) for even more sophisticated needs, such as controlling mouse movements, executing scripts, etc.
 
 To do this, duckyPad can be set up to press a simple combo like `WIN + F1`, which then get captured by autohotkey to execute a more complex custom script on your PC.
 

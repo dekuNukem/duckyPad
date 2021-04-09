@@ -136,7 +136,7 @@ Time to install the switches! duckyPad supports hot-swap, so no soldering is nee
 
 * **Make sure the pins are straight!**, otherwise you might damage the circuit board or the switch itself!
 
-Then line up with the holes, **`gently push straight down`** until it clicks in place:
+Then **line up with the holes**, and **`gently push straight down`** until it clicks in place:
 
 ![Alt text](resources/pics/assembly/assembly14.jpeg)
 

@@ -84,7 +84,7 @@ osThreadId kb_scanHandle;
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 uint8_t fw_version_major = 0;
-uint8_t fw_version_minor = 16;
+uint8_t fw_version_minor = 17;
 uint8_t fw_version_patch = 0;
 char instruction[] = "For instructions, see";
 /* USER CODE END PV */
@@ -496,7 +496,7 @@ void kb_scan_task(void const * argument)
   if(last_profile == 0)
     change_profile(NEXT_PROFILE);
   else
-    restore_profile(last_profile);
+    restore_profile(last_profile, 1, 1);
   
   init_complete = 1;
   /* Infinite loop */

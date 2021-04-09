@@ -69,7 +69,7 @@ void change_profile(uint8_t dir);
 void handle_keypress(uint8_t key_num, but_status* b_status);
 void scan_profiles(void);
 uint8_t get_last_profile(void);
-void restore_profile(uint8_t profile_id);
+void restore_profile(uint8_t profile_id, uint8_t reset_loop_count, uint8_t reload_colors);
 void keypress_wrap(uint8_t keynum);
 void print_legend(int8_t x_offset, int8_t y_offset);
 void save_settings(void);

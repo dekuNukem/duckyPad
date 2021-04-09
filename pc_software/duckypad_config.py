@@ -4,6 +4,7 @@ import time
 import copy
 import shutil
 import pathlib
+from datetime import datetime
 import traceback
 import duck_objs
 import webbrowser
@@ -20,7 +21,7 @@ default_button_color = 'SystemButtonFace'
 if 'linux' in sys.platform:
     default_button_color = 'grey'
 
-THIS_VERSION_NUMBER = '0.10.0'
+THIS_VERSION_NUMBER = '0.11.0'
 MAIN_WINDOW_WIDTH = 800
 MAIN_WINDOW_HEIGHT = 600
 MAIN_COLOUM_HEIGHT = 533
@@ -357,9 +358,6 @@ def profile_add_click():
     answer = simpledialog.askstring("Input", "New profile name?", parent=profiles_lf)
     if answer is None:
         return
-    answer = clean_input(answer, 13)
-    if len(answer) <= 0:# or answer in [x.name for x in profile_list]:
-        return
 
     insert_point = len(profile_list)
     try:
@@ -367,6 +365,14 @@ def profile_add_click():
     except Exception as e:
         # print('insert:', e)
         pass
+
+    if insert_point >= 9:
+        answer = clean_input(answer, 12)
+    else:
+        answer = clean_input(answer, 13)
+        
+    if len(answer) <= 0:# or answer in [x.name for x in profile_list]:
+        return
 
     new_profile = duck_objs.dp_profile()
     new_profile.name = answer
@@ -467,12 +473,13 @@ def save_everything(save_path):
         for item in my_dirs:
             try:
                 shutil.rmtree(item)
+                time.sleep(0.05)
             except FileNotFoundError:
                 continue
         for this_profile in profile_list:
             os.mkdir(this_profile.path)
+            time.sleep(0.05)
             config_file = open(os.path.join(this_profile.path, 'config.txt'), 'w')
-
             for this_key in this_profile.keylist:
                 if this_key is None:
                     continue
@@ -524,14 +531,31 @@ def save_everything(save_path):
         save_result_label.unbind("<Button-1>")
     last_save = time.time()
 
+def current_time_str():
+    ret = datetime.utcnow().isoformat(sep='T')
+    return (ret[:19] + "Z").replace(':', '-')
+
+def make_default_backup_dir_name():
+    return 'duckyPad_backup_' + current_time_str()
+
+backup_reminder_showed = False
+
 def save_click():
+    global backup_reminder_showed
     save_everything(dp_root_folder_path)
+    if backup_reminder_showed:
+        return
+    yesno = messagebox.askyesno("Local backup", "Done!\n\nWould you like to save a local backup of your profiles too?")
+    backup_reminder_showed = True
+    if yesno is False:
+        return
+    save_as_click()
 
 def save_as_click():
-    dir_result = filedialog.askdirectory()
+    dir_result = filedialog.askdirectory(initialdir=os.path.join(os.path.expanduser('~'), "Desktop"))
     if len(dir_result) <= 0:
         return
-    save_everything(dir_result)
+    save_everything(os.path.join(dir_result, make_default_backup_dir_name()))
 
 def key_button_click_event(event):
     key_button_click(event.widget)
@@ -599,7 +623,7 @@ root_folder_path_label.place(x=155, y=0)
 save_button = Button(root_folder_lf, text="Save", command=save_click, state=DISABLED)
 save_button.place(x=535, y=0, width=50)
 
-save_as_button = Button(root_folder_lf, text="Save as...", command=save_as_click, state=DISABLED)
+save_as_button = Button(root_folder_lf, text="Backup...", command=save_as_click, state=DISABLED)
 save_as_button.place(x=590, y=0, width=65)
 
 save_result_label = Label(master=root_folder_lf, text="")
