@@ -338,7 +338,7 @@
               <MiscControls>--C99</MiscControls>
               <Define>USE_HAL_DRIVER,STM32F072xB</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;                                                    ../Drivers/STM32F0xx_HAL_Driver/Inc;                                                    ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy;                                                    ../Drivers/CMSIS/Device/ST/STM32F0xx/Include;                                                    ../Drivers/CMSIS/Include;                                                 ../Middlewares/Third_Party/FatFs/src;                                   ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;                                   ../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc;                       ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM0;                       ../Middlewares/Third_Party/FreeRTOS/Source/include;                       ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS</IncludePath>
+              <IncludePath>../Inc;                                                     ../Drivers/STM32F0xx_HAL_Driver/Inc;                                                     ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy;                                                     ../Drivers/CMSIS/Device/ST/STM32F0xx/Include;                                                     ../Drivers/CMSIS/Include;                                                  ../Middlewares/Third_Party/FatFs/src;                                    ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;                        ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM0;                        ../Middlewares/Third_Party/FreeRTOS/Source/include;                        ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;../Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -521,6 +521,11 @@
               <FileName>usbd_desc.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Src/usbd_desc.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_custom_hid_if.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Src/usbd_custom_hid_if.c</FilePath>
             </File>
             <File>
               <FileName>stm32f0xx_it.c</FileName>
@@ -708,9 +713,9 @@
               <FilePath>../Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c</FilePath>
             </File>
             <File>
-              <FileName>usbd_hid.c</FileName>
+              <FileName>usbd_customhid.c</FileName>
               <FileType>1</FileType>
-              <FilePath>../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c</FilePath>
+              <FilePath>../Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Src/usbd_customhid.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -141,6 +141,7 @@ void ssd1306_UpdateScreen(void)
 {
 	uint8_t i;
 	
+	// 29ms total at 400KHz I2C clock
 	for (i = 0; i < 8; i++) {
 		ssd1306_WriteCommand(0xB0 + i);
 		ssd1306_WriteCommand(0x00);

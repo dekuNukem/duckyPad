@@ -10,7 +10,7 @@
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
-  * Copyright (c) 2020 STMicroelectronics International N.V. 
+  * Copyright (c) 2021 STMicroelectronics International N.V. 
   * All rights reserved.
   *
   * Redistribution and use in source and binary forms, with or without 
@@ -58,6 +58,13 @@
 #include "usbd_def.h"
 
 /* USER CODE BEGIN INCLUDE */
+#define MY_HID_SERIAL_NUMBER_BUF_SIZE 16
+#define STM32F0_UUID0 ((uint32_t *)0x1FFFF7AC)
+#define STM32F0_UUID1 ((uint32_t *)0x1FFFF7B0)
+#define STM32F0_UUID2 ((uint32_t *)0x1FFFF7B4)
+
+char* make_serial_string(void);
+uint32_t get_uuid(void);
 
 /* USER CODE END INCLUDE */
 

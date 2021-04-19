@@ -59,6 +59,15 @@ lul\parser.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 lul\parser.o: ../Inc/buttons.h
 lul\parser.o: ../Inc/parser.h
 lul\parser.o: ../Inc/keyboard.h
+lul\parser.o: ../Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Inc/usbd_customhid.h
+lul\parser.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
+lul\parser.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
+lul\parser.o: ../Inc/usbd_conf.h
+lul\parser.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
+lul\parser.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h
+lul\parser.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
+lul\parser.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h
 lul\parser.o: ../Inc/ssd1306.h
 lul\parser.o: ../Inc/fonts.h
 lul\parser.o: ../Inc/animations.h
+lul\parser.o: ../Inc/usbd_desc.h

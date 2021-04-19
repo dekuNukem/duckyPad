@@ -7,6 +7,7 @@
 #include "ssd1306.h"
 #include "keyboard.h"
 #include "animations.h"
+#include "usbd_desc.h"
 
 uint8_t pf_name_cache[MAX_PROFILES][PF_CACHE_FILENAME_MAXLEN];
 
@@ -143,6 +144,12 @@ const char cmd_SLEEP[] = "DP_SLEEP";
 const char cmd_PREV_PROFILE[] = "PREV_PROFILE";
 const char cmd_NEXT_PROFILE[] = "NEXT_PROFILE";
 const char cmd_GOTO_PROFILE[] = "GOTO_PROFILE";
+
+const char cmd_LMOUSE[] = "LMOUSE";
+const char cmd_RMOUSE[] = "RMOUSE";
+const char cmd_MMOUSE[] = "MMOUSE";
+const char cmd_MOUSE_MOVE[] = "MOUSE_MOVE ";
+const char cmd_MOUSE_WHEEL[] = "MOUSE_WHEEL ";
 
 char* goto_next_arg(char* buf, char* buf_end)
 {
@@ -502,7 +509,7 @@ void save_last_profile(uint8_t profile_id)
   if(f_open(&sd_file, "dp_stats.txt", FA_CREATE_ALWAYS | FA_WRITE) != 0)
     goto slp_end;
   memset(temp_buf, 0, PATH_SIZE);
-  sprintf(temp_buf, "lp %d\nfw %d.%d.%d\n", profile_id, fw_version_major, fw_version_minor, fw_version_patch);
+  sprintf(temp_buf, "lp %d\nfw %d.%d.%d\nser %s", profile_id, fw_version_major, fw_version_minor, fw_version_patch, make_serial_string());
   f_write(&sd_file, temp_buf, strlen(temp_buf), &ignore_this);
   slp_end:
   f_close(&sd_file);
@@ -917,7 +924,6 @@ void parse_special_key(char* msg, my_key* this_key)
   }
 
 // ----------------------------------
-
   this_key->key_type = KEY_TYPE_MEDIA;
   if(strncmp(msg, cmd_MK_VOLUP, strlen(cmd_MK_VOLUP)) == 0)
   {
@@ -957,6 +963,39 @@ void parse_special_key(char* msg, my_key* this_key)
   else if(strncmp(msg, cmd_MK_STOP, strlen(cmd_MK_STOP)) == 0)
   {
     this_key->code = KEY_MK_STOP;
+    return;
+  }
+
+  // ----------------------------------
+  this_key->key_type = KEY_TYPE_MOUSE_BUTTON;
+  if(strncmp(msg, cmd_LMOUSE, strlen(cmd_LMOUSE)) == 0)
+  {
+    this_key->code = 1;
+    return;
+  }
+  else if(strncmp(msg, cmd_RMOUSE, strlen(cmd_RMOUSE)) == 0)
+  {
+    this_key->code = 2;
+    return;
+  }
+  else if(strncmp(msg, cmd_MMOUSE, strlen(cmd_MMOUSE)) == 0)
+  {
+    this_key->code = 4;
+    return;
+  }
+  else if(strncmp(msg, cmd_MOUSE_MOVE, strlen(cmd_MOUSE_MOVE)) == 0)
+  {
+    char* msg_end = msg + strlen(msg);
+    char* curr = goto_next_arg(msg, msg_end);
+    this_key->code = atoi(curr);
+    this_key->code2 = atoi(goto_next_arg(curr, msg_end));
+    this_key->key_type = KEY_TYPE_MOUSE_MOVEMENT;
+    return;
+  }
+  else if(strncmp(msg, cmd_MOUSE_WHEEL, strlen(cmd_MOUSE_WHEEL)) == 0)
+  {
+    this_key->code = atoi(goto_next_arg(msg, msg + strlen(msg)));
+    this_key->key_type = KEY_TYPE_MOUSE_WHEEL;
     return;
   }
   init_my_key(this_key);
@@ -1117,9 +1156,16 @@ uint8_t parse_line(char* line, uint8_t keynum)
   }
 
   my_key this_key;
-  parse_special_key(line, &this_key); //special_key
+  parse_special_key(line, &this_key);
   if(is_empty_line(line))
     result = PARSE_EMPTY_LINE;
+  else if(is_mouse_type(&this_key))
+  {
+    keyboard_press(&this_key, 0);
+    osDelay(cmd_delay);
+    keyboard_release(&this_key);
+    osDelay(cmd_delay);
+  }
   else if(this_key.key_type != KEY_TYPE_UNKNOWN)
     parse_combo(line, &this_key);
   else if(strncmp(cmd_REM, line, strlen(cmd_REM)) == 0)

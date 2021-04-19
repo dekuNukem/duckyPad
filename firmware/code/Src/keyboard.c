@@ -2,7 +2,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include "usb_device.h"
-#include "usbd_hid.h"
 #include "shared.h"
 #include "keyboard.h"
 
@@ -280,13 +279,13 @@ uint16_t _asciimap[ASCII_MAP_SIZE] =
   0x00// ÿ
 };
 
-uint8_t kb_buf[KB_BUF_SIZE] = {1, 0, 0, 0, 0, 0, 0, 0};
+uint8_t hid_tx_buf[HID_TX_BUF_SIZE];
 
 void keyboard_release_all(void)
 {
-  memset(kb_buf, 0, KB_BUF_SIZE);
-  kb_buf[0] = 1;
-  USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, KB_BUF_SIZE);
+  memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
+  hid_tx_buf[0] = 1;
+  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, KB_BUF_SIZE);
 }
 
 /*
@@ -302,21 +301,33 @@ bit position corresponds to that
 etc
 */
 
+// void mouse_test(void)
+// {
+//   memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
+//   hid_tx_buf[0] = 4;
+//   // hid_tx_buf[2] = 20; // [1] buttons [2] x-axis, [3] y-axis [4] wheel, 0 to 127 scroll up, -1 to -127 scroll down
+//   USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
+//   printf("mouse\n");
+// }
+
+uint8_t is_mouse_type(my_key* this_key)
+{
+  return this_key->key_type >= KEY_TYPE_MOUSE_BUTTON && this_key->key_type <= KEY_TYPE_MOUSE_MOVEMENT;
+}
+
 void media_key_release(void)
 {
-  memset(kb_buf, 0, KB_BUF_SIZE);
-  kb_buf[0] = 0x02;
-  USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, 3);
-  memset(kb_buf, 0, KB_BUF_SIZE);
-  kb_buf[0] = 1;
+  memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
+  hid_tx_buf[0] = 0x02;
+  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, MEDIA_KEY_BUF_SIZE);
 }
 
 void media_key_press(my_key* this_key)
 {
-  memset(kb_buf, 0, KB_BUF_SIZE);
-  kb_buf[0] = 0x02;
-  kb_buf[1] = this_key->code;
-  USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, 2);
+  memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
+  hid_tx_buf[0] = 0x02;
+  hid_tx_buf[1] = this_key->code;
+  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, MEDIA_KEY_BUF_SIZE);
 }
 
 uint8_t should_use_mod(uint8_t ttt)
@@ -334,6 +345,46 @@ uint8_t should_use_mod(uint8_t ttt)
   return 0;
 }
 
+void mouse_press(my_key* this_key)
+{
+  memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
+  hid_tx_buf[0] = 3;
+
+  if(this_key->key_type == KEY_TYPE_MOUSE_BUTTON)
+  {
+    hid_tx_buf[1] = this_key->code;
+  }
+  else if(this_key->key_type == KEY_TYPE_MOUSE_MOVEMENT)
+  {
+    hid_tx_buf[2] = this_key->code;
+    hid_tx_buf[3] = ~(this_key->code2) + 1;
+  }
+  else if(this_key->key_type == KEY_TYPE_MOUSE_WHEEL)
+  {
+    hid_tx_buf[4] = this_key->code;
+  }
+  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, KB_BUF_SIZE);
+}
+
+void mouse_release(my_key* this_key)
+{
+  hid_tx_buf[0] = 3;
+  if(this_key->key_type == KEY_TYPE_MOUSE_BUTTON)
+  {
+    hid_tx_buf[1] = 0;
+  }
+  else if(this_key->key_type == KEY_TYPE_MOUSE_MOVEMENT)
+  {
+    hid_tx_buf[2] = 0;
+    hid_tx_buf[3] = 0;
+  }
+  else if(this_key->key_type == KEY_TYPE_MOUSE_WHEEL)
+  {
+    hid_tx_buf[4] = 0;
+  }
+  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, KB_BUF_SIZE);
+}
+
 void keyboard_press(my_key* this_key, uint8_t use_mod)
 {
   uint16_t duckcode;
@@ -342,9 +393,14 @@ void keyboard_press(my_key* this_key, uint8_t use_mod)
     media_key_press(this_key);
     return;
   }
+  else if(is_mouse_type(this_key))
+  {
+    mouse_press(this_key);
+    return;
+  }
   else if(this_key->key_type == KEY_TYPE_MODIFIER)
   {
-    kb_buf[1] |= this_key->code;
+    hid_tx_buf[1] |= this_key->code;
     duckcode = 0;
   }
   else if(this_key->key_type == KEY_TYPE_SPECIAL)
@@ -369,21 +425,22 @@ void keyboard_press(my_key* this_key, uint8_t use_mod)
   if(use_mod && should_use_mod(this_key->key_type))
   {
     if(duckcode & SHIFT)
-      kb_buf[1] |= KEY_LEFT_SHIFT;
+      hid_tx_buf[1] |= KEY_LEFT_SHIFT;
     if(duckcode & ALT_GR)
-      kb_buf[1] |= KEY_RIGHT_ALT;
+      hid_tx_buf[1] |= KEY_RIGHT_ALT;
   }
   duckcode = duckcode & 0xff;
-  if(kb_buf[2] != duckcode && kb_buf[3] != duckcode && kb_buf[4] != duckcode && kb_buf[5] != duckcode && kb_buf[6] != duckcode && kb_buf[7] != duckcode)
+  if(hid_tx_buf[2] != duckcode && hid_tx_buf[3] != duckcode && hid_tx_buf[4] != duckcode && hid_tx_buf[5] != duckcode && hid_tx_buf[6] != duckcode && hid_tx_buf[7] != duckcode)
   {
     for (int i = 2; i < KB_BUF_SIZE; ++i)
-      if(kb_buf[i] == 0)
+      if(hid_tx_buf[i] == 0)
       {
-        kb_buf[i] = (uint8_t)duckcode;
+        hid_tx_buf[i] = (uint8_t)duckcode;
         break;
       }
   }
-  USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, KB_BUF_SIZE);
+  hid_tx_buf[0] = 1;
+  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, KB_BUF_SIZE);
 }
 
 void keyboard_release(my_key* this_key)
@@ -394,9 +451,14 @@ void keyboard_release(my_key* this_key)
     media_key_release();
     return;
   }
+  else if(is_mouse_type(this_key))
+  {
+    mouse_release(this_key);
+    return;
+  }
   else if(this_key->key_type == KEY_TYPE_MODIFIER)
   {
-    kb_buf[1] &= ~(this_key->code);
+    hid_tx_buf[1] &= ~(this_key->code);
     duckcode = 0;
   }
   else if(this_key->key_type == KEY_TYPE_SPECIAL)
@@ -421,15 +483,16 @@ void keyboard_release(my_key* this_key)
   if(should_use_mod(this_key->key_type))
   {
     if(duckcode & SHIFT)
-      kb_buf[1] &= ~(KEY_LEFT_SHIFT);
+      hid_tx_buf[1] &= ~(KEY_LEFT_SHIFT);
     if(duckcode & ALT_GR)
-      kb_buf[1] &= ~(KEY_RIGHT_ALT);
+      hid_tx_buf[1] &= ~(KEY_RIGHT_ALT);
   }
   duckcode = duckcode & 0xff;
   for (int i = 2; i < KB_BUF_SIZE; ++i)
-    if(kb_buf[i] == (uint8_t)duckcode)
-      kb_buf[i] = 0;
-  USBD_HID_SendReport(&hUsbDeviceFS, kb_buf, KB_BUF_SIZE);
+    if(hid_tx_buf[i] == (uint8_t)duckcode)
+      hid_tx_buf[i] = 0;
+  hid_tx_buf[0] = 1;
+  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, KB_BUF_SIZE);
 }
 
 uint8_t utf8ascii(uint8_t ascii) {

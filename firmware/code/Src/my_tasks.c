@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "my_tasks.h"
 #include "shared.h"
-#include "usbd_hid.h"
+#include "usbd_customhid.h"
 #include "ssd1306.h"
 #include "fonts.h"
 #include "neopixel.h"
@@ -11,6 +11,8 @@
 #include "keyboard.h"
 #include "parser.h"
 #include "animations.h"
+#include "usb_device.h"
+#include "usbd_desc.h"
 
 #define LONG_PRESS_MS 500
 #define MAX_KEYMAP_SIZE 8
@@ -137,7 +139,7 @@ void profile_quickswitch(void)
   }
 }
 
-void handle_button_press(uint8_t button_num)
+void handle_tactile_button_press(uint8_t button_num)
 {
     button_hold_start = HAL_GetTick();
     while(1)
@@ -458,6 +460,134 @@ void keymap_config(void)
   save_settings();
 }
 
+uint8_t command_type, seq_number;
+
+#define HID_COMMAND_GET_INFO 0
+#define HID_COMMAND_GOTO_PROFILE 1
+#define HID_COMMAND_PREV_PROFILE 2
+#define HID_COMMAND_NEXT_PROFILE 3
+#define HID_COMMAND_RELOAD_CURRENT_PROFILE 4
+#define HID_COMMAND_SW_COLOR 5
+#define HID_COMMAND_PRINT_TEXT 6
+#define HID_COMMAND_PRINT_BITMAP 7
+#define HID_COMMAND_CLEAR_SCREEN 8
+#define HID_COMMAND_UPDATE_SCREEN 9
+void handle_hid_command(void)
+{
+  // hid_rx_buf HID_RX_BUF_SIZE
+  // hid_tx_buf HID_TX_BUF_SIZE
+
+  // printf("new data!\n");
+  // for (int i = 0; i < HID_RX_BUF_SIZE; ++i)
+  //   printf("%d, ", hid_rx_buf[i]);
+  // printf("\ndone\n");
+
+  seq_number = hid_rx_buf[1];
+  command_type = hid_rx_buf[2];
+
+  memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
+  hid_tx_buf[0] = 4;
+  hid_tx_buf[1] = seq_number;
+  hid_tx_buf[2] = 0;
+  /*
+  HID GET INFO
+  -----------
+  PC to duckyPad:
+  [0]   report_id: always 5
+  [1]   seq number
+  [2]   command: 0
+  -----------
+  duckyPad to PC
+  [0]   report_id: always 4
+  [1]   seq number (same as above)
+  [2]   0 = OK
+  [3]   firmware version major
+  [4]   firmware version minor
+  [5]   firmware version patch
+  [6]   hardware revision
+  [7 - 10]   UUID (uint32_t)
+  [11]   current profile
+  */
+  if(command_type == HID_COMMAND_GET_INFO)
+  {
+    hid_tx_buf[3] = fw_version_major;
+    hid_tx_buf[4] = fw_version_minor;
+    hid_tx_buf[5] = fw_version_patch;
+    hid_tx_buf[6] = 20;
+    uint32_t uuid = get_uuid();
+    memcpy(hid_tx_buf + 7, &uuid, 4);
+    hid_tx_buf[11] = p_cache.current_profile;
+  }
+  /*
+  HID GOTO PROFILE
+  -----------
+  PC to duckyPad:
+  [0]   report_id: always 5
+  [1]   seq number
+  [2]   command: 1
+  [3]   profile number to switch to
+  -----------
+  duckyPad to PC
+  [0]   report_id: always 4
+  [1]   seq number (same as above)
+  [2]   0 = OK, 1 = ERROR
+  */
+  else if(command_type == HID_COMMAND_GOTO_PROFILE)
+  {
+    if(p_cache.available_profile[hid_rx_buf[3]])
+      restore_profile(hid_rx_buf[3], 1, 1);
+    else
+      hid_tx_buf[2] = 1;
+  }
+  /*
+  HID PREV PROFILE
+  -----------
+  PC to duckyPad:
+  [0]   report_id: always 5
+  [1]   seq number
+  [2]   command: 2
+  -----------
+  duckyPad to PC
+  [0]   report_id: always 4
+  [1]   seq number (same as above)
+  [2]   0 = OK
+  */
+  else if(command_type == HID_COMMAND_PREV_PROFILE)
+  {
+    change_profile(PREV_PROFILE);
+  }
+  /*
+  HID NEXT PROFILE
+  -----------
+  PC to duckyPad:
+  [0]   report_id: always 5
+  [1]   seq number
+  [2]   command: 3
+  -----------
+  duckyPad to PC
+  [0]   report_id: always 4
+  [1]   seq number (same as above)
+  [2]   0 = OK
+  */
+  else if(command_type == HID_COMMAND_NEXT_PROFILE)
+  {
+    change_profile(NEXT_PROFILE);
+  }
+  /*
+    unknown command
+    -----------
+    duckyPad to PC
+    [0]   report_id: always 4
+    [1]   seq number
+    [2]   1 = ERROR
+    */
+  else
+  {
+    hid_tx_buf[2] = 1;
+  }
+  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
+}
+
 void keypress_task_start(void const * argument)
 {
   while(init_complete == 0)
@@ -468,6 +598,13 @@ void keypress_task_start(void const * argument)
   keyboard_release_all();
   for(;;)
   {
+    if(hid_rx_has_unprocessed_data)
+    {
+      handle_hid_command();
+      hid_rx_has_unprocessed_data = 0;
+      memset(hid_rx_buf, 0, HID_RX_BUF_SIZE);
+    }
+
     for (int i = 0; i < KEY_COUNT; ++i)
     {
       if(is_pressed(&button_status[i]))
@@ -493,6 +630,8 @@ void keypress_task_start(void const * argument)
           else
           {
             handle_keypress(i, &button_status[i]); // handle the button state inside here for repeats
+            // printf("%s\n", make_serial_string());
+            // osDelay(100);
             keydown_anime_end(i);
             if(my_dpc.type == DPC_SLEEP)
             {
@@ -518,7 +657,7 @@ void keypress_task_start(void const * argument)
           }
         }
         else if(i == KEY_BUTTON1 || i == KEY_BUTTON2)
-          handle_button_press(i);
+          handle_tactile_button_press(i);
       }
       if(is_released_but_not_serviced(&button_status[i]) && hold_cache[i].key_type != KEY_TYPE_UNKNOWN && hold_cache[i].code != 0)
       {

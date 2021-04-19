@@ -6,6 +6,7 @@
 #endif 
 
 #include "stm32f0xx_hal.h"
+#include "usbd_customhid.h"
 
 #define KEY_LEFT_CTRL  0x01
 #define KEY_LEFT_SHIFT 0x02
@@ -65,6 +66,9 @@
 #define KEY_MK_PREV 0x2
 #define KEY_MK_NEXT 0x1
 
+#define HID_TX_BUF_SIZE (CUSTOM_HID_EPIN_SIZE+1)
+#define MOUSE_BUF_SIZE 5
+#define MEDIA_KEY_BUF_SIZE 2
 #define KB_BUF_SIZE 8
 
 #define KB_LAYOUT_WQERTY 0
@@ -83,6 +87,10 @@
 #define KEY_TYPE_DEAD_TILDE 8
 #define KEY_TYPE_DEAD_DIAERESIS 9
 #define KEY_TYPE_DEAD_CEDILLA 10
+#define KEY_TYPE_MOUSE_BUTTON 11
+#define KEY_TYPE_MOUSE_WHEEL 12
+#define KEY_TYPE_MOUSE_MOVEMENT 13
+
 
 #define ASCII_MAP_SIZE 256
 
@@ -90,6 +98,7 @@ typedef struct
 {
   uint8_t key_type;
   uint8_t code;
+  uint8_t code2;
 } my_key;
 
 void kb_print(char* msg, uint16_t chardelay);
@@ -98,6 +107,8 @@ void keyboard_press(my_key* this_key, uint8_t use_shift);
 void keyboard_release_all(void);
 void init_my_key(my_key* kk);
 void media_key_release(void);
+uint8_t is_mouse_type(my_key* this_key);
+void mouse_test(void);
 
 extern uint16_t circumflex;
 extern uint16_t diaeresis;
@@ -107,6 +118,7 @@ extern uint16_t tilde;
 extern uint16_t cedilla;
 
 extern uint16_t _asciimap[ASCII_MAP_SIZE];
+extern uint8_t hid_tx_buf[HID_TX_BUF_SIZE];
 
 #ifdef __cplusplus
 }

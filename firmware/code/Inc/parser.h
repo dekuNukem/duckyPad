@@ -40,6 +40,7 @@ typedef struct
   uint8_t individual_key_color[MAPPABLE_KEY_COUNT][3];
   uint8_t individual_keydown_color[MAPPABLE_KEY_COUNT][3];
 } profile_cache;
+extern profile_cache p_cache;
 
 typedef struct
 {
