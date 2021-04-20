@@ -21,7 +21,7 @@ def get_app_name(hwnd):
 def get_list_of_all_windows():
 	ret = set()
 	for item in gw.getAllWindows():
-		ret.add((get_app_name(item._hWnd), item.title))
+		ret.add((get_app_name(item._hWnd).rsplit('.', 1)[0], item.title))
 	ret = sorted(list(ret), key=lambda x: x[0])
 	return ret
 
@@ -31,10 +31,10 @@ def get_active_window():
 	return (get_app_name(active_window._hWnd), active_window.title)
 
 # you can test it out here:
-if __name__ == "__main__":
-	while 1:
-		print(get_active_window())
-		time.sleep(0.5)
+# if __name__ == "__main__":
+# 	while 1:
+# 		print(get_active_window())
+# 		time.sleep(0.5)
 
 # def get_app_path(hwnd):
 #     """Get application path given hwnd."""

@@ -31,7 +31,7 @@ def hid_read():
 		result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
 		if len(result) > 0:
 			return result
-		time.sleep(0.05)
+		time.sleep(0.01)
 	return []
 
 def duckypad_hid_write(hid_buf_64b):
