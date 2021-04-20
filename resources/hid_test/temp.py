@@ -1,12 +1,22 @@
+
+
+def hid_read():
+	wait_start = time.time()
+	while time.time() - wait_start <= 1.5:
+		result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
+	print(result)
+	return result
+
+print(timeit.timeit(duckypad_hid_open, number=1))
+
+
+
+
+
+
+
 import hid
 import time
-
-for device_dict in hid.enumerate():
-    keys = list(device_dict.keys())
-    keys.sort()
-    for key in keys:
-        print("%s : %s" % (key, device_dict[key]))
-    print()
 
 def get_duckypad_path():
 	for device_dict in hid.enumerate():
@@ -24,7 +34,6 @@ print("Opening", duckypad_path)
 
 h = hid.device()
 h.open_path(duckypad_path)
-# h.open(1452, 637)
 
 print("Manufacturer: %s" % h.get_manufacturer_string())
 print("Product: %s" % h.get_product_string())
@@ -53,3 +62,12 @@ print(len(result))
 
 print("Closing the device")
 h.close()
+
+# test it out by running this script
+if __name__ == "__main__":
+	for device_dict in hid.enumerate():
+	    keys = list(device_dict.keys())
+	    keys.sort()
+	    for key in keys:
+	        print("%s : %s" % (key, device_dict[key]))
+	    print()

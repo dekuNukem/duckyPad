@@ -517,6 +517,7 @@ void handle_hid_command(void)
     uint32_t uuid = get_uuid();
     memcpy(hid_tx_buf + 7, &uuid, 4);
     hid_tx_buf[11] = p_cache.current_profile;
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
   }
   /*
   HID GOTO PROFILE
@@ -535,9 +536,16 @@ void handle_hid_command(void)
   else if(command_type == HID_COMMAND_GOTO_PROFILE)
   {
     if(p_cache.available_profile[hid_rx_buf[3]])
+    {
+      USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
+      ssd1306_dim(0);
       restore_profile(hid_rx_buf[3], 1, 1);
+    }
     else
+    {
       hid_tx_buf[2] = 1;
+      USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
+    }
   }
   /*
   HID PREV PROFILE
@@ -554,6 +562,8 @@ void handle_hid_command(void)
   */
   else if(command_type == HID_COMMAND_PREV_PROFILE)
   {
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
+    ssd1306_dim(0);
     change_profile(PREV_PROFILE);
   }
   /*
@@ -571,6 +581,8 @@ void handle_hid_command(void)
   */
   else if(command_type == HID_COMMAND_NEXT_PROFILE)
   {
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
+    ssd1306_dim(0);
     change_profile(NEXT_PROFILE);
   }
   /*
@@ -584,8 +596,8 @@ void handle_hid_command(void)
   else
   {
     hid_tx_buf[2] = 1;
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
   }
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
 }
 
 void keypress_task_start(void const * argument)
