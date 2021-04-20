@@ -7,10 +7,20 @@ DUCKYPAD_TO_PC_HID_BUF_SIZE = 32
 
 h = hid.device()
 
+def get_duckypad_hid_info():
+	duckypad_path = get_duckypad_path()
+	if duckypad_path is None:
+		raise OSError('duckyPad Not Found!')
+	h.open_path(duckypad_path)
+	product = h.get_product_string()
+	serial_num = h.get_serial_number_string()
+	h.close()
+	return product, serial_num
+
 def get_duckypad_path():
 	for device_dict in hid.enumerate():
 	    if 'dekuNukem' in device_dict['manufacturer_string'] and \
-	    'duckyPad(2020)' in device_dict['product_string'] and \
+	    'duckyPad' in device_dict['product_string'] and \
 	    int(device_dict['usage']) == 58:
 	    	return device_dict['path']
 	return None
@@ -26,7 +36,7 @@ def hid_read():
 
 def duckypad_hid_write(hid_buf_64b):
 	if len(hid_buf_64b) != PC_TO_DUCKYPAD_HID_BUF_SIZE:
-		raise ValueError('PC to duckyPad buffer wrong size, should be exactly 64 Bytes')
+		raise ValueError('PC-to-duckyPad buffer wrong size, should be exactly 64 Bytes')
 	duckypad_path = get_duckypad_path()
 	if duckypad_path is None:
 		raise OSError('duckyPad Not Found!')
@@ -37,16 +47,13 @@ def duckypad_hid_write(hid_buf_64b):
 	h.close()
 	return result
 
-# write some data to the device
-
 # print("Writing data...")
-buffff = [0] * 64
-buffff[0] = 5
-buffff[1] = 255
-buffff[2] = 3
-
-print(timeit.timeit(lambda: duckypad_hid_write(buffff), number=1))
-
+# buffff = [0] * 64
+# buffff[0] = 5
+# buffff[1] = 255
+# buffff[2] = 3
+# duckypad_hid_write(buffff)
+# print()
 # test it out by running this script
 # if __name__ == "__main__":
 # 	for device_dict in hid.enumerate():

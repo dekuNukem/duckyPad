@@ -1,4 +1,8 @@
-
+import hid_rw
+buffff = [0] * 64
+buffff[0] = 5
+buffff[2] = 3
+hid_rw.duckypad_hid_write(buffff)
 
 def hid_read():
 	wait_start = time.time()
