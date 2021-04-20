@@ -10,7 +10,7 @@ def get_app_name(hwnd):
     try:
         _, pid = win32process.GetWindowThreadProcessId(hwnd)
         for p in c.query('SELECT Name FROM Win32_Process WHERE ProcessId = %s' % str(pid)):
-            exe = p.Name
+            exe = p.Name.rsplit('.', 1)[0]
             break
     except:
         return None
@@ -21,14 +21,14 @@ def get_app_name(hwnd):
 def get_list_of_all_windows():
 	ret = set()
 	for item in gw.getAllWindows():
-		ret.add((get_app_name(item._hWnd).rsplit('.', 1)[0], item.title))
+		ret.add((get_app_name(item._hWnd), item.title))
 	ret = sorted(list(ret), key=lambda x: x[0])
 	return ret
 
 # returns a (app_name, window_title) tuple
 def get_active_window():
 	active_window = gw.getActiveWindow()
-	return (get_app_name(active_window._hWnd), active_window.title)
+	return (active_window._hWnd, get_app_name(active_window._hWnd), active_window.title)
 
 # you can test it out here:
 # if __name__ == "__main__":
