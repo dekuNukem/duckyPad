@@ -495,6 +495,20 @@ void handle_hid_command(void)
   hid_tx_buf[0] = 4;
   hid_tx_buf[1] = seq_number;
   hid_tx_buf[2] = 0;
+
+  /*
+  duckyPad to PC
+  [0]   report_id: always 4
+  [1]   seq number (same as above)
+  [2]   0 = OK, 1 = ERROR, 2 = BUSY
+  */
+  if(is_in_settings)
+  {
+    hid_tx_buf[2] = 2;
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
+    return;
+  }
+
   /*
   HID GET INFO
   -----------
@@ -616,13 +630,6 @@ void keypress_task_start(void const * argument)
   keyboard_release_all();
   for(;;)
   {
-    if(hid_rx_has_unprocessed_data)
-    {
-      handle_hid_command();
-      hid_rx_has_unprocessed_data = 0;
-      memset(hid_rx_buf, 0, HID_RX_BUF_SIZE);
-    }
-
     for (int i = 0; i < KEY_COUNT; ++i)
     {
       if(is_pressed(&button_status[i]))
@@ -707,6 +714,14 @@ void animation_task_start(void const * argument)
   {
     osDelay(20);
     led_animation_handler();
+
+    if(hid_rx_has_unprocessed_data)
+    {
+      handle_hid_command();
+      hid_rx_has_unprocessed_data = 0;
+      memset(hid_rx_buf, 0, HID_RX_BUF_SIZE);
+    }
+
     if(is_sleeping)
       continue;
 

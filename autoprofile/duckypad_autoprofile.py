@@ -10,6 +10,7 @@ import tkinter.scrolledtext as ScrolledText
 import traceback
 import json
 import os
+import webbrowser
 
 THIS_VERSION_NUMBER = '0.1.0'
 MAIN_WINDOW_WIDTH = 640
@@ -83,12 +84,33 @@ connection_info_label.place(x=PADDING, y=5)
 
 # --------------------
 
+discord_link_url = "https://raw.githubusercontent.com/dekuNukem/duckyPad/master/resources/discord_link.txt"
+
+def open_user_manual():
+    webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/getting_started.md')
+
+def open_discord():
+    try:
+        webbrowser.open(str(urllib.request.urlopen(discord_link_url).read().decode('utf-8')).split('\n')[0])
+    except Exception as e:
+        messagebox.showerror("Error", "Failed to open discord link!\n"+str(e))
+
 dashboard_lf = LabelFrame(root, text="Dashboard", width=620, height=60)
 dashboard_lf.place(x=PADDING, y=60) 
-prev_profile_button = Button(dashboard_lf, text="Prev Profile", command=prev_prof_click, state=DISABLED)
+prev_profile_button = Button(dashboard_lf, text="Prev Profile", command=prev_prof_click)
+prev_profile_button.config(width=11, height=1)
 prev_profile_button.place(x=PADDING, y=5)
-next_profile_button = Button(dashboard_lf, text="Next Profile", command=next_prof_click, state=DISABLED)
-next_profile_button.place(x=100, y=5)
+next_profile_button = Button(dashboard_lf, text="Next Profile", command=next_prof_click)
+next_profile_button.config(width=11, height=1)
+next_profile_button.place(x=110, y=5)
+
+user_manual_button = Button(dashboard_lf, text="User Manual", command=open_user_manual)
+user_manual_button.config(width=11, height=1)
+user_manual_button.place(x=210, y=5)
+
+discord_button = Button(dashboard_lf, text="Discord", command=open_discord)
+discord_button.config(width=11, height=1)
+discord_button.place(x=310, y=5)
 
 # --------------------
 
