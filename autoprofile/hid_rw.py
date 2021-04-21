@@ -7,7 +7,16 @@ DUCKYPAD_TO_PC_HID_BUF_SIZE = 32
 
 h = hid.device()
 
-def get_duckypad_hid_info():
+def duckypad_get_info():
+	dpinfo = {}
+	dpinfo['model'], dpinfo['serial'] = get_hid_info()
+	buffff = [0] * 64
+	buffff[0] = 5
+	result = duckypad_hid_write(buffff)
+	dpinfo['fw_ver'] = f'{result[3]}.{result[4]}.{result[5]}'
+	return dpinfo
+
+def get_hid_info():
 	duckypad_path = get_duckypad_path()
 	if duckypad_path is None:
 		raise OSError('duckyPad Not Found!')
@@ -28,7 +37,7 @@ def get_duckypad_hid_info():
 def get_duckypad_path():
 	for device_dict in hid.enumerate():
 	    if device_dict['vendor_id'] == 0x0483 and \
-	    device_dict['product_id'] == 0x5750 and \
+	    device_dict['product_id'] == 0xd11c and \
 	    device_dict['usage'] == 58:
 	    	return device_dict['path']
 	return None

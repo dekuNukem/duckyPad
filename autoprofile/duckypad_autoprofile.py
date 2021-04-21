@@ -1,6 +1,5 @@
 import time
 import hid_rw
-import hid_helper
 import get_window
 from tkinter import *
 from tkinter import filedialog
@@ -30,7 +29,7 @@ def find_duckypad():
     enable_buttons()
 
     try:
-        result = hid_helper.duckypad_get_info()
+        result = hid_rw.duckypad_get_info()
         connection_info_str.set(f"duckyPad found!      Model: {result['model']}      Serial: {result['serial']}      Firmware: {result['fw_ver']}")
         connection_info_label.config(foreground='navy')
     except Exception as e:
