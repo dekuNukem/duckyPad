@@ -33,7 +33,7 @@ def find_duckypad():
         connection_info_str.set(f"duckyPad found!      Model: {result['model']}      Serial: {result['serial']}      Firmware: {result['fw_ver']}")
         connection_info_label.config(foreground='navy')
     except Exception as e:
-        print(traceback.format_exc())
+        # print(traceback.format_exc())
         return
     
 def update_windows(textbox):
@@ -122,7 +122,8 @@ def update_current_app_and_title():
     if rule_window is not None and rule_window.winfo_exists():
         return
 
-    for item in autoswitch_rules_list:
+    highlight_index = None
+    for index, item in enumerate(autoswitch_rules_list):
         if item['enabled'] is False:
             continue
         app_name_condition = True
@@ -131,12 +132,20 @@ def update_current_app_and_title():
         window_title_condition = True
         if len(item['window_title']) > 0:
             window_title_condition = item['window_title'].lower() in window_title.lower()
-        print(item)
-        print(app_name_condition, window_title_condition)
+        # print(item)
+        # print(app_name_condition, window_title_condition)
         if app_name_condition and window_title_condition:
             duckypad_goto_profile(int(item['switch_to']))
+            highlight_index = index
             break
-    print('----------------')
+
+    for index, item in enumerate(autoswitch_rules_list):
+        if index == highlight_index:
+            profile_lstbox.itemconfig(index, fg='white', bg='green')
+        else:
+            profile_lstbox.itemconfig(index, fg='black', bg='white')
+    
+    # print('----------------')
 
 # ----------------
 
@@ -166,11 +175,11 @@ def make_rule_str(rule_dict):
     if len(rule_dict['app_name']) > 0:
         rule_str += "     " + rule_dict['app_name']
     else:
-        rule_str += "     " + "[All]"
+        rule_str += "     " + "[Any]"
 
     next_item = rule_dict['window_title']
     if len(next_item) <= 0:
-        next_item = "[All]"
+        next_item = "[Any]"
     gap = 29 - len(rule_str)
     rule_str += ' '*gap + next_item
 
@@ -341,6 +350,7 @@ profile_lstbox = Listbox(rules_lf, listvariable=profile_var, height=20, exportse
 profile_lstbox.place(x=PADDING, y=30, width=500)
 profile_lstbox.config(font='TkFixedFont')
 # profile_lstbox.bind('<<ListboxSelect>>', on_profile_lstbox_select)
+profile_lstbox.bind('<FocusOut>', lambda e: profile_lstbox.selection_clear(0, END))
 
 rule_header_label = Label(master=rules_lf, text="Enabled   App name          Window Title                Profile", font='TkFixedFont')
 rule_header_label.place(x=5, y=5)
@@ -357,7 +367,7 @@ move_up_button = Button(rules_lf, text="Move up", command=rule_shift_up)
 move_up_button.config(width=11, height=1)
 move_up_button.place(x=520, y=150)
 
-toggle_rule_button = Button(rules_lf, text="Toggle", command=toggle_rule_click)
+toggle_rule_button = Button(rules_lf, text="On/Off", command=toggle_rule_click)
 toggle_rule_button.config(width=11, height=1)
 toggle_rule_button.place(x=520, y=190)
 
@@ -378,7 +388,10 @@ except Exception as e:
 
 # ------------------
 
-# create_rule_window()
+updates_lf = LabelFrame(root, text="Updates", width=620, height=80)
+updates_lf.place(x=PADDING, y=530)
+
+# ------------------
 
 root.after(500, find_duckypad)
 root.after(500, update_current_app_and_title)
