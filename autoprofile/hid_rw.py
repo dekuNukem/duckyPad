@@ -17,11 +17,19 @@ def get_duckypad_hid_info():
 	h.close()
 	return product, serial_num
 
+# def get_duckypad_path():
+# 	for device_dict in hid.enumerate():
+# 	    if 'dekuNukem' in device_dict['manufacturer_string'] and \
+# 	    'duckyPad' in device_dict['product_string'] and \
+# 	    int(device_dict['usage']) == 58:
+# 	    	return device_dict['path']
+# 	return None
+
 def get_duckypad_path():
 	for device_dict in hid.enumerate():
-	    if 'dekuNukem' in device_dict['manufacturer_string'] and \
-	    'duckyPad' in device_dict['product_string'] and \
-	    int(device_dict['usage']) == 58:
+	    if device_dict['vendor_id'] == 0x0483 and \
+	    device_dict['product_id'] == 0x5750 and \
+	    device_dict['usage'] == 58:
 	    	return device_dict['path']
 	return None
 
@@ -55,10 +63,11 @@ def duckypad_hid_write(hid_buf_64b):
 # duckypad_hid_write(buffff)
 # print()
 # test it out by running this script
-# if __name__ == "__main__":
-# 	for device_dict in hid.enumerate():
-# 	    keys = list(device_dict.keys())
-# 	    keys.sort()
-# 	    for key in keys:
-# 	        print("%s : %s" % (key, device_dict[key]))
-# 	    print()
+if __name__ == "__main__":
+	for device_dict in hid.enumerate():
+	    keys = list(device_dict.keys())
+	    keys.sort()
+	    for key in keys:
+	        print("%s : %s" % (key, device_dict[key]))
+	        print(type(device_dict[key]))
+	    print()

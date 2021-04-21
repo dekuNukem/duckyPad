@@ -3,7 +3,9 @@ buffff = [0] * 64
 buffff[0] = 5
 buffff[2] = 3
 hid_rw.duckypad_hid_write(buffff)
-
+        # print(item)
+        # print(app_name_condition, window_title_condition, result)
+    print('----------------')
 def hid_read():
 	wait_start = time.time()
 	while time.time() - wait_start <= 1.5:
@@ -14,7 +16,19 @@ def hid_read():
 print(timeit.timeit(duckypad_hid_open, number=1))
 
 
+    if check_profile_number(switch_to_entrybox.get()) is None:
+        # messagebox.showerror("Error", "Invalid profile number!\n\nMust be an integer between 1 and 31")
+        window.destroy()
+        return
 
+class dpas_rule(object):
+	def __init__(self, path=None):
+		super(dpas_rule, self).__init__()
+		self.app_name_contains = None
+		self.window_title_contains = None
+		self.switch_to = None
+		self.enabled = False
+		self.list_str = 'unknown'
 
 
 

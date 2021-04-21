@@ -28,6 +28,8 @@ def get_list_of_all_windows():
 # returns a (app_name, window_title) tuple
 def get_active_window():
 	active_window = gw.getActiveWindow()
+	if active_window is None:
+		return None, None, None
 	return (active_window._hWnd, get_app_name(active_window._hWnd), active_window.title)
 
 # you can test it out here:
