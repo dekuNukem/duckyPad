@@ -74,7 +74,7 @@ If unspecified, `DEFAULTCHARDELAY` is 18ms in duckyPad.
 ```
 DEFAULTCHARDELAY 50
 
-REM duckyPad will wait 50ms between pressing each key
+REM duckyPad will wait 50ms between each key stroke
 ```
 
 ### DELAY
@@ -214,6 +214,42 @@ Those special keys can be used on their own:
 * Type the key names as-is in **`ALL CAPS`**.
 
 * **`UP TO 6 KEYS`** can be pressed simultaneously.
+
+### Mouse Buttons
+
+[PLANNED ON NEXT FIRMWARE UPDATE]
+
+* `LMOUSE`: Click LEFT mouse button
+
+* `RMOUSE`: Click RIGHT mouse button
+
+* `MMOUSE`: Click MIDDLE mouse button
+
+### MOUSE_MOVE X Y
+
+[PLANNED ON NEXT FIRMWARE UPDATE]
+
+Move mouse cursor `X` pixels horizontally, and `Y` pixels vertically.
+
+* `X` and `Y` must be between `-127` and `127`
+
+* For `X`, a positive number moves RIGHT, negative number moves LEFT.
+
+* For `Y`, a positive number moves UP, negative number moves DOWN.
+
+* Set `X` or `Y` to 0 if no movement needed.
+
+* Use `REPEAT` command to move further.
+
+### MOUSE_WHEEL X
+
+[PLANNED ON NEXT FIRMWARE UPDATE]
+
+Scroll mouse wheel `X` lines.
+
+* `X` must be between `-127` and `127`
+
+* A positive number scrolls UP, negative number scrolls DOWN.
 
 ### SWCOLOR
 
