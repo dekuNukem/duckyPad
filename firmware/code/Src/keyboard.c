@@ -285,7 +285,7 @@ void keyboard_release_all(void)
 {
   memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
   hid_tx_buf[0] = 1;
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, KB_BUF_SIZE);
+  vTaskSuspendAll();USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, KB_BUF_SIZE);xTaskResumeAll();
 }
 
 /*
@@ -306,7 +306,7 @@ etc
 //   memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
 //   hid_tx_buf[0] = 4;
 //   // hid_tx_buf[2] = 20; // [1] buttons [2] x-axis, [3] y-axis [4] wheel, 0 to 127 scroll up, -1 to -127 scroll down
-//   USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
+//   vTaskSuspendAll();USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);xTaskResumeAll();
 //   printf("mouse\n");
 // }
 
@@ -319,7 +319,7 @@ void media_key_release(void)
 {
   memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
   hid_tx_buf[0] = 0x02;
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, MEDIA_KEY_BUF_SIZE);
+  vTaskSuspendAll();USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, MEDIA_KEY_BUF_SIZE);xTaskResumeAll();
 }
 
 void media_key_press(my_key* this_key)
@@ -327,7 +327,7 @@ void media_key_press(my_key* this_key)
   memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
   hid_tx_buf[0] = 0x02;
   hid_tx_buf[1] = this_key->code;
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, MEDIA_KEY_BUF_SIZE);
+  vTaskSuspendAll();USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, MEDIA_KEY_BUF_SIZE);xTaskResumeAll();
 }
 
 uint8_t should_use_mod(uint8_t ttt)
@@ -363,7 +363,7 @@ void mouse_press(my_key* this_key)
   {
     hid_tx_buf[4] = this_key->code;
   }
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, KB_BUF_SIZE);
+  vTaskSuspendAll();USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, KB_BUF_SIZE);xTaskResumeAll();
 }
 
 void mouse_release(my_key* this_key)
@@ -382,7 +382,7 @@ void mouse_release(my_key* this_key)
   {
     hid_tx_buf[4] = 0;
   }
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, KB_BUF_SIZE);
+  vTaskSuspendAll();USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, KB_BUF_SIZE);xTaskResumeAll();
 }
 
 void keyboard_press(my_key* this_key, uint8_t use_mod)
@@ -440,7 +440,7 @@ void keyboard_press(my_key* this_key, uint8_t use_mod)
       }
   }
   hid_tx_buf[0] = 1;
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, KB_BUF_SIZE);
+  vTaskSuspendAll();USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, KB_BUF_SIZE);xTaskResumeAll();
 }
 
 void keyboard_release(my_key* this_key)
@@ -492,7 +492,7 @@ void keyboard_release(my_key* this_key)
     if(hid_tx_buf[i] == (uint8_t)duckcode)
       hid_tx_buf[i] = 0;
   hid_tx_buf[0] = 1;
-  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, KB_BUF_SIZE);
+  vTaskSuspendAll();USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, KB_BUF_SIZE);xTaskResumeAll();
 }
 
 uint8_t utf8ascii(uint8_t ascii) {

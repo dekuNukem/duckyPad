@@ -20,7 +20,7 @@
 uint8_t init_complete;
 uint32_t last_keypress;
 uint32_t next_pixel_shift = 30000;
-uint8_t is_sleeping, is_in_settings;
+uint8_t is_sleeping, is_busy;
 uint32_t button_hold_start, button_hold_duration;
 keymap_cache my_keymap_cache[MAX_KEYMAP_SIZE];
 char default_str[] = "default";
@@ -169,7 +169,7 @@ void handle_tactile_button_press(uint8_t button_num)
     }
     else // long press
     {
-      is_in_settings = 1;
+      is_busy = 1;
       if(button_num == KEY_BUTTON1) // -
       {
         change_brightness();
@@ -180,7 +180,7 @@ void handle_tactile_button_press(uint8_t button_num)
         profile_quickswitch();
       }
 
-      is_in_settings = 0;
+      is_busy = 0;
       print_legend(0, 0);
       service_all();
     }
@@ -409,7 +409,7 @@ void keymap_config(void)
   all_led_off();
   osDelay(50);
   service_all();
-  is_in_settings = 1;
+  is_busy = 1;
   print_keymap(current_keymap_page);
 
   while(1)
@@ -461,7 +461,7 @@ void keymap_config(void)
   keymap_setting_end:
   save_last_profile(p_cache.current_profile);
   service_all();
-  is_in_settings = 0;
+  is_busy = 0;
   print_legend(0, 0);
   save_settings();
 }
@@ -502,7 +502,7 @@ void handle_hid_command(void)
   [1]   seq number (same as above)
   [2]   0 = OK, 1 = ERROR, 2 = BUSY
   */
-  if(is_in_settings)
+  if(is_busy)
   {
     hid_tx_buf[2] = 2;
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
@@ -658,7 +658,9 @@ void keypress_task_start(void const * argument)
           }
           else
           {
+            is_busy = 1;
             handle_keypress(i, &button_status[i]); // handle the button state inside here for repeats
+            is_busy = 0;
             // printf("%s\n", make_serial_string());
             // osDelay(100);
             keydown_anime_end(i);
@@ -741,7 +743,7 @@ void animation_task_start(void const * argument)
     if(HAL_GetTick() - last_keypress > 300000)
       ssd1306_dim(1);
     // shift pixels around every 2 minutes to prevent burn-in
-    if(is_in_settings == 0 && HAL_GetTick() > next_pixel_shift)
+    if(is_busy == 0 && HAL_GetTick() > next_pixel_shift)
     {
       if(has_valid_profiles)
         print_legend(rand()%3-1, rand()%3-1); // -1 to 1
