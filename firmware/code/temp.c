@@ -1,3 +1,24 @@
+/*
+
+see USB HID descriptor in usbd_hid.c, Consumer section
+  0x95, 0x08,        //   Report Count (8)
+  usages...
+
+bit position corresponds to that
+0x80 voldown
+0x40 vol up
+0x20 mute
+etc
+*/
+
+// void mouse_test(void)
+// {
+//   memset(hid_tx_buf, 0, KB_BUF_SIZE);
+//   hid_tx_buf[0] = 4;
+//   // hid_tx_buf[2] = 20; // [1] buttons [2] x-axis, [3] y-axis [4] wheel, 0 to 127 scroll up, -1 to -127 scroll down
+//   vTaskSuspendAll();USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);xTaskResumeAll();
+//   printf("mouse\n");
+// }
     printf("xx %d %d\n", (int8_t)this_key->code, (int8_t)this_key->code2);
 
 if(i2c_status == HAL_OK)

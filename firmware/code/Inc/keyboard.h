@@ -118,7 +118,6 @@ extern uint16_t tilde;
 extern uint16_t cedilla;
 
 extern uint16_t _asciimap[ASCII_MAP_SIZE];
-extern uint8_t hid_tx_buf[HID_TX_BUF_SIZE];
 
 #ifdef __cplusplus
 }

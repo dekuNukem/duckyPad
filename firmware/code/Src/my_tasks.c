@@ -467,6 +467,7 @@ void keymap_config(void)
 }
 
 uint8_t command_type, seq_number;
+uint8_t hid_tx_buf[HID_TX_BUF_SIZE];
 
 #define HID_COMMAND_GET_INFO 0
 #define HID_COMMAND_GOTO_PROFILE 1
