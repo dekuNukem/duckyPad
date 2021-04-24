@@ -3,7 +3,7 @@
 <title>Static Call Graph - [lul\lul.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image lul\lul.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sat Apr 24 11:59:08 2021
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sat Apr 24 17:11:13 2021
 <BR><P>
 <H3>Maximum Stack Usage =        440 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2862,6 +2862,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[1a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;profile_quickswitch_animation
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;start_sleeping
 <LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_brightness
 <LI><a href="#[16c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;profile_quickswitch
 <LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_no_keymap_error
@@ -3396,12 +3397,13 @@ Global Symbols
 <LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animation_task_start
 </UL>
 
-<P><STRONG><a name="[101]"></a>start_sleeping</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, my_tasks.o(i.start_sleeping))
+<P><STRONG><a name="[101]"></a>start_sleeping</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, my_tasks.o(i.start_sleeping))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = start_sleeping &rArr; key_led_shutdown &rArr; led_start_animation &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; __aeabi_llsl
 </UL>
 <BR>[Calls]<UL><LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_UpdateScreen
 <LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_Fill
 <LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_led_shutdown
+<LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 </UL>
 <BR>[Called By]<UL><LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_task_start
 <LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animation_task_start

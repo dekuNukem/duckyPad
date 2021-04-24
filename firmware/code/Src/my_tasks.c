@@ -713,6 +713,7 @@ void start_sleeping(void)
   key_led_shutdown();
   ssd1306_Fill(Black);
   ssd1306_UpdateScreen();
+  osDelay(100);
   is_sleeping = 1;
 }
 
