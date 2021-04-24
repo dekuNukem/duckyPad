@@ -662,8 +662,6 @@ void keypress_task_start(void const * argument)
             is_busy = 1;
             handle_keypress(i, &button_status[i]); // handle the button state inside here for repeats
             is_busy = 0;
-            // printf("%s\n", make_serial_string());
-            // osDelay(100);
             keydown_anime_end(i);
             if(my_dpc.type == DPC_SLEEP)
             {
