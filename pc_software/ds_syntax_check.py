@@ -197,9 +197,9 @@ def parse_line(ducky_line):
 		return PARSE_OK
 	elif ducky_line.startswith(cmd_HOLD):
 		sssss = ducky_line[len(cmd_HOLD):].strip().split(' ')
-		if len(sssss) > 1:
+		if len(sssss) > 2:
 			return PARSE_ERROR
-		if sssss[0] in autogui_map.keys():
+		if sssss[0] in autogui_map.keys() or sssss[0] in mouse_commands[:3]:
 			return PARSE_OK
 		elif len(sssss[0]) == 1:
 			return PARSE_OK
