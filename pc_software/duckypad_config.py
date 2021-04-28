@@ -1026,7 +1026,7 @@ def minutes_to_str(value):
     return result
 
 def slider_adjust_sleepmode(value):
-    enter_sleep_mode_label.config(text="Enter sleep mode after: " + minutes_to_str(value))
+    enter_sleep_mode_label.config(text="Sleep after: " + minutes_to_str(value))
 
 kbl_online_listbox = None
 kbl_on_sd_card_listbox = None
@@ -1145,7 +1145,7 @@ def create_keyboard_layout_window():
 
 settings_lf = LabelFrame(root, text="Settings", width=516, height=65)
 settings_lf.place(x=10, y=525) 
-enter_sleep_mode_label = Label(master=settings_lf, text="Enter sleep mode after: Never")
+enter_sleep_mode_label = Label(master=settings_lf, text="Sleep after: Never")
 enter_sleep_mode_label.place(x=10, y=0)
 
 sleepmode_slider = Scale(settings_lf)
