@@ -116,6 +116,14 @@ cmd_LOOP = "LOOP"
 cmd_SWCOLOR = "SWCOLOR_";
 cmd_SW_SELF_COLOR = "SWCOLOR ";
 
+cmd_LMOUSE = "LMOUSE"
+cmd_RMOUSE = "RMOUSE"
+cmd_MMOUSE = "MMOUSE"
+cmd_MOUSE_MOVE = "MOUSE_MOVE"
+cmd_MOUSE_WHEEL = "MOUSE_WHEEL"
+
+mouse_commands = [cmd_LMOUSE, cmd_RMOUSE, cmd_MMOUSE, cmd_MOUSE_MOVE, cmd_MOUSE_WHEEL]
+
 ignored_but_valid_commands = ["UARTPRINT ", cmd_REM, "SWCOLOR_", "SWCOLOR ", 'DP_SLEEP', 'PREV_PROFILE', 'NEXT_PROFILE', 'GOTO_PROFILE ']
 
 def is_ignored_but_valid_command(ducky_line):
@@ -141,6 +149,38 @@ def parse_combo(combo_line):
 		else:
 			autogui_args.append(item.lower())
 	return 0
+
+def parse_mouse(ducky_line):
+	mouse_command_list = [x for x in mouse_commands if x in ducky_line]
+	if len(mouse_command_list) != 1:
+		return PARSE_ERROR
+	this_mouse_command = mouse_command_list[0]
+	if this_mouse_command == cmd_LMOUSE:
+		return PARSE_OK
+	elif this_mouse_command == cmd_RMOUSE:
+		return PARSE_OK
+	elif this_mouse_command == cmd_MMOUSE:
+		return PARSE_OK
+	elif this_mouse_command == cmd_MOUSE_MOVE:
+		try:
+			x_amount = int(ducky_line.split(' ')[1])
+			y_amount = int(ducky_line.split(' ')[2])
+			if x_amount > 127 or x_amount < -127:
+				raise ValueError
+			if y_amount > 127 or y_amount < -127:
+				raise ValueError
+		except:
+			return PARSE_ERROR
+		return PARSE_OK
+	elif this_mouse_command == cmd_MOUSE_WHEEL:
+		try:
+			amount = int(ducky_line.split(' ')[1])
+			if amount > 127 or amount < -127:
+				raise ValueError
+		except:
+			return PARSE_ERROR
+		return PARSE_OK
+	return PARSE_ERROR
 
 def parse_line(ducky_line):
 	parse_result = PARSE_OK
@@ -206,6 +246,8 @@ def parse_line(ducky_line):
 			return PARSE_ERROR
 	elif ducky_line.split(' ')[0] in autogui_map.keys():
 		parse_result = parse_combo(ducky_line)
+	elif ducky_line.split(' ')[0] in mouse_commands:
+		parse_result = parse_mouse(ducky_line)
 	else:
 		parse_result = PARSE_ERROR
 	return parse_result

@@ -102,6 +102,14 @@ autogui_map = {"ESCAPE":"escape",
 "POWER":""
 }
 
+cmd_LMOUSE = "LMOUSE"
+cmd_RMOUSE = "RMOUSE"
+cmd_MMOUSE = "MMOUSE"
+cmd_MOUSE_MOVE = "MOUSE_MOVE"
+cmd_MOUSE_WHEEL = "MOUSE_WHEEL"
+
+mouse_commands = [cmd_LMOUSE, cmd_RMOUSE, cmd_MMOUSE, cmd_MOUSE_MOVE, cmd_MOUSE_WHEEL]
+
 valid_chars = ['!', '"', '#', '$', '%', '&', "'", '(',
 ')', '*', '+', ',', '-', '.', '/', '0', '1', '2', '3', '4', '5', '6', '7',
 '8', '9', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`',
@@ -117,7 +125,7 @@ cmd_DELAY = "DELAY "
 cmd_STRING = "STRING "
 cmd_HOLD = "HOLD "
 
-ignored_but_valid_commands = ["UARTPRINT ", cmd_REM, "SWCOLOR_", "SWCOLOR ", 'DP_SLEEP', 'PREV_PROFILE', 'NEXT_PROFILE', 'GOTO_PROFILE ']
+ignored_but_valid_commands = ["UARTPRINT ", cmd_HOLD, cmd_REM, "SWCOLOR_", "SWCOLOR ", 'DP_SLEEP', 'PREV_PROFILE', 'NEXT_PROFILE', 'GOTO_PROFILE ']
 
 default_cmd_delay_ms = 18
 default_char_delay_ms = 18
@@ -161,6 +169,38 @@ def is_ignored_but_valid_command(ducky_line):
 			return True
 	return False
 
+def parse_mouse(ducky_line):
+	mouse_command_list = [x for x in mouse_commands if x in ducky_line]
+	if len(mouse_command_list) != 1:
+		return PARSE_ERROR, "One mouse command per line please"
+	this_mouse_command = mouse_command_list[0]
+	if this_mouse_command == cmd_LMOUSE:
+		pyautogui.click(button='left')
+	elif this_mouse_command == cmd_RMOUSE:
+		pyautogui.click(button='right')
+	elif this_mouse_command == cmd_MMOUSE:
+		pyautogui.click(button='middle')
+	elif this_mouse_command == cmd_MOUSE_MOVE:
+		try:
+			x_amount = int(ducky_line.split(' ')[1])
+			y_amount = int(ducky_line.split(' ')[2])
+			if x_amount > 127 or x_amount < -127:
+				raise ValueError
+			if y_amount > 127 or y_amount < -127:
+				raise ValueError
+		except:
+			return PARSE_ERROR, "argument error. X Y should be between -127 and 127"
+		pyautogui.move(x_amount, -1*y_amount)
+	elif this_mouse_command == cmd_MOUSE_WHEEL:
+		try:
+			amount = int(ducky_line.split(' ')[1])
+			if amount > 127 or amount < -127:
+				raise ValueError
+		except:
+			return PARSE_ERROR, "argument error. X should be between -127 and 127"
+		pyautogui.scroll(amount*25)
+	return PARSE_OK, ''
+
 def parse_line(ducky_line):
 	global default_cmd_delay_ms
 	global default_char_delay_ms
@@ -178,8 +218,6 @@ def parse_line(ducky_line):
 	elif ducky_line.startswith(cmd_REPEAT):
 		for x in range(int(ducky_line[len(cmd_REPEAT):].strip())):
 			parse_line(prev_line)
-	elif ducky_line.startswith(cmd_HOLD):
-		pass
 	elif ducky_line.startswith(cmd_DELAY):
 		time.sleep(int(ducky_line[len(cmd_DELAY):].strip())/1000)
 	elif ducky_line.startswith(cmd_DEFAULTDELAY):
@@ -188,6 +226,8 @@ def parse_line(ducky_line):
 		default_cmd_delay_ms = int(ducky_line[len(cmd_DEFAULT_DELAY):].strip())
 	elif ducky_line.startswith(cmd_DEFAULTCHARDELAY):
 		default_char_delay_ms = int(ducky_line[len(cmd_DEFAULTCHARDELAY):].strip())
+	elif ducky_line.split(' ')[0] in mouse_commands:
+		parse_result, parse_note = parse_mouse(ducky_line)
 	elif ducky_line.split(' ')[0] in autogui_map.keys():
 		parse_result, parse_note = parse_combo(ducky_line)
 	else:
@@ -214,3 +254,5 @@ def execute_file(str_list):
 # 	content = fff.readlines()
 
 # print(execute_file(content)[-1])
+# time.sleep(0.5)
+# print(parse_line("MOUSE_WHEEL d 5"))

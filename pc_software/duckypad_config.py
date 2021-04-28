@@ -21,7 +21,7 @@ default_button_color = 'SystemButtonFace'
 if 'linux' in sys.platform:
     default_button_color = 'grey'
 
-THIS_VERSION_NUMBER = '0.11.0'
+THIS_VERSION_NUMBER = '0.12.0'
 MAIN_WINDOW_WIDTH = 800
 MAIN_WINDOW_HEIGHT = 600
 MAIN_COLOUM_HEIGHT = 533
@@ -1175,7 +1175,13 @@ dp_fw_update_label = Label(master=updates_lf, text="Firmware: Unknown")
 dp_fw_update_label.place(x=5, y=20)
 
 keyboard_layout_button = Button(settings_lf, text="Keyboard Layouts...", command=create_keyboard_layout_window, state=DISABLED)
-keyboard_layout_button.place(x=260, y=5, width=140, height=BUTTON_HEIGHT)
+keyboard_layout_button.place(x=220, y=13, width=140, height=BUTTON_HEIGHT)
+
+def open_profile_autoswitcher_url():
+    webbrowser.open('https://github.com/dekuNukem/duckyPad-profile-autoswitcher')
+
+autoswitch_button = Button(settings_lf, text="Profile\nAutoswitcher", command=open_profile_autoswitcher_url)
+autoswitch_button.place(x=370, y=0, width=125, height=40)
 
 root.update()
 
