@@ -16,6 +16,40 @@ from tkinter import simpledialog
 from tkinter.colorchooser import askcolor
 from tkinter import messagebox
 import urllib.request
+from appdirs import *
+import json
+
+def ensure_dir(dir_path):
+    if not os.path.exists(dir_path):
+        os.mkdir(dir_path)
+
+appname = 'duckypad_config'
+appauthor = 'dekuNukem'
+save_path = user_data_dir(appname, appauthor, roaming=True)
+backup_path = os.path.join(save_path, 'profile_backups')
+ensure_dir(save_path)
+ensure_dir(backup_path)
+save_filename = os.path.join(save_path, 'config.txt')
+
+config_dict = {}
+config_dict['auto_backup_enabled'] = True
+
+try:
+    with open(save_filename) as json_file:
+        temp = json.load(json_file)
+        if isinstance(temp, dict):
+            config_dict = temp
+        else:
+            raise ValueError("not a valid config file")
+except Exception as e:
+    pass
+
+def save_config():
+    try:
+        with open(save_filename, 'w', encoding='utf8') as save_file:
+                save_file.write(json.dumps(config_dict, sort_keys=True))
+    except Exception as e:
+        messagebox.showerror("Error", "Save failed!\n\n"+str(traceback.format_exc()))
 
 default_button_color = 'SystemButtonFace'
 if 'linux' in sys.platform:
@@ -23,7 +57,7 @@ if 'linux' in sys.platform:
 
 THIS_VERSION_NUMBER = '0.12.0'
 MAIN_WINDOW_WIDTH = 800
-MAIN_WINDOW_HEIGHT = 600
+MAIN_WINDOW_HEIGHT = 625
 MAIN_COLOUM_HEIGHT = 533
 PADDING = 10
 HIGHT_ROOT_FOLDER_LF = 50
@@ -439,10 +473,6 @@ def validate_data_objs(save_path):
             this_key.path = os.path.join(this_profile.path, 'key'+str(key_index+1)+'.txt')
             this_key.index = key_index + 1
 
-def ensure_dir(dir_path):
-    if not os.path.exists(dir_path):
-        os.mkdir(dir_path)
-
 def dump_keymap(save_path):
     global sd_card_keymap_list
     file_list = [d for d in os.listdir(save_path) if d.startswith("dpkm_") and d.endswith(".txt")]
@@ -531,31 +561,28 @@ def save_everything(save_path):
         save_result_label.unbind("<Button-1>")
     last_save = time.time()
 
-def current_time_str():
-    ret = datetime.utcnow().isoformat(sep='T')
-    return (ret[:19] + "Z").replace(':', '-')
+# def current_time_str():
+#     ret = datetime.utcnow().isoformat(sep='T')
+#     return (ret[:19] + "Z").replace(':', '-')
 
 def make_default_backup_dir_name():
-    return 'duckyPad_backup_' + current_time_str()
-
-backup_reminder_showed = False
+    return 'duckyPad_backup_' + datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
 
 def save_click():
-    global backup_reminder_showed
     save_everything(dp_root_folder_path)
-    if backup_reminder_showed:
-        return
-    yesno = messagebox.askyesno("Local backup", "Done!\n\nWould you like to save a local backup of your profiles too?")
-    backup_reminder_showed = True
-    if yesno is False:
-        return
-    save_as_click()
+    if config_dict['auto_backup_enabled']:
+        save_everything(os.path.join(backup_path, make_default_backup_dir_name()))
 
-def save_as_click():
-    dir_result = filedialog.askdirectory(initialdir=os.path.join(os.path.expanduser('~'), "Desktop"))
-    if len(dir_result) <= 0:
-        return
-    save_everything(os.path.join(dir_result, make_default_backup_dir_name()))
+def backup_button_click():
+    if config_dict['auto_backup_enabled']:
+        messagebox.showinfo("Backups", "Auto backup is ON!\n\nAll your backups are here!")
+        webbrowser.open(backup_path)
+    else:
+        messagebox.showinfo("Backups", "Auto backup is OFF!\n\nSelect a folder to save a backup.")
+        dir_result = filedialog.askdirectory(initialdir=os.path.join(os.path.expanduser('~'), "Desktop"))
+        if len(dir_result) <= 0:
+            return
+        save_everything(os.path.join(dir_result, make_default_backup_dir_name()))
 
 def key_button_click_event(event):
     key_button_click(event.widget)
@@ -623,7 +650,7 @@ root_folder_path_label.place(x=155, y=0)
 save_button = Button(root_folder_lf, text="Save", command=save_click, state=DISABLED)
 save_button.place(x=535, y=0, width=50)
 
-save_as_button = Button(root_folder_lf, text="Backup...", command=save_as_click, state=DISABLED)
+save_as_button = Button(root_folder_lf, text="Backup...", command=backup_button_click, state=DISABLED)
 save_as_button.place(x=590, y=0, width=65)
 
 save_result_label = Label(master=root_folder_lf, text="")
@@ -1143,7 +1170,7 @@ def create_keyboard_layout_window():
     keymap_instruction_label.place(x=45, y=185)
     keymap_instruction_label.bind("<Button-1>", keymap_instruction_click)
 
-settings_lf = LabelFrame(root, text="Settings", width=516, height=65)
+settings_lf = LabelFrame(root, text="Settings", width=516, height=90)
 settings_lf.place(x=10, y=525) 
 enter_sleep_mode_label = Label(master=settings_lf, text="Sleep after: Never")
 enter_sleep_mode_label.place(x=10, y=0)
@@ -1154,11 +1181,20 @@ sleepmode_slider.set(0)
 sleepmode_slider.place(x=10, y=20)
 sleepmode_slider.config(state=DISABLED)
 
-updates_lf = LabelFrame(root, text="Updates", width=253, height=65)
+def auto_backup_click():
+    config_dict['auto_backup_enabled'] = bool(auto_backup_checkbox_var.get())
+    save_config()
+
+auto_backup_checkbox_var = IntVar()
+auto_backup_checkbox_var.set(int(config_dict['auto_backup_enabled']))
+auto_backup_checkbox = Checkbutton(settings_lf, text="profile auto-backup", variable=auto_backup_checkbox_var, command=auto_backup_click)
+auto_backup_checkbox.place(x=10, y=45)
+
+updates_lf = LabelFrame(root, text="Updates", width=253, height=90)
 updates_lf.place(x=536, y=525)
 
 pc_app_update_label = Label(master=updates_lf)
-pc_app_update_label.place(x=5, y=-2)
+pc_app_update_label.place(x=5, y=10)
 update_stats = check_update.get_pc_app_update_status(THIS_VERSION_NUMBER)
 
 if update_stats == 0:
@@ -1172,7 +1208,7 @@ else:
     pc_app_update_label.unbind("<Button-1>")
 
 dp_fw_update_label = Label(master=updates_lf, text="Firmware: Unknown")
-dp_fw_update_label.place(x=5, y=20)
+dp_fw_update_label.place(x=5, y=35)
 
 keyboard_layout_button = Button(settings_lf, text="Keyboard Layouts...", command=create_keyboard_layout_window, state=DISABLED)
 keyboard_layout_button.place(x=220, y=13, width=140, height=BUTTON_HEIGHT)
