@@ -18,6 +18,7 @@ from tkinter import messagebox
 import urllib.request
 from appdirs import *
 import json
+import subprocess
 
 def ensure_dir(dir_path):
     if not os.path.exists(dir_path):
@@ -30,7 +31,7 @@ backup_path = os.path.join(save_path, 'profile_backups')
 ensure_dir(save_path)
 ensure_dir(backup_path)
 save_filename = os.path.join(save_path, 'config.txt')
-
+print(backup_path)
 config_dict = {}
 config_dict['auto_backup_enabled'] = True
 
@@ -576,7 +577,12 @@ def save_click():
 def backup_button_click():
     if config_dict['auto_backup_enabled']:
         messagebox.showinfo("Backups", "Auto backup is ON!\n\nAll your backups are here!")
-        webbrowser.open(backup_path)
+        if 'darwin' in sys.platform:
+        	subprocess.Popen(["open", backup_path])
+        elif 'linux' in sys.platform:
+        	subprocess.Popen(["xdg-open", backup_path])
+        else:
+        	webbrowser.open(backup_path)
     else:
         messagebox.showinfo("Backups", "Auto backup is OFF!\n\nSelect a folder to save a backup.")
         dir_result = filedialog.askdirectory(initialdir=os.path.join(os.path.expanduser('~'), "Desktop"))
