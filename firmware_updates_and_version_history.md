@@ -6,15 +6,23 @@
 
 ## Latest Firmware
 
-### 0.17.0
+### 0.18.0
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.17.0.dfu)
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.18.0.dfu)
 
-* `LOOP` counter is no longer reset during sleep.
+🆕 **Mouse support!** [Click me for details.](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#mouse-buttons)
 
-* Key colour changes also persist through sleep now.
+🆕 **Profile auto-switching** support! [Switch profiles automatically](https://github.com/dekuNukem/duckyPad-profile-autoswitcher) based on currently active window!
 
-* `MENU` key now works properly.
+🆕 [Two-way HID communication](https://github.com/dekuNukem/duckyPad-profile-autoswitcher/blob/master/HID_details.md) support! Write your own software to control duckyPad!
+
+⚠️ As this is a fairly large update, there might be some bugs lurking around. [Let me know](#questions-or-comments) if you run into one!
+
+⚠️ Known issues:
+
+* An user reported capitalized letters not working on Chromebook, let me know if that's the case on yours!
+
+* Some AMD B550/X570 motherboard users reported disconnection issues. This is a chipset bug. [Apply the patch](https://www.pcmag.com/news/amd-locates-root-cause-of-usb-issues-on-b550-x570-motherboards) or use it through an USB hub should fix it.
 
 ## USB Firmware Updates
 
@@ -81,6 +89,24 @@ Hold DFU button and connect duckyPad, then run:
 After completion, press **`RESET`** button (or power-cycle) to start using the new firmware. 
 
 ## Firmware Version History
+
+### 0.18.0
+
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.18.0.dfu)
+
+🆕 **Mouse support!** [Click me for details.](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#mouse-buttons)
+
+🆕 **Profile auto-switching** support! [Switch profiles automatically](https://github.com/dekuNukem/duckyPad-profile-autoswitcher) based on currently active window!
+
+🆕 [Two-way HID communication](https://github.com/dekuNukem/duckyPad-profile-autoswitcher/blob/master/HID_details.md) support! Write your own software to control duckyPad!
+
+⚠️ As this is a fairly large update, there might be some bugs lurking around. [Let me know](#questions-or-comments) if you run into one!
+
+⚠️ Known issues:
+
+* An user reported capitalized letters not working on Chromebook, let me know if that's the case on yours!
+
+* Some AMD B550/X570 motherboard users reported disconnection issues. This is a chipset bug. [Apply the patch](https://www.pcmag.com/news/amd-locates-root-cause-of-usb-issues-on-b550-x570-motherboards) or use it through an USB hub should fix it.
 
 ### 0.17.0
 
