@@ -1193,7 +1193,7 @@ def auto_backup_click():
 
 auto_backup_checkbox_var = IntVar()
 auto_backup_checkbox_var.set(int(config_dict['auto_backup_enabled']))
-auto_backup_checkbox = Checkbutton(settings_lf, text="profile auto-backup", variable=auto_backup_checkbox_var, command=auto_backup_click)
+auto_backup_checkbox = Checkbutton(settings_lf, text="Profile auto-backup", variable=auto_backup_checkbox_var, command=auto_backup_click)
 auto_backup_checkbox.place(x=10, y=45)
 
 updates_lf = LabelFrame(root, text="Updates", width=253, height=90)
