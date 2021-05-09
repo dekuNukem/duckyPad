@@ -15,7 +15,7 @@ except Exception as e:
 	print("update_firmware_ref: get latest dfu exception:", e)
 	exit()
 
-readme_file = open('firmware_updates_and_version_history.md')
+readme_file = open('firmware_updates_and_version_history.md', encoding='utf8')
 readme_lines = readme_file.readlines()
 readme_file.close()
 
@@ -26,7 +26,7 @@ for index, line in enumerate(readme_lines):
 		changes_made = True
 
 if changes_made:
-	readme_file = open('firmware_updates_and_version_history.md', 'w')
+	readme_file = open('firmware_updates_and_version_history.md', 'w', encoding='utf8')
 	readme_file.writelines(readme_lines)
 	readme_file.close()
 	print('update_firmware_ref: Success')
