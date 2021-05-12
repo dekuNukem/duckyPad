@@ -22,7 +22,7 @@ import subprocess
 
 def ensure_dir(dir_path):
     if not os.path.exists(dir_path):
-        os.mkdir(dir_path)
+        os.mkdirs(dir_path)
 
 appname = 'duckypad_config'
 appauthor = 'dekuNukem'
@@ -56,7 +56,7 @@ default_button_color = 'SystemButtonFace'
 if 'linux' in sys.platform:
     default_button_color = 'grey'
 
-THIS_VERSION_NUMBER = '0.12.0'
+THIS_VERSION_NUMBER = '0.12.1'
 MAIN_WINDOW_WIDTH = 800
 MAIN_WINDOW_HEIGHT = 625
 MAIN_COLOUM_HEIGHT = 533
