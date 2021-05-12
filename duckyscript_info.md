@@ -217,8 +217,6 @@ Those special keys can be used on their own:
 
 ### Mouse Buttons
 
-[PLANNED ON NEXT FIRMWARE UPDATE]
-
 * `LMOUSE`: Click LEFT mouse button
 
 * `RMOUSE`: Click RIGHT mouse button
@@ -226,8 +224,6 @@ Those special keys can be used on their own:
 * `MMOUSE`: Click MIDDLE mouse button
 
 ### MOUSE_MOVE X Y
-
-[PLANNED ON NEXT FIRMWARE UPDATE]
 
 Move mouse cursor `X` pixels horizontally, and `Y` pixels vertically.
 
@@ -242,8 +238,6 @@ Move mouse cursor `X` pixels horizontally, and `Y` pixels vertically.
 * Use `REPEAT` command to move further.
 
 ### MOUSE_WHEEL X
-
-[PLANNED ON NEXT FIRMWARE UPDATE]
 
 Scroll mouse wheel `X` lines.
 

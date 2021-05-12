@@ -205,9 +205,9 @@ Press `Keyboard Layouts...` button to open its setting:
 
 * No storage media is 100% reliable, so it is very important to **`make backups`**!
 
-* To do so, press `Save as...` and select an empty folder.
+* By default, a local backup is created every time `Save` button is pressed.
 
-* Or just manually copy everything on the SD card to somewhere else.
+* Press `Backup...` button to access the backups.
 
 * To restore a backup, [format the SD card in FAT or FAT32](resources/pics/format.PNG), then copy everything back.
 
@@ -222,6 +222,10 @@ Eject the SD card from your computer, insert it into duckyPad, plug it in. It sh
 * **`Hold down`** `+` button for profile quickswitch.
 
 * **`Hold down`** `-` button to change RGB backlight brightness.
+
+### Profile auto-switching
+
+You can also [use this app](https://github.com/dekuNukem/duckyPad-profile-autoswitcher) to **switch profiles automatically** based on **current active window**. Check it out!
 
 ## Tips and Tricks
 

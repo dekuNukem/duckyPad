@@ -58,6 +58,7 @@ Finally, here's a video of duckyPad in action!
 * **`OLED Screen`**, showing profile and key names.
 * Powerful multi-line scripting with [duckyScript](duckyscript_info.md).
 * 32 profiles of 15 keys, for a total of 480 scripts.
+* [Automatic profile switching](https://github.com/dekuNukem/duckyPad-profile-autoswitcher) based on active window.
 * microSD storage
 * USB-C Connector
 * Works with all major OSs, no driver needed.
