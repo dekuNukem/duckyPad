@@ -3958,6 +3958,25 @@ by exp-lbrs.ulp</description>
 <text x="-4.2" y="0.75" size="1.27" layer="22" rot="R180" align="center">-</text>
 <rectangle x1="-1.8" y1="-1.6" x2="1.8" y2="1.6" layer="46"/>
 </package>
+<package name="KAILH_SWITCH_SOCKET_SWITCH_SOCKET">
+<wire x1="0.04" y1="3.08" x2="4.93" y2="3.08" width="0.15" layer="22"/>
+<wire x1="-6.2" y1="2.16" x2="-6.2" y2="2.11" width="0.15" layer="22"/>
+<wire x1="-6.2" y1="2.11" x2="-6.2" y2="0.54" width="0.15" layer="22"/>
+<wire x1="-6.2" y1="0.54" x2="-2.5" y2="0.54" width="0.15" layer="22"/>
+<wire x1="-2.5" y1="0.54" x2="0.04" y2="3.08" width="0.15" layer="22" curve="-90"/>
+<wire x1="4.93" y1="3.08" x2="4.93" y2="7.08" width="0.15" layer="22"/>
+<wire x1="4.93" y1="7.08" x2="-3.66" y2="7.08" width="0.15" layer="22"/>
+<wire x1="-3.66" y1="7.08" x2="-6.2" y2="4.54" width="0.15" layer="22" curve="90"/>
+<wire x1="-6.2" y1="4.54" x2="-6.2" y2="2.16" width="0.15" layer="22"/>
+<smd name="1" x="6.355" y="5.08" dx="3.2" dy="2.4" layer="16"/>
+<smd name="2" x="-7.625" y="2.54" dx="3.2" dy="2.4" layer="16"/>
+<text x="0" y="7.62" size="1.27" layer="26" ratio="12" rot="MR0" align="bottom-center">&gt;NAME</text>
+<hole x="0" y="0" drill="4"/>
+<hole x="-3.81" y="2.54" drill="3.1"/>
+<hole x="2.54" y="5.08" drill="3.1"/>
+<hole x="-5.08" y="0" drill="1.7"/>
+<hole x="5.08" y="0" drill="1.7"/>
+</package>
 </packages>
 <symbols>
 <symbol name="WS2812BLED">
@@ -4066,6 +4085,15 @@ by exp-lbrs.ulp</description>
 <text x="12.7" y="12.065" size="1.778" layer="97">0</text>
 <text x="12.7" y="6.985" size="1.778" layer="97">0</text>
 </symbol>
+<symbol name="KAILH_SWITCH_SOCKET_SPST">
+<wire x1="-5.08" y1="0" x2="-2.54" y2="2.54" width="0.1524" layer="94"/>
+<wire x1="-2.54" y1="2.54" x2="0" y2="2.54" width="0.1524" layer="94"/>
+<wire x1="5.08" y1="0" x2="0" y2="0" width="0.1524" layer="94"/>
+<pin name="1" x="-5.08" y="0" visible="pad" length="point" direction="pas"/>
+<pin name="2" x="5.08" y="0" visible="pad" length="point" direction="pas" rot="R180"/>
+<text x="-5.08" y="2.54" size="1.778" layer="95">&gt;NAME</text>
+<text x="-5.08" y="5.08" size="1.778" layer="96">&gt;VALUE</text>
+</symbol>
 </symbols>
 <devicesets>
 <deviceset name="WS2812B" prefix="LED">
@@ -4136,6 +4164,22 @@ by exp-lbrs.ulp</description>
 <connect gate="G$1" pin="VDD" pad="9"/>
 <connect gate="G$1" pin="VLSS" pad="29"/>
 <connect gate="G$1" pin="VSS" pad="8 31 32"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="KAILH_SWITCH_SOCKET_KAILH_SWITCH_SOCKET" prefix="SW">
+<gates>
+<gate name="G$1" symbol="KAILH_SWITCH_SOCKET_SPST" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="KAILH_SWITCH_SOCKET_SWITCH_SOCKET">
+<connects>
+<connect gate="G$1" pin="1" pad="2"/>
+<connect gate="G$1" pin="2" pad="1"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -4925,58 +4969,6 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <connect gate="G$1" pin="2" pad="P$2"/>
 <connect gate="G$1" pin="3" pad="P$3"/>
 <connect gate="G$1" pin="4" pad="P$4"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
-<library name="Kailh_switch_socket">
-<packages>
-<package name="SWITCH_SOCKET">
-<hole x="0" y="0" drill="4"/>
-<hole x="-3.81" y="2.54" drill="3.1"/>
-<hole x="2.54" y="5.08" drill="3.1"/>
-<smd name="2" x="-7.625" y="2.54" dx="2.7" dy="2" layer="16"/>
-<smd name="1" x="6.355" y="5.08" dx="2.7" dy="2" layer="16"/>
-<hole x="-5.08" y="0" drill="1.7"/>
-<hole x="5.08" y="0" drill="1.7"/>
-<wire x1="1.27" y1="7.08" x2="4.93" y2="7.08" width="0.15" layer="22"/>
-<wire x1="0.04" y1="3.08" x2="4.93" y2="3.08" width="0.15" layer="22"/>
-<wire x1="-6.2" y1="2.16" x2="-6.2" y2="0.54" width="0.15" layer="22"/>
-<wire x1="-6.2" y1="0.54" x2="-2.5" y2="0.54" width="0.15" layer="22"/>
-<wire x1="-2.5" y1="0.54" x2="0.04" y2="3.08" width="0.15" layer="22" curve="-90"/>
-<wire x1="4.93" y1="3.08" x2="4.93" y2="7.08" width="0.15" layer="22"/>
-<wire x1="1.285" y1="7.08" x2="-3.66" y2="7.08" width="0.15" layer="22"/>
-<wire x1="-3.66" y1="7.08" x2="-6.2" y2="4.54" width="0.15" layer="22" curve="90"/>
-<wire x1="-6.2" y1="4.54" x2="-6.2" y2="2.11" width="0.15" layer="22"/>
-<text x="0" y="7.62" size="1.27" layer="26" ratio="12" rot="MR0" align="bottom-center">&gt;NAME</text>
-</package>
-</packages>
-<symbols>
-<symbol name="SPST">
-<pin name="1" x="-5.08" y="0" visible="pad" length="point" direction="pas"/>
-<pin name="2" x="5.08" y="0" visible="pad" length="point" direction="pas" rot="R180"/>
-<text x="-5.08" y="2.54" size="1.778" layer="95">&gt;NAME</text>
-<text x="-5.08" y="5.08" size="1.778" layer="96">&gt;VALUE</text>
-<wire x1="-5.08" y1="0" x2="-2.54" y2="2.54" width="0.1524" layer="94"/>
-<wire x1="-2.54" y1="2.54" x2="0" y2="2.54" width="0.1524" layer="94"/>
-<wire x1="5.08" y1="0" x2="0" y2="0" width="0.1524" layer="94"/>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="KAILH_SWITCH_SOCKET" prefix="SW">
-<gates>
-<gate name="G$1" symbol="SPST" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="SWITCH_SOCKET">
-<connects>
-<connect gate="G$1" pin="1" pad="2"/>
-<connect gate="G$1" pin="2" pad="1"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -6292,21 +6284,21 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="GND16" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="SW3" library="3pos_slide_switch_centered" deviceset="324_SW" device="" value="324_SW"/>
 <part name="SW4" library="3pos_slide_switch_centered" deviceset="324_SW" device="" value="324_SW"/>
-<part name="SW5" library="Kailh_switch_socket" deviceset="KAILH_SWITCH_SOCKET" device=""/>
-<part name="SW6" library="Kailh_switch_socket" deviceset="KAILH_SWITCH_SOCKET" device=""/>
-<part name="SW7" library="Kailh_switch_socket" deviceset="KAILH_SWITCH_SOCKET" device=""/>
-<part name="SW8" library="Kailh_switch_socket" deviceset="KAILH_SWITCH_SOCKET" device=""/>
-<part name="SW9" library="Kailh_switch_socket" deviceset="KAILH_SWITCH_SOCKET" device=""/>
-<part name="SW10" library="Kailh_switch_socket" deviceset="KAILH_SWITCH_SOCKET" device=""/>
-<part name="SW11" library="Kailh_switch_socket" deviceset="KAILH_SWITCH_SOCKET" device=""/>
-<part name="SW12" library="Kailh_switch_socket" deviceset="KAILH_SWITCH_SOCKET" device=""/>
-<part name="SW13" library="Kailh_switch_socket" deviceset="KAILH_SWITCH_SOCKET" device=""/>
-<part name="SW14" library="Kailh_switch_socket" deviceset="KAILH_SWITCH_SOCKET" device=""/>
-<part name="SW15" library="Kailh_switch_socket" deviceset="KAILH_SWITCH_SOCKET" device=""/>
-<part name="SW16" library="Kailh_switch_socket" deviceset="KAILH_SWITCH_SOCKET" device=""/>
-<part name="SW17" library="Kailh_switch_socket" deviceset="KAILH_SWITCH_SOCKET" device=""/>
-<part name="SW18" library="Kailh_switch_socket" deviceset="KAILH_SWITCH_SOCKET" device=""/>
-<part name="SW19" library="Kailh_switch_socket" deviceset="KAILH_SWITCH_SOCKET" device=""/>
+<part name="SW5" library="lul" deviceset="KAILH_SWITCH_SOCKET_KAILH_SWITCH_SOCKET" device=""/>
+<part name="SW6" library="lul" deviceset="KAILH_SWITCH_SOCKET_KAILH_SWITCH_SOCKET" device=""/>
+<part name="SW7" library="lul" deviceset="KAILH_SWITCH_SOCKET_KAILH_SWITCH_SOCKET" device=""/>
+<part name="SW8" library="lul" deviceset="KAILH_SWITCH_SOCKET_KAILH_SWITCH_SOCKET" device=""/>
+<part name="SW9" library="lul" deviceset="KAILH_SWITCH_SOCKET_KAILH_SWITCH_SOCKET" device=""/>
+<part name="SW10" library="lul" deviceset="KAILH_SWITCH_SOCKET_KAILH_SWITCH_SOCKET" device=""/>
+<part name="SW11" library="lul" deviceset="KAILH_SWITCH_SOCKET_KAILH_SWITCH_SOCKET" device=""/>
+<part name="SW12" library="lul" deviceset="KAILH_SWITCH_SOCKET_KAILH_SWITCH_SOCKET" device=""/>
+<part name="SW13" library="lul" deviceset="KAILH_SWITCH_SOCKET_KAILH_SWITCH_SOCKET" device=""/>
+<part name="SW14" library="lul" deviceset="KAILH_SWITCH_SOCKET_KAILH_SWITCH_SOCKET" device=""/>
+<part name="SW15" library="lul" deviceset="KAILH_SWITCH_SOCKET_KAILH_SWITCH_SOCKET" device=""/>
+<part name="SW16" library="lul" deviceset="KAILH_SWITCH_SOCKET_KAILH_SWITCH_SOCKET" device=""/>
+<part name="SW17" library="lul" deviceset="KAILH_SWITCH_SOCKET_KAILH_SWITCH_SOCKET" device=""/>
+<part name="SW18" library="lul" deviceset="KAILH_SWITCH_SOCKET_KAILH_SWITCH_SOCKET" device=""/>
+<part name="SW19" library="lul" deviceset="KAILH_SWITCH_SOCKET_KAILH_SWITCH_SOCKET" device=""/>
 <part name="U$8" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
 <part name="U$12" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
 <part name="U$13" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
