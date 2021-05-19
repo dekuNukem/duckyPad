@@ -78,6 +78,12 @@ You'll need select a different keyboard layout.
 
 Please [update your duckyPad to the latest firmware](https://github.com/dekuNukem/duckyPad/blob/master/firmware_updates_and_version_history.md) to fix this issue.
 
+## My duckyPad stopped working on latest firmware!
+
+If your duckyPad fails to work after updating to latest firmware (0.18.0+), you are most likely affected by a USB chipset bug on recent AMD motherboards.
+
+[Take a look at this article for possible solutions](https://www.tomshardware.com/uk/news/amd-suggest-possible-fixes-for-usb-connectivity-issues). You can also plug it in through a USB hub, which should work.
+
 ## My script behaves inconsistently!
 
 duckyPad might be typing too fast for your computer.

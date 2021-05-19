@@ -21,6 +21,7 @@ But more crucially, duckyPad also features **previous-unseen-in-macropads** inno
 * **OLED** screen showing what each key does
 * Sophisticated **multi-line scripting** with [duckyScript](duckyscript_info.md)
 * **32 profiles** of 15 keys, 480 macros total.
+* [Automatic profile switching](https://github.com/dekuNukem/duckyPad-profile-autoswitcher) based on active window.
 * microSD card storage, move between devices without losing macros.
 * No driver needed, works out-of-box on anything that supports USB keyboards.
 
