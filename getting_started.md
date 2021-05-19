@@ -309,6 +309,8 @@ To do this, duckyPad can be set up to press a simple combo like `WIN + F1`, whic
 
 Check out the [official tutorials](https://www.autohotkey.com/docs_1.0/Tutorial.htm), the [autohotkey profile](sample_profiles/profile7_autohotkey), and the [sample autohotkey script](resources/duckypad_autohotkey_script.ahk) upon which you can tinker with.
 
+[Follow this guide](https://www.autohotkey.com/docs/FAQ.htm#Startup) to run your AHK scripts automatically on Windows startup.
+
 For macOS, you can try [bettertouchtool](https://folivora.ai).
 
 ## I'm having issues!
