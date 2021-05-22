@@ -31,7 +31,7 @@ FILINFO fno;
 uint8_t mount_result;
 uint8_t has_valid_profiles;
 uint16_t cmd_delay, char_delay;
-unsigned int ignore_this;
+unsigned int bytes_read;
 duckypad_parsed_command my_dpc;
 char temp_buf[PATH_SIZE];
 char lfn_buf[FILENAME_SIZE];
@@ -356,35 +356,24 @@ uint8_t how_many_digits(uint8_t number)
   return 1;
 }
 
-// void list_files(void)
-// {
-//   char* profile_fn;
-//   fno.lfname = lfn_buf; 
-//   fno.lfsize = FILENAME_SIZE - 1;
-//   if (f_opendir(&dir, "/") != FR_OK)
-//     goto list_file_end;
-//   memset(temp_buf, 0, PATH_SIZE);
-
-//   while(1)
-//   {
-//     memset(lfn_buf, 0, FILENAME_SIZE);
-//     if (f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)
-//       break;
-//     if (fno.fattrib & AM_DIR)
-//     {
-//       profile_fn = fno.lfname[0] ? fno.lfname : fno.fname;
-//       printf("d: %s\n", profile_fn);
-//     }
-//     else
-//     {
-//       profile_fn = fno.lfname[0] ? fno.lfname : fno.fname;
-//       printf("f: %s\n", profile_fn);
-//     }
-//   }
-//   printf("\n");
-//   list_file_end:
-//   f_closedir(&dir);
-// }
+void testest(void)
+{
+  // memset(temp_buf, 0, PATH_SIZE);
+  // sprintf(temp_buf, "dp_stats.txt");
+  // if(f_open(&sd_file, temp_buf, FA_READ) != 0)
+  //   goto kp_end;
+  // while(1)
+  // {
+  //   f_read(&sd_file, read_buffer, 10, &bytes_read);
+  //   printf("tt %s\n", read_buffer);
+  //   memset(read_buffer, 0, READ_BUF_SIZE);
+  //   if(bytes_read < 10)
+  //     break;
+  // }
+  // kp_end:
+  // printf("done\n");
+  // f_close(&sd_file);
+}
 
 // find out what profile folders are available
 void scan_profiles(void)
@@ -541,7 +530,7 @@ void save_last_profile(uint8_t profile_id)
     goto slp_end;
   memset(temp_buf, 0, PATH_SIZE);
   sprintf(temp_buf, "lp %d\nfw %d.%d.%d\nser %s", profile_id, fw_version_major, fw_version_minor, fw_version_patch, make_serial_string());
-  f_write(&sd_file, temp_buf, strlen(temp_buf), &ignore_this);
+  f_write(&sd_file, temp_buf, strlen(temp_buf), &bytes_read);
   slp_end:
   f_close(&sd_file);
 }
@@ -570,7 +559,7 @@ void save_settings(void)
     goto ss_end;
   memset(temp_buf, 0, PATH_SIZE);
   sprintf(temp_buf, "sleep_after_min %d\nbi %d\nkbl %s\n", dp_settings.sleep_after_ms/60000, brightness_index, curr_kb_layout);
-  f_write(&sd_file, temp_buf, strlen(temp_buf), &ignore_this);
+  f_write(&sd_file, temp_buf, strlen(temp_buf), &bytes_read);
   ss_end:
   f_close(&sd_file);
 }

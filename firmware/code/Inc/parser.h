@@ -30,6 +30,7 @@ extern FILINFO fno;
 extern uint8_t mount_result;
 extern uint8_t has_valid_profiles;
 extern char temp_buf[PATH_SIZE];
+extern unsigned int bytes_read;
 
 typedef struct
 {
@@ -79,7 +80,7 @@ void save_last_profile(uint8_t profile_id);
 void list_profiles(uint8_t page);
 void print_keyname(char* keyname, uint8_t keynum, int8_t x_offset, int8_t y_offset);
 char* goto_next_arg(char* buf, char* buf_end);
-// void list_files(void);
+void testest(void);
 
 extern profile_cache p_cache;
 extern char temp_buf[PATH_SIZE];
