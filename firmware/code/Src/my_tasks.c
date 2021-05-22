@@ -688,6 +688,7 @@ void handle_hid_command(void)
       goto hid_read_file_end;
 
     uint8_t count = 0;
+    hid_rx_has_unprocessed_data = 0;
     while(1)
     {
       memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
@@ -698,6 +699,10 @@ void handle_hid_command(void)
       strncpy(hid_tx_buf+3, read_buffer, bytes_read);
       USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
       osDelay(HID_TX_DELAY);
+
+      while(hid_rx_has_unprocessed_data == 0);
+      printf("got new!\n");
+
       memset(read_buffer, 0, READ_BUF_SIZE);
       if(bytes_read < HID_FILE_READ_BUF_SIZE)
         break;

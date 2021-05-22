@@ -75,7 +75,7 @@
 #define CUSTOM_HID_REQ_GET_REPORT            0x01
 
 extern uint8_t hid_rx_buf[HID_RX_BUF_SIZE];
-extern uint8_t hid_rx_has_unprocessed_data;
+extern volatile uint8_t hid_rx_has_unprocessed_data;
 
 /**
   * @}

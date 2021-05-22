@@ -51,7 +51,7 @@
 #include "usbd_ctlreq.h"
 
 uint8_t hid_rx_buf[HID_RX_BUF_SIZE];
-uint8_t hid_rx_has_unprocessed_data;
+volatile uint8_t hid_rx_has_unprocessed_data;
 
 /** @addtogroup STM32_USB_DEVICE_LIBRARY
   * @{
