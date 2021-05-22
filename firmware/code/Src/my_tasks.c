@@ -487,8 +487,8 @@ uint8_t hid_tx_buf[HID_TX_BUF_SIZE];
 #define HID_RESPONSE_BUSY 2
 #define HID_RESPONSE_EOF 3
 
-#define HID_FILE_READ_BUF_SIZE 55
-#define HID_TX_DELAY 35
+#define HID_FILE_READ_BUF_SIZE 60
+#define HID_TX_DELAY 25
 
 void handle_hid_command(void)
 {
