@@ -27,6 +27,7 @@ HID_RESPONSE_BUSY = 2
 HID_RESPONSE_EOF = 3
 HID_COMMAND_OP_RESUME = 12
 HID_COMMAND_OP_ABORT = 13
+# HID_WAIT_TIME = 0.005
 
 h = hid.device()
 
@@ -48,6 +49,7 @@ def duckypad_list_files(root_dir = None):
 
 	h.write(pc_to_duckypad_buf)
 	while 1:
+		# time.sleep(HID_WAIT_TIME)
 		result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
 		if len(result) == 0 or result[2] == HID_RESPONSE_EOF:
 			break
@@ -76,8 +78,8 @@ def duckypad_read_file(file_dir):
 		pc_to_duckypad_buf[3+x] = ord(file_dir[x])
 
 	h.write(pc_to_duckypad_buf)
-
 	while 1:
+		# time.sleep(HID_WAIT_TIME)
 		result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
 		# print(result)
 		print("".join([chr(x) for x in result]))
@@ -111,7 +113,6 @@ def dump_from_hid():
 		file_struct_list.append(my_file_obj(item[0], item[1], None))
 
 	for item in file_struct_list:
-		time.sleep(0.06)
 		if item.type == 0:
 			item.content = duckypad_read_file(item.name)
 		if item.type == 1:
@@ -122,7 +123,6 @@ def dump_from_hid():
 			for fff in files_in_this_dir:
 				if fff[1] != 0:
 					continue
-				time.sleep(0.06)
 				lv2_list.append(my_file_obj(fff[0], fff[1], duckypad_read_file(item.name + "/" + fff[0])))
 			item.content = lv2_list
 
@@ -149,9 +149,9 @@ start = time.time()
 dump_from_hid()
 print('took', time.time() - start)
 
-
 # duckypad_read_file("dp_settings.txt")
 
 h.close()
 # duckypad_read_file("keymaps/dpkm_Finnish.txt")
 
+input()

@@ -490,7 +490,7 @@ uint8_t hid_tx_buf[HID_TX_BUF_SIZE];
 #define HID_RESPONSE_EOF 3
 
 #define HID_FILE_READ_BUF_SIZE 60
-#define HID_TX_DELAY 25
+#define HID_TX_DELAY 10
 
 /*
   HID OP RESUME
