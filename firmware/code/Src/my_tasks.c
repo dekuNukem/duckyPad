@@ -481,6 +481,8 @@ uint8_t hid_tx_buf[HID_TX_BUF_SIZE];
 #define HID_COMMAND_UPDATE_SCREEN 9
 #define HID_COMMAND_LIST_FILES 10
 #define HID_COMMAND_READ_FILE 11
+#define HID_COMMAND_OP_RESUME 12
+#define HID_COMMAND_OP_ABORT 13
 
 #define HID_RESPONSE_OK 0
 #define HID_RESPONSE_ERROR 1
@@ -489,6 +491,23 @@ uint8_t hid_tx_buf[HID_TX_BUF_SIZE];
 
 #define HID_FILE_READ_BUF_SIZE 60
 #define HID_TX_DELAY 25
+
+/*
+  HID OP RESUME
+  -----------
+  PC to duckyPad:
+  [0]   report_id: always 5
+  [1]   seq number
+  [2]   command: 12
+  -----------
+  duckyPad to PC
+  next line/blob of file
+  */
+uint8_t check_resume(void)
+{
+  while(hid_rx_has_unprocessed_data == 0);
+  return hid_rx_buf[2] == HID_COMMAND_OP_RESUME;
+}
 
 void handle_hid_command(void)
 {
@@ -643,6 +662,7 @@ void handle_hid_command(void)
     memset(temp_buf, 0, PATH_SIZE);
     while(1)
     {
+      hid_rx_has_unprocessed_data = 0;
       memset(lfn_buf, 0, FILENAME_SIZE);
       memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
       hid_tx_buf[0] = 4;
@@ -656,7 +676,10 @@ void handle_hid_command(void)
       this_filename = fno.lfname[0] ? fno.lfname : fno.fname;
       strncpy(hid_tx_buf+4, this_filename, FILENAME_SIZE);
       USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
-      osDelay(HID_TX_DELAY);
+      
+      if(check_resume() == 0)
+        goto hid_read_file_end;
+
     }
     list_file_end:
     memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
@@ -666,6 +689,7 @@ void handle_hid_command(void)
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
     osDelay(HID_TX_DELAY);
     f_closedir(&dir);
+    hid_rx_has_unprocessed_data = 0;
   }
    /*
   HID READ FILE
@@ -688,9 +712,9 @@ void handle_hid_command(void)
       goto hid_read_file_end;
 
     uint8_t count = 0;
-    hid_rx_has_unprocessed_data = 0;
     while(1)
     {
+      hid_rx_has_unprocessed_data = 0;
       memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
       hid_tx_buf[0] = 4;
       hid_tx_buf[1] = seq_number + count;
@@ -698,10 +722,9 @@ void handle_hid_command(void)
       f_read(&sd_file, read_buffer, HID_FILE_READ_BUF_SIZE, &bytes_read);
       strncpy(hid_tx_buf+3, read_buffer, bytes_read);
       USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
-      osDelay(HID_TX_DELAY);
 
-      while(hid_rx_has_unprocessed_data == 0);
-      printf("got new!\n");
+      if(check_resume() == 0)
+        goto hid_read_file_end;
 
       memset(read_buffer, 0, READ_BUF_SIZE);
       if(bytes_read < HID_FILE_READ_BUF_SIZE)
@@ -716,6 +739,7 @@ void handle_hid_command(void)
     hid_tx_buf[2] = HID_RESPONSE_EOF;
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
     osDelay(HID_TX_DELAY);
+    hid_rx_has_unprocessed_data = 0;
   }
   /*
     unknown command
