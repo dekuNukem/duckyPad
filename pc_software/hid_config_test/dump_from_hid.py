@@ -53,6 +53,8 @@ def duckypad_list_files(root_dir = None):
 		result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
 		if len(result) == 0 or result[2] == HID_RESPONSE_EOF:
 			break
+		if result[2] == HID_RESPONSE_BUSY or result[2] == HID_RESPONSE_ERROR:
+			raise OSError("HID read error or busy")
 		# print(result)
 		this_filename = ("".join([chr(x) for x in result[4:]]).strip('\0'), result[3])
 		print(this_filename)
@@ -81,6 +83,8 @@ def duckypad_read_file(file_dir):
 	while 1:
 		# time.sleep(HID_WAIT_TIME)
 		result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
+		if result[2] == HID_RESPONSE_BUSY or result[2] == HID_RESPONSE_ERROR:
+			raise OSError("HID read error or busy")
 		# print(result)
 		print("".join([chr(x) for x in result]))
 		ret += "".join([chr(x) for x in result[3:]]).strip('\0')
@@ -127,23 +131,6 @@ def dump_from_hid():
 			item.content = lv2_list
 
 	pickle.dump(file_struct_list, open("save.p", "wb" ))
-
-	# for key in file_struct_list:
-	# 	print(key)
-	# 	time.sleep(0.05)
-	# 	if file_struct_list[key]['type'] == 0: # file
-	# 		file_struct_list[key]['content'] = duckypad_read_file(key)
-	# 	if file_struct_list[key]['type'] == 1: # directory
-	# 		files_in_this_dir = duckypad_list_files(key)
-	# 		print(files_in_this_dir)
-	# 		print(file_struct_list)
-	# 		# for item in files_in_this_dir:
-	# 		# 	file_struct_list[key]['content'] = {'type':item[1], 'content':None}
-
-	# 		# file_struct_list[key]['content'] = 
-	# 		input()
-
-	# [print(x) for x in file_struct_list]
 
 start = time.time()
 dump_from_hid()

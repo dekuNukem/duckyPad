@@ -1,3 +1,5 @@
+# pyinstaller.exe .\dump_from_hid.py
+
 def dump_from_hid():
 	file_struct_dict = {}
 
