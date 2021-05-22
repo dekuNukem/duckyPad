@@ -479,6 +479,14 @@ uint8_t hid_tx_buf[HID_TX_BUF_SIZE];
 #define HID_COMMAND_PRINT_BITMAP 7
 #define HID_COMMAND_CLEAR_SCREEN 8
 #define HID_COMMAND_UPDATE_SCREEN 9
+#define HID_COMMAND_LIST_FILES 10
+#define HID_RESPONSE_OK 0
+#define HID_RESPONSE_ERROR 1
+#define HID_RESPONSE_BUSY 2
+#define HID_RESPONSE_EOF 3
+
+
+
 void handle_hid_command(void)
 {
   // hid_rx_buf HID_RX_BUF_SIZE
@@ -486,7 +494,7 @@ void handle_hid_command(void)
 
   // printf("new data!\n");
   // for (int i = 0; i < HID_RX_BUF_SIZE; ++i)
-  //   printf("%d, ", hid_rx_buf[i]);
+  //   printf("%c, ", hid_rx_buf[i]);
   // printf("\ndone\n");
 
   seq_number = hid_rx_buf[1];
@@ -495,7 +503,7 @@ void handle_hid_command(void)
   memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
   hid_tx_buf[0] = 4;
   hid_tx_buf[1] = seq_number;
-  hid_tx_buf[2] = 0;
+  hid_tx_buf[2] = HID_RESPONSE_OK;
 
   /*
   duckyPad to PC
@@ -505,7 +513,7 @@ void handle_hid_command(void)
   */
   if(is_busy)
   {
-    hid_tx_buf[2] = 2;
+    hid_tx_buf[2] = HID_RESPONSE_BUSY;
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
     return;
   }
@@ -564,7 +572,7 @@ void handle_hid_command(void)
     }
     else
     {
-      hid_tx_buf[2] = 1;
+      hid_tx_buf[2] = HID_RESPONSE_ERROR;
       USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
     }
   }
@@ -607,6 +615,57 @@ void handle_hid_command(void)
     change_profile(NEXT_PROFILE);
   }
   /*
+  HID LIST FILES
+  -----------
+  PC to duckyPad:
+  [0]   report_id: always 5
+  [1]   seq number
+  [2]   command: 10
+  [3]   starting directory, zero-terminated string, all 0 for root
+  ...
+  [64]
+  -----------
+  duckyPad to PC
+  [0]   report_id: always 4
+  [1]   seq number (same as above)
+  [2]   0 = OK, 1 = ERROR, 2 = BUSY, 3 = EOF
+  [3]   file type, 0 = file, 1 = directory
+  [4 ... 63] zero-terminated string of file name
+  */
+  else if(command_type == HID_COMMAND_LIST_FILES)
+  {
+    char* profile_fn;
+    fno.lfname = lfn_buf; 
+    fno.lfsize = FILENAME_SIZE - 1;
+    if (f_opendir(&dir, hid_rx_buf+3) != FR_OK)
+      goto list_file_end;
+    memset(temp_buf, 0, PATH_SIZE);
+    while(1)
+    {
+      osDelay(33);
+      memset(lfn_buf, 0, FILENAME_SIZE);
+      memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
+      hid_tx_buf[0] = 4;
+      hid_tx_buf[1] = seq_number;
+      hid_tx_buf[2] = HID_RESPONSE_OK;
+      
+      if (f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)
+        break;
+      if (fno.fattrib & AM_DIR)
+        hid_tx_buf[3] = 1;
+      profile_fn = fno.lfname[0] ? fno.lfname : fno.fname;
+      strncpy(hid_tx_buf+4, profile_fn, FILENAME_SIZE);
+      USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
+    }
+    list_file_end:
+    memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
+    hid_tx_buf[0] = 4;
+    hid_tx_buf[1] = seq_number;
+    hid_tx_buf[2] = HID_RESPONSE_EOF;
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
+    f_closedir(&dir);
+  }
+  /*
     unknown command
     -----------
     duckyPad to PC
@@ -616,7 +675,7 @@ void handle_hid_command(void)
     */
   else
   {
-    hid_tx_buf[2] = 1;
+    hid_tx_buf[2] = HID_RESPONSE_ERROR;
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
   }
 }
@@ -660,6 +719,8 @@ void keypress_task_start(void const * argument)
           else
           {
             is_busy = 1;
+            //list_files();
+            //osDelay(50);
             handle_keypress(i, &button_status[i]); // handle the button state inside here for repeats
             is_busy = 0;
             keydown_anime_end(i);

@@ -356,6 +356,36 @@ uint8_t how_many_digits(uint8_t number)
   return 1;
 }
 
+// void list_files(void)
+// {
+//   char* profile_fn;
+//   fno.lfname = lfn_buf; 
+//   fno.lfsize = FILENAME_SIZE - 1;
+//   if (f_opendir(&dir, "/") != FR_OK)
+//     goto list_file_end;
+//   memset(temp_buf, 0, PATH_SIZE);
+
+//   while(1)
+//   {
+//     memset(lfn_buf, 0, FILENAME_SIZE);
+//     if (f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)
+//       break;
+//     if (fno.fattrib & AM_DIR)
+//     {
+//       profile_fn = fno.lfname[0] ? fno.lfname : fno.fname;
+//       printf("d: %s\n", profile_fn);
+//     }
+//     else
+//     {
+//       profile_fn = fno.lfname[0] ? fno.lfname : fno.fname;
+//       printf("f: %s\n", profile_fn);
+//     }
+//   }
+//   printf("\n");
+//   list_file_end:
+//   f_closedir(&dir);
+// }
+
 // find out what profile folders are available
 void scan_profiles(void)
 {
