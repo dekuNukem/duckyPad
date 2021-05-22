@@ -9,6 +9,7 @@ https://github.com/dekuNukem/duckyPad-profile-autoswitcher/blob/master/HID_detai
 
 import hid
 import time
+import pickle
 
 def get_duckypad_path():
 	for device_dict in hid.enumerate():
@@ -78,8 +79,8 @@ def duckypad_read_file(file_dir):
 
 	while 1:
 		result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-		print(result)
-		# print("".join([chr(x) for x in result]))
+		# print(result)
+		print("".join([chr(x) for x in result]))
 		ret += "".join([chr(x) for x in result[3:]]).strip('\0')
 		if len(result) == 0 or result[2] == HID_RESPONSE_EOF:
 			break
@@ -110,18 +111,22 @@ def dump_from_hid():
 		file_struct_list.append(my_file_obj(item[0], item[1], None))
 
 	for item in file_struct_list:
-		time.sleep(0.02)
+		time.sleep(0.06)
 		if item.type == 0:
 			item.content = duckypad_read_file(item.name)
-			print(item)
 		if item.type == 1:
 			if 'keymap' in item.name:
 				continue
 			files_in_this_dir = duckypad_list_files(item.name)
+			lv2_list = []
 			for fff in files_in_this_dir:
-				time.sleep(0.02)
-				duckypad_read_file(item.name + "/" + fff[0])
-			# input()
+				if fff[1] != 0:
+					continue
+				time.sleep(0.06)
+				lv2_list.append(my_file_obj(fff[0], fff[1], duckypad_read_file(item.name + "/" + fff[0])))
+			item.content = lv2_list
+
+	pickle.dump(file_struct_list, open("save.p", "wb" ))
 
 	# for key in file_struct_list:
 	# 	print(key)
