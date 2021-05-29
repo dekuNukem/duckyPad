@@ -20,6 +20,7 @@ from appdirs import *
 import json
 import subprocess
 import hid_op
+import threading
 
 
 def ensure_dir(dir_path):
@@ -198,9 +199,19 @@ def select_root_folder():
     update_profile_display()
     enable_buttons()
 
+HID_NOP = 0
+HID_DUMP = 1
+HID_SAVE = 2
+current_hid_op = HID_NOP
+
+# hid_dump_progress_str = StringVar()
+# hid_dump_progress_str.set('hid_dump_progress_str')
+
 def connect_button_click():
+    global current_hid_op
     try:
         hid_op.duckypad_hid_init()
+        current_hid_op = HID_DUMP
     except Exception as e:
         messagebox.showerror("Error", "Connection error: " + str(e) + "\n\nYou can mount duckyPad SD card on your PC and select it instead")
         select_root_folder()
@@ -1244,6 +1255,23 @@ def repeat_func():
     if time.time() - last_save > 2 and 'update' not in save_result_label.cget("text").lower():
         save_result_label.config(text='')
     root.after(500, repeat_func)
+
+def t1_worker():
+    global current_hid_op
+    while(1):
+        time.sleep(0.2)
+        # print(current_hid_op)
+        if current_hid_op == HID_NOP:
+            continue
+        if current_hid_op == HID_DUMP:
+            root_folder_path_label.config(foreground='navy')
+            dp_root_folder_display.set("dumping...")
+            hid_op.dump_from_hid(dp_root_folder_display)
+            current_hid_op = HID_NOP
+            dp_root_folder_display.set("done!")
+t1 = threading.Thread(target=t1_worker, daemon=True)
+t1.start()
+
 
 root.after(500, repeat_func)
 # if os.name == 'posix':

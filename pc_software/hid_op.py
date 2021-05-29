@@ -82,7 +82,7 @@ def duckypad_list_files(root_dir = None):
 			raise OSError("HID read error or busy")
 		# print(result)
 		this_filename = ("".join([chr(x) for x in result[4:]]).strip('\0'), result[3])
-		print(this_filename)
+		# print(this_filename)
 		ret.append(this_filename)
 		duckypad_hid_resume()
 	return ret
@@ -111,14 +111,14 @@ def duckypad_read_file(file_dir):
 		if result[2] == HID_RESPONSE_BUSY or result[2] == HID_RESPONSE_ERROR:
 			raise OSError("HID read error or busy")
 		# print(result)
-		print("".join([chr(x) for x in result]))
+		# print("".join([chr(x) for x in result]))
 		ret += "".join([chr(x) for x in result[3:]]).strip('\0')
 		if len(result) == 0 or result[2] == HID_RESPONSE_EOF:
 			break
 		duckypad_hid_resume()
 	return ret
 
-def dump_from_hid():
+def dump_from_hid(string_var=None):
 	file_struct_list = []
 	# top level
 	for item in duckypad_list_files():
@@ -126,6 +126,7 @@ def dump_from_hid():
 
 	for item in file_struct_list:
 		if item.type == 0:
+			string_var.set("Loading " + str(item.name))
 			item.content = duckypad_read_file(item.name)
 		if item.type == 1:
 			if 'keymap' in item.name:
@@ -133,11 +134,12 @@ def dump_from_hid():
 			files_in_this_dir = duckypad_list_files(item.name)
 			lv2_list = []
 			for fff in files_in_this_dir:
+				string_var.set("Loading " + str(item.name + "/" + fff[0]))
 				if fff[1] != 0:
 					continue
 				lv2_list.append(my_file_obj(fff[0], fff[1], duckypad_read_file(item.name + "/" + fff[0])))
 			item.content = lv2_list
-
+			
 	out_folder_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "hid_dump")
 
 	try:
@@ -260,8 +262,8 @@ def duckypad_delete_dir(dir_name):
 # duckypad_delete_dir("/")
 # print('took', time.time() - start)
 
-start = time.time()
-duckypad_hid_init()
-dump_from_hid()
-print('took', time.time() - start)
-h.close()
+# start = time.time()
+# duckypad_hid_init()
+# dump_from_hid()
+# print('took', time.time() - start)
+# h.close()
