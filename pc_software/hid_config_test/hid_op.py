@@ -49,7 +49,7 @@ def duckypad_open_file_for_writing(file_dir):
 	h.write(pc_to_duckypad_buf)
 
 	result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-	print(result)
+	# print(result)
 
 def duckypad_close_file():
 	pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
@@ -60,7 +60,7 @@ def duckypad_close_file():
 	h.write(pc_to_duckypad_buf)
 
 	result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-	print(result)
+	# print(result)
 
 def duckypad_write_file_one_line(content):
 	pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
@@ -77,12 +77,12 @@ def duckypad_write_file_one_line(content):
 	h.write(pc_to_duckypad_buf)
 
 	result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-	print(result)
+	# print(result)
 
 def duckypad_write_file(content):
 	n=60
 	line_list = [content[i:i+n] for i in range(0, len(content), n)]
-	print(line_list)
+	# print(line_list)
 	for line in line_list:
 		duckypad_write_file_one_line(line)
 
@@ -98,7 +98,7 @@ def duckypad_delete_file(file_name):
 	h.write(pc_to_duckypad_buf)
 
 	result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-	print(result)
+	# print(result)
 
 def duckypad_create_dir(dir_name):
 	pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
@@ -112,7 +112,7 @@ def duckypad_create_dir(dir_name):
 	h.write(pc_to_duckypad_buf)
 
 	result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-	print(result)
+	# print(result)
 
 def duckypad_delete_dir(dir_name):
 	pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
@@ -123,7 +123,7 @@ def duckypad_delete_dir(dir_name):
 		pc_to_duckypad_buf[3+x] = ord(dir_name[x])
 	h.write(pc_to_duckypad_buf)
 	result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-	print(result)
+	# print(result)
 
 
 # sssss = "Extreme E's boat full of race cars has docked in Senegal after kicking off its season in Saudi Arabia (now home of the Dakar Rally), where it's racing this weekend at Lac Rose, the original site of the Dakar. The whole idea of the series is to go off-roading in some of the environments most vulnerable to pollution and climate change caused by humans, with the Ocean X Prix aimed to highlight the problems of over-fishing, sea plastics, destruction of habitats like coral reefs and the million other really bad things we keep putting in the sea."
