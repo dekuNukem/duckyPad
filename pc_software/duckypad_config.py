@@ -34,7 +34,7 @@ backup_path = os.path.join(save_path, 'profile_backups')
 ensure_dir(save_path)
 ensure_dir(backup_path)
 save_filename = os.path.join(save_path, 'config.txt')
-print(backup_path)
+print(save_path)
 config_dict = {}
 config_dict['auto_backup_enabled'] = True
 
@@ -178,17 +178,18 @@ def print_fw_update_label():
         dp_fw_update_label.config(text='Firmware: Unknown', fg='black', bg=default_button_color)
         dp_fw_update_label.unbind("<Button-1>")
 
-def select_root_folder():
+def select_root_folder(root_path=None):
     global profile_list
     global sd_card_keymap_list
     global dp_root_folder_path
-    dir_result = filedialog.askdirectory()
-    if len(dir_result) <= 0:
+    if root_path is None:
+        root_path = filedialog.askdirectory()
+    if len(root_path) <= 0:
         return
-    dp_root_folder_path = dir_result
-    dp_root_folder_display.set("Selected: " + dir_result)
+    dp_root_folder_path = root_path
+    dp_root_folder_display.set("Selected: " + root_path)
     root_folder_path_label.config(foreground='navy')
-    profile_list = duck_objs.build_profile(dir_result)
+    profile_list = duck_objs.build_profile(root_path)
     dp_settings.load_from_path(dp_root_folder_path)
     try:
         sd_card_keymap_list = duck_objs.load_keymap(dp_root_folder_path)
@@ -203,18 +204,21 @@ HID_NOP = 0
 HID_DUMP = 1
 HID_SAVE = 2
 current_hid_op = HID_NOP
-
+is_using_hid = False
 # hid_dump_progress_str = StringVar()
 # hid_dump_progress_str.set('hid_dump_progress_str')
 
 def connect_button_click():
     global current_hid_op
+    global is_using_hid
     try:
         hid_op.duckypad_hid_init()
         current_hid_op = HID_DUMP
+        is_using_hid = True
     except Exception as e:
-        messagebox.showerror("Error", "Connection error: " + str(e) + "\n\nYou can mount duckyPad SD card on your PC and select it instead")
+        messagebox.showinfo("Info", "Connection failed: " + str(e) + "\n\nYou can mount duckyPad SD card on your PC and select it instead")
         select_root_folder()
+        is_using_hid = False
 
 def enable_buttons():
     profile_add_button.config(state=NORMAL)
@@ -589,8 +593,14 @@ def save_everything(save_path):
 def make_default_backup_dir_name():
     return 'duckyPad_backup_' + datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
 
+hid_modified_dir_path = os.path.join(save_path, "hid_new")
+
 def save_click():
-    save_everything(dp_root_folder_path)
+    global is_using_hid
+    if is_using_hid is False:
+        save_everything(dp_root_folder_path)
+    else:
+        save_everything(hid_modified_dir_path)
     if config_dict['auto_backup_enabled']:
         save_everything(os.path.join(backup_path, make_default_backup_dir_name()))
 
@@ -1256,6 +1266,8 @@ def repeat_func():
         save_result_label.config(text='')
     root.after(500, repeat_func)
 
+hid_dump_path = os.path.join(save_path, "hid_dump")
+
 def t1_worker():
     global current_hid_op
     while(1):
@@ -1266,12 +1278,18 @@ def t1_worker():
         if current_hid_op == HID_DUMP:
             root_folder_path_label.config(foreground='navy')
             dp_root_folder_display.set("dumping...")
-            hid_op.dump_from_hid(dp_root_folder_display)
             current_hid_op = HID_NOP
-            dp_root_folder_display.set("done!")
+            try:
+                hid_op.dump_from_hid(hid_dump_path, dp_root_folder_display)
+                dp_root_folder_display.set("done!")
+            except Exception as e:
+                messagebox.showerror("Error", "error:\n\n"+str(e))
+                dp_root_folder_display.set("done!")
+                continue
+            select_root_folder(hid_dump_path)
+
 t1 = threading.Thread(target=t1_worker, daemon=True)
 t1.start()
-
 
 root.after(500, repeat_func)
 # if os.name == 'posix':

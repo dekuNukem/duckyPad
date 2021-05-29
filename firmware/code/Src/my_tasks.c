@@ -511,7 +511,12 @@ uint8_t hid_tx_buf[HID_TX_BUF_SIZE];
   */
 uint8_t check_resume(void)
 {
-  while(hid_rx_has_unprocessed_data == 0);
+  uint32_t start = HAL_GetTick();
+  while(hid_rx_has_unprocessed_data == 0)
+  {
+    if(HAL_GetTick() - start > 2500)
+      return 0;
+  }
   return hid_rx_buf[2] == HID_COMMAND_OP_RESUME;
 }
 
@@ -524,7 +529,7 @@ uint8_t delete_node (
     uint16_t i, j;
     uint16_t fr;
     DIR dir;
-    
+
     fr = f_opendir(&dir, path); /* Open the sub-directory to make it empty */
     if (fr != FR_OK) return fr;
 

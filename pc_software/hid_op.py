@@ -118,7 +118,7 @@ def duckypad_read_file(file_dir):
 		duckypad_hid_resume()
 	return ret
 
-def dump_from_hid(string_var=None):
+def dump_from_hid(save_path, string_var=None):
 	file_struct_list = []
 	# top level
 	for item in duckypad_list_files():
@@ -126,10 +126,14 @@ def dump_from_hid(string_var=None):
 
 	for item in file_struct_list:
 		if item.type == 0:
+			if not item.name.lower().startswith("dp_"):
+				continue
 			string_var.set("Loading " + str(item.name))
 			item.content = duckypad_read_file(item.name)
 		if item.type == 1:
 			if 'keymap' in item.name:
+				continue
+			if 'profile' not in item.name.lower():
 				continue
 			files_in_this_dir = duckypad_list_files(item.name)
 			lv2_list = []
@@ -139,23 +143,21 @@ def dump_from_hid(string_var=None):
 					continue
 				lv2_list.append(my_file_obj(fff[0], fff[1], duckypad_read_file(item.name + "/" + fff[0])))
 			item.content = lv2_list
-			
-	out_folder_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "hid_dump")
 
 	try:
-	    shutil.rmtree(out_folder_path)
+	    shutil.rmtree(save_path)
 	    time.sleep(0.05)
 	except FileNotFoundError:
 	    pass
-	ensure_dir(out_folder_path)
+	ensure_dir(save_path)
 
 	for item in file_struct_list:
 		if item.type == 0 and item.content is not None:
-			with open(os.path.join(out_folder_path, item.name), 'w') as this_file:
+			with open(os.path.join(save_path, item.name), 'w') as this_file:
 				this_file.write(item.content)
 
 		if item.type == 1 and item.content is not None:
-			this_folder_path = os.path.join(out_folder_path, item.name)
+			this_folder_path = os.path.join(save_path, item.name)
 			ensure_dir(this_folder_path)
 			for subfile in item.content:
 				if subfile.type == 0 and subfile.content is not None:
