@@ -483,6 +483,10 @@ uint8_t hid_tx_buf[HID_TX_BUF_SIZE];
 #define HID_COMMAND_READ_FILE 11
 #define HID_COMMAND_OP_RESUME 12
 #define HID_COMMAND_OP_ABORT 13
+#define HID_COMMAND_OPEN_FILE_FOR_WRITING 14
+#define HID_COMMAND_WRITE_FILE 15
+#define HID_COMMAND_CLOSE_FILE 16
+
 
 #define HID_RESPONSE_OK 0
 #define HID_RESPONSE_ERROR 1
@@ -691,7 +695,7 @@ void handle_hid_command(void)
     f_closedir(&dir);
     hid_rx_has_unprocessed_data = 0;
   }
-   /*
+  /*
   HID READ FILE
   -----------
   PC to duckyPad:
@@ -740,6 +744,72 @@ void handle_hid_command(void)
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
     osDelay(HID_TX_DELAY);
     hid_rx_has_unprocessed_data = 0;
+  }
+  /*
+  HID OPEN FILE FOR WRITING
+  -----------
+  PC to duckyPad:
+  [0]   report_id: always 5
+  [1]   seq number
+  [2]   command: 14
+  [3 ... 63]   file path, zero-terminated string
+  -----------
+  duckyPad to PC
+  [0]   report_id: always 4
+  [1]   seq number, incrementing
+  [2]   0 = OK, 1 = ERROR, 2 = BUSY
+  [3 ... 60] file content
+  */
+  else if(command_type == HID_COMMAND_OPEN_FILE_FOR_WRITING)
+  {
+    if(f_open(&sd_file, hid_rx_buf+3, FA_CREATE_ALWAYS | FA_WRITE) != 0)
+    {
+      hid_tx_buf[2] = HID_RESPONSE_ERROR;
+      goto hid_open_for_write_end;
+    }
+
+    hid_tx_buf[2] = HID_RESPONSE_OK;
+    hid_open_for_write_end:
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
+  }
+  /*
+  HID WRITE TO FILE
+  -----------
+  PC to duckyPad:
+  [0]   report_id: always 5
+  [1]   seq number
+  [2]   command: 15
+  [3 ... 63]   content
+  -----------
+  duckyPad to PC
+  [0]   report_id: always 4
+  [1]   seq number, incrementing
+  [2]   0 = OK, 1 = ERROR, 2 = BUSY
+  */
+  else if(command_type == HID_COMMAND_WRITE_FILE)
+  {
+    // printf("to write: %s\n", hid_rx_buf+3);
+    if(f_write(&sd_file, hid_rx_buf+3, strlen(hid_rx_buf+3), &bytes_read) != 0)
+      hid_tx_buf[2] = HID_RESPONSE_ERROR;
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
+  }
+  /*
+  HID CLOSE FILE
+  -----------
+  PC to duckyPad:
+  [0]   report_id: always 5
+  [1]   seq number
+  [2]   command: 16
+  -----------
+  duckyPad to PC
+  [0]   report_id: always 4
+  [1]   seq number, incrementing
+  [2]   0 = OK, 1 = ERROR, 2 = BUSY
+  */
+  else if(command_type == HID_COMMAND_CLOSE_FILE)
+  {
+    f_close(&sd_file);
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
   }
   /*
     unknown command

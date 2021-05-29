@@ -3,7 +3,7 @@
 <title>Static Call Graph - [lul\lul.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image lul\lul.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sat May 22 23:42:45 2021
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sat May 29 14:09:42 2021
 <BR><P>
 <H3>Maximum Stack Usage =        440 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -361,6 +361,7 @@ Global Symbols
 <P><STRONG><a name="[11d]"></a>strlen</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, strlen.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[185]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_keymaps
 <LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_keymap_by_name
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_hid_command
 <LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_brightness_value
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clean_keymap_name
 <LI><a href="#[174]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
@@ -2119,7 +2120,8 @@ Global Symbols
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;unlock_fs
 <LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sync_window
 </UL>
-<BR>[Called By]<UL><LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_settings
+<BR>[Called By]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_hid_command
+<LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_settings
 <LI><a href="#[18b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_last_profile
 </UL>
 
@@ -2267,13 +2269,14 @@ Global Symbols
 <LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;assign_colors
 </UL>
 
-<P><STRONG><a name="[100]"></a>handle_hid_command</STRONG> (Thumb, 552 bytes, Stack size 24 bytes, my_tasks.o(i.handle_hid_command))
+<P><STRONG><a name="[100]"></a>handle_hid_command</STRONG> (Thumb, 622 bytes, Stack size 24 bytes, my_tasks.o(i.handle_hid_command))
 <BR><BR>[Stack]<UL><LI>Max Depth = 432<LI>Call Chain = handle_hid_command &rArr; change_profile &rArr; restore_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_uuid
 <LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
 <LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_full_brightness
 <LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_resume
+<LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
 <LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_readdir
 <LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_opendir
 <LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
@@ -2283,6 +2286,7 @@ Global Symbols
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_profile
 <LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 <LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CUSTOM_HID_SendReport
+<LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 <LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strncpy
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
 <LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
