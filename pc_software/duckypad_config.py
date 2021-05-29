@@ -19,6 +19,8 @@ import urllib.request
 from appdirs import *
 import json
 import subprocess
+import hid_op
+
 
 def ensure_dir(dir_path):
     if not os.path.exists(dir_path):
@@ -62,7 +64,7 @@ MAIN_WINDOW_HEIGHT = 625
 MAIN_COLOUM_HEIGHT = 533
 PADDING = 10
 HIGHT_ROOT_FOLDER_LF = 50
-INVALID_ROOT_FOLDER_STRING = "<-- Please select your duckyPad root folder"
+INVALID_ROOT_FOLDER_STRING = "<-- Press to connect to duckyPad"
 last_rgb = (238,130,238)
 dp_settings = duck_objs.dp_global_settings()
 discord_link_url = "https://raw.githubusercontent.com/dekuNukem/duckyPad/master/resources/discord_link.txt"
@@ -195,6 +197,13 @@ def select_root_folder():
     ui_reset()
     update_profile_display()
     enable_buttons()
+
+def connect_button_click():
+    try:
+        hid_op.duckypad_hid_init()
+    except Exception as e:
+        messagebox.showerror("Error", "Connection error: " + str(e) + "\n\nYou can mount duckyPad SD card on your PC and select it instead")
+        select_root_folder()
 
 def enable_buttons():
     profile_add_button.config(state=NORMAL)
@@ -644,11 +653,11 @@ root_folder_lf = LabelFrame(root, text="Files", width=779, height=HIGHT_ROOT_FOL
 root_folder_lf.place(x=PADDING, y=0) 
 root.update()
 
-help_button = Button(root_folder_lf, text="How do I...", command=create_help_window)
-help_button.place(x=5, y=0, width=85)
+help_button = Button(root_folder_lf, text="Help!", command=create_help_window)
+help_button.place(x=5, y=0, width=65)
 
-root_folder_select_button = Button(root_folder_lf, text="Open...", command=select_root_folder)
-root_folder_select_button.place(x=95, y=0, width=60)
+root_folder_select_button = Button(root_folder_lf, text="Connect", command=connect_button_click)
+root_folder_select_button.place(x=75, y=0, width=75)
 
 root_folder_path_label = Label(master=root_folder_lf, textvariable=dp_root_folder_display, foreground='red')
 root_folder_path_label.place(x=155, y=0)
