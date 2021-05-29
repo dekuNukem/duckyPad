@@ -37,6 +37,8 @@ save_filename = os.path.join(save_path, 'config.txt')
 print(save_path)
 config_dict = {}
 config_dict['auto_backup_enabled'] = True
+hid_dump_path = os.path.join(save_path, "hid_dump")
+hid_modified_dir_path = os.path.join(save_path, "hid_new")
 
 try:
     with open(save_filename) as json_file:
@@ -59,7 +61,7 @@ default_button_color = 'SystemButtonFace'
 if 'linux' in sys.platform:
     default_button_color = 'grey'
 
-THIS_VERSION_NUMBER = '0.12.1'
+THIS_VERSION_NUMBER = '0.13.0'
 MAIN_WINDOW_WIDTH = 800
 MAIN_WINDOW_HEIGHT = 625
 MAIN_COLOUM_HEIGHT = 533
@@ -70,6 +72,7 @@ last_rgb = (238,130,238)
 dp_settings = duck_objs.dp_global_settings()
 discord_link_url = "https://raw.githubusercontent.com/dekuNukem/duckyPad/master/resources/discord_link.txt"
 sd_card_keymap_list = []
+
 
 def open_discord_link():
     try:
@@ -593,14 +596,14 @@ def save_everything(save_path):
 def make_default_backup_dir_name():
     return 'duckyPad_backup_' + datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
 
-hid_modified_dir_path = os.path.join(save_path, "hid_new")
-
 def save_click():
     global is_using_hid
+    global current_hid_op
     if is_using_hid is False:
         save_everything(dp_root_folder_path)
     else:
         save_everything(hid_modified_dir_path)
+        current_hid_op = HID_SAVE
     if config_dict['auto_backup_enabled']:
         save_everything(os.path.join(backup_path, make_default_backup_dir_name()))
 
@@ -1266,7 +1269,6 @@ def repeat_func():
         save_result_label.config(text='')
     root.after(500, repeat_func)
 
-hid_dump_path = os.path.join(save_path, "hid_dump")
 
 def t1_worker():
     global current_hid_op
@@ -1287,6 +1289,21 @@ def t1_worker():
                 dp_root_folder_display.set("done!")
                 continue
             select_root_folder(hid_dump_path)
+        if current_hid_op == HID_SAVE:
+            current_hid_op = HID_NOP
+            try:
+                print('saving!')
+                hid_op.duckypad_hid_init()
+                hid_op.duckypad_hid_file_sync(hid_dump_path, hid_modified_dir_path, dp_root_folder_display)
+                hid_op.duckypad_hid_sw_reset()
+                try:
+                    shutil.rmtree(hid_dump_path)
+                    time.sleep(0.05)
+                except FileNotFoundError:
+                    pass
+                os.rename(hid_modified_dir_path, hid_dump_path)
+            except Exception as e:
+                messagebox.showerror("error", "Save error: " + str(e))
 
 t1 = threading.Thread(target=t1_worker, daemon=True)
 t1.start()

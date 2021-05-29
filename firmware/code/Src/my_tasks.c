@@ -489,6 +489,8 @@ uint8_t hid_tx_buf[HID_TX_BUF_SIZE];
 #define HID_COMMAND_DELETE_FILE 17
 #define HID_COMMAND_CREATE_DIR 18
 #define HID_COMMAND_DELETE_DIR 19
+#define HID_COMMAND_SW_RESET 20
+
 
 #define HID_RESPONSE_OK 0
 #define HID_RESPONSE_ERROR 1
@@ -920,6 +922,24 @@ void handle_hid_command(void)
     if(delete_node(hid_rx_buf+3, HID_RX_BUF_SIZE - 3, &fno) != 0)
       hid_tx_buf[2] = HID_RESPONSE_ERROR;
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
+  }
+  /*
+  HID SOFTWARE RESET
+  -----------
+  PC to duckyPad:
+  [0]   report_id: always 5
+  [1]   seq number
+  [2]   command
+  -----------
+  duckyPad to PC
+  [0]   report_id: always 4
+  [1]   seq number, incrementing
+  [2]   0 = OK
+  */
+  else if(command_type == HID_COMMAND_SW_RESET)
+  {
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
+    NVIC_SystemReset();
   }
   /*
     unknown command
