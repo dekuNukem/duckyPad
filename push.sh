@@ -20,4 +20,4 @@ rm ./sample_profiles.zip
 zip -rv sample_profiles.zip ./sample_profiles
 git add --all
 git commit -m "$@"
-# git push origin master
+git push origin master
