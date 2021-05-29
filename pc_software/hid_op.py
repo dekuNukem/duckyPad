@@ -305,7 +305,7 @@ def duckypad_hid_file_sync(duckypad_dir_name, local_dir_name, string_var):
 	    subdir_compare_result = filecmp.dircmp(os.path.join(duckypad_dir_name, common_dir_name), os.path.join(local_dir_name, common_dir_name))
 	    
 	    subdir_file_to_copy = subdir_compare_result.right_only + subdir_compare_result.diff_files
-	    print("syncing...", common_dir_name)
+	    # print("syncing...", common_dir_name)
 	    string_var.set(f'writing: {common_dir_name}')
 
 	    for item in subdir_file_to_copy:
@@ -325,7 +325,7 @@ def duckypad_hid_file_sync(duckypad_dir_name, local_dir_name, string_var):
 	        # print("\tdeleting...", fatfs_path)
 	        string_var.set(f'deleting: {fatfs_path}')
 	        duckypad_delete_file(fatfs_path)
-	print("done")
+	# print("done")
 	string_var.set(f'done')
 
 def duckypad_hid_sw_reset():

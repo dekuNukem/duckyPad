@@ -1292,7 +1292,6 @@ def t1_worker():
         if current_hid_op == HID_SAVE:
             current_hid_op = HID_NOP
             try:
-                print('saving!')
                 hid_op.duckypad_hid_init()
                 hid_op.duckypad_hid_file_sync(hid_dump_path, hid_modified_dir_path, dp_root_folder_display)
                 hid_op.duckypad_hid_sw_reset()
