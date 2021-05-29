@@ -7,9 +7,14 @@ https://github.com/dekuNukem/duckyPad-profile-autoswitcher/blob/master/HID_detai
 
 """
 
+import os
 import hid
 import time
-import pickle
+import shutil
+
+def ensure_dir(dir_path):
+    if not os.path.exists(dir_path):
+        os.makedirs(dir_path)
 
 def get_duckypad_path():
 	for device_dict in hid.enumerate():
@@ -109,7 +114,11 @@ class my_file_obj(object):
 		ret += str('...............') + '\n'
 		return ret
 
+file_struct_list = []
+
 def dump_from_hid():
+	global file_struct_list
+
 	file_struct_list = []
 
 	# top level
@@ -130,15 +139,33 @@ def dump_from_hid():
 				lv2_list.append(my_file_obj(fff[0], fff[1], duckypad_read_file(item.name + "/" + fff[0])))
 			item.content = lv2_list
 
-	pickle.dump(file_struct_list, open("save.p", "wb" ))
+	# pickle.dump(file_struct_list, open("save.p", "wb" ))
 
 start = time.time()
 dump_from_hid()
 print('took', time.time() - start)
-
-# duckypad_read_file("dp_settings.txt")
-
 h.close()
-# duckypad_read_file("keymaps/dpkm_Finnish.txt")
-
 input()
+
+out_folder_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "hid_dump")
+
+try:
+    shutil.rmtree(out_folder_path)
+    time.sleep(0.05)
+except FileNotFoundError:
+    pass
+ensure_dir(out_folder_path)
+
+
+for item in file_struct_list:
+	if item.type == 0 and item.content is not None:
+		with open(os.path.join(out_folder_path, item.name), 'w') as this_file:
+			this_file.write(item.content)
+
+	if item.type == 1 and item.content is not None:
+		this_folder_path = os.path.join(out_folder_path, item.name)
+		ensure_dir(this_folder_path)
+		for subfile in item.content:
+			if subfile.type == 0 and subfile.content is not None:
+				with open(os.path.join(this_folder_path, subfile.name), 'w') as this_file:
+					this_file.write(subfile.content)
