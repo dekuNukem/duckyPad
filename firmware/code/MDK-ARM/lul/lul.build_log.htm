@@ -28,35 +28,37 @@ Project File Date:  04/17/2021
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'lul'
 compiling my_tasks.c...
-..\Src\my_tasks.c(666): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
+..\Src\my_tasks.c(709): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
       if (f_opendir(&dir, hid_rx_buf+3) != FR_OK)
-..\Src\my_tasks.c(683): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *restrict"
+..\Src\my_tasks.c(726): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *restrict"
         strncpy(hid_tx_buf+4, this_filename, FILENAME_SIZE);
-..\Src\my_tasks.c(717): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
+..\Src\my_tasks.c(760): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
       if(f_open(&sd_file, hid_rx_buf+3, FA_READ) != 0)
-..\Src\my_tasks.c(729): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *restrict"
+..\Src\my_tasks.c(772): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *restrict"
         strncpy(hid_tx_buf+3, read_buffer, bytes_read);
-..\Src\my_tasks.c(687): warning:  #546-D: transfer of control bypasses initialization of:
-            variable "count"  (declared at line 720)
+..\Src\my_tasks.c(730): warning:  #546-D: transfer of control bypasses initialization of:
+            variable "count"  (declared at line 763)
           goto hid_read_file_end;
           ^
-..\Src\my_tasks.c(718): warning:  #546-D: transfer of control bypasses initialization of:
-            variable "count"  (declared at line 720)
+..\Src\my_tasks.c(761): warning:  #546-D: transfer of control bypasses initialization of:
+            variable "count"  (declared at line 763)
         goto hid_read_file_end;
         ^
-..\Src\my_tasks.c(767): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
+..\Src\my_tasks.c(810): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
       if(f_open(&sd_file, hid_rx_buf+3, FA_CREATE_ALWAYS | FA_WRITE) != 0)
-..\Src\my_tasks.c(794): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *"
+..\Src\my_tasks.c(837): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *"
       if(f_write(&sd_file, hid_rx_buf+3, strlen(hid_rx_buf+3), &bytes_read) != 0)
-..\Src\my_tasks.c(833): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
+..\Src\my_tasks.c(876): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
       if(f_unlink(hid_rx_buf+3) != 0)
-..\Src\my_tasks.c(853): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
+..\Src\my_tasks.c(896): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
       if(f_mkdir(hid_rx_buf+3) != 0)
-..\Src\my_tasks.c: 10 warnings, 0 errors
+..\Src\my_tasks.c(916): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
+      if(delete_node(hid_rx_buf+3, HID_RX_BUF_SIZE - 3, &fno) != 0)
+..\Src\my_tasks.c: 11 warnings, 0 errors
 linking...
-Program Size: Code=44312 RO-data=4588 RW-data=1440 ZI-data=14672  
+Program Size: Code=44476 RO-data=4588 RW-data=1440 ZI-data=14672  
 FromELF: creating hex file...
-"lul\lul.axf" - 0 Error(s), 10 Warning(s).
+"lul\lul.axf" - 0 Error(s), 11 Warning(s).
 
 <h2>Software Packages used:</h2>
 

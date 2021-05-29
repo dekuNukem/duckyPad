@@ -122,6 +122,18 @@ def duckypad_create_dir(dir_name):
 	result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
 	print(result)
 
+def duckypad_delete_dir(dir_name):
+	pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
+	pc_to_duckypad_buf[0] = 5	# HID Usage ID, always 5
+	pc_to_duckypad_buf[1] = 0	# Sequence Number
+	pc_to_duckypad_buf[2] = HID_COMMAND_DELETE_DIR	# Command type
+	for x in range(0, len(dir_name)):
+		pc_to_duckypad_buf[3+x] = ord(dir_name[x])
+	h.write(pc_to_duckypad_buf)
+	result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
+	print(result)
+
+
 sssss = "Extreme E's boat full of race cars has docked in Senegal after kicking off its season in Saudi Arabia (now home of the Dakar Rally), where it's racing this weekend at Lac Rose, the original site of the Dakar. The whole idea of the series is to go off-roading in some of the environments most vulnerable to pollution and climate change caused by humans, with the Ocean X Prix aimed to highlight the problems of over-fishing, sea plastics, destruction of habitats like coral reefs and the million other really bad things we keep putting in the sea."
 
 
@@ -129,6 +141,6 @@ start = time.time()
 # duckypad_open_file_for_writing('test.txt')
 # duckypad_write_file(sssss)
 # duckypad_close_file()
-duckypad_create_dir("2256")
+duckypad_delete_dir("/")
 print('took', time.time() - start)
 

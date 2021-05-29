@@ -515,6 +515,48 @@ uint8_t check_resume(void)
   return hid_rx_buf[2] == HID_COMMAND_OP_RESUME;
 }
 
+uint8_t delete_node (
+    char* path,    /* Path name buffer with the sub-directory to delete */
+    uint8_t sz_buff,   /* Size of path name buffer (items) */
+    FILINFO* my_fno    /* Name read buffer */
+)
+{
+    uint16_t i, j;
+    uint16_t fr;
+    DIR dir;
+    
+    fr = f_opendir(&dir, path); /* Open the sub-directory to make it empty */
+    if (fr != FR_OK) return fr;
+
+    for (i = 0; path[i]; i++) ; /* Get current path length */
+    path[i++] = _T('/');
+
+    for (;;) {
+        fr = f_readdir(&dir, my_fno);  /* Get a directory item */
+        if (fr != FR_OK || !my_fno->fname[0]) break;   /* End of directory? */
+        j = 0;
+        do {    /* Make a path name */
+            if (i + j >= sz_buff) { /* Buffer over flow? */
+                fr = 100; break;    /* Fails with 100 when buffer overflow */
+            }
+            path[i + j] = my_fno->fname[j];
+        } while (my_fno->fname[j++]);
+        if (my_fno->fattrib & AM_DIR) {    /* Item is a sub-directory */
+            fr = delete_node(path, sz_buff, my_fno);
+        } else {                        /* Item is a file */
+            fr = f_unlink(path);
+        }
+        if (fr != FR_OK) break;
+    }
+
+    path[--i] = 0;  /* Restore the path name */
+    f_closedir(&dir);
+
+    if (fr == FR_OK) fr = f_unlink(path);  /* Delete the empty sub-directory */
+    return fr;
+}
+
+
 void handle_hid_command(void)
 {
   // hid_rx_buf HID_RX_BUF_SIZE
@@ -851,6 +893,26 @@ void handle_hid_command(void)
   else if(command_type == HID_COMMAND_CREATE_DIR)
   {
     if(f_mkdir(hid_rx_buf+3) != 0)
+      hid_tx_buf[2] = HID_RESPONSE_ERROR;
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
+  }
+  /*
+  HID DELETE DIR
+  -----------
+  PC to duckyPad:
+  [0]   report_id: always 5
+  [1]   seq number
+  [2]   command
+  [3 ... 63]   dir name string, zero terminated
+  -----------
+  duckyPad to PC
+  [0]   report_id: always 4
+  [1]   seq number, incrementing
+  [2]   0 = OK, 1 = ERROR, 2 = BUSY
+  */
+  else if(command_type == HID_COMMAND_DELETE_DIR)
+  {
+    if(delete_node(hid_rx_buf+3, HID_RX_BUF_SIZE - 3, &fno) != 0)
       hid_tx_buf[2] = HID_RESPONSE_ERROR;
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
   }
