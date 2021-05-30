@@ -233,6 +233,14 @@ A **BETA TEST** is currently underway for editing profiles WITHOUT needing to re
 
 You can also [use this app](https://github.com/dekuNukem/duckyPad-profile-autoswitcher) to **switch profiles automatically** based on **current active window**. Check it out!
 
+### Careful with Passwords!
+
+It might be tempting to have duckyPad type out your often-used passwords, but it's probably **NOT a good idea**!
+
+All scripts are stored as plain text on the SD card, and can be easily accessed by using a SD card reader, or though HID commands.
+
+duckyPad is NOT intended to be a security device, so use at your own risk.
+
 ## Tips and Tricks
 
 ### Consolidate Keyboard Shortcuts
