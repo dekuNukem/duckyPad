@@ -65,8 +65,6 @@ The samples might be fun, but duckyPad's true purpose is to do what YOU want! So
 
 * You *can* insert/remove the SD card while duckyPad is on.
 
-* But doing so might corrupt SD card content, so make backups.
-
 * If you decide to use your own SD card, it should be formatted in [FAT32 or FAT](resources/pics/format.PNG).
 
 ### Download the duckyPad Configurator
@@ -222,6 +220,14 @@ Eject the SD card from your computer, insert it into duckyPad, plug it in. It sh
 * **`Hold down`** `+` button for profile quickswitch.
 
 * **`Hold down`** `-` button to change RGB backlight brightness.
+
+### USB-based profile editing
+
+A **BETA TEST** is currently underway for editing profiles WITHOUT needing to remove the SD card.
+
+[Click me to try it out!](https://gist.github.com/dekuNukem/3d4ca966c83dca38ae89ee1142806ef2)
+
+[Let me know](#questions-or-comments) if you have any issues or feedbacks!
 
 ### Profile auto-switching
 
