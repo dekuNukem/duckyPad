@@ -219,7 +219,7 @@ def connect_button_click():
         current_hid_op = HID_DUMP
         is_using_hid = True
     except Exception as e:
-        messagebox.showinfo("Info", "Connection failed: " + str(e) + "\n\nYou can mount duckyPad SD card on your PC and select it instead")
+        messagebox.showinfo("Info", "Connection failed: " + str(e) + "\n\nSelect the SD card root folder instead?")
         select_root_folder()
         is_using_hid = False
 
