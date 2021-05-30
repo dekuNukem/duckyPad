@@ -121,6 +121,8 @@ cmd_RMOUSE = "RMOUSE"
 cmd_MMOUSE = "MMOUSE"
 cmd_MOUSE_MOVE = "MOUSE_MOVE"
 cmd_MOUSE_WHEEL = "MOUSE_WHEEL"
+cmd_PRESS = "PRESS ";
+cmd_RELEASE = "RELEASE ";
 
 mouse_commands = [cmd_LMOUSE, cmd_RMOUSE, cmd_MMOUSE, cmd_MOUSE_MOVE, cmd_MOUSE_WHEEL]
 
@@ -138,17 +140,11 @@ PARSE_ERROR = 1
 def parse_combo(combo_line):
 	combo_keys = combo_line.split(' ')
 	if len(combo_keys) > 6:
-		return 1
+		return PARSE_ERROR
 	for item in [x.lower() for x in combo_keys if x not in autogui_map.keys()]:
 		if item not in valid_chars:
-			return 1
-	autogui_args = []
-	for item in combo_keys:
-		if item in autogui_map:
-			autogui_args.append(autogui_map[item])
-		else:
-			autogui_args.append(item.lower())
-	return 0
+			return PARSE_ERROR
+	return PARSE_OK
 
 def parse_mouse(ducky_line):
 	mouse_command_list = [x for x in mouse_commands if x in ducky_line]
@@ -193,6 +189,10 @@ def parse_line(ducky_line):
 		return PARSE_ERROR
 	elif is_ignored_but_valid_command(ducky_line):
 		return PARSE_OK
+	elif ducky_line.startswith(cmd_PRESS):
+		parse_result = parse_combo(ducky_line[len(cmd_PRESS):])
+	elif ducky_line.startswith(cmd_RELEASE):
+		parse_result = parse_combo(ducky_line[len(cmd_RELEASE):])
 	elif ducky_line.startswith(cmd_LOOP) and ducky_line.endswith(':') and len(ducky_line) == 6 and ducky_line[4].isnumeric():
 		return PARSE_OK
 	elif ducky_line.startswith(cmd_HOLD):
