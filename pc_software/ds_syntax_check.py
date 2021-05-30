@@ -121,8 +121,8 @@ cmd_RMOUSE = "RMOUSE"
 cmd_MMOUSE = "MMOUSE"
 cmd_MOUSE_MOVE = "MOUSE_MOVE"
 cmd_MOUSE_WHEEL = "MOUSE_WHEEL"
-cmd_PRESS = "PRESS ";
-cmd_RELEASE = "RELEASE ";
+cmd_KEYDOWN = "KEYDOWN ";
+cmd_KEYUP = "KEYUP ";
 
 mouse_commands = [cmd_LMOUSE, cmd_RMOUSE, cmd_MMOUSE, cmd_MOUSE_MOVE, cmd_MOUSE_WHEEL]
 
@@ -189,10 +189,10 @@ def parse_line(ducky_line):
 		return PARSE_ERROR
 	elif is_ignored_but_valid_command(ducky_line):
 		return PARSE_OK
-	elif ducky_line.startswith(cmd_PRESS):
-		parse_result = parse_combo(ducky_line[len(cmd_PRESS):])
-	elif ducky_line.startswith(cmd_RELEASE):
-		parse_result = parse_combo(ducky_line[len(cmd_RELEASE):])
+	elif ducky_line.startswith(cmd_KEYDOWN):
+		parse_result = parse_combo(ducky_line[len(cmd_KEYDOWN):])
+	elif ducky_line.startswith(cmd_KEYUP):
+		parse_result = parse_combo(ducky_line[len(cmd_KEYUP):])
 	elif ducky_line.startswith(cmd_LOOP) and ducky_line.endswith(':') and len(ducky_line) == 6 and ducky_line[4].isnumeric():
 		return PARSE_OK
 	elif ducky_line.startswith(cmd_HOLD):

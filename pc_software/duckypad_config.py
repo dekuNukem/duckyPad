@@ -219,7 +219,8 @@ def connect_button_click():
         current_hid_op = HID_DUMP
         is_using_hid = True
     except Exception as e:
-        messagebox.showinfo("Info", "Connection failed: " + str(e) + "\n\nSelect the SD card root folder instead?")
+        if(messagebox.askokcancel("Info", "Connection failed: " + str(e) + "\n\nSelect the SD card root folder instead?") == False):
+            return
         select_root_folder()
         is_using_hid = False
 

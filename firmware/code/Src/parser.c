@@ -152,9 +152,8 @@ const char cmd_MMOUSE[] = "MMOUSE";
 const char cmd_MOUSE_MOVE[] = "MOUSE_MOVE ";
 const char cmd_MOUSE_WHEEL[] = "MOUSE_WHEEL ";
 
-const char cmd_PRESS[] = "PRESS ";
-const char cmd_RELEASE[] = "RELEASE ";
-
+const char cmd_KEYDOWN[] = "KEYDOWN ";
+const char cmd_KEYUP[] = "KEYUP ";
 
 char* goto_next_arg(char* buf, char* buf_end)
 {
@@ -1217,25 +1216,25 @@ uint8_t parse_line(char* line, uint8_t keynum)
     result = PARSE_OK;
     goto parse_end;
   }
-  else if(strncmp(cmd_PRESS, line, strlen(cmd_PRESS)) == 0)
+  else if(strncmp(cmd_KEYDOWN, line, strlen(cmd_KEYDOWN)) == 0)
   {
-    parse_special_key(line + strlen(cmd_PRESS), &this_key);
+    parse_special_key(line + strlen(cmd_KEYDOWN), &this_key);
     if(this_key.key_type == KEY_TYPE_UNKNOWN)
     {
       this_key.key_type = KEY_TYPE_CHAR;
-      this_key.code = (line + strlen(cmd_PRESS))[0];
+      this_key.code = (line + strlen(cmd_KEYDOWN))[0];
     }
-    parse_combo(line + strlen(cmd_PRESS), &this_key, ACTION_PRESS_ONLY);
+    parse_combo(line + strlen(cmd_KEYDOWN), &this_key, ACTION_PRESS_ONLY);
   }
-  else if(strncmp(cmd_RELEASE, line, strlen(cmd_RELEASE)) == 0)
+  else if(strncmp(cmd_KEYUP, line, strlen(cmd_KEYUP)) == 0)
   {
-    parse_special_key(line + strlen(cmd_PRESS), &this_key);
+    parse_special_key(line + strlen(cmd_KEYUP), &this_key);
     if(this_key.key_type == KEY_TYPE_UNKNOWN)
     {
       this_key.key_type = KEY_TYPE_CHAR;
-      this_key.code = (line + strlen(cmd_PRESS))[0];
+      this_key.code = (line + strlen(cmd_KEYUP))[0];
     }
-    parse_combo(line + strlen(cmd_PRESS), &this_key, ACTION_RELEASE_ONLY);
+    parse_combo(line + strlen(cmd_KEYUP), &this_key, ACTION_RELEASE_ONLY);
   }
   else if(strncmp(cmd_STRING, line, strlen(cmd_STRING)) == 0)
     kb_print(line + strlen(cmd_STRING), char_delay);

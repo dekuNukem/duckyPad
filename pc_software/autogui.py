@@ -108,8 +108,8 @@ cmd_MMOUSE = "MMOUSE"
 cmd_MOUSE_MOVE = "MOUSE_MOVE"
 cmd_MOUSE_WHEEL = "MOUSE_WHEEL"
 
-cmd_PRESS = "PRESS ";
-cmd_RELEASE = "RELEASE ";
+cmd_KEYDOWN = "KEYDOWN ";
+cmd_KEYUP = "KEYUP ";
 
 mouse_commands = [cmd_LMOUSE, cmd_RMOUSE, cmd_MMOUSE, cmd_MOUSE_MOVE, cmd_MOUSE_WHEEL]
 
@@ -138,7 +138,11 @@ PARSE_OK = 0
 PARSE_ERROR = 1
 PARSE_EMPTY_LINE = 3
 
-def parse_combo(combo_line):
+ACTION_PRESS_ONLY = 0
+ACTION_RELEASE_ONLY = 1
+ACTION_PRESS_RELEASE = 2
+
+def parse_combo(combo_line, action_type):
 	combo_keys = combo_line.split(' ')
 	if len(combo_keys) > 6:
 		return 1, "too many combos, up to 6 supported"
@@ -163,7 +167,13 @@ def parse_combo(combo_line):
 				autogui_args.append(autogui_map[item])
 		else:
 			autogui_args.append(item.lower())
-	pyautogui.hotkey(*autogui_args, interval=default_char_delay_ms/1000)
+	print(autogui_args, action_type)
+	if action_type == ACTION_PRESS_RELEASE:
+		pyautogui.hotkey(*autogui_args, interval=default_char_delay_ms/1000)
+	if action_type == ACTION_PRESS_ONLY:
+		pyautogui.keyDown(*autogui_args)
+	if action_type == ACTION_RELEASE_ONLY:
+		pyautogui.keyUp(*autogui_args)
 	return 0, ""
 
 def is_ignored_but_valid_command(ducky_line):
@@ -216,6 +226,10 @@ def parse_line(ducky_line):
 		return PARSE_EMPTY_LINE, parse_note
 	elif is_ignored_but_valid_command(ducky_line):
 		return PARSE_OK, parse_note
+	elif ducky_line.startswith(cmd_KEYDOWN):
+		parse_result, parse_note = parse_combo(ducky_line[len(cmd_KEYDOWN):], ACTION_PRESS_ONLY)
+	elif ducky_line.startswith(cmd_KEYUP):
+		parse_result, parse_note = parse_combo(ducky_line[len(cmd_KEYUP):], ACTION_RELEASE_ONLY)
 	elif ducky_line.startswith(cmd_STRING):
 		pyautogui.write(ducky_line[len(cmd_STRING):], interval=default_char_delay_ms/1000)
 	elif ducky_line.startswith(cmd_REPEAT):
@@ -232,7 +246,7 @@ def parse_line(ducky_line):
 	elif ducky_line.split(' ')[0] in mouse_commands:
 		parse_result, parse_note = parse_mouse(ducky_line)
 	elif ducky_line.split(' ')[0] in autogui_map.keys():
-		parse_result, parse_note = parse_combo(ducky_line)
+		parse_result, parse_note = parse_combo(ducky_line, ACTION_PRESS_RELEASE)
 	else:
 		parse_result = PARSE_ERROR
 		parse_note = 'invalid command'
