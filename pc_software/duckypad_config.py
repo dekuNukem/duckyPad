@@ -519,8 +519,7 @@ def dump_keymap(save_path):
             keymap_file.writelines(s.replace('\n', '').replace('\r', '') + '\n' for s in item.content);
 
 def save_everything(save_path):
-    global last_save
-    save_result_label.config(text='Saving...', fg="white", bg="blue", cursor="")
+    dp_root_folder_display.set("Saving...")
     root.update()
     try:
         validate_data_objs(save_path)
@@ -578,20 +577,10 @@ def save_everything(save_path):
 
         with open(dps_path, 'w+') as setting_file:
             setting_file.writelines(dps_lines);
-        save_result_label.config(text='Saved!', fg="green", bg=default_button_color, cursor="")
-        save_result_label.unbind("<Button-1>")
 
     except Exception as e:
-        # print('save_click:', e)
         messagebox.showerror("Error", "Save Failed!\n\n"+str(e))
-        # messagebox.showerror("Error", "Save Failed!\n"+str(traceback.format_exc()))
-        save_result_label.config(text='Save FAILED!', fg="red", bg=default_button_color, cursor="")
-        save_result_label.unbind("<Button-1>")
-    last_save = time.time()
-
-# def current_time_str():
-#     ret = datetime.utcnow().isoformat(sep='T')
-#     return (ret[:19] + "Z").replace(':', '-')
+        dp_root_folder_display.set("Save FAILED!")
 
 def make_default_backup_dir_name():
     return 'duckyPad_backup_' + datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
@@ -687,18 +676,13 @@ root_folder_path_label = Label(master=root_folder_lf, textvariable=dp_root_folde
 root_folder_path_label.place(x=155, y=0)
 
 save_button = Button(root_folder_lf, text="Save", command=save_click, state=DISABLED)
-save_button.place(x=535, y=0, width=50)
+save_button.place(x=630, y=0, width=65)
 
 save_as_button = Button(root_folder_lf, text="Backup...", command=backup_button_click, state=DISABLED)
-save_as_button.place(x=590, y=0, width=65)
-
-save_result_label = Label(master=root_folder_lf, text="")
-save_result_label.place(x=660, y=-6, width=110, height=35)
+save_as_button.place(x=700, y=0, width=65)
 
 def app_update_click(event):
     webbrowser.open('https://github.com/dekuNukem/duckyPad/releases')
-
-last_save = 0
 
 # ------------- Profiles frame -------------
 
@@ -1265,8 +1249,6 @@ def repeat_func():
     if time.time() - last_textbox_edit >= 0.5 and modification_checked == 0:
         check_syntax_click()
         modification_checked = 1
-    if time.time() - last_save > 2 and 'update' not in save_result_label.cget("text").lower():
-        save_result_label.config(text='')
     root.after(500, repeat_func)
 
 
@@ -1283,12 +1265,12 @@ def t1_worker():
             current_hid_op = HID_NOP
             try:
                 hid_op.dump_from_hid(hid_dump_path, dp_root_folder_display)
+                select_root_folder(hid_dump_path)
                 dp_root_folder_display.set("done!")
             except Exception as e:
                 messagebox.showerror("Error", "error:\n\n"+str(e))
-                dp_root_folder_display.set("done!")
+                dp_root_folder_display.set("HID load error!")
                 continue
-            select_root_folder(hid_dump_path)
         if current_hid_op == HID_SAVE:
             current_hid_op = HID_NOP
             try:
@@ -1303,6 +1285,7 @@ def t1_worker():
                 os.rename(hid_modified_dir_path, hid_dump_path)
             except Exception as e:
                 messagebox.showerror("error", "Save error: " + str(e))
+                dp_root_folder_display.set("Save FAILED!")
 
 t1 = threading.Thread(target=t1_worker, daemon=True)
 t1.start()
