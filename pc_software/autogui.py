@@ -167,7 +167,7 @@ def parse_combo(combo_line, action_type):
 				autogui_args.append(autogui_map[item])
 		else:
 			autogui_args.append(item.lower())
-	print(autogui_args, action_type)
+	# print(autogui_args, action_type)
 	if action_type == ACTION_PRESS_RELEASE:
 		pyautogui.hotkey(*autogui_args, interval=default_char_delay_ms/1000)
 	if action_type == ACTION_PRESS_ONLY:
