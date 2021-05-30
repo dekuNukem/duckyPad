@@ -995,9 +995,7 @@ void keypress_task_start(void const * argument)
           else
           {
             is_busy = 1;
-            testest();
-            osDelay(50);
-            // handle_keypress(i, &button_status[i]); // handle the button state inside here for repeats
+            handle_keypress(i, &button_status[i]); // handle the button state inside here for repeats
             is_busy = 0;
             keydown_anime_end(i);
             if(my_dpc.type == DPC_SLEEP)

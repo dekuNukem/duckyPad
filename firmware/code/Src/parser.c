@@ -356,25 +356,6 @@ uint8_t how_many_digits(uint8_t number)
   return 1;
 }
 
-void testest(void)
-{
-  // memset(temp_buf, 0, PATH_SIZE);
-  // sprintf(temp_buf, "dp_stats.txt");
-  // if(f_open(&sd_file, temp_buf, FA_READ) != 0)
-  //   goto kp_end;
-  // while(1)
-  // {
-  //   f_read(&sd_file, read_buffer, 10, &bytes_read);
-  //   printf("tt %s\n", read_buffer);
-  //   memset(read_buffer, 0, READ_BUF_SIZE);
-  //   if(bytes_read < 10)
-  //     break;
-  // }
-  // kp_end:
-  // printf("done\n");
-  // f_close(&sd_file);
-}
-
 // find out what profile folders are available
 void scan_profiles(void)
 {
