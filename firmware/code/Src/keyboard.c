@@ -493,7 +493,7 @@ uint8_t utf8ascii(uint8_t ascii) {
 }
 
 uint16_t duckcode;
-void kb_print_char(my_key *kk, uint16_t chardelay)
+void kb_print_char(my_key *kk, int32_t chardelay, int32_t char_delay_fuzz)
 {
   /*
   kk.code is the ASCII character
@@ -519,17 +519,17 @@ void kb_print_char(my_key *kk, uint16_t chardelay)
       default: deadkey.key_type = KEY_TYPE_UNKNOWN; deadkey.code = 0;
     }
     keyboard_press(&deadkey, 1);
-    osDelay(chardelay);
+    delay_wrapper(chardelay, char_delay_fuzz);
     keyboard_release(&deadkey);
-    osDelay(chardelay);
+    delay_wrapper(chardelay, char_delay_fuzz);
   }
   keyboard_press(kk, 1);
-  osDelay(chardelay);
+  delay_wrapper(chardelay, char_delay_fuzz);
   keyboard_release(kk);
-  osDelay(chardelay);
+  delay_wrapper(chardelay, char_delay_fuzz);
 }
 
-void kb_print(char* msg, uint16_t chardelay)
+void kb_print(char* msg, int32_t chardelay, int32_t char_delay_fuzz)
 {
   my_key kk;
   for (int i = 0; i < strlen(msg); ++i)
@@ -538,7 +538,7 @@ void kb_print(char* msg, uint16_t chardelay)
     kk.code = utf8ascii(msg[i]);
     if(kk.code == 0)
       continue;
-    kb_print_char(&kk, chardelay);
+    kb_print_char(&kk, chardelay, char_delay_fuzz);
   }
 }
 

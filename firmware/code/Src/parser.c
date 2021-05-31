@@ -30,7 +30,7 @@ DIR dir;
 FILINFO fno;
 uint8_t mount_result;
 uint8_t has_valid_profiles;
-uint16_t cmd_delay, char_delay;
+int32_t cmd_delay, char_delay, cmd_delay_fuzz, char_delay_fuzz;
 unsigned int bytes_read;
 duckypad_parsed_command my_dpc;
 char temp_buf[PATH_SIZE];
@@ -53,6 +53,8 @@ const char cmd_REM[] = "REM ";
 const char cmd_DEFAULTDELAY[] = "DEFAULTDELAY ";
 const char cmd_DEFAULT_DELAY[] = "DEFAULT_DELAY ";
 const char cmd_DEFAULTCHARDELAY[] = "DEFAULTCHARDELAY ";
+const char cmd_DEFAULTDELAYFUZZ[] = "DEFAULTDELAYFUZZ ";
+const char cmd_DEFAULTCHARDELAYFUZZ[] = "DEFAULTCHARDELAYFUZZ ";
 const char cmd_DELAY[] = "DELAY ";
 const char cmd_STRING[] = "STRING ";
 const char cmd_UARTPRINT[] = "UARTPRINT ";
@@ -154,6 +156,20 @@ const char cmd_MOUSE_WHEEL[] = "MOUSE_WHEEL ";
 
 const char cmd_KEYDOWN[] = "KEYDOWN ";
 const char cmd_KEYUP[] = "KEYUP ";
+
+int32_t make_fuzz(int32_t amount, int32_t fuzz)
+{
+  if(fuzz == 0)
+    return amount;
+  return amount + rand() % fuzz;
+}
+
+void delay_wrapper(int32_t amount, int32_t fuzz)
+{
+  int32_t sss = make_fuzz(amount, fuzz);
+  // printf("z %d %d %d\n", amount, fuzz, sss);
+  osDelay(sss);
+}
 
 char* goto_next_arg(char* buf, char* buf_end)
 {
@@ -1064,31 +1080,31 @@ void parse_combo(char* line, my_key* first_key, uint8_t action_type)
   if(action_type == ACTION_PRESS_ONLY || action_type == ACTION_PRESS_RELEASE)
   {
     keyboard_press(first_key, 0);
-    osDelay(char_delay);
+    delay_wrapper(char_delay, char_delay_fuzz);
     if(arg1 != NULL)
     {
       keyboard_press(&key_1, 0);
-      osDelay(char_delay);
+      delay_wrapper(char_delay, char_delay_fuzz);
     }
     if(arg2 != NULL)
     {
       keyboard_press(&key_2, 0);
-      osDelay(char_delay);
+      delay_wrapper(char_delay, char_delay_fuzz);
     }
     if(arg3 != NULL)
     {
       keyboard_press(&key_3, 0);
-      osDelay(char_delay);
+      delay_wrapper(char_delay, char_delay_fuzz);
     }
     if(arg4 != NULL)
     {
       keyboard_press(&key_4, 0);
-      osDelay(char_delay);
+      delay_wrapper(char_delay, char_delay_fuzz);
     }
     if(arg5 != NULL)
     {
       keyboard_press(&key_5, 0);
-      osDelay(char_delay);
+      delay_wrapper(char_delay, char_delay_fuzz);
     }
   }
   // ------ release --------
@@ -1097,34 +1113,34 @@ void parse_combo(char* line, my_key* first_key, uint8_t action_type)
     if(arg5 != NULL)
     {
       keyboard_release(&key_5);
-      osDelay(char_delay);
+      delay_wrapper(char_delay, char_delay_fuzz);
     }
     if(arg4 != NULL)
     {
       keyboard_release(&key_4);
-      osDelay(char_delay);
+      delay_wrapper(char_delay, char_delay_fuzz);
     }
     if(arg3 != NULL)
     {
       keyboard_release(&key_3);
-      osDelay(char_delay);
+      delay_wrapper(char_delay, char_delay_fuzz);
     }
     if(arg2 != NULL)
     {
       keyboard_release(&key_2);
-      osDelay(char_delay);
+      delay_wrapper(char_delay, char_delay_fuzz);
     }
     if(arg1 != NULL)
     {
       keyboard_release(&key_1);
-      osDelay(char_delay);
+      delay_wrapper(char_delay, char_delay_fuzz);
     }
     keyboard_release(first_key);
-    osDelay(char_delay);
+    delay_wrapper(char_delay, char_delay_fuzz);
   }
 }
 
-uint16_t get_arg(char* line)
+int32_t get_arg(char* line)
 {
   return atoi(goto_next_arg(line, line + strlen(line)));
 }
@@ -1202,9 +1218,9 @@ uint8_t parse_line(char* line, uint8_t keynum)
   else if(is_mouse_type(&this_key))
   {
     keyboard_press(&this_key, 0);
-    osDelay(cmd_delay);
+    delay_wrapper(cmd_delay, cmd_delay_fuzz);
     keyboard_release(&this_key);
-    osDelay(cmd_delay);
+    delay_wrapper(cmd_delay, cmd_delay_fuzz);
   }
   else if(this_key.key_type != KEY_TYPE_UNKNOWN)
     parse_combo(line, &this_key, ACTION_PRESS_RELEASE);
@@ -1237,7 +1253,7 @@ uint8_t parse_line(char* line, uint8_t keynum)
     parse_combo(line + strlen(cmd_KEYUP), &this_key, ACTION_RELEASE_ONLY);
   }
   else if(strncmp(cmd_STRING, line, strlen(cmd_STRING)) == 0)
-    kb_print(line + strlen(cmd_STRING), char_delay);
+    kb_print(line + strlen(cmd_STRING), char_delay, char_delay_fuzz);
   else if(strncmp(cmd_UARTPRINT, line, strlen(cmd_UARTPRINT)) == 0)
   {
     printf("UART %s\n", line + strlen(cmd_UARTPRINT));
@@ -1253,7 +1269,7 @@ uint8_t parse_line(char* line, uint8_t keynum)
     }
     assign_colors(this_key_num, line, line_end);
     redraw_bg();
-    osDelay(char_delay);
+    delay_wrapper(char_delay, char_delay_fuzz);
     goto parse_end;
   }
   else if(is_sw_color_line(line) == 2)
@@ -1263,12 +1279,12 @@ uint8_t parse_line(char* line, uint8_t keynum)
     p_cache.individual_keydown_color[keynum][1] = p_cache.individual_key_color[keynum][1];
     p_cache.individual_keydown_color[keynum][2] = p_cache.individual_key_color[keynum][2];
     redraw_bg();
-    osDelay(char_delay);
+    delay_wrapper(char_delay, char_delay_fuzz);
     goto parse_end;
   }
   else if(strncmp(cmd_DELAY, line, strlen(cmd_DELAY)) == 0)
   {
-    uint16_t argg = get_arg(line);
+    int32_t argg = get_arg(line);
     if(argg == 0)
     {
       result = PARSE_ERROR;
@@ -1278,7 +1294,7 @@ uint8_t parse_line(char* line, uint8_t keynum)
   }
   else if((strncmp(cmd_DEFAULTDELAY, line, strlen(cmd_DEFAULTDELAY)) == 0) || (strncmp(cmd_DEFAULT_DELAY, line, strlen(cmd_DEFAULT_DELAY)) == 0))
   {
-    uint16_t argg = get_arg(line);
+    int32_t argg = get_arg(line);
     if(argg == 0)
     {
       result = PARSE_ERROR;
@@ -1288,7 +1304,7 @@ uint8_t parse_line(char* line, uint8_t keynum)
   }
   else if(strncmp(cmd_DEFAULTCHARDELAY, line, strlen(cmd_DEFAULTCHARDELAY)) == 0)
   {
-    uint16_t argg = get_arg(line);
+    int32_t argg = get_arg(line);
     if(argg == 0)
     {
       result = PARSE_ERROR;
@@ -1296,12 +1312,20 @@ uint8_t parse_line(char* line, uint8_t keynum)
     }
     char_delay = argg;
   }
+  else if(strncmp(cmd_DEFAULTDELAYFUZZ, line, strlen(cmd_DEFAULTDELAYFUZZ)) == 0)
+  {
+    cmd_delay_fuzz = get_arg(line);
+  }
+  else if(strncmp(cmd_DEFAULTCHARDELAYFUZZ, line, strlen(cmd_DEFAULTCHARDELAYFUZZ)) == 0)
+  {
+    char_delay_fuzz = get_arg(line);
+  }
   else
     result = PARSE_ERROR;
 
   parse_end:
   if(result == PARSE_OK)
-    osDelay(cmd_delay);
+    delay_wrapper(cmd_delay, cmd_delay_fuzz);
   return result;
 }
 
@@ -1317,6 +1341,8 @@ void keypress_wrap(uint8_t keynum)
     goto kp_end;
   cmd_delay = DEFAULT_CMD_DELAY_MS;
   char_delay = DEFAULT_CHAR_DELAY_MS;
+  cmd_delay_fuzz = 0;
+  char_delay_fuzz = 0;
   while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
   {
     line_num++;
