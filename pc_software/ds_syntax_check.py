@@ -95,7 +95,9 @@ autogui_map = {"ESCAPE":"escape",
 "KP_0":"num0",
 "KP_DOT":".",
 "KP_EQUAL":"=",
-"POWER":""
+"POWER":"",
+"LMOUSE":"",
+"RMOUSE":"",
 }
 
 valid_chars = ['!', '"', '#', '$', '%', '&', "'", '(',
