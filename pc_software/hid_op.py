@@ -161,7 +161,7 @@ def dump_from_hid(save_path, string_var):
 
 	for item in file_struct_list:
 		if item.type == 0 and item.content is not None:
-			with open(os.path.join(save_path, item.name), 'w') as this_file:
+			with open(os.path.join(save_path, item.name), 'w', encoding='utf-8') as this_file:
 				this_file.write(item.content)
 
 		if item.type == 1 and item.content is not None:
@@ -169,7 +169,7 @@ def dump_from_hid(save_path, string_var):
 			ensure_dir(this_folder_path)
 			for subfile in item.content:
 				if subfile.type == 0 and subfile.content is not None:
-					with open(os.path.join(this_folder_path, subfile.name), 'w') as this_file:
+					with open(os.path.join(this_folder_path, subfile.name), 'w', encoding='utf-8') as this_file:
 						this_file.write(subfile.content)
 
 
@@ -208,7 +208,10 @@ def duckypad_write_file_one_line(content):
 		raise ValueError("content too long")
 
 	for x in range(0, len(content)):
-		pc_to_duckypad_buf[3+x] = ord(content[x])
+		if 0 <= ord(content[x]) <= 255:
+			pc_to_duckypad_buf[3+x] = ord(content[x])
+		else:
+			pc_to_duckypad_buf[3+x] = ord("?")
 
 	h.write(pc_to_duckypad_buf)
 
