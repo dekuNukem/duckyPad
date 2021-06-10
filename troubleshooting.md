@@ -14,6 +14,8 @@ Click a question below to jump to the answer!
 
 * [F13 - F24 keys doesn't work!](#f13---f24-keys-doesnt-work)
 
+* [My duckyPad stopped working on latest firmware!](#my-duckypad-stopped-working-on-latest-firmware)
+
 * [My script behaves inconsistently!](#My-script-behaves-inconsistently)
 
 * [My duckyPad seems to be getting sluggish!](#My-duckyPad-seems-to-be-getting-sluggish)
