@@ -217,6 +217,7 @@ def connect_button_click():
     global is_using_hid
 
     is_using_hid = False
+    
     if hid_op.get_duckypad_path() is None:
         if(messagebox.askokcancel("Info", "duckyPad not found!\n\nConfigure via SD card instead?") == False):
             return
@@ -224,6 +225,7 @@ def connect_button_click():
         return
 
     init_success = True
+    hid_op.duckypad_hid_close()
     try:
         hid_op.duckypad_hid_init()
     except Exception as e:
@@ -1300,6 +1302,7 @@ def t1_worker():
                 continue
         if current_hid_op == HID_SAVE:
             current_hid_op = HID_NOP
+            hid_op.duckypad_hid_close()
             try:
                 hid_op.duckypad_hid_init()
                 hid_op.duckypad_hid_file_sync(hid_dump_path, hid_modified_dir_path, dp_root_folder_display)
