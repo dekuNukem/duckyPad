@@ -21,11 +21,14 @@ import json
 import subprocess
 import hid_op
 import threading
-
+from elevate import elevate
 
 def ensure_dir(dir_path):
     if not os.path.exists(dir_path):
         os.makedirs(dir_path)
+
+def is_root():
+    return os.getuid() == 0
 
 appname = 'duckypad_config'
 appauthor = 'dekuNukem'
@@ -208,21 +211,44 @@ HID_DUMP = 1
 HID_SAVE = 2
 current_hid_op = HID_NOP
 is_using_hid = False
-# hid_dump_progress_str = StringVar()
-# hid_dump_progress_str.set('hid_dump_progress_str')
 
 def connect_button_click():
     global current_hid_op
     global is_using_hid
-    try:
-        hid_op.duckypad_hid_init()
-        current_hid_op = HID_DUMP
-        is_using_hid = True
-    except Exception as e:
-        if(messagebox.askokcancel("Info", "Connection failed: " + str(e) + "\n\nSelect the SD card root folder instead?") == False):
+
+    is_using_hid = False
+    if hid_op.get_duckypad_path() is None:
+        if(messagebox.askokcancel("Info", "duckyPad not found!\n\nConfigure via SD card instead?") == False):
             return
         select_root_folder()
-        is_using_hid = False
+        return
+
+    init_success = True
+    try:
+        hid_op.duckypad_hid_init()
+    except Exception as e:
+        init_success = False
+
+    if init_success:
+        current_hid_op = HID_DUMP
+        is_using_hid = True
+        return
+
+    if init_success is False and 'darwin' in sys.platform and is_root() is False:
+        box_result = messagebox.askyesnocancel("Info", "duckyPad detected, but this app lacks permission to access it.\n\nClick Yes to relaunch with admin privilege\n\nClick No to configure via SD card.")
+        if box_result is True:
+            elevate(graphical=False)
+        elif box_result is False:
+            select_root_folder()
+        return
+
+    if init_success is False and 'darwin' in sys.platform and is_root() is True:
+        box_result = messagebox.askyesnocancel("Info", "duckyPad detected, however, due to macOS restrictions, you'll need to enable some privacy settings.\n\nClick Yes to learn how.\n\nClick No to configure via SD card.")
+        if box_result is True:
+            webbrowser.open('https://github.com/dekuNukem/duckyPad/releases')
+        elif box_result is False:
+            select_root_folder()
+        return
 
 def enable_buttons():
     profile_add_button.config(state=NORMAL)
