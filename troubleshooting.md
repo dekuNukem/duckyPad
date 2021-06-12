@@ -226,7 +226,7 @@ Here's how:
 
 ![Alt text](resources/pics/input_mon.png)
 
-### Launch app as root
+### Launch app as administrator
 
 * Open `System Preferences` -> `Keyboard` -> `Shortcuts` -> `Services`
 
@@ -234,8 +234,17 @@ Here's how:
 
 ![Alt text](resources/pics/terminal.png)
 
+* Download the latest macOS software, unzip into a folder.
 
+* `Right click` on the unzipped folder and select `New Terminal at Folder`
 
+![Alt text](resources/pics/right.png)
+
+* Type in `sh run.sh` and press enter, then enter your password.
+
+* The app should launch as administrator, and should be fully functional now.
+
+* If it still doesn't work, [let me know](#questions-or-comments)!
 
 ## Table of Contents
 
