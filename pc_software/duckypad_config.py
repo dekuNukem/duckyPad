@@ -240,7 +240,7 @@ def connect_button_click():
         box_result = messagebox.askyesnocancel("Info", "duckyPad detected, but this app lacks permission to access it.\n\nClick Yes to see instructions\n\nClick No to configure via SD card.")
         if box_result is True:
             # elevate(graphical=False)
-            webbrowser.open('https://github.com/dekuNukem/duckyPad/releases')
+            webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/troubleshooting.md#autoswitcher--usb-configuration-isnt-working-on-macos')
         elif box_result is False:
             select_root_folder()
         return
@@ -248,7 +248,7 @@ def connect_button_click():
     if init_success is False and 'darwin' in sys.platform and is_root() is True:
         box_result = messagebox.askyesnocancel("Info", "duckyPad detected, however, due to macOS restrictions, you'll need to enable some privacy settings.\n\nClick Yes to learn how.\n\nClick No to configure via SD card.")
         if box_result is True:
-            webbrowser.open('https://github.com/dekuNukem/duckyPad/releases')
+            webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/troubleshooting.md#autoswitcher--usb-configuration-isnt-working-on-macos')
         elif box_result is False:
             select_root_folder()
         return
