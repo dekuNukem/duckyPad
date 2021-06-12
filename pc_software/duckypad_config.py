@@ -21,7 +21,7 @@ import json
 import subprocess
 import hid_op
 import threading
-from elevate import elevate
+# from elevate import elevate
 
 def ensure_dir(dir_path):
     if not os.path.exists(dir_path):
@@ -237,9 +237,10 @@ def connect_button_click():
         return
 
     if init_success is False and 'darwin' in sys.platform and is_root() is False:
-        box_result = messagebox.askyesnocancel("Info", "duckyPad detected, but this app lacks permission to access it.\n\nClick Yes to relaunch with admin privilege\n\nClick No to configure via SD card.")
+        box_result = messagebox.askyesnocancel("Info", "duckyPad detected, but this app lacks permission to access it.\n\nClick Yes to see instructions\n\nClick No to configure via SD card.")
         if box_result is True:
-            elevate(graphical=False)
+            # elevate(graphical=False)
+            webbrowser.open('https://github.com/dekuNukem/duckyPad/releases')
         elif box_result is False:
             select_root_folder()
         return
@@ -629,11 +630,11 @@ def backup_button_click():
     if config_dict['auto_backup_enabled']:
         messagebox.showinfo("Backups", "Auto backup is ON!\n\nAll your backups are here!")
         if 'darwin' in sys.platform:
-        	subprocess.Popen(["open", backup_path])
+            subprocess.Popen(["open", backup_path])
         elif 'linux' in sys.platform:
-        	subprocess.Popen(["xdg-open", backup_path])
+            subprocess.Popen(["xdg-open", backup_path])
         else:
-        	webbrowser.open(backup_path)
+            webbrowser.open(backup_path)
     else:
         messagebox.showinfo("Backups", "Auto backup is OFF!\n\nSelect a folder to save a backup.")
         dir_result = filedialog.askdirectory(initialdir=os.path.join(os.path.expanduser('~'), "Desktop"))
