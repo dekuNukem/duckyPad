@@ -214,7 +214,7 @@ Due to the security restrictions of macOS, to use autoswitcher and USB configura
 
 Here's how:
 
-### Enable permissions
+### Enable permission
 
 * Open `System Preferences` -> `Security & Privacy`
 
@@ -222,9 +222,14 @@ Here's how:
 
 * Click the lock to make changes
 
-* Press the `+` button and select the duckyPad app
+* Press the `+` button
 
 ![Alt text](resources/pics/input_mon.png)
+
+* Go to `Applications` -> `Utilities`, and add `Terminal` to the list.
+
+![Alt text](resources/pics/select_term.png)
+
 
 ### Launch app as administrator
 
