@@ -4,6 +4,7 @@
 #include "usb_device.h"
 #include "shared.h"
 #include "keyboard.h"
+#include "parser.h"
 
 #define SHIFT 0x100
 #define ALT_GR 0x200
@@ -363,6 +364,11 @@ void mouse_release(my_key* this_key)
   vTaskSuspendAll();USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, kb_buf, KB_BUF_SIZE);xTaskResumeAll();
 }
 
+void chromebook(my_key* this_key, uint8_t use_mod)
+{
+
+}
+
 void keyboard_press(my_key* this_key, uint8_t use_mod)
 {
   uint16_t duckcode;
@@ -492,7 +498,8 @@ uint8_t utf8ascii(uint8_t ascii) {
   return 0; // otherwise: return zero, if character has to be ignored
 }
 
-uint16_t duckcode;
+my_key temp_shift_key;
+my_key temp_altgr_key;
 void kb_print_char(my_key *kk, int32_t chardelay, int32_t char_delay_fuzz)
 {
   /*
@@ -502,7 +509,7 @@ void kb_print_char(my_key *kk, int32_t chardelay, int32_t char_delay_fuzz)
   if no dead key, press as normal
   if has dead key, press it first
   */
-  duckcode = _asciimap[kk->code];
+  uint16_t duckcode = _asciimap[kk->code];
   if(duckcode == 0)
   	return;
   uint16_t wtf = duckcode & 0xf000;
@@ -523,10 +530,34 @@ void kb_print_char(my_key *kk, int32_t chardelay, int32_t char_delay_fuzz)
     keyboard_release(&deadkey);
     delay_wrapper(chardelay, char_delay_fuzz);
   }
-  keyboard_press(kk, 1);
+  if(duckcode & SHIFT)
+  {
+    temp_shift_key.key_type = KEY_TYPE_MODIFIER;
+    temp_shift_key.code = KEY_LEFT_SHIFT;
+    keyboard_press(&temp_shift_key, 1);
+    delay_wrapper(chardelay, char_delay_fuzz);
+  }
+  if(duckcode & ALT_GR)
+  {
+    temp_altgr_key.key_type = KEY_TYPE_MODIFIER;
+    temp_altgr_key.code = KEY_RIGHT_ALT;
+    keyboard_press(&temp_altgr_key, 1);
+    delay_wrapper(chardelay, char_delay_fuzz);
+  }
+  keyboard_press(kk, 0);
   delay_wrapper(chardelay, char_delay_fuzz);
   keyboard_release(kk);
   delay_wrapper(chardelay, char_delay_fuzz);
+  if(duckcode & ALT_GR)
+  {
+    keyboard_release(&temp_altgr_key);
+    delay_wrapper(chardelay, char_delay_fuzz);
+  }
+  if(duckcode & SHIFT)
+  {
+    keyboard_release(&temp_shift_key);
+    delay_wrapper(chardelay, char_delay_fuzz);
+  }
 }
 
 void kb_print(char* msg, int32_t chardelay, int32_t char_delay_fuzz)
