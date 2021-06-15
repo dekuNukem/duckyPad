@@ -91,23 +91,35 @@ For macOS, **`RIGHT CLICK`** on the app and select `Open`. You might have to do 
 
 ![Alt text](resources/pics/app/macos_warning.png)
 
-### Using the duckyPad configurator
+### Using duckyPad configurator
 
-Remove the SD card from duckyPad, mount it on your computer and launch the app. It should look like this:
+After launching the app, it should look like this:
 
 ![Alt text](resources/pics/app/unselected.png)
 
-Press the `Open...` button, and select the **`entire SD card`**:
+Make sure your duckyPad is plugged in, and press the `Connect` button.
 
-![Alt text](resources/pics/app/select_root.png)
-
-The application should load up the data from the SD card:
+It should then load all the data from duckyPad:
 
 ![Alt text](resources/pics/app/overview.png)
 
-It might look a bit overwhelming, but don't worry, let's break it down.
+#### (OPTIONAL) Load from SD card
+
+If for some reason it didn't work, you can also **load from SD card**.
+
+* Remove the SD card from duckyPad
+
+* Mount it on your computer
+
+* Select the **`entire SD card`**
+
+![Alt text](resources/pics/app/select_root.png)
+
+* It should load just the same
 
 ### Profiles
+
+The GUI might look a bit overwhelming, but don't worry, let's break it down.
 
 * The leftmost column is for *profiles*.
 
@@ -195,7 +207,7 @@ Press `Keyboard Layouts...` button to open its setting:
 
 ### Don't forget to save!
 
-* Press the `Save` button to save the changes to SD card. It might take a few seconds.
+* Press the `Save` button to save the changes. It might take a few seconds.
 
 ![Alt text](resources/pics/app/save.png)
 
@@ -211,7 +223,9 @@ Press `Keyboard Layouts...` button to open its setting:
 
 ### Run it!
 
-Eject the SD card from your computer, insert it into duckyPad, plug it in. It should start up and display the profile names and key names, as well as the customised colours.
+duckyPad should automatically reboot when you press `Save`, and your new scripts will be ready to use!
+
+If configuring via SD card, insert it back in duckyPad and power it on.
 
 * Press a key to execute the corresponding script.
 
@@ -220,14 +234,6 @@ Eject the SD card from your computer, insert it into duckyPad, plug it in. It sh
 * **`Hold down`** `+` button for profile quickswitch.
 
 * **`Hold down`** `-` button to change RGB backlight brightness.
-
-### USB-based profile editing
-
-A **BETA TEST** is currently underway for editing profiles WITHOUT needing to remove the SD card.
-
-[Click me to try it out!](https://gist.github.com/dekuNukem/3d4ca966c83dca38ae89ee1142806ef2)
-
-[Let me know](#questions-or-comments) if you have any issues or feedbacks!
 
 ### Profile auto-switching
 

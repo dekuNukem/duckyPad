@@ -49,6 +49,44 @@ CONTROL w
 
 * Check out the [sample profiles](https://github.com/dekuNukem/duckyPad/tree/master/sample_profiles) for more examples.
 
+## List of Commands
+
+[REM](#REM)
+
+[DEFAULTDELAY](#DEFAULTDELAY)
+
+[DEFAULTCHARDELAY](#DEFAULTCHARDELAY)
+
+[DELAY](#DELAY)
+
+[STRING](#STRING)
+
+[REPEAT](#REPEAT)
+
+[Special Keys](#Special-Keys)
+
+[Mouse Buttons](#Mouse-Buttons)
+
+[MOUSE_MOVE X Y](#MOUSE_MOVE-X-Y)
+
+[MOUSE_WHEEL X](#MOUSE_WHEEL-X)
+
+[KEYDOWN / KEYUP](#KEYDOWN--KEYUP)
+
+[SWCOLOR](#SWCOLOR)
+
+[DP_SLEEP](#DP_SLEEP)
+
+[PREV_PROFILE / NEXT_PROFILE](#PREV_PROFILE--NEXT_PROFILE)
+
+[GOTO_PROFILE](#GOTO_PROFILE)
+
+[HOLD](#HOLD-experimental)
+
+[LOOP](#LOOP-experimental)
+
+-----
+
 ### REM
 
 `REM` is comment, any line starting with `REM` is ignored.
@@ -244,6 +282,20 @@ Scroll mouse wheel `X` lines.
 * `X` must be between `-127` and `127`
 
 * A positive number scrolls UP, negative number scrolls DOWN.
+
+### KEYDOWN / KEYUP
+
+Holds / Releases a key.
+
+Can be character key, modifier key, special key, or even mouse button!
+
+Example:
+
+```
+KEYDOWN SHIFT
+STRING hello
+KEYUP SHIFT
+```
 
 ### SWCOLOR
 
