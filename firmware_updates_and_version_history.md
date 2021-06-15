@@ -10,7 +10,7 @@
 
 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.19.1.dfu)
 
-🆕 Configure duckyPad via USB **WITHOUT taking out SD card!** [Click me for details.](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#mouse-buttons)
+🆕 Configure duckyPad via USB **WITHOUT taking out SD card!** [Click me for details.](https://github.com/dekuNukem/duckyPad/blob/master/getting_started.md#using-duckypad-configurator)
 
 🆕 Added `KEYUP` and `KEYDOWN` commands for holding keys
 
