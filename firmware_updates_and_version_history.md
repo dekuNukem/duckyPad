@@ -6,19 +6,17 @@
 
 ## Latest Firmware
 
-### 0.18.0
+### 0.19.1
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.18.0.dfu)
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.19.1.dfu)
 
-🆕 **Mouse support!** [Click me for details.](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#mouse-buttons)
+🆕 Configure duckyPad via USB **WITHOUT taking out SD card!** [Click me for details.](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#mouse-buttons)
 
-🆕 **Profile auto-switching** support! [Switch profiles automatically](https://github.com/dekuNukem/duckyPad-profile-autoswitcher) based on currently active window!
-
-🆕 [Two-way HID communication](https://github.com/dekuNukem/duckyPad-profile-autoswitcher/blob/master/HID_details.md) support! Write your own software to control duckyPad!
+🆕 Added `KEYUP` and `KEYDOWN` commands for holding keys
 
 ⚠️ As this is a fairly large update, there might be some bugs lurking around. [Let me know](#questions-or-comments) if you run into one!
 
-⚠️ Known issues:
+#### Known issues:
 
 * An user reported capitalized letters not working on Chromebook, let me know if that's the case on yours!
 
