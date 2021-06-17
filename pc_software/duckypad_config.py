@@ -79,7 +79,7 @@ sd_card_keymap_list = []
 
 def open_discord_link():
     try:
-        webbrowser.open(str(urllib.request.urlopen(discord_link_url).read().decode('utf-8')).split('\n')[0])
+        webbrowser.open(str(urllib.request.urlopen(discord_link_url).read().decode('latin-1')).split('\n')[0])
     except Exception as e:
         messagebox.showerror("Error", "Failed to open discord link!\n"+str(e))
 
@@ -542,7 +542,7 @@ def dump_keymap(save_path):
             pass
     for item in sd_card_keymap_list:
         if item.url is not None:
-            item.content = str(urllib.request.urlopen(item.url).read().decode('utf-8')).split('\n')
+            item.content = str(urllib.request.urlopen(item.url).read().decode('latin-1')).split('\n')
     for item in sd_card_keymap_list:
         file_path = os.path.join(save_path, item.file_name)
         with open(file_path, 'w', encoding='utf8') as keymap_file:
@@ -596,7 +596,7 @@ def save_everything(save_path):
         dps_path = os.path.join(save_path, 'dp_settings.txt')
         dps_lines = ["sleep_after_min " + str(sleepmode_slider.get()) + "\n"]
         try:
-            dps_file = open(dps_path, encoding='utf-8')
+            dps_file = open(dps_path, encoding='latin-1')
             dps_lines = dps_file.readlines()
             dps_file.close()
             for index, line in enumerate(dps_lines):

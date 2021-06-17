@@ -9,7 +9,7 @@ def ensure_dir(dir_path):
         os.makedirs(dir_path)
 
 def get_file_content(file_path):
-    this_file = open(file_path, encoding='utf-8')
+    this_file = open(file_path, encoding='latin-1')
     content = this_file.read()
     this_file.close()
     return content
@@ -161,7 +161,7 @@ def dump_from_hid(save_path, string_var):
 
 	for item in file_struct_list:
 		if item.type == 0 and item.content is not None:
-			with open(os.path.join(save_path, item.name), 'w', encoding='utf-8') as this_file:
+			with open(os.path.join(save_path, item.name), 'w', encoding='latin-1') as this_file:
 				this_file.write(item.content)
 
 		if item.type == 1 and item.content is not None:
@@ -169,7 +169,7 @@ def dump_from_hid(save_path, string_var):
 			ensure_dir(this_folder_path)
 			for subfile in item.content:
 				if subfile.type == 0 and subfile.content is not None:
-					with open(os.path.join(this_folder_path, subfile.name), 'w', encoding='utf-8') as this_file:
+					with open(os.path.join(this_folder_path, subfile.name), 'w', encoding='latin-1') as this_file:
 						this_file.write(subfile.content)
 
 
