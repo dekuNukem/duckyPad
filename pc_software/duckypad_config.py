@@ -595,19 +595,19 @@ def save_everything(save_path):
         dump_keymap(keymap_folder_path)
 
         dps_path = os.path.join(save_path, 'dp_settings.txt')
-        dps_lines = ["sleep_after_min " + str(sleepmode_slider.get()) + "\n"]
         try:
-            dps_file = open(dps_path, encoding='latin-1')
-            dps_lines = dps_file.readlines()
-            dps_file.close()
-            for index, line in enumerate(dps_lines):
+            found = False
+            for index, line in enumerate(dp_settings.list_of_lines):
                 if 'sleep_after_min' in line:
-                    dps_lines[index] = "sleep_after_min " + str(sleepmode_slider.get()) + "\n";
-        except Exception:
-            pass
+                    found = True
+                    dp_settings.list_of_lines[index] = "sleep_after_min " + str(sleepmode_slider.get()) + "\n";
+            if found is False:
+                dp_settings.list_of_lines.append("sleep_after_min " + str(sleepmode_slider.get()) + "\n")
+        except Exception as e:
+            print("dps", e)
 
         with open(dps_path, 'w+') as setting_file:
-            setting_file.writelines(dps_lines);
+            setting_file.writelines(dp_settings.list_of_lines);
 
         dp_root_folder_display.set("Saved!")
 
