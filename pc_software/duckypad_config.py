@@ -608,6 +608,8 @@ def save_everything(save_path):
         with open(dps_path, 'w+') as setting_file:
             setting_file.writelines(dps_lines);
 
+        dp_root_folder_display.set("Saved!")
+
     except Exception as e:
         messagebox.showerror("Error", "Save Failed!\n\n"+str(e))
         dp_root_folder_display.set("Save FAILED!")
