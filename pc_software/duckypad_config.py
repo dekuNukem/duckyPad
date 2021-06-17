@@ -23,6 +23,8 @@ import hid_op
 import threading
 # from elevate import elevate
 
+THIS_VERSION_NUMBER = '0.13.3'
+
 def ensure_dir(dir_path):
     if not os.path.exists(dir_path):
         os.makedirs(dir_path)
@@ -64,7 +66,6 @@ default_button_color = 'SystemButtonFace'
 if 'linux' in sys.platform:
     default_button_color = 'grey'
 
-THIS_VERSION_NUMBER = '0.13.2'
 MAIN_WINDOW_WIDTH = 800
 MAIN_WINDOW_HEIGHT = 625
 MAIN_COLOUM_HEIGHT = 533
