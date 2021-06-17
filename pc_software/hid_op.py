@@ -266,7 +266,7 @@ def duckypad_delete_dir(dir_name):
 
 def duckypad_hid_file_sync(duckypad_dir_name, local_dir_name, string_var):
 	compare_result = filecmp.dircmp(duckypad_dir_name, local_dir_name, ignore=['keymaps','SYSTEM~1'])
-	top_level_to_copy = compare_result.right_only
+	top_level_to_copy = compare_result.right_only + compare_result.diff_files
 	top_level_to_remove = compare_result.left_only
 
 	for item in top_level_to_remove:
