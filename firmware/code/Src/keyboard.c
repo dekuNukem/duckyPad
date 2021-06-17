@@ -512,8 +512,8 @@ void kb_print_char(my_key *kk, int32_t chardelay, int32_t char_delay_fuzz)
   uint16_t duckcode = _asciimap[kk->code];
   if(duckcode == 0)
   	return;
-  uint16_t wtf = duckcode & 0xf000;
-  if(wtf != 0) // deadkey
+  uint16_t is_deadkey = duckcode & 0xf000;
+  if(is_deadkey != 0) // deadkey
   {
     switch(duckcode >> 12)
     {
@@ -526,8 +526,6 @@ void kb_print_char(my_key *kk, int32_t chardelay, int32_t char_delay_fuzz)
       default: deadkey.key_type = KEY_TYPE_UNKNOWN; deadkey.code = 0;
     }
     keyboard_press(&deadkey, 1);
-    delay_wrapper(chardelay, char_delay_fuzz);
-    keyboard_release(&deadkey);
     delay_wrapper(chardelay, char_delay_fuzz);
   }
   if(duckcode & SHIFT)
@@ -544,7 +542,7 @@ void kb_print_char(my_key *kk, int32_t chardelay, int32_t char_delay_fuzz)
     keyboard_press(&temp_altgr_key, 1);
     delay_wrapper(chardelay, char_delay_fuzz);
   }
-  keyboard_press(kk, 0);
+  keyboard_press(kk, 1);
   delay_wrapper(chardelay, char_delay_fuzz);
   keyboard_release(kk);
   delay_wrapper(chardelay, char_delay_fuzz);
@@ -556,6 +554,11 @@ void kb_print_char(my_key *kk, int32_t chardelay, int32_t char_delay_fuzz)
   if(duckcode & SHIFT)
   {
     keyboard_release(&temp_shift_key);
+    delay_wrapper(chardelay, char_delay_fuzz);
+  }
+  if(is_deadkey != 0) // deadkey
+  {
+    keyboard_release(&deadkey);
     delay_wrapper(chardelay, char_delay_fuzz);
   }
 }
