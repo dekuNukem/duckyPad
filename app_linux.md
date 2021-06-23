@@ -24,3 +24,11 @@ The rule will be applied on the next reboot or you can force a reload of the rul
 sudo udevadm trigger
 sudo udevadm control --reload-rules
 ```
+
+## Debugging
+
+To view all of the HID connection debug logging (warning this is very verbose) you can start the app with `HID_OP_LOG=debug` like this:
+
+```bash
+HID_OP_LOG=debug python duckypad_config.py
+```
