@@ -16,10 +16,9 @@ def get_file_content(file_path):
 
 def get_duckypad_path():
 	for device_dict in hid.enumerate():
-	    if device_dict['vendor_id'] == 0x0483 and \
-	    device_dict['product_id'] == 0xd11c and \
-	    device_dict['usage'] == 58:
-	    	return device_dict['path']
+		if device_dict['vendor_id'] == 0x0483 and \
+		device_dict['product_id'] == 0xd11c:
+			return device_dict['path']
 	return None
 
 class my_file_obj(object):
@@ -59,6 +58,27 @@ HID_COMMAND_SW_RESET = 20
 
 h = hid.device()
 
+def _check_hid_err(result):
+	"""
+	Check the HID result and raise a python exception if it is one that
+	indicates an error.
+	"""
+	if result[2] == HID_RESPONSE_BUSY:
+		raise OSError("HID error: BUSY")
+	if result[2] == HID_RESPONSE_ERROR:
+		raise OSError("HID error: Read Error")
+
+def _read_duckypad():
+	"""
+	Read from the duckyPad & discard the result if we got a list which is just
+	[0] - not sure exactly why this gets returned but it seems meaningless.
+	"""
+	res = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
+	if res == [0]:
+		return h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
+	return res
+
+
 def duckypad_hid_init():
 	duckypad_path = get_duckypad_path()
 	if duckypad_path is None:
@@ -83,11 +103,10 @@ def duckypad_list_files(root_dir = None):
 	h.write(pc_to_duckypad_buf)
 	while 1:
 		# time.sleep(HID_WAIT_TIME)
-		result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
+		result = _read_duckypad()
 		if len(result) == 0 or result[2] == HID_RESPONSE_EOF:
 			break
-		if result[2] == HID_RESPONSE_BUSY or result[2] == HID_RESPONSE_ERROR:
-			raise OSError("HID read error or busy")
+		_check_hid_err(result)
 		# print(result)
 		this_filename = ("".join([chr(x) for x in result[4:]]).strip('\0'), result[3])
 		# print(this_filename)
@@ -115,14 +134,13 @@ def duckypad_read_file(file_dir):
 	h.write(pc_to_duckypad_buf)
 	while 1:
 		# time.sleep(HID_WAIT_TIME)
-		result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-		if result[2] == HID_RESPONSE_BUSY or result[2] == HID_RESPONSE_ERROR:
-			raise OSError("HID read error or busy")
-		# print(result)
-		# print("".join([chr(x) for x in result]))
-		ret += "".join([chr(x) for x in result[3:]]).strip('\0')
+		result = _read_duckypad()
 		if len(result) == 0 or result[2] == HID_RESPONSE_EOF:
 			break
+		_check_hid_err(result)
+		ret += "".join([chr(x) for x in result[3:]]).strip('\0')
+		# print(result)
+		# print("".join([chr(x) for x in result]))
 		duckypad_hid_resume()
 	return ret
 
@@ -184,8 +202,8 @@ def duckypad_open_file_for_writing(file_dir):
 
 	h.write(pc_to_duckypad_buf)
 
-	result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-	# print(result)
+	result = _read_duckypad()
+	_check_hid_err(result)
 
 def duckypad_close_file():
 	pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
@@ -195,8 +213,8 @@ def duckypad_close_file():
 
 	h.write(pc_to_duckypad_buf)
 
-	result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-	# print(result)
+	result = _read_duckypad()
+	_check_hid_err(result)
 
 def duckypad_write_file_one_line(content):
 	pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
@@ -215,8 +233,8 @@ def duckypad_write_file_one_line(content):
 
 	h.write(pc_to_duckypad_buf)
 
-	result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-	# print(result)
+	result = _read_duckypad()
+	_check_hid_err(result)
 
 def duckypad_write_file(content):
 	n=60
@@ -236,8 +254,8 @@ def duckypad_delete_file(file_name):
 
 	h.write(pc_to_duckypad_buf)
 
-	result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-	# print(result)
+	result = _read_duckypad()
+	_check_hid_err(result)
 
 def duckypad_create_dir(dir_name):
 	pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
@@ -250,8 +268,8 @@ def duckypad_create_dir(dir_name):
 
 	h.write(pc_to_duckypad_buf)
 
-	result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-	# print(result)
+	result = _read_duckypad()
+	_check_hid_err(result)
 
 def duckypad_delete_dir(dir_name):
 	pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
@@ -261,8 +279,8 @@ def duckypad_delete_dir(dir_name):
 	for x in range(0, len(dir_name)):
 		pc_to_duckypad_buf[3+x] = ord(dir_name[x])
 	h.write(pc_to_duckypad_buf)
-	result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-	# print(result)
+	result = _read_duckypad()
+	_check_hid_err(result)
 
 def duckypad_hid_file_sync(duckypad_dir_name, local_dir_name, string_var):
 	compare_result = filecmp.dircmp(duckypad_dir_name, local_dir_name, ignore=['keymaps','SYSTEM~1'])
@@ -306,7 +324,7 @@ def duckypad_hid_file_sync(duckypad_dir_name, local_dir_name, string_var):
 
 	for common_dir_name in compare_result.common_dirs:
 	    subdir_compare_result = filecmp.dircmp(os.path.join(duckypad_dir_name, common_dir_name), os.path.join(local_dir_name, common_dir_name))
-	    
+
 	    subdir_file_to_copy = subdir_compare_result.right_only + subdir_compare_result.diff_files
 	    # print("syncing...", common_dir_name)
 	    string_var.set(f'writing: {common_dir_name}')
