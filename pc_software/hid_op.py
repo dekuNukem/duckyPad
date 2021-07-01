@@ -1,8 +1,43 @@
+import logging
+import logging.config
 import os
 import hid
 import time
 import shutil
 import filecmp
+
+LOGGING_LEVEL = os.getenv('HID_OP_LOG', 'INFO').upper()
+LOGGING_CONFIG = {
+    'version': 1,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+        },
+    },
+    'handlers': {
+        'default': {
+            'level': LOGGING_LEVEL,
+            'formatter': 'standard',
+            'class': 'logging.StreamHandler',
+            'stream': 'ext://sys.stderr',
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['default'],
+            'level': 'WARNING',
+            'propagate': False
+        },
+        'hid_op': {
+            'handlers': ['default'],
+            'level': LOGGING_LEVEL,
+            'propagate': False
+        },
+    }
+}
+
+logging.config.dictConfig(LOGGING_CONFIG)
+logger = logging.getLogger(__name__)
 
 def ensure_dir(dir_path):
     if not os.path.exists(dir_path):
@@ -16,10 +51,10 @@ def get_file_content(file_path):
 
 def get_duckypad_path():
 	for device_dict in hid.enumerate():
-	    if device_dict['vendor_id'] == 0x0483 and \
-	    device_dict['product_id'] == 0xd11c and \
-	    device_dict['usage'] == 58:
-	    	return device_dict['path']
+		if device_dict['vendor_id'] == 0x0483 and \
+		device_dict['product_id'] == 0xd11c:
+			logger.debug('Found duckyPad: %s', device_dict)
+			return device_dict['path']
 	return None
 
 class my_file_obj(object):
@@ -59,6 +94,27 @@ HID_COMMAND_SW_RESET = 20
 
 h = hid.device()
 
+def _check_hid_err(result):
+	"""
+	Check the HID result and raise a python exception if it is one that
+	indicates an error.
+	"""
+	if result[2] == HID_RESPONSE_BUSY:
+		raise OSError("HID error: BUSY")
+	if result[2] == HID_RESPONSE_ERROR:
+		raise OSError("HID error: Read Error")
+
+def _read_duckypad():
+	"""
+	Read from the duckyPad & discard the result if we got a list which is just
+	[0] - not sure exactly why this gets returned but it seems meaningless.
+	"""
+	res = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
+	if res == [0]:
+		return h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
+	return res
+
+
 def duckypad_hid_init():
 	duckypad_path = get_duckypad_path()
 	if duckypad_path is None:
@@ -83,14 +139,12 @@ def duckypad_list_files(root_dir = None):
 	h.write(pc_to_duckypad_buf)
 	while 1:
 		# time.sleep(HID_WAIT_TIME)
-		result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
+		result = _read_duckypad()
 		if len(result) == 0 or result[2] == HID_RESPONSE_EOF:
 			break
-		if result[2] == HID_RESPONSE_BUSY or result[2] == HID_RESPONSE_ERROR:
-			raise OSError("HID read error or busy")
-		# print(result)
+		_check_hid_err(result)
 		this_filename = ("".join([chr(x) for x in result[4:]]).strip('\0'), result[3])
-		# print(this_filename)
+		logger.debug('duckypad_list_files: fname=%s result=%s', this_filename, result)
 		ret.append(this_filename)
 		duckypad_hid_resume()
 	return ret
@@ -115,14 +169,13 @@ def duckypad_read_file(file_dir):
 	h.write(pc_to_duckypad_buf)
 	while 1:
 		# time.sleep(HID_WAIT_TIME)
-		result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-		if result[2] == HID_RESPONSE_BUSY or result[2] == HID_RESPONSE_ERROR:
-			raise OSError("HID read error or busy")
-		# print(result)
-		# print("".join([chr(x) for x in result]))
-		ret += "".join([chr(x) for x in result[3:]]).strip('\0')
+		result = _read_duckypad()
 		if len(result) == 0 or result[2] == HID_RESPONSE_EOF:
 			break
+		_check_hid_err(result)
+		ret += "".join([chr(x) for x in result[3:]]).strip('\0')
+		logger.debug("duckypad_read_file: result=%s ret=%s", result, ret)
+		# print("".join([chr(x) for x in result]))
 		duckypad_hid_resume()
 	return ret
 
@@ -184,8 +237,9 @@ def duckypad_open_file_for_writing(file_dir):
 
 	h.write(pc_to_duckypad_buf)
 
-	result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-	# print(result)
+	result = _read_duckypad()
+	logger.debug("duckypad_open_file_for_writing: dir=%s result=%s", file_dir, result)
+	_check_hid_err(result)
 
 def duckypad_close_file():
 	pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
@@ -195,8 +249,9 @@ def duckypad_close_file():
 
 	h.write(pc_to_duckypad_buf)
 
-	result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-	# print(result)
+	result = _read_duckypad()
+	logger.debug("duckypad_close_file: result=%s", result)
+	_check_hid_err(result)
 
 def duckypad_write_file_one_line(content):
 	pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
@@ -215,8 +270,14 @@ def duckypad_write_file_one_line(content):
 
 	h.write(pc_to_duckypad_buf)
 
-	result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-	# print(result)
+	result = _read_duckypad()
+	logger.debug(
+		"duckypad_write_file_one_line: content=%s pc_to_duckypad_buf=%s result=%s",
+		content,
+		pc_to_duckypad_buf,
+		result,
+	)
+	_check_hid_err(result)
 
 def duckypad_write_file(content):
 	n=60
@@ -236,8 +297,9 @@ def duckypad_delete_file(file_name):
 
 	h.write(pc_to_duckypad_buf)
 
-	result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-	# print(result)
+	result = _read_duckypad()
+	logger.debug("duckypad_delete_file: file_name=%s result=%s", file_name, result)
+	_check_hid_err(result)
 
 def duckypad_create_dir(dir_name):
 	pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
@@ -250,8 +312,9 @@ def duckypad_create_dir(dir_name):
 
 	h.write(pc_to_duckypad_buf)
 
-	result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-	# print(result)
+	result = _read_duckypad()
+	logger.debug("duckypad_create_dir: dir_name=%s result=%s", dir_name, result)
+	_check_hid_err(result)
 
 def duckypad_delete_dir(dir_name):
 	pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
@@ -261,8 +324,9 @@ def duckypad_delete_dir(dir_name):
 	for x in range(0, len(dir_name)):
 		pc_to_duckypad_buf[3+x] = ord(dir_name[x])
 	h.write(pc_to_duckypad_buf)
-	result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-	# print(result)
+	result = _read_duckypad()
+	logger.debug("duckypad_delete_dir: dir_name=%s result=%s", dir_name, result)
+	_check_hid_err(result)
 
 def duckypad_hid_file_sync(duckypad_dir_name, local_dir_name, string_var):
 	compare_result = filecmp.dircmp(duckypad_dir_name, local_dir_name, ignore=['keymaps','SYSTEM~1'])
@@ -306,7 +370,7 @@ def duckypad_hid_file_sync(duckypad_dir_name, local_dir_name, string_var):
 
 	for common_dir_name in compare_result.common_dirs:
 	    subdir_compare_result = filecmp.dircmp(os.path.join(duckypad_dir_name, common_dir_name), os.path.join(local_dir_name, common_dir_name))
-	    
+
 	    subdir_file_to_copy = subdir_compare_result.right_only + subdir_compare_result.diff_files
 	    # print("syncing...", common_dir_name)
 	    string_var.set(f'writing: {common_dir_name}')
@@ -329,7 +393,7 @@ def duckypad_hid_file_sync(duckypad_dir_name, local_dir_name, string_var):
 	        string_var.set(f'deleting: {fatfs_path}')
 	        duckypad_delete_file(fatfs_path)
 	# print("done")
-	string_var.set(f'done')
+	string_var.set('done')
 
 def duckypad_hid_sw_reset():
 	pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
@@ -337,19 +401,3 @@ def duckypad_hid_sw_reset():
 	pc_to_duckypad_buf[1] = 0	# Sequence Number
 	pc_to_duckypad_buf[2] = HID_COMMAND_SW_RESET	# Command type
 	h.write(pc_to_duckypad_buf)
-
-# sssss = "Extreme E's boat full of race cars has docked in Senegal after kicking off its season in Saudi Arabia (now home of the Dakar Rally), where it's racing this weekend at Lac Rose, the original site of the Dakar. The whole idea of the series is to go off-roading in some of the environments most vulnerable to pollution and climate change caused by humans, with the Ocean X Prix aimed to highlight the problems of over-fishing, sea plastics, destruction of habitats like coral reefs and the million other really bad things we keep putting in the sea."
-
-
-# start = time.time()
-# # duckypad_open_file_for_writing('test.txt')
-# # duckypad_write_file(sssss)
-# # duckypad_close_file()
-# duckypad_delete_dir("/")
-# print('took', time.time() - start)
-
-# start = time.time()
-# duckypad_hid_init()
-# dump_from_hid()
-# print('took', time.time() - start)
-# h.close()
