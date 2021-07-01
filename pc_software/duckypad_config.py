@@ -21,7 +21,6 @@ import json
 import subprocess
 import hid_op
 import threading
-# from elevate import elevate
 
 THIS_VERSION_NUMBER = '0.13.3'
 
@@ -237,10 +236,17 @@ def connect_button_click():
         is_using_hid = True
         return
 
+    if init_success is False and 'linux' in sys.platform:
+        box_result = messagebox.askyesnocancel("Info", "duckyPad detected, but you need to add an udev rule before I can access it.\n\nClick Yes to see instructions\n\nClick No to configure via SD card.")
+        if box_result is True:
+            webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/app_posix.md')
+        elif box_result is False:
+            select_root_folder()
+        return
+
     if init_success is False and 'darwin' in sys.platform and is_root() is False:
         box_result = messagebox.askyesnocancel("Info", "duckyPad detected, but this app lacks permission to access it.\n\nClick Yes to see instructions\n\nClick No to configure via SD card.")
         if box_result is True:
-            # elevate(graphical=False)
             webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/troubleshooting.md#autoswitcher--usb-configuration-isnt-working-on-macos')
         elif box_result is False:
             select_root_folder()
