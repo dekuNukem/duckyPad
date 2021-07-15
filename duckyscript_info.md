@@ -93,7 +93,7 @@ CONTROL w
 
 ### DEFAULTDELAY
 
-`DEFAULTDELAY` specifies how long (in milliseconds) to wait between each **`line of command`**.
+`DEFAULTDELAY` specifies how long (in milliseconds) to wait between **`each line of command`**.
 
 If unspecified, `DEFAULTDELAY` is 18ms in duckyPad.
 
@@ -102,6 +102,12 @@ DEFAULTDELAY 100
 
 REM duckyPad will wait 100ms between each subsequent command
 ```
+
+### DEFAULTDELAYFUZZ X
+
+Adds an additional random delay from 0 to X milliseconds after `each line of command`, can be used to make typing more human-like.
+
+Set to 0 to disable.
 
 ### DEFAULTCHARDELAY
 
@@ -114,6 +120,12 @@ DEFAULTCHARDELAY 50
 
 REM duckyPad will wait 50ms between each key stroke
 ```
+
+### DEFAULTCHARDELAYFUZZ X
+
+Adds an additional random delay from 0 to X milliseconds after `each key stroke`, can be used to make typing more human-like.
+
+Set to 0 to disable.
 
 ### DELAY
 
