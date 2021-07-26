@@ -490,6 +490,7 @@ uint8_t hid_tx_buf[HID_TX_BUF_SIZE];
 #define HID_COMMAND_CREATE_DIR 18
 #define HID_COMMAND_DELETE_DIR 19
 #define HID_COMMAND_SW_RESET 20
+#define HID_COMMAND_SLEEP 21
 
 
 #define HID_RESPONSE_OK 0
@@ -940,6 +941,24 @@ void handle_hid_command(void)
   {
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
     NVIC_SystemReset();
+  }
+  /*
+  HID SLEEP
+  -----------
+  PC to duckyPad:
+  [0]   report_id: always 5
+  [1]   seq number
+  [2]   command
+  -----------
+  duckyPad to PC
+  [0]   report_id: always 4
+  [1]   seq number (same as above)
+  [2]   0 = OK
+  */
+  else if(command_type == HID_COMMAND_SLEEP)
+  {
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
+    start_sleeping();
   }
   /*
     unknown command
