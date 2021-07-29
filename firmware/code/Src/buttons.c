@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "shared.h"
 #include "buttons.h"
+#include "parser.h"
 
 but_status button_status[KEY_COUNT];
 
@@ -51,8 +52,16 @@ void keyboard_update(void)
   button_status[KEY_13].button_state = 1 - HAL_GPIO_ReadPin(SW14_GPIO_Port, SW14_Pin);
   button_status[KEY_14].button_state = 1 - HAL_GPIO_ReadPin(SW15_GPIO_Port, SW15_Pin);
 	#ifdef FRANKENDUCK
-		button_status[KEY_BUTTON1].button_state = 1 - HAL_GPIO_ReadPin(BUTTON_2_GPIO_Port, BUTTON_2_Pin);
-		button_status[KEY_BUTTON2].button_state = 1 - HAL_GPIO_ReadPin(BUTTON_1_GPIO_Port, BUTTON_1_Pin);
+		if(dp_settings.frankenduck == 0)
+		{
+			button_status[KEY_BUTTON1].button_state = 1 - HAL_GPIO_ReadPin(BUTTON_2_GPIO_Port, BUTTON_2_Pin);
+			button_status[KEY_BUTTON2].button_state = 1 - HAL_GPIO_ReadPin(BUTTON_1_GPIO_Port, BUTTON_1_Pin);
+		}
+		else
+		{
+			button_status[KEY_BUTTON1].button_state = 1 - HAL_GPIO_ReadPin(BUTTON_1_GPIO_Port, BUTTON_1_Pin);
+			button_status[KEY_BUTTON2].button_state = 1 - HAL_GPIO_ReadPin(BUTTON_2_GPIO_Port, BUTTON_2_Pin);
+		}
 	#else		
 		button_status[KEY_BUTTON1].button_state = 1 - HAL_GPIO_ReadPin(BUTTON_1_GPIO_Port, BUTTON_1_Pin);
 		button_status[KEY_BUTTON2].button_state = 1 - HAL_GPIO_ReadPin(BUTTON_2_GPIO_Port, BUTTON_2_Pin);

@@ -7,7 +7,6 @@
 
 #include "stm32f0xx_hal.h"
 #include "shared.h"
-
 #define THREE 3
 #define ANIMATION_NO_ANIMATION 0
 #define ANIMATION_CROSS_FADE 1
@@ -23,6 +22,7 @@
 #else
 	#define BRIGHTNESS_LEVELS 5
 #endif
+
 
 typedef struct
 {

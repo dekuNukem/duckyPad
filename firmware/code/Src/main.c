@@ -10,7 +10,7 @@
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
-  * Copyright (c) 2020 STMicroelectronics International N.V. 
+  * Copyright (c) 2021 STMicroelectronics International N.V. 
   * All rights reserved.
   *
   * Redistribution and use in source and binary forms, with or without 
@@ -57,7 +57,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "usbd_hid.h"
+#include "usbd_customhid.h"
 #include "ssd1306.h"
 #include "fonts.h"
 #include "neopixel.h"
@@ -84,12 +84,10 @@ osThreadId kb_scanHandle;
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 uint8_t fw_version_major = 0;
-uint8_t fw_version_minor = 16;
-uint8_t fw_version_patch = 8;
-
-uint8_t fw_version_major_fd = 1;
-
+uint8_t fw_version_minor = 19;
+uint8_t fw_version_patch = 3;
 char instruction[] = "For instructions, see";
+uint8_t fw_version_major_fd = 1;
 uint8_t startup = 0;
 /* USER CODE END PV */
 
@@ -472,7 +470,8 @@ void kb_scan_task(void const * argument)
   osDelay(20);
   ssd1306_Init();
   ssd1306_Fill(Black);
-	#ifdef FRANKENDUCK
+ 
+#ifdef FRANKENDUCK
   if (startup == 0)
 	{
 		startup = 1;
@@ -484,7 +483,8 @@ void kb_scan_task(void const * argument)
     sprintf(temp_buf, "FW V%d.%d.%d", fw_version_major_fd, fw_version_minor, fw_version_patch);
     ssd1306_SetCursor(35, 52);
     ssd1306_WriteString(temp_buf,Font_6x10,White);
-
+		ssd1306_SetCursor(5,40);
+		ssd1306_WriteString("PiTronica 2021",Font_6x10,White);
     ssd1306_SetCursor(5, 25);
     ssd1306_WriteString("A DuckyPad Derivative",Font_6x10,White);
     ssd1306_UpdateScreen();
@@ -495,7 +495,8 @@ void kb_scan_task(void const * argument)
 		}
 	}
 	startup = 1;
-	#endif
+#endif
+	
   if(mount_result)
   {
     ssd1306_Fill(Black);
@@ -526,7 +527,7 @@ void kb_scan_task(void const * argument)
   if(last_profile == 0)
     change_profile(NEXT_PROFILE);
   else
-    restore_profile(last_profile);
+    restore_profile(last_profile, 1, 1);
   
   init_complete = 1;
   /* Infinite loop */

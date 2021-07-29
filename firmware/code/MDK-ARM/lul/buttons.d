@@ -57,3 +57,13 @@ lul\buttons.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 lul\buttons.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 lul\buttons.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 lul\buttons.o: ../Inc/buttons.h
+lul\buttons.o: ../Inc/parser.h
+lul\buttons.o: ../Inc/keyboard.h
+lul\buttons.o: ../Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Inc/usbd_customhid.h
+lul\buttons.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
+lul\buttons.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
+lul\buttons.o: ../Inc/usbd_conf.h
+lul\buttons.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
+lul\buttons.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h
+lul\buttons.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
+lul\buttons.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h

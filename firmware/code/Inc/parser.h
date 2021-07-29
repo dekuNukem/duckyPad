@@ -31,6 +31,7 @@ extern FILINFO fno;
 extern uint8_t mount_result;
 extern uint8_t has_valid_profiles;
 extern char temp_buf[PATH_SIZE];
+extern unsigned int bytes_read;
 
 typedef struct
 {
@@ -46,6 +47,7 @@ typedef struct
 		uint8_t individual_keydown_color[MAPPABLE_KEY_COUNT][3];
 	#endif
 } profile_cache;
+extern profile_cache p_cache;
 
 typedef struct
 {
@@ -56,6 +58,7 @@ typedef struct
 typedef struct
 {
   uint32_t sleep_after_ms;
+	char frankenduck;
 } dp_global_settings;
 
 #define DPC_NONE 0
@@ -75,7 +78,7 @@ void change_profile(uint8_t dir);
 void handle_keypress(uint8_t key_num, but_status* b_status);
 void scan_profiles(void);
 uint8_t get_last_profile(void);
-void restore_profile(uint8_t profile_id);
+void restore_profile(uint8_t profile_id, uint8_t reset_loop_count, uint8_t reload_colors);
 void keypress_wrap(uint8_t keynum);
 void print_legend(int8_t x_offset, int8_t y_offset);
 void save_settings(void);
@@ -84,11 +87,14 @@ void save_last_profile(uint8_t profile_id);
 void list_profiles(uint8_t page);
 void print_keyname(char* keyname, uint8_t keynum, int8_t x_offset, int8_t y_offset);
 char* goto_next_arg(char* buf, char* buf_end);
+void delay_wrapper(int32_t amount, int32_t fuzz);
 
 extern profile_cache p_cache;
 extern char temp_buf[PATH_SIZE];
 extern dp_global_settings dp_settings;
 extern my_key hold_cache[MAPPABLE_KEY_COUNT];
+extern my_key hold_cach2[MAPPABLE_KEY_COUNT];
+
 extern char lfn_buf[FILENAME_SIZE];
 extern char read_buffer[READ_BUF_SIZE];
 extern char curr_kb_layout[FILENAME_SIZE];

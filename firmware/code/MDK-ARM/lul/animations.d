@@ -61,3 +61,11 @@ lul\animations.o: ../Inc/neopixel.h
 lul\animations.o: ../Inc/parser.h
 lul\animations.o: ../Inc/buttons.h
 lul\animations.o: ../Inc/keyboard.h
+lul\animations.o: ../Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Inc/usbd_customhid.h
+lul\animations.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
+lul\animations.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
+lul\animations.o: ../Inc/usbd_conf.h
+lul\animations.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
+lul\animations.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h
+lul\animations.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
+lul\animations.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h

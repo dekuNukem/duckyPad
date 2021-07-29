@@ -6,7 +6,6 @@
 #endif 
 
 #include "stm32f0xx_hal.h"
-#include "shared.h"
 
 #define KEY_COUNT 17
 #define MAPPABLE_KEY_COUNT 15
@@ -25,13 +24,8 @@
 #define KEY_12 12
 #define KEY_13 13
 #define KEY_14 14
-//#ifdef FRANKENDUCK
-//	#define KEY_BUTTON1 16
-//	#define KEY_BUTTON2 15
-//#else
-	#define KEY_BUTTON1 15
-	#define KEY_BUTTON2 16
-//#endif
+#define KEY_BUTTON1 15
+#define KEY_BUTTON2 16
 #define BUTTON_SERVICE_UNSERVICED 0
 #define BUTTON_SERVICE_SERVICED 1
 #define BUTTON_RELEASED 0   
