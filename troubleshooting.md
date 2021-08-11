@@ -168,7 +168,9 @@ If your OLED screen is acting weird, you might want to try to re-seat its ribbon
 
 * Pull out the ribbon cable, and wipe the golden contacts with a dry cloth.
 
-* Insert it back all the way. Look at the above photos for reference.
+* Use a **DRY** toothbrush (or similar) and gently clean the pins on the connector. 
+
+* Insert the ribbon cable back, make sure it is even and all the way in. Look at the above photos for reference.
 
 * Push the tab back in to lock in place.
 
