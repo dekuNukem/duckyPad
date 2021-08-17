@@ -758,7 +758,7 @@ void handle_hid_command(void)
   -----------
   duckyPad to PC
   [0]   report_id: always 4
-  [1]   seq number, incrementing
+  [1]   seq number, xxxincrementing
   [2]   0 = OK, 1 = ERROR, 2 = BUSY, 3 = EOF
   [3 ... 60] file content
   */
@@ -808,7 +808,7 @@ void handle_hid_command(void)
   -----------
   duckyPad to PC
   [0]   report_id: always 4
-  [1]   seq number, incrementing
+  [1]   seq number (same as above)
   [2]   0 = OK, 1 = ERROR, 2 = BUSY
   [3 ... 60] file content
   */
@@ -835,7 +835,7 @@ void handle_hid_command(void)
   -----------
   duckyPad to PC
   [0]   report_id: always 4
-  [1]   seq number, incrementing
+  [1]   seq number (same as above)
   [2]   0 = OK, 1 = ERROR, 2 = BUSY
   */
   else if(command_type == HID_COMMAND_WRITE_FILE)
@@ -855,7 +855,7 @@ void handle_hid_command(void)
   -----------
   duckyPad to PC
   [0]   report_id: always 4
-  [1]   seq number, incrementing
+  [1]   seq number (same as above)
   [2]   0 = OK, 1 = ERROR, 2 = BUSY
   */
   else if(command_type == HID_COMMAND_CLOSE_FILE)
@@ -874,7 +874,7 @@ void handle_hid_command(void)
   -----------
   duckyPad to PC
   [0]   report_id: always 4
-  [1]   seq number, incrementing
+  [1]   seq number (same as above)
   [2]   0 = OK, 1 = ERROR, 2 = BUSY
   */
   else if(command_type == HID_COMMAND_DELETE_FILE)
@@ -895,7 +895,7 @@ void handle_hid_command(void)
   -----------
   duckyPad to PC
   [0]   report_id: always 4
-  [1]   seq number, incrementing
+  [1]   seq number (same as above)
   [2]   0 = OK, 1 = ERROR, 2 = BUSY
   */
   else if(command_type == HID_COMMAND_CREATE_DIR)
@@ -915,7 +915,7 @@ void handle_hid_command(void)
   -----------
   duckyPad to PC
   [0]   report_id: always 4
-  [1]   seq number, incrementing
+  [1]   seq number (same as above)
   [2]   0 = OK, 1 = ERROR, 2 = BUSY
   */
   else if(command_type == HID_COMMAND_DELETE_DIR)
@@ -934,7 +934,7 @@ void handle_hid_command(void)
   -----------
   duckyPad to PC
   [0]   report_id: always 4
-  [1]   seq number, incrementing
+  [1]   seq number (same as above)
   [2]   0 = OK
   */
   else if(command_type == HID_COMMAND_SW_RESET)

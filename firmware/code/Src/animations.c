@@ -138,7 +138,7 @@ void change_bg(void)
 
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
   {
-    led_start_animation(&neo_anime[i], p_cache.individual_key_color[i], ANIMATION_CROSS_FADE, 8);
+    led_start_animation(&neo_anime[i], p_cache.individual_key_color[i], ANIMATION_CROSS_FADE, 6);
     neo_anime[i].animation_start += 1.5 * rand_order_buf[i];
   }
 }
