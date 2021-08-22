@@ -49,6 +49,8 @@ Simply plug it into your computer, and voilà:
 
 * To change keyboard layout, **`HOLD DOWN TOP LEFT KEY`** while **`PLUGGING IT IN`**, then select your layout.
 
+* **`Using AMD motherboard and duckyPad isn't working?`**, read about the [USB chipset bug here!](https://www.tomshardware.com/uk/news/amd-suggest-possible-fixes-for-usb-connectivity-issues) Try updating chipset drivers, or use a USB hub.
+
 ## Writing Your Own Scripts
 
 The samples might be fun, but duckyPad's true purpose is to do what YOU want! So here's how.
