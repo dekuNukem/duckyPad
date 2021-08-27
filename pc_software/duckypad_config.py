@@ -1,9 +1,7 @@
 import os
-import sys
 import time
 import copy
 import shutil
-import pathlib
 from datetime import datetime
 import traceback
 import duck_objs
@@ -23,6 +21,9 @@ import hid_op
 import threading
 
 THIS_VERSION_NUMBER = '0.13.3'
+
+ENV_UI_SCALE = os.getenv("DUCKYPAD_UI_SCALE")
+UI_SCALE = int(ENV_UI_SCALE) if ENV_UI_SCALE else 1
 
 def ensure_dir(dir_path):
     if not os.path.exists(dir_path):
@@ -65,11 +66,11 @@ default_button_color = 'SystemButtonFace'
 if 'linux' in sys.platform:
     default_button_color = 'grey'
 
-MAIN_WINDOW_WIDTH = 800
-MAIN_WINDOW_HEIGHT = 625
-MAIN_COLOUM_HEIGHT = 533
-PADDING = 10
-HIGHT_ROOT_FOLDER_LF = 50
+MAIN_WINDOW_WIDTH = 800 * UI_SCALE
+MAIN_WINDOW_HEIGHT = 625 * UI_SCALE
+MAIN_COLUMN_HEIGHT = 533 * UI_SCALE
+PADDING = 10 * UI_SCALE
+HEIGHT_ROOT_FOLDER_LF = 50 * UI_SCALE
 INVALID_ROOT_FOLDER_STRING = "<-- Press to connect to duckyPad"
 last_rgb = (238,130,238)
 dp_settings = duck_objs.dp_global_settings()
@@ -86,24 +87,24 @@ def open_discord_link():
 def create_help_window():
     help_window = Toplevel(root)
     help_window.title("duckyPad help")
-    help_window.geometry("280x180")
+    help_window.geometry(str(280 * UI_SCALE) + "x" + str(180 * UI_SCALE))
     help_window.resizable(width=FALSE, height=FALSE)
     help_window.grab_set()
 
     user_manual_label = Label(master=help_window, text="Not sure what to do? Please read...")
-    user_manual_label.place(x=35, y=5)
+    user_manual_label.place(x=35 * UI_SCALE, y=5 * UI_SCALE)
     user_manual_button = Button(help_window, text="User Manual", command=open_duckypad_user_manual_url)
-    user_manual_button.place(x=60, y=30, width=160)
+    user_manual_button.place(x=60 * UI_SCALE, y=30 * UI_SCALE, width=160 * UI_SCALE)
 
     troubleshoot_label = Label(master=help_window, text="Problems? Please see...")
-    troubleshoot_label.place(x=35, y=60)
+    troubleshoot_label.place(x=35 * UI_SCALE, y=60 * UI_SCALE)
     troubleshoot_button = Button(help_window, text="Troubleshooting Guides", command=open_duckypad_troubleshooting_url)
-    troubleshoot_button.place(x=50, y=85, width=180)
+    troubleshoot_button.place(x=50 * UI_SCALE, y=85 * UI_SCALE, width=180 * UI_SCALE)
 
     discord_label = Label(master=help_window, text="Questions or comments? Ask in...")
-    discord_label.place(x=35, y=60+55)
+    discord_label.place(x=35 * UI_SCALE, y=(60 + 55) * UI_SCALE)
     discord_button = Button(help_window, text="Official Discord Chatroom", command=open_discord_link)
-    discord_button.place(x=50, y=85+55, width=180)
+    discord_button.place(x=50 * UI_SCALE, y=(85 + 55) * UI_SCALE, width=180 * UI_SCALE)
 
 def open_duckypad_user_manual_url():
     webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/getting_started.md')
@@ -217,7 +218,7 @@ def connect_button_click():
     global is_using_hid
 
     is_using_hid = False
-    
+
     if hid_op.get_duckypad_path() is None:
         if(messagebox.askokcancel("Info", "duckyPad not found!\n\nConfigure via SD card instead?") == False):
             return
@@ -413,7 +414,7 @@ def dim_unused_keys_click():
 
 def on_profile_lstbox_select(event):
     update_profile_display()
-    
+
 def bg_color_click(event):
     global profile_list
     global last_rgb
@@ -469,7 +470,7 @@ def profile_add_click():
         answer = clean_input(answer, 12)
     else:
         answer = clean_input(answer, 13)
-        
+
     if len(answer) <= 0:# or answer in [x.name for x in profile_list]:
         return
 
@@ -701,24 +702,24 @@ dp_root_folder_display = StringVar()
 dp_root_folder_path= ''
 dp_root_folder_display.set(INVALID_ROOT_FOLDER_STRING)
 
-root_folder_lf = LabelFrame(root, text="Files", width=779, height=HIGHT_ROOT_FOLDER_LF)
-root_folder_lf.place(x=PADDING, y=0) 
+root_folder_lf = LabelFrame(root, text="Files", width=779 * UI_SCALE, height=HEIGHT_ROOT_FOLDER_LF)
+root_folder_lf.place(x=PADDING, y=0)
 root.update()
 
 help_button = Button(root_folder_lf, text="Help!", command=create_help_window)
-help_button.place(x=5, y=0, width=65)
+help_button.place(x=5 * UI_SCALE, y=0, width=65 * UI_SCALE, height=25 * UI_SCALE)
 
 root_folder_select_button = Button(root_folder_lf, text="Connect", command=connect_button_click)
-root_folder_select_button.place(x=75, y=0, width=75)
+root_folder_select_button.place(x=75 * UI_SCALE, y=0, width=75 * UI_SCALE, height=25 * UI_SCALE)
 
 root_folder_path_label = Label(master=root_folder_lf, textvariable=dp_root_folder_display, foreground='red')
-root_folder_path_label.place(x=155, y=0)
+root_folder_path_label.place(x=155 * UI_SCALE, y=0)
 
 save_button = Button(root_folder_lf, text="Save", command=save_click, state=DISABLED)
-save_button.place(x=630, y=0, width=65)
+save_button.place(x=630 * UI_SCALE, y=0, width=65 * UI_SCALE, height=25 * UI_SCALE)
 
 save_as_button = Button(root_folder_lf, text="Backup...", command=backup_button_click, state=DISABLED)
-save_as_button.place(x=700, y=0, width=65)
+save_as_button.place(x=700 * UI_SCALE, y=0, width=65 * UI_SCALE, height=25 * UI_SCALE)
 
 def app_update_click(event):
     webbrowser.open('https://github.com/dekuNukem/duckyPad/releases')
@@ -726,23 +727,23 @@ def app_update_click(event):
 # ------------- Profiles frame -------------
 
 profile_var = StringVar()
-profiles_lf = LabelFrame(root, text="Profiles", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_COLOUM_HEIGHT - HIGHT_ROOT_FOLDER_LF - PADDING)
-profiles_lf.place(x=PADDING, y=HIGHT_ROOT_FOLDER_LF)
+profiles_lf = LabelFrame(root, text="Profiles", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_COLUMN_HEIGHT - HEIGHT_ROOT_FOLDER_LF - PADDING)
+profiles_lf.place(x=PADDING, y=HEIGHT_ROOT_FOLDER_LF)
 root.update()
 
 profile_lstbox = Listbox(profiles_lf, listvariable=profile_var, height=16, exportselection=0) #, selectmode='single'?
-profile_lstbox.place(x=32, y=PADDING, width=182, height=270)
+profile_lstbox.place(x=32 * UI_SCALE, y=PADDING, width=182 * UI_SCALE, height=270 * UI_SCALE)
 profile_lstbox.bind('<<ListboxSelect>>', on_profile_lstbox_select)
 
 profile_up_button = Button(profiles_lf, text="↑", command=profile_shift_up, state=DISABLED)
-profile_up_button.place(x=5, y=80, width=20, height=40)
+profile_up_button.place(x=5 * UI_SCALE, y=80 * UI_SCALE, width=20 * UI_SCALE, height=40 * UI_SCALE)
 
 profile_down_button = Button(profiles_lf, text="↓", command=profile_shift_down, state=DISABLED)
-profile_down_button.place(x=5, y=140, width=20, height=40)
+profile_down_button.place(x=5 * UI_SCALE, y=140 * UI_SCALE, width=20 * UI_SCALE, height=40 * UI_SCALE)
 
 BUTTON_WIDTH = int(profiles_lf.winfo_width() / 2.5)
-BUTTON_HEIGHT = 25
-BUTTON_Y_POS = 295
+BUTTON_HEIGHT = 25 * UI_SCALE
+BUTTON_Y_POS = 295 * UI_SCALE
 
 profile_add_button = Button(profiles_lf, text="New", command=profile_add_click, state=DISABLED)
 profile_add_button.place(x=PADDING*2, y=BUTTON_Y_POS, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
@@ -757,43 +758,43 @@ profile_rename_button = Button(profiles_lf, text="Rename", command=profile_renam
 profile_rename_button.place(x=PADDING * 2.5 + BUTTON_WIDTH, y=BUTTON_Y_POS + BUTTON_HEIGHT + int(PADDING/2), width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 
 bg_color_label = Label(master=profiles_lf, text="Background color:", fg='grey')
-bg_color_label.place(x=20, y=355)
+bg_color_label.place(x=20 * UI_SCALE, y=355 * UI_SCALE)
 
 bg_color_button = Label(master=profiles_lf, borderwidth=1, relief="solid")
-bg_color_button.place(x=160, y=356, width=60, height=20)
+bg_color_button.place(x=160 * UI_SCALE, y=356 * UI_SCALE, width=60 * UI_SCALE, height=20 * UI_SCALE)
 bg_color_button.bind("<Button-1>", bg_color_click)
 
 kd_color_label = Label(master=profiles_lf, text="Activation color:", fg='grey')
-kd_color_label.place(x=20, y=380)
+kd_color_label.place(x=20 * UI_SCALE, y=380 * UI_SCALE)
 
 kd_color_button = Label(master=profiles_lf, borderwidth=1, relief="solid")
-kd_color_button.place(x=160, y=407, width=60, height=20)
+kd_color_button.place(x=160 * UI_SCALE, y=407 * UI_SCALE, width=60 * UI_SCALE, height=20 * UI_SCALE)
 kd_color_button.bind("<Button-1>", kd_color_click)
 
 dim_unused_keys_checkbox_var = IntVar()
 dim_unused_keys_checkbox = Checkbutton(profiles_lf, text="Dim unused keys", variable=dim_unused_keys_checkbox_var, command=dim_unused_keys_click, state=DISABLED)
-dim_unused_keys_checkbox.place(x=22, y=425)
+dim_unused_keys_checkbox.place(x=22 * UI_SCALE, y=425 * UI_SCALE)
 
 kd_color_var = IntVar()
 kd_R1 = Radiobutton(profiles_lf, text="      Auto", variable=kd_color_var, value=0, command=kd_radiobutton_auto_click, state=DISABLED)
-kd_R1.place(x=130, y=380)
+kd_R1.place(x=130 * UI_SCALE, y=380 * UI_SCALE)
 kd_R2 = Radiobutton(profiles_lf, text="", variable=kd_color_var, value=1, command=kd_radiobutton_custom_click, state=DISABLED)
-kd_R2.place(x=130, y=405)
+kd_R2.place(x=130 * UI_SCALE, y=405 * UI_SCALE)
 
 # ------------- Keys frame -------------
 selected_key = None
 
-keys_lf = LabelFrame(root, text="Keys", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_COLOUM_HEIGHT - HIGHT_ROOT_FOLDER_LF - PADDING)
-keys_lf.place(x=profiles_lf.winfo_x() + profiles_lf.winfo_width() + PADDING, y=profiles_lf.winfo_y()) 
+keys_lf = LabelFrame(root, text="Keys", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_COLUMN_HEIGHT - HEIGHT_ROOT_FOLDER_LF - PADDING)
+keys_lf.place(x=profiles_lf.winfo_x() + profiles_lf.winfo_width() + PADDING, y=profiles_lf.winfo_y())
 root.update()
 
 key_instruction = Label(master=keys_lf, text="click to edit, drag to rearrange")
 root.update()
-key_instruction.place(x=30, y=0)
+key_instruction.place(x=30 * UI_SCALE, y=0)
 
-KEY_BUTTON_HEADROOM = 20
-KEY_BUTTON_WIDTH = 75
-KEY_BUTTON_HEIGHT = 45
+KEY_BUTTON_HEADROOM = 20 * UI_SCALE
+KEY_BUTTON_WIDTH = 75 * UI_SCALE
+KEY_BUTTON_HEIGHT = 45 * UI_SCALE
 KEY_BUTTON_GAP = int((keys_lf.winfo_width() - 3 * KEY_BUTTON_WIDTH) / 4.5)
 
 def search_button(rootx, rooty):
@@ -876,14 +877,14 @@ for x in range(15):
     key_button_list.append(this_button)
 
 key_name_text = Label(master=keys_lf, text="Key name:", fg='grey')
-key_name_text.place(x=PADDING, y=305)
+key_name_text.place(x=PADDING, y=305 * UI_SCALE)
 root.update()
 
 def key_name_entrybox_return_pressed(event):
     key_rename_click()
 
 key_name_entrybox = Entry(keys_lf, state=DISABLED)
-key_name_entrybox.place(x=key_name_text.winfo_width()+PADDING, y=305, width=145)
+key_name_entrybox.place(x=key_name_text.winfo_width() + PADDING, y=305 * UI_SCALE, width=145 * UI_SCALE)
 key_name_entrybox.bind('<Return>', key_name_entrybox_return_pressed)
 
 KEY_BUTTON_GAP = int((keys_lf.winfo_width() - 2 * BUTTON_WIDTH) / 3.5)
@@ -915,13 +916,13 @@ def key_remove_click():
     key_button_click(key_button_list[selected_key])
 
 key_rename_button = Button(keys_lf, text="Apply", command=key_rename_click, state=DISABLED)
-key_rename_button.place(x=KEY_BUTTON_GAP, y=340, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
+key_rename_button.place(x=KEY_BUTTON_GAP, y=340 * UI_SCALE, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 root.update()
 key_remove_button = Button(keys_lf, text="Remove", command=key_remove_click, state=DISABLED)
-key_remove_button.place(x=KEY_BUTTON_GAP*2+key_rename_button.winfo_width(), y=340, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
+key_remove_button.place(x=KEY_BUTTON_GAP*2+key_rename_button.winfo_width(), y=340 * UI_SCALE, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 
 key_color_text = Label(master=keys_lf, text="Key color:", fg='grey')
-key_color_text.place(x=PADDING, y=380)
+key_color_text.place(x=PADDING, y=380 * UI_SCALE)
 root.update()
 
 def key_color_rb1_click():
@@ -965,16 +966,16 @@ def key_color_button_click(event):
 
 key_color_type_var = IntVar()
 key_color_rb1 = Radiobutton(keys_lf, text="Same as background", variable=key_color_type_var, value=0, command=key_color_rb1_click,state=DISABLED)
-key_color_rb1.place(x=85, y=380)
+key_color_rb1.place(x=85 * UI_SCALE, y=380 * UI_SCALE)
 key_color_rb2 = Radiobutton(keys_lf, text="", variable=key_color_type_var, value=1, command=key_color_rb2_click, state=DISABLED)
-key_color_rb2.place(x=85, y=405)
+key_color_rb2.place(x=85 * UI_SCALE, y=405 * UI_SCALE)
 
 key_color_button = Label(master=keys_lf, borderwidth=1, relief="solid")
-key_color_button.place(x=135, y=407, width=60, height=20)
+key_color_button.place(x=135 * UI_SCALE, y=407 * UI_SCALE, width=60 * UI_SCALE, height=20 * UI_SCALE)
 key_color_button.bind("<Button-1>", key_color_button_click)
 
 # ------------- Scripts frame -------------
-scripts_lf = LabelFrame(root, text="Scripts", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_COLOUM_HEIGHT - HIGHT_ROOT_FOLDER_LF - PADDING)
+scripts_lf = LabelFrame(root, text="Scripts", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_COLUMN_HEIGHT - HEIGHT_ROOT_FOLDER_LF - PADDING)
 scripts_lf.place(x=keys_lf.winfo_x() + keys_lf.winfo_width() + PADDING, y=keys_lf.winfo_y())
 
 def open_duckyscript_url():
@@ -985,7 +986,7 @@ def script_instruction_click(event):
 
 script_instruction = Label(master=scripts_lf, text="Read more about Duckyscript...", fg="blue", cursor="hand2")
 root.update()
-script_instruction.place(x=25, y=0)
+script_instruction.place(x=25 * UI_SCALE, y=0)
 script_instruction.bind("<Button-1>", script_instruction_click)
 
 modified_count = 0
@@ -1043,20 +1044,20 @@ root.update()
 script_textbox.bind("<<Modified>>", script_textbox_event)
 script_textbox.tag_configure("error", background="#ffff00")
 
-script_common_commands_lf = LabelFrame(scripts_lf, text="Common commands", width=script_textbox.winfo_width(), height=105)
-script_common_commands_lf.place(x=PADDING, y=300)
+script_common_commands_lf = LabelFrame(scripts_lf, text="Common commands", width=script_textbox.winfo_width(), height=105 * UI_SCALE)
+script_common_commands_lf.place(x=PADDING, y=300 * UI_SCALE)
 root.update()
 
-check_syntax_lf = LabelFrame(scripts_lf, text="Code check", width=script_textbox.winfo_width()/2, height=40)
-check_syntax_lf.place(x=PADDING, y=407)
+check_syntax_lf = LabelFrame(scripts_lf, text="Code check", width=script_textbox.winfo_width() / 2, height=40 * UI_SCALE)
+check_syntax_lf.place(x=PADDING, y=407 * UI_SCALE)
 root.update()
 
 SCRIPT_BUTTON_WIDTH = script_textbox.winfo_width()/3.4
-SCRIPT_BUTTON_GAP = 5
-PADDING = 2
+SCRIPT_BUTTON_GAP = 5 * UI_SCALE
+PADDING = 2 * UI_SCALE
 
 execute_button = Button(scripts_lf, text="Run this script!", command=run_script, state=DISABLED)
-execute_button.place(x=135, y=417, width=105, height=BUTTON_HEIGHT)
+execute_button.place(x=135 * UI_SCALE, y=417 * UI_SCALE, width=105 * UI_SCALE, height=BUTTON_HEIGHT)
 root.update()
 
 script_button_xy_list = [(SCRIPT_BUTTON_GAP, PADDING), (SCRIPT_BUTTON_GAP*2+SCRIPT_BUTTON_WIDTH, PADDING), (SCRIPT_BUTTON_GAP*3+SCRIPT_BUTTON_WIDTH*2, PADDING), (SCRIPT_BUTTON_GAP, PADDING+BUTTON_HEIGHT+2), (SCRIPT_BUTTON_GAP*2+SCRIPT_BUTTON_WIDTH, PADDING+BUTTON_HEIGHT+2), (SCRIPT_BUTTON_GAP*3+SCRIPT_BUTTON_WIDTH*2, PADDING+BUTTON_HEIGHT+2), (SCRIPT_BUTTON_GAP, (PADDING+BUTTON_HEIGHT)*2+2), (SCRIPT_BUTTON_GAP*2+SCRIPT_BUTTON_WIDTH, (PADDING+BUTTON_HEIGHT)*2+2), (SCRIPT_BUTTON_GAP*3+SCRIPT_BUTTON_WIDTH*2, (PADDING+BUTTON_HEIGHT)*2+2)]
@@ -1093,7 +1094,7 @@ def check_syntax_click():
         syntax_check_result_label.config(text="It looks alright..", fg="green")
 
 syntax_check_result_label = Label(master=check_syntax_lf)
-syntax_check_result_label.place(x=2, y=-4)
+syntax_check_result_label.place(x=2 * UI_SCALE, y=4 * UI_SCALE)
 
 # --------------------------
 
@@ -1193,7 +1194,7 @@ def create_keyboard_layout_window():
     global kbl_online_listbox
     kbl_window = Toplevel(root)
     kbl_window.title("Keyboard layouts")
-    kbl_window.geometry("480x210")
+    kbl_window.geometry(str(480 * UI_SCALE) + "x" + str(210 * UI_SCALE))
     kbl_window.resizable(width=FALSE, height=FALSE)
     kbl_window.grab_set()
 
@@ -1210,37 +1211,37 @@ def create_keyboard_layout_window():
     online_keymap_var.set(online_keymap_display_list)
 
     kbl_online_listbox = Listbox(kbl_window, listvariable=online_keymap_var, height=8, exportselection=0) #, selectmode='single'?
-    kbl_online_listbox.place(x=20, y=30, width=160, height=150)
+    kbl_online_listbox.place(x=20 * UI_SCALE, y=30 * UI_SCALE, width=160 * UI_SCALE, height=150 * UI_SCALE)
 
     online_kbl_label = Label(master=kbl_window, text="Available layouts:")
-    online_kbl_label.place(x=20, y=5)
+    online_kbl_label.place(x=20 * UI_SCALE, y=5 * UI_SCALE)
 
     kbl_on_sd_card_listbox = Listbox(kbl_window, listvariable=sd_keymap_var, height=8, exportselection=0) #, selectmode='single'?
-    kbl_on_sd_card_listbox.place(x=295, y=30, width=160, height=150)
+    kbl_on_sd_card_listbox.place(x=295 * UI_SCALE, y=30 * UI_SCALE, width=160 * UI_SCALE, height=150 * UI_SCALE)
 
     online_keymap_add_to_sd_button = Button(kbl_window, text="Add\n--->", command=online_keymap_add_to_sd_button_click)
-    online_keymap_add_to_sd_button.place(x=185, y=45, width=100)
+    online_keymap_add_to_sd_button.place(x=185 * UI_SCALE, y=45 * UI_SCALE, width=100 * UI_SCALE)
     remove_keymap_from_sd_card_button = Button(kbl_window, text="Remove", command=remove_keymap_from_sd_card_button_click)
-    remove_keymap_from_sd_card_button.place(x=185, y=100, width=100)
+    remove_keymap_from_sd_card_button.place(x=185 * UI_SCALE, y=100 * UI_SCALE, width=100 * UI_SCALE)
     add_local_keymap_to_sd_card_button = Button(kbl_window, text="Add local file", command=add_local_keymap_to_sd_card_button_click)
-    add_local_keymap_to_sd_card_button.place(x=185, y=140, width=100)
+    add_local_keymap_to_sd_card_button.place(x=185 * UI_SCALE, y=140 * UI_SCALE, width=100 * UI_SCALE)
 
     keymaps_on_sd_card_label = Label(master=kbl_window, text="Layouts on duckyPad:")
-    keymaps_on_sd_card_label.place(x=295, y=5)
+    keymaps_on_sd_card_label.place(x=295 * UI_SCALE, y=5 * UI_SCALE)
 
     keymap_instruction_label = Label(master=kbl_window, text="Click me to learn more about keymaps, including how to make your own!", fg="blue", cursor="hand2")
-    keymap_instruction_label.place(x=45, y=185)
+    keymap_instruction_label.place(x=45 * UI_SCALE, y=185 * UI_SCALE)
     keymap_instruction_label.bind("<Button-1>", keymap_instruction_click)
 
-settings_lf = LabelFrame(root, text="Settings", width=516, height=90)
-settings_lf.place(x=10, y=525) 
+settings_lf = LabelFrame(root, text="Settings", width=516 * UI_SCALE, height=90 * UI_SCALE)
+settings_lf.place(x=10 * UI_SCALE, y=525 * UI_SCALE)
 enter_sleep_mode_label = Label(master=settings_lf, text="Sleep after: Never")
-enter_sleep_mode_label.place(x=10, y=0)
+enter_sleep_mode_label.place(x=10 * UI_SCALE, y=0)
 
 sleepmode_slider = Scale(settings_lf)
 sleepmode_slider.config(from_=0, to=360, length=190, showvalue=0, sliderlength=20, orient=HORIZONTAL, command=slider_adjust_sleepmode)
 sleepmode_slider.set(0)
-sleepmode_slider.place(x=10, y=20)
+sleepmode_slider.place(x=10 * UI_SCALE, y=20 * UI_SCALE)
 sleepmode_slider.config(state=DISABLED)
 
 def auto_backup_click():
@@ -1250,13 +1251,13 @@ def auto_backup_click():
 auto_backup_checkbox_var = IntVar()
 auto_backup_checkbox_var.set(int(config_dict['auto_backup_enabled']))
 auto_backup_checkbox = Checkbutton(settings_lf, text="Profile auto-backup", variable=auto_backup_checkbox_var, command=auto_backup_click)
-auto_backup_checkbox.place(x=10, y=45)
+auto_backup_checkbox.place(x=10 * UI_SCALE, y=45 * UI_SCALE)
 
-updates_lf = LabelFrame(root, text="Updates", width=253, height=90)
-updates_lf.place(x=536, y=525)
+updates_lf = LabelFrame(root, text="Updates", width=253 * UI_SCALE, height=90 * UI_SCALE)
+updates_lf.place(x=536 * UI_SCALE, y=525 * UI_SCALE)
 
 pc_app_update_label = Label(master=updates_lf)
-pc_app_update_label.place(x=5, y=10)
+pc_app_update_label.place(x=5 * UI_SCALE, y=10 * UI_SCALE)
 update_stats = check_update.get_pc_app_update_status(THIS_VERSION_NUMBER)
 
 if update_stats == 0:
@@ -1270,16 +1271,16 @@ else:
     pc_app_update_label.unbind("<Button-1>")
 
 dp_fw_update_label = Label(master=updates_lf, text="Firmware: Unknown")
-dp_fw_update_label.place(x=5, y=35)
+dp_fw_update_label.place(x=5 * UI_SCALE, y=35 * UI_SCALE)
 
 keyboard_layout_button = Button(settings_lf, text="Keyboard Layouts...", command=create_keyboard_layout_window, state=DISABLED)
-keyboard_layout_button.place(x=220, y=13, width=140, height=BUTTON_HEIGHT)
+keyboard_layout_button.place(x=220 * UI_SCALE, y=13 * UI_SCALE, width=140 * UI_SCALE, height=BUTTON_HEIGHT)
 
 def open_profile_autoswitcher_url():
     webbrowser.open('https://github.com/dekuNukem/duckyPad-profile-autoswitcher')
 
 autoswitch_button = Button(settings_lf, text="Profile\nAutoswitcher", command=open_profile_autoswitcher_url)
-autoswitch_button.place(x=370, y=0, width=125, height=40)
+autoswitch_button.place(x=370 * UI_SCALE, y=0, width=125 * UI_SCALE, height=40 * UI_SCALE)
 
 root.update()
 
