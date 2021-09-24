@@ -14,6 +14,8 @@ Click a question below to jump to the answer!
 
 * [F13 - F24 keys doesn't work!](#f13---f24-keys-doesnt-work)
 
+* [My duckyPad stopped working on latest firmware!](#my-duckypad-stopped-working-on-latest-firmware)
+
 * [My script behaves inconsistently!](#My-script-behaves-inconsistently)
 
 * [My duckyPad seems to be getting sluggish!](#My-duckyPad-seems-to-be-getting-sluggish)
@@ -33,6 +35,8 @@ Click a question below to jump to the answer!
 * [In-app test-run doesn't work!](#In-app-test-run-doesnt-work)
 
 * [SD Card doesn't work on mac!](#SD-Card-doesnt-work-on-mac)
+
+* [Autoswitcher / USB configuration isn't working on macOS!](#autoswitcher--usb-configuration-isnt-working-on-macos)
 
 ## Join Our Discord!
 
@@ -77,6 +81,12 @@ You'll need select a different keyboard layout.
 ## F13 - F24 Keys doesn't work!
 
 Please [update your duckyPad to the latest firmware](https://github.com/dekuNukem/duckyPad/blob/master/firmware_updates_and_version_history.md) to fix this issue.
+
+## My duckyPad stopped working on latest firmware!
+
+If your duckyPad fails to work after updating to latest firmware (0.18.0+), you are most likely affected by a USB chipset bug on recent AMD motherboards.
+
+[Take a look at this article for possible solutions](https://www.tomshardware.com/uk/news/amd-suggest-possible-fixes-for-usb-connectivity-issues). You can also plug it in through a USB hub, which should work.
 
 ## My script behaves inconsistently!
 
@@ -158,7 +168,9 @@ If your OLED screen is acting weird, you might want to try to re-seat its ribbon
 
 * Pull out the ribbon cable, and wipe the golden contacts with a dry cloth.
 
-* Insert it back all the way. Look at the above photos for reference.
+* Use a **DRY** toothbrush (or similar) and gently clean the pins on the connector. 
+
+* Insert the ribbon cable back, make sure it is even and all the way in. Look at the above photos for reference.
 
 * Push the tab back in to lock in place.
 
@@ -193,6 +205,53 @@ In `Disk Utility`, select `Erase`, then `MS-DOS (FAT)`:
 Now the card should be readable in both macOS and duckyPad.
 
 If you want, you can copy the [sample profiles](https://github.com/dekuNukem/duckyPad/raw/master/sample_profiles.zip) back to the root of the SD card.
+
+## Autoswitcher / USB configuration isn't working on macOS!
+
+Due to the security restrictions of macOS, to use autoswitcher and USB configuration, you need to:
+
+* Enable "Input Monitoring" permission
+
+* Run the app as root
+
+Here's how:
+
+### Enable permission
+
+* Open `System Preferences` -> `Security & Privacy`
+
+* Select `Input Monitoring`
+
+* Click the lock to make changes
+
+* Press the `+` button
+
+![Alt text](resources/pics/input_mon.png)
+
+* Go to `Applications` -> `Utilities`, and add `Terminal` to the list.
+
+![Alt text](resources/pics/select_term.png)
+
+
+### Launch app as administrator
+
+* Open `System Preferences` -> `Keyboard` -> `Shortcuts` -> `Services`
+
+* Tick `New Terminal at Folder`
+
+![Alt text](resources/pics/terminal.png)
+
+* Download the latest macOS software, unzip into a folder.
+
+* `Right click` on the unzipped folder and select `New Terminal at Folder`
+
+![Alt text](resources/pics/right.png)
+
+* Type in `sh run.sh` and press enter, then enter your password.
+
+* The app should launch as administrator, and should be fully functional now.
+
+* If it still doesn't work, [let me know](#questions-or-comments)!
 
 ## Table of Contents
 

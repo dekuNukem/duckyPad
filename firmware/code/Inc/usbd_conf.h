@@ -10,7 +10,7 @@
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
-  * Copyright (c) 2020 STMicroelectronics International N.V. 
+  * Copyright (c) 2021 STMicroelectronics International N.V. 
   * All rights reserved.
   *
   * Redistribution and use in source and binary forms, with or without 
@@ -95,13 +95,18 @@
 /*---------- -----------*/
 #define USBD_MAX_NUM_CONFIGURATION     1
 /*---------- -----------*/
-#define USBD_MAX_STR_DESC_SIZ     512
+#define USBD_MAX_STR_DESC_SIZ     128
 /*---------- -----------*/
-#define USBD_SUPPORT_USER_STRING     0
+#define USBD_SUPPORT_USER_STRING     1
 /*---------- -----------*/
 #define USBD_DEBUG_LEVEL     0
 /*---------- -----------*/
 #define USBD_SELF_POWERED     1
+/*---------- -----------*/
+#define USBD_CUSTOMHID_OUTREPORT_BUF_SIZE     63
+/*---------- -----------*/
+#define USBD_CUSTOM_HID_REPORT_DESC_SIZE     186
+// used to be 2
 
 /****************************************/
 /* #define for FS and HS identification */

@@ -49,6 +49,14 @@ Simply plug it into your computer, and voilà:
 
 * To change keyboard layout, **`HOLD DOWN TOP LEFT KEY`** while **`PLUGGING IT IN`**, then select your layout.
 
+## Help! My duckyPad isn't working properly!
+
+Are you using **`AMD motherboard?`** If so, read about the [USB chipset bug here!](https://www.tomshardware.com/uk/news/amd-suggest-possible-fixes-for-usb-connectivity-issues)
+
+Try updating chipset drivers, different ports, or use a USB hub.
+
+For other issues, check out the [troubleshooting guide](troubleshooting.md).
+
 ## Writing Your Own Scripts
 
 The samples might be fun, but duckyPad's true purpose is to do what YOU want! So here's how.
@@ -64,8 +72,6 @@ The samples might be fun, but duckyPad's true purpose is to do what YOU want! So
 ![Alt text](resources/pics/sd.jpg)
 
 * You *can* insert/remove the SD card while duckyPad is on.
-
-* But doing so might corrupt SD card content, so make backups.
 
 * If you decide to use your own SD card, it should be formatted in [FAT32 or FAT](resources/pics/format.PNG).
 
@@ -93,23 +99,35 @@ For macOS, **`RIGHT CLICK`** on the app and select `Open`. You might have to do 
 
 ![Alt text](resources/pics/app/macos_warning.png)
 
-### Using the duckyPad configurator
+### Using duckyPad configurator
 
-Remove the SD card from duckyPad, mount it on your computer and launch the app. It should look like this:
+After launching the app, it should look like this:
 
 ![Alt text](resources/pics/app/unselected.png)
 
-Press the `Open...` button, and select the **`entire SD card`**:
+Make sure your duckyPad is plugged in, and press the `Connect` button.
 
-![Alt text](resources/pics/app/select_root.png)
-
-The application should load up the data from the SD card:
+It should then load all the data from duckyPad:
 
 ![Alt text](resources/pics/app/overview.png)
 
-It might look a bit overwhelming, but don't worry, let's break it down.
+#### (OPTIONAL) Load from SD card
+
+If for some reason it didn't work, you can also **load from SD card**.
+
+* Remove the SD card from duckyPad
+
+* Mount it on your computer
+
+* Select the **`entire SD card`**
+
+![Alt text](resources/pics/app/select_root.png)
+
+* It should load just the same
 
 ### Profiles
+
+The GUI might look a bit overwhelming, but don't worry, let's break it down.
 
 * The leftmost column is for *profiles*.
 
@@ -197,7 +215,7 @@ Press `Keyboard Layouts...` button to open its setting:
 
 ### Don't forget to save!
 
-* Press the `Save` button to save the changes to SD card. It might take a few seconds.
+* Press the `Save` button to save the changes. It might take a few seconds.
 
 ![Alt text](resources/pics/app/save.png)
 
@@ -205,15 +223,17 @@ Press `Keyboard Layouts...` button to open its setting:
 
 * No storage media is 100% reliable, so it is very important to **`make backups`**!
 
-* To do so, press `Save as...` and select an empty folder.
+* By default, a local backup is created every time `Save` button is pressed.
 
-* Or just manually copy everything on the SD card to somewhere else.
+* Press `Backup...` button to access the backups.
 
 * To restore a backup, [format the SD card in FAT or FAT32](resources/pics/format.PNG), then copy everything back.
 
 ### Run it!
 
-Eject the SD card from your computer, insert it into duckyPad, plug it in. It should start up and display the profile names and key names, as well as the customised colours.
+duckyPad should automatically reboot when you press `Save`, and your new scripts will be ready to use!
+
+If configuring via SD card, insert it back in duckyPad and power it on.
 
 * Press a key to execute the corresponding script.
 
@@ -222,6 +242,18 @@ Eject the SD card from your computer, insert it into duckyPad, plug it in. It sh
 * **`Hold down`** `+` button for profile quickswitch.
 
 * **`Hold down`** `-` button to change RGB backlight brightness.
+
+### Profile auto-switching
+
+You can also [use this app](https://github.com/dekuNukem/duckyPad-profile-autoswitcher) to **switch profiles automatically** based on **current active window**. Check it out!
+
+### Careful with Passwords!
+
+It might be tempting to have duckyPad type out your often-used passwords, but it's probably **NOT a good idea**!
+
+All scripts are stored as plain text on the SD card, and can be easily accessed by using a SD card reader, or though HID commands.
+
+duckyPad is NOT intended to be a security device, so use at your own risk.
 
 ## Tips and Tricks
 
@@ -304,6 +336,8 @@ To do this, duckyPad can be set up to press a simple combo like `WIN + F1`, whic
 * Now you can write your own autohotkey script to do whatever you want!
 
 Check out the [official tutorials](https://www.autohotkey.com/docs_1.0/Tutorial.htm), the [autohotkey profile](sample_profiles/profile7_autohotkey), and the [sample autohotkey script](resources/duckypad_autohotkey_script.ahk) upon which you can tinker with.
+
+[Follow this guide](https://www.autohotkey.com/docs/FAQ.htm#Startup) to run your AHK scripts automatically on Windows startup.
 
 For macOS, you can try [bettertouchtool](https://folivora.ai).
 

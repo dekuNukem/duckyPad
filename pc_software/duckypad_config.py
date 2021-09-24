@@ -16,26 +16,70 @@ from tkinter import simpledialog
 from tkinter.colorchooser import askcolor
 from tkinter import messagebox
 import urllib.request
+from appdirs import *
+import json
+import subprocess
+import hid_op
+import threading
+
+THIS_VERSION_NUMBER = '0.13.3'
+
+def ensure_dir(dir_path):
+    if not os.path.exists(dir_path):
+        os.makedirs(dir_path)
+
+def is_root():
+    return os.getuid() == 0
+
+appname = 'duckypad_config'
+appauthor = 'dekuNukem'
+save_path = user_data_dir(appname, appauthor, roaming=True)
+backup_path = os.path.join(save_path, 'profile_backups')
+ensure_dir(save_path)
+ensure_dir(backup_path)
+save_filename = os.path.join(save_path, 'config.txt')
+print(save_path)
+config_dict = {}
+config_dict['auto_backup_enabled'] = True
+hid_dump_path = os.path.join(save_path, "hid_dump")
+hid_modified_dir_path = os.path.join(save_path, "hid_new")
+
+try:
+    with open(save_filename) as json_file:
+        temp = json.load(json_file)
+        if isinstance(temp, dict):
+            config_dict = temp
+        else:
+            raise ValueError("not a valid config file")
+except Exception as e:
+    pass
+
+def save_config():
+    try:
+        with open(save_filename, 'w', encoding='utf8') as save_file:
+                save_file.write(json.dumps(config_dict, sort_keys=True))
+    except Exception as e:
+        messagebox.showerror("Error", "Save failed!\n\n"+str(traceback.format_exc()))
 
 default_button_color = 'SystemButtonFace'
 if 'linux' in sys.platform:
     default_button_color = 'grey'
 
-THIS_VERSION_NUMBER = '0.11.0'
 MAIN_WINDOW_WIDTH = 800
-MAIN_WINDOW_HEIGHT = 600
+MAIN_WINDOW_HEIGHT = 625
 MAIN_COLOUM_HEIGHT = 533
 PADDING = 10
 HIGHT_ROOT_FOLDER_LF = 50
-INVALID_ROOT_FOLDER_STRING = "<-- Please select your duckyPad root folder"
+INVALID_ROOT_FOLDER_STRING = "<-- Press to connect to duckyPad"
 last_rgb = (238,130,238)
 dp_settings = duck_objs.dp_global_settings()
 discord_link_url = "https://raw.githubusercontent.com/dekuNukem/duckyPad/master/resources/discord_link.txt"
 sd_card_keymap_list = []
 
+
 def open_discord_link():
     try:
-        webbrowser.open(str(urllib.request.urlopen(discord_link_url).read().decode('utf-8')).split('\n')[0])
+        webbrowser.open(str(urllib.request.urlopen(discord_link_url).read().decode('latin-1')).split('\n')[0])
     except Exception as e:
         messagebox.showerror("Error", "Failed to open discord link!\n"+str(e))
 
@@ -140,17 +184,18 @@ def print_fw_update_label():
         dp_fw_update_label.config(text='Firmware: Unknown', fg='black', bg=default_button_color)
         dp_fw_update_label.unbind("<Button-1>")
 
-def select_root_folder():
+def select_root_folder(root_path=None):
     global profile_list
     global sd_card_keymap_list
     global dp_root_folder_path
-    dir_result = filedialog.askdirectory()
-    if len(dir_result) <= 0:
+    if root_path is None:
+        root_path = filedialog.askdirectory()
+    if len(root_path) <= 0:
         return
-    dp_root_folder_path = dir_result
-    dp_root_folder_display.set("Selected: " + dir_result)
+    dp_root_folder_path = root_path
+    dp_root_folder_display.set("Selected: " + root_path)
     root_folder_path_label.config(foreground='navy')
-    profile_list = duck_objs.build_profile(dir_result)
+    profile_list = duck_objs.build_profile(root_path)
     dp_settings.load_from_path(dp_root_folder_path)
     try:
         sd_card_keymap_list = duck_objs.load_keymap(dp_root_folder_path)
@@ -160,6 +205,60 @@ def select_root_folder():
     ui_reset()
     update_profile_display()
     enable_buttons()
+
+HID_NOP = 0
+HID_DUMP = 1
+HID_SAVE = 2
+current_hid_op = HID_NOP
+is_using_hid = False
+
+def connect_button_click():
+    global current_hid_op
+    global is_using_hid
+
+    is_using_hid = False
+    
+    if hid_op.get_duckypad_path() is None:
+        if(messagebox.askokcancel("Info", "duckyPad not found!\n\nConfigure via SD card instead?") == False):
+            return
+        select_root_folder()
+        return
+
+    init_success = True
+    hid_op.duckypad_hid_close()
+    try:
+        hid_op.duckypad_hid_init()
+    except Exception as e:
+        init_success = False
+
+    if init_success:
+        current_hid_op = HID_DUMP
+        is_using_hid = True
+        return
+
+    if init_success is False and 'linux' in sys.platform:
+        box_result = messagebox.askyesnocancel("Info", "duckyPad detected, but you need to add an udev rule before I can access it.\n\nClick Yes to see instructions\n\nClick No to configure via SD card.")
+        if box_result is True:
+            webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/app_posix.md')
+        elif box_result is False:
+            select_root_folder()
+        return
+
+    if init_success is False and 'darwin' in sys.platform and is_root() is False:
+        box_result = messagebox.askyesnocancel("Info", "duckyPad detected, but this app lacks permission to access it.\n\nClick Yes to see instructions\n\nClick No to configure via SD card.")
+        if box_result is True:
+            webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/troubleshooting.md#autoswitcher--usb-configuration-isnt-working-on-macos')
+        elif box_result is False:
+            select_root_folder()
+        return
+
+    if init_success is False and 'darwin' in sys.platform and is_root() is True:
+        box_result = messagebox.askyesnocancel("Info", "duckyPad detected, however, due to macOS restrictions, you'll need to enable some privacy settings.\n\nClick Yes to learn how.\n\nClick No to configure via SD card.")
+        if box_result is True:
+            webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/troubleshooting.md#autoswitcher--usb-configuration-isnt-working-on-macos')
+        elif box_result is False:
+            select_root_folder()
+        return
 
 def enable_buttons():
     profile_add_button.config(state=NORMAL)
@@ -439,10 +538,6 @@ def validate_data_objs(save_path):
             this_key.path = os.path.join(this_profile.path, 'key'+str(key_index+1)+'.txt')
             this_key.index = key_index + 1
 
-def ensure_dir(dir_path):
-    if not os.path.exists(dir_path):
-        os.mkdir(dir_path)
-
 def dump_keymap(save_path):
     global sd_card_keymap_list
     file_list = [d for d in os.listdir(save_path) if d.startswith("dpkm_") and d.endswith(".txt")]
@@ -454,15 +549,14 @@ def dump_keymap(save_path):
             pass
     for item in sd_card_keymap_list:
         if item.url is not None:
-            item.content = str(urllib.request.urlopen(item.url).read().decode('utf-8')).split('\n')
+            item.content = str(urllib.request.urlopen(item.url).read().decode('latin-1')).split('\n')
     for item in sd_card_keymap_list:
         file_path = os.path.join(save_path, item.file_name)
         with open(file_path, 'w', encoding='utf8') as keymap_file:
             keymap_file.writelines(s.replace('\n', '').replace('\r', '') + '\n' for s in item.content);
 
 def save_everything(save_path):
-    global last_save
-    save_result_label.config(text='Saving...', fg="white", bg="blue", cursor="")
+    dp_root_folder_display.set("Saving...")
     root.update()
     try:
         validate_data_objs(save_path)
@@ -507,55 +601,55 @@ def save_everything(save_path):
         dump_keymap(keymap_folder_path)
 
         dps_path = os.path.join(save_path, 'dp_settings.txt')
-        dps_lines = ["sleep_after_min " + str(sleepmode_slider.get()) + "\n"]
         try:
-            dps_file = open(dps_path, encoding='utf-8')
-            dps_lines = dps_file.readlines()
-            dps_file.close()
-            for index, line in enumerate(dps_lines):
+            found = False
+            for index, line in enumerate(dp_settings.list_of_lines):
                 if 'sleep_after_min' in line:
-                    dps_lines[index] = "sleep_after_min " + str(sleepmode_slider.get()) + "\n";
-        except Exception:
-            pass
+                    found = True
+                    dp_settings.list_of_lines[index] = "sleep_after_min " + str(sleepmode_slider.get()) + "\n";
+            if found is False:
+                dp_settings.list_of_lines.append("sleep_after_min " + str(sleepmode_slider.get()) + "\n")
+        except Exception as e:
+            print("dps", e)
 
         with open(dps_path, 'w+') as setting_file:
-            setting_file.writelines(dps_lines);
-        save_result_label.config(text='Saved!', fg="green", bg=default_button_color, cursor="")
-        save_result_label.unbind("<Button-1>")
+            setting_file.writelines(dp_settings.list_of_lines);
+
+        dp_root_folder_display.set("Saved!")
 
     except Exception as e:
-        # print('save_click:', e)
         messagebox.showerror("Error", "Save Failed!\n\n"+str(e))
-        # messagebox.showerror("Error", "Save Failed!\n"+str(traceback.format_exc()))
-        save_result_label.config(text='Save FAILED!', fg="red", bg=default_button_color, cursor="")
-        save_result_label.unbind("<Button-1>")
-    last_save = time.time()
-
-def current_time_str():
-    ret = datetime.utcnow().isoformat(sep='T')
-    return (ret[:19] + "Z").replace(':', '-')
+        dp_root_folder_display.set("Save FAILED!")
 
 def make_default_backup_dir_name():
-    return 'duckyPad_backup_' + current_time_str()
-
-backup_reminder_showed = False
+    return 'duckyPad_backup_' + datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
 
 def save_click():
-    global backup_reminder_showed
-    save_everything(dp_root_folder_path)
-    if backup_reminder_showed:
-        return
-    yesno = messagebox.askyesno("Local backup", "Done!\n\nWould you like to save a local backup of your profiles too?")
-    backup_reminder_showed = True
-    if yesno is False:
-        return
-    save_as_click()
+    global is_using_hid
+    global current_hid_op
+    if is_using_hid is False:
+        save_everything(dp_root_folder_path)
+    else:
+        save_everything(hid_modified_dir_path)
+        current_hid_op = HID_SAVE
+    if config_dict['auto_backup_enabled']:
+        save_everything(os.path.join(backup_path, make_default_backup_dir_name()))
 
-def save_as_click():
-    dir_result = filedialog.askdirectory(initialdir=os.path.join(os.path.expanduser('~'), "Desktop"))
-    if len(dir_result) <= 0:
-        return
-    save_everything(os.path.join(dir_result, make_default_backup_dir_name()))
+def backup_button_click():
+    if config_dict['auto_backup_enabled']:
+        messagebox.showinfo("Backups", "Auto backup is ON!\n\nAll your backups are here!")
+        if 'darwin' in sys.platform:
+            subprocess.Popen(["open", backup_path])
+        elif 'linux' in sys.platform:
+            subprocess.Popen(["xdg-open", backup_path])
+        else:
+            webbrowser.open(backup_path)
+    else:
+        messagebox.showinfo("Backups", "Auto backup is OFF!\n\nSelect a folder to save a backup.")
+        dir_result = filedialog.askdirectory(initialdir=os.path.join(os.path.expanduser('~'), "Desktop"))
+        if len(dir_result) <= 0:
+            return
+        save_everything(os.path.join(dir_result, make_default_backup_dir_name()))
 
 def key_button_click_event(event):
     key_button_click(event.widget)
@@ -611,28 +705,23 @@ root_folder_lf = LabelFrame(root, text="Files", width=779, height=HIGHT_ROOT_FOL
 root_folder_lf.place(x=PADDING, y=0) 
 root.update()
 
-help_button = Button(root_folder_lf, text="How do I...", command=create_help_window)
-help_button.place(x=5, y=0, width=85)
+help_button = Button(root_folder_lf, text="Help!", command=create_help_window)
+help_button.place(x=5, y=0, width=65)
 
-root_folder_select_button = Button(root_folder_lf, text="Open...", command=select_root_folder)
-root_folder_select_button.place(x=95, y=0, width=60)
+root_folder_select_button = Button(root_folder_lf, text="Connect", command=connect_button_click)
+root_folder_select_button.place(x=75, y=0, width=75)
 
 root_folder_path_label = Label(master=root_folder_lf, textvariable=dp_root_folder_display, foreground='red')
 root_folder_path_label.place(x=155, y=0)
 
 save_button = Button(root_folder_lf, text="Save", command=save_click, state=DISABLED)
-save_button.place(x=535, y=0, width=50)
+save_button.place(x=630, y=0, width=65)
 
-save_as_button = Button(root_folder_lf, text="Backup...", command=save_as_click, state=DISABLED)
-save_as_button.place(x=590, y=0, width=65)
-
-save_result_label = Label(master=root_folder_lf, text="")
-save_result_label.place(x=660, y=-6, width=110, height=35)
+save_as_button = Button(root_folder_lf, text="Backup...", command=backup_button_click, state=DISABLED)
+save_as_button.place(x=700, y=0, width=65)
 
 def app_update_click(event):
     webbrowser.open('https://github.com/dekuNukem/duckyPad/releases')
-
-last_save = 0
 
 # ------------- Profiles frame -------------
 
@@ -1026,7 +1115,7 @@ def minutes_to_str(value):
     return result
 
 def slider_adjust_sleepmode(value):
-    enter_sleep_mode_label.config(text="Enter sleep mode after: " + minutes_to_str(value))
+    enter_sleep_mode_label.config(text="Sleep after: " + minutes_to_str(value))
 
 kbl_online_listbox = None
 kbl_on_sd_card_listbox = None
@@ -1143,9 +1232,9 @@ def create_keyboard_layout_window():
     keymap_instruction_label.place(x=45, y=185)
     keymap_instruction_label.bind("<Button-1>", keymap_instruction_click)
 
-settings_lf = LabelFrame(root, text="Settings", width=516, height=65)
+settings_lf = LabelFrame(root, text="Settings", width=516, height=90)
 settings_lf.place(x=10, y=525) 
-enter_sleep_mode_label = Label(master=settings_lf, text="Enter sleep mode after: Never")
+enter_sleep_mode_label = Label(master=settings_lf, text="Sleep after: Never")
 enter_sleep_mode_label.place(x=10, y=0)
 
 sleepmode_slider = Scale(settings_lf)
@@ -1154,11 +1243,20 @@ sleepmode_slider.set(0)
 sleepmode_slider.place(x=10, y=20)
 sleepmode_slider.config(state=DISABLED)
 
-updates_lf = LabelFrame(root, text="Updates", width=253, height=65)
+def auto_backup_click():
+    config_dict['auto_backup_enabled'] = bool(auto_backup_checkbox_var.get())
+    save_config()
+
+auto_backup_checkbox_var = IntVar()
+auto_backup_checkbox_var.set(int(config_dict['auto_backup_enabled']))
+auto_backup_checkbox = Checkbutton(settings_lf, text="Profile auto-backup", variable=auto_backup_checkbox_var, command=auto_backup_click)
+auto_backup_checkbox.place(x=10, y=45)
+
+updates_lf = LabelFrame(root, text="Updates", width=253, height=90)
 updates_lf.place(x=536, y=525)
 
 pc_app_update_label = Label(master=updates_lf)
-pc_app_update_label.place(x=5, y=-2)
+pc_app_update_label.place(x=5, y=10)
 update_stats = check_update.get_pc_app_update_status(THIS_VERSION_NUMBER)
 
 if update_stats == 0:
@@ -1172,10 +1270,16 @@ else:
     pc_app_update_label.unbind("<Button-1>")
 
 dp_fw_update_label = Label(master=updates_lf, text="Firmware: Unknown")
-dp_fw_update_label.place(x=5, y=20)
+dp_fw_update_label.place(x=5, y=35)
 
 keyboard_layout_button = Button(settings_lf, text="Keyboard Layouts...", command=create_keyboard_layout_window, state=DISABLED)
-keyboard_layout_button.place(x=260, y=5, width=140, height=BUTTON_HEIGHT)
+keyboard_layout_button.place(x=220, y=13, width=140, height=BUTTON_HEIGHT)
+
+def open_profile_autoswitcher_url():
+    webbrowser.open('https://github.com/dekuNukem/duckyPad-profile-autoswitcher')
+
+autoswitch_button = Button(settings_lf, text="Profile\nAutoswitcher", command=open_profile_autoswitcher_url)
+autoswitch_button.place(x=370, y=0, width=125, height=40)
 
 root.update()
 
@@ -1184,9 +1288,47 @@ def repeat_func():
     if time.time() - last_textbox_edit >= 0.5 and modification_checked == 0:
         check_syntax_click()
         modification_checked = 1
-    if time.time() - last_save > 2 and 'update' not in save_result_label.cget("text").lower():
-        save_result_label.config(text='')
     root.after(500, repeat_func)
+
+
+def t1_worker():
+    global current_hid_op
+    while(1):
+        time.sleep(0.2)
+        # print(current_hid_op)
+        if current_hid_op == HID_NOP:
+            continue
+        if current_hid_op == HID_DUMP:
+            root_folder_path_label.config(foreground='navy')
+            dp_root_folder_display.set("dumping...")
+            current_hid_op = HID_NOP
+            try:
+                hid_op.dump_from_hid(hid_dump_path, dp_root_folder_display)
+                select_root_folder(hid_dump_path)
+                dp_root_folder_display.set("done!")
+            except Exception as e:
+                messagebox.showerror("Error", "error:\n\n"+str(traceback.format_exc()))
+                dp_root_folder_display.set("HID load error!")
+                continue
+        if current_hid_op == HID_SAVE:
+            current_hid_op = HID_NOP
+            hid_op.duckypad_hid_close()
+            try:
+                hid_op.duckypad_hid_init()
+                hid_op.duckypad_hid_file_sync(hid_dump_path, hid_modified_dir_path, dp_root_folder_display)
+                hid_op.duckypad_hid_sw_reset()
+                try:
+                    shutil.rmtree(hid_dump_path)
+                    time.sleep(0.05)
+                except FileNotFoundError:
+                    pass
+                os.rename(hid_modified_dir_path, hid_dump_path)
+            except Exception as e:
+                messagebox.showerror("error", "Save error: " + str(traceback.format_exc()))
+                dp_root_folder_display.set("Save FAILED!")
+
+t1 = threading.Thread(target=t1_worker, daemon=True)
+t1.start()
 
 root.after(500, repeat_func)
 # if os.name == 'posix':

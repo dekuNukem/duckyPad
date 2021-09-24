@@ -49,13 +49,51 @@ CONTROL w
 
 * Check out the [sample profiles](https://github.com/dekuNukem/duckyPad/tree/master/sample_profiles) for more examples.
 
+## List of Commands
+
+[REM](#REM)
+
+[DEFAULTDELAY](#DEFAULTDELAY)
+
+[DEFAULTCHARDELAY](#DEFAULTCHARDELAY)
+
+[DELAY](#DELAY)
+
+[STRING](#STRING)
+
+[REPEAT](#REPEAT)
+
+[Special Keys](#Special-Keys)
+
+[Mouse Buttons](#Mouse-Buttons)
+
+[MOUSE_MOVE](#MOUSE_MOVE-X-Y)
+
+[MOUSE_WHEEL](#MOUSE_WHEEL-X)
+
+[KEYDOWN / KEYUP](#KEYDOWN--KEYUP)
+
+[SWCOLOR](#SWCOLOR)
+
+[DP_SLEEP](#DP_SLEEP)
+
+[PREV_PROFILE / NEXT_PROFILE](#PREV_PROFILE--NEXT_PROFILE)
+
+[GOTO_PROFILE](#GOTO_PROFILE)
+
+[HOLD](#HOLD-experimental)
+
+[LOOP](#LOOP-experimental)
+
+-----
+
 ### REM
 
 `REM` is comment, any line starting with `REM` is ignored.
 
 ### DEFAULTDELAY
 
-`DEFAULTDELAY` specifies how long (in milliseconds) to wait between each **`line of command`**.
+`DEFAULTDELAY` specifies how long (in milliseconds) to wait between **`each line of command`**.
 
 If unspecified, `DEFAULTDELAY` is 18ms in duckyPad.
 
@@ -64,6 +102,12 @@ DEFAULTDELAY 100
 
 REM duckyPad will wait 100ms between each subsequent command
 ```
+
+### DEFAULTDELAYFUZZ X
+
+Adds an additional random delay from 0 to X milliseconds after `each line of command`, can be used to make typing more human-like.
+
+Set to 0 to disable.
 
 ### DEFAULTCHARDELAY
 
@@ -74,8 +118,14 @@ If unspecified, `DEFAULTCHARDELAY` is 18ms in duckyPad.
 ```
 DEFAULTCHARDELAY 50
 
-REM duckyPad will wait 50ms between pressing each key
+REM duckyPad will wait 50ms between each key stroke
 ```
+
+### DEFAULTCHARDELAYFUZZ X
+
+Adds an additional random delay from 0 to X milliseconds after `each key stroke`, can be used to make typing more human-like.
+
+Set to 0 to disable.
 
 ### DELAY
 
@@ -214,6 +264,50 @@ Those special keys can be used on their own:
 * Type the key names as-is in **`ALL CAPS`**.
 
 * **`UP TO 6 KEYS`** can be pressed simultaneously.
+
+### Mouse Buttons
+
+* `LMOUSE`: Click LEFT mouse button
+
+* `RMOUSE`: Click RIGHT mouse button
+
+* `MMOUSE`: Click MIDDLE mouse button
+
+### MOUSE_MOVE X Y
+
+Move mouse cursor `X` pixels horizontally, and `Y` pixels vertically.
+
+* `X` and `Y` must be between `-127` and `127`
+
+* For `X`, a positive number moves RIGHT, negative number moves LEFT.
+
+* For `Y`, a positive number moves UP, negative number moves DOWN.
+
+* Set `X` or `Y` to 0 if no movement needed.
+
+* Use `REPEAT` command to move further.
+
+### MOUSE_WHEEL X
+
+Scroll mouse wheel `X` lines.
+
+* `X` must be between `-127` and `127`
+
+* A positive number scrolls UP, negative number scrolls DOWN.
+
+### KEYDOWN / KEYUP
+
+Holds / Releases a key.
+
+Can be character key, modifier key, special key, or even mouse button!
+
+Example:
+
+```
+KEYDOWN SHIFT
+STRING hello
+KEYUP SHIFT
+```
 
 ### SWCOLOR
 

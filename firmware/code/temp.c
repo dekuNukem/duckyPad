@@ -1,3 +1,69 @@
+/*
+
+see USB HID descriptor in usbd_hid.c, Consumer section
+  0x95, 0x08,        //   Report Count (8)
+  usages...
+
+bit position corresponds to that
+0x80 voldown
+0x40 vol up
+0x20 mute
+etc
+*/
+
+// void mouse_test(void)
+// {
+//   memset(hid_tx_buf, 0, KB_BUF_SIZE);
+//   hid_tx_buf[0] = 4;
+//   // hid_tx_buf[2] = 20; // [1] buttons [2] x-axis, [3] y-axis [4] wheel, 0 to 127 scroll up, -1 to -127 scroll down
+//   vTaskSuspendAll();USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);xTaskResumeAll();
+//   printf("mouse\n");
+// }
+    printf("xx %d %d\n", (int8_t)this_key->code, (int8_t)this_key->code2);
+
+if(i2c_status == HAL_OK)
+    {
+      uint32_t start = HAL_GetTick();
+      HAL_I2C_Mem_Write(&hi2c1,SSD1306_I2C_ADDR,0x40,1,&SSD1306_Buffer[SSD1306_WIDTH * i],SSD1306_WIDTH,100);
+      printf("took %dms\n", HAL_GetTick() - start);
+    }
+
+/*
+
+void mouse_test(void)
+{
+  memset(hid_buf, 0, HID_BUF_SIZE);
+  hid_buf[0] = 4;
+  hid_buf[2] = 20; // [1] buttons [2] x-axis, [3] y-axis [4] wheel, 0 to 127 scroll up, -1 to -127 scroll down
+  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_buf, KB_BUF_SIZE);
+  printf("hid\n");
+}
+
+// void mouse_release_all(void)
+// {
+//   memset(hid_buf, 0, HID_BUF_SIZE);
+//   hid_buf[0] = 3;
+//   USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_buf, KB_BUF_SIZE);
+// }
+
+memset(hid_tx_buf, 5, HID_TX_BUF_SIZE);
+            // hid_tx_buf[0] = 5;
+            USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
+void mouse_test(void)
+{
+  memset(hid_buf, 0, HID_BUF_SIZE);
+  hid_buf[0] = 3;
+  hid_buf[2] = 20; // [1] buttons [2] x-axis, [3] y-axis [4] wheel, 0 to 127 scroll up, -1 to -127 scroll down
+  USBD_HID_SendReport(&hUsbDeviceFS, hid_buf, 8);
+  printf("mouse\n");
+}
+*/
+
+for (int i = 0; i < HID_RX_BUF_SIZE; ++i)
+    printf("%d, ", hid_rx_buf[i]);
+  printf("\ndone\n");
+  memset(hid_rx_buf, 0, HID_RX_BUF_SIZE);
+
 uint8_t is_keymap_missing(void)
 {
   for (int i = 0; i < MAX_KEYMAP_SIZE; ++i)

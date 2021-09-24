@@ -41,11 +41,6 @@ lul\keyboard.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h
 lul\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
 lul\keyboard.o: ../Inc/usbd_conf.h
 lul\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
-lul\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc/usbd_hid.h
-lul\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
-lul\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h
-lul\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
-lul\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h
 lul\keyboard.o: ../Inc/shared.h
 lul\keyboard.o: ../Middlewares/Third_Party/FatFs/src/ff.h
 lul\keyboard.o: ../Middlewares/Third_Party/FatFs/src/integer.h
@@ -66,3 +61,10 @@ lul\keyboard.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 lul\keyboard.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 lul\keyboard.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 lul\keyboard.o: ../Inc/keyboard.h
+lul\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Inc/usbd_customhid.h
+lul\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
+lul\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h
+lul\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
+lul\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h
+lul\keyboard.o: ../Inc/parser.h
+lul\keyboard.o: ../Inc/buttons.h

@@ -64,7 +64,7 @@ lul\main.o: ../Inc/usbd_conf.h
 lul\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 lul\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 lul\main.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
-lul\main.o: ../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc/usbd_hid.h
+lul\main.o: ../Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Inc/usbd_customhid.h
 lul\main.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
 lul\main.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h
 lul\main.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h

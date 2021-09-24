@@ -4,7 +4,7 @@
 
 ----
 
-duckyPad is a 15-key mechanical macropad that helps **consolidate and speed up your workflow** by automating keyboard inputs. 
+duckyPad is a 15-key mechanical macropad that helps **consolidate and speed up your workflow** by automating keyboard (and mouse!) inputs. 
 
 ![Alt text](resources/pics/title.png)
 
@@ -16,11 +16,12 @@ duckyPad features a sleek design and all the goodies of a high-end mechanical ke
 * **USB-C**
 * Open-source
 
-But more crucially, duckyPad also features **previous-unseen-in-macropads** innovations such as:
+But more crucially, duckyPad also features **previously-unseen-in-macropads** innovations such as:
 
 * **OLED** screen showing what each key does
 * Sophisticated **multi-line scripting** with [duckyScript](duckyscript_info.md)
 * **32 profiles** of 15 keys, 480 macros total.
+* [Automatic profile switching](https://github.com/dekuNukem/duckyPad-profile-autoswitcher) based on active window.
 * microSD card storage, move between devices without losing macros.
 * No driver needed, works out-of-box on anything that supports USB keyboards.
 
@@ -52,12 +53,13 @@ Finally, here's a video of duckyPad in action!
 
 ## Highlights
 
-* 15 Mechanical Switches (Gateron Green by default)
+* 15 Mechanical Switches
 * **`Hot-Swap`** Sockets
 * Per-Key **`RGB Lighting`** 
 * **`OLED Screen`**, showing profile and key names.
 * Powerful multi-line scripting with [duckyScript](duckyscript_info.md).
 * 32 profiles of 15 keys, for a total of 480 scripts.
+* [Automatic profile switching](https://github.com/dekuNukem/duckyPad-profile-autoswitcher) based on active window.
 * microSD storage
 * USB-C Connector
 * Works with all major OSs, no driver needed.

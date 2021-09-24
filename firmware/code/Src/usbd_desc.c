@@ -10,7 +10,7 @@
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
-  * Copyright (c) 2020 STMicroelectronics International N.V. 
+  * Copyright (c) 2021 STMicroelectronics International N.V. 
   * All rights reserved.
   *
   * Redistribution and use in source and binary forms, with or without 
@@ -91,16 +91,30 @@
   * @{
   */
 
-#define USBD_VID     1155
+#define USBD_VID     0x0483
 #define USBD_LANGID_STRING     1033
-#define USBD_MANUFACTURER_STRING     "STMicroelectronics"
-#define USBD_PID_FS     22315
-#define USBD_PRODUCT_STRING_FS     "STM32 Human interface"
-#define USBD_SERIALNUMBER_STRING_FS     "00000000001A"
-#define USBD_CONFIGURATION_STRING_FS     "HID Config"
-#define USBD_INTERFACE_STRING_FS     "HID Interface"
+#define USBD_MANUFACTURER_STRING     "dekuNukem"
+#define USBD_PID_FS     0xd11c
+#define USBD_PRODUCT_STRING_FS     "duckyPad(2020)"
+#define USBD_SERIALNUMBER_STRING_FS     "DP20_00000000"
+#define USBD_CONFIGURATION_STRING_FS     "DP HID CONF"
+#define USBD_INTERFACE_STRING_FS     "DP HID IF"
 
 /* USER CODE BEGIN PRIVATE_DEFINES */
+
+char my_hid_serial_number_buf[MY_HID_SERIAL_NUMBER_BUF_SIZE];
+
+uint32_t get_uuid(void)
+{
+  return (*STM32F0_UUID0) ^ (*STM32F0_UUID1) ^ (*STM32F0_UUID2);
+}
+
+char* make_serial_string(void)
+{
+  memset(my_hid_serial_number_buf, 0, MY_HID_SERIAL_NUMBER_BUF_SIZE);
+  sprintf(my_hid_serial_number_buf, "DP20_%08x", get_uuid());
+  return my_hid_serial_number_buf;
+}
 
 /* USER CODE END PRIVATE_DEFINES */
 
@@ -292,11 +306,11 @@ uint8_t * USBD_FS_SerialStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 {
   if(speed == USBD_SPEED_HIGH)
   {
-    USBD_GetString((uint8_t *)USBD_SERIALNUMBER_STRING_FS, USBD_StrDesc, length);
+    USBD_GetString((uint8_t *)make_serial_string(), USBD_StrDesc, length);
   }
   else
   {
-    USBD_GetString((uint8_t *)USBD_SERIALNUMBER_STRING_FS, USBD_StrDesc, length);
+    USBD_GetString((uint8_t *)make_serial_string(), USBD_StrDesc, length);
   }
   return USBD_StrDesc;
 }

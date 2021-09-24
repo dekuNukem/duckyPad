@@ -10,7 +10,7 @@
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
-  * Copyright (c) 2020 STMicroelectronics International N.V. 
+  * Copyright (c) 2021 STMicroelectronics International N.V. 
   * All rights reserved.
   *
   * Redistribution and use in source and binary forms, with or without 
@@ -57,7 +57,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "usbd_hid.h"
+#include "usbd_customhid.h"
 #include "ssd1306.h"
 #include "fonts.h"
 #include "neopixel.h"
@@ -84,8 +84,8 @@ osThreadId kb_scanHandle;
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 uint8_t fw_version_major = 0;
-uint8_t fw_version_minor = 17;
-uint8_t fw_version_patch = 0;
+uint8_t fw_version_minor = 19;
+uint8_t fw_version_patch = 5;
 char instruction[] = "For instructions, see";
 /* USER CODE END PV */
 

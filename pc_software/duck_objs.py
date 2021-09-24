@@ -9,8 +9,12 @@ MAX_PROFILE_COUNT = 32
 
 class dp_key(object):
 	def load_script(self, path):
-		with open(path, encoding='utf8') as keyfile:
-			return keyfile.read()
+		try:
+			with open(path, encoding='utf8') as keyfile:
+				return keyfile.read()
+		except Exception as e:
+			print('load_script exception:', e)
+			return ""
 
 	def read_color(self, config_path):
 		with open(config_path) as configfile:
@@ -160,7 +164,9 @@ class dp_global_settings(object):
 	def load_from_path(self, path):
 		try:
 			with open(os.path.join(path, 'dp_settings.txt')) as settings_file:
-				for line in settings_file.readlines():
+				file_lines = settings_file.readlines()
+				self.list_of_lines = file_lines
+				for line in file_lines:
 					line = line.replace('\n', '').replace('\r', '')
 					if 'sleep_after_min' in line:
 						self.sleep_after_minutes = int(line.split(' ')[-1])
@@ -169,6 +175,7 @@ class dp_global_settings(object):
 	def __init__(self):
 		super(dp_global_settings, self).__init__()
 		self.sleep_after_minutes = 30
+		self.list_of_lines = []
 
 class dp_keymap(object):
 	def __init__(self):

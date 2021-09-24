@@ -47,7 +47,12 @@ new_name = os.path.join(output_folder_path, "duckypad_config_" + THIS_VERSION + 
 
 print(original_name)
 print(new_name)
+print()
+
+f = open(os.path.join(output_folder_path, "run.sh"), "w")
+f.write("sudo " + str(os.path.join(new_name, 'Contents', 'MacOS', 'duckypad_config')).replace("dist/", ''))
+f.close()
 
 os.rename(original_name, new_name)
 zip_file_name = "duckypad_config_" + THIS_VERSION + "_macOS_" + str(platform.mac_ver()[0]) +".zip"
-os.system('cd dist; zip -rv ' + zip_file_name + ' ' + new_name.split('/')[-1] + "; mv " + zip_file_name + " ../")
+os.system('cd dist; zip -rv ' + zip_file_name + ' ' + new_name.split('/')[-1] + " run.sh; mv " + zip_file_name + " ../")

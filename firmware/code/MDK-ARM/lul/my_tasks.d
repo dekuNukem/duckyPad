@@ -57,7 +57,7 @@ lul\my_tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
 lul\my_tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 lul\my_tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 lul\my_tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
-lul\my_tasks.o: ../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc/usbd_hid.h
+lul\my_tasks.o: ../Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Inc/usbd_customhid.h
 lul\my_tasks.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
 lul\my_tasks.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
 lul\my_tasks.o: ../Inc/usbd_conf.h
@@ -73,3 +73,5 @@ lul\my_tasks.o: ../Inc/buttons.h
 lul\my_tasks.o: ../Inc/keyboard.h
 lul\my_tasks.o: ../Inc/parser.h
 lul\my_tasks.o: ../Inc/animations.h
+lul\my_tasks.o: ../Inc/usb_device.h
+lul\my_tasks.o: ../Inc/usbd_desc.h
