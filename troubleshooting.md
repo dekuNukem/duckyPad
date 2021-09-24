@@ -212,6 +212,8 @@ Due to the security restrictions of macOS, to use autoswitcher and USB configura
 
 * Enable "Input Monitoring" permission
 
+* Enable "Screen Recording" permission (required to detect window titles)
+
 * Run the app as root
 
 Here's how:
@@ -232,6 +234,9 @@ Here's how:
 
 ![Alt text](resources/pics/select_term.png)
 
+* Select `Screen Recording`, and repeat the same process as for `Input Monitoring`
+
+![Alt text](resources/pics/screen_rec.png)
 
 ### Launch app as administrator
 
