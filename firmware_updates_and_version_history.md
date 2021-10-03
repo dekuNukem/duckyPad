@@ -48,7 +48,7 @@ Launch the `DfuSeDemo` software:
 
 ![Alt text](resources/pics/dfu_start.png)
 
-In the `Available DUF Devices` section at top left corner, you should see a `STM Device in DFU Mode`.
+In the `Available DFU Devices` section at top left corner, you should see a `STM Device in DFU Mode`.
 
 ![Alt text](resources/pics/dfu_available.png)
 
