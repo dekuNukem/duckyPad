@@ -83,7 +83,7 @@ Extract the `.zip` file and launch the application by clicking `duckypad_config.
 
 ![Alt text](resources/pics/app/duckexe.png)
 
-For Linux users, simply run the `duckypad_config.py` script with Python3.6 or higher. 
+For Linux users, download the source and simply run `python3 duckypad_config.py`, might need to `apt-get install` a few needed packages. For High-DPI users, use `DUCKYPAD_UI_SCALE=2 python3 duckypad_config.py`, adjust the number for best results.
 
 ### "Untrusted App" Warnings
 
