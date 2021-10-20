@@ -4,10 +4,11 @@ To use duckyPad configurator, clone the repo or download the latest source files
 
 ```bash
 cd pc_software
-python3 -m venv venv
-. venv/bin/activate
 pip3 install appdirs hidapi
 python3 duckypad_config.py
+# OR if using Hi-DPI
+DUCKYPAD_UI_SCALE=2 python3 duckypad_config.py
+# adjust the number for best results
 ```
 
 ## Udev Rule
