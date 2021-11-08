@@ -132,7 +132,7 @@ def ui_reset():
     profile_down_button.config(state=DISABLED)
     profile_dupe_button.config(state=DISABLED)
     save_button.config(state=DISABLED)
-    save_as_button.config(state=DISABLED)
+    # backup_button.config(state=DISABLED)
     kd_R1.config(state=DISABLED)
     kd_R2.config(state=DISABLED)
     dim_unused_keys_checkbox.config(state=DISABLED)
@@ -269,7 +269,7 @@ def enable_buttons():
     profile_down_button.config(state=NORMAL)
     profile_dupe_button.config(state=NORMAL)
     save_button.config(state=NORMAL)
-    save_as_button.config(state=NORMAL)
+    backup_button.config(state=NORMAL)
     kd_R1.config(state=NORMAL)
     kd_R2.config(state=NORMAL)
     dim_unused_keys_checkbox.config(state=NORMAL)
@@ -670,7 +670,7 @@ def key_button_click(button_widget):
         key_name_entrybox.insert(0, profile_list[profile_index].keylist[selected_key].name)
         script_textbox.config(state=NORMAL)
         script_textbox.delete(1.0, 'end')
-        script_textbox.insert(1.0, profile_list[profile_index].keylist[selected_key].script.rstrip('\n'))
+        script_textbox.insert(1.0, profile_list[profile_index].keylist[selected_key].script.rstrip('\n').rstrip('\r'))
 
     if profile_list[profile_index].keylist[selected_key] is None:
         key_color_button.config(background=default_button_color)
@@ -718,8 +718,8 @@ root_folder_path_label.place(x=155 * UI_SCALE, y=0)
 save_button = Button(root_folder_lf, text="Save", command=save_click, state=DISABLED)
 save_button.place(x=630 * UI_SCALE, y=0, width=65 * UI_SCALE, height=25 * UI_SCALE)
 
-save_as_button = Button(root_folder_lf, text="Backup...", command=backup_button_click, state=DISABLED)
-save_as_button.place(x=700 * UI_SCALE, y=0, width=65 * UI_SCALE, height=25 * UI_SCALE)
+backup_button = Button(root_folder_lf, text="Backup...", command=backup_button_click)
+backup_button.place(x=700 * UI_SCALE, y=0, width=65 * UI_SCALE, height=25 * UI_SCALE)
 
 def app_update_click(event):
     webbrowser.open('https://github.com/dekuNukem/duckyPad/releases')
