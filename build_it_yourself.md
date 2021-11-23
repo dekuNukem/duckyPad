@@ -10,7 +10,7 @@ If you are handy with PCBs and surface mount soldering, you can make a duckyPad 
 
 * [PCB files](pcb)
 
-* [BOM](https://docs.google.com/spreadsheets/d/1Ju-sIw1Obpt7uIige1xaAQOXJVpki02SXzwOST-CLQI/edit?usp=sharing)
+* [BOM](https://docs.google.com/spreadsheets/d/e/2PACX-1vT7gMnYGDWy0Lo6eYjwrsN8QOGCtDGLZ2JMhllytPXIBBvnaAoaImIb5qIXtS9drMGxFIuWi2RhF3QB/pubhtml)
 
 Some things to keep in mind:
 
