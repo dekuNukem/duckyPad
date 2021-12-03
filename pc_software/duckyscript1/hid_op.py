@@ -102,7 +102,10 @@ HID_COMMAND_CREATE_DIR = 18
 HID_COMMAND_DELETE_DIR = 19
 HID_COMMAND_SW_RESET = 20
 
-h = hid.device()
+if hasattr(hid, 'device'):
+    h = hid.device()
+else:
+    h = None
 
 def _check_hid_err(result):
     """
@@ -133,13 +136,21 @@ def _read_duckypad():
 
 
 def duckypad_hid_init():
-    duckypad_path = get_duckypad_path()
-    if duckypad_path is None:
-        raise OSError('duckyPad Not Found!')
-    h.open_path(duckypad_path)
+    global h
+    if h and hasattr(hid, 'device'):
+        duckypad_path = get_duckypad_path()
+        if duckypad_path is None:
+           raise OSError('duckyPad Not Found!')
+        h.open_path(duckypad_path)
+    else:
+        try:
+            h = hid.Device(0x483, 0xd11c)
+        except:
+           raise OSError('duckyPad Not Found!')
 
 def duckypad_hid_close():
-    h.close()
+    if h:
+        h.close()
 
 
 def duckypad_list_files(root_dir = None):
@@ -153,10 +164,16 @@ def duckypad_list_files(root_dir = None):
         for x in range(0, len(root_dir)):
             pc_to_duckypad_buf[3+x] = ord(root_dir[x])
 
-    h.write(pc_to_duckypad_buf)
+    if hasattr(hid, 'device'):
+        h.write(pc_to_duckypad_buf)
+    else:
+        h.write(bytes(pc_to_duckypad_buf))
+
     while 1:
         time.sleep(HID_WAIT_TIME)
         result = _read_duckypad()
+        if isinstance(result, bytes):
+            result = list(iter(result))
         if len(result) == 0 or result[2] == HID_RESPONSE_EOF:
             break
         _check_hid_err(result)
@@ -171,7 +188,10 @@ def duckypad_hid_resume():
     pc_to_duckypad_buf[0] = 5   # HID Usage ID, always 5
     pc_to_duckypad_buf[1] = 0   # Sequence Number
     pc_to_duckypad_buf[2] = HID_COMMAND_OP_RESUME   # Command type
-    h.write(pc_to_duckypad_buf)
+    if hasattr(hid, 'device'):
+        h.write(pc_to_duckypad_buf)
+    else:
+        h.write(bytes(pc_to_duckypad_buf))
 
 def duckypad_read_file(file_dir):
     ret = ''
@@ -183,7 +203,10 @@ def duckypad_read_file(file_dir):
     for x in range(0, len(file_dir)):
         pc_to_duckypad_buf[3+x] = ord(file_dir[x])
 
-    h.write(pc_to_duckypad_buf)
+    if hasattr(hid, 'device'):
+        h.write(pc_to_duckypad_buf)
+    else:
+        h.write(bytes(pc_to_duckypad_buf))
     while 1:
         time.sleep(HID_WAIT_TIME)
         result = _read_duckypad()
@@ -252,7 +275,10 @@ def duckypad_open_file_for_writing(file_dir):
     for x in range(0, len(file_dir)):
         pc_to_duckypad_buf[3+x] = ord(file_dir[x])
 
-    h.write(pc_to_duckypad_buf)
+    if hasattr(hid, 'device'):
+        h.write(pc_to_duckypad_buf)
+    else:
+        h.write(bytes(pc_to_duckypad_buf))
 
     result = _read_duckypad()
     logger.debug("duckypad_open_file_for_writing: dir=%s result=%s", file_dir, result)
@@ -264,7 +290,10 @@ def duckypad_close_file():
     pc_to_duckypad_buf[1] = 0   # Sequence Number
     pc_to_duckypad_buf[2] = HID_COMMAND_CLOSE_FILE  # Command type
 
-    h.write(pc_to_duckypad_buf)
+    if hasattr(hid, 'device'):
+        h.write(pc_to_duckypad_buf)
+    else:
+        h.write(bytes(pc_to_duckypad_buf))
 
     result = _read_duckypad()
     logger.debug("duckypad_close_file: result=%s", result)
@@ -285,7 +314,10 @@ def duckypad_write_file_one_line(content):
         else:
             pc_to_duckypad_buf[3+x] = ord("?")
 
-    h.write(pc_to_duckypad_buf)
+    if hasattr(hid, 'device'):
+        h.write(pc_to_duckypad_buf)
+    else:
+        h.write(bytes(pc_to_duckypad_buf))
 
     result = _read_duckypad()
     logger.debug(
@@ -312,7 +344,10 @@ def duckypad_delete_file(file_name):
     for x in range(0, len(file_name)):
         pc_to_duckypad_buf[3+x] = ord(file_name[x])
 
-    h.write(pc_to_duckypad_buf)
+    if hasattr(hid, 'device'):
+        h.write(pc_to_duckypad_buf)
+    else:
+        h.write(bytes(pc_to_duckypad_buf))
 
     result = _read_duckypad()
     logger.debug("duckypad_delete_file: file_name=%s result=%s", file_name, result)
@@ -327,7 +362,10 @@ def duckypad_create_dir(dir_name):
     for x in range(0, len(dir_name)):
         pc_to_duckypad_buf[3+x] = ord(dir_name[x])
 
-    h.write(pc_to_duckypad_buf)
+    if hasattr(hid, 'device'):
+        h.write(pc_to_duckypad_buf)
+    else:
+        h.write(bytes(pc_to_duckypad_buf))
 
     result = _read_duckypad()
     logger.debug("duckypad_create_dir: dir_name=%s result=%s", dir_name, result)
@@ -340,7 +378,10 @@ def duckypad_delete_dir(dir_name):
     pc_to_duckypad_buf[2] = HID_COMMAND_DELETE_DIR  # Command type
     for x in range(0, len(dir_name)):
         pc_to_duckypad_buf[3+x] = ord(dir_name[x])
-    h.write(pc_to_duckypad_buf)
+    if hasattr(hid, 'device'):
+        h.write(pc_to_duckypad_buf)
+    else:
+        h.write(bytes(pc_to_duckypad_buf))
     result = _read_duckypad()
     logger.debug("duckypad_delete_dir: dir_name=%s result=%s", dir_name, result)
     _check_hid_err(result)
@@ -417,4 +458,7 @@ def duckypad_hid_sw_reset():
     pc_to_duckypad_buf[0] = 5   # HID Usage ID, always 5
     pc_to_duckypad_buf[1] = 0   # Sequence Number
     pc_to_duckypad_buf[2] = HID_COMMAND_SW_RESET    # Command type
-    h.write(pc_to_duckypad_buf)
+    if hasattr(hid, 'device'):
+        h.write(pc_to_duckypad_buf)
+    else:
+        h.write(bytes(pc_to_duckypad_buf))
