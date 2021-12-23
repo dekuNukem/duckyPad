@@ -1,0 +1,12 @@
+[Unit]
+Description=Suspend duckyPad during shutdown or reboot
+DefaultDependencies=no
+Before=poweroff.target halt.target shutdown.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/share/duckypad/suspend_duckypad.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=shutdown.target
