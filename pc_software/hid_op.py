@@ -7,6 +7,7 @@ import shutil
 import filecmp
 import sys
 
+HID_WAIT_TIME = float(os.getenv('HID_WAIT_TIME', 0))
 LOGGING_LEVEL = os.getenv('HID_OP_LOG', 'INFO').upper()
 LOGGING_CONFIG = {
     'version': 1,
@@ -147,7 +148,7 @@ def duckypad_list_files(root_dir = None):
 
     h.write(pc_to_duckypad_buf)
     while 1:
-        # time.sleep(HID_WAIT_TIME)
+        time.sleep(HID_WAIT_TIME)
         result = _read_duckypad()
         if len(result) == 0 or result[2] == HID_RESPONSE_EOF:
             break
@@ -177,7 +178,7 @@ def duckypad_read_file(file_dir):
 
     h.write(pc_to_duckypad_buf)
     while 1:
-        # time.sleep(HID_WAIT_TIME)
+        time.sleep(HID_WAIT_TIME)
         result = _read_duckypad()
         if len(result) == 0 or result[2] == HID_RESPONSE_EOF:
             break
