@@ -624,6 +624,7 @@ void handle_hid_command(void)
     uint32_t uuid = get_uuid();
     memcpy(hid_tx_buf + 7, &uuid, 4);
     hid_tx_buf[11] = p_cache.current_profile;
+    hid_tx_buf[12] = is_sleeping;
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
   }
   /*
@@ -1066,6 +1067,8 @@ void start_sleeping(void)
 {
   key_led_shutdown();
   ssd1306_Fill(Black);
+  ssd1306_UpdateScreen();
+  ssd1306_UpdateScreen();
   ssd1306_UpdateScreen();
   osDelay(100);
   is_sleeping = 1;
