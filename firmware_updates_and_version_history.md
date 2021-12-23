@@ -6,21 +6,21 @@
 
 ## Latest Firmware
 
-### 0.19.1
+### 0.19.8 (Dec 23 2021)
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.19.1.dfu)
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.19.8.dfu)
 
-🆕 Configure duckyPad via USB **WITHOUT taking out SD card!** [Click me for details.](https://github.com/dekuNukem/duckyPad/blob/master/getting_started.md#using-duckypad-configurator)
+🆕 Shortened profile switching animation, feels much more snappy now!
 
-🆕 Added `KEYUP` and `KEYDOWN` commands for holding keys
+🆕 Added sleep status byte in [HID info packet](https://github.com/dekuNukem/duckyPad-profile-autoswitcher/blob/master/HID_details.md#info-0x00).
 
-⚠️ As this is a fairly large update, there might be some bugs lurking around. [Let me know](#questions-or-comments) if you run into one!
+🆕 Added a [new HID command](https://github.com/dekuNukem/duckyPad-profile-autoswitcher/blob/master/HID_details.md#sleep-0x15) to put duckyPad to sleep
 
-#### Known issues:
+🐞 Fixed a configuration error that prevented F13-F24 keys from working under Linux.
 
-* An user reported capitalized letters not working on Chromebook, let me know if that's the case on yours!
+⚠️ * Some AMD motherboard users have experienced disconnection issues. This is a [well-known chipset bug](https://www.pcmag.com/news/amd-locates-root-cause-of-usb-issues-on-b550-x570-motherboards). Apply latest updates or plug in through an USB hub to fix the issue.
 
-* Some AMD B550/X570 motherboard users reported disconnection issues. This is a chipset bug. [Apply the patch](https://www.pcmag.com/news/amd-locates-root-cause-of-usb-issues-on-b550-x570-motherboards) or use it through an USB hub should fix it.
+💭 Questions, feedbacks, bugs? [Let me know](#questions-or-comments)!
 
 ## USB Firmware Updates
 
@@ -56,7 +56,7 @@ In the `Available DFU Devices` section at top left corner, you should see a `STM
 
 Press the `Choose...` button and select a firmware file in `.dfu` format.
 
-* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.19.1.dfu) to download the latest firmware (v0.19.1)
+* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.19.8.dfu) to download the latest firmware (v0.19.8)
 
 * ...or [scroll down](#firmware-version-history) for older firmware versions.
 
@@ -87,6 +87,16 @@ Hold DFU button and connect duckyPad, then run:
 After completion, press **`RESET`** button (or power-cycle) to start using the new firmware. 
 
 ## Firmware Version History
+
+### 0.19.1
+
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.19.1.dfu)
+
+🆕 Configure duckyPad via USB **WITHOUT taking out SD card!** [Click me for details.](https://github.com/dekuNukem/duckyPad/blob/master/getting_started.md#using-duckypad-configurator)
+
+🆕 Added `KEYUP` and `KEYDOWN` commands for holding keys
+
+⚠️ As this is a fairly large update, there might be some bugs lurking around. [Let me know](#questions-or-comments) if you run into one!
 
 ### 0.18.0
 
