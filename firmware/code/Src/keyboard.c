@@ -364,11 +364,6 @@ void mouse_release(my_key* this_key)
   vTaskSuspendAll();USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, kb_buf, KB_BUF_SIZE);xTaskResumeAll();
 }
 
-void chromebook(my_key* this_key, uint8_t use_mod)
-{
-
-}
-
 void keyboard_press(my_key* this_key, uint8_t use_mod)
 {
   uint16_t duckcode;

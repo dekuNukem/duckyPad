@@ -21,7 +21,36 @@ static const uint8_t col_lookup[7][3] = {
    {0, 42, 85}
 };
 
+// static const uint8_t f_key_lookup[24] = 
+// {
+//   0X3A, // F1
+//   0X3B, // F2
+//   0X3C, // F3
+//   0X3D, // F4
+//   0X3E, // F5
+//   0X3F, // F6
+//   0X40, // F7
+//   0X41, // F8
+//   0X42, // F9
+//   0X43, // F10
+//   0X44, // F11
+//   0X45, // F12
+//   0xf0, // F13
+//   0xf1, // F14
+//   0xf2, // F15
+//   0xf3, // F16
+//   0xf4, // F17
+//   0xf5, // F18
+//   0xf6, // F19
+//   0xf7, // F20
+//   0xf8, // F21
+//   0xf9, // F22
+//   0xfa, // F23
+//   0xfb, // F24
+// };
+
 static const uint8_t f_key_lookup[24] = {0X3A, 0X3B, 0X3C, 0X3D, 0X3E, 0X3F, 0X40, 0X41, 0X42, 0X43, 0X44, 0X45, 0x68, 0x69, 0x6a, 0x6b, 0x6c, 0x6d, 0x6e, 0x6f, 0x70, 0x71, 0x72, 0x73};
+
 
 FRESULT sd_fresult;
 FATFS sd_fs;

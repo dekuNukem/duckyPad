@@ -16,22 +16,9 @@ uint8_t error_color_red[THREE] = {255, 0, 0};
 uint8_t color_black[THREE] = {0, 0, 0};
 uint8_t color_blue[THREE] = {0, 0, 128};
 uint8_t profile_quickswitch_color[THREE] = {50, 50, 50};
-uint8_t rand_order_buf[NEOPIXEL_COUNT];
 int8_t brightness_index = BRIGHTNESS_LEVELS - 1;
 uint8_t brightness_values[BRIGHTNESS_LEVELS] = {0, 20, 50, 70, 100};
 uint16_t temp_r, temp_g, temp_b;
-
-void shuffle(uint8_t *array, uint8_t array_size)
-{
-  srand(HAL_GetTick());
-  for (uint8_t i = 0; i < array_size; i++) 
-  {   
-    uint8_t j = rand() % array_size; 
-    uint8_t t = array[j];
-    array[j] = array[i];
-    array[i] = t;
-  }
-}
 
 void neopixel_off(void)
 {
@@ -133,14 +120,7 @@ void redraw_bg(void)
 void change_bg(void)
 {
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
-    rand_order_buf[i] = i;
-  shuffle(rand_order_buf, NEOPIXEL_COUNT);
-
-  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
-  {
     led_start_animation(&neo_anime[i], p_cache.individual_key_color[i], ANIMATION_CROSS_FADE, 6);
-    neo_anime[i].animation_start += 1.5 * rand_order_buf[i];
-  }
 }
 
 void error_animation(uint8_t stage)
@@ -187,10 +167,7 @@ void keydown_anime_end(uint8_t idx)
 void key_led_shutdown(void)
 {
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
-  {
-    led_start_animation(&neo_anime[i], color_black, ANIMATION_CROSS_FADE, 8);
-    neo_anime[i].animation_start += 1.5 * rand_order_buf[i];
-  }
+    led_start_animation(&neo_anime[i], color_black, ANIMATION_CROSS_FADE, 6);
 }
 
 void all_led_off(void)
