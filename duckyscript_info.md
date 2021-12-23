@@ -347,7 +347,9 @@ Holds a key when you press it, and release only when you release it. This comman
 
 Possible uses include push-to-talk voice chat, or WASD gamepad.
 
-`HOLD` command must be followed by a single key, it can be a character or a special key.
+You should only use `HOLD` command on its own, i.e. the script should only have a single line of `HOLD` command and nothing else.
+
+`HOLD` command can be followed by up to 2 keys, they can be character or special keys.
 
 ```
 HOLD w
@@ -355,9 +357,6 @@ HOLD w
 ```
 HOLD SHIFT
 ```
-
-You should only use `HOLD` command on its own, i.e. the script should only have a single line of `HOLD` command and nothing else.
-
 This command is experimental, if you run into any bugs, [let me know](#questions-or-comments)!
 
 ### LOOP (experimental)
