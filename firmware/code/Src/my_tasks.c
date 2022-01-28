@@ -646,6 +646,7 @@ void handle_hid_command(void)
     if(p_cache.available_profile[hid_rx_buf[3]])
     {
       USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
+      is_sleeping = 0;
       oled_full_brightness();
       restore_profile(hid_rx_buf[3], 1, 1);
     }
@@ -994,7 +995,6 @@ void keypress_task_start(void const * argument)
 
         if(is_sleeping) // wake up from sleep
         {
-          // change_bg();
           restore_profile(p_cache.current_profile, 0, 0);
           is_sleeping = 0;
           goto key_task_end;
