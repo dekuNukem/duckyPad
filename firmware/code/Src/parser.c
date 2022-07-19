@@ -1273,13 +1273,18 @@ uint8_t parse_line(char* line, uint8_t keynum)
     ;
   else if(strncmp(cmd_LCR, line, strlen(cmd_LCR)) == 0)
   {
-    uint8_t keynum_to_reset = atoi(goto_next_arg(line, line + PATH_SIZE));
-    // printf("$%d\n", keynum_to_reset);
+    char* curr = line;
+    char* msg_end = line + PATH_SIZE;
+    curr = goto_next_arg(curr, msg_end);
+    uint8_t keynum_to_reset = atoi(curr);
+    curr = goto_next_arg(curr, msg_end);
+    uint8_t press_count_val = atoi(curr);
+    // printf("$%d %d\n", keynum_to_reset, press_count_val);
     if(keynum_to_reset == 0)
       memset(key_press_count, 0, MAPPABLE_KEY_COUNT);
     keynum_to_reset--;
     if(keynum_to_reset < MAPPABLE_KEY_COUNT)
-      key_press_count[keynum_to_reset] = 0;
+      key_press_count[keynum_to_reset] = press_count_val;
     result = PARSE_LOOP_STATE_SAVE_NEEDED;
     goto parse_end;
   }
@@ -1500,7 +1505,7 @@ void save_loop_state(void)
     // ls = loop state, cs = colour state
     sprintf(temp_buf, "ls %d %d\ncs %d %d %d %d\n", iii, key_press_count[iii] % key_max_loop[iii], iii, p_cache.individual_key_color[iii][0], p_cache.individual_key_color[iii][1], p_cache.individual_key_color[iii][2]);
     f_write(&sd_file, temp_buf, strlen(temp_buf), &bytes_read);
-    printf("%s", temp_buf);
+    // printf("%s", temp_buf);
   }
   f_close(&sd_file);
 }
