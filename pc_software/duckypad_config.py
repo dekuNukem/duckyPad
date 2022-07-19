@@ -20,7 +20,7 @@ import subprocess
 import hid_op
 import threading
 
-THIS_VERSION_NUMBER = '0.13.3'
+THIS_VERSION_NUMBER = '0.13.4'
 
 ENV_UI_SCALE = os.getenv("DUCKYPAD_UI_SCALE")
 UI_SCALE = int(ENV_UI_SCALE) if ENV_UI_SCALE else 1

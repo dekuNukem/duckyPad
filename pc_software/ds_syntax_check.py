@@ -131,7 +131,7 @@ DEFAULTCHARDELAYFUZZ = "DEFAULTCHARDELAYFUZZ ";
 
 mouse_commands = [cmd_LMOUSE, cmd_RMOUSE, cmd_MMOUSE, cmd_MOUSE_MOVE, cmd_MOUSE_WHEEL]
 
-ignored_but_valid_commands = ["UARTPRINT ", DEFAULTDELAYFUZZ, DEFAULTCHARDELAYFUZZ, cmd_REM, "SWCOLOR_", "SWCOLOR ", 'DP_SLEEP', 'PREV_PROFILE', 'NEXT_PROFILE', 'GOTO_PROFILE ']
+ignored_but_valid_commands = ["UARTPRINT ", "LCR", DEFAULTDELAYFUZZ, DEFAULTCHARDELAYFUZZ, cmd_REM, "SWCOLOR_", "SWCOLOR ", 'DP_SLEEP', 'PREV_PROFILE', 'NEXT_PROFILE', 'GOTO_PROFILE ']
 
 def is_ignored_but_valid_command(ducky_line):
 	for item in ignored_but_valid_commands:
