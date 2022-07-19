@@ -1425,9 +1425,25 @@ void keypress_wrap(uint8_t keynum)
 
   if(key_max_loop[keynum] != 0)
   {
-    // save loop state here?
-    // printf("%d %d\n", keynum, key_press_count[keynum] % key_max_loop[keynum]);
-    // printf("%d %d %d\n", p_cache.individual_key_color[keynum][0], p_cache.individual_key_color[keynum][1], p_cache.individual_key_color[keynum][2]);
+    // save loop state here
+    memset(temp_buf, 0, PATH_SIZE);
+    sprintf(temp_buf, "/%s/state.txt", p_cache.profile_fn);
+    if(f_open(&sd_file, temp_buf, FA_CREATE_ALWAYS | FA_WRITE) != 0)
+    {
+      f_close(&sd_file);
+      return;
+    }
+    for(uint8_t iii = 0; iii < MAPPABLE_KEY_COUNT; iii++)
+    {
+      if(key_max_loop[iii] == 0)
+        continue;
+      memset(temp_buf, 0, PATH_SIZE);
+      // ls = loop state, cs = colour state
+      sprintf(temp_buf, "ls %d %d\ncs %d %d %d %d\n", iii, key_press_count[iii] % key_max_loop[iii], iii, p_cache.individual_key_color[iii][0], p_cache.individual_key_color[iii][1], p_cache.individual_key_color[iii][2]);
+      f_write(&sd_file, temp_buf, strlen(temp_buf), &bytes_read);
+      printf("%s", temp_buf);
+    }
+    f_close(&sd_file);
   }
 }
 

@@ -10,7 +10,9 @@ bit position corresponds to that
 0x20 mute
 etc
 */
-
+    // printf("%d %d\n", keynum, key_press_count[keynum] % key_max_loop[keynum]);
+    // printf("%d %d %d\n", p_cache.individual_key_color[keynum][0], p_cache.individual_key_color[keynum][1], p_cache.individual_key_color[keynum][2]);
+    
 // void mouse_test(void)
 // {
 //   memset(hid_tx_buf, 0, KB_BUF_SIZE);
