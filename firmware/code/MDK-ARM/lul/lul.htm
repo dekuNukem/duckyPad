@@ -3,7 +3,7 @@
 <title>Static Call Graph - [lul\lul.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image lul\lul.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue Jul 19 06:32:00 2022
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue Jul 19 06:56:01 2022
 <BR><P>
 <H3>Maximum Stack Usage =        424 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -324,7 +324,7 @@ Global Symbols
 <LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_brightness_value
 <LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animation_task_start
 <LI><a href="#[181]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
-<LI><a href="#[1aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_profile
+<LI><a href="#[1a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_profile
 <LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
 </UL>
 
@@ -401,7 +401,7 @@ Global Symbols
 <LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keymap_config
 <LI><a href="#[1a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_keyname
 <LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_settings
-<LI><a href="#[1aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_profile
+<LI><a href="#[1a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_profile
 <LI><a href="#[16c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
 <LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
 </UL>
@@ -1723,12 +1723,12 @@ Global Symbols
 
 <P><STRONG><a name="[20b]"></a>__1printf$8</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf8.o(i.__0printf$8), UNUSED)
 
-<P><STRONG><a name="[1a9]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf8.o(i.__0printf$8))
+<P><STRONG><a name="[1aa]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf8.o(i.__0printf$8))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[19b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_loop_state
 <LI><a href="#[19a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_line
-<LI><a href="#[1a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_loop_state
 </UL>
 
 <P><STRONG><a name="[f7]"></a>__0sprintf$8</STRONG> (Thumb, 36 bytes, Stack size 24 bytes, printf8.o(i.__0sprintf$8), UNUSED)
@@ -1838,7 +1838,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_start_animation
 </UL>
 <BR>[Called By]<UL><LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_task_start
-<LI><a href="#[1aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_profile
+<LI><a href="#[1a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_profile
 </UL>
 
 <P><STRONG><a name="[108]"></a>change_brightness</STRONG> (Thumb, 220 bytes, Stack size 16 bytes, my_tasks.o(i.change_brightness))
@@ -2298,7 +2298,7 @@ Global Symbols
 <LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_profile
+<BR>[Called By]<UL><LI><a href="#[1a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_profile
 </UL>
 
 <P><STRONG><a name="[40]"></a>fputc</STRONG> (Thumb, 18 bytes, Stack size 16 bytes, main.o(i.fputc))
@@ -2351,7 +2351,7 @@ Global Symbols
 <LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_profile
+<BR>[Called By]<UL><LI><a href="#[1a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_profile
 </UL>
 
 <P><STRONG><a name="[167]"></a>get_last_profile</STRONG> (Thumb, 100 bytes, Stack size 16 bytes, parser.o(i.get_last_profile))
@@ -2375,6 +2375,7 @@ Global Symbols
 <P><STRONG><a name="[106]"></a>goto_next_arg</STRONG> (Thumb, 44 bytes, Stack size 0 bytes, parser.o(i.goto_next_arg))
 <BR><BR>[Called By]<UL><LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_special_key
 <LI><a href="#[1a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_loop_state
+<LI><a href="#[19a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_line
 <LI><a href="#[1bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_hold
 <LI><a href="#[1bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_combo
 <LI><a href="#[1a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_color_state
@@ -2681,7 +2682,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(.constdata)
 </UL>
-<P><STRONG><a name="[16c]"></a>keypress_wrap</STRONG> (Thumb, 638 bytes, Stack size 32 bytes, parser.o(i.keypress_wrap))
+<P><STRONG><a name="[16c]"></a>keypress_wrap</STRONG> (Thumb, 660 bytes, Stack size 32 bytes, parser.o(i.keypress_wrap))
 <BR><BR>[Stack]<UL><LI>Max Depth = 376<LI>Call Chain = keypress_wrap &rArr; save_loop_state &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_WriteString
@@ -2780,7 +2781,7 @@ Global Symbols
 <LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_profile
+<BR>[Called By]<UL><LI><a href="#[1a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_profile
 </UL>
 
 <P><STRONG><a name="[195]"></a>load_keymap_by_index</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, my_tasks.o(i.load_keymap_by_index))
@@ -2809,7 +2810,7 @@ Global Symbols
 <LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keymap_config
 </UL>
 
-<P><STRONG><a name="[1a6]"></a>load_loop_state</STRONG> (Thumb, 144 bytes, Stack size 8 bytes, parser.o(i.load_loop_state))
+<P><STRONG><a name="[1a6]"></a>load_loop_state</STRONG> (Thumb, 128 bytes, Stack size 8 bytes, parser.o(i.load_loop_state))
 <BR><BR>[Stack]<UL><LI>Max Depth = 320<LI>Call Chain = load_loop_state &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
@@ -2820,12 +2821,11 @@ Global Symbols
 <LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strncmp
 <LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
-<LI><a href="#[1a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_profile
+<BR>[Called By]<UL><LI><a href="#[1a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_profile
 </UL>
 
-<P><STRONG><a name="[1aa]"></a>load_profile</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, parser.o(i.load_profile))
+<P><STRONG><a name="[1a9]"></a>load_profile</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, parser.o(i.load_profile))
 <BR><BR>[Stack]<UL><LI>Max Depth = 368<LI>Call Chain = load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_bg
@@ -2866,7 +2866,7 @@ Global Symbols
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_I2C1_Init
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
 <LI><a href="#[1ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
-<LI><a href="#[1a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[1aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
@@ -3100,7 +3100,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[19a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_line
 </UL>
 
-<P><STRONG><a name="[19a]"></a>parse_line</STRONG> (Thumb, 828 bytes, Stack size 40 bytes, parser.o(i.parse_line))
+<P><STRONG><a name="[19a]"></a>parse_line</STRONG> (Thumb, 856 bytes, Stack size 40 bytes, parser.o(i.parse_line))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = parse_line &rArr; parse_combo &rArr; parse_special_key &rArr; atoi &rArr; strtol &rArr; _strtoul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_wrapper
@@ -3115,13 +3115,14 @@ Global Symbols
 <LI><a href="#[1bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_combo
 <LI><a href="#[178]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;is_sw_color_line
 <LI><a href="#[177]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;is_empty_line
+<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;goto_next_arg
 <LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_arg
 <LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;assign_colors
 <LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strncmp
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 <LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
-<LI><a href="#[1a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[1aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[16c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
 </UL>
@@ -3287,7 +3288,7 @@ Global Symbols
 <LI><a href="#[196]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_last_profile
 <LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reset_hold_cache
 <LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_legend
-<LI><a href="#[1aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_profile
+<LI><a href="#[1a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_profile
 </UL>
 <BR>[Called By]<UL><LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_scan_task
 <LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;profile_quickswitch
@@ -3312,7 +3313,7 @@ Global Symbols
 <LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_profile
 </UL>
 
-<P><STRONG><a name="[19b]"></a>save_loop_state</STRONG> (Thumb, 144 bytes, Stack size 32 bytes, parser.o(i.save_loop_state))
+<P><STRONG><a name="[19b]"></a>save_loop_state</STRONG> (Thumb, 152 bytes, Stack size 32 bytes, parser.o(i.save_loop_state))
 <BR><BR>[Stack]<UL><LI>Max Depth = 344<LI>Call Chain = save_loop_state &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
@@ -3322,6 +3323,7 @@ Global Symbols
 <LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
+<LI><a href="#[1aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[16c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrap
 </UL>
