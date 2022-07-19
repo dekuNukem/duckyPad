@@ -1422,6 +1422,13 @@ void keypress_wrap(uint8_t keynum)
   kp_end:
   f_close(&sd_file);
   key_press_count[keynum]++;
+
+  if(key_max_loop[keynum] != 0)
+  {
+    // save loop state here?
+    // printf("%d %d\n", keynum, key_press_count[keynum] % key_max_loop[keynum]);
+    // printf("%d %d %d\n", p_cache.individual_key_color[keynum][0], p_cache.individual_key_color[keynum][1], p_cache.individual_key_color[keynum][2]);
+  }
 }
 
 void dpc_init(duckypad_parsed_command* dpc)
