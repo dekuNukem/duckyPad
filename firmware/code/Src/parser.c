@@ -468,7 +468,55 @@ uint8_t get_keynames(profile_cache* ppppppp)
   return ret;
 }
 
-void load_profile(uint8_t pid, uint8_t reload_colors)
+void parse_loop_state(char* curr, char* msg_end)
+{
+  uint8_t keynum, current_loop;
+  curr = goto_next_arg(curr, msg_end);
+  keynum = atoi(curr);
+  curr = goto_next_arg(curr, msg_end);
+  current_loop = atoi(curr);
+  if(keynum >= MAPPABLE_KEY_COUNT)
+    return;
+  key_press_count[keynum] = current_loop;
+}
+
+void parse_color_state(char* curr, char* msg_end)
+{
+  uint8_t keynum;
+  curr = goto_next_arg(curr, msg_end);
+  keynum = atoi(curr);
+  if(keynum >= MAPPABLE_KEY_COUNT)
+    return;
+  curr = goto_next_arg(curr, msg_end);
+  p_cache.individual_key_color[keynum][0] = atoi(curr);
+  curr = goto_next_arg(curr, msg_end);
+  p_cache.individual_key_color[keynum][1] = atoi(curr);
+  curr = goto_next_arg(curr, msg_end);
+  p_cache.individual_key_color[keynum][2] = atoi(curr);
+}
+
+void load_loop_state(void)
+{
+  memset(temp_buf, 0, PATH_SIZE);
+  sprintf(temp_buf, "/%s/state.txt", p_cache.profile_fn);
+  if(f_open(&sd_file, temp_buf, FA_READ) != 0)
+  {
+    f_close(&sd_file);
+    return;
+  }
+  memset(temp_buf, 0, PATH_SIZE);
+  while(f_gets(temp_buf, PATH_SIZE, &sd_file))
+  {
+    if(strncmp(temp_buf, "ls ", 3) == 0)
+      parse_loop_state(temp_buf, temp_buf + PATH_SIZE);
+    if(strncmp(temp_buf, "cs ", 3) == 0)
+      parse_color_state(temp_buf, temp_buf + PATH_SIZE);
+    memset(temp_buf, 0, PATH_SIZE);
+  }
+  f_close(&sd_file);
+}
+
+void load_profile(uint8_t pid)
 {
   char* profile_name = find_profile(pid);
   if(profile_name == NULL)
@@ -476,8 +524,8 @@ void load_profile(uint8_t pid, uint8_t reload_colors)
   memset(p_cache.profile_fn, 0, FILENAME_SIZE);
   strcpy(p_cache.profile_fn, profile_name);
   get_keynames(&p_cache);
-  if(reload_colors)
-    load_colors(p_cache.profile_fn);
+  load_colors(p_cache.profile_fn);
+  load_loop_state();
   change_bg();
   p_cache.current_profile = pid;
 }
@@ -600,12 +648,9 @@ void reset_hold_cache(void)
   }
 }
 
-void restore_profile(uint8_t profile_id, uint8_t reset_loop_count, uint8_t reload_colors)
+void restore_profile(uint8_t profile_id)
 {
-  if(reset_loop_count)
-    memset(key_press_count, 0, MAPPABLE_KEY_COUNT);
-  memset(key_max_loop, 0, MAPPABLE_KEY_COUNT);
-  load_profile(profile_id, reload_colors);
+  load_profile(profile_id);
   print_legend(0, 0);
   has_valid_profiles = 1;
   f_closedir(&dir);
@@ -645,7 +690,7 @@ void change_profile(uint8_t direction)
     if(p_cache.available_profile[next_profile])
       break;
   }
-  restore_profile(next_profile, 1, 1);
+  restore_profile(next_profile);
 }
 
 void parse_special_key(char* msg, my_key* this_key)
@@ -1424,27 +1469,29 @@ void keypress_wrap(uint8_t keynum)
   key_press_count[keynum]++;
 
   if(key_max_loop[keynum] != 0)
+    save_loop_state();
+}
+
+void save_loop_state(void)
+{
+  memset(temp_buf, 0, PATH_SIZE);
+  sprintf(temp_buf, "/%s/state.txt", p_cache.profile_fn);
+  if(f_open(&sd_file, temp_buf, FA_CREATE_ALWAYS | FA_WRITE) != 0)
   {
-    // save loop state here
-    memset(temp_buf, 0, PATH_SIZE);
-    sprintf(temp_buf, "/%s/state.txt", p_cache.profile_fn);
-    if(f_open(&sd_file, temp_buf, FA_CREATE_ALWAYS | FA_WRITE) != 0)
-    {
-      f_close(&sd_file);
-      return;
-    }
-    for(uint8_t iii = 0; iii < MAPPABLE_KEY_COUNT; iii++)
-    {
-      if(key_max_loop[iii] == 0)
-        continue;
-      memset(temp_buf, 0, PATH_SIZE);
-      // ls = loop state, cs = colour state
-      sprintf(temp_buf, "ls %d %d\ncs %d %d %d %d\n", iii, key_press_count[iii] % key_max_loop[iii], iii, p_cache.individual_key_color[iii][0], p_cache.individual_key_color[iii][1], p_cache.individual_key_color[iii][2]);
-      f_write(&sd_file, temp_buf, strlen(temp_buf), &bytes_read);
-      printf("%s", temp_buf);
-    }
     f_close(&sd_file);
+    return;
   }
+  for(uint8_t iii = 0; iii < MAPPABLE_KEY_COUNT; iii++)
+  {
+    if(key_max_loop[iii] == 0)
+      continue;
+    memset(temp_buf, 0, PATH_SIZE);
+    // ls = loop state, cs = colour state
+    sprintf(temp_buf, "ls %d %d\ncs %d %d %d %d\n", iii, key_press_count[iii] % key_max_loop[iii], iii, p_cache.individual_key_color[iii][0], p_cache.individual_key_color[iii][1], p_cache.individual_key_color[iii][2]);
+    f_write(&sd_file, temp_buf, strlen(temp_buf), &bytes_read);
+    // printf("%s", temp_buf);
+  }
+  f_close(&sd_file);
 }
 
 void dpc_init(duckypad_parsed_command* dpc)

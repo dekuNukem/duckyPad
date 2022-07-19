@@ -10,6 +10,14 @@ bit position corresponds to that
 0x20 mute
 etc
 */
+
+
+
+// load loop status here???
+  memset(key_max_loop, 0, MAPPABLE_KEY_COUNT);
+
+
+  
     // printf("%d %d\n", keynum, key_press_count[keynum] % key_max_loop[keynum]);
     // printf("%d %d %d\n", p_cache.individual_key_color[keynum][0], p_cache.individual_key_color[keynum][1], p_cache.individual_key_color[keynum][2]);
     
