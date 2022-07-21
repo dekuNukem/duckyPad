@@ -8,27 +8,13 @@
 
 ### 0.20.1 (Jul 21 2022)
 
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.20.1.dfu)
+
 🆕 `LOOP` state and RGB LED color is now persistent across profile switches and reboots!
 
 🆕 Added `LCR` command to reset loop counter.
 
 🆕 Shortened profile switching animation even more!
-
-### 0.19.8 (Dec 23 2021)
-
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.19.8.dfu)
-
-🆕 Shortened profile switching animation, feels much more snappy now!
-
-🆕 Added sleep status byte in [HID info packet](https://github.com/dekuNukem/duckyPad-profile-autoswitcher/blob/master/HID_details.md#info-0x00).
-
-🆕 Added a [new HID command](https://github.com/dekuNukem/duckyPad-profile-autoswitcher/blob/master/HID_details.md#sleep-0x15) to put duckyPad to sleep
-
-🐞 Fixed a configuration error that prevented F13-F24 keys from working under Linux.
-
-⚠️ * Some AMD motherboard users have experienced disconnection issues. This is a [well-known chipset bug](https://www.pcmag.com/news/amd-locates-root-cause-of-usb-issues-on-b550-x570-motherboards). Apply latest updates or plug in through an USB hub to fix the issue.
-
-💭 Questions, feedbacks, bugs? [Let me know](#questions-or-comments)!
 
 ## USB Firmware Updates
 
@@ -95,6 +81,23 @@ Hold DFU button and connect duckyPad, then run:
 After completion, press **`RESET`** button (or power-cycle) to start using the new firmware. 
 
 ## Firmware Version History
+
+### 0.19.8 (Dec 23 2021)
+
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.19.8.dfu)
+
+🆕 Shortened profile switching animation, feels much more snappy now!
+
+🆕 Added sleep status byte in [HID info packet](https://github.com/dekuNukem/duckyPad-profile-autoswitcher/blob/master/HID_details.md#info-0x00).
+
+🆕 Added a [new HID command](https://github.com/dekuNukem/duckyPad-profile-autoswitcher/blob/master/HID_details.md#sleep-0x15) to put duckyPad to sleep
+
+🐞 Fixed a configuration error that prevented F13-F24 keys from working under Linux.
+
+⚠️ * Some AMD motherboard users have experienced disconnection issues. This is a [well-known chipset bug](https://www.pcmag.com/news/amd-locates-root-cause-of-usb-issues-on-b550-x570-motherboards). Apply latest updates or plug in through an USB hub to fix the issue.
+
+💭 Questions, feedbacks, bugs? [Let me know](#questions-or-comments)!
+
 
 ### 0.19.1
 
