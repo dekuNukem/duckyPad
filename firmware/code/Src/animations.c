@@ -120,7 +120,7 @@ void redraw_bg(void)
 void change_bg(void)
 {
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
-    led_start_animation(&neo_anime[i], p_cache.individual_key_color[i], ANIMATION_CROSS_FADE, 6);
+    led_start_animation(&neo_anime[i], p_cache.individual_key_color[i], ANIMATION_CROSS_FADE, 4);
 }
 
 void error_animation(uint8_t stage)

@@ -359,7 +359,7 @@ HOLD SHIFT
 ```
 This command is experimental, if you run into any bugs, [let me know](#questions-or-comments)!
 
-### LOOP (experimental)
+### LOOP
 
 This command allows you to **assign different actions to the same key**.
 
@@ -383,9 +383,21 @@ ENTER
 
 * When you press a key, a counter increments, and the script at the corresponding loop is executed.
 
-* This command is not yet supported with test-run on PC app.
+* Loop and colour state should be persistent through profile switches and reboots **AFTER FIRMWARE 0.20.0**. [Click me](firmware_updates_and_version_history.md) to learn how to update your FW!
 
-* This command is experimental, if you run into any bugs, [let me know](#questions-or-comments)!
+* This command is not yet supported in test-run on PC app.
+
+### LCR (Loop Counter Reset)
+
+* This command resets the counter for `LOOP` commands.
+
+* `LCR` on its own resets **ALL** loop counters in the **CURRENT PROFILE** to **ZERO**. Effectively making everything start from `LOOP0` again.
+
+* `LCR x` resets key `x` loop counter to ZERO, making that key start from `LOOP0` again. `x` is between 1 to 15.
+
+* `LCR x y` resets key `x` loop counter to `y`, making that key start from `LOOP`y again. `x` is between 1 to 15. `y` is between 0 to 9.
+
+* Try not to mix `LOOP` and `LCR` commands in the same script, probably won't end well.
 
 ## Table of Contents
 
