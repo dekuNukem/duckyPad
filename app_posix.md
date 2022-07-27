@@ -13,6 +13,16 @@ sudo DUCKYPAD_UI_SCALE=2 python3 duckypad_config.py
 # adjust the number for best results
 ```
 
+### Linux Mint Users
+
+If the above commands give you errors when attempting to execute `sudo python3 duckypad_config.py` perform the following first:
+
+```bash
+sudo apt install python3-tk
+sudo apt install python3-appdirs
+sudo apt install python3-hid
+```
+
 ## Udev Rule
 
 To enable USB profile editing on Linux, you may need to install a Udev rule to allow your user to access the HID device.
