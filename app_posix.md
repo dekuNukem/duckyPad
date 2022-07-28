@@ -13,7 +13,7 @@ sudo DUCKYPAD_UI_SCALE=2 python3 duckypad_config.py
 # adjust the number for best results
 ```
 
-### Linux Mint Users
+### Ubuntu/Pop!_OS/Linux Mint Users
 
 If the above commands give you errors when attempting to execute `sudo python3 duckypad_config.py` perform the following first:
 
