@@ -24,6 +24,12 @@ sudo apt install python3-hid
 pip3 install pyautogui
 ```
 
+Ubuntu/Pop!_OS/Linux Mint Users will also need to execute the duckypad_config.py file as non-sudo.
+
+```bash
+python3 duckypad_config.py
+```
+
 ## Udev Rule
 
 To enable USB profile editing on Linux, you may need to install a Udev rule to allow your user to access the HID device.
