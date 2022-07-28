@@ -21,6 +21,7 @@ If the above commands give you errors when attempting to execute `sudo python3 d
 sudo apt install python3-tk
 sudo apt install python3-appdirs
 sudo apt install python3-hid
+pip3 install pyautogui
 ```
 
 ## Udev Rule
