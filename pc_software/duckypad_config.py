@@ -697,6 +697,14 @@ root.geometry(str(MAIN_WINDOW_WIDTH) + "x" + str(MAIN_WINDOW_HEIGHT))
 root.resizable(width=FALSE, height=FALSE)
 profile_list = []
 
+
+# Setup the root window to show a confirmation dialog when the user clicks the close button
+def on_closing_click():
+    if messagebox.askokcancel("Quit", "Do you want to quit the application?"):
+        root.destroy()
+
+root.protocol("WM_DELETE_WINDOW", on_closing_click)
+
 # ------------- Folder select -------------
 dp_root_folder_display = StringVar()
 dp_root_folder_path= ''
