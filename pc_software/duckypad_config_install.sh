@@ -32,8 +32,22 @@ EOF
 # Determine Distro
 . /etc/os-release
 
+#Check if pip3 is installed
+command -v pip3 >/dev/null 2>&1 || { echo >&2 "pip3 cannot be detected on your system. Please install."; pip=false; }
+
 # Install Python libraries based on distro
 if [ "$NAME" == 'Linux Mint' ] || [ "$NAME" == 'Pop!_OS' ] || [ "$NAME" == 'Ubuntu' ]; then
+
+    if [ "$pip" = false ] ;then
+        while true; do
+            read -p "Do you wish to install pip3? " yn
+            case $yn in
+                [Yy]* ) sudo apt-get install python3-pip -y; break;;
+                [Nn]* ) break;;
+                * ) echo "Please answer yes or no.";;
+            esac
+        done
+    fi
 
     echo "Installing python3-tk.."
     sudo apt-get -qq install python3-tk -y || echo "Unable to install python3-tk"
@@ -41,6 +55,8 @@ if [ "$NAME" == 'Linux Mint' ] || [ "$NAME" == 'Pop!_OS' ] || [ "$NAME" == 'Ubun
     sudo apt-get -qq install python3-appdirs -y || echo "Unable to install python3-appdirs"
     echo "Installing python3-hid.."
     sudo apt-get -qq install python3-hid -y || echo "Unable to install python3-hid"
+    echo "Installing pyautogui"
+    pip3 install pyautogui || echo "Unable to install pyautogui"
 
 else
 
