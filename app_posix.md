@@ -33,6 +33,13 @@ If the above commands give you errors when attempting to execute `sudo python3 d
 sudo apt install python3-tk
 sudo apt install python3-appdirs
 sudo apt install python3-hid
+pip3 install pyautogui
+```
+
+Ubuntu/Pop!_OS/Linux Mint Users will also need to execute the duckypad_config.py file as non-sudo.
+
+```bash
+python3 duckypad_config.py
 ```
 
 ### Udev Rule
