@@ -18,7 +18,8 @@ while true; do
 done
 
 ## create .desktop file
-tee /usr/share/applications/duckyconfig.desktop <<EOF
+echo "Installing .desktop file to /usr/share/applications/duckyconfig.desktop"
+tee /usr/share/applications/duckyconfig.desktop <<EOF &> /dev/null
 #!/usr/bin/env xdg-open
 [Desktop Entry]
 Name=DuckyPad Configurator
@@ -31,6 +32,7 @@ EOF
 
 # Determine Distro
 . /etc/os-release
+echo "Distro detected: " $NAME
 
 #Check if pip3 is installed
 command -v pip3 >/dev/null 2>&1 || { echo >&2 "pip3 cannot be detected on your system. Please install."; pip=false; }
@@ -50,20 +52,21 @@ if [ "$NAME" == 'Linux Mint' ] || [ "$NAME" == 'Pop!_OS' ] || [ "$NAME" == 'Ubun
     fi
 
     echo "Installing python3-tk.."
-    sudo apt-get -qq install python3-tk -y || echo "Unable to install python3-tk"
+    sudo apt-get -qq install python3-tk -y &> /dev/null || echo "Unable to install python3-tk"
     echo "Installing python3-appdirs.."
-    sudo apt-get -qq install python3-appdirs -y || echo "Unable to install python3-appdirs"
+    sudo apt-get -qq install python3-appdirs -y &> /dev/null || echo "Unable to install python3-appdirs"
     echo "Installing python3-hid.."
-    sudo apt-get -qq install python3-hid -y || echo "Unable to install python3-hid"
+    sudo apt-get -qq install python3-hid -y &> /dev/null || echo "Unable to install python3-hid"
     echo "Installing pyautogui"
-    pip3 install pyautogui || echo "Unable to install pyautogui"
+    pip3 install pyautogui &> /dev/null || echo "Unable to install pyautogui"
 
 else
 
-    pip3 install appdirs hidapi
+    pip3 install appdirs hidapi || echo "Unable to install appdirs or hidapi"
 
 fi
 
+#create directories in /opt for python files
 mkdir -p /opt/duckypad_config
 cp -R ./ /opt/duckypad_config/
 
