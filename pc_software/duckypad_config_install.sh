@@ -82,6 +82,28 @@ elif [ "$NAME" == 'Fedora Linux' ]; then
     echo "Installing pyautogui"
     pip3 install pyautogui &> /dev/null || echo "Unable to install pyautogui"
 
+elif [ "$NAME" == 'Manjaro Linux' ]; then
+
+    if [ "$pip" = false ] ;then
+        while true; do
+            read -p "Do you wish to install pip3? " yn
+            case $yn in
+                [Yy]* ) sudo pacman -Sy --noconfirm python-pip; break;;
+                [Nn]* ) break;;
+                * ) echo "Please answer yes or no.";;
+            esac
+        done
+    fi
+
+    echo "Installing tkinter.."
+    sudo pacman -Sy --noconfirm tk &> /dev/null || echo "Unable to install tkinter"
+    echo "Installing python-appdirs.."
+    sudo pacman -Sy --noconfirm python-appdirs &> /dev/null || echo "Unable to install python-appdirs"
+    echo "Installing python-hidapi.."
+    sudo pacman -Sy --noconfirm python-hidapi &> /dev/null || echo "Unable to install python-hidapi"
+    echo "Installing pyautogui"
+    pip3 install pyautogui &> /dev/null || echo "Unable to install pyautogui"
+
 else
 
     pip3 install appdirs hidapi || echo "Unable to install appdirs or hidapi"
