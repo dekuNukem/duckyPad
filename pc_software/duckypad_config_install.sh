@@ -35,7 +35,7 @@ EOF
 echo "Distro detected: " $NAME
 
 #Check if pip3 is installed
-command -v pip3 >/dev/null 2>&1 || { echo >&2 "pip3 cannot be detected on your system. Please install."; pip=false; }
+command -v pip3 >/dev/null 2>&1 || { echo >&2 "pip3 cannot be detected on your system."; pip=false; }
 
 # Install Python libraries based on distro
 if [ "$NAME" == 'Linux Mint' ] || [ "$NAME" == 'Pop!_OS' ] || [ "$NAME" == 'Ubuntu' ]; then
@@ -57,6 +57,28 @@ if [ "$NAME" == 'Linux Mint' ] || [ "$NAME" == 'Pop!_OS' ] || [ "$NAME" == 'Ubun
     sudo apt-get -qq install python3-appdirs -y &> /dev/null || echo "Unable to install python3-appdirs"
     echo "Installing python3-hid.."
     sudo apt-get -qq install python3-hid -y &> /dev/null || echo "Unable to install python3-hid"
+    echo "Installing pyautogui"
+    pip3 install pyautogui &> /dev/null || echo "Unable to install pyautogui"
+
+elif [ "$NAME" == 'Fedora Linux' ]; then
+
+    if [ "$pip" = false ] ;then
+        while true; do
+            read -p "Do you wish to install pip3? " yn
+            case $yn in
+                [Yy]* ) sudo dnf install python3-pip -y; break;;
+                [Nn]* ) break;;
+                * ) echo "Please answer yes or no.";;
+            esac
+        done
+    fi
+
+    echo "Installing python3-tkinter.."
+    sudo dnf install python3-tkinter -y &> /dev/null || echo "Unable to install python3-tkinter"
+    echo "Installing python3-appdirs.."
+    sudo dnf install python3-appdirs -y &> /dev/null || echo "Unable to install python3-appdirs"
+    echo "Installing python3-hidapi.."
+    sudo dnf install python3-hidapi -y &> /dev/null || echo "Unable to install python3-hidapi"
     echo "Installing pyautogui"
     pip3 install pyautogui &> /dev/null || echo "Unable to install pyautogui"
 
