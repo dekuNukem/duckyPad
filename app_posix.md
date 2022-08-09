@@ -1,5 +1,17 @@
 # Running duckyPad Configurator on Linux
 
+## Script Install Method
+To use duckyPad configurator, clone the repo or download the latest source files from the [release page](https://github.com/dekuNukem/duckyPad/releases/latest). Enter `pc_software` directory in terminal, then use the duckypad_config_install.sh file to install the software on your system.
+
+The Install script will move all files to the `/opt/duckypad_config` directory. It will also install the python dependancies and the udev rules. Currently, this has only been tested with Ubuntu based distros.
+
+```bash
+sudo +x ./duckypad_config_install.sh
+./duckypad_config_install.sh
+```
+
+## Manual Install Method
+
 To use duckyPad configurator, clone the repo or download the latest source files from the [release page](https://github.com/dekuNukem/duckyPad/releases/latest). Enter `pc_software` directory in terminal, then use the following commands to install dependencies and launch the app:
 
 ```bash
@@ -23,7 +35,7 @@ sudo apt install python3-appdirs
 sudo apt install python3-hid
 ```
 
-## Udev Rule
+### Udev Rule
 
 To enable USB profile editing on Linux, you may need to install a Udev rule to allow your user to access the HID device.
 
