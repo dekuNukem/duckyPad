@@ -82,7 +82,7 @@ elif [ "$NAME" == 'Fedora Linux' ]; then
     echo "Installing pyautogui"
     pip3 install pyautogui &> /dev/null || echo "Unable to install pyautogui"
 
-elif [ "$NAME" == 'Manjaro Linux' ]; then
+elif [ "$NAME" == 'Manjaro Linux' ] || [ "$NAME" == 'Arch Linux' ]; then
 
     if [ "$pip" = false ] ;then
         while true; do
