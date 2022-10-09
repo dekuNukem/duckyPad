@@ -3,7 +3,7 @@
 <title>Static Call Graph - [lul\lul.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image lul\lul.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sun Oct 09 10:44:45 2022
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sun Oct 09 11:05:01 2022
 <BR><P>
 <H3>Maximum Stack Usage =        424 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2518,6 +2518,7 @@ Global Symbols
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_common_switch8
 </UL>
 <BR>[Called By]<UL><LI><a href="#[179]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_print
+<LI><a href="#[19a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_line
 </UL>
 
 <P><STRONG><a name="[44]"></a>kb_scan_task</STRONG> (Thumb, 264 bytes, Stack size 8 bytes, main.o(i.kb_scan_task))
@@ -3102,12 +3103,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[19a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_line
 </UL>
 
-<P><STRONG><a name="[19a]"></a>parse_line</STRONG> (Thumb, 874 bytes, Stack size 40 bytes, parser.o(i.parse_line))
+<P><STRONG><a name="[19a]"></a>parse_line</STRONG> (Thumb, 940 bytes, Stack size 40 bytes, parser.o(i.parse_line))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = parse_line &rArr; parse_combo &rArr; parse_special_key &rArr; atoi &rArr; strtol &rArr; _strtoul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_wrapper
 <LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_release
 <LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_press
+<LI><a href="#[17b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_print_char
 <LI><a href="#[179]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_print
 <LI><a href="#[183]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;is_mouse_type
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;redraw_bg
@@ -3138,7 +3140,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_loop_state
 </UL>
 
-<P><STRONG><a name="[1bd]"></a>parse_special_key</STRONG> (Thumb, 2220 bytes, Stack size 24 bytes, parser.o(i.parse_special_key))
+<P><STRONG><a name="[1bd]"></a>parse_special_key</STRONG> (Thumb, 2226 bytes, Stack size 24 bytes, parser.o(i.parse_special_key))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = parse_special_key &rArr; atoi &rArr; strtol &rArr; _strtoul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_my_key

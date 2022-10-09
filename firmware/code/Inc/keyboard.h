@@ -109,6 +109,7 @@ void init_my_key(my_key* kk);
 void media_key_release(void);
 uint8_t is_mouse_type(my_key* this_key);
 void mouse_test(void);
+void kb_print_char(my_key *kk, int32_t chardelay, int32_t char_delay_fuzz);
 
 extern uint16_t circumflex;
 extern uint16_t diaeresis;

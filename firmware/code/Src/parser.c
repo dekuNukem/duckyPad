@@ -57,6 +57,7 @@ const char cmd_DEFAULTDELAYFUZZ[] = "DEFAULTDELAYFUZZ ";
 const char cmd_DEFAULTCHARDELAYFUZZ[] = "DEFAULTCHARDELAYFUZZ ";
 const char cmd_DELAY[] = "DELAY ";
 const char cmd_STRING[] = "STRING ";
+const char cmd_STRINGLN[] = "STRINGLN ";
 const char cmd_UARTPRINT[] = "UARTPRINT ";
 const char cmd_ESCAPE[] = "ESCAPE";
 const char cmd_ESC[] = "ESC";
@@ -1309,7 +1310,16 @@ uint8_t parse_line(char* line, uint8_t keynum)
     parse_combo(line + strlen(cmd_KEYUP), &this_key, ACTION_RELEASE_ONLY);
   }
   else if(strncmp(cmd_STRING, line, strlen(cmd_STRING)) == 0)
+  {
     kb_print(line + strlen(cmd_STRING), char_delay, char_delay_fuzz);
+  }
+  else if(strncmp(cmd_STRINGLN, line, strlen(cmd_STRING)) == 0)
+  {
+    kb_print(line + strlen(cmd_STRINGLN), char_delay, char_delay_fuzz);
+    this_key.key_type = KEY_TYPE_SPECIAL;
+    this_key.code = KEY_RETURN;
+    kb_print_char(&this_key, char_delay, char_delay_fuzz);
+  }
   else if(strncmp(cmd_UARTPRINT, line, strlen(cmd_UARTPRINT)) == 0)
   {
     printf("UART %s\n", line + strlen(cmd_UARTPRINT));
