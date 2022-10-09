@@ -109,11 +109,12 @@ valid_chars = ['!', '"', '#', '$', '%', '&', "'", '(',
 cmd_REPEAT = "REPEAT "
 cmd_REM = "REM "
 cmd_DEFAULTDELAY = "DEFAULTDELAY "
-cmd_DEFAULT_DELAY = "DEFAULT_DELAY "
 cmd_DEFAULTCHARDELAY = "DEFAULTCHARDELAY "
 cmd_DELAY = "DELAY "
 cmd_STRING = "STRING "
-cmd_HOLD = "HOLD "
+cmd_STRINGLN = "STRINGLN "
+
+cmd_OLD_HOLD = "OLD_HOLD "
 cmd_LOOP = "LOOP"
 cmd_SWCOLOR = "SWCOLOR_";
 cmd_SW_SELF_COLOR = "SWCOLOR ";
@@ -123,15 +124,15 @@ cmd_RMOUSE = "RMOUSE"
 cmd_MMOUSE = "MMOUSE"
 cmd_MOUSE_MOVE = "MOUSE_MOVE"
 cmd_MOUSE_WHEEL = "MOUSE_WHEEL"
-cmd_KEYDOWN = "KEYDOWN ";
-cmd_KEYUP = "KEYUP ";
+cmd_HOLD = "HOLD ";
+cmd_RELEASE = "RELEASE ";
 
 DEFAULTDELAYFUZZ = "DEFAULTDELAYFUZZ ";
 DEFAULTCHARDELAYFUZZ = "DEFAULTCHARDELAYFUZZ ";
 
 mouse_commands = [cmd_LMOUSE, cmd_RMOUSE, cmd_MMOUSE, cmd_MOUSE_MOVE, cmd_MOUSE_WHEEL]
 
-ignored_but_valid_commands = ["UARTPRINT ", "LCR", DEFAULTDELAYFUZZ, DEFAULTCHARDELAYFUZZ, cmd_REM, "SWCOLOR_", "SWCOLOR ", 'DP_SLEEP', 'PREV_PROFILE', 'NEXT_PROFILE', 'GOTO_PROFILE ']
+ignored_but_valid_commands = ["UARTPRINT ", "LCR", DEFAULTDELAYFUZZ, DEFAULTCHARDELAYFUZZ, cmd_REM, "SWCOLOR_", "SWCOLOR ", 'DP_SLEEP', 'PREV_PROFILE', 'NEXT_PROFILE', 'GOTO_PROFILE ', 'INJECT_MOD']
 
 def is_ignored_but_valid_command(ducky_line):
 	for item in ignored_but_valid_commands:
@@ -194,14 +195,14 @@ def parse_line(ducky_line):
 		return PARSE_ERROR
 	elif is_ignored_but_valid_command(ducky_line):
 		return PARSE_OK
-	elif ducky_line.startswith(cmd_KEYDOWN):
-		parse_result = parse_combo(ducky_line[len(cmd_KEYDOWN):])
-	elif ducky_line.startswith(cmd_KEYUP):
-		parse_result = parse_combo(ducky_line[len(cmd_KEYUP):])
+	elif ducky_line.startswith(cmd_HOLD):
+		parse_result = parse_combo(ducky_line[len(cmd_HOLD):])
+	elif ducky_line.startswith(cmd_RELEASE):
+		parse_result = parse_combo(ducky_line[len(cmd_RELEASE):])
 	elif ducky_line.startswith(cmd_LOOP) and ducky_line.endswith(':') and len(ducky_line) == 6 and ducky_line[4].isnumeric():
 		return PARSE_OK
-	elif ducky_line.startswith(cmd_HOLD):
-		sssss = ducky_line[len(cmd_HOLD):].strip().split(' ')
+	elif ducky_line.startswith(cmd_OLD_HOLD):
+		sssss = ducky_line[len(cmd_OLD_HOLD):].strip().split(' ')
 		if len(sssss) > 2:
 			return PARSE_ERROR
 		if sssss[0] in autogui_map.keys() or sssss[0] in mouse_commands[:3]:
@@ -209,7 +210,7 @@ def parse_line(ducky_line):
 		elif len(sssss[0]) == 1:
 			return PARSE_OK
 		return PARSE_ERROR
-	elif ducky_line.startswith(cmd_STRING):
+	elif ducky_line.startswith(cmd_STRING) or ducky_line.startswith(cmd_STRINGLN):
 		return PARSE_OK
 	elif ducky_line.startswith(cmd_REPEAT):
 		try:
@@ -228,14 +229,6 @@ def parse_line(ducky_line):
 	elif ducky_line.startswith(cmd_DEFAULTDELAY):
 		try:
 			if int(ducky_line[len(cmd_DEFAULTDELAY):].strip()) <= 0:
-				return PARSE_ERROR
-			else:
-				return PARSE_OK
-		except Exception:
-			return PARSE_ERROR
-	elif ducky_line.startswith(cmd_DEFAULT_DELAY):
-		try:
-			if int(ducky_line[len(cmd_DEFAULT_DELAY):].strip()) <= 0:
 				return PARSE_ERROR
 			else:
 				return PARSE_OK

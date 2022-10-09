@@ -51,7 +51,6 @@ char project_url[] = "git.io/duckypad";
 const char cmd_REPEAT[] = "REPEAT ";
 const char cmd_REM[] = "REM ";
 const char cmd_DEFAULTDELAY[] = "DEFAULTDELAY ";
-const char cmd_DEFAULT_DELAY[] = "DEFAULT_DELAY ";
 const char cmd_DEFAULTCHARDELAY[] = "DEFAULTCHARDELAY ";
 const char cmd_DEFAULTDELAYFUZZ[] = "DEFAULTDELAYFUZZ ";
 const char cmd_DEFAULTCHARDELAYFUZZ[] = "DEFAULTCHARDELAYFUZZ ";
@@ -138,7 +137,7 @@ const char cmd_MK_STOP[] = "MK_STOP";
 
 const char cmd_MENU[] = "MENU";
 const char cmd_APP[] = "APP";
-const char cmd_HOLD[] = "HOLD ";
+const char cmd_OLD_HOLD[] = "OLD_HOLD ";
 const char cmd_POWER[] = "POWER";
 
 const char cmd_LOOP[] = "LOOP";
@@ -155,8 +154,8 @@ const char cmd_MMOUSE[] = "MMOUSE";
 const char cmd_MOUSE_MOVE[] = "MOUSE_MOVE ";
 const char cmd_MOUSE_WHEEL[] = "MOUSE_WHEEL ";
 
-const char cmd_KEYDOWN[] = "KEYDOWN ";
-const char cmd_KEYUP[] = "KEYUP ";
+const char cmd_HOLD[] = "HOLD ";
+const char cmd_RELEASE[] = "RELEASE ";
 
 const char cmd_INJECT_MOD[] = "INJECT_MOD";
 
@@ -169,9 +168,7 @@ int32_t make_fuzz(int32_t amount, int32_t fuzz)
 
 void delay_wrapper(int32_t amount, int32_t fuzz)
 {
-  int32_t sss = make_fuzz(amount, fuzz);
-  // printf("z %d %d %d\n", amount, fuzz, sss);
-  osDelay(sss);
+  osDelay(make_fuzz(amount, fuzz));
 }
 
 char* goto_next_arg(char* buf, char* buf_end)
@@ -1253,7 +1250,7 @@ uint8_t parse_line(char* line, uint8_t keynum)
   // printf("this line: %s\n", line);
   char* line_end = line + strlen(line);
 
-  if(strncmp(cmd_HOLD, line, strlen(cmd_HOLD)) == 0)
+  if(strncmp(cmd_OLD_HOLD, line, strlen(cmd_OLD_HOLD)) == 0)
   {
     result = parse_hold(line, keynum);
     goto parse_end;
@@ -1291,25 +1288,25 @@ uint8_t parse_line(char* line, uint8_t keynum)
     result = PARSE_LOOP_STATE_SAVE_NEEDED;
     goto parse_end;
   }
-  else if(strncmp(cmd_KEYDOWN, line, strlen(cmd_KEYDOWN)) == 0)
+  else if(strncmp(cmd_HOLD, line, strlen(cmd_HOLD)) == 0)
   {
-    parse_special_key(line + strlen(cmd_KEYDOWN), &this_key);
+    parse_special_key(line + strlen(cmd_HOLD), &this_key);
     if(this_key.key_type == KEY_TYPE_UNKNOWN)
     {
       this_key.key_type = KEY_TYPE_CHAR;
-      this_key.code = (line + strlen(cmd_KEYDOWN))[0];
+      this_key.code = (line + strlen(cmd_HOLD))[0];
     }
-    parse_combo(line + strlen(cmd_KEYDOWN), &this_key, ACTION_PRESS_ONLY);
+    parse_combo(line + strlen(cmd_HOLD), &this_key, ACTION_PRESS_ONLY);
   }
-  else if(strncmp(cmd_KEYUP, line, strlen(cmd_KEYUP)) == 0)
+  else if(strncmp(cmd_RELEASE, line, strlen(cmd_RELEASE)) == 0)
   {
-    parse_special_key(line + strlen(cmd_KEYUP), &this_key);
+    parse_special_key(line + strlen(cmd_RELEASE), &this_key);
     if(this_key.key_type == KEY_TYPE_UNKNOWN)
     {
       this_key.key_type = KEY_TYPE_CHAR;
-      this_key.code = (line + strlen(cmd_KEYUP))[0];
+      this_key.code = (line + strlen(cmd_RELEASE))[0];
     }
-    parse_combo(line + strlen(cmd_KEYUP), &this_key, ACTION_RELEASE_ONLY);
+    parse_combo(line + strlen(cmd_RELEASE), &this_key, ACTION_RELEASE_ONLY);
   }
   else if(strncmp(cmd_STRING, line, strlen(cmd_STRING)) == 0)
   {
@@ -1364,7 +1361,7 @@ uint8_t parse_line(char* line, uint8_t keynum)
     }
     osDelay(argg);
   }
-  else if((strncmp(cmd_DEFAULTDELAY, line, strlen(cmd_DEFAULTDELAY)) == 0) || (strncmp(cmd_DEFAULT_DELAY, line, strlen(cmd_DEFAULT_DELAY)) == 0))
+  else if(strncmp(cmd_DEFAULTDELAY, line, strlen(cmd_DEFAULTDELAY)) == 0)
   {
     int32_t argg = get_arg(line);
     if(argg == 0)

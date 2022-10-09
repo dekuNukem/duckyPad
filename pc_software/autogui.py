@@ -110,8 +110,8 @@ cmd_MMOUSE = "MMOUSE"
 cmd_MOUSE_MOVE = "MOUSE_MOVE"
 cmd_MOUSE_WHEEL = "MOUSE_WHEEL"
 
-cmd_KEYDOWN = "KEYDOWN ";
-cmd_KEYUP = "KEYUP ";
+cmd_HOLD = "HOLD ";
+cmd_RELEASE = "RELEASE ";
 
 mouse_commands = [cmd_LMOUSE, cmd_RMOUSE, cmd_MMOUSE, cmd_MOUSE_MOVE, cmd_MOUSE_WHEEL]
 
@@ -124,16 +124,16 @@ valid_chars = ['!', '"', '#', '$', '%', '&', "'", '(',
 cmd_REM = "REM "
 cmd_REPEAT = "REPEAT "
 cmd_DEFAULTDELAY = "DEFAULTDELAY "
-cmd_DEFAULT_DELAY = "DEFAULT_DELAY "
 cmd_DEFAULTCHARDELAY = "DEFAULTCHARDELAY "
 cmd_DELAY = "DELAY "
 cmd_STRING = "STRING "
-cmd_HOLD = "HOLD "
+cmd_STRINGLN = "STRINGLN "
+cmd_OLD_HOLD = "OLD_HOLD "
 
 DEFAULTDELAYFUZZ = "DEFAULTDELAYFUZZ ";
 DEFAULTCHARDELAYFUZZ = "DEFAULTCHARDELAYFUZZ ";
 
-ignored_but_valid_commands = ["UARTPRINT ", "LCR", DEFAULTDELAYFUZZ, DEFAULTCHARDELAYFUZZ, cmd_HOLD, cmd_REM, "SWCOLOR_", "SWCOLOR ", 'DP_SLEEP', 'PREV_PROFILE', 'NEXT_PROFILE', 'GOTO_PROFILE ']
+ignored_but_valid_commands = ["INJECT_MOD", "UARTPRINT ", "LCR", DEFAULTDELAYFUZZ, DEFAULTCHARDELAYFUZZ, cmd_OLD_HOLD, cmd_REM, "SWCOLOR_", "SWCOLOR ", 'DP_SLEEP', 'PREV_PROFILE', 'NEXT_PROFILE', 'GOTO_PROFILE ']
 
 default_cmd_delay_ms = 18
 default_char_delay_ms = 18
@@ -231,12 +231,14 @@ def parse_line(ducky_line):
 		return PARSE_EMPTY_LINE, parse_note
 	elif is_ignored_but_valid_command(ducky_line):
 		return PARSE_OK, parse_note
-	elif ducky_line.startswith(cmd_KEYDOWN):
-		parse_result, parse_note = parse_combo(ducky_line[len(cmd_KEYDOWN):], ACTION_PRESS_ONLY)
-	elif ducky_line.startswith(cmd_KEYUP):
-		parse_result, parse_note = parse_combo(ducky_line[len(cmd_KEYUP):], ACTION_RELEASE_ONLY)
+	elif ducky_line.startswith(cmd_HOLD):
+		parse_result, parse_note = parse_combo(ducky_line[len(cmd_HOLD):], ACTION_PRESS_ONLY)
+	elif ducky_line.startswith(cmd_RELEASE):
+		parse_result, parse_note = parse_combo(ducky_line[len(cmd_RELEASE):], ACTION_RELEASE_ONLY)
 	elif ducky_line.startswith(cmd_STRING):
 		pyautogui.write(ducky_line[len(cmd_STRING):], interval=default_char_delay_ms/1000)
+	elif ducky_line.startswith(cmd_STRINGLN):
+		pyautogui.write(ducky_line[len(cmd_STRINGLN):]+'\n', interval=default_char_delay_ms/1000)
 	elif ducky_line.startswith(cmd_REPEAT):
 		for x in range(int(ducky_line[len(cmd_REPEAT):].strip())):
 			parse_line(prev_line)
@@ -244,8 +246,6 @@ def parse_line(ducky_line):
 		time.sleep(int(ducky_line[len(cmd_DELAY):].strip())/1000)
 	elif ducky_line.startswith(cmd_DEFAULTDELAY):
 		default_cmd_delay_ms = int(ducky_line[len(cmd_DEFAULTDELAY):].strip())
-	elif ducky_line.startswith(cmd_DEFAULT_DELAY):
-		default_cmd_delay_ms = int(ducky_line[len(cmd_DEFAULT_DELAY):].strip())
 	elif ducky_line.startswith(cmd_DEFAULTCHARDELAY):
 		default_char_delay_ms = int(ducky_line[len(cmd_DEFAULTCHARDELAY):].strip())
 	elif ducky_line.split(' ')[0] in mouse_commands:

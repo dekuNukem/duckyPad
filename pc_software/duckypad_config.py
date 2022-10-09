@@ -1277,7 +1277,7 @@ keyboard_layout_button = Button(settings_lf, text="Keyboard Layouts...", command
 keyboard_layout_button.place(x=220 * UI_SCALE, y=13 * UI_SCALE, width=140 * UI_SCALE, height=BUTTON_HEIGHT)
 
 def open_profile_autoswitcher_url():
-    webbrowser.open('https://github.com/dekuNukem/duckyPad-profile-autoswitcher')
+    webbrowser.open('https://github.com/dekuNukem/duckyPad-profile-autoswitcher/blob/master/README.md#duckypad-profile-auto-switcher')
 
 autoswitch_button = Button(settings_lf, text="Profile\nAutoswitcher", command=open_profile_autoswitcher_url)
 autoswitch_button.place(x=370 * UI_SCALE, y=0, width=125 * UI_SCALE, height=40 * UI_SCALE)
