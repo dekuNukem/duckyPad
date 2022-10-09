@@ -158,6 +158,8 @@ const char cmd_MOUSE_WHEEL[] = "MOUSE_WHEEL ";
 const char cmd_KEYDOWN[] = "KEYDOWN ";
 const char cmd_KEYUP[] = "KEYUP ";
 
+const char cmd_INJECT_MOD[] = "INJECT_MOD";
+
 int32_t make_fuzz(int32_t amount, int32_t fuzz)
 {
   if(fuzz == 0)
@@ -1324,6 +1326,10 @@ uint8_t parse_line(char* line, uint8_t keynum)
   {
     printf("UART %s\n", line + strlen(cmd_UARTPRINT));
     osDelay(25);
+  }
+  else if(strncmp(cmd_INJECT_MOD, line, strlen(cmd_INJECT_MOD)) == 0)
+  {
+    ; // do nothing since modifier key already works on its own
   }
   else if(is_sw_color_line(line) == 1)
   {
