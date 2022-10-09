@@ -22,7 +22,6 @@ void spi_fastwrite_buf_size_even(uint8_t *pData, int count)
 // make sure spi speed is between 8MHz and 10MHz
 void neopixel_show(uint8_t* red, uint8_t* green, uint8_t* blue)
 {
-  HAL_GPIO_WritePin(LED_DATA_EN_GPIO_Port, LED_DATA_EN_Pin, GPIO_PIN_SET);
   HAL_SPI_Transmit(&hspi1, ws_padding_buf, NEOPIXEL_PADDING_BUF_SIZE, 5);
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
   {
@@ -44,8 +43,9 @@ void neopixel_show(uint8_t* red, uint8_t* green, uint8_t* blue)
       else
         ws_spi_buf[16 + j] = WS_BIT_0;
     }
+    HAL_GPIO_WritePin(LED_DATA_EN_GPIO_Port, LED_DATA_EN_Pin, GPIO_PIN_SET);
     spi_fastwrite_buf_size_even(ws_spi_buf, WS_SPI_BUF_SIZE);
     spi_fastwrite_buf_size_even(ws_padding_buf, NEOPIXEL_PADDING_BUF_SIZE);
+    HAL_GPIO_WritePin(LED_DATA_EN_GPIO_Port, LED_DATA_EN_Pin, GPIO_PIN_RESET);
   }
-  HAL_GPIO_WritePin(LED_DATA_EN_GPIO_Port, LED_DATA_EN_Pin, GPIO_PIN_RESET);
 }
