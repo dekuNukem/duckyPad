@@ -1,3 +1,5 @@
+Program Size: Code=49784 RO-data=4644 RW-data=1456 ZI-data=14656  
+Program Size: Code=49804 RO-data=4644 RW-data=1460 ZI-data=14268  
 /*
 
 see USB HID descriptor in usbd_hid.c, Consumer section
