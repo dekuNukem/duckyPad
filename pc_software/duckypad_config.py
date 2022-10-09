@@ -979,7 +979,7 @@ scripts_lf = LabelFrame(root, text="Scripts", width=int(MAIN_WINDOW_WIDTH / 3 - 
 scripts_lf.place(x=keys_lf.winfo_x() + keys_lf.winfo_width() + PADDING, y=keys_lf.winfo_y())
 
 def open_duckyscript_url():
-    webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md')
+    webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#writing-duckyscript')
 
 def script_instruction_click(event):
     open_duckyscript_url()
@@ -1061,7 +1061,7 @@ execute_button.place(x=135 * UI_SCALE, y=417 * UI_SCALE, width=105 * UI_SCALE, h
 root.update()
 
 script_button_xy_list = [(SCRIPT_BUTTON_GAP, PADDING), (SCRIPT_BUTTON_GAP*2+SCRIPT_BUTTON_WIDTH, PADDING), (SCRIPT_BUTTON_GAP*3+SCRIPT_BUTTON_WIDTH*2, PADDING), (SCRIPT_BUTTON_GAP, PADDING+BUTTON_HEIGHT+2), (SCRIPT_BUTTON_GAP*2+SCRIPT_BUTTON_WIDTH, PADDING+BUTTON_HEIGHT+2), (SCRIPT_BUTTON_GAP*3+SCRIPT_BUTTON_WIDTH*2, PADDING+BUTTON_HEIGHT+2), (SCRIPT_BUTTON_GAP, (PADDING+BUTTON_HEIGHT)*2+2), (SCRIPT_BUTTON_GAP*2+SCRIPT_BUTTON_WIDTH, (PADDING+BUTTON_HEIGHT)*2+2), (SCRIPT_BUTTON_GAP*3+SCRIPT_BUTTON_WIDTH*2, (PADDING+BUTTON_HEIGHT)*2+2)]
-script_button_commands = ["STRING", "CTRL", "SHIFT", "ALT", "GUI", "ENTER", "DELAY", "REPEAT", "more..."]
+script_button_commands = ["STRINGLN", "STRING", "DELAY", "CTRL", "SHIFT", "ALT", "ENTER", "REPEAT", "more..."]
 script_command_button_list = []
 
 for x in range(9):

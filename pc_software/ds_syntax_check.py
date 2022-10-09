@@ -187,7 +187,7 @@ def parse_mouse(ducky_line):
 def parse_line(ducky_line):
 	parse_result = PARSE_OK
 	ducky_line = ducky_line.replace('\n', '').replace('\r', '')
-	if not (ducky_line.startswith(cmd_STRING) or ducky_line.startswith(cmd_REM)):
+	if not (ducky_line.startswith(cmd_STRING) or ducky_line.startswith(cmd_STRINGLN) or ducky_line.startswith(cmd_REM)):
 		ducky_line = ducky_line.strip()
 	if len(ducky_line) <= 0:
 		return PARSE_OK
