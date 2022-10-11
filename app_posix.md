@@ -1,9 +1,9 @@
 # Running duckyPad Configurator on Linux
 
 ## Script Install Method
-To use duckyPad configurator, clone the repo or download the latest source files from the [release page](https://github.com/dekuNukem/duckyPad/releases/latest). Enter `pc_software` directory in terminal, then use the duckypad_config_install.sh file to install the software on your system.
+To use duckyPad configurator, clone the repo or download the latest source files from the [release page](https://github.com/dekuNukem/duckyPad/releases/latest). Enter `pc_software` directory in terminal, then use `duckypad_config_install.sh` file to install the software on your system.
 
-The Install script will move all files to the `/opt/duckypad_config` directory. It will also install the python dependancies and the udev rules. Currently, this has only been tested with Ubuntu based distros.
+The Install script will move all files to the `/opt/duckypad_config` directory. It will also install the python dependencies and the udev rules. Currently, this has only been tested with Ubuntu based distros.
 
 ```bash
 sudo +x ./duckypad_config_install.sh
@@ -23,6 +23,15 @@ sudo python3 duckypad_config.py
 # OR if using Hi-DPI
 sudo DUCKYPAD_UI_SCALE=2 python3 duckypad_config.py
 # adjust the number for best results
+```
+
+### Arch Linux
+
+Users of Arch Linux can take advantage of `duckypad-git` PKGBUILD in [aur](https://aur.archlinux.org/packages/duckypad-git) which also installs udev rule (below).
+
+```bash
+paru -S duckypad-git
+# replace paru with yay if required
 ```
 
 ### Ubuntu/Pop!_OS/Linux Mint Users
@@ -56,7 +65,7 @@ Put the following text into the file, and save.
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="d11c", TAG+="uaccess", TAG+="udev-acl"
 ```
 
-The rule will be applied on the next reboot.
+The rule will be applied once duckyPad is reinserted or after a system reboot.
 
 You can also force a reload of the rules by running:
 
