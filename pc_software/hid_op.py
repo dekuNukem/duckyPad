@@ -116,13 +116,20 @@ def _check_hid_err(result):
 
 def _read_duckypad():
     """
-    Read from the duckyPad & discard the result if we got a list which is just
-    [0] - not sure exactly why this gets returned but it seems meaningless.
+    Read from the duckyPad & discard the result if we got a result that is
+    shorter than a single byte.
     """
-    res = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-    if res == [0]:
-        return h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-    return res
+    read_start = time.time()
+    while time.time() - read_start <= 1:
+        result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
+        if len(result) > 1:
+            return result
+        time.sleep(0.01)
+    return []
+    #res = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
+    #if res == [0]:
+    #    return h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
+    #return res
 
 
 def duckypad_hid_init():
