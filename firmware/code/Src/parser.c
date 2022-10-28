@@ -426,6 +426,7 @@ uint8_t get_keynames(profile_cache* ppppppp)
   uint8_t this_key_index;
   if(ppppppp == NULL)
     return ret;
+  memset(key_max_loop, 0, MAPPABLE_KEY_COUNT);
   memset(temp_buf, 0, PATH_SIZE);
   sprintf(temp_buf, "/%s/config.txt", ppppppp->profile_fn);
 
@@ -501,6 +502,7 @@ void load_loop_state(void)
   sprintf(temp_buf, "/%s/state.txt", p_cache.profile_fn);
   if(f_open(&sd_file, temp_buf, FA_READ) != 0)
   {
+    // !!!!!!!!!! RESET ALL THE BUFFERS HERE
     f_close(&sd_file);
     return;
   }
