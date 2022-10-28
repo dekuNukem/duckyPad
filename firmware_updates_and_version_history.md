@@ -10,7 +10,7 @@
 
 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.20.2.dfu)
 
-🆕 Added `STRINGLN` command
+🆕 Added `STRINGLN` command. Same as `STRING` but presses enter key at the end.
 
 🐞 Fixed a bug that causes unresponsive keys.
 

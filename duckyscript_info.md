@@ -61,6 +61,8 @@ CONTROL w
 
 [STRING](#STRING)
 
+[STRINGLN](#STRINGLN)
+
 [REPEAT](#REPEAT)
 
 [Special Keys](#Special-Keys)
@@ -146,6 +148,11 @@ STRING Hello world!!!
 
 REM types out "Hello world!!!"
 ```
+### STRINGLN
+
+Same as above, but presses **enter key** at the end.
+
+Available after [firmware 0.20.2](https://github.com/dekuNukem/duckyPad/blob/master/firmware_updates_and_version_history.md).
 
 ### REPEAT
 
