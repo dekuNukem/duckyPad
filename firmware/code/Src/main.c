@@ -84,8 +84,8 @@ osThreadId kb_scanHandle;
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 uint8_t fw_version_major = 0;
-uint8_t fw_version_minor = 21;
-uint8_t fw_version_patch = 0;
+uint8_t fw_version_minor = 20;
+uint8_t fw_version_patch = 2;
 char instruction[] = "For instructions, see";
 /* USER CODE END PV */
 

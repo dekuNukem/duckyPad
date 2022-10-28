@@ -137,7 +137,7 @@ const char cmd_MK_STOP[] = "MK_STOP";
 
 const char cmd_MENU[] = "MENU";
 const char cmd_APP[] = "APP";
-const char cmd_OLD_HOLD[] = "OLD_HOLD ";
+const char cmd_OLD_HOLD[] = "HOLD "; // OLD_HOLD
 const char cmd_POWER[] = "POWER";
 
 const char cmd_LOOP[] = "LOOP";
@@ -154,8 +154,8 @@ const char cmd_MMOUSE[] = "MMOUSE";
 const char cmd_MOUSE_MOVE[] = "MOUSE_MOVE ";
 const char cmd_MOUSE_WHEEL[] = "MOUSE_WHEEL ";
 
-const char cmd_HOLD[] = "HOLD ";
-const char cmd_RELEASE[] = "RELEASE ";
+const char cmd_HOLD[] = "KEYDOWN ";
+const char cmd_RELEASE[] = "KEYUP ";
 
 const char cmd_INJECT_MOD[] = "INJECT_MOD";
 

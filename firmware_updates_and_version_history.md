@@ -6,15 +6,13 @@
 
 ## Latest Firmware
 
-### 0.20.1 (Jul 21 2022)
+### 0.20.2 (Oct 28 2022)
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.20.1.dfu)
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.20.2.dfu)
 
-🆕 `LOOP` state and RGB LED color is now persistent across profile switches and reboots!
+🆕 Added `STRINGLN` command
 
-🆕 Added `LCR` command to reset loop counter.
-
-🆕 Shortened profile switching animation even more!
+🐞 Fixed a bug that causes unresponsive keys.
 
 ## USB Firmware Updates
 
@@ -50,7 +48,7 @@ In the `Available DFU Devices` section at top left corner, you should see a `STM
 
 Press the `Choose...` button and select a firmware file in `.dfu` format.
 
-* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.20.1.dfu) to download the latest firmware (v0.20.1)
+* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.20.2.dfu) to download the latest firmware (v0.20.2)
 
 * ...or [scroll down](#firmware-version-history) for older firmware versions.
 
@@ -81,6 +79,16 @@ Hold DFU button and connect duckyPad, then run:
 After completion, press **`RESET`** button (or power-cycle) to start using the new firmware. 
 
 ## Firmware Version History
+
+### 0.20.1 (Jul 21 2022)
+
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.20.1.dfu)
+
+🆕 `LOOP` state and RGB LED color is now persistent across profile switches and reboots!
+
+🆕 Added `LCR` command to reset loop counter.
+
+🆕 Shortened profile switching animation even more!
 
 ### 0.19.8 (Dec 23 2021)
 
