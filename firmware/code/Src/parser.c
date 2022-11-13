@@ -137,7 +137,7 @@ const char cmd_MK_STOP[] = "MK_STOP";
 
 const char cmd_MENU[] = "MENU";
 const char cmd_APP[] = "APP";
-const char cmd_OLD_HOLD[] = "HOLD "; // OLD_HOLD
+const char cmd_OLD_HOLD[] = "EMUK "; // OLD_HOLD
 const char cmd_POWER[] = "POWER";
 
 const char cmd_LOOP[] = "LOOP";

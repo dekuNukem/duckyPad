@@ -20,7 +20,12 @@ import subprocess
 import hid_op
 import threading
 
-THIS_VERSION_NUMBER = '0.13.4'
+"""
+0.13.5
+changed old HOLD to EMUK command
+"""
+
+THIS_VERSION_NUMBER = '0.13.5'
 
 ENV_UI_SCALE = os.getenv("DUCKYPAD_UI_SCALE")
 UI_SCALE = int(ENV_UI_SCALE) if ENV_UI_SCALE else 1

@@ -83,9 +83,15 @@ osThreadId kb_scanHandle;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
+
+/*
+0.20.3 20221031
+changed HOLD to EMUK
+*/
+
 uint8_t fw_version_major = 0;
 uint8_t fw_version_minor = 20;
-uint8_t fw_version_patch = 2;
+uint8_t fw_version_patch = 3;
 char instruction[] = "For instructions, see";
 /* USER CODE END PV */
 

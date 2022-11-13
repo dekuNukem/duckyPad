@@ -110,7 +110,7 @@ cmd_MMOUSE = "MMOUSE"
 cmd_MOUSE_MOVE = "MOUSE_MOVE"
 cmd_MOUSE_WHEEL = "MOUSE_WHEEL"
 
-cmd_HOLD = "HOLD ";
+cmd_HOLD = "EMUK ";
 cmd_RELEASE = "RELEASE ";
 
 mouse_commands = [cmd_LMOUSE, cmd_RMOUSE, cmd_MMOUSE, cmd_MOUSE_MOVE, cmd_MOUSE_WHEEL]
