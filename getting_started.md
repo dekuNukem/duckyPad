@@ -177,13 +177,11 @@ Finally, the rightmost column is for *scripts*:
 
 * Press `Run this script!` to test-run it on your computer. **`MAKE SURE YOU TRUST THE SCRIPT!`**
 
-* Test-run starts after a 2-second delay.
-
 * Test-run can't get past [Windows User Account Control](resources/pics/app/uac.png) screens. You'll have to run it on real thing.
 
 * On macOS, if test-run doesn't work, [go to System Preferences -> Security & Privacy -> Accessibility](resources/pics/app/macos.png), unlock, remove then add the app.
 
-* Test-run might not be 100% accurate, some keys like `Capslock` and `Numlock` can't be emulated in software. Run your scripts on the real thing if you're not sure.
+* Test-run might not be 100% accurate, some keys and commands like `Capslock` or `SWCOLOR` can't be emulated in software. Always test on the real thing.
 
 ### Settings & Updates
 
@@ -225,7 +223,7 @@ Press `Keyboard Layouts...` button to open its setting:
 
 * Press `Backup...` button to access the backups.
 
-* To restore a backup, [format the SD card in FAT or FAT32](resources/pics/format.PNG), then copy everything back.
+* To restore, [format the SD card in FAT or FAT32](resources/pics/format.PNG), then copy everything back.
 
 ### Run it!
 
