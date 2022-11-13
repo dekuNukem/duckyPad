@@ -29,8 +29,6 @@ But more crucially, duckyPad also features **previously-unseen-in-macropads** in
 
 When pressed, each key execute a *`duckyScript`* to automate keyboard actions.
 
-![Alt text](resources/pics/header.gif)
-
 It can be as simple as shortcuts like `Control + C`, or as complex as launching applications, managing livestreams, or even [creating root backdoors](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---OSX-Root-Backdoor) or [grabbing passwords](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---download-mimikatz%2C-grab-passwords-and-email-them-via-gmail). It's all up to you!
 
 ## Join Our Discord!
