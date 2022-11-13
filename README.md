@@ -6,9 +6,9 @@
 
 duckyPad is a 15-key mechanical macropad that helps **consolidate and speed up your workflow** by automating keyboard (and mouse!) inputs. 
 
-![Alt text](resources/pics/title.png)
+![Alt text](resources/pics/title_jpg.jpg)
 
-duckyPad features a sleek design and all the goodies of a high-end mechanical keyboard:
+duckyPad has a sleek design and all the goodies of a high-end mechanical keyboard:
 
 * Mechanical switches
 * **Hot-swap**
@@ -27,11 +27,11 @@ But more crucially, duckyPad also features **previously-unseen-in-macropads** in
 
 ![Alt text](resources/pics/teaser.gif)
 
-When pressed, each key executes a user-created *`duckyScript`* to automate keyboard actions:
+When pressed, each key execute a *`duckyScript`* to automate keyboard actions.
 
 ![Alt text](resources/pics/header.gif)
 
-The scripts can be as simple as shortcuts like `Control + C`, or as sophisticated as launching applications, managing livestreams, or even [creating root backdoors](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---OSX-Root-Backdoor) or [grabbing passwords](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---download-mimikatz%2C-grab-passwords-and-email-them-via-gmail). It's all up to you!
+It can be as simple as shortcuts like `Control + C`, or as complex as launching applications, managing livestreams, or even [creating root backdoors](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---OSX-Root-Backdoor) or [grabbing passwords](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---download-mimikatz%2C-grab-passwords-and-email-them-via-gmail). It's all up to you!
 
 ## Join Our Discord!
 
@@ -41,8 +41,7 @@ Feel free to join our [Official Discord](https://discord.gg/4sJCBx5) for discuss
 
 duckyPad is [now available on Tindie!](https://www.tindie.com/products/21984), feel free to grab one there!
 
-And thanks to the interest and support from the [amazing people like you](kickstarter_backers.md)
-, the [duckyPad Kickstarter](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) has been a great success! With over 630% funded from 705 backers!
+And thanks to the interest and support from the [amazing people like you](kickstarter_backers.md), the [duckyPad Kickstarter](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) has been a great success! With over 630% funded from 705 backers!
 
 Finally, here's a video of duckyPad in action!
 <table>
