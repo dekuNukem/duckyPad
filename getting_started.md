@@ -87,9 +87,9 @@ Extract the `.zip` file and launch the application by clicking `duckypad_config.
 
 ### "Untrusted App" Warnings
 
-When trying to run the app, your system might complain about this software being untrusted. This is because I haven't had the code digitally signed, which costs hundreds of dollars a year.
+When trying to run the app, your system might complain. This is because I haven't had the code digitally signed, which costs hundreds of dollars a year.
 
-Please feel free to [review the code](https://github.com/dekuNukem/duckyPad/tree/master/pc_software). If you really don't trust the app, you can run the `duckypad_config.py` script itself with Python3. Finally, you can [configure your duckyPad completely manually](#Configure-duckyPad-Manually).
+Feel free to [review the code](https://github.com/dekuNukem/duckyPad/tree/master/pc_software). If you really don't trust the app, you can run the `duckypad_config.py` script itself with Python3. Finally, you can [configure your duckyPad completely manually](#Configure-duckyPad-Manually).
 
 For Windows 10, click `More info` and then `Run anyway`.
 
@@ -219,9 +219,7 @@ Press `Keyboard Layouts...` button to open its setting:
 
 ![Alt text](resources/pics/app/save.png)
 
-### Making backups
-
-* No storage media is 100% reliable, so it is very important to **`make backups`**!
+### Automatic backups
 
 * By default, a local backup is created every time `Save` button is pressed.
 
@@ -233,7 +231,7 @@ Press `Keyboard Layouts...` button to open its setting:
 
 duckyPad should automatically reboot when you press `Save`, and your new scripts will be ready to use!
 
-If configuring via SD card, insert it back in duckyPad and power it on.
+If configuring via SD card, pop it back and power on.
 
 * Press a key to execute the corresponding script.
 
@@ -249,7 +247,7 @@ You can also [use this app](https://github.com/dekuNukem/duckyPad-profile-autosw
 
 ### Careful with Passwords!
 
-It might be tempting to have duckyPad type out your often-used passwords, but it's probably **NOT a good idea**!
+It might be tempting to have duckyPad type out often-used passwords, but it's probably **NOT a good idea**!
 
 All scripts are stored as plain text on the SD card, and can be easily accessed by using a SD card reader, or though HID commands.
 
@@ -291,11 +289,11 @@ In duckyScript, it would be `WINDOWS 1`, `WINDOWS 2`, etc...
 
 This method works with **`ANY FILE`**, not just apps!
 
-`Right click` on any file, select `Send to... -> Desktop (create shortcut)`.
+`Right click` on any file, select `Create shortcut`.
 
 ![Alt text](resources/pics/shortcut.png)
 
-Find the new shortcut on your desktop, right click and select `Properties`
+Find the new shortcut, right click and select `Properties`
 
 ![Alt text](resources/pics/right_prop.png)
 
