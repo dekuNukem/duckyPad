@@ -93,7 +93,7 @@ Feel free to [review the code](https://github.com/dekuNukem/duckyPad/tree/master
 
 For Windows 10, click `More info` and then `Run anyway`.
 
-![Alt text](resources/pics/app/defender.png)
+![Alt text](resources/pics/app/defender2.png)
 
 For macOS, **`RIGHT CLICK`** on the app and select `Open`. You might have to do it twice.
 
