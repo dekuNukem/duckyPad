@@ -1,3 +1,22 @@
+const char cmd_KATAKANAHIRAGANA[] = "KATAKANAHIRAGANA";
+const char cmd_HENKAN[] = "HENKAN";
+const char cmd_MUHENKAN[] = "MUHENKAN";
+const char cmd_KATAKANA[] = "KATAKANA";
+const char cmd_HIRAGANA[] = "HIRAGANA";
+const char cmd_ZENKAKUHANKAKU[] = "ZENKAKUHANKAKU";
+
+
+#define KEY_KATAKANAHIRAGANA 0x88
+// #define KEY_YEN 0x89
+#define KEY_HENKAN 0x8a
+#define KEY_MUHENKAN 0x8b
+
+// #define KEY_HANGEUL 0x90 // korea
+// #define KEY_HANJA 0x91 // korea
+#define KEY_KATAKANA 0x92
+#define KEY_HIRAGANA 0x93
+#define KEY_ZENKAKUHANKAKU 0x94
+
 Program Size: Code=49784 RO-data=4644 RW-data=1456 ZI-data=14656  
 Program Size: Code=49804 RO-data=4644 RW-data=1460 ZI-data=14268  
 /*

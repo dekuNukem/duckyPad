@@ -91,6 +91,16 @@
 #define KEY_TYPE_MOUSE_WHEEL 12
 #define KEY_TYPE_MOUSE_MOVEMENT 13
 
+#define KEY_KATAKANAHIRAGANA 0x88
+// #define KEY_YEN 0x89
+#define KEY_HENKAN 0x8a
+#define KEY_MUHENKAN 0x8b
+
+// #define KEY_HANGEUL 0x90 // korea
+// #define KEY_HANJA 0x91 // korea
+#define KEY_KATAKANA 0x92
+#define KEY_HIRAGANA 0x93
+#define KEY_ZENKAKUHANKAKU 0x94
 
 #define ASCII_MAP_SIZE 256
 

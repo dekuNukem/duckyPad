@@ -23,9 +23,13 @@ import threading
 """
 0.13.5
 changed old HOLD to EMUK command
+
+0.13.6
+Added japanese IME keys "KATAKANAHIRAGANA", "HENKAN", "MUHENKAN", "KATAKANA", "HIRAGANA", "ZENKAKUHANKAKU"
+
 """
 
-THIS_VERSION_NUMBER = '0.13.5'
+THIS_VERSION_NUMBER = '0.13.6'
 
 ENV_UI_SCALE = os.getenv("DUCKYPAD_UI_SCALE")
 UI_SCALE = int(ENV_UI_SCALE) if ENV_UI_SCALE else 1
@@ -1306,7 +1310,7 @@ def t1_worker():
             continue
         if current_hid_op == HID_DUMP:
             root_folder_path_label.config(foreground='navy')
-            dp_root_folder_display.set("dumping...")
+            dp_root_folder_display.set("Loading...")
             current_hid_op = HID_NOP
             try:
                 hid_op.dump_from_hid(hid_dump_path, dp_root_folder_display)

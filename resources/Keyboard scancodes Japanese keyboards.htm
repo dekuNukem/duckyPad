@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html><head>
+ <meta name="GENERATOR" content="SGML-Tools 1.0.9">
+ <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+ <title>Keyboard scancodes: Japanese keyboards</title>
+ <link href="https://www.scs.stanford.edu/10wi-cs140/pintos/specs/kbd/scancodes-8.html" rel="next">
+ <link href="https://www.scs.stanford.edu/10wi-cs140/pintos/specs/kbd/scancodes-6.html" rel="previous">
+ <link href="https://www.scs.stanford.edu/10wi-cs140/pintos/specs/kbd/scancodes.html#toc7" rel="contents">
+</head>
+<body>
+<a href="https://www.scs.stanford.edu/10wi-cs140/pintos/specs/kbd/scancodes-8.html">Next</a>
+<a href="https://www.scs.stanford.edu/10wi-cs140/pintos/specs/kbd/scancodes-6.html">Previous</a>
+<a href="https://www.scs.stanford.edu/10wi-cs140/pintos/specs/kbd/scancodes.html#toc7">Contents</a>
+<hr>
+<h2><a name="japanese"></a> <a name="s7">7. Japanese keyboards</a></h2>
+
+<p>
+</p><p>
+</p><p>
+</p><figure>
+<eps file="absent">
+<img src="Keyboard%20scancodes%20Japanese%20keyboards_files/jp106.jpg">
+</eps></figure>
+
+<figure>
+<eps file="absent">
+<img src="Keyboard%20scancodes%20Japanese%20keyboards_files/jp106-with-scancodes.jpg">
+</eps></figure>
+<p>
+</p><h2><a name="ss7.1">7.1 Japanese 86/106 keyboards</a>
+</h2>
+
+<p>(Information from Barry Yip &lt;<code>g609296@cc.win.or.jp</code>&gt;,
+Norman Diamond, NIIBE Yutaka and H. Peter Anvin, who
+contributed the photographs of his
+JP106 keyboard above and of his
+<a href="https://www.scs.stanford.edu/10wi-cs140/pintos/specs/kbd/jplaptop.jpg">Japanese laptop</a>.)
+</p><p>Common Japanese keyboards have five additional keys
+(106-key, or 86-key for a notebook; these days there may also
+be 3 extra Windows keys). These keys have scancodes
+<b>70</b> (hiragana/katakana),
+<b>73</b> (backslash/underscore),
+<b>79</b> (henkan/zenkouho),
+<b>7b</b> (muhenkan),
+<b>7d</b> (yen/vertical bar).
+</p><p>
+<a name="japusdiffs"></a> 
+Different keycaps:
+</p><p>
+</p><center><table border=""><tbody><tr><td>
+USB</td><td> Scancode </td><td>Japanese </td><td>US </td><td></td><td>USB</td><td> Scancode </td><td> Japanese </td><td>US </td></tr><tr><td>
+53</td><td><b>29</b></td><td>(hankaku/zenkaku)</td><td>(` / ~)</td><td></td><td> 47</td><td><b>1a</b></td><td>(@ / `)</td><td>([ / {) </td></tr><tr><td>
+31</td><td><b>03</b> </td><td> (2 / ") </td><td> (2 / @)</td><td></td><td> 48</td><td><b>1b</b></td><td>([ / {) </td><td>(] / }) </td></tr><tr><td>
+35</td><td><b>07</b> </td><td> (6 / &amp;) </td><td> (6 / ^) </td><td></td><td> 51</td><td><b>27</b></td><td>(; / +) </td><td> (; / :) </td></tr><tr><td>
+36</td><td><b>08</b> </td><td> (7 / ') </td><td> (7 / &amp;) </td><td></td><td> 52</td><td><b>28</b></td><td>(: / *) </td><td> (' / ") </td></tr><tr><td>
+37</td><td><b>09</b> </td><td> (8 / () </td><td> (8 / *) </td><td></td><td> 29</td><td><b>2b</b></td><td>(] / }) </td><td> (backslash / |) </td></tr><tr><td>
+38</td><td><b>0a</b> </td><td> (9 / )) </td><td> (9 / () </td><td></td><td>135</td><td><b>73</b></td><td>(backslash / _)</td><td> </td></tr><tr><td>
+39</td><td><b>0b</b> </td><td> (0 / ~)</td><td> (0 / )) </td><td></td><td>139</td><td><b>7b</b></td><td>(muhenkan) </td><td> </td></tr><tr><td>
+45</td><td><b>0c</b> </td><td> (- / =) </td><td> (- / _)</td><td></td><td>138</td><td><b>79</b></td><td>(henkan/zenkouho)</td><td> </td></tr><tr><td>
+46</td><td><b>0d</b> </td><td> (^ / overbar)</td><td> (= / +) </td><td></td><td>136</td><td><b>70</b></td><td>(hiragana/katakana) </td><td> </td></tr><tr><td>
+137</td><td><b>7d</b> </td><td> (\  / |) </td><td> </td></tr><tr><td>
+
+</td></tr></tbody></table></center>
+<p>ASCII and JIS-Roman differ in two or three points: the code positions
+where ASCII has backslash, tilde, broken bar,
+JIS-Roman uses yen, overbar and vertical bar, respectively.
+</p><p>Some keyboards have the tilde printed on the keycap for the 0 key, some don't.
+Similarly, some keyboards have the backslash printed on the keycap for the _ key
+and some don't, but in all cases you need Shift to get _.
+</p><p>
+</p><h2><a name="ss7.2">7.2 Description of the all-Japanese keys</a>
+</h2>
+
+<p>Norman Diamond adds to the previous section:
+</p><p><i>To the left of the spacebar,</i>
+(Shift-JIS) 無変換
+<i>(muhenkan) means no conversion
+from kana to kanji.  To the right of the spacebar,
+変換
+(henkan) means conversion from kana to kanji. In Microsoft systems
+it converts the most recently input sequence of kana to the system's
+first guess at a string of kanji/kana/etc. with the correct pronunciation
+and a guess at the meaning. Repeated keypresses change it to other
+possible guesses which are either less common or less recently used,
+depending on the situation. The shifted version of this key is
+前侯補
+(zenkouho) which means "previous candidate" -- "zen" means "previous",
+while "kouho" means "candidate"</i> (explanation courtesy of NIIBE Yutaka)
+<i>-- it rotates back to earlier guesses for kanji conversion.
+The alt version of this key is
+全侯補
+also pronounced (zenkouho), which means "all candidates" -- here,
+"zen" means "all" -- it displays a menu of all known guesses.
+I never use the latter two functions of the key, because after
+pushing the henkan key about three times and not getting the desired guess,
+it displays a menu of all known guesses anyway.</i>
+</p><p><i>Next on the right,
+ひらがな
+(hiragana) means that
+phonetic input uses one conventional Japanese phonetic alphabet,
+which of course can be converted to kanji by pressing the henkan key later.
+The shifted version is
+カタカナ
+(katakana) which means the other Japanese phonetic alphabet,
+and the alt version is
+ローマ字
+(ro-maji) which means the Roman alphabet.</i>
+</p><p><i>Near the upper left,
+半/全
+(han/zen) means switch between hankaku
+(half-size, the same size as an ASCII character) and zenkaku
+(full-size, since the amount of space occupied by a kanji
+is approximately a square, twice as fat as an ASCII character).
+It only affects katakana and a few other characters
+(for example there's a full-width copy of each ASCII character
+in addition to the single-byte half-width encodings).
+The alt version of this is
+漢字
+(kanji) which
+actually causes typed Roman phonetic keys to be displayed as Japanese
+phonetic kana (either hiragana or katakana depending on one of the other
+keys described above) and doesn't cause conversion to kanji.</i>
+</p><p>
+</p><h2><a name="bradford"></a> <a name="ss7.3">7.3 A Japanese keyboard that imitates a US one</a>
+</h2>
+
+<p>John Bradford reports that he has a Japanese keyboard
+(an IBM 5576 KEYBOARD-2, part number 94X1110) that by default
+simulates US key layout. Thus, pressing the @ key yields scancodes
+<b>2a</b> <b>03</b> (fake shift followed by digit 2),
+pressing Shift - yields scancodes <b>b6</b> <b>0d</b>
+(fake shift down, =) with release <b>8d</b> <b>36</b>, etc.
+</p><p>Thus, the (translated Set 2) scancodes can be read off the
+<a href="#japusdiffs">table</a> with differences between the
+Japanese and the US layout.
+</p><p>In this state the non-ASCII keys (Yen and overline) yield an error
+(<b>ff</b>). The Japanese keys hankaku, kanji/katakana, muhenkan,
+zenkoho/henkan, hiragana, zenmen ki, yield the codes expected from
+keys in that position on a US keyboard: <b>29</b> (`/~),
+<b>38</b> (LAlt), <b>39</b> (space), <b>39</b> (space),
+<b>39</b> (space), <b>e0</b> <b>38</b> (RAlt), respectively.
+</p><p>Switching the keyboard to Set 3 enables the Japanese keys.
+In untranslated Set 3 these give codes: hankaku <b>0e</b>,
+Yen <b>13</b>, overline (shift ^), kanji/katakana <b>19</b>,
+muhenkan <b>85</b>, zenkoho/henkan <b>86</b>,
+hiragana <b>87</b>, zenmen ki <b>39</b>.
+(Also: backslash/underscore <b>5c</b>, bracketright/braceright <b>53</b>.)
+</p><p>This is the only keyboard I know that gives more information in Set 3
+than in Set 2. It reports 
+<a href="https://www.scs.stanford.edu/10wi-cs140/pintos/specs/kbd/scancodes-9.html#keyboardid">keyboard ID</a>
+<b>ab</b> <b>90</b>.
+</p><p>
+</p><figure>
+<eps file="absent">
+<img src="Keyboard%20scancodes%20Japanese%20keyboards_files/imb5576-2.jpg">
+</eps></figure>
+<p>
+</p><hr>
+<a href="https://www.scs.stanford.edu/10wi-cs140/pintos/specs/kbd/scancodes-8.html">Next</a>
+<a href="https://www.scs.stanford.edu/10wi-cs140/pintos/specs/kbd/scancodes-6.html">Previous</a>
+<a href="https://www.scs.stanford.edu/10wi-cs140/pintos/specs/kbd/scancodes.html#toc7">Contents</a>
+
+
+</body></html>

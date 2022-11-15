@@ -87,11 +87,15 @@ osThreadId kb_scanHandle;
 /*
 0.20.3 20221031
 changed HOLD to EMUK
+
+0.20.4 20221114
+// Added HID commands for changing RGB colour - NOT YET
+add JIS keys
 */
 
 uint8_t fw_version_major = 0;
 uint8_t fw_version_minor = 20;
-uint8_t fw_version_patch = 3;
+uint8_t fw_version_patch = 4;
 char instruction[] = "For instructions, see";
 /* USER CODE END PV */
 

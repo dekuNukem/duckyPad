@@ -135,9 +135,16 @@ const char cmd_MK_NEXT[] = "MK_NEXT";
 const char cmd_MK_PLAYPAUSE[] = "MK_PP";
 const char cmd_MK_STOP[] = "MK_STOP";
 
+const char cmd_KATAKANAHIRAGANA[] = "KATAKANAHIRAGANA";
+const char cmd_HENKAN[] = "HENKAN";
+const char cmd_MUHENKAN[] = "MUHENKAN";
+const char cmd_KATAKANA[] = "KATAKANA";
+const char cmd_HIRAGANA[] = "HIRAGANA";
+const char cmd_ZENKAKUHANKAKU[] = "ZENKAKUHANKAKU";
+
 const char cmd_MENU[] = "MENU";
 const char cmd_APP[] = "APP";
-const char cmd_OLD_HOLD[] = "EMUK "; // OLD_HOLD
+const char cmd_OLD_HOLD[] = "EMUK ";
 const char cmd_POWER[] = "POWER";
 
 const char cmd_LOOP[] = "LOOP";
@@ -939,7 +946,36 @@ void parse_special_key(char* msg, my_key* this_key)
     this_key->code = KEY_MENU;
     return;
   }
-
+  else if(strncmp(msg, cmd_KATAKANAHIRAGANA, strlen(cmd_KATAKANAHIRAGANA)) == 0)
+  {
+    this_key->code = KEY_KATAKANAHIRAGANA;
+    return;
+  }
+  else if(strncmp(msg, cmd_HENKAN, strlen(cmd_HENKAN)) == 0)
+  {
+    this_key->code = KEY_HENKAN;
+    return;
+  }
+  else if(strncmp(msg, cmd_MUHENKAN, strlen(cmd_MUHENKAN)) == 0)
+  {
+    this_key->code = KEY_MUHENKAN;
+    return;
+  }
+  else if(strncmp(msg, cmd_KATAKANA, strlen(cmd_KATAKANA)) == 0)
+  {
+    this_key->code = KEY_KATAKANA;
+    return;
+  }
+  else if(strncmp(msg, cmd_HIRAGANA, strlen(cmd_HIRAGANA)) == 0)
+  {
+    this_key->code = KEY_HIRAGANA;
+    return;
+  }
+  else if(strncmp(msg, cmd_ZENKAKUHANKAKU, strlen(cmd_ZENKAKUHANKAKU)) == 0)
+  {
+    this_key->code = KEY_ZENKAKUHANKAKU;
+    return;
+  }
 // ----------------------------------
   this_key->key_type = KEY_TYPE_CHAR;
   if(strncmp(msg, cmd_SPACE, strlen(cmd_SPACE)) == 0)
@@ -947,9 +983,7 @@ void parse_special_key(char* msg, my_key* this_key)
     this_key->code = ' ';
     return;
   }
-
 // ----------------------------------
-
   this_key->key_type = KEY_TYPE_MODIFIER;
   if(strncmp(msg, cmd_SHIFT, strlen(cmd_SHIFT)) == 0)
   {
