@@ -16,9 +16,9 @@
 
 ![Alt text](resources/pics/format.PNG)
 
-* Download this [zip file](https://github.com/dekuNukem/duckypad/raw/master/japan_test.zip), copy everything to the **root** of SD card
+* Download this [zip file](https://github.com/dekuNukem/duckypad/raw/master/japan_test.zip), copy everything inside to the **root** of SD card
 
-* Eject the SD card and put it back in duckyPad
+* Eject the card and put it back in duckyPad
 
 ## Try it out
 
@@ -32,7 +32,7 @@
 
 * It will type out some texts and symbols
 
-* The `letter` and `symb` key should look EXACTLY like below. Let me know if it doesn't.
+* The `letter` and `symb` key output should look EXACTLY like below. Let me know if it doesn't.
 
 ```
 the quick brown fox jumps over the lazy dog
