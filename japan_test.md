@@ -22,6 +22,8 @@
 
 ## Try it out
 
+* **Make sure your system is in Japanese input mode**
+
 * Try the sample profiles and see if everything works
 
 * Especially **Profile 4: Japan**
