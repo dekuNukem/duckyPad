@@ -637,13 +637,13 @@ def make_default_backup_dir_name():
 def save_click():
     global is_using_hid
     global current_hid_op
+    if config_dict['auto_backup_enabled']:
+        save_everything(os.path.join(backup_path, make_default_backup_dir_name()))
     if is_using_hid is False:
         save_everything(dp_root_folder_path)
     else:
         save_everything(hid_modified_dir_path)
         current_hid_op = HID_SAVE
-    if config_dict['auto_backup_enabled']:
-        save_everything(os.path.join(backup_path, make_default_backup_dir_name()))
 
 def backup_button_click():
     if config_dict['auto_backup_enabled']:
