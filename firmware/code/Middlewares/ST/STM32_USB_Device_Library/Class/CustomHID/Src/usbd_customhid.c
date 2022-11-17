@@ -241,10 +241,10 @@ __ALIGN_BEGIN static uint8_t HID_MOUSE_ReportDesc[USBD_CUSTOM_HID_REPORT_DESC_SI
   0x95, 0x06,        //   Report Count (3)
   0x75, 0x08,        //   Report Size (8)
   0x15, 0x00,        //   Logical Minimum (0)
-  0x25, 0x73,        //   Logical Maximum (0x73) originally 65, 73 supports F13 - F24
+  0x25, 0x94,        //   Logical Maximum (0x94) originally 65, 73 supports F13 - F24, 94 for japanese and korean language keys
   0x05, 0x07,        //   Usage Page (Kbrd/Keypad)
   0x19, 0x00,        //   Usage Minimum (0x00)
-  0x29, 0x73,        //   Usage Maximum (0x73) originally 65, 73 supports F13 - F24
+  0x29, 0x94,        //   Usage Maximum (0x94) originally 65, 73 supports F13 - F24
   0x81, 0x00,        //   Input (Data,Array,Abs,No Wrap,Linear,Preferred State,No Null Position)
   0xC0,              // End Collection
   // Report ID 2: Media Keys

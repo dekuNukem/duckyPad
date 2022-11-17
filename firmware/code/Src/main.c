@@ -91,14 +91,17 @@ changed HOLD to EMUK
 0.20.4 20221114
 add JIS keys
 
-0.20.5 202211??
+0.20.5 20221117
+// changed USB HID descriptor so new japanese keys work
+
+0.20.6 202211??
 // Added HID commands for changing RGB colour - NOT YET
 
 */
 
 uint8_t fw_version_major = 0;
 uint8_t fw_version_minor = 20;
-uint8_t fw_version_patch = 4;
+uint8_t fw_version_patch = 5;
 char instruction[] = "For instructions, see";
 /* USER CODE END PV */
 

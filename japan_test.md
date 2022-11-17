@@ -2,7 +2,7 @@
 
 ## Install new firmware
 
-* [Click me to download the beta 0.20.4 firmware](https://github.com/dekuNukem/duckyPad/raw/master/firmware/beta_0.20.4.dfu)
+* **[Updated 2022-11-17]**[Click me to download the beta 0.20.5 firmware](https://github.com/dekuNukem/duckyPad/raw/master/firmware/beta_0.20.5.dfu)
 
 * [Follow this guide](firmware_updates_and_version_history.md) to flash it into your duckyPad, use the above file.
 
