@@ -33,13 +33,13 @@ It can be as simple as shortcuts like `Control + C`, or as complex as launching 
 
 ## Join Our Discord!
 
-Feel free to join our [Official Discord](https://discord.gg/4sJCBx5) for discussions, asking questions, sharing scripts, and latest updates!
+Feel free to join our [Official Discord](https://discord.gg/4sJCBx5) for discussions, questions, sharing scripts, and latest updates!
 
-## Get duckyPad on Tindie!
+## Get a duckyPad!
 
-duckyPad is [now available on Tindie!](https://www.tindie.com/products/21984), feel free to grab one there!
+duckyPad is [now available on Tindie](https://www.tindie.com/products/21984), feel free to grab one there!
 
-And thanks to the interest and support from the [amazing people like you](kickstarter_backers.md), the [duckyPad Kickstarter](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) has been a great success! With over 630% funded from 705 backers!
+And thanks to the interest and support from the [amazing people like you](kickstarter_backers.md), the [Kickstarter campaign](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) has been a great success!
 
 Finally, here's a video of duckyPad in action!
 <table>
@@ -55,7 +55,7 @@ Finally, here's a video of duckyPad in action!
 * Per-Key **`RGB Lighting`** 
 * **`OLED Screen`**, showing profile and key names.
 * Powerful multi-line scripting with [duckyScript](duckyscript_info.md).
-* 32 profiles of 15 keys, for a total of 480 scripts.
+* 32 profiles of 15 keys, 480 macros total.
 * [Automatic profile switching](https://github.com/dekuNukem/duckyPad-profile-autoswitcher) based on active window.
 * microSD storage
 * USB-C Connector
