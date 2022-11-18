@@ -48,11 +48,11 @@ Simply plug it into your computer, and voilà:
 
 * To change keyboard layout, **`HOLD DOWN TOP LEFT KEY`** while **`PLUGGING IT IN`**, then select your layout.
 
-## Help! My duckyPad isn't working properly!
+## Help! It's not working!
 
 Are you using **`AMD motherboard?`** If so, read about the [USB chipset bug here!](https://www.tomshardware.com/uk/news/amd-suggest-possible-fixes-for-usb-connectivity-issues)
 
-Try using a USB hub, updating chipset drivers, or different ports.
+Try using a USB hub, update chipset drivers, or different ports.
 
 For other issues, check out the [troubleshooting guide](troubleshooting.md).
 
@@ -74,25 +74,25 @@ Extract the `.zip` file and launch the application by clicking `duckypad_config.
 
 Your system might complain when trying to run the app. This is because I haven't had the code digitally signed, which costs hundreds of dollars a year.
 
-Feel free to [review the code](https://github.com/dekuNukem/duckyPad/tree/master/pc_software). If you really don't trust the app, you can run the `duckypad_config.py` script itself with Python3. You can also [configure your duckyPad completely manually](#Configure-duckyPad-Manually) with a text editor.
+Feel free to [review the code](https://github.com/dekuNukem/duckyPad/tree/master/pc_software). You can also run the `duckypad_config.py` script itself with Python3, or [configure it manually](#Configure-duckyPad-Manually) with a text editor.
 
 For Windows 10, click `More info` and then `Run anyway`.
 
 ![Alt text](resources/pics/app/defender2.png)
 
-For macOS, **`RIGHT CLICK`** on the app and select `Open`. You might have to do it twice.
+For macOS, **`RIGHT CLICK`** on the app and select `Open`. You might need to do it twice.
 
 ![Alt text](resources/pics/app/macos_warning.png)
 
 ### Using duckyPad configurator
 
-After launching the app, it should look like this:
+The app should look like this:
 
 ![Alt text](resources/pics/app/unselected.png)
 
 Make sure your duckyPad is plugged in, and press the `Connect` button.
 
-It should then load all the data from duckyPad:
+It should load the data from duckyPad:
 
 ![Alt text](resources/pics/app/overview.png)
 
@@ -100,7 +100,7 @@ It should then load all the data from duckyPad:
 
 If for some reason it didn't work, you can also **load from SD card**.
 
-* Remove the SD card from duckyPad
+* Push the SD card inwards until it pops out
 
 * Mount it on your computer
 
@@ -118,7 +118,7 @@ The GUI might look a bit overwhelming, but don't worry, let's break it down.
 
 * Each profile contains a group of scripts corresponding to the keys on the duckyPad.
 
-* As you can see, you typically create a profile for each app you want to control.
+* As you can see, you typically create a profile for **each app** you want to control.
 
 ![Alt text](resources/pics/app/profiles.png)
 
@@ -138,7 +138,7 @@ The middle column is for *keys*:
 
 ![Alt text](resources/pics/app/keys.png)
 
-* Here you can configure the 15 keys on your duckyPad.
+* Here you can configure the keys on your duckyPad.
 
 * Click a key to select it.
 
@@ -156,37 +156,35 @@ Finally, the rightmost column is for *scripts*:
 
 * When you select a key, the script it will execute is displayed here.
 
-* duckyPad uses duckyScript, please [read about its usage here](duckyscript_info.md).
+* duckyPad uses duckyScript, [**read about its usage here**](duckyscript_info.md).
 
 * Code check will be performed as you type, errors will be highlighted in yellow.
 
 * Press `Run this script!` to test-run it on your computer. **`MAKE SURE YOU TRUST THE SCRIPT!`**
 
-* Test-run can't get past [Windows User Account Control](resources/pics/app/uac.png) screens. You'll have to run it on real thing.
+* Test-run might not be 100% accurate. Some keys and commands like `Capslock` or `SWCOLOR` can't be emulated in software. **Always test on the real thing**.
+
+* Test-run can't get past [Windows User Account Control](resources/pics/app/uac.png) screens.
 
 * On macOS, if test-run doesn't work, [go to System Preferences -> Security & Privacy -> Accessibility](resources/pics/app/macos.png), unlock, remove then add the app.
 
-* Test-run might not be 100% accurate, some keys and commands like `Capslock` or `SWCOLOR` can't be emulated in software. Always test on the real thing.
-
 ### Settings & Updates
-
-One the bottom we have settings and updates section.
 
 ![Alt text](resources/pics/app/settings.png)
 
 By default, duckyPad goes to sleep after 30 minutes. Adjust the slider to set your own delay. Drag it all the way left for always-on.
 
-`Updates` section shows available updates for this app and duckyPad firmware. **Click on the text** for instructions.
+`Updates` section shows available updates. **Click on the text** for instructions.
 
 ### Keyboard Layouts
 
-duckyPad also supports multiple keyboard layouts.
+duckyPad supports multiple keyboard layouts.
 
 Press `Keyboard Layouts...` button to open its setting:
 
 ![Alt text](resources/pics/app/kbl_window.png)
 
-* The app will pull [available keymaps](sample_profiles/keymaps) from this repo and display them in the left column.
+* [Available keymaps](sample_profiles/keymaps) are shown in the left column.
 
 * Select one and press `Add` to add it to your duckyPad.
 
@@ -220,13 +218,15 @@ If configuring via SD card, pop it back and power on.
 
 * Press `+` and `-` button to switch profiles.
 
-* **`Hold down`** `+` button for profile quickswitch.
+* **`Hold down`** `+` for profile quickswitch.
 
-* **`Hold down`** `-` button to change RGB backlight brightness.
+* **`Hold down`** `-` to change RGB backlight brightness.
 
 ### Faster SD Card
 
-A faster SD card can reduce load time. So if you have a spare, just [format it in FAT or FAT32](resources/pics/format.PNG) and copy everything back.
+A newer SD card can reduce load time and make duckyPad more snappy.
+
+So if you have a spare, just [format it in FAT or FAT32](resources/pics/format.PNG) and copy everything back.
 
 ### Profile Auto-switching / Remote Control
 
@@ -248,9 +248,7 @@ duckyPad is NOT intended to be a security device, so use at your own risk.
 
 The most obvious use case is putting your commonly used hotkeys on duckyPad! Simply create a profile and add them in.
 
-For many applications, you can find an official list of keyboard shortcuts. Just search `app_name shortcuts` on Google.
-
-Some examples:
+For many applications, you can find an official list of shortcuts. Just search `app_name shortcuts` on Google. Examples:
 
 [Firefox](https://support.mozilla.org/en-US/kb/keyboard-shortcuts-perform-firefox-tasks-quickly) and [Chrome](https://support.google.com/chrome/answer/157179?co=GENIE.Platform%3DDesktop)
 
