@@ -22,10 +22,9 @@ Congratulations on your new toy! Here is a short guide on how to use your duckyP
 
 [Questions or Comments?](#questions-or-comments)
 
-
 ## Join Our Discord!
 
-Feel free to join our [Official Discord](https://discord.gg/4sJCBx5) for discussions, asking questions, sharing scripts, and latest updates!
+Feel free to join our [Official Discord](https://discord.gg/4sJCBx5) for discussions, questions, sharing scripts, and latest updates!
 
 ## Kit Assembly
 
@@ -33,7 +32,7 @@ If your duckyPad has not been assembled yet, [see this guide](/kit_assembly_guid
 
 ## Quick Start
 
-Your duckyPad should come with a SD card already installed, containing some demo profiles.
+A micro SD card is used to store all the data, and your duckyPad should have come with one.
 
 Simply plug it into your computer, and voilà:
 
@@ -45,7 +44,7 @@ Simply plug it into your computer, and voilà:
 
 * **`Hold down`** `+` button for profile quickswitch.
 
-* **`Hold down`** `-` button to change RGB backlight brightness.
+* **`Hold down`** `-` button to change backlight brightness.
 
 * To change keyboard layout, **`HOLD DOWN TOP LEFT KEY`** while **`PLUGGING IT IN`**, then select your layout.
 
@@ -53,27 +52,13 @@ Simply plug it into your computer, and voilà:
 
 Are you using **`AMD motherboard?`** If so, read about the [USB chipset bug here!](https://www.tomshardware.com/uk/news/amd-suggest-possible-fixes-for-usb-connectivity-issues)
 
-Try updating chipset drivers, different ports, or use a USB hub.
+Try using a USB hub, updating chipset drivers, or different ports.
 
 For other issues, check out the [troubleshooting guide](troubleshooting.md).
 
 ## Writing Your Own Scripts
 
-The samples might be fun, but duckyPad's true purpose is to do what YOU want! So here's how.
-
-### SD Card
-
-* duckyPad uses a microSD card to store profiles, scripts, and settings.
-
-* To remove the SD card, push inwards to unlock.
-
-* To install the SD card, insert logo side up, push until it clicks in place.
-
-![Alt text](resources/pics/sd.jpg)
-
-* You *can* insert/remove the SD card while duckyPad is on.
-
-* If you decide to use your own SD card, it should be formatted in [FAT32 or FAT](resources/pics/format.PNG).
+The samples might be fun, but duckyPad is designed to do what YOU want! So here's how.
 
 ### Download the duckyPad Configurator
 
@@ -87,9 +72,9 @@ Extract the `.zip` file and launch the application by clicking `duckypad_config.
 
 ### "Untrusted App" Warnings
 
-When trying to run the app, your system might complain. This is because I haven't had the code digitally signed, which costs hundreds of dollars a year.
+Your system might complain when trying to run the app. This is because I haven't had the code digitally signed, which costs hundreds of dollars a year.
 
-Feel free to [review the code](https://github.com/dekuNukem/duckyPad/tree/master/pc_software). If you really don't trust the app, you can run the `duckypad_config.py` script itself with Python3. Finally, you can [configure your duckyPad completely manually](#Configure-duckyPad-Manually).
+Feel free to [review the code](https://github.com/dekuNukem/duckyPad/tree/master/pc_software). If you really don't trust the app, you can run the `duckypad_config.py` script itself with Python3. You can also [configure your duckyPad completely manually](#Configure-duckyPad-Manually) with a text editor.
 
 For Windows 10, click `More info` and then `Run anyway`.
 
@@ -219,7 +204,7 @@ Press `Keyboard Layouts...` button to open its setting:
 
 ### Automatic backups
 
-* By default, a local backup is created every time `Save` button is pressed.
+* A local backup is created every time `Save` button is pressed.
 
 * Press `Backup...` button to access the backups.
 
@@ -239,21 +224,27 @@ If configuring via SD card, pop it back and power on.
 
 * **`Hold down`** `-` button to change RGB backlight brightness.
 
-### Profile auto-switching
+### Faster SD Card
 
-You can also [use this app](https://github.com/dekuNukem/duckyPad-profile-autoswitcher) to **switch profiles automatically** based on **current active window**. Check it out!
+A faster SD card can reduce load time. So if you have a spare, just [format it in FAT or FAT32](resources/pics/format.PNG) and copy everything back.
+
+### Profile Auto-switching / Remote Control
+
+You can [use this app](https://github.com/dekuNukem/duckyPad-profile-autoswitcher) to **switch profiles automatically** based on **current active window**. Check it out!
+
+You can also control duckyPad from PC by sending HID commands, see above repo for details.
 
 ### Careful with Passwords!
 
-It might be tempting to have duckyPad type out often-used passwords, but it's probably **NOT a good idea**!
+It might be tempting to have duckyPad type out passwords, but it's probably **NOT** a good idea!
 
-All scripts are stored as plain text on the SD card, and can be easily accessed by using a SD card reader, or though HID commands.
+All scripts are stored as **plain text** on SD card, and can be easily accessed with a card reader or though HID commands.
 
 duckyPad is NOT intended to be a security device, so use at your own risk.
 
 ## Tips and Tricks
 
-### Consolidate Keyboard Shortcuts
+### Keyboard Shortcuts
 
 The most obvious use case is putting your commonly used hotkeys on duckyPad! Simply create a profile and add them in.
 
@@ -269,21 +260,21 @@ Some examples:
 
 [Photoshop](https://helpx.adobe.com/uk/photoshop/using/default-keyboard-shortcuts.html), [Final Cut Pro](https://support.apple.com/en-gb/guide/final-cut-pro/ver90ba5929/mac), and [Premiere Pro](https://helpx.adobe.com/uk/premiere-pro/using/keyboard-shortcuts.html).
 
-### Launching Apps on Windows - Using Task Bar
+### Launching Apps on Windows - Task Bar
 
-Another popular usage is launching apps. There are two ways of doing this. Here is the frist:
+Another popular usage is launching apps. The easiest way is using Task Bar:
 
 Find the app, `Right click -> More -> Pin to taskbar`:
 
 ![Alt text](resources/pics/start.png)
 
-Now you can use `WIN + number` to launch the apps on the task bar:
+Now you can use `WIN + number` to launch them:
 
 ![Alt text](resources/pics/taskbar.png)
 
-In duckyScript, it would be `WINDOWS 1`, `WINDOWS 2`, etc...
+In duckyScript, it would be `WINDOWS 1`, `WINDOWS 2`, etc.
 
-### Launching Apps on Windows - Using Shortcuts
+### Launching Apps on Windows - Shortcuts
 
 This method works with **`ANY FILE`**, not just apps!
 
@@ -315,7 +306,7 @@ Press the `+` button, select an app to open, assign a hotkey, and set up duckyPa
 
 You can use the free and open-source [autohotkey](https://www.autohotkey.com) for even more sophisticated needs, such as controlling mouse movements, executing scripts, etc.
 
-To do this, duckyPad can be set up to press a simple combo like `WIN + F1`, which then get captured by autohotkey to execute a more complex custom script on your PC.
+To do this, duckyPad can be set up to press a simple combo like `WIN + F1`, which then gets captured by autohotkey to execute a more complex script on your PC.
 
 * Download and install [autohotkey](https://www.autohotkey.com)
 
@@ -337,7 +328,7 @@ Check out the [official tutorials](https://www.autohotkey.com/docs_1.0/Tutorial.
 
 For macOS, you can try [bettertouchtool](https://folivora.ai).
 
-## I'm having issues!
+## I'm Having Issues!
 
 Please take a look at the [Common issues / Troubleshooting](troubleshooting.md) guide.
 
@@ -345,7 +336,7 @@ If that doesn't help, feel free to contact me by [opening an issue](https://gith
 
 ## USB Firmware Updates
 
-You can update duckyPad's firmware via USB, for bug fixes and and/or new features. 
+You can update duckyPad's firmware for new features and bug fixes. 
 
 [Please see this guide](./firmware_updates_and_version_history.md).
 
