@@ -39,14 +39,6 @@ DELAY 600
 CONTROL w
 ```
 
-## Syntax Details
-
-* One command per line. **`Each line has a 256 character limit!`**
-
-* 1000 milliseconds = 1 second.
-
-* Check out the [sample profiles](https://github.com/dekuNukem/duckyPad/tree/master/sample_profiles) for more examples.
-
 ## List of Commands
 
 [REM](#REM)
@@ -146,6 +138,9 @@ STRING Hello world!!!
 
 REM types out "Hello world!!!"
 ```
+
+**Max `256` characters per line!** Split into multiple lines if longer.
+
 ### STRINGLN
 
 Same as above, but presses **enter key** at the end.
