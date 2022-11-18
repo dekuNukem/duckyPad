@@ -74,7 +74,7 @@ Extract the `.zip` file and launch the application by clicking `duckypad_config.
 
 Your system might complain when trying to run the app. This is because I haven't had the code digitally signed, which costs hundreds of dollars a year.
 
-Feel free to [review the code](https://github.com/dekuNukem/duckyPad/tree/master/pc_software). You can also run the `duckypad_config.py` script itself with Python3, or [configure it manually](#Configure-duckyPad-Manually) with a text editor.
+Feel free to [review the code](https://github.com/dekuNukem/duckyPad/tree/master/pc_software). You can also run `duckypad_config.py` itself with Python3, or [configure it manually](#Configure-duckyPad-Manually) with a text editor.
 
 For Windows 10, click `More info` and then `Run anyway`.
 
