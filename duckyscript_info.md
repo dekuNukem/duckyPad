@@ -8,13 +8,11 @@
 
 duckyScript is a simple scripting language for automating keypresses. It was originally developed for [USB Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky-deluxe).
 
-This guide gives an concise overview of duckyScript. For more information, [see this page](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Duckyscript).
-
 ## Examples
 
-duckyScript is very easy and straightforward to write, you basically just tell it what key to press!
+duckyScript is very straightforward to write, you basically just tell it what key to press!
 
-Let's take a look at some examples first:
+Some quick examples:
 
 ### Open Task Manager
 
@@ -97,7 +95,7 @@ CONTROL w
 
 `DEFAULTDELAY` specifies how long (in milliseconds) to wait between **`each line of command`**.
 
-If unspecified, `DEFAULTDELAY` is 18ms in duckyPad.
+If unspecified, `DEFAULTDELAY` is 18ms.
 
 ```
 DEFAULTDELAY 100
@@ -107,7 +105,7 @@ REM duckyPad will wait 100ms between each subsequent command
 
 ### DEFAULTDELAYFUZZ X
 
-Adds an additional random delay from 0 to X milliseconds after `each line of command`, can be used to make typing more human-like.
+Adds an **additional** random delay from 0 to X milliseconds after `each line of command`, can be used to make typing more human-like.
 
 Set to 0 to disable.
 
@@ -115,7 +113,7 @@ Set to 0 to disable.
 
 `DEFAULTCHARDELAY` specifies how long (in milliseconds) to wait between each **`key stroke`**.
 
-If unspecified, `DEFAULTCHARDELAY` is 18ms in duckyPad.
+If unspecified, `DEFAULTCHARDELAY` is 18ms.
 
 ```
 DEFAULTCHARDELAY 50
@@ -125,7 +123,7 @@ REM duckyPad will wait 50ms between each key stroke
 
 ### DEFAULTCHARDELAYFUZZ X
 
-Adds an additional random delay from 0 to X milliseconds after `each key stroke`, can be used to make typing more human-like.
+Adds an **additional** random delay from 0 to X milliseconds after `each key stroke`, can be used to make typing more human-like.
 
 Set to 0 to disable.
 
@@ -167,7 +165,7 @@ REM types out "Hello world" 11 times (1 original + 10 repeats)
 
 ### Special Keys
 
-duckyScript also supports a bunch of special keys:
+duckyScript also supports many special keys:
 
 ```
 CTRL / RCTRL
@@ -221,11 +219,12 @@ KP_0 to KP_9
 KP_DOT
 KP_EQUAL
 
-(Japanese input method keys, after firmware 0.20.4)
-KATAKANAHIRAGANA
+(Japanese input method keys)
+(Available after firmware 0.20.4)
+ZENKAKUHANKAKU
 HENKAN
 MUHENKAN
-ZENKAKUHANKAKU
+KATAKANAHIRAGANA
 ```
 
 Those special keys can be used on their own:
@@ -280,7 +279,7 @@ Scroll mouse wheel `X` lines.
 
 Holds / Releases a key.
 
-Can be character key, modifier key, special key, or even mouse button!
+Can be character or special key.
 
 Example:
 
@@ -292,17 +291,19 @@ KEYUP SHIFT
 
 ### SWCOLOR
 
-You can change the colour of a key on-the-fly with `SWCOLOR` command.
+You can change the color of a key on-the-fly with `SWCOLOR` command.
 
-To change the colour of the **current key**, use `SWCOLOR R G B`:
+To change the color of the **current key**, use `SWCOLOR R G B`:
 
 `SWCOLOR 128 0 0`
 
-To change the colour of a **particular key**, use `SWCOLOR_n R G B`:
+To change the color of a **particular key**, use `SWCOLOR_n R G B`:
 
 `SWCOLOR_1 0 128 0`
 
-* The `R G B` value should between `0` and `255`. 0 being off, 255 brightest.
+* `n` is between 1 and 15 inclusive.
+
+* `R G B` is between `0` and `255` inclusive. 0 off, 255 brightest.
 
 ### DP_SLEEP
 
@@ -367,9 +368,9 @@ ENTER
 
 * When you press a key, a counter increments, and the script at the corresponding loop is executed.
 
-* Loop and colour state should be persistent through profile switches and reboots **AFTER FIRMWARE 0.20.0**. [Click me](firmware_updates_and_version_history.md) to learn how to update your FW!
+* Loop and color state should persist through profile switches and reboots [**AFTER FIRMWARE 0.20.0**](firmware_updates_and_version_history.md).
 
-* This command is not yet supported in test-run on PC app.
+* This command is not supported in test-run on PC app.
 
 ### LCR (Loop Counter Reset)
 
