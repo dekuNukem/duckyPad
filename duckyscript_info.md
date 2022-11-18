@@ -83,9 +83,9 @@ CONTROL w
 
 [GOTO_PROFILE](#GOTO_PROFILE)
 
-[HOLD](#HOLD-experimental)
+[EMUK](#emuk)
 
-[LOOP](#LOOP-experimental)
+[LOOP](#LOOP)
 
 -----
 
@@ -199,30 +199,7 @@ END
 MENU
 POWER
 
-F1
-F2
-F3
-F4
-F5
-F6
-F7
-F8
-F9
-F10
-F11
-F12
-F13
-F14
-F15
-F16
-F17
-F18
-F19
-F20
-F21
-F22
-F23
-F24
+F1 to F24
 
 (media keys)
 MK_VOLUP
@@ -240,18 +217,15 @@ KP_ASTERISK
 KP_MINUS
 KP_PLUS
 KP_ENTER
-KP_0
-KP_1
-KP_2
-KP_3
-KP_4
-KP_5
-KP_6
-KP_7
-KP_8
-KP_9
+KP_0 to KP_9
 KP_DOT
 KP_EQUAL
+
+(Japanese input method keys, after firmware 0.20.4)
+KATAKANAHIRAGANA
+HENKAN
+MUHENKAN
+ZENKAKUHANKAKU
 ```
 
 Those special keys can be used on their own:
@@ -348,23 +322,26 @@ Use this command to jump to a particular profile.
 
 `GOTO_PROFILE 3` // jump to profile #3
 
-### HOLD (experimental)
+### EMUK
 
-Holds a key when you press it, and release only when you release it. This command makes duckyPad behave more like a traditional keyboard.
+(Known as `HOLD` **before firmware 0.20.3**)
+
+Emulates a regular key.
+
+It holds a key when you press it, and release only when you release it. Makes it behave more like a traditional keyboard.
 
 Possible uses include push-to-talk voice chat, or WASD gamepad.
 
-You should only use `HOLD` command on its own, i.e. the script should only have a single line of `HOLD` command and nothing else.
+You should only use `EMUK` command **on its own**, i.e. the script should only have a single line of `EMUK` command and **nothing else**.
 
-`HOLD` command can be followed by up to 2 keys, they can be character or special keys.
+`EMUK` command can be followed by up to 2 keys, they can be character or special keys.
 
 ```
-HOLD w
+EMUK w
 ```
 ```
-HOLD SHIFT
+EMUK SHIFT
 ```
-This command is experimental, if you run into any bugs, [let me know](#questions-or-comments)!
 
 ### LOOP
 
