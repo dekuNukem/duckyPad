@@ -94,8 +94,7 @@ add JIS keys
 0.20.5 20221117
 // changed USB HID descriptor so new japanese keys work
 
-0.20.6 202211??
-// Added HID commands for changing RGB colour - NOT YET
+NEXT: Add HID commands for changing RGB colour
 
 */
 

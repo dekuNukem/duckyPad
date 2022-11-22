@@ -33,11 +33,11 @@ void oled_full_brightness()
 
 void draw_brightness_value()
 {
-    memset(temp_buf, 0, PATH_SIZE);
-    sprintf(temp_buf, " %d%% ", brightness_values[brightness_index]);
-    ssd1306_SetCursor((128 - strlen(temp_buf)*6)/2, 30);
-    ssd1306_WriteString(temp_buf,Font_6x10,White);
-    ssd1306_UpdateScreen();
+  memset(temp_buf, 0, PATH_SIZE);
+  sprintf(temp_buf, " %d%% ", brightness_values[brightness_index]);
+  ssd1306_SetCursor((128 - strlen(temp_buf)*6)/2, 30);
+  ssd1306_WriteString(temp_buf,Font_6x10,White);
+  ssd1306_UpdateScreen();
 }
 
 void service_all(void)
@@ -694,45 +694,7 @@ void handle_hid_command(void)
     oled_full_brightness();
     change_profile(NEXT_PROFILE);
   }
-  /*
-  HID SET RGB LED COLOUR
-  -----------
-  PC to duckyPad:
-  [0]   report_id: always 5
-  [1]   seq number
-  [2]   command: 5
-  Key 1 (RGB) : 3 4 5
-  Key 2 : 6 7 8
-  Key 3 : 9 10 11
-  Key 4 : 12 13 14
-  Key 5 : 15 16 17
-  Key 6 : 18 19 20
-  Key 7 : 21 22 23
-  Key 8 : 24 25 26
-  Key 9 : 27 28 29
-  Key 10 : 30 31 32
-  Key 11 : 33 34 35
-  Key 12 : 36 37 38
-  Key 13 : 39 40 41
-  Key 14 : 42 43 44
-  Key 15 : 45 46 47
-  -----------
-  duckyPad to PC
-  [0]   report_id: always 4
-  [1]   seq number (same as above)
-  [2]   0 = OK
-  */
-  // else if(command_type == HID_COMMAND_SW_COLOR)
-  // {
-  //   oled_full_brightness();
-  //   for (int i = 3; i <= 47; ++i)
-  //   {
-  //     uint8_t key_number_0_to_14 = (i-3)/3;
-  //     uint8_t rgb_index = (i-3) % 3;
-  //     p_cache.individual_key_color[key_number_0_to_14][rgb_index] = hid_rx_buf[i];
-  //   }
-  //   USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
-  // }
+
   /*
   HID LIST FILES
   -----------
@@ -1055,7 +1017,6 @@ void keypress_task_start(void const * argument)
           {
             is_busy = 1;
             handle_keypress(i, &button_status[i]); // handle the button state inside here for repeats
-            is_busy = 0;
             keydown_anime_end(i);
             if(my_dpc.type == DPC_SLEEP)
             {
@@ -1078,6 +1039,7 @@ void keypress_task_start(void const * argument)
                 restore_profile(my_dpc.data);
               dpc_init(&my_dpc);
             }
+            is_busy = 0;
           }
         }
         else if(i == KEY_BUTTON1 || i == KEY_BUTTON2)
