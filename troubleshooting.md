@@ -36,7 +36,7 @@ Click a question below to jump to the answer!
 
 * [SD Card doesn't work on mac!](#SD-Card-doesnt-work-on-mac)
 
-* [Autoswitcher / USB configuration isn't working on macOS!](#autoswitcher--usb-configuration-isnt-working-on-macos)
+* [USB configuration / Autoswitcher isn't working on macOS!](#usb-configuration--autoswitcher-isnt-working-on-macos)
 
 ## Join Our Discord!
 
@@ -210,13 +210,11 @@ If you want, you can copy the [sample profiles](https://github.com/dekuNukem/duc
 
 Due to the security restrictions of macOS, to use USB configuration and autoswitcher, you need to:
 
-* Enable "Input Monitoring" permission
+* Enable "Input Monitoring" permission (for loading from USB)
 
 * Enable "Screen Recording" permission (for reading window titles)
 
 * Run the app as root
-
-Here's how:
 
 ### Enable permission
 
