@@ -206,13 +206,13 @@ Now the card should be readable in both macOS and duckyPad.
 
 If you want, you can copy the [sample profiles](https://github.com/dekuNukem/duckyPad/raw/master/sample_profiles.zip) back to the root of the SD card.
 
-## Autoswitcher / USB configuration isn't working on macOS!
+## USB configuration / Autoswitcher isn't working on macOS!
 
-Due to the security restrictions of macOS, to use autoswitcher and USB configuration, you need to:
+Due to the security restrictions of macOS, to use USB configuration and autoswitcher, you need to:
 
 * Enable "Input Monitoring" permission
 
-* Enable "Screen Recording" permission (required to detect window titles)
+* Enable "Screen Recording" permission (for reading window titles)
 
 * Run the app as root
 
@@ -234,7 +234,7 @@ Here's how:
 
 ![Alt text](resources/pics/select_term.png)
 
-* Select `Screen Recording`, and repeat the same process as for `Input Monitoring`
+* Select `Screen Recording`, and repeat the same process
 
 ![Alt text](resources/pics/screen_rec.png)
 
