@@ -40,17 +40,17 @@ If all went well, `the backlight and display should stay off`.
 
 ### Windows
 
-Download and install the [STM32 DfuSe tool](resources/en.stsw-stm32080_stm32_DfuSe.zip) from this repo. (You can also download it from [the official website](https://www.st.com/en/development-tools/stsw-stm32080.html), but it requires creating an account.)
+Download and install the [STM32 DfuSe tool](resources/en.stsw-stm32080_stm32_DfuSe.zip) from this repo. (You can also get it from [official website](https://www.st.com/en/development-tools/stsw-stm32080.html), but it requires creating an account.)
 
 Launch the `DfuSeDemo` software:
 
 ![Alt text](resources/pics/dfu_start.png)
 
-In the `Available DFU Devices` section at top left corner, you should see a `STM Device in DFU Mode`.
+In the `Available DFU Devices`, you should see a `STM Device in DFU Mode`.
 
 ![Alt text](resources/pics/dfu_available.png)
 
-* If nothing shows up, you might need to install a driver. [Click me for details](https://github.com/dekuNukem/daytripper/blob/master/dfu_driver_install.md)
+* **If nothing shows up**, you might need to install a driver. [Click me for details](https://github.com/dekuNukem/daytripper/blob/master/dfu_driver_install.md)
 
 Press the `Choose...` button and select a firmware file in `.dfu` format.
 
@@ -60,11 +60,9 @@ Press the `Choose...` button and select a firmware file in `.dfu` format.
 
 ![Alt text](resources/pics/dfu_choose.png)
 
-Press `Upgrade` button to start uploading the new firmware into the microcontroller.
+Press `Upgrade` button to start uploading.
 
 ![Alt text](resources/pics/dfu_upgrade2.png)
-
-And now the firmware is being updated!
 
 **It should only take a few seconds!** **`Try using a USB hub`** if it is particularly slow.
 
