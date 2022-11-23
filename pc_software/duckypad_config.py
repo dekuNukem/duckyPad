@@ -224,8 +224,12 @@ is_fw_before_emuk = False
 
 def fix_emuk(current_fw_string):
     global is_fw_before_emuk
-    fw_tuple = check_update.versiontuple(current_fw_string)
     is_fw_before_emuk = False;
+    
+    if current_fw_string is None:
+        return
+
+    fw_tuple = check_update.versiontuple(current_fw_string)
     if fw_tuple < (0, 20, 3):
         is_fw_before_emuk = True
         return
