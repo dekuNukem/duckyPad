@@ -98,6 +98,7 @@ autogui_map = {"ESCAPE":"escape",
 "POWER":"",
 "LMOUSE":"",
 "RMOUSE":"",
+"MMOUSE":"",
 }
 
 valid_chars = ['!', '"', '#', '$', '%', '&', "'", '(',

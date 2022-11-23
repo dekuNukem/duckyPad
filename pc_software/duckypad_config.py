@@ -27,9 +27,13 @@ changed old HOLD to EMUK command
 0.13.6
 Added japanese IME keys "KATAKANAHIRAGANA", "HENKAN", "MUHENKAN", "KATAKANA", "HIRAGANA", "ZENKAKUHANKAKU"
 
+0.13.7
+added EMUK replacement
+only show last 50 characters when deleting folders
+fixed syntax check bug where MMOUSE isnt recognised
 """
 
-THIS_VERSION_NUMBER = '0.13.6'
+THIS_VERSION_NUMBER = '0.13.7'
 
 ENV_UI_SCALE = os.getenv("DUCKYPAD_UI_SCALE")
 UI_SCALE = int(ENV_UI_SCALE) if ENV_UI_SCALE else 1
@@ -195,14 +199,29 @@ def print_fw_update_label():
         dp_fw_update_label.unbind("<Button-1>")
     return this_version
 
+def replace_hold_to_emuk(script_string):
+    script_split = script_string.replace("\r", '').split('\n')
+    new_string = ''
+    for item in script_split:
+        if item.startswith("HOLD "):
+            item = item.replace("HOLD ", 'EMUK ')
+        new_string += item + '\n'
+    return new_string
+
 def fix_emuk(current_fw_string):
     fw_tuple = check_update.versiontuple(current_fw_string)
     if fw_tuple < (0, 20, 3):
         return
-    print("this uses EMUK!", fw_tuple)
+    # print("this uses EMUK!", fw_tuple)
+
+    box_result = messagebox.askyesno("Info", "To ensure compatibility with duckyScript 3, HOLD command is now EMUK!\n\nWould you like to replace them?")
+    if box_result is False:
+        return
     for this_profile in profile_list:
         for this_key in this_profile.keylist:
-            print(this_key.script)
+            if this_key is None:
+                continue
+            this_key.script = replace_hold_to_emuk(this_key.script)
 
 def select_root_folder(root_path=None):
     global profile_list
