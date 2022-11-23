@@ -16,8 +16,8 @@ find ./pc_software -type f -name "*.spec*" -exec rm -f {} \;
 
 python update_firmware_ref.py
 rm ./sample_profiles.zip
-7z.exe a -r sample_profiles.zip ./sample_profiles
-zip -rv sample_profiles.zip ./sample_profiles
+7z.exe a -r sample_profiles.zip ./sample_profiles/*
+zip -rv sample_profiles.zip ./sample_profiles/*
 git add --all
 git commit -m "$@"
 git push origin master
