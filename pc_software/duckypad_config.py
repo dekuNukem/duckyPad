@@ -200,6 +200,9 @@ def fix_emuk(current_fw_string):
     if fw_tuple < (0, 20, 3):
         return
     print("this uses EMUK!", fw_tuple)
+    for this_profile in profile_list:
+        for this_key in this_profile.keylist:
+            print(this_key.script)
 
 def select_root_folder(root_path=None):
     global profile_list
