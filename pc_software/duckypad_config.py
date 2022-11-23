@@ -33,6 +33,7 @@ only show last 50 characters when deleting folders
 fixed syntax check bug where MMOUSE isnt recognized
 script checking now provides error details
 defaultdelay and defaultchardelay now resets correctly when running a new script in pc test-run
+ask to confirm if trying to quit while saving data
 """
 
 THIS_VERSION_NUMBER = '0.14.0'
@@ -1370,7 +1371,6 @@ def t1_worker():
                 dp_root_folder_display.set("HID load error!")
                 continue
         if current_hid_op == HID_SAVE:
-            current_hid_op = HID_NOP
             hid_op.duckypad_hid_close()
             try:
                 hid_op.duckypad_hid_init()
@@ -1385,9 +1385,18 @@ def t1_worker():
             except Exception as e:
                 messagebox.showerror("error", "Save error: " + str(traceback.format_exc()))
                 dp_root_folder_display.set("Save FAILED!")
+            current_hid_op = HID_NOP
 
 t1 = threading.Thread(target=t1_worker, daemon=True)
 t1.start()
+
+def on_closing():
+    if current_hid_op == HID_NOP:
+        root.destroy()
+    elif messagebox.askokcancel("Quit", "Still saving data! Quit anyway?"):
+        root.destroy()
+
+root.protocol("WM_DELETE_WINDOW", on_closing)
 
 root.after(500, repeat_func)
 # if os.name == 'posix':
