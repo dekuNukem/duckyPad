@@ -27,13 +27,15 @@ changed old HOLD to EMUK command
 0.13.6
 Added japanese IME keys "KATAKANAHIRAGANA", "HENKAN", "MUHENKAN", "KATAKANA", "HIRAGANA", "ZENKAKUHANKAKU"
 
-0.13.7
+0.14.0
 added EMUK replacement
 only show last 50 characters when deleting folders
-fixed syntax check bug where MMOUSE isnt recognised
+fixed syntax check bug where MMOUSE isnt recognized
+script checking now provides error details
+defaultdelay and defaultchardelay now resets correctly when running a new script in pc test-run
 """
 
-THIS_VERSION_NUMBER = '0.13.7'
+THIS_VERSION_NUMBER = '0.14.0'
 
 ENV_UI_SCALE = os.getenv("DUCKYPAD_UI_SCALE")
 UI_SCALE = int(ENV_UI_SCALE) if ENV_UI_SCALE else 1
@@ -168,7 +170,7 @@ def ui_reset():
     key_color_rb1.config(state=DISABLED)
     key_color_rb2.config(state=DISABLED)
     clear_and_disable_script_textbox()
-    syntax_check_result_label.config(text="", fg="green")
+    check_syntax_button.config(text="", fg="green")
     sleepmode_slider.config(state=DISABLED)
 
 def check_firmware_update():
@@ -208,12 +210,27 @@ def replace_hold_to_emuk(script_string):
         new_string += item + '\n'
     return new_string
 
-def fix_emuk(current_fw_string):
-    fw_tuple = check_update.versiontuple(current_fw_string)
-    if fw_tuple < (0, 20, 3):
-        return
-    # print("this uses EMUK!", fw_tuple)
+def has_old_hold():
+    for this_profile in profile_list:
+        for this_key in this_profile.keylist:
+            if this_key is None:
+                continue
+            if "HOLD " in this_key.script:
+                return True
+    return False
 
+is_fw_before_emuk = False
+
+def fix_emuk(current_fw_string):
+    global is_fw_before_emuk
+    fw_tuple = check_update.versiontuple(current_fw_string)
+    is_fw_before_emuk = False;
+    if fw_tuple < (0, 20, 3):
+        is_fw_before_emuk = True
+        return
+
+    if has_old_hold() is False:
+        return;
     box_result = messagebox.askyesno("Info", "To ensure compatibility with duckyScript 3, HOLD command is now EMUK!\n\nWould you like to replace them?")
     if box_result is False:
         return
@@ -243,7 +260,6 @@ def select_root_folder(root_path=None):
     current_duckypad_fw_ver = print_fw_update_label()
     ui_reset()
     update_profile_display()
-    #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     fix_emuk(current_duckypad_fw_ver)
     enable_buttons()
 
@@ -326,6 +342,7 @@ def enable_buttons():
     key_color_text.config(fg='black')
     sleepmode_slider.config(state=NORMAL)
     sleepmode_slider.set(dp_settings.sleep_after_minutes)
+    check_syntax_button.config(state=NORMAL)
 
 # def debug_set_root_folder():
 #     global profile_list
@@ -402,7 +419,7 @@ def update_profile_display():
     key_color_rb1.config(state=DISABLED)
     key_color_rb2.config(state=DISABLED)
     clear_and_disable_script_textbox()
-    syntax_check_result_label.config(text="", fg="green")
+    check_syntax_button.config(text="", fg="green")
 
 def clear_and_disable_script_textbox():
     script_textbox.delete(1.0, 'end')
@@ -729,7 +746,7 @@ def key_button_click(button_widget):
         last_rgb = profile_list[profile_index].keylist[selected_key].color
         key_color_button.config(background=rgb_to_hex(profile_list[profile_index].keylist[selected_key].color))
     key_button_clicked_at = modified_count
-    check_syntax_click()
+    check_syntax_click(show_messagebox=False)
 
 root = Tk()
 root.title("duckyPad configurator v" + THIS_VERSION_NUMBER)
@@ -1047,7 +1064,7 @@ def script_textbox_modified():
     if modified_count - key_button_clicked_at > 2:
         if profile_list[profile_index].keylist[selected_key] is not None:
             cantthinkofaname = "Checking..."
-        syntax_check_result_label.config(text=cantthinkofaname, fg="black")
+        check_syntax_button.config(text=cantthinkofaname, fg="black")
     if profile_list[profile_index].keylist[selected_key] is not None:
         profile_list[profile_index].keylist[selected_key].script = script_textbox.get(1.0, END)#.replace('\r','').strip().strip('\n')
         modification_checked = 0
@@ -1088,16 +1105,44 @@ script_common_commands_lf = LabelFrame(scripts_lf, text="Common commands", width
 script_common_commands_lf.place(x=PADDING, y=300 * UI_SCALE)
 root.update()
 
-check_syntax_lf = LabelFrame(scripts_lf, text="Code check", width=script_textbox.winfo_width() / 2, height=40 * UI_SCALE)
-check_syntax_lf.place(x=PADDING, y=407 * UI_SCALE)
+def check_syntax_click(show_messagebox=True):
+    if is_key_selected() == False:
+        return
+    has_errors = False
+    profile_index = profile_lstbox.curselection()[0]
+    if profile_list[profile_index].keylist[selected_key] is None:
+        return
+    script_textbox.tag_remove("error", '1.0', 'end')
+    all_errors = ''
+    for count, line in enumerate(profile_list[profile_index].keylist[selected_key].script.split('\n')):
+        # print(ds_syntax_check.parse_line(line), line)
+        parse_result, error_message = ds_syntax_check.parse_line(line, is_fw_before_emuk)
+        if parse_result != ds_syntax_check.PARSE_OK:
+            # print("syntax error on line", count, ':', line)
+            script_textbox.tag_add("error", str(count+1)+".0", str(count+1)+".0 lineend")
+            # script_textbox.mark_set("insert", str(count+1)+".0")
+            # script_textbox.see(str(count+1)+'.0')
+            check_syntax_button.config(text="What's wrong?", fg='red')
+            has_errors = True
+            all_errors += "* " + error_message + '\n'
+    if has_errors == False:
+        script_textbox.tag_remove("error", '1.0', 'end')
+        check_syntax_button.config(text="Code seems OK..", fg="green")
+    if show_messagebox and has_errors:
+        messagebox.showinfo("Found errors", all_errors)
+
+check_syntax_button = Button(scripts_lf, text="", command=check_syntax_click, state=DISABLED)
+check_syntax_button.place(x= 10 * UI_SCALE, y=417 * UI_SCALE, width=140 * UI_SCALE, height=BUTTON_HEIGHT)
 root.update()
+
+# 2222222222222222222222222222222222
 
 SCRIPT_BUTTON_WIDTH = script_textbox.winfo_width()/3.4
 SCRIPT_BUTTON_GAP = 5 * UI_SCALE
 PADDING = 2 * UI_SCALE
 
-execute_button = Button(scripts_lf, text="Run this script!", command=run_script, state=DISABLED)
-execute_button.place(x=135 * UI_SCALE, y=417 * UI_SCALE, width=105 * UI_SCALE, height=BUTTON_HEIGHT)
+execute_button = Button(scripts_lf, text="Run script", command=run_script, state=DISABLED)
+execute_button.place(x=160 * UI_SCALE, y=417 * UI_SCALE, width=80 * UI_SCALE, height=BUTTON_HEIGHT)
 root.update()
 
 script_button_xy_list = [(SCRIPT_BUTTON_GAP, PADDING), (SCRIPT_BUTTON_GAP*2+SCRIPT_BUTTON_WIDTH, PADDING), (SCRIPT_BUTTON_GAP*3+SCRIPT_BUTTON_WIDTH*2, PADDING), (SCRIPT_BUTTON_GAP, PADDING+BUTTON_HEIGHT+2), (SCRIPT_BUTTON_GAP*2+SCRIPT_BUTTON_WIDTH, PADDING+BUTTON_HEIGHT+2), (SCRIPT_BUTTON_GAP*3+SCRIPT_BUTTON_WIDTH*2, PADDING+BUTTON_HEIGHT+2), (SCRIPT_BUTTON_GAP, (PADDING+BUTTON_HEIGHT)*2+2), (SCRIPT_BUTTON_GAP*2+SCRIPT_BUTTON_WIDTH, (PADDING+BUTTON_HEIGHT)*2+2), (SCRIPT_BUTTON_GAP*3+SCRIPT_BUTTON_WIDTH*2, (PADDING+BUTTON_HEIGHT)*2+2)]
@@ -1111,32 +1156,6 @@ for x in range(9):
     this_button.place(x=script_button_xy_list[x][0], y=script_button_xy_list[x][1], width=SCRIPT_BUTTON_WIDTH, height=BUTTON_HEIGHT)
     script_command_button_list.append(this_button)
 script_command_button_list[-1].config(command=open_duckyscript_url)
-
-def check_syntax_click():
-    if is_key_selected() == False:
-        return
-    has_errors = False
-    profile_index = profile_lstbox.curselection()[0]
-    if profile_list[profile_index].keylist[selected_key] is None:
-        return
-    script_textbox.tag_remove("error", '1.0', 'end')
-    for count, line in enumerate(profile_list[profile_index].keylist[selected_key].script.split('\n')):
-        # print(ds_syntax_check.parse_line(line), line)
-        if ds_syntax_check.parse_line(line) != ds_syntax_check.PARSE_OK:
-            # print("syntax error on line", count, ':', line)
-            script_textbox.tag_add("error", str(count+1)+".0", str(count+1)+".0 lineend")
-            # script_textbox.mark_set("insert", str(count+1)+".0")
-            # script_textbox.see(str(count+1)+'.0')
-            syntax_check_result_label.config(text='Error(s) found!', fg='red')
-            has_errors = True
-    if has_errors == False:
-        script_textbox.tag_remove("error", '1.0', 'end')
-        syntax_check_result_label.config(text="It looks alright..", fg="green")
-
-syntax_check_result_label = Label(master=check_syntax_lf)
-syntax_check_result_label.place(x=2 * UI_SCALE, y=4 * UI_SCALE)
-
-# --------------------------
 
 def add_s(word, value):
     if value == 1:
@@ -1327,7 +1346,7 @@ root.update()
 def repeat_func():
     global modification_checked
     if time.time() - last_textbox_edit >= 0.5 and modification_checked == 0:
-        check_syntax_click()
+        check_syntax_click(show_messagebox=False)
         modification_checked = 1
     root.after(500, repeat_func)
 

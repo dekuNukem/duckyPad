@@ -102,6 +102,7 @@ autogui_map = {"ESCAPE":"escape",
 "POWER":"",
 "LMOUSE":"",
 "RMOUSE":"",
+"MMOUSE":"",
 }
 
 cmd_LMOUSE = "LMOUSE"
@@ -110,8 +111,8 @@ cmd_MMOUSE = "MMOUSE"
 cmd_MOUSE_MOVE = "MOUSE_MOVE"
 cmd_MOUSE_WHEEL = "MOUSE_WHEEL"
 
-cmd_HOLD = "EMUK ";
-cmd_RELEASE = "RELEASE ";
+cmd_KEYDOWN = "KEYDOWN ";
+cmd_KEYUP = "KEYUP ";
 
 mouse_commands = [cmd_LMOUSE, cmd_RMOUSE, cmd_MMOUSE, cmd_MOUSE_MOVE, cmd_MOUSE_WHEEL]
 
@@ -231,10 +232,10 @@ def parse_line(ducky_line):
 		return PARSE_EMPTY_LINE, parse_note
 	elif is_ignored_but_valid_command(ducky_line):
 		return PARSE_OK, parse_note
-	elif ducky_line.startswith(cmd_HOLD):
-		parse_result, parse_note = parse_combo(ducky_line[len(cmd_HOLD):], ACTION_PRESS_ONLY)
-	elif ducky_line.startswith(cmd_RELEASE):
-		parse_result, parse_note = parse_combo(ducky_line[len(cmd_RELEASE):], ACTION_RELEASE_ONLY)
+	elif ducky_line.startswith(cmd_KEYDOWN):
+		parse_result, parse_note = parse_combo(ducky_line[len(cmd_KEYDOWN):], ACTION_PRESS_ONLY)
+	elif ducky_line.startswith(cmd_KEYUP):
+		parse_result, parse_note = parse_combo(ducky_line[len(cmd_KEYUP):], ACTION_RELEASE_ONLY)
 	elif ducky_line.startswith(cmd_STRING):
 		pyautogui.write(ducky_line[len(cmd_STRING):], interval=default_char_delay_ms/1000)
 	elif ducky_line.startswith(cmd_STRINGLN):
@@ -259,6 +260,12 @@ def parse_line(ducky_line):
 
 def execute_file(str_list):
 	global prev_line
+	global default_cmd_delay_ms
+	global default_char_delay_ms
+
+	default_cmd_delay_ms = 18
+	default_char_delay_ms = 18
+	
 	for index, line in enumerate(str_list):
 		try:
 			parse_result, parse_note = parse_line(line)
