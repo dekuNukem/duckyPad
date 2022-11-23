@@ -20,17 +20,19 @@
 
 🐞 Minor bug fixes
 
+💭 As usual, [Let me know](#questions-or-comments) if you encounter any issues.
+
 ## USB Firmware Updates
 
 You can update duckyPad's firmware via USB, for bug fixes and and/or new features. 
 
 ### Enter DFU Mode
 
-Locate the **`DFU`** button on the board:
+Locate the **`DFU`** button:
 
 ![Alt text](resources/pics/dfu_buttons_new.jpg)
 
-* Make sure the board is unplugged.
+* Make sure duckyPad is unplugged.
 
 * **`Hold down DFU button`** while plugging it into a computer.
 
@@ -40,19 +42,19 @@ If all went well, `the backlight and display should stay off`.
 
 ### Windows
 
-Download and install the [STM32 DfuSe tool](resources/en.stsw-stm32080_stm32_DfuSe.zip) from this repo. (You can also get it from [official website](https://www.st.com/en/development-tools/stsw-stm32080.html), but it requires creating an account.)
+Download and install the [STM32 DfuSe tool](resources/en.stsw-stm32080_stm32_DfuSe.zip) from this repo. (You can also get it from [official website](https://www.st.com/en/development-tools/stsw-stm32080.html), but requires creating an account.)
 
-Launch the `DfuSeDemo` software:
+Launch the `DfuSeDemo`:
 
 ![Alt text](resources/pics/dfu_start.png)
 
-In the `Available DFU Devices`, you should see a `STM Device in DFU Mode`.
+In `Available DFU Devices`, you should see a `STM Device in DFU Mode`.
 
 ![Alt text](resources/pics/dfu_available.png)
 
 * **If nothing shows up**, you might need to install a driver. [Click me for details](https://github.com/dekuNukem/daytripper/blob/master/dfu_driver_install.md)
 
-Press the `Choose...` button and select a firmware file in `.dfu` format.
+Press `Choose...` button and select a firmware file in `.dfu` format.
 
 * [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.21.0.dfu) to download the latest firmware (v0.21.0)
 
