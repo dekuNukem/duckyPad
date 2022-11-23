@@ -25,6 +25,7 @@ if THIS_VERSION is None:
 print(THIS_VERSION)
 py_file_list = [x for x in os.listdir('.') if x.endswith('.py')]
 py_file_list = [x for x in py_file_list if 'build_' not in x.lower() and 'setup.py' not in x.lower()]
+py_file_list.append('duckypad_config_install_linux_only.sh')
 print(py_file_list)
 
 output_dir_name = "duckypad_config_" + THIS_VERSION + "_source"
