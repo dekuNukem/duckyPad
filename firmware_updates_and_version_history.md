@@ -6,13 +6,19 @@
 
 ## Latest Firmware
 
-### 0.20.2 (Oct 28 2022)
+### 0.21.0 (Nov 23 2022)
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.20.2.dfu)
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.21.0.dfu)
 
-🆕 Added `STRINGLN` command. Same as `STRING` but presses enter key at the end.
+🚨 Make sure to use the [LATEST CONFIGURATOR](https://github.com/dekuNukem/duckyPad/releases/latest) with this update!
 
-🐞 Fixed a bug that causes unresponsive keys.
+🆕 Renamed `HOLD` to `EMUK` for compatibility with duckyScript 3
+
+🆕 Added Japanese input mode keys and 
+
+🆕 Added JIS keymap
+
+🐞 Minor bug fixes
 
 ## USB Firmware Updates
 
@@ -48,7 +54,7 @@ In the `Available DFU Devices` section at top left corner, you should see a `STM
 
 Press the `Choose...` button and select a firmware file in `.dfu` format.
 
-* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.20.2.dfu) to download the latest firmware (v0.20.2)
+* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.21.0.dfu) to download the latest firmware (v0.21.0)
 
 * ...or [scroll down](#firmware-version-history) for older firmware versions.
 
@@ -79,6 +85,14 @@ Hold DFU button and connect duckyPad, then run:
 After completion, press **`RESET`** button (or power-cycle) to start using the new firmware. 
 
 ## Firmware Version History
+
+### 0.20.2 (Oct 28 2022)
+
+[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.20.2.dfu)
+
+🆕 Added `STRINGLN` command. Same as `STRING` but presses enter key at the end.
+
+🐞 Fixed a bug that causes unresponsive keys.
 
 ### 0.20.1 (Jul 21 2022)
 
