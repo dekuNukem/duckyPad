@@ -14,7 +14,7 @@
 
 🆕 Renamed `HOLD` to `EMUK` for compatibility with duckyScript 3
 
-🆕 Added Japanese input mode keys and 
+🆕 Added Japanese input mode keys
 
 🆕 Added JIS keymap
 
