@@ -355,7 +355,7 @@ def duckypad_hid_file_sync(duckypad_dir_name, local_dir_name, string_var):
         if "dp_stat" in item_path.lower():
             continue
         # print("removing...", item_path)
-        string_var.set(f'removing: {item_path}')
+        string_var.set(f'removing: {item_path[-50:]}')
         if os.path.isfile(item_path):
             duckypad_delete_file(item)
         elif os.path.isdir(item_path):

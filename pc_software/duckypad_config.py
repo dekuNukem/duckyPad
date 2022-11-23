@@ -193,6 +193,13 @@ def print_fw_update_label():
     else:
         dp_fw_update_label.config(text='Firmware: Unknown', fg='black', bg=default_button_color)
         dp_fw_update_label.unbind("<Button-1>")
+    return this_version
+
+def fix_emuk(current_fw_string):
+    fw_tuple = check_update.versiontuple(current_fw_string)
+    if fw_tuple < (0, 20, 3):
+        return
+    print("this uses EMUK!", fw_tuple)
 
 def select_root_folder(root_path=None):
     global profile_list
@@ -211,9 +218,11 @@ def select_root_folder(root_path=None):
         sd_card_keymap_list = duck_objs.load_keymap(dp_root_folder_path)
     except Exception as e:
         print(e)
-    print_fw_update_label()
+    current_duckypad_fw_ver = print_fw_update_label()
     ui_reset()
     update_profile_display()
+    #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    fix_emuk(current_duckypad_fw_ver)
     enable_buttons()
 
 HID_NOP = 0
@@ -1299,7 +1308,6 @@ def repeat_func():
         check_syntax_click()
         modification_checked = 1
     root.after(500, repeat_func)
-
 
 def t1_worker():
     global current_hid_op
