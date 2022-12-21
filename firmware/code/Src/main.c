@@ -94,13 +94,17 @@ add JIS keys
 0.21.0 20221117
 changed USB HID descriptor so new japanese keys work
 
+0.21.1 20221221
+cleaned up animation code
+tried out no animation at all, frees up about 1K of ram
+
 NEXT: Add HID commands for changing RGB colour
 
 */
 
 uint8_t fw_version_major = 0;
 uint8_t fw_version_minor = 21;
-uint8_t fw_version_patch = 0;
+uint8_t fw_version_patch = 1;
 char instruction[] = "For instructions, see";
 /* USER CODE END PV */
 

@@ -25,9 +25,7 @@ void neopixel_off(void)
   memset(red_buf, 0, NEOPIXEL_COUNT);
   memset(green_buf, 0, NEOPIXEL_COUNT);
   memset(blue_buf, 0, NEOPIXEL_COUNT);
-  taskENTER_CRITICAL();
   neopixel_show(red_buf, green_buf, blue_buf);
-  taskEXIT_CRITICAL();
 }
 
 void set_pixel_color(uint8_t which, uint8_t r, uint8_t g, uint8_t b)
@@ -75,9 +73,7 @@ void led_animation_handler(void)
       set_pixel_color(neo_anime[idx].index, neo_anime[idx].current_color[0], neo_anime[idx].current_color[1], neo_anime[idx].current_color[2]);
     }  
   }
-  taskENTER_CRITICAL();
   neopixel_show(red_buf, green_buf, blue_buf);
-  taskEXIT_CRITICAL();
 }
 
 void led_animation_init(led_animation* anime_struct, uint8_t index)
@@ -108,19 +104,18 @@ void anime_init(void)
 {
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
     led_animation_init(&neo_anime[i], i);
-  // change_bg();
 }
 
 void redraw_bg(void)
 {
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
-    led_start_animation(&neo_anime[i], p_cache.individual_key_color[i], ANIMATION_FULLY_ON, 2);
+    led_start_animation(&neo_anime[i], p_cache.individual_key_color[i], ANIMATION_FULLY_ON, 0);
 }
 
 void change_bg(void)
 {
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
-    led_start_animation(&neo_anime[i], p_cache.individual_key_color[i], ANIMATION_CROSS_FADE, 4);
+    led_start_animation(&neo_anime[i], p_cache.individual_key_color[i], ANIMATION_FULLY_ON, 0);
 }
 
 void error_animation(uint8_t stage)
@@ -130,14 +125,14 @@ void error_animation(uint8_t stage)
     for (int j = 0; j < 3; ++j)
     {
       for (int i = 0; i < NEOPIXEL_COUNT; ++i)
-        led_start_animation(&neo_anime[i], error_color_red, ANIMATION_CROSS_FADE, 2);
+        led_start_animation(&neo_anime[i], error_color_red, ANIMATION_FULLY_ON, 0);
       osDelay(500);
       for (int i = 0; i < NEOPIXEL_COUNT; ++i)
-        led_start_animation(&neo_anime[i], color_black, ANIMATION_CROSS_FADE, 2);
+        led_start_animation(&neo_anime[i], color_black, ANIMATION_FULLY_ON, 0);
       osDelay(500);
     }
     for (int i = 0; i < NEOPIXEL_COUNT; ++i)
-      led_start_animation(&neo_anime[i], error_color_red, ANIMATION_CROSS_FADE, 2);
+      led_start_animation(&neo_anime[i], error_color_red, ANIMATION_FULLY_ON, 0);
     osDelay(50);
   }
   else
@@ -150,30 +145,16 @@ void error_animation(uint8_t stage)
 void profile_quickswitch_animation(void)
 {
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
-    led_start_animation(&neo_anime[i], profile_quickswitch_color, ANIMATION_FULLY_ON, 2);
+    led_start_animation(&neo_anime[i], profile_quickswitch_color, ANIMATION_FULLY_ON, 0);
   osDelay(30);
 }
 
 void keydown_anime_start(uint8_t idx)
 {
-  led_start_animation(&neo_anime[idx], p_cache.individual_keydown_color[idx], ANIMATION_FULLY_ON, 5);
+  led_start_animation(&neo_anime[idx], p_cache.individual_keydown_color[idx], ANIMATION_FULLY_ON, 0);
 }
 
 void keydown_anime_end(uint8_t idx)
 {
   led_start_animation(&neo_anime[idx], p_cache.individual_key_color[idx], ANIMATION_CROSS_FADE, 70);
-}
-
-void key_led_shutdown(void)
-{
-  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
-    led_start_animation(&neo_anime[i], color_black, ANIMATION_CROSS_FADE, 6);
-}
-
-void all_led_off(void)
-{
-  for (int i = 0; i < 4; ++i)
-    led_start_animation(&neo_anime[i], color_blue, ANIMATION_FULLY_ON, 2);
-  for (int i = 4; i < NEOPIXEL_COUNT; ++i)
-    led_start_animation(&neo_anime[i], color_black, ANIMATION_FULLY_ON, 2);
 }

@@ -406,8 +406,7 @@ void keymap_config(void)
     return;
   }
   force_keymap_setting:
-  all_led_off();
-  osDelay(50);
+  neopixel_off();
   service_all();
   is_busy = 1;
   print_keymap(current_keymap_page);
@@ -1066,12 +1065,11 @@ void keypress_task_start(void const * argument)
 
 void start_sleeping(void)
 {
-  key_led_shutdown();
+  neopixel_off();
   ssd1306_Fill(Black);
   ssd1306_UpdateScreen();
   ssd1306_UpdateScreen();
   ssd1306_UpdateScreen();
-  osDelay(100);
   is_sleeping = 1;
 }
 
