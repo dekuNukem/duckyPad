@@ -1066,6 +1066,7 @@ void keypress_task_start(void const * argument)
 void start_sleeping(void)
 {
   neopixel_off();
+  osDelay(66);
   ssd1306_Fill(Black);
   ssd1306_UpdateScreen();
   ssd1306_UpdateScreen();

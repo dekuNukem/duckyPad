@@ -3,7 +3,7 @@
 <title>Static Call Graph - [lul\lul.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image lul\lul.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Dec 21 22:15:53 2022
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu Dec 22 09:12:08 2022
 <BR><P>
 <H3>Maximum Stack Usage =        424 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -317,7 +317,6 @@ Global Symbols
 <LI><a href="#[16d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_release_all
 <LI><a href="#[19d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;neopixel_show
 <LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_scan_task
-<LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;neopixel_off
 <LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_keymaps
 <LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_keymap
 <LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_keymap_by_name
@@ -330,8 +329,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[15d]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;neopixel_off
-<LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
+<BR><BR>[Called By]<UL><LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
 <LI><a href="#[16f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_settings
 <LI><a href="#[199]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_loop_state
 <LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_last_profile
@@ -2723,6 +2721,7 @@ Global Symbols
 <LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;profile_quickswitch_animation
+<LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;neopixel_off
 <LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keydown_anime_start
 <LI><a href="#[18b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keydown_anime_end
 <LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;redraw_bg
@@ -2928,12 +2927,10 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_release
 </UL>
 
-<P><STRONG><a name="[17d]"></a>neopixel_off</STRONG> (Thumb, 46 bytes, Stack size 8 bytes, animations.o(i.neopixel_off))
-<BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = neopixel_off &rArr; neopixel_show &rArr; HAL_SPI_Transmit &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
+<P><STRONG><a name="[17d]"></a>neopixel_off</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, animations.o(i.neopixel_off))
+<BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = neopixel_off &rArr; led_start_animation &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; __aeabi_llsr
 </UL>
-<BR>[Calls]<UL><LI><a href="#[19d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;neopixel_show
-<LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
-<LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
+<BR>[Calls]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_start_animation
 </UL>
 <BR>[Called By]<UL><LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_scan_task
 <LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;start_sleeping
@@ -2950,8 +2947,7 @@ Global Symbols
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;neopixel_off
-<LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_animation_handler
+<BR>[Called By]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_animation_handler
 </UL>
 
 <P><STRONG><a name="[169]"></a>oled_full_brightness</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, my_tasks.o(i.oled_full_brightness))
@@ -2972,6 +2968,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_wrapper
 <LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_scan_task
 <LI><a href="#[1be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;profile_quickswitch_animation
+<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;start_sleeping
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_brightness
 <LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;profile_quickswitch
 <LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_no_keymap_error
@@ -3532,12 +3529,13 @@ Global Symbols
 <LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animation_task_start
 </UL>
 
-<P><STRONG><a name="[fe]"></a>start_sleeping</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, my_tasks.o(i.start_sleeping))
+<P><STRONG><a name="[fe]"></a>start_sleeping</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, my_tasks.o(i.start_sleeping))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = start_sleeping &rArr; ssd1306_UpdateScreen &rArr; ssd1306_WriteCommand &rArr; HAL_I2C_Mem_Write &rArr; I2C_RequestMemoryWrite &rArr; I2C_WaitOnTXISFlagUntilTimeout &rArr; I2C_IsAcknowledgeFailed
 </UL>
 <BR>[Calls]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_UpdateScreen
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_Fill
 <LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;neopixel_off
+<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 </UL>
 <BR>[Called By]<UL><LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_task_start
 <LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_hid_command
