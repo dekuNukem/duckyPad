@@ -79,7 +79,6 @@ void print_legend(int8_t x_offset, int8_t y_offset);
 void save_settings(void);
 void load_settings(void);
 void save_last_profile(uint8_t profile_id);
-void list_profiles(uint8_t page);
 void print_keyname(char* keyname, uint8_t keynum, int8_t x_offset, int8_t y_offset);
 char* goto_next_arg(char* buf, char* buf_end);
 void delay_wrapper(int32_t amount, int32_t fuzz);

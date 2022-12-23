@@ -98,53 +98,6 @@ void change_brightness()
     }
 }
 
-#define MAX_PQS_PAGES 2
-void profile_quickswitch(void)
-{
-  int8_t pqs_page = p_cache.current_profile / MAPPABLE_KEY_COUNT;
-  if(pqs_page >= MAX_PQS_PAGES)
-    pqs_page = MAX_PQS_PAGES - 1;
-  profile_quickswitch_animation();
-  list_profiles(pqs_page);
-  service_all();
-
-  while(1)
-  {
-    HAL_IWDG_Refresh(&hiwdg);
-    keyboard_update();
-
-    for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
-      if(is_pressed(&button_status[i]))
-      {
-        uint8_t this_profile = pqs_page * MAPPABLE_KEY_COUNT + i + 1;
-        if(p_cache.available_profile[this_profile])
-        {
-          restore_profile(this_profile);
-          return;
-        }
-        service_all();
-      }
-      
-    if(is_pressed(&button_status[KEY_BUTTON1])) // -
-    {
-        pqs_page--;
-        if(pqs_page < 0)
-            pqs_page = MAX_PQS_PAGES-1;
-        list_profiles(pqs_page);
-        service_all();
-    }
-    if(is_pressed(&button_status[KEY_BUTTON2])) // +
-    {
-        pqs_page++;
-        if(pqs_page >= MAX_PQS_PAGES)
-            pqs_page = 0;
-        list_profiles(pqs_page);
-        service_all();
-    }
-    osDelay(50);
-  }
-}
-
 void handle_tactile_button_press(uint8_t button_num)
 {
     button_hold_start = HAL_GetTick();
@@ -169,20 +122,15 @@ void handle_tactile_button_press(uint8_t button_num)
     }
     else // long press
     {
-      is_busy = 1;
       if(button_num == KEY_BUTTON1) // -
       {
+        is_busy = 1;
         change_brightness();
         save_settings();
+        is_busy = 0;
+        print_legend(0, 0);
+        service_all();
       }
-      else if(button_num == KEY_BUTTON2) // +
-      {
-        profile_quickswitch();
-      }
-
-      is_busy = 0;
-      print_legend(0, 0);
-      service_all();
     }
 }
 

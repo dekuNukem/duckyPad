@@ -355,24 +355,6 @@ uint8_t load_colors(char* pf_fn)
   return ret;
 }
 
-void list_profiles(uint8_t page)
-{
-  uint8_t p_start = page*MAPPABLE_KEY_COUNT;
-  uint8_t p_end = p_start + MAPPABLE_KEY_COUNT;
-  // uint32_t time = HAL_GetTick();
-  memset(temp_buf, 0, PATH_SIZE);
-  sprintf(temp_buf, "Profile %d - %d", p_start+1, p_end);
-  temp_buf[21] = 0;
-  ssd1306_Fill(Black);
-  ssd1306_SetCursor((21 - strlen(temp_buf)) * 3, 0);
-  ssd1306_WriteString(temp_buf, Font_6x10,White);
-  for (uint8_t i = p_start; i < p_end; ++i)
-    if(i < MAX_PROFILES)
-      print_keyname(pf_name_cache[i], i - p_start, 0, 0);
-  ssd1306_UpdateScreen();
-  // printf("took %dms\n", HAL_GetTick() - time);
-}
-
 uint8_t how_many_digits(uint8_t number)
 {
   if(number >= 100)

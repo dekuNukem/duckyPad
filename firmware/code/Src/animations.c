@@ -146,13 +146,6 @@ void error_animation(uint8_t stage)
   }
 }
 
-void profile_quickswitch_animation(void)
-{
-  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
-    led_start_animation(&neo_anime[i], profile_quickswitch_color, ANIMATION_FULLY_ON, 0);
-  osDelay(30);
-}
-
 void keydown_anime_start(uint8_t idx)
 {
   led_start_animation(&neo_anime[idx], p_cache.individual_keydown_color[idx], ANIMATION_FULLY_ON, 0);
