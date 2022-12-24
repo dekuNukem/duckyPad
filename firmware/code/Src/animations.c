@@ -18,8 +18,6 @@ uint8_t color_blue[THREE] = {0, 0, 128};
 uint8_t profile_quickswitch_color[THREE] = {50, 50, 50};
 int8_t brightness_index = BRIGHTNESS_LEVELS - 1;
 uint8_t brightness_values[BRIGHTNESS_LEVELS] = {0, 20, 50, 70, 100};
-uint16_t temp_r, temp_g, temp_b;
-
 
 void set_pixel_color(uint8_t which, uint8_t r, uint8_t g, uint8_t b)
 {
@@ -95,10 +93,6 @@ void led_start_animation(led_animation* anime_struct, uint8_t dest_color[THREE],
 
 void neopixel_off(void)
 {
-  // memset(red_buf, 0, NEOPIXEL_COUNT);
-  // memset(green_buf, 0, NEOPIXEL_COUNT);
-  // memset(blue_buf, 0, NEOPIXEL_COUNT);
-  // neopixel_show(red_buf, green_buf, blue_buf);
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
     led_start_animation(&neo_anime[i], color_black, ANIMATION_FULLY_ON, 0);
 }
