@@ -8,6 +8,7 @@
 #include "keyboard.h"
 #include "animations.h"
 #include "usbd_desc.h"
+#include "hash_lookup.h"
 
 uint8_t pf_name_cache[MAX_PROFILES][PF_CACHE_FILENAME_MAXLEN];
 
@@ -20,8 +21,6 @@ static const uint8_t col_lookup[7][3] = {
    {3, 45, 88},
    {0, 42, 85}
 };
-
-static const uint8_t f_key_lookup[24] = {0X3A, 0X3B, 0X3C, 0X3D, 0X3E, 0X3F, 0X40, 0X41, 0X42, 0X43, 0X44, 0X45, 0x68, 0x69, 0x6a, 0x6b, 0x6c, 0x6d, 0x6e, 0x6f, 0x70, 0x71, 0x72, 0x73};
 
 FRESULT sd_fresult;
 FATFS sd_fs;
@@ -58,49 +57,6 @@ const char cmd_DELAY[] = "DELAY ";
 const char cmd_STRING[] = "STRING ";
 const char cmd_STRINGLN[] = "STRINGLN ";
 const char cmd_UARTPRINT[] = "UARTPRINT ";
-const char cmd_ESCAPE[] = "ESCAPE";
-const char cmd_ESC[] = "ESC";
-const char cmd_ENTER[] = "ENTER";
-const char cmd_UP[] = "UP";
-const char cmd_DOWN[] = "DOWN";
-const char cmd_LEFT[] = "LEFT";
-const char cmd_RIGHT[] = "RIGHT";
-const char cmd_UPARROW[] = "UPARROW";
-const char cmd_DOWNARROW[] = "DOWNARROW";
-const char cmd_LEFTARROW[] = "LEFTARROW";
-const char cmd_RIGHTARROW[] = "RIGHTARROW";
-const char cmd_BACKSPACE[] = "BACKSPACE";
-const char cmd_TAB[] = "TAB";
-const char cmd_CAPSLOCK[] = "CAPSLOCK";
-const char cmd_PRINTSCREEN[] = "PRINTSCREEN";
-const char cmd_SCROLLLOCK[] = "SCROLLLOCK";
-const char cmd_PAUSE[] = "PAUSE";
-const char cmd_BREAK[] = "BREAK";
-const char cmd_INSERT[] = "INSERT";
-const char cmd_HOME[] = "HOME";
-const char cmd_PAGEUP[] = "PAGEUP";
-const char cmd_PAGEDOWN[] = "PAGEDOWN";
-const char cmd_DELETE[] = "DELETE";
-const char cmd_END[] = "END";
-const char cmd_SPACE[] = "SPACE";
-
-const char cmd_SHIFT[] = "SHIFT";
-const char cmd_RSHIFT[] = "RSHIFT";
-
-const char cmd_ALT[] = "ALT";
-const char cmd_RALT[] = "RALT";
-const char cmd_OPTION[] = "OPTION";
-const char cmd_ROPTION[] = "ROPTION";
-
-const char cmd_GUI[] = "GUI";
-const char cmd_WINDOWS[] = "WINDOWS";
-const char cmd_COMMAND[] = "COMMAND";
-const char cmd_RWINDOWS[] = "RWINDOWS";
-const char cmd_RCOMMAND[] = "RCOMMAND";
-
-const char cmd_CONTROL[] = "CONTROL";
-const char cmd_CTRL[] = "CTRL";
-const char cmd_RCTRL[] = "RCTRL";
 
 const char cmd_BG_COLOR[] = "BG_COLOR ";
 const char cmd_KD_COLOR[] = "KEYDOWN_COLOR ";
@@ -108,45 +64,7 @@ const char cmd_SWCOLOR[] = "SWCOLOR_";
 const char cmd_SW_SELF_COLOR[] = "SWCOLOR ";
 const char cmd_DIM_UNUSED_KEYS[] = "DIM_UNUSED_KEYS ";
 
-const char cmd_NUMLOCK[] = "NUMLOCK"; // Keyboard Num Lock and Clear
-const char cmd_KPSLASH[] = "KP_SLASH"; // Keypad /
-const char cmd_KPASTERISK[] = "KP_ASTERISK"; // Keypad *
-const char cmd_KPMINUS[] = "KP_MINUS"; // Keypad -
-const char cmd_KPPLUS[] = "KP_PLUS"; // Keypad +
-const char cmd_KPENTER[] = "KP_ENTER"; // Keypad ENTER
-const char cmd_KP1[] = "KP_1"; // Keypad 1 and End
-const char cmd_KP2[] = "KP_2"; // Keypad 2 and Down Arrow
-const char cmd_KP3[] = "KP_3"; // Keypad 3 and PageDn
-const char cmd_KP4[] = "KP_4"; // Keypad 4 and Left Arrow
-const char cmd_KP5[] = "KP_5"; // Keypad 5
-const char cmd_KP6[] = "KP_6"; // Keypad 6 and Right Arrow
-const char cmd_KP7[] = "KP_7"; // Keypad 7 and Home
-const char cmd_KP8[] = "KP_8"; // Keypad 8 and Up Arrow
-const char cmd_KP9[] = "KP_9"; // Keypad 9 and Page Up
-const char cmd_KP0[] = "KP_0"; // Keypad 0 and Insert
-const char cmd_KPDOT[] = "KP_DOT"; // Keypad . and Delete
-const char cmd_KPEQUAL[] = "KP_EQUAL"; // Keypad EQUAL
-
-const char cmd_MK_VOLUP[] = "MK_VOLUP";
-const char cmd_MK_VOLDOWN[] = "MK_VOLDOWN";
-const char cmd_MK_VOLMUTE[] = "MK_MUTE";
-const char cmd_MK_PREV[] = "MK_PREV";
-const char cmd_MK_NEXT[] = "MK_NEXT";
-const char cmd_MK_PLAYPAUSE[] = "MK_PP";
-const char cmd_MK_STOP[] = "MK_STOP";
-
-const char cmd_KATAKANAHIRAGANA[] = "KATAKANAHIRAGANA";
-const char cmd_HENKAN[] = "HENKAN";
-const char cmd_MUHENKAN[] = "MUHENKAN";
-const char cmd_KATAKANA[] = "KATAKANA";
-const char cmd_HIRAGANA[] = "HIRAGANA";
-const char cmd_ZENKAKUHANKAKU[] = "ZENKAKUHANKAKU";
-
-const char cmd_MENU[] = "MENU";
-const char cmd_APP[] = "APP";
 const char cmd_OLD_HOLD[] = "EMUK ";
-const char cmd_POWER[] = "POWER";
-
 const char cmd_LOOP[] = "LOOP";
 const char cmd_LCR[] = "LCR"; // loop counter reset
 
@@ -684,406 +602,59 @@ void change_profile(uint8_t direction)
   restore_profile(next_profile);
 }
 
+uint16_t djb2(uint8_t *str, uint8_t len)
+{
+    uint32_t hash = 5381;
+    uint8_t *end = str + len;
+    uint8_t c;
+    while ((c = *str++) && (str <= end))
+      hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+    return (uint16_t)hash;
+}
+
+char* get_nonspace_arg_len(char* buf, uint8_t *len)
+{
+  if(buf == NULL)
+    return NULL;
+  while(*buf != 0 && *buf == ' ')
+    buf++;
+  // now buf points to the start of first non-whitespace character
+  char* space_ptr = strchr(buf, ' ');
+  if(space_ptr == NULL)
+    *len = strlen(buf);
+  else
+    *len = space_ptr - buf;
+  return buf;
+}
+
+uint8_t find_lookup_index_from_hash(uint16_t hash, uint8_t *index)
+{
+  for (int i = 0; i < KEYWORD_HASH_SIZE; ++i)
+    if(keyword_hash[i] == hash)
+    {
+      *index = i;
+      return 1;
+    }
+  return 0;
+}
+
 void parse_special_key(char* msg, my_key* this_key)
 {
   if(msg == NULL || this_key == NULL)
     return;
- 
-  this_key->key_type = KEY_TYPE_SPECIAL;
-  if(strncmp(msg, cmd_UP, strlen(cmd_UP)) == 0)
-  {
-    this_key->code = KEY_UP_ARROW;
-    return;
-  }
-  else if(strncmp(msg, cmd_DOWN, strlen(cmd_DOWN)) == 0)
-  {
-    this_key->code = KEY_DOWN_ARROW;
-    return;
-  }
-  else if(strncmp(msg, cmd_LEFT, strlen(cmd_LEFT)) == 0)
-  {
-    this_key->code = KEY_LEFT_ARROW;
-    return;
-  }
-  else if(strncmp(msg, cmd_RIGHT, strlen(cmd_RIGHT)) == 0)
-  {
-    this_key->code = KEY_RIGHT_ARROW;
-    return;
-  }
-  else if(strncmp(msg, cmd_UPARROW, strlen(cmd_UPARROW)) == 0)
-  {
-    this_key->code = KEY_UP_ARROW;
-    return;
-  }
-  else if(strncmp(msg, cmd_DOWNARROW, strlen(cmd_DOWNARROW)) == 0)
-  {
-    this_key->code = KEY_DOWN_ARROW;
-    return;
-  }
-  else if(strncmp(msg, cmd_LEFTARROW, strlen(cmd_LEFTARROW)) == 0)
-  {
-    this_key->code = KEY_LEFT_ARROW;
-    return;
-  }
-  else if(strncmp(msg, cmd_RIGHTARROW, strlen(cmd_RIGHTARROW)) == 0)
-  {
-    this_key->code = KEY_RIGHT_ARROW;
-    return;
-  }
-  else if(strncmp(msg, cmd_ESCAPE, strlen(cmd_ESCAPE)) == 0)
-  {
-    this_key->code = KEY_ESC;
-    return;
-  }
-  else if(strncmp(msg, cmd_ESC, strlen(cmd_ESC)) == 0)
-  {
-    this_key->code = KEY_ESC;
-    return;
-  }
-  else if(strncmp(msg, cmd_ENTER, strlen(cmd_ENTER)) == 0)
-  {
-    this_key->code = KEY_RETURN;
-    return;
-  }
-  else if(strncmp(msg, cmd_BACKSPACE, strlen(cmd_BACKSPACE)) == 0)
-  {
-    this_key->code = KEY_BACKSPACE;
-    return;
-  }
-  else if(strncmp(msg, cmd_TAB, strlen(cmd_TAB)) == 0)
-  {
-    this_key->code = KEY_TAB;
-    return;
-  }
-  else if(strncmp(msg, cmd_CAPSLOCK, strlen(cmd_CAPSLOCK)) == 0)
-  {
-    this_key->code = KEY_CAPS_LOCK;
-    return;
-  }
-  else if(strncmp(msg, cmd_PRINTSCREEN, strlen(cmd_PRINTSCREEN)) == 0)
-  {
-    this_key->code = KEY_PRINT_SCREEN;
-    return;
-  }
-  else if(strncmp(msg, cmd_SCROLLLOCK, strlen(cmd_SCROLLLOCK)) == 0)
-  {
-    this_key->code = KEY_SCROLL_LOCK;
-    return;
-  }
-  else if(strncmp(msg, cmd_PAUSE, strlen(cmd_PAUSE)) == 0)
-  {
-    this_key->code = KEY_PAUSE;
-    return;
-  }
-  else if(strncmp(msg, cmd_BREAK, strlen(cmd_BREAK)) == 0)
-  {
-    this_key->code = KEY_PAUSE;
-    return;
-  }
-  else if(strncmp(msg, cmd_INSERT, strlen(cmd_INSERT)) == 0)
-  {
-    this_key->code = KEY_INSERT;
-    return;
-  }
-  else if(strncmp(msg, cmd_HOME, strlen(cmd_HOME)) == 0)
-  {
-    this_key->code = KEY_HOME;
-    return;
-  }
-  else if(strncmp(msg, cmd_PAGEUP, strlen(cmd_PAGEUP)) == 0)
-  {
-    this_key->code = KEY_PAGE_UP;
-    return;
-  }
-  else if(strncmp(msg, cmd_PAGEDOWN, strlen(cmd_PAGEDOWN)) == 0)
-  {
-    this_key->code = KEY_PAGE_DOWN;
-    return;
-  }
-  else if(strncmp(msg, cmd_DELETE, strlen(cmd_DELETE)) == 0)
-  {
-    this_key->code = KEY_DELETE;
-    return;
-  }
-  else if(strncmp(msg, cmd_END, strlen(cmd_END)) == 0)
-  {
-    this_key->code = KEY_END;
-    return;
-  }
 
-  else if(strncmp(msg, cmd_NUMLOCK, strlen(cmd_NUMLOCK)) == 0)
+  uint8_t kw_len = 0;
+  char* arg_start = get_nonspace_arg_len(msg, &kw_len);
+  uint16_t hash_result = djb2(arg_start, kw_len);
+  uint8_t lookup_index = 0;
+  if(find_lookup_index_from_hash(hash_result, &lookup_index) == 0)
   {
-    this_key->code = KEY_NUMLOCK;
+    // keyword not found
+    init_my_key(this_key);
     return;
   }
-
-  else if(strncmp(msg, cmd_KPSLASH, strlen(cmd_KPSLASH)) == 0)
-  {
-    this_key->code = KEY_KPSLASH;
-    return;
-  }
-  else if(strncmp(msg, cmd_KPASTERISK, strlen(cmd_KPASTERISK)) == 0)
-  {
-    this_key->code = KEY_KPASTERISK;
-    return;
-  }
-  else if(strncmp(msg, cmd_KPMINUS, strlen(cmd_KPMINUS)) == 0)
-  {
-    this_key->code = KEY_KPMINUS;
-    return;
-  }
-  else if(strncmp(msg, cmd_KPPLUS, strlen(cmd_KPPLUS)) == 0)
-  {
-    this_key->code = KEY_KPPLUS;
-    return;
-  }
-  else if(strncmp(msg, cmd_KPENTER, strlen(cmd_KPENTER)) == 0)
-  {
-    this_key->code = KEY_KPENTER;
-    return;
-  }
-  else if(strncmp(msg, cmd_KP1, strlen(cmd_KP1)) == 0)
-  {
-    this_key->code = KEY_KP1;
-    return;
-  }
-  else if(strncmp(msg, cmd_KP2, strlen(cmd_KP2)) == 0)
-  {
-    this_key->code = KEY_KP2;
-    return;
-  }
-  else if(strncmp(msg, cmd_KP3, strlen(cmd_KP3)) == 0)
-  {
-    this_key->code = KEY_KP3;
-    return;
-  }
-  else if(strncmp(msg, cmd_KP4, strlen(cmd_KP4)) == 0)
-  {
-    this_key->code = KEY_KP4;
-    return;
-  }
-  else if(strncmp(msg, cmd_KP5, strlen(cmd_KP5)) == 0)
-  {
-    this_key->code = KEY_KP5;
-    return;
-  }
-  else if(strncmp(msg, cmd_KP6, strlen(cmd_KP6)) == 0)
-  {
-    this_key->code = KEY_KP6;
-    return;
-  }
-  else if(strncmp(msg, cmd_KP7, strlen(cmd_KP7)) == 0)
-  {
-    this_key->code = KEY_KP7;
-    return;
-  }
-  else if(strncmp(msg, cmd_KP8, strlen(cmd_KP8)) == 0)
-  {
-    this_key->code = KEY_KP8;
-    return;
-  }
-  else if(strncmp(msg, cmd_KP9, strlen(cmd_KP9)) == 0)
-  {
-    this_key->code = KEY_KP9;
-    return;
-  }
-  else if(strncmp(msg, cmd_KP0, strlen(cmd_KP0)) == 0)
-  {
-    this_key->code = KEY_KP0;
-    return;
-  }
-  else if(strncmp(msg, cmd_KPDOT, strlen(cmd_KPDOT)) == 0)
-  {
-    this_key->code = KEY_KPDOT;
-    return;
-  }
-  else if(strncmp(msg, cmd_KPEQUAL, strlen(cmd_KPEQUAL)) == 0)
-  {
-    this_key->code = KEY_KPEQUAL;
-    return;
-  }
-  else if(strncmp(msg, cmd_POWER, strlen(cmd_POWER)) == 0)
-  {
-    this_key->code = KEY_POWER;
-    return;
-  }
-  else if(msg[0] == 'F')
-  {
-    uint8_t f_number = atoi(msg+1);
-    if(f_number == 0 || f_number > 24)
-    {
-      init_my_key(this_key);
-      return;
-    }
-    this_key->code = f_key_lookup[f_number-1];
-    return;
-  }
-  else if(strncmp(msg, cmd_MENU, strlen(cmd_MENU)) == 0)
-  {
-    this_key->code = KEY_MENU;
-    return;
-  }
-  else if(strncmp(msg, cmd_APP, strlen(cmd_APP)) == 0)
-  {
-    this_key->code = KEY_MENU;
-    return;
-  }
-  else if(strncmp(msg, cmd_KATAKANAHIRAGANA, strlen(cmd_KATAKANAHIRAGANA)) == 0)
-  {
-    this_key->code = KEY_KATAKANAHIRAGANA;
-    return;
-  }
-  else if(strncmp(msg, cmd_HENKAN, strlen(cmd_HENKAN)) == 0)
-  {
-    this_key->code = KEY_HENKAN;
-    return;
-  }
-  else if(strncmp(msg, cmd_MUHENKAN, strlen(cmd_MUHENKAN)) == 0)
-  {
-    this_key->code = KEY_MUHENKAN;
-    return;
-  }
-  else if(strncmp(msg, cmd_KATAKANA, strlen(cmd_KATAKANA)) == 0)
-  {
-    this_key->code = KEY_KATAKANA;
-    return;
-  }
-  else if(strncmp(msg, cmd_HIRAGANA, strlen(cmd_HIRAGANA)) == 0)
-  {
-    this_key->code = KEY_HIRAGANA;
-    return;
-  }
-  else if(strncmp(msg, cmd_ZENKAKUHANKAKU, strlen(cmd_ZENKAKUHANKAKU)) == 0)
-  {
-    this_key->code = KEY_ZENKAKUHANKAKU;
-    return;
-  }
-// ----------------------------------
-  this_key->key_type = KEY_TYPE_CHAR;
-  if(strncmp(msg, cmd_SPACE, strlen(cmd_SPACE)) == 0)
-  {
-    this_key->code = ' ';
-    return;
-  }
-// ----------------------------------
-  this_key->key_type = KEY_TYPE_MODIFIER;
-  if(strncmp(msg, cmd_SHIFT, strlen(cmd_SHIFT)) == 0)
-  {
-    this_key->code = KEY_LEFT_SHIFT;
-    return;
-  }
-  if(strncmp(msg, cmd_RSHIFT, strlen(cmd_RSHIFT)) == 0)
-  {
-    this_key->code = KEY_RIGHT_SHIFT;
-    return;
-  }
-  else if((strncmp(msg, cmd_ALT, strlen(cmd_ALT)) == 0) || strncmp(msg, cmd_OPTION, strlen(cmd_OPTION)) == 0)
-  {
-    this_key->code = KEY_LEFT_ALT;
-    return;
-  }
-  else if((strncmp(msg, cmd_RALT, strlen(cmd_RALT)) == 0) || strncmp(msg, cmd_ROPTION, strlen(cmd_ROPTION)) == 0)
-  {
-    this_key->code = KEY_RIGHT_ALT;
-    return;
-  }
-  else if((strncmp(msg, cmd_GUI, strlen(cmd_GUI)) == 0) || (strncmp(msg, cmd_WINDOWS, strlen(cmd_WINDOWS)) == 0) || (strncmp(msg, cmd_COMMAND, strlen(cmd_COMMAND)) == 0))
-  {
-    this_key->code = KEY_LEFT_GUI;
-    return;
-  }
-  else if((strncmp(msg, cmd_RWINDOWS, strlen(cmd_RWINDOWS)) == 0) || (strncmp(msg, cmd_RCOMMAND, strlen(cmd_RCOMMAND)) == 0))
-  {
-    this_key->code = KEY_RIGHT_GUI;
-    return;
-  }
-  else if((strncmp(msg, cmd_CTRL, strlen(cmd_CTRL)) == 0) || (strncmp(msg, cmd_CONTROL, strlen(cmd_CONTROL)) == 0))
-  {
-    this_key->code = KEY_LEFT_CTRL;
-    return;
-  }
-  else if(strncmp(msg, cmd_RCTRL, strlen(cmd_RCTRL)) == 0)
-  {
-    this_key->code = KEY_RIGHT_CTRL;
-    return;
-  }
-
-// ----------------------------------
-  this_key->key_type = KEY_TYPE_MEDIA;
-  if(strncmp(msg, cmd_MK_VOLUP, strlen(cmd_MK_VOLUP)) == 0)
-  {
-    this_key->code = KEY_MK_VOLUP;
-    return;
-  }
-  else if(strncmp(msg, cmd_MK_VOLDOWN, strlen(cmd_MK_VOLDOWN)) == 0)
-  {
-    this_key->code = KEY_MK_VOLDOWN;
-    return;
-  }
-  else if(strncmp(msg, cmd_MK_VOLMUTE, strlen(cmd_MK_VOLMUTE)) == 0)
-  {
-    this_key->code = KEY_MK_VOLMUTE;
-    return;
-  }
-  else if(strncmp(msg, cmd_MK_PREV, strlen(cmd_MK_PREV)) == 0)
-  {
-    this_key->code = KEY_MK_PREV;
-    return;
-  }
-  else if(strncmp(msg, cmd_MK_NEXT, strlen(cmd_MK_NEXT)) == 0)
-  {
-    this_key->code = KEY_MK_NEXT;
-    return;
-  }
-  else if(strncmp(msg, cmd_MK_PLAYPAUSE, strlen(cmd_MK_PLAYPAUSE)) == 0)
-  {
-    this_key->code = KEY_MK_PLAYPAUSE;
-    return;
-  }
-  else if(strncmp(msg, cmd_MK_VOLMUTE, strlen(cmd_MK_VOLMUTE)) == 0)
-  {
-    this_key->code = KEY_MK_VOLMUTE;
-    return;
-  }
-  else if(strncmp(msg, cmd_MK_STOP, strlen(cmd_MK_STOP)) == 0)
-  {
-    this_key->code = KEY_MK_STOP;
-    return;
-  }
-
-  // ----------------------------------
-  this_key->key_type = KEY_TYPE_MOUSE_BUTTON;
-  if(strncmp(msg, cmd_LMOUSE, strlen(cmd_LMOUSE)) == 0)
-  {
-    this_key->code = 1;
-    return;
-  }
-  else if(strncmp(msg, cmd_RMOUSE, strlen(cmd_RMOUSE)) == 0)
-  {
-    this_key->code = 2;
-    return;
-  }
-  else if(strncmp(msg, cmd_MMOUSE, strlen(cmd_MMOUSE)) == 0)
-  {
-    this_key->code = 4;
-    return;
-  }
-  else if(strncmp(msg, cmd_MOUSE_MOVE, strlen(cmd_MOUSE_MOVE)) == 0)
-  {
-    char* msg_end = msg + strlen(msg);
-    char* curr = goto_next_arg(msg, msg_end);
-    this_key->code = atoi(curr);
-    this_key->code2 = atoi(goto_next_arg(curr, msg_end));
-    this_key->key_type = KEY_TYPE_MOUSE_MOVEMENT;
-    return;
-  }
-  else if(strncmp(msg, cmd_MOUSE_WHEEL, strlen(cmd_MOUSE_WHEEL)) == 0)
-  {
-    this_key->code = atoi(goto_next_arg(msg, msg + strlen(msg)));
-    this_key->key_type = KEY_TYPE_MOUSE_WHEEL;
-    return;
-  }
-  init_my_key(this_key);
+  this_key->code = keyword_keycode[lookup_index];
+  this_key->key_type = keyword_keytype[lookup_index];
 }
 
 #define ACTION_PRESS_ONLY 0
