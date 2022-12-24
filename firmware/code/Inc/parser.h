@@ -47,12 +47,6 @@ extern profile_cache p_cache;
 
 typedef struct
 {
-  uint8_t is_in_use;
-  char name[FILENAME_SIZE];
-} keymap_cache;
-
-typedef struct
-{
   uint32_t sleep_after_ms;
 } dp_global_settings;
 
