@@ -41,7 +41,7 @@ char nonexistent_keyname[] = "\253";
 profile_cache p_cache;
 dp_global_settings dp_settings;
 my_key hold_cache[MAPPABLE_KEY_COUNT];
-my_key hold_cach2[MAPPABLE_KEY_COUNT];
+my_key hold_cache2[MAPPABLE_KEY_COUNT];
 char curr_kb_layout[FILENAME_SIZE] = "default";
 uint8_t key_max_loop[MAPPABLE_KEY_COUNT];
 uint8_t key_press_count[MAPPABLE_KEY_COUNT];
@@ -530,8 +530,8 @@ void reset_hold_cache(void)
   {
     hold_cache[i].key_type = KEY_TYPE_UNKNOWN;
     hold_cache[i].code = 0;
-    hold_cach2[i].key_type = KEY_TYPE_UNKNOWN;
-    hold_cach2[i].code = 0;
+    hold_cache2[i].key_type = KEY_TYPE_UNKNOWN;
+    hold_cache2[i].code = 0;
   }
 }
 
@@ -797,8 +797,8 @@ uint8_t parse_hold(char* line, uint8_t keynum)
       key_2.key_type = KEY_TYPE_CHAR;
       key_2.code = arg2[0];
     }
-    hold_cach2[keynum].key_type = key_2.key_type;
-    hold_cach2[keynum].code = key_2.code;
+    hold_cache2[keynum].key_type = key_2.key_type;
+    hold_cache2[keynum].code = key_2.code;
   }
 
   keyboard_press(&key_1, 0);
