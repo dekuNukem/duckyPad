@@ -967,33 +967,6 @@ uint8_t parse_line(char* line, uint8_t keynum)
   return result;
 }
 
-
-#define REPEAT_HASH (44966)
-#define REM_HASH (6377)
-#define DEFAULTDELAY_HASH (32345)
-#define DEFAULTCHARDELAY_HASH (18039)
-#define DEFAULTDELAYFUZZ_HASH (56040)
-#define DEFAULTCHARDELAYFUZZ_HASH (33286)
-#define DELAY_HASH (42132)
-#define STRING_HASH (29500)
-#define STRINGLN_HASH (15446)
-#define UARTPRINT_HASH (51214)
-#define EMUK_HASH (14455)
-#define LOOP_HASH (5855)
-#define LCR_HASH (65318)
-#define DP_SLEEP_HASH (45873)
-#define PREV_PROFILE_HASH (18482)
-#define NEXT_PROFILE_HASH (15508)
-#define GOTO_PROFILE_HASH (18926)
-#define KEYDOWN_HASH (34694)
-#define KEYUP_HASH (35315)
-#define INJECT_MOD_HASH (44929)
-#define BG_COLOR_HASH (8908)
-#define KEYDOWN_COLOR_HASH (45380)
-#define SWCOLOR__HASH (11853)
-#define SWCOLOR_HASH (10286)
-#define DIM_UNUSED_KEYS_HASH (53421)
-
 void keypress_wrap(uint8_t keynum)
 {
   uint16_t line_num = 0;
