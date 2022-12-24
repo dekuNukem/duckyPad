@@ -38,6 +38,7 @@ void error_animation(uint8_t stage);
 void redraw_bg(void);
 void change_bg(void);
 void neopixel_off(void);
+void led_reset(void);
 
 extern int8_t brightness_index;
 extern uint8_t brightness_values[BRIGHTNESS_LEVELS];

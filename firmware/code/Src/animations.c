@@ -93,7 +93,6 @@ void led_start_animation(led_animation* anime_struct, uint8_t dest_color[THREE],
   anime_struct->animation_duration = durations_frames;
 }
 
-
 void neopixel_off(void)
 {
   // memset(red_buf, 0, NEOPIXEL_COUNT);
@@ -154,4 +153,10 @@ void keydown_anime_start(uint8_t idx)
 void keydown_anime_end(uint8_t idx)
 {
   led_start_animation(&neo_anime[idx], p_cache.individual_key_color[idx], ANIMATION_CROSS_FADE, 70);
+}
+
+void led_reset(void)
+{
+  memset(red_buf, 0, NEOPIXEL_COUNT);
+  neopixel_show(red_buf, red_buf, red_buf);
 }

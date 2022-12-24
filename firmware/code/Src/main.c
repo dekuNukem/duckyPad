@@ -476,7 +476,7 @@ void kb_scan_task(void const * argument)
   MX_USB_DEVICE_Init();
 
   /* USER CODE BEGIN 5 */
-  neopixel_off();
+  led_reset();
   mount_result = f_mount(&sd_fs, "", 1);
   HAL_GPIO_WritePin(OLED_RESET_GPIO_Port, OLED_RESET_Pin, GPIO_PIN_RESET);
   osDelay(10);
