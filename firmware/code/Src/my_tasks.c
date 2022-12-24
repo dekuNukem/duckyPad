@@ -954,9 +954,9 @@ void keypress_task_start(void const * argument)
           {
             keyboard_press(&hold_cache[i], 0);
             osDelay(DEFAULT_CHAR_DELAY_MS);
-            if(hold_cach2[i].key_type != KEY_TYPE_UNKNOWN && hold_cach2[i].code != 0)
+            if(hold_cache2[i].key_type != KEY_TYPE_UNKNOWN && hold_cache2[i].code != 0)
             {
-              keyboard_press(&hold_cach2[i], 0);
+              keyboard_press(&hold_cache2[i], 0);
               osDelay(DEFAULT_CHAR_DELAY_MS);
             }
           }
@@ -997,9 +997,9 @@ void keypress_task_start(void const * argument)
         last_keypress = HAL_GetTick();
         keyboard_release(&hold_cache[i]);
         osDelay(DEFAULT_CHAR_DELAY_MS);
-        if(hold_cach2[i].key_type != KEY_TYPE_UNKNOWN && hold_cach2[i].code != 0)
+        if(hold_cache2[i].key_type != KEY_TYPE_UNKNOWN && hold_cache2[i].code != 0)
         {
-          keyboard_release(&hold_cach2[i]);
+          keyboard_release(&hold_cache2[i]);
           osDelay(DEFAULT_CHAR_DELAY_MS);
         }
         keydown_anime_end(i);
