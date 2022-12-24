@@ -210,38 +210,60 @@ uint8_t load_keymap_by_name(char* name)
   return result;
 }
 
-void clean_keymap_name(char* orig, char* output, uint8_t prefix)
-{
-  sprintf(output, "%d. ", prefix);
-  strncpy(output+3, orig+5, strlen(orig)-9);
-}
-
-void print_keymap(void)
+void print_keymap(char* msg)
 {
   ssd1306_Fill(Black);
-  ssd1306_SetCursor(15, 0);
+  ssd1306_SetCursor(15, 5);
   ssd1306_WriteString("Keyboard Layout:", Font_6x10,White);
-  memset(temp_buf, 0, PATH_SIZE);
-  sprintf(temp_buf, "%u", HAL_GetTick());
   ssd1306_SetCursor(10, 20);
-  ssd1306_WriteString(temp_buf, Font_6x10,White);
+  ssd1306_WriteString(msg+5, Font_6x10,White);
+  ssd1306_SetCursor(20, 35);
+  ssd1306_WriteString("+/- to select", Font_6x10,White);
+  ssd1306_SetCursor(15, 50);
+  ssd1306_WriteString("Any key to exit", Font_6x10,White);
   ssd1306_UpdateScreen();
 }
 
-void keymap_config(void)
+void select_keymap(void)
 {
-  print_keymap();
+  memset(temp_buf, 0, PATH_SIZE);
+  print_keymap(temp_buf);
+  char* keymap_filename;
+  fno.lfname = lfn_buf;
+  fno.lfsize = FILENAME_SIZE - 1;
+  if (f_opendir(&dir, "/keymaps") != FR_OK)
+    return;
+  
+  sprintf(temp_buf, "dpkm_");
   while(1)
   {
     HAL_IWDG_Refresh(&hiwdg);
     keyboard_update();
     if(is_pressed(&button_status[KEY_BUTTON1]) || is_pressed(&button_status[KEY_BUTTON2])) // -
     {
-      print_keymap();
+      memset(lfn_buf, 0, FILENAME_SIZE);
+      if(f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)
+        f_readdir(&dir, 0);
+      if(fno.fattrib & AM_DIR)
+        continue;
+      keymap_filename = fno.lfname[0] ? fno.lfname : fno.fname;
+      if(strncmp(temp_buf, keymap_filename, strlen(temp_buf)) != 0)
+        continue;
+      if(strncmp(keymap_filename + strlen(keymap_filename) - 4, ".txt", 4) != 0)
+        continue;
+      print_keymap(keymap_filename);
       service_all();
     }
+
+    for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+      if(is_pressed(&button_status[i]))
+        break;
+
     osDelay(50);
   }
+
+  service_all();
+  f_closedir(&dir);
 }
 
 uint8_t command_type, seq_number;
@@ -760,7 +782,9 @@ void keypress_task_start(void const * argument)
 {
   while(init_complete == 0)
     osDelay(16);
-  keymap_config();
+  is_busy = 1;
+  select_keymap();
+  is_busy = 0;
   change_bg();
   service_all();
   keyboard_release_all();
