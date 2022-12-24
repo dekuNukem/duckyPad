@@ -20,9 +20,8 @@
 uint8_t init_complete;
 uint32_t last_keypress;
 uint32_t next_pixel_shift = 30000;
-uint8_t is_sleeping, is_busy;
+volatile uint8_t is_sleeping, is_busy;
 uint32_t button_hold_start, button_hold_duration;
-char default_str[] = "default";
 
 void oled_full_brightness()
 {
@@ -133,12 +132,19 @@ void handle_tactile_button_press(uint8_t button_num)
     }
 }
 
-const char str_circumflex[] = "dk_circumflex";
-const char str_diaeresis[] = "dk_diaeresis";
-const char str_grave_accent[] = "dk_grave_accent";
-const char str_acute_accent[] = "dk_acute_accent";
-const char str_tilde[] = "dk_tilde";
-const char str_cedilla[] = "dk_cedilla";
+#define dk_circumflex_HASH (57925)
+#define dk_diaeresis_HASH (40972)
+#define dk_grave_accent_HASH (30965)
+#define dk_acute_accent_HASH (7794)
+#define dk_tilde_HASH (28997)
+#define dk_cedilla_HASH (20769)
+
+#define dk_circumflex_LEN (13)
+#define dk_diaeresis_LEN (12)
+#define dk_grave_accent_LEN (15)
+#define dk_acute_accent_LEN (15)
+#define dk_tilde_LEN (8)
+#define dk_cedilla_LEN (10)
 
 uint8_t load_keymap_by_name(char* name)
 {
@@ -148,8 +154,6 @@ uint8_t load_keymap_by_name(char* name)
   uint16_t keycode;
   if(name == NULL)
     return 1;
-  if(strcmp(name, default_str) == 0)
-    return 0;
   memset(temp_buf, 0, PATH_SIZE);
   sprintf(temp_buf, "/keymaps/%s", name);
 
@@ -161,38 +165,35 @@ uint8_t load_keymap_by_name(char* name)
 
   while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
   {
-  	if(strncmp(read_buffer, "//", 2) == 0)
+    uint16_t hash_result = get_hash_at_first_nonspace_word(read_buffer);
+    if(hash_result == dk_circumflex_HASH)
     {
+      circumflex = strtoul(read_buffer + dk_circumflex_LEN, NULL, 0);
       goto read_keymap_loop_end;
     }
-    if(strncmp(read_buffer, str_circumflex, strlen(str_circumflex)) == 0)
+    else if(hash_result == dk_diaeresis_HASH)
     {
-      circumflex = strtoul(read_buffer + strlen(str_circumflex), NULL, 0);
+      diaeresis = strtoul(read_buffer + dk_diaeresis_LEN, NULL, 0);
       goto read_keymap_loop_end;
     }
-    if(strncmp(read_buffer, str_diaeresis, strlen(str_diaeresis)) == 0)
+    else if(hash_result == dk_grave_accent_HASH)
     {
-      diaeresis = strtoul(read_buffer + strlen(str_diaeresis), NULL, 0);
+      grave_accent = strtoul(read_buffer + dk_grave_accent_LEN, NULL, 0);
       goto read_keymap_loop_end;
     }
-    if(strncmp(read_buffer, str_grave_accent, strlen(str_grave_accent)) == 0)
+    else if(hash_result == dk_acute_accent_HASH)
     {
-      grave_accent = strtoul(read_buffer + strlen(str_grave_accent), NULL, 0);
+      acute_accent = strtoul(read_buffer + dk_acute_accent_LEN, NULL, 0);
       goto read_keymap_loop_end;
     }
-    if(strncmp(read_buffer, str_acute_accent, strlen(str_acute_accent)) == 0)
+    else if(hash_result == dk_tilde_HASH)
     {
-      acute_accent = strtoul(read_buffer + strlen(str_acute_accent), NULL, 0);
+      tilde = strtoul(read_buffer + dk_tilde_LEN, NULL, 0);
       goto read_keymap_loop_end;
     }
-    if(strncmp(read_buffer, str_tilde, strlen(str_tilde)) == 0)
+    else if(hash_result == dk_cedilla_HASH)
     {
-      tilde = strtoul(read_buffer + strlen(str_tilde), NULL, 0);
-      goto read_keymap_loop_end;
-    }
-    if(strncmp(read_buffer, str_cedilla, strlen(str_cedilla)) == 0)
-    {
-      cedilla = strtoul(read_buffer + strlen(str_cedilla), NULL, 0);
+      cedilla = strtoul(read_buffer + dk_cedilla_LEN, NULL, 0);
       goto read_keymap_loop_end;
     }
 
@@ -203,7 +204,6 @@ uint8_t load_keymap_by_name(char* name)
     read_keymap_loop_end:
     memset(read_buffer, 0, READ_BUF_SIZE);
   }
-  strcpy(curr_kb_layout, name);
   load_keymap_end:
   f_close(&sd_file);
   _asciimap[0] = 0;
@@ -216,7 +216,7 @@ void print_keymap(char* msg)
   ssd1306_SetCursor(15, 0);
   ssd1306_WriteString("Keyboard Layout:", Font_6x10,White);
   ssd1306_SetCursor(10, 20);
-  ssd1306_WriteString(msg+5, Font_6x10,White);
+  ssd1306_WriteString(msg, Font_6x10,White);
   ssd1306_SetCursor(20, 40);
   ssd1306_WriteString("+/- to browse", Font_6x10,White);
   ssd1306_SetCursor(10, 50);
@@ -224,8 +224,11 @@ void print_keymap(char* msg)
   ssd1306_UpdateScreen();
 }
 
+const char* default_keymap_name = "English(US)";
 void select_keymap(void)
 {
+  is_busy = 1;
+  uint8_t is_default_selected = 0;
   memset(temp_buf, 0, PATH_SIZE);
   print_keymap(temp_buf);
   char* keymap_filename;
@@ -243,7 +246,13 @@ void select_keymap(void)
     {
       memset(lfn_buf, 0, FILENAME_SIZE);
       if(f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)
+      {
+        print_keymap((char*)default_keymap_name);
+        is_default_selected = 1;
         f_readdir(&dir, 0);
+        service_all();
+        continue;
+      }
       if(fno.fattrib & AM_DIR)
         continue;
       keymap_filename = fno.lfname[0] ? fno.lfname : fno.fname;
@@ -251,20 +260,29 @@ void select_keymap(void)
         continue;
       if(strncmp(keymap_filename + strlen(keymap_filename) - 4, ".txt", 4) != 0)
         continue;
-      print_keymap(keymap_filename);
+      print_keymap(keymap_filename+5);
+      is_default_selected = 0;
       service_all();
     }
 
-    for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+    for (int i = 1; i < MAPPABLE_KEY_COUNT; ++i)
       if(is_pressed(&button_status[i]))
-        goto select_keymap_end;
+        goto select_keymap_assign_new_name;
 
     osDelay(50);
   }
-  
+  select_keymap_assign_new_name:
+  f_closedir(&dir);
+  if(is_default_selected)
+    strcpy(curr_kb_layout, default_keymap_name);
+  else
+    strcpy(curr_kb_layout, keymap_filename);
+  save_settings();
+
   select_keymap_end:
   service_all();
   f_closedir(&dir);
+  is_busy = 0;
 }
 
 uint8_t command_type, seq_number;
@@ -475,6 +493,7 @@ void handle_hid_command(void)
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
     oled_full_brightness();
     change_profile(PREV_PROFILE);
+    is_sleeping = 0;
   }
   /*
   HID NEXT PROFILE
@@ -494,6 +513,7 @@ void handle_hid_command(void)
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
     oled_full_brightness();
     change_profile(NEXT_PROFILE);
+    is_sleeping = 0;
   }
 
   /*
@@ -783,9 +803,12 @@ void keypress_task_start(void const * argument)
 {
   while(init_complete == 0)
     osDelay(16);
-  is_busy = 1;
-  select_keymap();
-  is_busy = 0;
+
+  keyboard_update();
+  if(is_pressed(&button_status[0]))
+    select_keymap();
+
+  load_keymap_by_name(curr_kb_layout);
   print_legend(0, 0);
   change_bg();
   service_all();

@@ -42,7 +42,7 @@ profile_cache p_cache;
 dp_global_settings dp_settings;
 my_key hold_cache[MAPPABLE_KEY_COUNT];
 my_key hold_cache2[MAPPABLE_KEY_COUNT];
-char curr_kb_layout[FILENAME_SIZE] = "default";
+char curr_kb_layout[FILENAME_SIZE];
 uint8_t key_max_loop[MAPPABLE_KEY_COUNT];
 uint8_t key_press_count[MAPPABLE_KEY_COUNT];
 
