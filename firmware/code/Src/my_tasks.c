@@ -213,14 +213,14 @@ uint8_t load_keymap_by_name(char* name)
 void print_keymap(char* msg)
 {
   ssd1306_Fill(Black);
-  ssd1306_SetCursor(15, 5);
+  ssd1306_SetCursor(15, 0);
   ssd1306_WriteString("Keyboard Layout:", Font_6x10,White);
   ssd1306_SetCursor(10, 20);
   ssd1306_WriteString(msg+5, Font_6x10,White);
-  ssd1306_SetCursor(20, 35);
-  ssd1306_WriteString("+/- to select", Font_6x10,White);
-  ssd1306_SetCursor(15, 50);
-  ssd1306_WriteString("Any key to exit", Font_6x10,White);
+  ssd1306_SetCursor(20, 40);
+  ssd1306_WriteString("+/- to browse", Font_6x10,White);
+  ssd1306_SetCursor(10, 50);
+  ssd1306_WriteString("Any key to select", Font_6x10,White);
   ssd1306_UpdateScreen();
 }
 
@@ -232,8 +232,8 @@ void select_keymap(void)
   fno.lfname = lfn_buf;
   fno.lfsize = FILENAME_SIZE - 1;
   if (f_opendir(&dir, "/keymaps") != FR_OK)
-    return;
-  
+    goto select_keymap_end;
+
   sprintf(temp_buf, "dpkm_");
   while(1)
   {
@@ -257,11 +257,12 @@ void select_keymap(void)
 
     for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
       if(is_pressed(&button_status[i]))
-        break;
+        goto select_keymap_end;
 
     osDelay(50);
   }
-
+  
+  select_keymap_end:
   service_all();
   f_closedir(&dir);
 }
@@ -785,6 +786,7 @@ void keypress_task_start(void const * argument)
   is_busy = 1;
   select_keymap();
   is_busy = 0;
+  print_legend(0, 0);
   change_bg();
   service_all();
   keyboard_release_all();
