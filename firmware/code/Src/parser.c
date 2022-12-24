@@ -46,7 +46,7 @@ char curr_kb_layout[FILENAME_SIZE];
 uint8_t key_max_loop[MAPPABLE_KEY_COUNT];
 uint8_t key_press_count[MAPPABLE_KEY_COUNT];
 
-char project_url[] = "git.io/duckypad";
+char project_url[] = "duckyPad.com";
 
 const char cmd_LOOP[] = "LOOP";
 
@@ -62,16 +62,9 @@ const char cmd_MMOUSE[] = "MMOUSE";
 const char cmd_MOUSE_MOVE[] = "MOUSE_MOVE ";
 const char cmd_MOUSE_WHEEL[] = "MOUSE_WHEEL ";
 
-int32_t make_fuzz(int32_t amount, int32_t fuzz)
-{
-  if(fuzz == 0)
-    return amount;
-  return amount + rand() % fuzz;
-}
-
 void delay_wrapper(int32_t amount, int32_t fuzz)
 {
-  osDelay(make_fuzz(amount, fuzz));
+  osDelay(fuzz == 0 ? amount : amount + rand() % fuzz);
 }
 
 char* goto_next_arg(char* buf, char* buf_end)
