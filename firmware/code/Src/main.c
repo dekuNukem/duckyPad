@@ -98,13 +98,20 @@ changed USB HID descriptor so new japanese keys work
 cleaned up animation code
 tried out no animation at all, frees up about 1K of ram
 
-NEXT: Add HID commands for changing RGB colour
+0.21.2
+massive overhaul to reduce RAM and ROM usage
+using hashed lookup for string matching
+new keymap select screen
+reduced RTOS heap usage
+cleaned up animation, much faster
+no functional changes
+mouse button not implemented yet
 
 */
 
 uint8_t fw_version_major = 0;
 uint8_t fw_version_minor = 21;
-uint8_t fw_version_patch = 1;
+uint8_t fw_version_patch = 2;
 char instruction[] = "For instructions, see";
 /* USER CODE END PV */
 
@@ -116,7 +123,6 @@ static void MX_SPI1_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_IWDG_Init(void);
 void kb_scan_task(void const * argument);
-
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
 
@@ -164,7 +170,6 @@ int main(void)
   MX_I2C1_Init();
   MX_IWDG_Init();
   /* USER CODE BEGIN 2 */
-  printf("duckypad V2\ndekuNukem 2020\n");
   /* USER CODE END 2 */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -189,8 +194,6 @@ int main(void)
   // kb_scan_task should have 256 byte
   osThreadDef(keypress_task, keypress_task_start, osPriorityAboveNormal, 0, 512);
   osThreadCreate(osThread(keypress_task), NULL);
-  osThreadDef(animation_task, animation_task_start, osPriorityBelowNormal, 0, 256);
-  osThreadCreate(osThread(animation_task), NULL);
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
@@ -498,7 +501,7 @@ void kb_scan_task(void const * argument)
 
     ssd1306_SetCursor(0, 22);
     ssd1306_WriteString(instruction,Font_6x10,White);
-    ssd1306_SetCursor(18, 35);
+    ssd1306_SetCursor(24, 35);
     ssd1306_WriteString(project_url,Font_6x10,White);
     ssd1306_UpdateScreen();
     while(1)
@@ -519,10 +522,13 @@ void kb_scan_task(void const * argument)
   
   init_complete = 1;
   /* Infinite loop */
+  printf("fhs: %u\n", xPortGetFreeHeapSize());
+  anime_init();
   for(;;)
   {
     HAL_IWDG_Refresh(&hiwdg);
     keyboard_update();
+    animation_task_start();
     osDelay(16);
   }
   /* USER CODE END 5 */ 

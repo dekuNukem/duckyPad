@@ -901,30 +901,23 @@ void start_sleeping(void)
   is_sleeping = 1;
 }
 
-void animation_task_start(void const * argument)
+void animation_task_start(void)
 {
-  while(init_complete == 0)
-    osDelay(20);
-  anime_init();
-  for(;;)
+  led_animation_handler();
+
+  if(hid_rx_has_unprocessed_data)
   {
-    osDelay(20);
-    led_animation_handler();
-
-    if(hid_rx_has_unprocessed_data)
-    {
-      handle_hid_command();
-      hid_rx_has_unprocessed_data = 0;
-      memset(hid_rx_buf, 0, HID_RX_BUF_SIZE);
-    }
-
-    if(is_sleeping)
-      continue;
-
-    if(dp_settings.sleep_after_ms != 0 && HAL_GetTick() - last_keypress > dp_settings.sleep_after_ms)
-      start_sleeping();
-    // dim OLED screen after 5 minutes of idle to prevent burn-in
-    if(HAL_GetTick() - last_keypress > 300000)
-      ssd1306_dim(1);    
+    handle_hid_command();
+    hid_rx_has_unprocessed_data = 0;
+    memset(hid_rx_buf, 0, HID_RX_BUF_SIZE);
   }
+
+  if(is_sleeping)
+    return;
+
+  if(dp_settings.sleep_after_ms != 0 && HAL_GetTick() - last_keypress > dp_settings.sleep_after_ms)
+    start_sleeping();
+  // dim OLED screen after 5 minutes of idle to prevent burn-in
+  if(HAL_GetTick() - last_keypress > 300000)
+    ssd1306_dim(1);    
 }
