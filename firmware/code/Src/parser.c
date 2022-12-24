@@ -47,16 +47,8 @@ uint8_t key_max_loop[MAPPABLE_KEY_COUNT];
 uint8_t key_press_count[MAPPABLE_KEY_COUNT];
 
 char project_url[] = "git.io/duckypad";
-const char cmd_REPEAT[] = "REPEAT ";
-const char cmd_REM[] = "REM ";
-const char cmd_DEFAULTDELAY[] = "DEFAULTDELAY ";
-const char cmd_DEFAULTCHARDELAY[] = "DEFAULTCHARDELAY ";
-const char cmd_DEFAULTDELAYFUZZ[] = "DEFAULTDELAYFUZZ ";
-const char cmd_DEFAULTCHARDELAYFUZZ[] = "DEFAULTCHARDELAYFUZZ ";
-const char cmd_DELAY[] = "DELAY ";
-const char cmd_STRING[] = "STRING ";
-const char cmd_STRINGLN[] = "STRINGLN ";
-const char cmd_UARTPRINT[] = "UARTPRINT ";
+
+const char cmd_LOOP[] = "LOOP";
 
 const char cmd_BG_COLOR[] = "BG_COLOR ";
 const char cmd_KD_COLOR[] = "KEYDOWN_COLOR ";
@@ -64,25 +56,11 @@ const char cmd_SWCOLOR[] = "SWCOLOR_";
 const char cmd_SW_SELF_COLOR[] = "SWCOLOR ";
 const char cmd_DIM_UNUSED_KEYS[] = "DIM_UNUSED_KEYS ";
 
-const char cmd_OLD_HOLD[] = "EMUK ";
-const char cmd_LOOP[] = "LOOP";
-const char cmd_LCR[] = "LCR"; // loop counter reset
-
-const char cmd_SLEEP[] = "DP_SLEEP";
-const char cmd_PREV_PROFILE[] = "PREV_PROFILE";
-const char cmd_NEXT_PROFILE[] = "NEXT_PROFILE";
-const char cmd_GOTO_PROFILE[] = "GOTO_PROFILE";
-
 const char cmd_LMOUSE[] = "LMOUSE";
 const char cmd_RMOUSE[] = "RMOUSE";
 const char cmd_MMOUSE[] = "MMOUSE";
 const char cmd_MOUSE_MOVE[] = "MOUSE_MOVE ";
 const char cmd_MOUSE_WHEEL[] = "MOUSE_WHEEL ";
-
-const char cmd_HOLD[] = "KEYDOWN ";
-const char cmd_RELEASE[] = "KEYUP ";
-
-const char cmd_INJECT_MOD[] = "INJECT_MOD";
 
 int32_t make_fuzz(int32_t amount, int32_t fuzz)
 {
@@ -638,14 +616,19 @@ uint8_t find_lookup_index_from_hash(uint16_t hash, uint8_t *index)
   return 0;
 }
 
+uint16_t get_hash_at_first_nonspace_word(char* msg)
+{
+  uint8_t kw_len = 0;
+  char* arg_start = get_nonspace_arg_len(msg, &kw_len);
+  return djb2(arg_start, kw_len);
+}
+
 void parse_special_key(char* msg, my_key* this_key)
 {
   if(msg == NULL || this_key == NULL)
     return;
 
-  uint8_t kw_len = 0;
-  char* arg_start = get_nonspace_arg_len(msg, &kw_len);
-  uint16_t hash_result = djb2(arg_start, kw_len);
+  uint16_t hash_result = get_hash_at_first_nonspace_word(msg);
   uint8_t lookup_index = 0;
   if(find_lookup_index_from_hash(hash_result, &lookup_index) == 0)
   {
@@ -828,18 +811,15 @@ uint8_t parse_hold(char* line, uint8_t keynum)
   return PARSE_OK;
 }
 
+
 uint8_t parse_line(char* line, uint8_t keynum)
 {
   uint8_t result = PARSE_OK;
-
-  // cut off at line ending
-  for(int i = 0; i < strlen(line); ++i)
-    if(line[i] == '\r' || line[i] == '\n')
-      line[i] = 0;
-  // printf("this line: %s\n", line);
   char* line_end = line + strlen(line);
 
-  if(strncmp(cmd_OLD_HOLD, line, strlen(cmd_OLD_HOLD)) == 0)
+  uint16_t hash_result = get_hash_at_first_nonspace_word(line);
+
+  if(hash_result == EMUK_HASH)
   {
     result = parse_hold(line, keynum);
     goto parse_end;
@@ -858,9 +838,9 @@ uint8_t parse_line(char* line, uint8_t keynum)
   }
   else if(this_key.key_type != KEY_TYPE_UNKNOWN)
     parse_combo(line, &this_key, ACTION_PRESS_RELEASE);
-  else if(strncmp(cmd_REM, line, strlen(cmd_REM)) == 0)
+  else if(hash_result == REM_HASH)
     ;
-  else if(strncmp(cmd_LCR, line, strlen(cmd_LCR)) == 0)
+  else if(hash_result == LCR_HASH)
   {
     char* curr = line;
     char* msg_end = line + PATH_SIZE;
@@ -877,43 +857,43 @@ uint8_t parse_line(char* line, uint8_t keynum)
     result = PARSE_LOOP_STATE_SAVE_NEEDED;
     goto parse_end;
   }
-  else if(strncmp(cmd_HOLD, line, strlen(cmd_HOLD)) == 0)
+  else if(hash_result == KEYDOWN_HASH)
   {
-    parse_special_key(line + strlen(cmd_HOLD), &this_key);
+    parse_special_key(line + KEYUP_LEN, &this_key);
     if(this_key.key_type == KEY_TYPE_UNKNOWN)
     {
       this_key.key_type = KEY_TYPE_CHAR;
-      this_key.code = (line + strlen(cmd_HOLD))[0];
+      this_key.code = (line + KEYUP_LEN)[0];
     }
-    parse_combo(line + strlen(cmd_HOLD), &this_key, ACTION_PRESS_ONLY);
+    parse_combo(line + KEYUP_LEN, &this_key, ACTION_PRESS_ONLY);
   }
-  else if(strncmp(cmd_RELEASE, line, strlen(cmd_RELEASE)) == 0)
+  else if(hash_result == KEYUP_HASH)
   {
-    parse_special_key(line + strlen(cmd_RELEASE), &this_key);
+    parse_special_key(line + KEYDOWN_LEN, &this_key);
     if(this_key.key_type == KEY_TYPE_UNKNOWN)
     {
       this_key.key_type = KEY_TYPE_CHAR;
-      this_key.code = (line + strlen(cmd_RELEASE))[0];
+      this_key.code = (line + KEYDOWN_LEN)[0];
     }
-    parse_combo(line + strlen(cmd_RELEASE), &this_key, ACTION_RELEASE_ONLY);
+    parse_combo(line + KEYDOWN_LEN, &this_key, ACTION_RELEASE_ONLY);
   }
-  else if(strncmp(cmd_STRING, line, strlen(cmd_STRING)) == 0)
+  else if(hash_result == STRING_HASH)
   {
-    kb_print(line + strlen(cmd_STRING), char_delay, char_delay_fuzz);
+    kb_print(line + STRING_LEN, char_delay, char_delay_fuzz);
   }
-  else if(strncmp(cmd_STRINGLN, line, strlen(cmd_STRING)) == 0)
+  else if(hash_result == STRINGLN_HASH)
   {
-    kb_print(line + strlen(cmd_STRINGLN), char_delay, char_delay_fuzz);
+    kb_print(line + STRINGLN_LEN, char_delay, char_delay_fuzz);
     this_key.key_type = KEY_TYPE_SPECIAL;
     this_key.code = KEY_RETURN;
     kb_print_char(&this_key, char_delay, char_delay_fuzz);
   }
-  else if(strncmp(cmd_UARTPRINT, line, strlen(cmd_UARTPRINT)) == 0)
+  else if(hash_result == UARTPRINT_HASH)
   {
-    printf("UART %s\n", line + strlen(cmd_UARTPRINT));
+    printf("UART %s\n", line + UARTPRINT_LEN);
     osDelay(25);
   }
-  else if(strncmp(cmd_INJECT_MOD, line, strlen(cmd_INJECT_MOD)) == 0)
+  else if(hash_result == INJECT_MOD_HASH)
   {
     ; // do nothing since modifier key already works on its own
   }
@@ -940,7 +920,7 @@ uint8_t parse_line(char* line, uint8_t keynum)
     delay_wrapper(char_delay, char_delay_fuzz);
     goto parse_end;
   }
-  else if(strncmp(cmd_DELAY, line, strlen(cmd_DELAY)) == 0)
+  else if(hash_result == DELAY_HASH)
   {
     int32_t argg = get_arg(line);
     if(argg == 0)
@@ -950,7 +930,7 @@ uint8_t parse_line(char* line, uint8_t keynum)
     }
     osDelay(argg);
   }
-  else if(strncmp(cmd_DEFAULTDELAY, line, strlen(cmd_DEFAULTDELAY)) == 0)
+  else if(hash_result == DEFAULTDELAY_HASH)
   {
     int32_t argg = get_arg(line);
     if(argg == 0)
@@ -960,7 +940,7 @@ uint8_t parse_line(char* line, uint8_t keynum)
     }
     cmd_delay = argg;
   }
-  else if(strncmp(cmd_DEFAULTCHARDELAY, line, strlen(cmd_DEFAULTCHARDELAY)) == 0)
+  else if(hash_result == DEFAULTCHARDELAY_HASH)
   {
     int32_t argg = get_arg(line);
     if(argg == 0)
@@ -970,11 +950,11 @@ uint8_t parse_line(char* line, uint8_t keynum)
     }
     char_delay = argg;
   }
-  else if(strncmp(cmd_DEFAULTDELAYFUZZ, line, strlen(cmd_DEFAULTDELAYFUZZ)) == 0)
+  else if(hash_result == DEFAULTDELAYFUZZ_HASH)
   {
     cmd_delay_fuzz = get_arg(line);
   }
-  else if(strncmp(cmd_DEFAULTCHARDELAYFUZZ, line, strlen(cmd_DEFAULTCHARDELAYFUZZ)) == 0)
+  else if(hash_result == DEFAULTCHARDELAYFUZZ_HASH)
   {
     char_delay_fuzz = get_arg(line);
   }
@@ -986,6 +966,33 @@ uint8_t parse_line(char* line, uint8_t keynum)
     delay_wrapper(cmd_delay, cmd_delay_fuzz);
   return result;
 }
+
+
+#define REPEAT_HASH (44966)
+#define REM_HASH (6377)
+#define DEFAULTDELAY_HASH (32345)
+#define DEFAULTCHARDELAY_HASH (18039)
+#define DEFAULTDELAYFUZZ_HASH (56040)
+#define DEFAULTCHARDELAYFUZZ_HASH (33286)
+#define DELAY_HASH (42132)
+#define STRING_HASH (29500)
+#define STRINGLN_HASH (15446)
+#define UARTPRINT_HASH (51214)
+#define EMUK_HASH (14455)
+#define LOOP_HASH (5855)
+#define LCR_HASH (65318)
+#define DP_SLEEP_HASH (45873)
+#define PREV_PROFILE_HASH (18482)
+#define NEXT_PROFILE_HASH (15508)
+#define GOTO_PROFILE_HASH (18926)
+#define KEYDOWN_HASH (34694)
+#define KEYUP_HASH (35315)
+#define INJECT_MOD_HASH (44929)
+#define BG_COLOR_HASH (8908)
+#define KEYDOWN_COLOR_HASH (45380)
+#define SWCOLOR__HASH (11853)
+#define SWCOLOR_HASH (10286)
+#define DIM_UNUSED_KEYS_HASH (53421)
 
 void keypress_wrap(uint8_t keynum)
 {
@@ -1004,7 +1011,13 @@ void keypress_wrap(uint8_t keynum)
   char_delay_fuzz = 0;
   while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
   {
+    for(int i = 0; i < strlen(read_buffer); ++i)
+      if(read_buffer[i] == '\r' || read_buffer[i] == '\n')
+        read_buffer[i] = 0;
+
+    uint16_t hash_result = get_hash_at_first_nonspace_word(read_buffer);
     line_num++;
+    
     // if this key has loops, keep going until we are at the correct starting point
     if(key_max_loop[keynum] != 0 && found_start == 0)
     {
@@ -1021,29 +1034,29 @@ void keypress_wrap(uint8_t keynum)
     {
       goto kp_end;
     }
-    if(strncmp(cmd_REPEAT, read_buffer, strlen(cmd_REPEAT)) == 0)
+    if(hash_result == REPEAT_HASH)
     {
       uint8_t repeats = atoi(goto_next_arg(read_buffer, read_buffer + READ_BUF_SIZE));
       for (int i = 0; i < repeats; ++i)
         parse_line(prev_line, keynum);
       continue;
     }
-    if(strncmp(cmd_SLEEP, read_buffer, strlen(cmd_SLEEP)) == 0)
+    if(hash_result == DP_SLEEP_HASH)
     {
       my_dpc.type = DPC_SLEEP;
       goto kp_end;
     }
-    if(strncmp(cmd_PREV_PROFILE, read_buffer, strlen(cmd_PREV_PROFILE)) == 0)
+    if(hash_result == PREV_PROFILE_HASH)
     {
       my_dpc.type = DPC_PREV_PROFILE;
       goto kp_end;
     }
-    if(strncmp(cmd_NEXT_PROFILE, read_buffer, strlen(cmd_NEXT_PROFILE)) == 0)
+    if(hash_result == NEXT_PROFILE_HASH)
     {
       my_dpc.type = DPC_NEXT_PROFILE;
       goto kp_end;
     }
-    if(strncmp(cmd_GOTO_PROFILE, read_buffer, strlen(cmd_GOTO_PROFILE)) == 0)
+    if(hash_result == GOTO_PROFILE_HASH)
     {
       my_dpc.type = DPC_GOTO_PROFILE;
       my_dpc.data = atoi(goto_next_arg(read_buffer, read_buffer + READ_BUF_SIZE));

@@ -38,6 +38,16 @@
   //   USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
   // }
 
+void terminate_newline(char* msg)
+{
+  char* to_find = strchr(msg, '\n');
+  if(to_find != NULL)
+    *to_find = 0;
+  to_find = strchr(msg, '\r');
+  if(to_find != NULL)
+    *to_find = 0;
+}
+
 
 const char cmd_KATAKANAHIRAGANA[] = "KATAKANAHIRAGANA";
 const char cmd_HENKAN[] = "HENKAN";
