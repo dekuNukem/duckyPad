@@ -70,6 +70,7 @@ autogui_map = {"ESCAPE":"escape",
 
 "CONTROL":"ctrl",
 "CTRL":"ctrl",
+"RCONTROL":"ctrlright",
 "RCTRL":"ctrlright",
 
 "MK_VOLUP":"volumeup",
