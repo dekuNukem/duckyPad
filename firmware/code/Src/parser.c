@@ -631,6 +631,18 @@ void parse_special_key(char* msg, my_key* this_key)
   }
   this_key->code = keyword_keycode[lookup_index];
   this_key->key_type = keyword_keytype[lookup_index];
+
+  if(hash_result == 4482) // MOUSE_WHEEL
+  {
+    this_key->code = atoi(goto_next_arg(msg, msg + strlen(msg)));
+  }
+  else if(hash_result == 26276) // MOUSE_MOVE
+  {
+    char* msg_end = msg + strlen(msg);
+    char* curr = goto_next_arg(msg, msg_end);
+    this_key->code = atoi(curr);
+    this_key->code2 = atoi(goto_next_arg(curr, msg_end));
+  }
 }
 
 #define ACTION_PRESS_ONLY 0

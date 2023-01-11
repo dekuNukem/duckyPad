@@ -1,6 +1,11 @@
 #include "hash_lookup.h"
 
 const uint16_t keyword_hash[KEYWORD_HASH_SIZE] = {
+14810, // LMOUSE
+11680, // RMOUSE
+25211, // MMOUSE
+26276, // MOUSE_MOVE
+4482, // MOUSE_WHEEL
 30090, // UP
 46301, // DOWN
 60208, // LEFT
@@ -100,6 +105,11 @@ const uint16_t keyword_hash[KEYWORD_HASH_SIZE] = {
 54722, // MK_STOP
 };
 const uint8_t keyword_keycode[KEYWORD_HASH_SIZE] = {
+1, // LMOUSE
+2, // RMOUSE
+4, // MMOUSE
+0, // MOUSE_MOVE
+0, // MOUSE_WHEEL
 82, // UP
 81, // DOWN
 80, // LEFT
@@ -200,6 +210,11 @@ const uint8_t keyword_keycode[KEYWORD_HASH_SIZE] = {
 };
 
 const uint8_t keyword_keytype[KEYWORD_HASH_SIZE] = {
+11, // LMOUSE
+11, // RMOUSE
+11, // MMOUSE
+13, // MOUSE_MOVE
+12, // MOUSE_WHEEL
 3, // UP
 3, // DOWN
 3, // LEFT

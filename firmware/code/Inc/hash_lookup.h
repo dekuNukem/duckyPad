@@ -4,7 +4,7 @@
 #ifndef hash_lookup_h
 #define hash_lookup_h
 
-#define KEYWORD_HASH_SIZE 97
+#define KEYWORD_HASH_SIZE 102
 
 extern const uint16_t keyword_hash[KEYWORD_HASH_SIZE];
 extern const uint8_t keyword_keycode[KEYWORD_HASH_SIZE];

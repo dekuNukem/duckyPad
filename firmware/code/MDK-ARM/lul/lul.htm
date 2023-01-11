@@ -3,7 +3,7 @@
 <title>Static Call Graph - [lul\lul.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image lul\lul.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sat Dec 24 21:13:45 2022
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Jan 11 19:27:45 2023
 <BR><P>
 <H3>Maximum Stack Usage =        440 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -369,6 +369,7 @@ Global Symbols
 <LI><a href="#[1cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_last_profile
 <LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_legend
 <LI><a href="#[1ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_keyname
+<LI><a href="#[1b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_special_key
 <LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_line
 <LI><a href="#[1b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_hold
 <LI><a href="#[1b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_combo
@@ -440,6 +441,7 @@ Global Symbols
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
+<LI><a href="#[1b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_special_key
 <LI><a href="#[19d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_loop_state
 <LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_line
 <LI><a href="#[19e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_color_state
@@ -2351,7 +2353,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[101]"></a>goto_next_arg</STRONG> (Thumb, 44 bytes, Stack size 0 bytes, parser.o(i.goto_next_arg))
-<BR><BR>[Called By]<UL><LI><a href="#[19d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_loop_state
+<BR><BR>[Called By]<UL><LI><a href="#[1b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_special_key
+<LI><a href="#[19d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_loop_state
 <LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_line
 <LI><a href="#[1b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_hold
 <LI><a href="#[1b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_combo
@@ -2990,7 +2993,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1b4]"></a>parse_combo</STRONG> (Thumb, 472 bytes, Stack size 64 bytes, parser.o(i.parse_combo))
-<BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = parse_combo &rArr; delay_wrapper &rArr; osDelay &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = parse_combo &rArr; parse_special_key &rArr; atoi &rArr; strtol &rArr; _strtoul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_wrapper
 <LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_release
@@ -3003,7 +3006,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1b6]"></a>parse_hold</STRONG> (Thumb, 166 bytes, Stack size 32 bytes, parser.o(i.parse_hold))
-<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = parse_hold &rArr; keyboard_press &rArr; mouse_press &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = parse_hold &rArr; parse_special_key &rArr; atoi &rArr; strtol &rArr; _strtoul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[17b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_press
 <LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
@@ -3015,7 +3018,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[194]"></a>parse_line</STRONG> (Thumb, 580 bytes, Stack size 40 bytes, parser.o(i.parse_line))
-<BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = parse_line &rArr; redraw_bg &rArr; led_start_animation &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; __aeabi_llsr
+<BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = parse_line &rArr; parse_combo &rArr; parse_special_key &rArr; atoi &rArr; strtol &rArr; _strtoul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_wrapper
 <LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_release
@@ -3051,12 +3054,15 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[19c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_loop_state
 </UL>
 
-<P><STRONG><a name="[1b5]"></a>parse_special_key</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, parser.o(i.parse_special_key))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = parse_special_key &rArr; get_hash_at_first_nonspace_word &rArr; get_nonspace_arg_len
+<P><STRONG><a name="[1b5]"></a>parse_special_key</STRONG> (Thumb, 132 bytes, Stack size 24 bytes, parser.o(i.parse_special_key))
+<BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = parse_special_key &rArr; atoi &rArr; strtol &rArr; _strtoul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_my_key
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;goto_next_arg
 <LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_hash_at_first_nonspace_word
 <LI><a href="#[1b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_lookup_index_from_hash
+<LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
 </UL>
 <BR>[Called By]<UL><LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_line
 <LI><a href="#[1b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;parse_hold
