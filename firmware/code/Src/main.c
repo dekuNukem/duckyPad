@@ -107,11 +107,14 @@ cleaned up animation, much faster
 no functional changes
 mouse button not implemented yet
 
+0.22.0 20230111
+added mouse commands back
+ready for public release
 */
 
 uint8_t fw_version_major = 0;
-uint8_t fw_version_minor = 21;
-uint8_t fw_version_patch = 2;
+uint8_t fw_version_minor = 22;
+uint8_t fw_version_patch = 0;
 char instruction[] = "For instructions, see";
 /* USER CODE END PV */
 
