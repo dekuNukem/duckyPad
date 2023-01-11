@@ -207,6 +207,7 @@ char ssd1306_WriteChar(char ch, FontDef Font, SSD1306_COLOR color)
 	for (i = 0; i < Font.FontHeight; i++)
 	{
 		b = Font.data[(ch - 32) * Font.FontHeight + i];
+		b = b << 8;
 		for (j = 0; j < Font.FontWidth; j++)
 		{
 			if ((b << j) & 0x8000) 
