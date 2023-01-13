@@ -29,7 +29,7 @@ DIR dir;
 FILINFO fno;
 uint8_t mount_result;
 uint8_t has_valid_profiles;
-int32_t cmd_delay, char_delay, cmd_delay_fuzz, char_delay_fuzz;
+int32_t cmd_delay, char_delay, char_delay_jitter;
 unsigned int bytes_read;
 duckypad_parsed_command my_dpc;
 char temp_buf[PATH_SIZE];
@@ -702,31 +702,31 @@ void parse_combo(char* line, my_key* first_key, uint8_t action_type)
   if(action_type == ACTION_PRESS_ONLY || action_type == ACTION_PRESS_RELEASE)
   {
     keyboard_press(first_key, 0);
-    delay_wrapper(char_delay, char_delay_fuzz);
+    delay_wrapper(char_delay, char_delay_jitter);
     if(arg1 != NULL)
     {
       keyboard_press(&key_1, 0);
-      delay_wrapper(char_delay, char_delay_fuzz);
+      delay_wrapper(char_delay, char_delay_jitter);
     }
     if(arg2 != NULL)
     {
       keyboard_press(&key_2, 0);
-      delay_wrapper(char_delay, char_delay_fuzz);
+      delay_wrapper(char_delay, char_delay_jitter);
     }
     if(arg3 != NULL)
     {
       keyboard_press(&key_3, 0);
-      delay_wrapper(char_delay, char_delay_fuzz);
+      delay_wrapper(char_delay, char_delay_jitter);
     }
     if(arg4 != NULL)
     {
       keyboard_press(&key_4, 0);
-      delay_wrapper(char_delay, char_delay_fuzz);
+      delay_wrapper(char_delay, char_delay_jitter);
     }
     if(arg5 != NULL)
     {
       keyboard_press(&key_5, 0);
-      delay_wrapper(char_delay, char_delay_fuzz);
+      delay_wrapper(char_delay, char_delay_jitter);
     }
   }
   // ------ release --------
@@ -735,30 +735,30 @@ void parse_combo(char* line, my_key* first_key, uint8_t action_type)
     if(arg5 != NULL)
     {
       keyboard_release(&key_5);
-      delay_wrapper(char_delay, char_delay_fuzz);
+      delay_wrapper(char_delay, char_delay_jitter);
     }
     if(arg4 != NULL)
     {
       keyboard_release(&key_4);
-      delay_wrapper(char_delay, char_delay_fuzz);
+      delay_wrapper(char_delay, char_delay_jitter);
     }
     if(arg3 != NULL)
     {
       keyboard_release(&key_3);
-      delay_wrapper(char_delay, char_delay_fuzz);
+      delay_wrapper(char_delay, char_delay_jitter);
     }
     if(arg2 != NULL)
     {
       keyboard_release(&key_2);
-      delay_wrapper(char_delay, char_delay_fuzz);
+      delay_wrapper(char_delay, char_delay_jitter);
     }
     if(arg1 != NULL)
     {
       keyboard_release(&key_1);
-      delay_wrapper(char_delay, char_delay_fuzz);
+      delay_wrapper(char_delay, char_delay_jitter);
     }
     keyboard_release(first_key);
-    delay_wrapper(char_delay, char_delay_fuzz);
+    delay_wrapper(char_delay, char_delay_jitter);
   }
 }
 
@@ -837,9 +837,9 @@ uint8_t parse_line(char* line, uint8_t keynum)
   else if(is_mouse_type(&this_key))
   {
     keyboard_press(&this_key, 0);
-    delay_wrapper(cmd_delay, cmd_delay_fuzz);
+    delay_wrapper(cmd_delay, 0);
     keyboard_release(&this_key);
-    delay_wrapper(cmd_delay, cmd_delay_fuzz);
+    delay_wrapper(cmd_delay, 0);
   }
   else if(this_key.key_type != KEY_TYPE_UNKNOWN)
     parse_combo(line, &this_key, ACTION_PRESS_RELEASE);
@@ -884,14 +884,14 @@ uint8_t parse_line(char* line, uint8_t keynum)
   }
   else if(hash_result == STRING_HASH)
   {
-    kb_print(line + STRING_LEN, char_delay, char_delay_fuzz);
+    kb_print(line + STRING_LEN, char_delay, char_delay_jitter);
   }
   else if(hash_result == STRINGLN_HASH)
   {
-    kb_print(line + STRINGLN_LEN, char_delay, char_delay_fuzz);
+    kb_print(line + STRINGLN_LEN, char_delay, char_delay_jitter);
     this_key.key_type = KEY_TYPE_SPECIAL;
     this_key.code = KEY_RETURN;
-    kb_print_char(&this_key, char_delay, char_delay_fuzz);
+    kb_print_char(&this_key, char_delay, char_delay_jitter);
   }
   else if(hash_result == UARTPRINT_HASH)
   {
@@ -912,7 +912,7 @@ uint8_t parse_line(char* line, uint8_t keynum)
     }
     assign_colors(this_key_num, line, line_end);
     redraw_bg();
-    delay_wrapper(char_delay, char_delay_fuzz);
+    delay_wrapper(char_delay, char_delay_jitter);
     goto parse_end;
   }
   else if(is_sw_color_line(line) == 2)
@@ -922,7 +922,7 @@ uint8_t parse_line(char* line, uint8_t keynum)
     p_cache.individual_keydown_color[keynum][1] = p_cache.individual_key_color[keynum][1];
     p_cache.individual_keydown_color[keynum][2] = p_cache.individual_key_color[keynum][2];
     redraw_bg();
-    delay_wrapper(char_delay, char_delay_fuzz);
+    delay_wrapper(char_delay, char_delay_jitter);
     goto parse_end;
   }
   else if(hash_result == DELAY_HASH)
@@ -955,20 +955,16 @@ uint8_t parse_line(char* line, uint8_t keynum)
     }
     char_delay = argg;
   }
-  else if(hash_result == DEFAULTDELAYFUZZ_HASH)
-  {
-    cmd_delay_fuzz = get_arg(line);
-  }
   else if(hash_result == DEFAULTCHARDELAYFUZZ_HASH)
   {
-    char_delay_fuzz = get_arg(line);
+    char_delay_jitter = get_arg(line);
   }
   else
     result = PARSE_ERROR;
 
   parse_end:
   if(result == PARSE_OK)
-    delay_wrapper(cmd_delay, cmd_delay_fuzz);
+    delay_wrapper(cmd_delay, 0);
   return result;
 }
 
@@ -985,8 +981,7 @@ void keypress_wrap(uint8_t keynum)
     goto kp_end;
   cmd_delay = DEFAULT_CMD_DELAY_MS;
   char_delay = DEFAULT_CHAR_DELAY_MS;
-  cmd_delay_fuzz = 0;
-  char_delay_fuzz = 0;
+  char_delay_jitter = 0;
   while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
   {
     for(int i = 0; i < strlen(read_buffer); ++i)
