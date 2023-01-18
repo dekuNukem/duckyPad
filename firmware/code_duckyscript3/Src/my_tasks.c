@@ -844,26 +844,26 @@ void keypress_task_start(void const * argument)
             is_busy = 1;
             handle_keypress(i, &button_status[i]); // handle the button state inside here for repeats
             keydown_anime_end(i);
-            if(my_dpc.type == DPC_SLEEP)
+            if(my_der.type == DER_SLEEP)
             {
               start_sleeping();
-              dpc_init(&my_dpc);
+              der_init(&my_der);
             }
-            if(my_dpc.type == DPC_PREV_PROFILE)
+            if(my_der.type == DER_PREV_PROFILE)
             {
               change_profile(PREV_PROFILE);
-              dpc_init(&my_dpc);
+              der_init(&my_der);
             }
-            if(my_dpc.type == DPC_NEXT_PROFILE)
+            if(my_der.type == DER_NEXT_PROFILE)
             {
               change_profile(NEXT_PROFILE);
-              dpc_init(&my_dpc);
+              der_init(&my_der);
             }
-            if(my_dpc.type == DPC_GOTO_PROFILE)
+            if(my_der.type == DER_GOTO_PROFILE)
             {
-              if(p_cache.available_profile[my_dpc.data])
-                restore_profile(my_dpc.data);
-              dpc_init(&my_dpc);
+              if(p_cache.available_profile[my_der.data])
+                restore_profile(my_der.data);
+              der_init(&my_der);
             }
             is_busy = 0;
           }

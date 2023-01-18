@@ -31,7 +31,7 @@ uint8_t mount_result;
 uint8_t has_valid_profiles;
 int32_t cmd_delay, char_delay, char_delay_jitter;
 unsigned int bytes_read;
-duckypad_parsed_command my_dpc;
+ds3_exe_result my_der;
 char temp_buf[PATH_SIZE];
 char lfn_buf[FILENAME_SIZE];
 char key_name_buf[FILENAME_SIZE];
@@ -1016,23 +1016,23 @@ void keypress_wrap(uint8_t keynum)
     }
     if(hash_result == DP_SLEEP_HASH)
     {
-      my_dpc.type = DPC_SLEEP;
+      my_der.type = DER_SLEEP;
       goto kp_end;
     }
     if(hash_result == PREV_PROFILE_HASH)
     {
-      my_dpc.type = DPC_PREV_PROFILE;
+      my_der.type = DER_PREV_PROFILE;
       goto kp_end;
     }
     if(hash_result == NEXT_PROFILE_HASH)
     {
-      my_dpc.type = DPC_NEXT_PROFILE;
+      my_der.type = DER_NEXT_PROFILE;
       goto kp_end;
     }
     if(hash_result == GOTO_PROFILE_HASH)
     {
-      my_dpc.type = DPC_GOTO_PROFILE;
-      my_dpc.data = atoi(goto_next_arg(read_buffer, read_buffer + READ_BUF_SIZE));
+      my_der.type = DER_GOTO_PROFILE;
+      my_der.data = atoi(goto_next_arg(read_buffer, read_buffer + READ_BUF_SIZE));
       goto kp_end;
     }
     result = parse_line(read_buffer, keynum);
@@ -1098,18 +1098,18 @@ void save_loop_state(void)
   f_close(&sd_file);
 }
 
-void dpc_init(duckypad_parsed_command* dpc)
+void der_init(ds3_exe_result* der)
 {
-  dpc->type = DPC_NONE;
-  dpc->data = 0;
+  der->type = DER_NONE;
+  der->data = 0;
 }
 
 void handle_keypress(uint8_t keynum, but_status* b_status)
 {
-  dpc_init(&my_dpc);
+  der_init(&my_der);
   keypress_wrap(keynum);
   // don't repeat if this key asks to sleep or change profiles
-  if(my_dpc.type != DPC_NONE)
+  if(my_der.type != DER_NONE)
     return;
   // don't repeat if this key is HOLD command
   if(hold_cache[keynum].key_type != KEY_TYPE_UNKNOWN && hold_cache[keynum].code != 0)
