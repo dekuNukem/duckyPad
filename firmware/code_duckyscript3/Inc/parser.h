@@ -76,7 +76,6 @@ void save_last_profile(uint8_t profile_id);
 void print_keyname(char* keyname, uint8_t keynum, int8_t x_offset, int8_t y_offset);
 char* goto_next_arg(char* buf, char* buf_end);
 void delay_wrapper(int32_t amount, int32_t fuzz);
-void save_loop_state(void);
 uint16_t get_hash_at_first_nonspace_word(char* msg);
 
 extern profile_cache p_cache;

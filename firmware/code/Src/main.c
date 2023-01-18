@@ -117,7 +117,7 @@ fixed a bug where STRING prints an extra space
 
 uint8_t fw_version_major = 0;
 uint8_t fw_version_minor = 22;
-uint8_t fw_version_patch = 0;
+uint8_t fw_version_patch = 1;
 char instruction[] = "For instructions, see";
 /* USER CODE END PV */
 
