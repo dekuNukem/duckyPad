@@ -8,6 +8,9 @@
 #include "stm32f0xx_hal.h"
 #include "buttons.h"
 #include "keyboard.h"
+#include "shared.h"
+
+
 #define READ_BUF_SIZE 256
 #define MAX_PROFILES 32
 #define PATH_SIZE 40
@@ -15,15 +18,13 @@
 #define KEYNAME_SIZE 8
 #define PARSE_OK 0
 #define PARSE_ERROR 1
-#define PARSE_NOT_FOUND 2
-#define PARSE_EMPTY_LINE 3
-#define PARSE_LOOP_STATE_SAVE_NEEDED 4
 
 #define NEXT_PROFILE 0
 #define PREV_PROFILE 1
 #define DEFAULT_CMD_DELAY_MS 18
 #define DEFAULT_CHAR_DELAY_MS 18
 #define PF_CACHE_FILENAME_MAXLEN 7
+
 extern FRESULT sd_fresult;
 extern FATFS sd_fs;
 extern FIL sd_file;

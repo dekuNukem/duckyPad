@@ -71,4 +71,4 @@ lul\parser.o: ../Inc/ssd1306.h
 lul\parser.o: ../Inc/fonts.h
 lul\parser.o: ../Inc/animations.h
 lul\parser.o: ../Inc/usbd_desc.h
-lul\parser.o: ../Inc/hash_lookup.h
+lul\parser.o: ../Inc/ds3_vm.h

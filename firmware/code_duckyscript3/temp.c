@@ -1,3 +1,15 @@
+void keypress_wrap(uint8_t keynum)
+{
+  memset(temp_buf, 0, PATH_SIZE);
+  sprintf(temp_buf, "/%s/key%d.dsb", p_cache.profile_fn, keynum+1);
+  printf("%s\n", temp_buf);
+  if(f_open(&sd_file, temp_buf, FA_READ) != 0)
+    goto kp_end;
+  kp_end:
+  f_close(&sd_file);
+}
+
+
   /*
   HID SET RGB LED COLOUR
   -----------

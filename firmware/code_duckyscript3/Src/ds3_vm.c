@@ -1,0 +1,416 @@
+#include <stdio.h>    /* printf */
+#include <stdint.h>
+#include <string.h>
+#include <stdlib.h>
+#include "ds3_vm.h"
+#include "parser.h"
+
+#include <stdlib.h>
+#include "keyboard.h"
+
+
+#define BIN_BUF_SIZE 200
+uint8_t bin_buf[BIN_BUF_SIZE];
+
+uint16_t defaultdelay_value;
+uint16_t defaultchardelay_value;
+uint16_t charjitter_value;
+
+typedef struct
+{
+  uint8_t top;
+  uint32_t stack[STACK_SIZE];
+} my_stack;
+
+my_stack arithmetic_stack, call_stack;
+
+void stack_init(my_stack* ms)
+{
+  ms->top = 0;
+  memset(ms->stack, 0, STACK_SIZE);
+}
+
+uint8_t stack_push(my_stack* ms, uint16_t value)
+{
+  if(ms->top >= STACK_SIZE)
+    return STACK_OP_OVERFLOW;
+  ms->stack[ms->top] = value;
+  ms->top++;
+  return STACK_OP_OK;
+}
+
+uint8_t stack_pop(my_stack* ms, uint16_t *result)
+{
+  if(ms->top == 0)
+    return STACK_OP_UNDERFLOW;
+  ms->top--;
+  *result = ms->stack[ms->top];
+  ms->stack[ms->top] = 0;
+  return STACK_OP_OK;
+}
+
+uint16_t make_uint16(uint8_t b0, uint8_t b1)
+{
+  return b0 | (b1 << 8);
+}
+
+uint8_t load_dsb(char* filename)
+{
+  uint8_t op_result = DSB_OK;
+  UINT bytes_read = 0;
+  if(f_open(&sd_file, filename, FA_READ) != 0)
+  {
+  	op_result = DSB_FOPEN_FAILED;
+  	goto load_dsb_end;
+  }
+ 
+ 	uint32_t this_file_size = f_size(&sd_file);
+  if(this_file_size == 0)
+    op_result = DSB_EMPTY_FILE;
+  if(this_file_size >= BIN_BUF_SIZE)
+    op_result = DSB_FILE_TOO_LARGE;
+  memset(bin_buf, 0, BIN_BUF_SIZE);
+  f_read(&sd_file, bin_buf, BIN_BUF_SIZE, &bytes_read);
+  if(bytes_read != this_file_size)
+  	op_result = DSB_FREAD_ERROR;
+  load_dsb_end:
+  f_close(&sd_file);
+  return op_result;
+}
+
+void store_uint16_as_two_bytes_at(uint16_t value, uint8_t* buf)
+{
+  buf[0] = value & 0xff;
+  buf[1] = (value >> 8);
+}
+
+uint16_t binop_add(uint16_t a, uint16_t b) {return a + b;}
+uint16_t binop_sub(uint16_t a, uint16_t b) {return a - b;}
+uint16_t binop_mul(uint16_t a, uint16_t b) {return a * b;}
+uint16_t binop_divide(uint16_t a, uint16_t b) {return a / b;}
+uint16_t binop_mod(uint16_t a, uint16_t b) {return a % b;}
+uint16_t binop_greater(uint16_t a, uint16_t b) {return a > b;}
+uint16_t binop_greater_eq(uint16_t a, uint16_t b) {return a >= b;}
+uint16_t binop_lower(uint16_t a, uint16_t b) {return a < b;}
+uint16_t binop_lower_eq(uint16_t a, uint16_t b) {return a <= b;}
+uint16_t binop_equal(uint16_t a, uint16_t b) {return a == b;}
+uint16_t binop_not_equal(uint16_t a, uint16_t b) {return a != b;}
+uint16_t binop_bitwise_and(uint16_t a, uint16_t b) {return a & b;}
+uint16_t binop_bitwise_or(uint16_t a, uint16_t b) {return a | b;}
+uint16_t binop_lshift(uint16_t a, uint16_t b) {return a << b;}
+uint16_t binop_rshift(uint16_t a, uint16_t b) {return a >> b;}
+uint16_t binop_logical_and(uint16_t a, uint16_t b) {return a && b;}
+uint16_t binop_logical_or(uint16_t a, uint16_t b) {return a || b;}
+uint16_t binop_power(uint16_t x, uint16_t exponent)
+{
+    uint16_t result = 1;
+    for (int i = 0; i < exponent; ++i)
+        result *= x;
+    return result;
+}
+
+typedef uint16_t (*FUNC_PTR)(uint16_t, uint16_t);
+
+void binop(exe_result* exe, FUNC_PTR bin_func)
+{
+  uint16_t rhs, lhs;
+  uint8_t op_result = stack_pop(&arithmetic_stack, &rhs);
+  if(op_result != STACK_OP_OK)
+  {
+    exe->result = op_result;
+    return;
+  }
+  op_result = stack_pop(&arithmetic_stack, &lhs);
+  if(op_result != STACK_OP_OK)
+  {
+    exe->result = op_result;
+    return;
+  }
+  op_result = stack_push(&arithmetic_stack, bin_func(lhs, rhs));
+  if(op_result != STACK_OP_OK)
+  {
+    exe->result = op_result;
+    return;
+  }
+}
+
+void press_key(uint8_t code, uint8_t type)
+{
+	my_key kk;
+	kk.code = code;
+  kk.type = type;
+  keyboard_press(&kk, 0);
+}
+
+void release_key(uint8_t code, uint8_t type)
+{
+	my_key kk;
+	kk.code = code;
+  kk.type = type;
+  keyboard_release(&kk);
+}
+
+#define VAR_BOUNDARY_CHR (0x1f)
+
+void print_str(char* start)
+{
+  char* curr = start;
+  uint8_t this_char, lsb, msb;
+  my_key kk;
+  while(1)
+  {
+    this_char = curr[0];
+    if(this_char == 0)
+      break;
+
+    if(this_char == VAR_BOUNDARY_CHR)
+    {
+      curr++;
+      lsb = curr[0];
+      curr++;
+      msb = curr[0];
+      curr++;
+      curr++;
+      make_uint16(lsb, msb);
+      printf("|VAR@0x%x|", make_uint16(lsb, msb));
+      continue;
+    }
+    kk.type = KEY_TYPE_CHAR;
+    kk.code = utf8ascii(this_char);
+    if(kk.code != 0)
+      kb_print_char(&kk, defaultchardelay_value, charjitter_value);
+    curr++;
+  }
+}
+
+void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, exe_result* exe)
+{
+  uint8_t this_opcode = pgm_start[curr_pc];
+  uint8_t byte0 = pgm_start[curr_pc+1];
+  uint8_t byte1 = pgm_start[curr_pc+2];
+  uint8_t op_result;
+  uint16_t op_data = make_uint16(byte0, byte1);
+  printf("PC: %04d | Opcode: %02d | 0x%02x 0x%02x | 0x%04x\n", curr_pc, this_opcode, byte0, byte1, op_data);
+  
+  exe->result = EXE_OK;
+  exe->next_pc = curr_pc + INSTRUCTION_SIZE_BYTES;
+  exe->data = 0;
+
+  if(this_opcode == OP_NOP)
+  {
+    return;
+  }
+  else if(this_opcode == OP_PUSHC)
+  {
+    op_result = stack_push(&arithmetic_stack, op_data);
+    if(op_result != STACK_OP_OK)
+    {
+      exe->result = op_result;
+      return;
+    }
+  }
+  else if(this_opcode == OP_PUSHV)
+  {
+    uint16_t this_value = make_uint16(pgm_start[op_data], pgm_start[op_data+1]);
+    op_result = stack_push(&arithmetic_stack, this_value);
+    if(op_result != STACK_OP_OK)
+    {
+      exe->result = op_result;
+      return;
+    }
+  }
+  else if(this_opcode == OP_POP)
+  {
+    uint16_t this_item;
+    op_result = stack_pop(&arithmetic_stack, &this_item);
+    if(op_result != STACK_OP_OK)
+    {
+      exe->result = op_result;
+      return;
+    }
+    if(op_data == DEFAULTDELAY_ADDR)
+      defaultdelay_value = this_item;
+    else if (op_data == DEFAULTCHARDELAY_ADDR)
+      defaultchardelay_value = this_item;
+    else if (op_data == CHARJITTER_ADDR)
+      charjitter_value = this_item;
+    else
+      store_uint16_as_two_bytes_at(this_item, pgm_start + op_data);
+  }
+  else if(this_opcode == OP_BRZ)
+  {
+    uint16_t this_value;
+    op_result = stack_pop(&arithmetic_stack, &this_value);
+    if(op_result != STACK_OP_OK)
+    {
+      exe->result = op_result;
+      return;
+    }
+    if(this_value == 0)
+      exe->next_pc = op_data;
+  }
+  else if(this_opcode == OP_JMP)
+  {
+    exe->next_pc = op_data;
+  }
+  else if(this_opcode == OP_CALL)
+  {
+    op_result = stack_push(&call_stack, exe->next_pc);
+    if(op_result != STACK_OP_OK)
+    {
+      exe->result = op_result;
+      return;
+    }
+    exe->next_pc = op_data;
+  }
+  else if(this_opcode == OP_RET)
+  {
+    uint16_t return_pc;
+    op_result = stack_pop(&call_stack, &return_pc);
+    if(op_result != STACK_OP_OK)
+    {
+      exe->result = op_result;
+      return;
+    }
+    exe->next_pc = return_pc;
+  }
+  else if(this_opcode == OP_HALT)
+  {
+    exe->result = EXE_HALT;
+  }
+  else if(this_opcode == OP_EQ)
+  {
+    binop(exe, binop_equal);
+  }
+  else if(this_opcode == OP_NOTEQ)
+  {
+    binop(exe, binop_not_equal);
+  }
+  else if(this_opcode == OP_LT)
+  {
+    binop(exe, binop_lower);
+  }
+  else if(this_opcode == OP_LTE)
+  {
+    binop(exe, binop_lower_eq);
+  }
+  else if(this_opcode == OP_GT)
+  {
+    binop(exe, binop_greater);
+  }
+  else if(this_opcode == OP_GTE)
+  {
+    binop(exe, binop_greater_eq);
+  }
+  else if(this_opcode == OP_ADD)
+  {
+    binop(exe, binop_add);
+  }
+  else if(this_opcode == OP_SUB)
+  {
+    binop(exe, binop_sub);
+  }
+  else if(this_opcode == OP_MULT)
+  {
+    binop(exe, binop_mul);
+  }
+  else if(this_opcode == OP_DIV)
+  {
+    binop(exe, binop_divide);
+  }
+  else if(this_opcode == OP_MOD)
+  {
+    binop(exe, binop_mod);
+  }
+  else if(this_opcode == OP_POW)
+  {
+    binop(exe, binop_power);
+  }
+  else if(this_opcode == OP_LSHIFT)
+  {
+    binop(exe, binop_lshift);
+  }
+  else if(this_opcode == OP_RSHIFT)
+  {
+    binop(exe, binop_rshift);
+  }
+  else if(this_opcode == OP_BITOR)
+  {
+    binop(exe, binop_bitwise_or);
+  }
+  else if(this_opcode == OP_BITAND)
+  {
+    binop(exe, binop_bitwise_and);
+  }
+  else if(this_opcode == OP_LOGIOR)
+  {
+    binop(exe, binop_logical_or);
+  }
+  else if(this_opcode == OP_LOGIAND)
+  {
+    binop(exe, binop_logical_and);
+  }
+  else if(this_opcode == OP_STR || this_opcode == OP_STRLN)
+  {
+    char* str_start = pgm_start + op_data;
+    print_str(str_start);
+    if(this_opcode == OP_STRLN)
+    {
+    	press_key(0x28, 0x03); // ENTER key
+    	osDelay(defaultdelay_value);
+    	release_key(0x28, 0x03);
+    	osDelay(defaultdelay_value);
+    }
+  }
+  else if(this_opcode == OP_KDOWN)
+  {
+  	press_key(byte0, byte1);
+  }
+  else if(this_opcode == OP_KUP)
+  {
+  	release_key(byte0, byte1);
+  }
+  else if(this_opcode == OP_KDOWND)
+  {
+  	press_key(byte0, byte1);
+  	osDelay(defaultdelay_value);
+  }
+  else if(this_opcode == OP_KUPD)
+  {
+  	release_key(byte0, byte1);
+  	osDelay(defaultdelay_value);
+  }
+  else if(this_opcode == OP_DELAY)
+  {
+    uint16_t delay_amount;
+    op_result = stack_pop(&arithmetic_stack, &delay_amount);
+    if(op_result != STACK_OP_OK)
+    {
+      exe->result = op_result;
+      return;
+    }
+    osDelay(delay_amount);
+  }
+}
+
+void run_dsb(exe_result* er)
+{
+  uint16_t current_pc = 0;
+	
+  stack_init(&arithmetic_stack);
+  stack_init(&call_stack);
+  uint8_t header_size = make_uint16(bin_buf[0], bin_buf[1]);
+  uint8_t* pgm_start = bin_buf + header_size;
+  defaultdelay_value = DEFAULT_DEFAULTDELAY_MS;
+  defaultchardelay_value = DEFAULT_DEFAULTCHARDELAY_MS;
+  charjitter_value = 0;
+
+  while(1)
+  {
+    execute_instruction(pgm_start, current_pc, er);
+    if(er->result != EXE_OK)
+      break;
+    current_pc = er->next_pc;
+  }
+  printf("execution halted: %d\n", er->result);
+}

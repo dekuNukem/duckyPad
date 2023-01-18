@@ -8,7 +8,7 @@
 #include "keyboard.h"
 #include "animations.h"
 #include "usbd_desc.h"
-#include "hash_lookup.h"
+#include "ds3_vm.h"
 
 uint8_t pf_name_cache[MAX_PROFILES][PF_CACHE_FILENAME_MAXLEN];
 
@@ -34,9 +34,7 @@ unsigned int bytes_read;
 ds3_exe_result my_der;
 char temp_buf[PATH_SIZE];
 char lfn_buf[FILENAME_SIZE];
-char key_name_buf[FILENAME_SIZE];
 char read_buffer[READ_BUF_SIZE];
-char prev_line[READ_BUF_SIZE];
 char nonexistent_keyname[] = "\253";
 profile_cache p_cache;
 dp_global_settings dp_settings;
@@ -444,22 +442,22 @@ void load_profile(uint8_t pid)
 
 void print_keyname(char* keyname, uint8_t keynum, int8_t x_offset, int8_t y_offset)
 {
-  memset(key_name_buf, 0, FILENAME_SIZE);
-  strcpy(key_name_buf, keyname);
-  if(key_name_buf[0] == 0 || (key_name_buf[0] == nonexistent_keyname[0] && key_name_buf[1] == 0))
-    key_name_buf[0] = '-';
-  if(strlen(key_name_buf) > 7)
-    key_name_buf[7] = 0;
+  memset(temp_buf, 0, PATH_SIZE);
+  strcpy(temp_buf, keyname);
+  if(temp_buf[0] == 0 || (temp_buf[0] == nonexistent_keyname[0] && temp_buf[1] == 0))
+    temp_buf[0] = '-';
+  if(strlen(temp_buf) > 7)
+    temp_buf[7] = 0;
   uint8_t row = keynum / 3;
   uint8_t col = keynum - row * 3;
-  int8_t x_start = col_lookup[strlen(key_name_buf) - 1][col] + x_offset;
+  int8_t x_start = col_lookup[strlen(temp_buf) - 1][col] + x_offset;
   int8_t y_start = (row + 1) * 10 + 2 + y_offset;
   if(x_start < 0)
     x_start = 0;
   if(y_start < 0)
     y_start = 0;
   ssd1306_SetCursor((uint8_t)x_start, (uint8_t)y_start);
-  ssd1306_WriteString(key_name_buf, Font_6x10,White);
+  ssd1306_WriteString(temp_buf, Font_6x10,White);
 }
 
 void print_legend(int8_t x_offset, int8_t y_offset)
@@ -553,9 +551,9 @@ void reset_hold_cache(void)
 {
   for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
   {
-    hold_cache[i].key_type = KEY_TYPE_UNKNOWN;
+    hold_cache[i].type = KEY_TYPE_UNKNOWN;
     hold_cache[i].code = 0;
-    hold_cache2[i].key_type = KEY_TYPE_UNKNOWN;
+    hold_cache2[i].type = KEY_TYPE_UNKNOWN;
     hold_cache2[i].code = 0;
   }
 }
@@ -605,15 +603,14 @@ void change_profile(uint8_t direction)
   restore_profile(next_profile);
 }
 
+exe_result my_er;
+
 void keypress_wrap(uint8_t keynum)
 {
   memset(temp_buf, 0, PATH_SIZE);
   sprintf(temp_buf, "/%s/key%d.dsb", p_cache.profile_fn, keynum+1);
-  printf("%s\n", temp_buf);
-  if(f_open(&sd_file, temp_buf, FA_READ) != 0)
-    goto kp_end;
-  kp_end:
-  f_close(&sd_file);
+  printf("dsbopen: %d\n", load_dsb(temp_buf));
+  run_dsb(&my_er);
 }
 
 void der_init(ds3_exe_result* der)

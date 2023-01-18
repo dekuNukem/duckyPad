@@ -829,11 +829,11 @@ void keypress_task_start(void const * argument)
         if(i <= KEY_14)
         {
           keydown_anime_start(i);
-          if(hold_cache[i].key_type != KEY_TYPE_UNKNOWN && hold_cache[i].code != 0)
+          if(hold_cache[i].type != KEY_TYPE_UNKNOWN && hold_cache[i].code != 0)
           {
             keyboard_press(&hold_cache[i], 0);
             osDelay(DEFAULT_CHAR_DELAY_MS);
-            if(hold_cache2[i].key_type != KEY_TYPE_UNKNOWN && hold_cache2[i].code != 0)
+            if(hold_cache2[i].type != KEY_TYPE_UNKNOWN && hold_cache2[i].code != 0)
             {
               keyboard_press(&hold_cache2[i], 0);
               osDelay(DEFAULT_CHAR_DELAY_MS);
@@ -871,12 +871,12 @@ void keypress_task_start(void const * argument)
         else if(i == KEY_BUTTON1 || i == KEY_BUTTON2)
           handle_tactile_button_press(i);
       }
-      if(is_released_but_not_serviced(&button_status[i]) && hold_cache[i].key_type != KEY_TYPE_UNKNOWN && hold_cache[i].code != 0)
+      if(is_released_but_not_serviced(&button_status[i]) && hold_cache[i].type != KEY_TYPE_UNKNOWN && hold_cache[i].code != 0)
       {
         last_keypress = HAL_GetTick();
         keyboard_release(&hold_cache[i]);
         osDelay(DEFAULT_CHAR_DELAY_MS);
-        if(hold_cache2[i].key_type != KEY_TYPE_UNKNOWN && hold_cache2[i].code != 0)
+        if(hold_cache2[i].type != KEY_TYPE_UNKNOWN && hold_cache2[i].code != 0)
         {
           keyboard_release(&hold_cache2[i]);
           osDelay(DEFAULT_CHAR_DELAY_MS);
