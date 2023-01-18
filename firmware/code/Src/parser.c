@@ -884,11 +884,11 @@ uint8_t parse_line(char* line, uint8_t keynum)
   }
   else if(hash_result == STRING_HASH)
   {
-    kb_print(line + STRING_LEN, char_delay, char_delay_jitter);
+    kb_print(line + STRING_LEN + 1, char_delay, char_delay_jitter);
   }
   else if(hash_result == STRINGLN_HASH)
   {
-    kb_print(line + STRINGLN_LEN, char_delay, char_delay_jitter);
+    kb_print(line + STRINGLN_LEN + 1, char_delay, char_delay_jitter);
     this_key.key_type = KEY_TYPE_SPECIAL;
     this_key.code = KEY_RETURN;
     kb_print_char(&this_key, char_delay, char_delay_jitter);

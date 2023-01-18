@@ -110,6 +110,9 @@ mouse button not implemented yet
 0.22.0 20230111
 added mouse commands back
 ready for public release
+
+0.22.1 20230118
+fixed a bug where STRING prints an extra space
 */
 
 uint8_t fw_version_major = 0;
