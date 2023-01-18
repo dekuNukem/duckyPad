@@ -111,7 +111,7 @@ uint16_t binop_power(uint16_t x, uint16_t exponent)
 
 typedef uint16_t (*FUNC_PTR)(uint16_t, uint16_t);
 
-void binop(exe_result* exe, FUNC_PTR bin_func)
+void binop(ds3_exe_result* exe, FUNC_PTR bin_func)
 {
   uint16_t rhs, lhs;
   uint8_t op_result = stack_pop(&arithmetic_stack, &rhs);
@@ -152,7 +152,7 @@ void release_key(uint8_t code, uint8_t type)
 
 #define VAR_BOUNDARY_CHR (0x1f)
 
-void print_str(char* start)
+void print_str(char* start, uint8_t* pgm_start)
 {
   char* curr = start;
   uint8_t this_char, lsb, msb;
@@ -171,8 +171,11 @@ void print_str(char* start)
       msb = curr[0];
       curr++;
       curr++;
-      make_uint16(lsb, msb);
-      printf("|VAR@0x%x|", make_uint16(lsb, msb));
+      uint16_t var_addr = make_uint16(lsb, msb);
+      uint16_t var_value = make_uint16(pgm_start[var_addr], pgm_start[var_addr+1]);
+      memset(temp_buf, 0, PATH_SIZE);
+      sprintf(temp_buf, "%d", var_value);
+      kb_print(temp_buf, defaultchardelay_value, charjitter_value);
       continue;
     }
     kk.type = KEY_TYPE_CHAR;
@@ -183,7 +186,7 @@ void print_str(char* start)
   }
 }
 
-void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, exe_result* exe)
+void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* exe)
 {
   uint8_t this_opcode = pgm_start[curr_pc];
   uint8_t byte0 = pgm_start[curr_pc+1];
@@ -353,7 +356,7 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, exe_result* exe)
   else if(this_opcode == OP_STR || this_opcode == OP_STRLN)
   {
     char* str_start = pgm_start + op_data;
-    print_str(str_start);
+    print_str(str_start, pgm_start);
     if(this_opcode == OP_STRLN)
     {
     	press_key(0x28, 0x03); // ENTER key
@@ -393,7 +396,7 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, exe_result* exe)
   }
 }
 
-void run_dsb(exe_result* er)
+void run_dsb(ds3_exe_result* er)
 {
   uint16_t current_pc = 0;
 	

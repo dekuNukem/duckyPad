@@ -77,5 +77,6 @@ lul\main.o: ../Inc/buttons.h
 lul\main.o: ../Inc/keyboard.h
 lul\main.o: ../Inc/parser.h
 lul\main.o: ../Inc/shared.h
+lul\main.o: ../Inc/ds3_vm.h
 lul\main.o: ../Inc/my_tasks.h
 lul\main.o: ../Inc/animations.h

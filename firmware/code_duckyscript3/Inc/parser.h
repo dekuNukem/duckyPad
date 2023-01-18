@@ -9,6 +9,7 @@
 #include "buttons.h"
 #include "keyboard.h"
 #include "shared.h"
+#include "ds3_vm.h"
 
 
 #define READ_BUF_SIZE 256
@@ -51,19 +52,7 @@ typedef struct
   uint32_t sleep_after_ms;
 } dp_global_settings;
 
-#define DER_NONE 0
-#define DER_SLEEP 1
-#define DER_PREV_PROFILE 2
-#define DER_NEXT_PROFILE 3
-#define DER_GOTO_PROFILE 4
-
-typedef struct
-{
-  uint8_t type;
-  uint8_t data;
-} ds3_exe_result;
-
-void der_init(ds3_exe_result* dpc);
+void der_init(ds3_exe_result* der);
 void change_profile(uint8_t dir);
 void handle_keypress(uint8_t key_num, but_status* b_status);
 void scan_profiles(void);

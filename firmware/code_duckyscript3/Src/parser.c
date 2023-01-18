@@ -46,19 +46,11 @@ uint8_t key_press_count[MAPPABLE_KEY_COUNT];
 
 char project_url[] = "duckyPad.com";
 
-const char cmd_LOOP[] = "LOOP";
-
 const char cmd_BG_COLOR[] = "BG_COLOR ";
 const char cmd_KD_COLOR[] = "KEYDOWN_COLOR ";
 const char cmd_SWCOLOR[] = "SWCOLOR_";
 const char cmd_SW_SELF_COLOR[] = "SWCOLOR ";
 const char cmd_DIM_UNUSED_KEYS[] = "DIM_UNUSED_KEYS ";
-
-const char cmd_LMOUSE[] = "LMOUSE";
-const char cmd_RMOUSE[] = "RMOUSE";
-const char cmd_MMOUSE[] = "MMOUSE";
-const char cmd_MOUSE_MOVE[] = "MOUSE_MOVE ";
-const char cmd_MOUSE_WHEEL[] = "MOUSE_WHEEL ";
 
 void delay_wrapper(int32_t amount, int32_t fuzz)
 {
@@ -603,7 +595,7 @@ void change_profile(uint8_t direction)
   restore_profile(next_profile);
 }
 
-exe_result my_er;
+ds3_exe_result my_er;
 
 void keypress_wrap(uint8_t keynum)
 {
@@ -615,12 +607,12 @@ void keypress_wrap(uint8_t keynum)
 
 void der_init(ds3_exe_result* der)
 {
-  der->type = DER_NONE;
+  der->result = EXE_OK;
   der->data = 0;
+  der->next_pc = 0;
 }
 
 void handle_keypress(uint8_t keynum, but_status* b_status)
 {
-  der_init(&my_der);
   keypress_wrap(keynum);
 }

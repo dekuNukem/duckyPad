@@ -69,3 +69,4 @@ lul\animations.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
 lul\animations.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h
 lul\animations.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
 lul\animations.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h
+lul\animations.o: ../Inc/ds3_vm.h

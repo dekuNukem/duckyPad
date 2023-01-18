@@ -68,3 +68,4 @@ lul\ds3_vm.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
 lul\ds3_vm.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 lul\ds3_vm.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 lul\ds3_vm.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
+lul\ds3_vm.o: ../Inc/ds3_vm.h

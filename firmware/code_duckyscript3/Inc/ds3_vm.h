@@ -57,7 +57,12 @@
 #define STACK_SIZE 8
 
 #define EXE_OK 0
-#define EXE_ADDITIONAL_ACTION_NEEDED 10
+
+#define EXE_ACTION_SLEEP 1
+#define EXE_ACTION_PREV_PROFILE 2
+#define EXE_ACTION_NEXT_PROFILE 3
+#define EXE_ACTION_GOTO_PROFILE 4
+
 #define EXE_HALT 20
 #define EXE_ERROR 30
 
@@ -83,10 +88,10 @@ typedef struct
   uint8_t result;
   uint16_t next_pc;
   uint8_t data;
-} exe_result;
+} ds3_exe_result;
 
 uint8_t load_dsb(char* filename);
-void run_dsb(exe_result* er);
+void run_dsb(ds3_exe_result* er);
 
 #endif
 
