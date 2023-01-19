@@ -1314,7 +1314,9 @@ def t1_worker():
             dp_root_folder_display.set("Loading...")
             current_hid_op = HID_NOP
             try:
+                start_ts = time.time()
                 hid_op.dump_from_hid(hid_dump_path, dp_root_folder_display)
+                print("took:", time.time() - start_ts, "seconds")
                 select_root_folder(hid_dump_path)
                 dp_root_folder_display.set("done!")
             except Exception as e:

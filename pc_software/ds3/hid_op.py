@@ -126,11 +126,6 @@ def _read_duckypad():
             return result
         time.sleep(0.01)
     return []
-    #res = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-    #if res == [0]:
-    #    return h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-    #return res
-
 
 def duckypad_hid_init():
     duckypad_path = get_duckypad_path()
@@ -140,7 +135,6 @@ def duckypad_hid_init():
 
 def duckypad_hid_close():
     h.close()
-
 
 def duckypad_list_files(root_dir = None):
     ret = []
@@ -173,6 +167,8 @@ def duckypad_hid_resume():
     pc_to_duckypad_buf[2] = HID_COMMAND_OP_RESUME   # Command type
     h.write(pc_to_duckypad_buf)
 
+timestamp = 0
+
 def duckypad_read_file(file_dir):
     ret = ''
     pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
@@ -183,18 +179,29 @@ def duckypad_read_file(file_dir):
     for x in range(0, len(file_dir)):
         pc_to_duckypad_buf[3+x] = ord(file_dir[x])
 
+    timestamp = time.time()
     h.write(pc_to_duckypad_buf)
+    print(f"A: took {int((time.time() - timestamp) * 1000)}ms")
+    
     while 1:
         time.sleep(HID_WAIT_TIME)
+        timestamp = time.time()
         result = _read_duckypad()
+        print(f"B: took {int((time.time() - timestamp) * 1000)}ms")
         if len(result) == 0 or result[2] == HID_RESPONSE_EOF:
             break
         _check_hid_err(result)
         ret += "".join([chr(x) for x in result[3:]]).strip('\0')
         logger.debug("duckypad_read_file: result=%s ret=%s", result, ret)
         # print("".join([chr(x) for x in result]))
+        timestamp = time.time()
         duckypad_hid_resume()
+        print(f"C: took {int((time.time() - timestamp) * 1000)}ms")
+        print("------------")
     return ret
+
+TYPE_FILE = 0
+TYPE_DIR = 1
 
 def dump_from_hid(save_path, string_var):
     file_struct_list = []
@@ -203,12 +210,12 @@ def dump_from_hid(save_path, string_var):
         file_struct_list.append(my_file_obj(item[0], item[1], None))
 
     for item in file_struct_list:
-        if item.type == 0:
+        if item.type == TYPE_FILE:
             if not item.name.lower().startswith("dp_"):
                 continue
             string_var.set("Loading " + str(item.name))
             item.content = duckypad_read_file(item.name)
-        if item.type == 1:
+        if item.type == TYPE_DIR:
             if 'keymap' in item.name:
                 continue
             if 'profile' not in item.name.lower():
@@ -224,17 +231,17 @@ def dump_from_hid(save_path, string_var):
 
     try:
         shutil.rmtree(save_path)
-        time.sleep(0.05)
+        time.sleep(0.1)
     except FileNotFoundError:
         pass
     ensure_dir(save_path)
 
     for item in file_struct_list:
-        if item.type == 0 and item.content is not None:
+        if item.type == TYPE_FILE and item.content is not None:
             with open(os.path.join(save_path, item.name), 'w', encoding='latin-1') as this_file:
                 this_file.write(item.content)
 
-        if item.type == 1 and item.content is not None:
+        if item.type == TYPE_DIR and item.content is not None:
             this_folder_path = os.path.join(save_path, item.name)
             ensure_dir(this_folder_path)
             for subfile in item.content:

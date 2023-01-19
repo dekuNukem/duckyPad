@@ -317,7 +317,6 @@ uint8_t hid_tx_buf[HID_TX_BUF_SIZE];
 #define HID_RESPONSE_EOF 3
 
 #define HID_FILE_READ_BUF_SIZE 60
-#define HID_TX_DELAY 10
 
 /*
   HID OP RESUME
@@ -566,7 +565,6 @@ void handle_hid_command(void)
     hid_tx_buf[1] = seq_number;
     hid_tx_buf[2] = HID_RESPONSE_EOF;
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
-    // osDelay(HID_TX_DELAY);
     f_closedir(&dir);
     hid_rx_has_unprocessed_data = 0;
   }
@@ -617,7 +615,6 @@ void handle_hid_command(void)
     hid_tx_buf[1] = seq_number + count;
     hid_tx_buf[2] = HID_RESPONSE_EOF;
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
-    // osDelay(HID_TX_DELAY);
     hid_rx_has_unprocessed_data = 0;
   }
   /*
