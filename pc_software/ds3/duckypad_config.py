@@ -19,6 +19,7 @@ import json
 import subprocess
 import hid_op
 import threading
+import ds3_preprocessor
 
 """
 0.13.5
@@ -1071,28 +1072,21 @@ root.update()
 def check_syntax_click(show_messagebox=True):
     if is_key_selected() == False:
         return
-    has_errors = False
     profile_index = profile_lstbox.curselection()[0]
     if profile_list[profile_index].keylist[selected_key] is None:
         return
     script_textbox.tag_remove("error", '1.0', 'end')
-    all_errors = ''
-    for count, line in enumerate(profile_list[profile_index].keylist[selected_key].script.split('\n')):
-        # print(ds_syntax_check.parse_line(line), line)
-        parse_result, error_message = ds_syntax_check.parse_line(line)
-        if parse_result != ds_syntax_check.PARSE_OK:
-            # print("syntax error on line", count, ':', line)
-            script_textbox.tag_add("error", str(count+1)+".0", str(count+1)+".0 lineend")
-            # script_textbox.mark_set("insert", str(count+1)+".0")
-            # script_textbox.see(str(count+1)+'.0')
-            check_syntax_button.config(text="What's wrong?", fg='red')
-            has_errors = True
-            all_errors += "* " + error_message + '\n'
-    if has_errors == False:
+    program_listing = profile_list[profile_index].keylist[selected_key].script.split('\n')
+    result_dict = ds3_preprocessor.run_all(program_listing)
+    if result_dict["is_success"]:
         script_textbox.tag_remove("error", '1.0', 'end')
         check_syntax_button.config(text="Code seems OK..", fg="green")
-    if show_messagebox and has_errors:
-        messagebox.showinfo("Found errors", all_errors)
+    else:
+        error_lnum = result_dict['error_line_number_starting_from_1']
+        script_textbox.tag_add("error", str(error_lnum)+".0", str(error_lnum)+".0 lineend")
+        check_syntax_button.config(text="What's wrong?", fg='red')
+    if show_messagebox and result_dict["is_success"] is False:
+        messagebox.showinfo("Found errors", result_dict['comments'])
 
 check_syntax_button = Button(scripts_lf, text="", command=check_syntax_click, state=DISABLED)
 check_syntax_button.place(x= scaled_size(10), y=scaled_size(417), width=scaled_size(140), height=BUTTON_HEIGHT)
@@ -1316,7 +1310,7 @@ def t1_worker():
             try:
                 start_ts = time.time()
                 hid_op.dump_from_hid(hid_dump_path, dp_root_folder_display)
-                print("took:", time.time() - start_ts, "seconds")
+                print("hid_dump:", time.time() - start_ts, "seconds")
                 select_root_folder(hid_dump_path)
                 dp_root_folder_display.set("done!")
             except Exception as e:
