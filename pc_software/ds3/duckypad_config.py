@@ -20,6 +20,7 @@ import subprocess
 import hid_op
 import threading
 import ds3_preprocessor
+import make_bytecode
 
 """
 0.13.5
@@ -580,6 +581,8 @@ def dump_keymap(save_path):
 def save_everything(save_path):
     dp_root_folder_display.set("Saving...")
     root.update()
+    curr_profile = None
+    curr_key = None
     try:
         validate_data_objs(save_path)
         ensure_dir(save_path)
@@ -595,14 +598,19 @@ def save_everything(save_path):
         for this_profile in profile_list:
             os.mkdir(this_profile.path)
             time.sleep(0.05)
+
+            curr_profile = this_profile.name
+            for this_key in this_profile.keylist:
+                if this_key is None:
+                    continue
+                curr_key = this_key.name
+                this_key.binary_array = make_bytecode.make_dsb(this_key.script.split('\n'))
+
             config_file = open(os.path.join(this_profile.path, 'config.txt'), 'w')
             for this_key in this_profile.keylist:
                 if this_key is None:
                     continue
-                this_key.check_loop()
                 config_file.write('z' + str(this_key.index) + ' ' + str(this_key.name) + '\n')
-                if this_key.has_loop:
-                    config_file.write('s' + str(this_key.index) + ' ' + str(this_key.max_loop+1) + '\n')
 
             config_file.write('BG_COLOR %d %d %d\n' % (this_profile.bg_color))
             if this_profile.kd_color is not None:
@@ -614,6 +622,13 @@ def save_everything(save_path):
                     continue
                 with open(this_key.path, 'w', encoding='utf8') as key_file:
                     key_file.write(this_key.script)
+
+                dsb_path = this_key.path
+                pre, ext = os.path.splitext(dsb_path)
+                dsb_path = pre + '.dsb'
+
+                with open(dsb_path, 'wb') as dsb_file:
+                    dsb_file.write(this_key.binary_array)   
                 if this_key.color is not None:
                     config_file.write('SWCOLOR_%d %d %d %d\n' % (this_key.index, this_key.color[0], this_key.color[1], this_key.color[2]))
             config_file.close()
@@ -640,7 +655,11 @@ def save_everything(save_path):
         dp_root_folder_display.set("Saved!")
 
     except Exception as e:
-        messagebox.showerror("Error", "Save Failed!\n\n"+str(e))
+        error_msg = "Save Failed:\n\n"
+        if curr_profile is not None or curr_key is not None:
+            error_msg += f"Profile [{curr_profile}] Key [{curr_key}]:\n"
+        error_msg += str(e)
+        messagebox.showerror("Error", error_msg)
         dp_root_folder_display.set("Save FAILED!")
 
 def make_default_backup_dir_name():

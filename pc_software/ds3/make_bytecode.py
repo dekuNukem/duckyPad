@@ -308,7 +308,6 @@ def get_partial_varname_addr(msg, vad):
 			return partial_name, vad[partial_name]
 	return None, None
 
-
 def replace_var_in_str(msg, vad):
 	search = msg.split('$')
 	if len(search) == 1:
@@ -336,7 +335,7 @@ def make_dsb(program_listing):
 	# result_dict should at least contain is_success and comments
 	result_dict = ds3_preprocessor.run_all(program_listing)
 	if result_dict["is_success"] is False:
-		return result_dict
+		raise ValueError("code contains errors")
 
 	if_skip_table = result_dict['if_skip_table']
 	if_info_list = result_dict["if_info"]
@@ -571,18 +570,20 @@ def make_dsb(program_listing):
 
 	return output_bin_array
 
-if len(sys.argv) <= 1:
-	print(__file__, "script_file")
-	exit()
+if __name__ == "__main__":
 
-text_file = open(sys.argv[1])
-program_listing = text_file.read().split('\n')
-text_file.close()
+	if len(sys.argv) <= 1:
+		print(__file__, "script_file")
+		exit()
 
-bin_arr = make_dsb(program_listing)
-print(bin_arr)
+	text_file = open(sys.argv[1])
+	program_listing = text_file.read().split('\n')
+	text_file.close()
 
-bin_out = open("key1.dsb", 'wb')
-bin_out.write(bin_arr)
-bin_out.close()
+	bin_arr = make_dsb(program_listing)
+	print(bin_arr)
+
+	bin_out = open("key1.dsb", 'wb')
+	bin_out.write(bin_arr)
+	bin_out.close()
 
