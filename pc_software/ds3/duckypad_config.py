@@ -180,7 +180,7 @@ def ui_reset():
     key_color_rb1.config(state=DISABLED)
     key_color_rb2.config(state=DISABLED)
     clear_and_disable_script_textbox()
-    check_syntax_button.config(text="", fg="green")
+    check_syntax_label.config(text="", fg="green")
     sleepmode_slider.config(state=DISABLED)
 
 def check_firmware_update():
@@ -301,7 +301,6 @@ def enable_buttons():
     dim_unused_keys_checkbox.config(state=NORMAL)
     key_rename_button.config(state=NORMAL)
     key_remove_button.config(state=NORMAL)
-    execute_button.config(state=NORMAL, fg="red")
     keyboard_layout_button.config(state=NORMAL)
     for button in script_command_button_list:
         button.config(state=NORMAL)
@@ -312,7 +311,6 @@ def enable_buttons():
     key_color_text.config(fg='black')
     sleepmode_slider.config(state=NORMAL)
     sleepmode_slider.set(dp_settings.sleep_after_minutes)
-    check_syntax_button.config(state=NORMAL)
 
 # def debug_set_root_folder():
 #     global profile_list
@@ -389,7 +387,7 @@ def update_profile_display():
     key_color_rb1.config(state=DISABLED)
     key_color_rb2.config(state=DISABLED)
     clear_and_disable_script_textbox()
-    check_syntax_button.config(text="", fg="green")
+    check_syntax_label.config(text="", fg="green")
 
 def clear_and_disable_script_textbox():
     script_textbox.delete(1.0, 'end')
@@ -734,7 +732,7 @@ def key_button_click(button_widget):
         last_rgb = profile_list[profile_index].keylist[selected_key].color
         key_color_button.config(background=rgb_to_hex(profile_list[profile_index].keylist[selected_key].color))
     key_button_clicked_at = modified_count
-    check_syntax_click(show_messagebox=False)
+    check_syntax()
 
 root = Tk()
 root.title("duckyPad configurator v" + THIS_VERSION_NUMBER)
@@ -1052,7 +1050,7 @@ def script_textbox_modified():
     if modified_count - key_button_clicked_at > 2:
         if profile_list[profile_index].keylist[selected_key] is not None:
             cantthinkofaname = "Checking..."
-        check_syntax_button.config(text=cantthinkofaname, fg="black")
+        check_syntax_label.config(text=cantthinkofaname, fg="black")
     if profile_list[profile_index].keylist[selected_key] is not None:
         profile_list[profile_index].keylist[selected_key].script = script_textbox.get(1.0, END)#.replace('\r','').strip().strip('\n')
         modification_checked = 0
@@ -1060,28 +1058,6 @@ def script_textbox_modified():
 def script_textbox_event(event):
     script_textbox_modified()
     script_textbox.tk.call(script_textbox._w, 'edit', 'modified', 0)
-
-script_exe_warning_showed = False
-
-def run_script():
-    global script_exe_warning_showed
-    if len(script_textbox.get("1.0",END)) <= 2:
-        return
-    warning_msg = "You are about to execute this script.\n> MAKE SURE YOU TRUST IT!\n> Result might differ from real duckyPad.\n\nExecution will start after a 2-second delay."
-    if 'darwin' in sys.platform:
-        warning_msg = "You are about to execute this script.\n> MAKE SURE YOU TRUST IT!\n> Result might differ from real duckyPad.\n> If nothing happens, give this app Accessibility permission.\n> Check Getting Started Guide for details. \n\nExecution will start after a 2-second delay."
-    if(script_exe_warning_showed is False):
-        if(messagebox.askokcancel("Warning", warning_msg) == False):
-            return
-    # try:
-    #     import autogui
-    #     time.sleep(2)
-    #     exe_result, exe_note = autogui.execute_file(script_textbox.get("1.0",END).replace('\r', '').split('\n'))
-    #     if exe_result != 0:
-    #         messagebox.showerror("Error", exe_note)
-    # except Exception as e:
-    #     messagebox.showerror("Error", "execution failed:\n\n" + str(e))
-    script_exe_warning_showed = True
 
 script_textbox = Text(scripts_lf, relief='solid', borderwidth=1, padx=2, pady=2, spacing3=5, wrap="word", state=DISABLED)
 script_textbox.place(x=key_button_list[0].winfo_x(), y=KEY_BUTTON_HEADROOM+PADDING-3, width=key_button_list[-1].winfo_x() + KEY_BUTTON_WIDTH - KEY_BUTTON_GAP, height=key_button_list[-1].winfo_y() - key_button_list[0].winfo_y() + KEY_BUTTON_HEIGHT + 5)
@@ -1093,7 +1069,7 @@ script_common_commands_lf = LabelFrame(scripts_lf, text="Common commands", width
 script_common_commands_lf.place(x=PADDING, y=scaled_size(300))
 root.update()
 
-def check_syntax_click(show_messagebox=True):
+def check_syntax():
     if is_key_selected() == False:
         return
     profile_index = profile_lstbox.curselection()[0]
@@ -1104,25 +1080,19 @@ def check_syntax_click(show_messagebox=True):
     result_dict = ds3_preprocessor.run_all(program_listing)
     if result_dict["is_success"]:
         script_textbox.tag_remove("error", '1.0', 'end')
-        check_syntax_button.config(text="Code seems OK..", fg="green")
+        check_syntax_label.config(text="Code seems OK..", fg="green")
     else:
         error_lnum = result_dict['error_line_number_starting_from_1']
         script_textbox.tag_add("error", str(error_lnum)+".0", str(error_lnum)+".0 lineend")
-        check_syntax_button.config(text="What's wrong?", fg='red')
-    if show_messagebox and result_dict["is_success"] is False:
-        messagebox.showinfo("Found errors", result_dict['comments'])
+        check_syntax_label.config(text=result_dict['comments'], fg='red')
 
-check_syntax_button = Button(scripts_lf, text="", command=check_syntax_click, state=DISABLED)
-check_syntax_button.place(x= scaled_size(10), y=scaled_size(417), width=scaled_size(140), height=BUTTON_HEIGHT)
+check_syntax_label = Label(scripts_lf, text="Hello world!")
+check_syntax_label.place(x=scaled_size(10), y=scaled_size(417))
 root.update()
 
 SCRIPT_BUTTON_WIDTH = script_textbox.winfo_width()/3.4
 SCRIPT_BUTTON_GAP = scaled_size(5)
 PADDING = scaled_size(2)
-
-execute_button = Button(scripts_lf, text="Run script", command=run_script, state=DISABLED)
-execute_button.place(x=scaled_size(160), y=scaled_size(417), width=scaled_size(80), height=BUTTON_HEIGHT)
-root.update()
 
 script_button_xy_list = [(SCRIPT_BUTTON_GAP, PADDING), (SCRIPT_BUTTON_GAP*2+SCRIPT_BUTTON_WIDTH, PADDING), (SCRIPT_BUTTON_GAP*3+SCRIPT_BUTTON_WIDTH*2, PADDING), (SCRIPT_BUTTON_GAP, PADDING+BUTTON_HEIGHT+2), (SCRIPT_BUTTON_GAP*2+SCRIPT_BUTTON_WIDTH, PADDING+BUTTON_HEIGHT+2), (SCRIPT_BUTTON_GAP*3+SCRIPT_BUTTON_WIDTH*2, PADDING+BUTTON_HEIGHT+2), (SCRIPT_BUTTON_GAP, (PADDING+BUTTON_HEIGHT)*2+2), (SCRIPT_BUTTON_GAP*2+SCRIPT_BUTTON_WIDTH, (PADDING+BUTTON_HEIGHT)*2+2), (SCRIPT_BUTTON_GAP*3+SCRIPT_BUTTON_WIDTH*2, (PADDING+BUTTON_HEIGHT)*2+2)]
 script_button_commands = ["STRINGLN", "STRING", "DELAY", "CTRL", "SHIFT", "ALT", "ENTER", "REPEAT", "more..."]
@@ -1316,7 +1286,7 @@ root.update()
 def repeat_func():
     global modification_checked
     if time.time() - last_textbox_edit >= 0.5 and modification_checked == 0:
-        check_syntax_click(show_messagebox=False)
+        check_syntax()
         modification_checked = 1
     root.after(500, repeat_func)
 
