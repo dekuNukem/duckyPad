@@ -623,7 +623,9 @@ def save_everything(save_path):
             for this_key in this_profile.keylist:
                 if this_key is None:
                     continue
-                with open(this_key.path, 'w', encoding='utf8') as key_file:
+                # newline='' is important, it forces python to not write \r, only \n
+                # otherwise it will read back as double \n
+                with open(this_key.path, 'w', encoding='utf8', newline='') as key_file:
                     key_file.write(this_key.script)
 
                 dsb_path = this_key.path

@@ -277,7 +277,7 @@ def duckypad_close_file():
     logger.debug("duckypad_close_file: result=%s", result)
     _check_hid_err(result)
 
-def duckypad_write_file_one_chunk(content):
+def duckypad_write_one_chunk(content):
     pc_to_duckypad_buf = bytearray(PC_TO_DUCKYPAD_HID_BUF_SIZE)
     pc_to_duckypad_buf[0] = 5   # HID Usage ID, always 5
     pc_to_duckypad_buf[1] = len(content)   # data size in bytes
@@ -293,19 +293,21 @@ def duckypad_write_file_one_chunk(content):
 
     result = _read_duckypad()
     logger.debug(
-        "duckypad_write_file_one_chunk: content=%s pc_to_duckypad_buf=%s result=%s",
+        "duckypad_write_one_chunk: content=%s pc_to_duckypad_buf=%s result=%s",
         content,
         pc_to_duckypad_buf,
         result,
     )
     _check_hid_err(result)
 
+    print("wrote", content)
+
 def duckypad_write_file(content):
     n=60
     line_list = [content[i:i+n] for i in range(0, len(content), n)]
     # print(line_list)
     for line in line_list:
-        duckypad_write_file_one_chunk(line)
+        duckypad_write_one_chunk(line)
 
 def duckypad_delete_file(file_name):
     pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE

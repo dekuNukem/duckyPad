@@ -70,7 +70,7 @@ class dp_key(object):
 		else:
 			self.name = self.get_keyname(path, self.index)
 		self.color = None
-		self.script = self.load_script(path)
+		self.script = self.load_script(path).replace('\r', '')
 		try:
 			config_path = os.path.join(os.path.dirname(path), "config.txt")
 			self.read_color(config_path)
