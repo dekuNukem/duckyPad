@@ -36,9 +36,13 @@ fixed syntax check bug where MMOUSE isnt recognized
 script checking now provides error details
 defaultdelay and defaultchardelay now resets correctly when running a new script in pc test-run
 ask to confirm if trying to quit while saving data
+
+0.15.0 2023 01 23
+working on adding DSB support
+
 """
 
-THIS_VERSION_NUMBER = '0.14.0'
+THIS_VERSION_NUMBER = '0.15.0'
 
 ENV_UI_SCALE = os.getenv("DUCKYPAD_UI_SCALE")
 UI_SCALE = float(ENV_UI_SCALE) if ENV_UI_SCALE else 1
@@ -62,7 +66,6 @@ ensure_dir(backup_path)
 save_filename = os.path.join(save_path, 'config.txt')
 print(save_path)
 config_dict = {}
-config_dict['auto_backup_enabled'] = True
 hid_dump_path = os.path.join(save_path, "hid_dump")
 hid_modified_dir_path = os.path.join(save_path, "hid_new")
 
@@ -75,6 +78,8 @@ try:
             raise ValueError("not a valid config file")
 except Exception as e:
     pass
+
+config_dict['auto_backup_enabled'] = True
 
 def save_config():
     try:
