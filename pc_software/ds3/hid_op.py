@@ -140,7 +140,6 @@ def duckypad_list_files(root_dir = None):
     ret = []
     pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
     pc_to_duckypad_buf[0] = 5   # HID Usage ID, always 5
-    pc_to_duckypad_buf[1] = 0   # Sequence Number
     pc_to_duckypad_buf[2] = HID_COMMAND_LIST_FILES  # Command type
 
     if root_dir is not None:
@@ -163,41 +162,40 @@ def duckypad_list_files(root_dir = None):
 def duckypad_hid_resume():
     pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
     pc_to_duckypad_buf[0] = 5   # HID Usage ID, always 5
-    pc_to_duckypad_buf[1] = 0   # Sequence Number
     pc_to_duckypad_buf[2] = HID_COMMAND_OP_RESUME   # Command type
     h.write(pc_to_duckypad_buf)
 
 timestamp = 0
 
 def duckypad_read_file(file_dir):
+    # print("duckypad_read_file", file_dir)
     ret = ''
     pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
     pc_to_duckypad_buf[0] = 5   # HID Usage ID, always 5
-    pc_to_duckypad_buf[1] = 0   # Sequence Number
     pc_to_duckypad_buf[2] = HID_COMMAND_READ_FILE   # Command type
 
     for x in range(0, len(file_dir)):
         pc_to_duckypad_buf[3+x] = ord(file_dir[x])
 
-    timestamp = time.time()
+    # timestamp = time.time()
     h.write(pc_to_duckypad_buf)
-    print(f"A: took {int((time.time() - timestamp) * 1000)}ms")
+    # print(f"A: took {int((time.time() - timestamp) * 1000)}ms")
     
     while 1:
         time.sleep(HID_WAIT_TIME)
-        timestamp = time.time()
+        # timestamp = time.time()
         result = _read_duckypad()
-        print(f"B: took {int((time.time() - timestamp) * 1000)}ms")
+        # print(f"B: took {int((time.time() - timestamp) * 1000)}ms")
         if len(result) == 0 or result[2] == HID_RESPONSE_EOF:
             break
         _check_hid_err(result)
         ret += "".join([chr(x) for x in result[3:]]).strip('\0')
         logger.debug("duckypad_read_file: result=%s ret=%s", result, ret)
         # print("".join([chr(x) for x in result]))
-        timestamp = time.time()
+        # timestamp = time.time()
         duckypad_hid_resume()
-        print(f"C: took {int((time.time() - timestamp) * 1000)}ms")
-        print("------------")
+        # print(f"C: took {int((time.time() - timestamp) * 1000)}ms")
+        # print("------------")
     return ret
 
 TYPE_FILE = 0
@@ -224,7 +222,10 @@ def dump_from_hid(save_path, string_var):
             lv2_list = []
             for fff in files_in_this_dir:
                 string_var.set("Loading " + str(item.name + "/" + fff[0]))
-                if fff[1] != 0:
+                if fff[1] != TYPE_FILE:
+                    continue
+                # no need to dump dsb file since we'll be generating a new one
+                if(fff[0].lower().endswith('.dsb')):
                     continue
                 lv2_list.append(my_file_obj(fff[0], fff[1], duckypad_read_file(item.name + "/" + fff[0])))
             item.content = lv2_list
@@ -238,7 +239,7 @@ def dump_from_hid(save_path, string_var):
 
     for item in file_struct_list:
         if item.type == TYPE_FILE and item.content is not None:
-            with open(os.path.join(save_path, item.name), 'w', encoding='latin-1') as this_file:
+            with open(os.path.join(save_path, item.name), 'w', encoding='utf8') as this_file:
                 this_file.write(item.content)
 
         if item.type == TYPE_DIR and item.content is not None:
@@ -246,14 +247,12 @@ def dump_from_hid(save_path, string_var):
             ensure_dir(this_folder_path)
             for subfile in item.content:
                 if subfile.type == 0 and subfile.content is not None:
-                    with open(os.path.join(this_folder_path, subfile.name), 'w', encoding='latin-1') as this_file:
+                    with open(os.path.join(this_folder_path, subfile.name), 'w', encoding='utf8') as this_file:
                         this_file.write(subfile.content)
-
 
 def duckypad_open_file_for_writing(file_dir):
     pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
     pc_to_duckypad_buf[0] = 5   # HID Usage ID, always 5
-    pc_to_duckypad_buf[1] = 0   # Sequence Number
     pc_to_duckypad_buf[2] = HID_COMMAND_OPEN_FILE_FOR_WRITING   # Command type
 
     for x in range(0, len(file_dir)):
@@ -268,7 +267,6 @@ def duckypad_open_file_for_writing(file_dir):
 def duckypad_close_file():
     pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
     pc_to_duckypad_buf[0] = 5   # HID Usage ID, always 5
-    pc_to_duckypad_buf[1] = 0   # Sequence Number
     pc_to_duckypad_buf[2] = HID_COMMAND_CLOSE_FILE  # Command type
 
     h.write(pc_to_duckypad_buf)
@@ -312,7 +310,6 @@ def duckypad_write_file(content):
 def duckypad_delete_file(file_name):
     pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
     pc_to_duckypad_buf[0] = 5   # HID Usage ID, always 5
-    pc_to_duckypad_buf[1] = 0   # Sequence Number
     pc_to_duckypad_buf[2] = HID_COMMAND_DELETE_FILE # Command type
 
     for x in range(0, len(file_name)):
@@ -327,7 +324,6 @@ def duckypad_delete_file(file_name):
 def duckypad_create_dir(dir_name):
     pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
     pc_to_duckypad_buf[0] = 5   # HID Usage ID, always 5
-    pc_to_duckypad_buf[1] = 0   # Sequence Number
     pc_to_duckypad_buf[2] = HID_COMMAND_CREATE_DIR  # Command type
 
     for x in range(0, len(dir_name)):
@@ -342,7 +338,6 @@ def duckypad_create_dir(dir_name):
 def duckypad_delete_dir(dir_name):
     pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
     pc_to_duckypad_buf[0] = 5   # HID Usage ID, always 5
-    pc_to_duckypad_buf[1] = 0   # Sequence Number
     pc_to_duckypad_buf[2] = HID_COMMAND_DELETE_DIR  # Command type
     for x in range(0, len(dir_name)):
         pc_to_duckypad_buf[3+x] = ord(dir_name[x])
@@ -421,6 +416,5 @@ def duckypad_hid_file_sync(duckypad_dir_name, local_dir_name, string_var):
 def duckypad_hid_sw_reset():
     pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
     pc_to_duckypad_buf[0] = 5   # HID Usage ID, always 5
-    pc_to_duckypad_buf[1] = 0   # Sequence Number
     pc_to_duckypad_buf[2] = HID_COMMAND_SW_RESET    # Command type
     h.write(pc_to_duckypad_buf)

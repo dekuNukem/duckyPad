@@ -284,7 +284,7 @@ void select_keymap(void)
   is_busy = 0;
 }
 
-uint8_t command_type, seq_number;
+uint8_t command_type;
 uint8_t hid_tx_buf[HID_TX_BUF_SIZE];
 
 #define HID_COMMAND_GET_INFO 0
@@ -392,12 +392,11 @@ void handle_hid_command(void)
   //   printf("%c, ", hid_rx_buf[i]);
   // printf("\ndone\n");
 
-  seq_number = hid_rx_buf[1];
   command_type = hid_rx_buf[2];
 
   memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
   hid_tx_buf[0] = 4;
-  hid_tx_buf[1] = seq_number;
+  hid_tx_buf[1] = 0;
   hid_tx_buf[2] = HID_RESPONSE_OK;
 
   /*
@@ -544,7 +543,7 @@ void handle_hid_command(void)
       memset(lfn_buf, 0, FILENAME_SIZE);
       memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
       hid_tx_buf[0] = 4;
-      hid_tx_buf[1] = seq_number;
+      hid_tx_buf[1] = 0;
       hid_tx_buf[2] = HID_RESPONSE_OK;
       
       if (f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)
@@ -562,7 +561,7 @@ void handle_hid_command(void)
     list_file_end:
     memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
     hid_tx_buf[0] = 4;
-    hid_tx_buf[1] = seq_number;
+    hid_tx_buf[1] = 0;
     hid_tx_buf[2] = HID_RESPONSE_EOF;
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
     f_closedir(&dir);
@@ -588,13 +587,12 @@ void handle_hid_command(void)
     if(f_open(&sd_file, hid_rx_buf+3, FA_READ) != 0)
       goto hid_read_file_end;
 
-    uint8_t count = 0;
     while(1)
     {
       hid_rx_has_unprocessed_data = 0;
       memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
       hid_tx_buf[0] = 4;
-      hid_tx_buf[1] = seq_number + count;
+      hid_tx_buf[1] = 0;
       hid_tx_buf[2] = HID_RESPONSE_OK;
       f_read(&sd_file, read_buffer, HID_FILE_READ_BUF_SIZE, &bytes_read);
       strncpy(hid_tx_buf+3, read_buffer, bytes_read);
@@ -606,13 +604,12 @@ void handle_hid_command(void)
       memset(read_buffer, 0, READ_BUF_SIZE);
       if(bytes_read < HID_FILE_READ_BUF_SIZE)
         break;
-      count++;
     }
     hid_read_file_end:
     f_close(&sd_file);
     memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
     hid_tx_buf[0] = 4;
-    hid_tx_buf[1] = seq_number + count;
+    hid_tx_buf[1] = 0;
     hid_tx_buf[2] = HID_RESPONSE_EOF;
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
     hid_rx_has_unprocessed_data = 0;
@@ -660,7 +657,6 @@ void handle_hid_command(void)
   */
   else if(command_type == HID_COMMAND_WRITE_FILE)
   {
-    // printf("to write: %s\n", hid_rx_buf+3);
     if(f_write(&sd_file, hid_rx_buf+3, hid_rx_buf[1], &bytes_read) != 0)
       hid_tx_buf[2] = HID_RESPONSE_ERROR;
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
@@ -760,6 +756,7 @@ void handle_hid_command(void)
   else if(command_type == HID_COMMAND_SW_RESET)
   {
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
+    osDelay(50);
     NVIC_SystemReset();
   }
   /*
