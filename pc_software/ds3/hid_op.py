@@ -46,7 +46,7 @@ def ensure_dir(dir_path):
         os.makedirs(dir_path)
 
 def get_file_content(file_path):
-    this_file = open(file_path, encoding='latin-1')
+    this_file = open(file_path, 'rb')
     content = this_file.read()
     this_file.close()
     return content
@@ -124,7 +124,7 @@ def _read_duckypad():
         result = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
         if len(result) > 1:
             return result
-        time.sleep(0.01)
+        time.sleep(0.005)
     return []
 
 def duckypad_hid_init():
@@ -277,26 +277,23 @@ def duckypad_close_file():
     logger.debug("duckypad_close_file: result=%s", result)
     _check_hid_err(result)
 
-def duckypad_write_file_one_line(content):
-    pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
+def duckypad_write_file_one_chunk(content):
+    pc_to_duckypad_buf = bytearray(PC_TO_DUCKYPAD_HID_BUF_SIZE)
     pc_to_duckypad_buf[0] = 5   # HID Usage ID, always 5
-    pc_to_duckypad_buf[1] = 0   # Sequence Number
+    pc_to_duckypad_buf[1] = len(content)   # data size in bytes
     pc_to_duckypad_buf[2] = HID_COMMAND_WRITE_FILE  # Command type
 
     if len(content) > 60:
         raise ValueError("content too long")
 
     for x in range(0, len(content)):
-        if 0 <= ord(content[x]) <= 255:
-            pc_to_duckypad_buf[3+x] = ord(content[x])
-        else:
-            pc_to_duckypad_buf[3+x] = ord("?")
+        pc_to_duckypad_buf[3+x] = content[x]
 
     h.write(pc_to_duckypad_buf)
 
     result = _read_duckypad()
     logger.debug(
-        "duckypad_write_file_one_line: content=%s pc_to_duckypad_buf=%s result=%s",
+        "duckypad_write_file_one_chunk: content=%s pc_to_duckypad_buf=%s result=%s",
         content,
         pc_to_duckypad_buf,
         result,
@@ -308,7 +305,7 @@ def duckypad_write_file(content):
     line_list = [content[i:i+n] for i in range(0, len(content), n)]
     # print(line_list)
     for line in line_list:
-        duckypad_write_file_one_line(line)
+        duckypad_write_file_one_chunk(line)
 
 def duckypad_delete_file(file_name):
     pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE

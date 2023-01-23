@@ -649,19 +649,19 @@ void handle_hid_command(void)
   -----------
   PC to duckyPad:
   [0]   report_id: always 5
-  [1]   seq number
+  [1]   data length in bytes
   [2]   command: 15
   [3 ... 63]   content
   -----------
   duckyPad to PC
   [0]   report_id: always 4
-  [1]   seq number (same as above)
+  [1]   reserved
   [2]   0 = OK, 1 = ERROR, 2 = BUSY
   */
   else if(command_type == HID_COMMAND_WRITE_FILE)
   {
     // printf("to write: %s\n", hid_rx_buf+3);
-    if(f_write(&sd_file, hid_rx_buf+3, strlen(hid_rx_buf+3), &bytes_read) != 0)
+    if(f_write(&sd_file, hid_rx_buf+3, hid_rx_buf[1], &bytes_read) != 0)
       hid_tx_buf[2] = HID_RESPONSE_ERROR;
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
   }
