@@ -435,13 +435,13 @@ def make_dsb(program_listing):
 			assembly_listing += parse_expression(this_line)
 			assembly_listing.append(make_delay_instruction(this_line))
 		elif first_word == cmd_KEYDOWN:
-			this_instruction['opcode'] = OP_KDOWN
-			assembly_listing.append(this_instruction)
+			this_instruction['opcode'] = OP_KDOWND
 			this_instruction['oparg'] = get_key_combined_value(this_line.split(' ')[-1])
+			assembly_listing.append(this_instruction)
 		elif first_word == cmd_KEYUP:
-			this_instruction['opcode'] = OP_KUP
-			assembly_listing.append(this_instruction)
+			this_instruction['opcode'] = OP_KUPD
 			this_instruction['oparg'] = get_key_combined_value(this_line.split(' ')[-1])
+			assembly_listing.append(this_instruction)
 		elif first_word == cmd_RETURN:
 			this_instruction['opcode'] = OP_RET
 			assembly_listing.append(this_instruction)
