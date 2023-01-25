@@ -85,7 +85,7 @@ arith_lookup = {
 
 zero = 0
 endianness = 'little'
-var_boundary_chr = chr(0x1f)
+var_boundary = 0x1f
 INSTRUCTION_SIZE_BYTES = 3
 
 if_skip_table = None
@@ -302,6 +302,8 @@ def get_key_combined_value(keyname):
 	return ((key_type % 0xff) << 8) | (key_code % 0xff)
 
 def get_partial_varname_addr(msg, vad):
+	if len(msg) == 0:
+		return None, None
 	for x in range(len(msg)+1):
 		partial_name = msg[:x]
 		if partial_name in vad:
@@ -309,19 +311,23 @@ def get_partial_varname_addr(msg, vad):
 	return None, None
 
 def replace_var_in_str(msg, vad):
-	search = msg.split('$')
-	if len(search) == 1:
-		return msg
-	print('before', msg)
-	for item in [x.strip() for x in search if len(x.strip()) != 0]:
-		var_name, var_addr = get_partial_varname_addr(item, vad)
-		if var_addr is not None:
-			# print(f"!!!!!!!!! {item} contains a variable")
-			twobyte = var_addr.to_bytes(2, endianness)
-			# print(f"${var_name}", f"|{var_addr}|", chr(twobyte[0]), chr(twobyte[1]))
-			msg = msg.replace(f"${var_name}", f"{var_boundary_chr}{chr(twobyte[0])}{chr(twobyte[1])}{var_boundary_chr}")
-	print('after', msg)
-	return msg
+	bytearr = bytearray()
+	curr = 0
+	while curr < len(msg):
+		this_letter = msg[curr]
+		if this_letter == "$":
+			var_name, var_addr = get_partial_varname_addr(msg[curr+1:], vad)
+			if var_name is not None:
+				curr += len(var_name)
+				bytearr += var_boundary.to_bytes(1, endianness)
+				bytearr += var_addr.to_bytes(2, endianness)
+				bytearr += var_boundary.to_bytes(1, endianness)
+			else:
+				bytearr += this_letter.encode()
+		else:
+			bytearr += this_letter.encode()
+		curr += 1
+	return bytearr
 
 def make_dsb(program_listing):
 	global if_skip_table
@@ -497,13 +503,11 @@ def make_dsb(program_listing):
 	str_list = []
 	for item in str_lookup:
 		this_str = {
-		'content':f"{item}\0",
+		'content': item,
+		'bytes': replace_var_in_str(item, var_addr_dict) + zero.to_bytes(1, endianness),
 		'lnum': str_lookup[item],
 		'addr': None}
 		str_list.append(this_str)
-
-	for item in str_list:
-		item['content'] = replace_var_in_str(item['content'], var_addr_dict)
 
 	for item in reserved_variable_dict:
 		var_lookup.pop(item, None)
@@ -514,7 +518,7 @@ def make_dsb(program_listing):
 		if index == 0:
 			item['addr'] = str_bin_start
 		else:
-			item['addr'] = str_list[index-1]['addr'] + len(str_list[index-1]['content'])
+			item['addr'] = str_list[index-1]['addr'] + len(str_list[index-1]['bytes'])
 
 	# replace lables with real memory address
 	label_to_addr_dict = {}
@@ -550,7 +554,7 @@ def make_dsb(program_listing):
 
 	# write zero-terminated strings
 	for item in str_list:
-		output_bin_array += item['content'].encode()
+		output_bin_array += item['bytes']
 
 	dsb_header_size = 8
 	pgm_start = dsb_header_size

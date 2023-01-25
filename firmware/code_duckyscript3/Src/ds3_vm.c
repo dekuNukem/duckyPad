@@ -152,6 +152,30 @@ void release_key(uint8_t code, uint8_t type)
 
 #define VAR_BOUNDARY_CHR (0x1f)
 
+void write_var(uint8_t* pgm_start, uint16_t addr, uint16_t value)
+{
+  if(addr == DEFAULTDELAY_ADDR)
+    defaultdelay_value = value;
+  else if (addr == DEFAULTCHARDELAY_ADDR)
+    defaultchardelay_value = value;
+  else if (addr == CHARJITTER_ADDR)
+    charjitter_value = value;
+  else
+    store_uint16_as_two_bytes_at(value, pgm_start + addr);
+}
+
+uint16_t read_var(uint8_t* pgm_start, uint16_t addr)
+{
+  if(addr == DEFAULTDELAY_ADDR)
+    return defaultdelay_value;
+  else if (addr == DEFAULTCHARDELAY_ADDR)
+    return defaultchardelay_value;
+  else if (addr == CHARJITTER_ADDR)
+    return charjitter_value;
+  else
+    return make_uint16(pgm_start[addr], pgm_start[addr+1]);
+}
+
 void print_str(char* start, uint8_t* pgm_start)
 {
   char* curr = start;
@@ -172,7 +196,7 @@ void print_str(char* start, uint8_t* pgm_start)
       curr++;
       curr++;
       uint16_t var_addr = make_uint16(lsb, msb);
-      uint16_t var_value = make_uint16(pgm_start[var_addr], pgm_start[var_addr+1]);
+      uint16_t var_value = read_var(pgm_start, var_addr);
       memset(temp_buf, 0, PATH_SIZE);
       sprintf(temp_buf, "%d", var_value);
       kb_print(temp_buf, defaultchardelay_value, charjitter_value);
@@ -214,17 +238,7 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
   }
   else if(this_opcode == OP_PUSHV)
   {
-    
-    uint16_t this_value;
-    if(op_data == DEFAULTDELAY_ADDR)
-      this_value = defaultdelay_value;
-    else if (op_data == DEFAULTCHARDELAY_ADDR)
-      this_value = defaultchardelay_value;
-    else if (op_data == CHARJITTER_ADDR)
-      this_value = charjitter_value;
-    else
-      this_value= make_uint16(pgm_start[op_data], pgm_start[op_data+1]);
-    op_result = stack_push(&arithmetic_stack, this_value);
+    op_result = stack_push(&arithmetic_stack, read_var(pgm_start, op_data));
     if(op_result != STACK_OP_OK)
     {
       exe->result = op_result;
@@ -240,14 +254,7 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
       exe->result = op_result;
       return;
     }
-    if(op_data == DEFAULTDELAY_ADDR)
-      defaultdelay_value = this_item;
-    else if (op_data == DEFAULTCHARDELAY_ADDR)
-      defaultchardelay_value = this_item;
-    else if (op_data == CHARJITTER_ADDR)
-      charjitter_value = this_item;
-    else
-      store_uint16_as_two_bytes_at(this_item, pgm_start + op_data);
+    write_var(pgm_start, op_data, this_item);
   }
   else if(this_opcode == OP_BRZ)
   {
