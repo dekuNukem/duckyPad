@@ -371,7 +371,10 @@ cmd_MK_STOP : (KEY_MK_STOP, KEY_TYPE_MEDIA),
 }
 
 reserved_variable_dict = {
-	'_DEFAULTDELAY': 65535,
-	'_DEFAULTCHARDELAY': 65534,
-	'_CHARJITTER': 65533,
+	'_DEFAULTDELAY': (0xffff - 0),
+	'_DEFAULTCHARDELAY': (0xffff - 1),
+	'_CHARJITTER': (0xffff - 2),
+	"_RANDOM_MIN": (0xffff - 3),
+	"_RANDOM_MAX": (0xffff - 4),
+	"_RANDOM_INT": (0xffff - 5),
 }

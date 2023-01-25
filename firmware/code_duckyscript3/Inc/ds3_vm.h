@@ -79,9 +79,12 @@
 #define DEFAULT_DEFAULTDELAY_MS 20
 #define DEFAULT_DEFAULTCHARDELAY_MS 20
 
-#define DEFAULTDELAY_ADDR 0xffff
+#define DEFAULTDELAY_ADDR (0xffff - 0)
 #define DEFAULTCHARDELAY_ADDR (0xffff - 1)
 #define CHARJITTER_ADDR (0xffff - 2)
+#define _RANDOM_MIN (0xffff - 3)
+#define _RANDOM_MAX (0xffff - 4)
+#define _RANDOM_INT (0xffff - 5)
 
 typedef struct
 {

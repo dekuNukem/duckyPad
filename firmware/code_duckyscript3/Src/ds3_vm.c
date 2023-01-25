@@ -214,7 +214,16 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
   }
   else if(this_opcode == OP_PUSHV)
   {
-    uint16_t this_value = make_uint16(pgm_start[op_data], pgm_start[op_data+1]);
+    
+    uint16_t this_value;
+    if(op_data == DEFAULTDELAY_ADDR)
+      this_value = defaultdelay_value;
+    else if (op_data == DEFAULTCHARDELAY_ADDR)
+      this_value = defaultchardelay_value;
+    else if (op_data == CHARJITTER_ADDR)
+      this_value = charjitter_value;
+    else
+      this_value= make_uint16(pgm_start[op_data], pgm_start[op_data+1]);
     op_result = stack_push(&arithmetic_stack, this_value);
     if(op_result != STACK_OP_OK)
     {

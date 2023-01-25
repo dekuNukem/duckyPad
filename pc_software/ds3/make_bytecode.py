@@ -312,7 +312,7 @@ def replace_var_in_str(msg, vad):
 	search = msg.split('$')
 	if len(search) == 1:
 		return msg
-	# print('before', msg)
+	print('before', msg)
 	for item in [x.strip() for x in search if len(x.strip()) != 0]:
 		var_name, var_addr = get_partial_varname_addr(item, vad)
 		if var_addr is not None:
@@ -320,7 +320,7 @@ def replace_var_in_str(msg, vad):
 			twobyte = var_addr.to_bytes(2, endianness)
 			# print(f"${var_name}", f"|{var_addr}|", chr(twobyte[0]), chr(twobyte[1]))
 			msg = msg.replace(f"${var_name}", f"{var_boundary_chr}{chr(twobyte[0])}{chr(twobyte[1])}{var_boundary_chr}")
-	# print('after', msg)
+	print('after', msg)
 	return msg
 
 def make_dsb(program_listing):

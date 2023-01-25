@@ -9,8 +9,7 @@ PARSE_OK = 0
 PARSE_ERROR = 1
 
 # name : value
-# {"_RANDOM_INT":0, "_CAPSLOCK_ON":0, "_RANDOM_MIN":0, "_RANDOM_MAX":0, "_RANDOM_INT":0,}
-var_table = {"_DEFAULTDELAY":18, "_DEFAULTCHARDELAY":18, "_CHARJITTER":0}
+var_table = {"_DEFAULTDELAY":18, "_DEFAULTCHARDELAY":18, "_CHARJITTER":0, "_RANDOM_MIN":0, "_RANDOM_MAX":0, "_RANDOM_INT":0}
 # name : (start line number, end line number)
 func_table = {}
 if_take_table = {}
@@ -26,7 +25,7 @@ if_raw_info = []
 def reset():
 	global var_table
 	global define_dict
-	var_table = {"_DEFAULTDELAY":18, "_DEFAULTCHARDELAY":18, "_CHARJITTER":0}
+	var_table = {"_DEFAULTDELAY":18, "_DEFAULTCHARDELAY":18, "_CHARJITTER":0, "_RANDOM_MIN":0, "_RANDOM_MAX":0, "_RANDOM_INT":0}
 	func_table.clear()
 	if_take_table.clear()
 	if_skip_table.clear()
