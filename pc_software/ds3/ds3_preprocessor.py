@@ -8,8 +8,14 @@ from keywords import *
 PARSE_OK = 0
 PARSE_ERROR = 1
 
+def get_default_var_table():
+	vt = {}
+	for key in reserved_variable_dict:
+		vt[key] = 0
+	return vt
+
 # name : value
-var_table = {"_DEFAULTDELAY":18, "_DEFAULTCHARDELAY":18, "_CHARJITTER":0, "_RANDOM_MIN":0, "_RANDOM_MAX":0, "_RANDOM_INT":0}
+var_table = get_default_var_table()
 # name : (start line number, end line number)
 func_table = {}
 if_take_table = {}
@@ -25,7 +31,7 @@ if_raw_info = []
 def reset():
 	global var_table
 	global define_dict
-	var_table = {"_DEFAULTDELAY":18, "_DEFAULTCHARDELAY":18, "_CHARJITTER":0, "_RANDOM_MIN":0, "_RANDOM_MAX":0, "_RANDOM_INT":0}
+	var_table = get_default_var_table()
 	func_table.clear()
 	if_take_table.clear()
 	if_skip_table.clear()

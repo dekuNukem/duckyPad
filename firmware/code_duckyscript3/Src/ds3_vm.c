@@ -15,6 +15,7 @@ uint8_t bin_buf[BIN_BUF_SIZE];
 uint16_t defaultdelay_value;
 uint16_t defaultchardelay_value;
 uint16_t charjitter_value;
+uint16_t rand_min, rand_max;
 
 typedef struct
 {
@@ -160,6 +161,12 @@ void write_var(uint8_t* pgm_start, uint16_t addr, uint16_t value)
     defaultchardelay_value = value;
   else if (addr == CHARJITTER_ADDR)
     charjitter_value = value;
+  else if (addr == _RANDOM_MIN)
+    rand_min = value;
+  else if (addr == _RANDOM_MAX)
+    rand_max = value;
+  else if (addr == _RANDOM_INT)
+    ; // this is read only, so do nothing
   else
     store_uint16_as_two_bytes_at(value, pgm_start + addr);
 }
@@ -172,6 +179,12 @@ uint16_t read_var(uint8_t* pgm_start, uint16_t addr)
     return defaultchardelay_value;
   else if (addr == CHARJITTER_ADDR)
     return charjitter_value;
+  else if (addr == _RANDOM_MIN)
+    return rand_min;
+  else if (addr == _RANDOM_MAX)
+    return rand_max;
+  else if (addr == _RANDOM_INT)
+    return rand() % (rand_max + 1 - rand_min) + rand_min;
   else
     return make_uint16(pgm_start[addr], pgm_start[addr+1]);
 }
@@ -423,6 +436,9 @@ void run_dsb(ds3_exe_result* er)
   defaultdelay_value = DEFAULT_DEFAULTDELAY_MS;
   defaultchardelay_value = DEFAULT_DEFAULTCHARDELAY_MS;
   charjitter_value = 0;
+  rand_max = 65535;
+  rand_min = 0;
+  srand(HAL_GetTick());
 
   while(1)
   {
