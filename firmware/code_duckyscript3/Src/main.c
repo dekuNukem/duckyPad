@@ -467,6 +467,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   HAL_Delay(200);
   NVIC_SystemReset();
 }
+
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_kb_scan_task */
@@ -485,7 +486,7 @@ void kb_scan_task(void const * argument)
   MX_USB_DEVICE_Init();
 
   /* USER CODE BEGIN 5 */
-  led_reset();
+  neopixel_off();
   mount_result = f_mount(&sd_fs, "", 1);
   HAL_GPIO_WritePin(OLED_RESET_GPIO_Port, OLED_RESET_Pin, GPIO_PIN_RESET);
   osDelay(10);

@@ -428,7 +428,7 @@ void load_profile(uint8_t pid)
   get_keynames(&p_cache);
   load_colors(p_cache.profile_fn);
   load_loop_state();
-  change_bg();
+  redraw_bg();
   p_cache.current_profile = pid;
 }
 

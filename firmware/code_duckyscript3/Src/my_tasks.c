@@ -803,7 +803,7 @@ void keypress_task_start(void const * argument)
 
   load_keymap_by_name(curr_kb_layout);
   print_legend(0, 0);
-  change_bg();
+  redraw_bg();
   service_all();
   keyboard_release_all();
   for(;;)
