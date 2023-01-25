@@ -597,11 +597,12 @@ void change_profile(uint8_t direction)
 
 ds3_exe_result my_er;
 
-void keypress_wrap(uint8_t keynum)
+void keypress_wrapper(uint8_t keynum)
 {
   memset(temp_buf, 0, PATH_SIZE);
   sprintf(temp_buf, "/%s/key%d.dsb", p_cache.profile_fn, keynum+1);
-  run_dsb(&my_er);
+  if(load_dsb(temp_buf) == DSB_OK)
+    run_dsb(&my_er);
 }
 
 void der_init(ds3_exe_result* der)
@@ -613,5 +614,26 @@ void der_init(ds3_exe_result* der)
 
 void handle_keypress(uint8_t keynum, but_status* b_status)
 {
-  keypress_wrap(keynum);
+  keypress_wrapper(keynum);
+
+  uint32_t hold_start = HAL_GetTick();
+  while(1)
+  {
+    HAL_IWDG_Refresh(&hiwdg);
+    keyboard_update();
+    if(b_status->button_state == BUTTON_RELEASED)
+      return;
+    if(HAL_GetTick() - hold_start > 500)
+      break;
+  }
+
+  // start repeating
+  while(1)
+  {
+    HAL_IWDG_Refresh(&hiwdg);
+    keyboard_update();
+    keypress_wrapper(keynum);
+    if(b_status->button_state == BUTTON_RELEASED)
+      return;
+  }
 }
