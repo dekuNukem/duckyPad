@@ -601,7 +601,6 @@ void keypress_wrap(uint8_t keynum)
 {
   memset(temp_buf, 0, PATH_SIZE);
   sprintf(temp_buf, "/%s/key%d.dsb", p_cache.profile_fn, keynum+1);
-  printf("dsbopen: %d\n", load_dsb(temp_buf));
   run_dsb(&my_er);
 }
 

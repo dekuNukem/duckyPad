@@ -230,7 +230,7 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
   uint8_t byte1 = pgm_start[curr_pc+2];
   uint8_t op_result;
   uint16_t op_data = make_uint16(byte0, byte1);
-  printf("PC: %04d | Opcode: %02d | 0x%02x 0x%02x | 0x%04x\n", curr_pc, this_opcode, byte0, byte1, op_data);
+  // printf("PC: %04d | Opcode: %02d | 0x%02x 0x%02x | 0x%04x\n", curr_pc, this_opcode, byte0, byte1, op_data);
   
   exe->result = EXE_OK;
   exe->next_pc = curr_pc + INSTRUCTION_SIZE_BYTES;
@@ -447,5 +447,5 @@ void run_dsb(ds3_exe_result* er)
       break;
     current_pc = er->next_pc;
   }
-  printf("execution halted: %d\n", er->result);
+  // printf("execution halted: %d\n", er->result);
 }
