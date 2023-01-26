@@ -481,6 +481,8 @@ def make_dsb(program_listing):
 			this_instruction['opcode'] = OP_MSCL
 			this_instruction['oparg'] = get_mouse_wheel_value(this_line)
 			assembly_listing.append(this_instruction)
+		elif first_word == cmd_SW_SELF_COLOR:
+			assembly_listing.append(this_instruction)
 		elif first_word in ds3_keyname_dict: # key combos
 			key_list = [x for x in this_line.split(" ") if len(x) > 0]
 			# press, from first to last

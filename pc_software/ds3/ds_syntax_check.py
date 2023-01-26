@@ -255,6 +255,8 @@ def parse_line(ducky_line):
 		parse_result, parse_message = parse_combo(ducky_line)
 	elif ducky_line.split(' ')[0] in mouse_commands:
 		parse_result, parse_message = parse_mouse(ducky_line)
+	elif ducky_line.startswith(cmd_SW_SELF_COLOR):
+		return PARSE_OK, "Success"
 	else:
 		parse_result = PARSE_ERROR
 		parse_message = "Invalid command"
