@@ -421,6 +421,15 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
     keyboard_press(&kk, 0);
     osDelay(defaultdelay_value);
   }
+  else if(this_opcode == OP_MSCL)
+  {
+    my_key kk;
+    kk.code = byte0;
+    kk.code2 = 0;
+    kk.type = KEY_TYPE_MOUSE_WHEEL;
+    keyboard_press(&kk, 0);
+    osDelay(defaultdelay_value);
+  }
   else if(this_opcode == OP_DELAY)
   {
     uint16_t delay_amount;

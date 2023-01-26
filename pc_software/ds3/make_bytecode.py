@@ -311,6 +311,13 @@ def get_mmov_combined_value(pgm_line):
 		y_value += 256
 	return ((x_value % 0xff) << 8) | (y_value % 0xff)
 
+def get_mouse_wheel_value(pgm_line):
+	split = [x for x in pgm_line.split(' ') if len(x) > 0]
+	amount = int(split[-1])
+	if amount < 0:
+		amount += 256
+	return amount
+
 def get_partial_varname_addr(msg, vad):
 	if len(msg) == 0:
 		return None, None
@@ -461,6 +468,10 @@ def make_dsb(program_listing):
 		elif first_word == cmd_MOUSE_MOVE:
 			this_instruction['opcode'] = OP_MMOV
 			this_instruction['oparg'] = get_mmov_combined_value(this_line)
+			assembly_listing.append(this_instruction)
+		elif first_word == cmd_MOUSE_WHEEL:
+			this_instruction['opcode'] = OP_MSCL
+			this_instruction['oparg'] = get_mouse_wheel_value(this_line)
 			assembly_listing.append(this_instruction)
 		elif first_word in ds3_keyname_dict: # key combos
 			key_list = [x for x in this_line.split(" ") if len(x) > 0]
