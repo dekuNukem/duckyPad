@@ -155,7 +155,7 @@ def parse_combo(combo_line):
 def parse_mouse(ducky_line):
 	mouse_command_list = [x for x in mouse_commands if x in ducky_line]
 	if len(mouse_command_list) != 1:
-		return PARSE_ERROR, 'Mouse command too many arguments'
+		return PARSE_ERROR, 'too many arguments'
 	this_mouse_command = mouse_command_list[0]
 	if this_mouse_command == cmd_LMOUSE:
 		return PARSE_OK, "Success"
@@ -172,15 +172,15 @@ def parse_mouse(ducky_line):
 			if y_amount > 127 or y_amount < -127:
 				raise ValueError
 		except:
-			return PARSE_ERROR, 'MOUSE_MOVE value error: should be -127 to 127'
+			return PARSE_ERROR, 'should be between -127 to 127'
 		return PARSE_OK, "Success"
 	elif this_mouse_command == cmd_MOUSE_WHEEL:
 		try:
-			amount = int(ducky_line.split(' ')[1])
+			amount = int([x for x in ducky_line.split(' ') if len(x) > 0][1])
 			if amount > 127 or amount < -127:
 				raise ValueError
 		except:
-			return PARSE_ERROR, 'MOUSE_WHEEL value error: should be -127 to 127'
+			return PARSE_ERROR, 'should be between -127 to 127'
 		return PARSE_OK, "Success"
 	return PARSE_ERROR, "Invalid mouse command"
 
@@ -193,7 +193,7 @@ def parse_line(ducky_line):
 	if len(ducky_line) == 0:
 		return PARSE_OK, "Empty line"
 	elif len(ducky_line) >= 250:
-		return PARSE_ERROR, "Line too long, max 250 characters per line."
+		return PARSE_ERROR, "Line too long, max 250 char"
 	elif is_ignored_but_valid_command(ducky_line):
 		return PARSE_OK, "Success"
 	elif ducky_line.startswith(cmd_KEYDOWN):
@@ -222,7 +222,7 @@ def parse_line(ducky_line):
 	elif ducky_line.startswith(cmd_DELAY):
 		try:
 			if int(ducky_line[len(cmd_DELAY):].strip())/1000 <= 0:
-				return PARSE_ERROR, "DELAY can't be zero or negative"
+				return PARSE_ERROR, "can't be zero or negative"
 			else:
 				return PARSE_OK, "Success"
 		except Exception:
@@ -230,19 +230,19 @@ def parse_line(ducky_line):
 	elif ducky_line.startswith(cmd_DEFAULTDELAY):
 		try:
 			if int(ducky_line[len(cmd_DEFAULTDELAY):].strip()) <= 0:
-				return PARSE_ERROR, "DEFAULTDELAY can't be zero or negative"
+				return PARSE_ERROR, "can't be zero or negative"
 			else:
 				return PARSE_OK, "Success"
 		except Exception:
-			return PARSE_ERROR, "DEFAULTDELAY invalid argument"
+			return PARSE_ERROR, "invalid value"
 	elif ducky_line.startswith(cmd_DEFAULTCHARDELAY):
 		try:
 			if int(ducky_line[len(cmd_DEFAULTCHARDELAY):].strip()) <= 0:
-				return PARSE_ERROR, "DEFAULTCHARDELAY can't be zero or negative"
+				return PARSE_ERROR, "can't be zero or negative"
 			else:
 				return PARSE_OK, "Success"
 		except Exception:
-			return PARSE_ERROR, "DEFAULTCHARDELAY invalid argument"
+			return PARSE_ERROR, "invalid argument"
 	elif ducky_line.split(' ')[0] in autogui_map.keys():
 		parse_result, parse_message = parse_combo(ducky_line)
 	elif ducky_line.split(' ')[0] in mouse_commands:

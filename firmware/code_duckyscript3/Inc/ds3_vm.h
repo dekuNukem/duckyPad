@@ -42,7 +42,6 @@
 #define OP_KUPD 29
 #define OP_KDOWN 30
 #define OP_KDOWND 31
-#define OP_MBTN 32
 #define OP_MSCL 33
 #define OP_MMOV 34
 #define OP_SWCR 35

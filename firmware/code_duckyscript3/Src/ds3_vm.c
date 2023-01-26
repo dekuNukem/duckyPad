@@ -20,7 +20,7 @@ uint16_t rand_min, rand_max;
 typedef struct
 {
   uint8_t top;
-  uint32_t stack[STACK_SIZE];
+  uint32_t stack[STACK_SIZE]; // 32b instead of 16b to leave room for operations
 } my_stack;
 
 my_stack arithmetic_stack, call_stack;
@@ -151,7 +151,7 @@ void release_key(uint8_t code, uint8_t type)
   keyboard_release(&kk);
 }
 
-#define VAR_BOUNDARY_CHR (0x1f)
+#define VAR_BOUNDARY (0x1f)
 
 void write_var(uint8_t* pgm_start, uint16_t addr, uint16_t value)
 {
@@ -200,7 +200,7 @@ void print_str(char* start, uint8_t* pgm_start)
     if(this_char == 0)
       break;
 
-    if(this_char == VAR_BOUNDARY_CHR)
+    if(this_char == VAR_BOUNDARY)
     {
       curr++;
       lsb = curr[0];
@@ -411,6 +411,15 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
   {
   	release_key(byte0, byte1);
   	osDelay(defaultdelay_value);
+  }
+  else if(this_opcode == OP_MMOV)
+  {
+    my_key kk;
+    kk.code = byte1;
+    kk.code2 = byte0;
+    kk.type = KEY_TYPE_MOUSE_MOVEMENT;
+    keyboard_press(&kk, 0);
+    osDelay(defaultdelay_value);
   }
   else if(this_opcode == OP_DELAY)
   {

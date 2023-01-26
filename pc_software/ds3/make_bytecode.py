@@ -48,7 +48,7 @@ OP_KUP = ("KUP", 28)
 OP_KUPD = ("KUPD", 29)
 OP_KDOWN = ("KDOWN", 30)
 OP_KDOWND = ("KDOWND", 31)
-OP_MBTN = ("MBTN", 32)
+
 OP_MSCL = ("MSCL", 33)
 OP_MMOV = ("MMOV", 34)
 OP_SWCR = ("SWCR", 35)
@@ -114,7 +114,7 @@ def print_instruction(instruction):
 	print(instruction['opcode'][0].ljust(10), end='')
 	tempstr = ""
 	if instruction['oparg'] is not None:
-		tempstr = str(instruction['oparg'])
+		tempstr = f"{instruction['oparg']}	{hex(instruction['oparg'])}"
 	print(tempstr.ljust(20), end='')
 	tempstr = ""
 	if instruction['comment'] is not None:
@@ -301,6 +301,16 @@ def get_key_combined_value(keyname):
 		key_type = KEY_TYPE_CHAR
 	return ((key_type % 0xff) << 8) | (key_code % 0xff)
 
+def get_mmov_combined_value(pgm_line):
+	split = [x for x in pgm_line.split(' ') if len(x) > 0]
+	x_value = int(split[1])
+	y_value = int(split[2])
+	if x_value < 0:
+		x_value += 256
+	if y_value < 0:
+		y_value += 256
+	return ((x_value % 0xff) << 8) | (y_value % 0xff)
+
 def get_partial_varname_addr(msg, vad):
 	if len(msg) == 0:
 		return None, None
@@ -341,7 +351,7 @@ def make_dsb(program_listing):
 	# result_dict should at least contain is_success and comments
 	result_dict = ds3_preprocessor.run_all(program_listing)
 	if result_dict["is_success"] is False:
-		raise ValueError("code contains errors")
+		raise ValueError(f"code contains errors: {result_dict['comments']}")
 
 	if_skip_table = result_dict['if_skip_table']
 	if_info_list = result_dict["if_info"]
@@ -448,6 +458,10 @@ def make_dsb(program_listing):
 		elif first_word == cmd_HALT:
 			this_instruction['opcode'] = OP_HALT
 			assembly_listing.append(this_instruction)
+		elif first_word == cmd_MOUSE_MOVE:
+			this_instruction['opcode'] = OP_MMOV
+			this_instruction['oparg'] = get_mmov_combined_value(this_line)
+			assembly_listing.append(this_instruction)
 		elif first_word in ds3_keyname_dict: # key combos
 			key_list = [x for x in this_line.split(" ") if len(x) > 0]
 			# press, from first to last
@@ -465,7 +479,7 @@ def make_dsb(program_listing):
 				this_instruction['comment'] = this_line
 				assembly_listing.append(this_instruction)
 		else:
-			assembly_listing.append(this_instruction)
+			raise ValueError(f"Unknown command: {this_line}")
 
 	this_instruction = get_empty_instruction()
 	this_instruction['opcode'] = OP_HALT

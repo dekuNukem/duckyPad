@@ -48,45 +48,6 @@ cmd_END_FUNCTION = "END_FUNCTION"
 cmd_RETURN = "RETURN"
 cmd_HALT = "HALT"
 
-english_alphabets = [
-'a', 'b', 'c', 'd', 'e','f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-'A', 'B', 'C', 'D', 'E','F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-valid_var_chars = ['0', '1', '2', '3', '4', '5', '6', '7','8', '9', '_'] + english_alphabets
-valid_char_for_define_replacements = [' ', '=', '+', '-', '*', '/', '%', '^', '>', '<', '!', '|', '(', ')', '&']
-
-valid_char_for_define_replacements = set(valid_char_for_define_replacements)
-english_alphabets = set(english_alphabets)
-valid_var_chars = set(valid_var_chars)
-
-def replace_DEFINE(pgm_line, dd):
-	dd_list_longest_first = sorted(list(dd.keys()), key=len, reverse=True)
-	temp_line = f" {pgm_line} "
-	for key in dd_list_longest_first:
-		start_index = 0
-		loop_count = 0
-		while 1:
-			loop_count += 1
-			# hacky way to detect recursive DEFINE
-			if loop_count > 127:
-				return False, ""
-			# print("start_index", start_index)
-			key_location = str(temp_line).find(key, start_index)
-			if key_location == -1:
-				break
-			# print(key, "still in:", temp_line, 'at location', key_location)
-			letter_before = temp_line[key_location - 1]
-			letter_after = temp_line[key_location + len(key)]
-			# print("letter_before:", letter_before)
-			# print("letter_after:", letter_after)
-			if letter_before in valid_char_for_define_replacements and letter_after in valid_char_for_define_replacements:
-				# print("STRING BEFORE", temp_line[:key_location])
-				# print("STRING AFTER", temp_line[key_location + len(key):])
-				temp_line = temp_line[:key_location] + str(dd[key]) + temp_line[key_location + len(key):]
-			else:
-				start_index = key_location + len(key)
-	# print("AFTER REPLACEMENT:", temp_line)
-	return True, temp_line[1:len(temp_line)-1]
-
 cmd_ESCAPE = "ESCAPE"
 cmd_ESC = "ESC"
 cmd_ENTER = "ENTER"
@@ -170,11 +131,48 @@ cmd_MENU = "MENU"
 cmd_APP = "APP"
 cmd_POWER = "POWER"
 
-cmd_LMOUSE = "LMOUSE"
-cmd_RMOUSE = "RMOUSE"
-cmd_MMOUSE = "MMOUSE"
-cmd_MOUSE_MOVE = "MOUSE_MOVE"
-cmd_MOUSE_WHEEL = "MOUSE_WHEEL"
+english_alphabets = [
+'a', 'b', 'c', 'd', 'e','f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+'A', 'B', 'C', 'D', 'E','F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+valid_var_chars = ['0', '1', '2', '3', '4', '5', '6', '7','8', '9', '_'] + english_alphabets
+valid_char_for_define_replacements = [' ', '=', '+', '-', '*', '/', '%', '^', '>', '<', '!', '|', '(', ')', '&']
+
+valid_char_for_define_replacements = set(valid_char_for_define_replacements)
+english_alphabets = set(english_alphabets)
+valid_var_chars = set(valid_var_chars)
+
+def replace_DEFINE(pgm_line, dd):
+	dd_list_longest_first = sorted(list(dd.keys()), key=len, reverse=True)
+	temp_line = f" {pgm_line} "
+	for key in dd_list_longest_first:
+		start_index = 0
+		loop_count = 0
+		while 1:
+			loop_count += 1
+			# hacky way to detect recursive DEFINE
+			if loop_count > 127:
+				return False, ""
+			# print("start_index", start_index)
+			key_location = str(temp_line).find(key, start_index)
+			if key_location == -1:
+				break
+			# print(key, "still in:", temp_line, 'at location', key_location)
+			letter_before = temp_line[key_location - 1]
+			letter_after = temp_line[key_location + len(key)]
+			# print("letter_before:", letter_before)
+			# print("letter_after:", letter_after)
+			if letter_before in valid_char_for_define_replacements and letter_after in valid_char_for_define_replacements:
+				# print("STRING BEFORE", temp_line[:key_location])
+				# print("STRING AFTER", temp_line[key_location + len(key):])
+				temp_line = temp_line[:key_location] + str(dd[key]) + temp_line[key_location + len(key):]
+			else:
+				start_index = key_location + len(key)
+	# print("AFTER REPLACEMENT:", temp_line)
+	return True, temp_line[1:len(temp_line)-1]
+
+
+
+
 
 KEY_LEFT_CTRL =  0x01
 KEY_LEFT_SHIFT = 0x02
