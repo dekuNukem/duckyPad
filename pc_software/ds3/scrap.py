@@ -1,3 +1,36 @@
+def make_swcolor_instruction(pgm_line):
+    split = [x for x in pgm_line.split(' ') if len(x) > 0]
+    cmd = split[0].strip()
+    sw = 0
+    if cmd.startswith("SWCOLOR_"):
+        sw = int(cmd.split('_')[1])
+    rrrr = int(split[1])
+    gggg = int(split[2])
+    bbbb = int(split[3])
+
+    ins_list = []
+    this_instruction = get_empty_instruction()
+    this_instruction['opcode'] = OP_SWCR
+    this_instruction['oparg'] = get_combined_value(sw, rrrr)
+    ins_list.append(this_instruction)
+
+    this_instruction = get_empty_instruction()
+    this_instruction['opcode'] = OP_SWCG
+    this_instruction['oparg'] = get_combined_value(sw, gggg)
+    ins_list.append(this_instruction)
+
+    this_instruction = get_empty_instruction()
+    this_instruction['opcode'] = OP_SWCB
+    this_instruction['oparg'] = get_combined_value(sw, bbbb)
+    ins_list.append(this_instruction)
+
+    this_instruction = get_empty_instruction()
+    this_instruction['opcode'] = OP_SWCE
+    ins_list.append(this_instruction)
+
+    return ins_list
+
+
   else if(this_opcode == OP_PUSHV)
   {
     

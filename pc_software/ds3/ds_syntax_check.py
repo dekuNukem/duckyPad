@@ -60,31 +60,6 @@ def parse_mouse(ducky_line):
 		return PARSE_OK, "Success"
 	return PARSE_ERROR, "Invalid mouse command"
 
-def check_color(pgm_line):
-	split = [x for x in pgm_line.split(' ') if len(x) > 0]
-
-	if len(split) != 4:
-		return PARSE_ERROR, "wrong number of arguments"
-
-	cmd = split[0].strip()
-	sw = 0
-	try:
-		if cmd.startswith("SWCOLOR_"):
-			sw = int(cmd.split('_')[1])
-			if not 1 <= sw <= 15:
-				return PARSE_ERROR, "switch index must be between 1 - 15"
-	except Exception as e:
-		return PARSE_ERROR, "switch index must be between 1 - 15"
-
-	try:
-		for x in range(1, 4):
-			if not 0 <= int(split[x]) <= 255:
-				return PARSE_ERROR, "value must be between 0 - 255"
-	except Exception as e:
-		return PARSE_ERROR, "value must be between 0 - 255"
-
-	return PARSE_OK, ""
-
 def parse_line(ducky_line):
 	parse_result = PARSE_OK
 	parse_message = 'Unknown'
@@ -121,8 +96,6 @@ def parse_line(ducky_line):
 		parse_result, parse_message = parse_combo(ducky_line)
 	elif [x for x in ducky_line.split(' ') if len(x) > 0][0] in mouse_commands:
 		parse_result, parse_message = parse_mouse(ducky_line)
-	elif ducky_line.startswith(cmd_SWCOLOR):
-		return check_color(ducky_line)
 	else:
 		parse_result = PARSE_ERROR
 		parse_message = "Invalid command"
@@ -141,6 +114,34 @@ def parse_line(ducky_line):
 		elif len(sssss[0]) == 1:
 			return PARSE_OK, "Success"
 		return PARSE_ERROR, "EMUK invalid key"
+
+	elif ducky_line.startswith(cmd_SWCOLOR):
+		return check_color(ducky_line)
+
+	def check_color(pgm_line):
+	split = [x for x in pgm_line.split(' ') if len(x) > 0]
+
+	if len(split) != 4:
+		return PARSE_ERROR, "wrong number of arguments"
+
+	cmd = split[0].strip()
+	sw = 0
+	try:
+		if cmd.startswith("SWCOLOR_"):
+			sw = int(cmd.split('_')[1])
+			if not 1 <= sw <= 15:
+				return PARSE_ERROR, "switch index must be between 1 - 15"
+	except Exception as e:
+		return PARSE_ERROR, "switch index must be between 1 - 15"
+
+	try:
+		for x in range(1, 4):
+			if not 0 <= int(split[x]) <= 255:
+				return PARSE_ERROR, "value must be between 0 - 255"
+	except Exception as e:
+		return PARSE_ERROR, "value must be between 0 - 255"
+
+	return PARSE_OK, ""
 """
 
 

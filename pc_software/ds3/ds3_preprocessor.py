@@ -294,6 +294,25 @@ def replace_delay_statements(pgm_line):
 		first_word = pgm_line.split()[0]
 	return first_word, pgm_line
 
+def is_valid_color(name, vt):
+	try:
+		value = int(name)
+		return True
+	except:
+		pass
+	if name[0] != '$':
+		return False
+	return name[1:] in vt
+
+def check_color(pgm_line, vt):
+	split = [x for x in pgm_line.split(' ') if len(x) > 0]
+	if len(split) != 5:
+		return PARSE_ERROR, "wrong number of arguments"
+	for item in split[1:]:
+		if is_valid_color(item, vt) is False:
+			return PARSE_ERROR, "invalid color value"
+	return PARSE_OK, ''
+
 def run_once(program_listing):
 	reset()
 	return_dict = {
@@ -369,6 +388,8 @@ def run_once(program_listing):
 			presult, pcomment = ds_syntax_check.parse_line(this_line)
 			if presult != PARSE_OK:
 				presult, pcomment = is_valid_expr(this_line, var_table)
+		elif first_word == cmd_SWCOLOR:
+			presult, pcomment = check_color(this_line, var_table)
 		else:
 			presult, pcomment = ds_syntax_check.parse_line(this_line)
 		

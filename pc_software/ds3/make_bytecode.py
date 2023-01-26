@@ -359,38 +359,6 @@ def dict_pp(dic):
 def get_combined_value(b0, b1):
 	return ((b0 % 0xff) << 8) | (b1 % 0xff)
 
-def make_swcolor_instruction(pgm_line):
-	split = [x for x in pgm_line.split(' ') if len(x) > 0]
-	cmd = split[0].strip()
-	sw = 0
-	if cmd.startswith("SWCOLOR_"):
-		sw = int(cmd.split('_')[1])
-	rrrr = int(split[1])
-	gggg = int(split[2])
-	bbbb = int(split[3])
-
-	ins_list = []
-	this_instruction = get_empty_instruction()
-	this_instruction['opcode'] = OP_SWCR
-	this_instruction['oparg'] = get_combined_value(sw, rrrr)
-	ins_list.append(this_instruction)
-
-	this_instruction = get_empty_instruction()
-	this_instruction['opcode'] = OP_SWCG
-	this_instruction['oparg'] = get_combined_value(sw, gggg)
-	ins_list.append(this_instruction)
-
-	this_instruction = get_empty_instruction()
-	this_instruction['opcode'] = OP_SWCB
-	this_instruction['oparg'] = get_combined_value(sw, bbbb)
-	ins_list.append(this_instruction)
-
-	this_instruction = get_empty_instruction()
-	this_instruction['opcode'] = OP_SWCE
-	ins_list.append(this_instruction)
-
-	return ins_list
-
 def make_dsb(program_listing):
 	global if_skip_table
 	global if_info_list
@@ -519,7 +487,8 @@ def make_dsb(program_listing):
 			this_instruction['oparg'] = get_mouse_wheel_value(this_line)
 			assembly_listing.append(this_instruction)
 		elif this_line.startswith(cmd_SWCOLOR):
-			assembly_listing += make_swcolor_instruction(this_line)
+			pass
+			# assembly_listing += make_swcolor_instruction(this_line)
 		elif first_word in ds3_keyname_dict: # key combos
 			key_list = [x for x in this_line.split(" ") if len(x) > 0]
 			# press, from first to last
