@@ -115,6 +115,7 @@ cmd_DEFAULTCHARDELAY = "DEFAULTCHARDELAY "
 cmd_DELAY = "DELAY "
 cmd_STRING = "STRING "
 cmd_STRINGLN = "STRINGLN "
+cmd_CHARJITTER = "CHARJITTER "
 
 cmd_EMUK = "EMUK "
 cmd_LOOP = "LOOP"
@@ -129,11 +130,10 @@ cmd_MOUSE_WHEEL = "MOUSE_WHEEL"
 cmd_KEYDOWN = "KEYDOWN ";
 cmd_KEYUP = "KEYUP ";
 
-cmd_CHARJITTER = "CHARJITTER ";
-
 mouse_commands = [cmd_LMOUSE, cmd_RMOUSE, cmd_MMOUSE, cmd_MOUSE_MOVE, cmd_MOUSE_WHEEL]
 
-ignored_but_valid_commands = ["UARTPRINT ", "LCR", cmd_CHARJITTER, cmd_REM, "SWCOLOR_", "SWCOLOR ", 'DP_SLEEP', 'PREV_PROFILE', 'NEXT_PROFILE', 'GOTO_PROFILE ', 'INJECT_MOD', "KATAKANAHIRAGANA", "HENKAN", "MUHENKAN", "KATAKANA", "HIRAGANA", "ZENKAKUHANKAKU"]
+ignored_but_valid_commands = ["UARTPRINT ", "LCR", cmd_REM, 'DP_SLEEP', 'PREV_PROFILE', 'NEXT_PROFILE', 'GOTO_PROFILE ', 'INJECT_MOD', "KATAKANAHIRAGANA", "HENKAN", "MUHENKAN", "KATAKANA", "HIRAGANA", "ZENKAKUHANKAKU"]
+
 def is_ignored_but_valid_command(ducky_line):
 	for item in ignored_but_valid_commands:
 		if ducky_line.startswith(item):
@@ -238,6 +238,14 @@ def parse_line(ducky_line):
 	elif ducky_line.startswith(cmd_DEFAULTCHARDELAY):
 		try:
 			if int(ducky_line[len(cmd_DEFAULTCHARDELAY):].strip()) <= 0:
+				return PARSE_ERROR, "can't be zero or negative"
+			else:
+				return PARSE_OK, "Success"
+		except Exception:
+			return PARSE_ERROR, "invalid argument"
+	elif ducky_line.startswith(cmd_CHARJITTER):
+		try:
+			if int(ducky_line[len(cmd_CHARJITTER):].strip()) <= 0:
 				return PARSE_ERROR, "can't be zero or negative"
 			else:
 				return PARSE_OK, "Success"
