@@ -116,12 +116,14 @@ def assign_var(var_keyword, pgm_line, vt, check_duplicate=False):
 		return PARSE_ERROR, "unknown variable"
 	if check_duplicate and lvalue in vt:
 		return PARSE_ERROR, "variable already declared"
+	if rv_int < 0:
+		return PARSE_ERROR, 'var cannot be negative'
 	vt[lvalue] = rv_int
 	return PARSE_OK, ''
 
 def new_func_check(pgm_line, lnum, fss, fdict):
 	if len(fss) != 0:
-		return PARSE_ERROR, "previous FUNCTION missing END_FUNCTION"
+		return PARSE_ERROR, "missing END_FUNCTION"
 	if pgm_line.endswith("()") is False:
 		return PARSE_ERROR, "invalid declaration"
 	try:
@@ -146,7 +148,7 @@ def func_end_check(pgm_line, lnum, fss, fdict):
 
 def if_check(pgm_line, lnum, iss, vt):
 	if pgm_line.endswith(cmd_THEN) is False:
-		return PARSE_ERROR, "missing THEN or extra stuff at end"
+		return PARSE_ERROR, "missing THEN at end"
 	if_expr = pgm_line.replace(cmd_IF, '', 1)
 	if_expr = if_expr[:len(if_expr) - len(cmd_THEN)]
 	success, comment, value = parse_rvalue(if_expr, vt)
@@ -157,7 +159,7 @@ def if_check(pgm_line, lnum, iss, vt):
 
 def end_if_check(pgm_line, lnum, iss, if_skip_table, if_take_table):
 	if pgm_line != cmd_END_IF:
-		return PARSE_ERROR, "extra stuff at end"
+		return PARSE_ERROR, "missing END_IF at end"
 	if len(iss) == 0:
 		return PARSE_ERROR, "orphan END_IF"
 	ifdict = iss.pop()

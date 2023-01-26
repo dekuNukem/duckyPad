@@ -441,6 +441,25 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
     }
     osDelay(delay_amount);
   }
+  else if(this_opcode == OP_MSCL)
+  {
+    my_key kk;
+    kk.code = byte0;
+    kk.code2 = 0;
+    kk.type = KEY_TYPE_MOUSE_WHEEL;
+    keyboard_press(&kk, 0);
+    osDelay(defaultdelay_value);
+  }
+  else if(this_opcode == OP_SWCR)
+  {
+    // byte 0 is color, byte 1 is key number
+    printf("OP_SWCR %d %d\n", byte0, byte1);
+  }
+  else
+  {
+    // UNKNOWN OP CODE
+    exe->result = EXE_ERROR;
+  }
 }
 
 void run_dsb(ds3_exe_result* er)

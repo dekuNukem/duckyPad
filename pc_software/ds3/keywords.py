@@ -20,8 +20,7 @@ cmd_KEYDOWN = "KEYDOWN"
 cmd_KEYUP = "KEYUP"
 cmd_INJECT_MOD = "INJECT_MOD"
 
-cmd_SWCOLOR = "SWCOLOR_";
-cmd_SW_SELF_COLOR = "SWCOLOR";
+cmd_SWCOLOR = "SWCOLOR";
 
 cmd_LMOUSE = "LMOUSE"
 cmd_RMOUSE = "RMOUSE"
@@ -169,10 +168,6 @@ def replace_DEFINE(pgm_line, dd):
 				start_index = key_location + len(key)
 	# print("AFTER REPLACEMENT:", temp_line)
 	return True, temp_line[1:len(temp_line)-1]
-
-
-
-
 
 KEY_LEFT_CTRL =  0x01
 KEY_LEFT_SHIFT = 0x02

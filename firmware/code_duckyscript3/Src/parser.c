@@ -602,7 +602,15 @@ void keypress_wrapper(uint8_t keynum)
   memset(temp_buf, 0, PATH_SIZE);
   sprintf(temp_buf, "/%s/key%d.dsb", p_cache.profile_fn, keynum+1);
   if(load_dsb(temp_buf) == DSB_OK)
+  {
     run_dsb(&my_er);
+    if(my_er.result == EXE_ERROR)
+    {
+      error_animation(0);
+      osDelay(1000);
+      error_animation(1);
+    }
+  }
 }
 
 void der_init(ds3_exe_result* der)

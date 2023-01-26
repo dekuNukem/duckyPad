@@ -44,6 +44,7 @@
 #define OP_KDOWND 31
 #define OP_MSCL 33
 #define OP_MMOV 34
+#define OP_SWCE 32
 #define OP_SWCR 35
 #define OP_SWCG 36
 #define OP_SWCB 37
