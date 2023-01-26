@@ -30,7 +30,9 @@ def make_swcolor_instruction(pgm_line):
 
     return ins_list
 
-
+def get_combined_value(b0, b1):
+    return ((b0 % 0xff) << 8) | (b1 % 0xff)
+    
   else if(this_opcode == OP_PUSHV)
   {
     

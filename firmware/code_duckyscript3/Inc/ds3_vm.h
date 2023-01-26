@@ -45,16 +45,14 @@
 #define OP_MSCL 33
 #define OP_MMOV 34
 #define OP_SWCE 32
-#define OP_SWCR 35
-#define OP_SWCG 36
-#define OP_SWCB 37
+#define OP_SWCC 35
 #define OP_STR 38
 #define OP_STRLN 39
 #define OP_EMUK 40
 #define OP_LOOP 41
 
 #define INSTRUCTION_SIZE_BYTES 3
-#define STACK_SIZE 8
+#define STACK_SIZE 16
 
 #define EXE_OK 0
 

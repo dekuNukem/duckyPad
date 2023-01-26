@@ -450,10 +450,10 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
     keyboard_press(&kk, 0);
     osDelay(defaultdelay_value);
   }
-  else if(this_opcode == OP_SWCR)
+  else if(this_opcode == OP_SWCC)
   {
     // byte 0 is color, byte 1 is key number
-    printf("OP_SWCR %d %d\n", byte0, byte1);
+    printf("OP_SWCC %d %d\n", byte0, byte1);
   }
   else
   {
