@@ -453,6 +453,7 @@ def make_dsb(program_listing):
 	func_lookup = result_dict['func_table']
 	str_lookup = {}
 	break_dict = result_dict['break_dict']
+	continue_dict = result_dict['continue_dict']
 
 	assembly_listing = []
 
@@ -581,6 +582,10 @@ def make_dsb(program_listing):
 		elif first_word == cmd_BREAK:
 			this_instruction['opcode'] = OP_JMP
 			this_instruction['oparg'] = label_dict[break_dict[lnum]]
+			assembly_listing.append(this_instruction)
+		elif first_word == cmd_CONTINUE:
+			this_instruction['opcode'] = OP_JMP
+			this_instruction['oparg'] = label_dict[continue_dict[lnum]]
 			assembly_listing.append(this_instruction)
 		elif first_word in ds3_keyname_dict: # key combos
 			key_list = [x for x in this_line.split(" ") if len(x) > 0]

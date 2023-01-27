@@ -252,14 +252,22 @@ def end_while_check(pgm_line, lnum, wss, wdict):
 	return PARSE_OK, '' 
 
 def break_check(pgm_line, lnum, wss, bdict):
+	split = [x for x in pgm_line.split(' ') if len(x) > 0]
+	if len(split) != 1:
+		return PARSE_ERROR, "extra stuff at end"
 	if len(wss) == 0:
 		return PARSE_ERROR, "BREAK outside WHILE"
 	bdict[lnum] = wss[-1];
 	return PARSE_OK, '' 
 
-# ---------------------- END LINE PARSER ----------------------
-
-# ---------------------- FIRST PASS ----------------------
+def continue_check(pgm_line, lnum, wss, cdict):
+	split = [x for x in pgm_line.split(' ') if len(x) > 0]
+	if len(split) != 1:
+		return PARSE_ERROR, "extra stuff at end"
+	if len(wss) == 0:
+		return PARSE_ERROR, "CONTINUE outside WHILE"
+	cdict[lnum] = wss[-1];
+	return PARSE_OK, '' 
 
 whitespace_chars = [' ', '\t']
 
@@ -411,6 +419,8 @@ def run_once(program_listing):
 			presult, pcomment = end_while_check(this_line, line_number_starting_from_1, while_search_stack, while_table)
 		elif first_word == cmd_BREAK:
 			presult, pcomment = break_check(this_line, line_number_starting_from_1, while_search_stack, break_dict)
+		elif first_word == cmd_CONTINUE:
+			presult, pcomment = continue_check(this_line, line_number_starting_from_1, while_search_stack, continue_dict)
 		elif this_line == cmd_RETURN or this_line == cmd_HALT:
 			presult = PARSE_OK
 			pcomment = ''
@@ -487,6 +497,7 @@ def run_once(program_listing):
 	return_dict['if_skip_table'] = if_skip_table
 	return_dict['while_table_bidirectional'] = while_table_bidirectional
 	return_dict['break_dict'] = break_dict
+	return_dict['continue_dict'] = continue_dict
 
 	return return_dict
 
