@@ -64,7 +64,7 @@ def parse_line(ducky_line):
 	parse_result = PARSE_OK
 	parse_message = 'Unknown'
 	ducky_line = ducky_line.replace('\n', '').replace('\r', '')
-	if not (ducky_line.startswith(cmd_STRING) or ducky_line.startswith(cmd_STRINGLN) or ducky_line.startswith(cmd_REM)):
+	if not (ducky_line.startswith(cmd_STRING) or ducky_line.startswith(cmd_STRINGLN) or ducky_line.startswith(cmd_REM) or ducky_line.startswith(cmd_OLED_PRINT)):
 		ducky_line = ducky_line.strip()
 	if len(ducky_line) == 0:
 		return PARSE_OK, "Empty line"
@@ -76,7 +76,7 @@ def parse_line(ducky_line):
 		parse_result, parse_message = parse_combo(ducky_line[len(cmd_KEYDOWN + " "):])
 	elif ducky_line.startswith(cmd_KEYUP + " "):
 		parse_result, parse_message = parse_combo(ducky_line[len(cmd_KEYUP + " "):])
-	elif ducky_line.startswith(cmd_STRING + " ") or ducky_line.startswith(cmd_STRINGLN + " ") or ducky_line.startswith(cmd_OLPRINT + " "):
+	elif ducky_line.startswith(cmd_STRING + " ") or ducky_line.startswith(cmd_STRINGLN + " ") or ducky_line.startswith(cmd_OLED_PRINT + " "):
 		return PARSE_OK, "Success"
 	elif ducky_line.startswith(cmd_REPEAT + " "):
 		try:

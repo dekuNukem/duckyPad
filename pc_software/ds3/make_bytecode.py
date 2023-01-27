@@ -60,8 +60,8 @@ OP_LOOP = ("LOOP", 41)
 OP_OLC = ("OLC", 42)
 OP_OLP = ("OLP", 43)
 OP_OLU = ("OLU", 44)
-
-
+OP_OLB = ("OLB", 45)
+OP_OLR = ("OLR", 46)
 
 arith_lookup = {
 	"Eq" : OP_EQ,
@@ -409,6 +409,26 @@ def parse_swcr(pgm_line, vt):
 	ins_list.append(this_instruction)
 	return ins_list
 
+def parse_olc(pgm_line, vt):
+	ins_list = []
+	split = [x for x in pgm_line.split(' ') if len(x) > 0]
+	
+	for item in split[1:]:
+		value = get_swc_arg(item)
+		this_instruction = get_empty_instruction()
+		if isinstance(value, int):
+			this_instruction['opcode'] = OP_PUSHC
+		else:
+			this_instruction['opcode'] = OP_PUSHV
+		this_instruction['oparg'] = value
+		this_instruction['comment'] = pgm_line
+		ins_list.append(this_instruction)
+	this_instruction = get_empty_instruction()
+	this_instruction['opcode'] = OP_OLC
+	this_instruction['comment'] = pgm_line
+	ins_list.append(this_instruction)
+	return ins_list
+
 def make_dsb(program_listing):
 	global if_skip_table
 	global if_info_list
@@ -501,7 +521,7 @@ def make_dsb(program_listing):
 			this_instruction['opcode'] = OP_CALL
 			this_instruction['oparg'] = label_dict[func_lookup[fun_name]['fun_start']]
 			assembly_listing.append(this_instruction)
-		elif this_line.startswith(cmd_STRING) or first_word == cmd_OLPRINT:
+		elif this_line.startswith(cmd_STRING) or first_word == cmd_OLED_PRINT:
 			str_content = this_line.split(' ', 1)[-1]
 			if str_content not in str_lookup:
 				str_lookup[str_content] = lnum
@@ -509,7 +529,7 @@ def make_dsb(program_listing):
 				this_instruction['opcode'] = OP_STR
 			elif first_word == cmd_STRINGLN:
 				this_instruction['opcode'] = OP_STRLN
-			elif first_word == cmd_OLPRINT:
+			elif first_word == cmd_OLED_PRINT:
 				this_instruction['opcode'] = OP_OLP
 			this_instruction['oparg'] = f"STR@{str_lookup[str_content]}"
 			assembly_listing.append(this_instruction)
@@ -542,6 +562,17 @@ def make_dsb(program_listing):
 			assembly_listing += parse_color(this_line, first_word)
 		elif first_word == cmd_SWCR:
 			assembly_listing += parse_swcr(this_line, first_word)
+		elif first_word == cmd_OLED_CURSOR:
+			assembly_listing += parse_olc(this_line, first_word)
+		elif first_word == cmd_OLED_UPDATE:
+			this_instruction['opcode'] = OP_OLU
+			assembly_listing.append(this_instruction)
+		elif first_word == cmd_OLED_BLANK:
+			this_instruction['opcode'] = OP_OLB
+			assembly_listing.append(this_instruction)
+		elif first_word == cmd_OLED_RESTORE:
+			this_instruction['opcode'] = OP_OLR
+			assembly_listing.append(this_instruction)
 		elif first_word in ds3_keyname_dict: # key combos
 			key_list = [x for x in this_line.split(" ") if len(x) > 0]
 			# press, from first to last

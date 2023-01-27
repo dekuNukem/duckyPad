@@ -24,9 +24,12 @@ cmd_SWCC = "SWCC"
 cmd_SWCB = "SWCB"
 cmd_SWCR = "SWCR"
 
-cmd_OLPRINT = "OLPRINT"
-cmd_OLUPDATE = "OLUPDATE"
-cmd_OLCURSOR = "OLCURSOR"
+cmd_OLED_PRINT = "OLP"
+cmd_OLED_UPDATE = "OLU"
+cmd_OLED_CURSOR = "OLC"
+cmd_OLED_BLANK = "OLB"
+cmd_OLED_RESTORE = "OLR"
+
 
 cmd_LMOUSE = "LMOUSE"
 cmd_RMOUSE = "RMOUSE"

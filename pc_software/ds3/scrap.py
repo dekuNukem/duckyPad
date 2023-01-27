@@ -80,6 +80,17 @@ VAR $c = 63
 SWCR   $c
 
 
+---
+
+VAR $YY = 20
+
+OLC 0 $YY
+OLP           
+OLC 0 $YY
+OLP $_RANDOM_INT
+OLU
+
+
 def make_swcolor_instruction(pgm_line):
     split = [x for x in pgm_line.split(' ') if len(x) > 0]
     cmd = split[0].strip()

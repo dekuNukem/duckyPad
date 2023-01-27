@@ -320,6 +320,24 @@ def check_swcr(pgm_line, vt):
 		return PARSE_ERROR, "invalid color value"
 	return PARSE_OK, ''
 
+def check_olc(pgm_line, vt):
+	split = [x for x in pgm_line.split(' ') if len(x) > 0]
+	if len(split) != 3:
+		return PARSE_ERROR, "wrong number of arguments"
+	for item in split[1:]:
+		if is_valid_swc_arg(item, vt) is False:
+			return PARSE_ERROR, "invalid cursor value"
+	return PARSE_OK, ''
+
+def check_olu(pgm_line):
+	split = [x for x in pgm_line.split(' ') if len(x) > 0]
+	if len(split) != 1:
+		return PARSE_ERROR, "wrong number of arguments"
+	return PARSE_OK, ''
+
+def needs_rstrip(first_word):
+	return not (first_word.startswith(cmd_STRING) or first_word == cmd_OLED_PRINT)
+
 def run_once(program_listing):
 	reset()
 	return_dict = {
@@ -342,8 +360,7 @@ def run_once(program_listing):
 			continue
 
 		first_word = this_line.split()[0]
-
-		if first_word.startswith(cmd_STRING) is False:
+		if needs_rstrip(first_word):
 			this_line = this_line.rstrip(" \t")
 
 		presult = PARSE_ERROR
@@ -399,6 +416,14 @@ def run_once(program_listing):
 			presult, pcomment = check_color(this_line, var_table)
 		elif first_word == cmd_SWCR:
 			presult, pcomment = check_swcr(this_line, var_table)
+		elif first_word == cmd_OLED_CURSOR:
+			presult, pcomment = check_olc(this_line, var_table)
+		elif first_word == cmd_OLED_UPDATE:
+			presult, pcomment = check_olu(this_line)
+		elif first_word == cmd_OLED_BLANK:
+			presult, pcomment = check_olu(this_line)
+		elif first_word == cmd_OLED_RESTORE:
+			presult, pcomment = check_olu(this_line)
 		else:
 			presult, pcomment = ds_syntax_check.parse_line(this_line)
 		
@@ -465,7 +490,7 @@ def run_all(program_listing):
 			continue
 		first_word = this_line.split(" ")[0]
 		first_word, this_line = replace_delay_statements(this_line)
-		if first_word.startswith(cmd_STRING) is False:
+		if needs_rstrip(first_word):
 			this_line = this_line.rstrip(" \t")
 		if first_word == cmd_REM or first_word == cmd_INJECT_MOD:
 			continue

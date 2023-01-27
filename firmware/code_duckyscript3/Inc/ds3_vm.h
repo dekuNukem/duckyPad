@@ -55,6 +55,8 @@
 #define OP_OLC 42
 #define OP_OLP 43
 #define OP_OLU 44
+#define OP_OLB 45
+#define OP_OLR 46
 
 #define INSTRUCTION_SIZE_BYTES 3
 #define STACK_SIZE 16

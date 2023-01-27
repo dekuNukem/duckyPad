@@ -1,2 +1,9 @@
-STRING hello world!
-OLPRINT on OLED!
+VAR $YY = 20
+OLB
+OLC 50 $YY
+OLP $_RANDOM_INT
+OLU
+
+DELAY 500
+
+OLR

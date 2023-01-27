@@ -263,6 +263,15 @@ void parse_swcr(uint8_t keynum)
   osDelay(1);
 }
 
+void parse_olc(void)
+{
+  uint16_t xxx, yyy;
+  stack_pop(&arithmetic_stack, &yyy);
+  stack_pop(&arithmetic_stack, &xxx);
+  if(xxx >= SSD1306_WIDTH || yyy >= SSD1306_HEIGHT)
+    return;
+  ssd1306_SetCursor(xxx, yyy);
+}
 
 void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* exe, uint8_t keynum)
 {
@@ -500,16 +509,27 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
   {
     parse_swcr(keynum);
   }
+  else if(this_opcode == OP_OLC)
+  {
+    parse_olc();
+  }
   else if(this_opcode == OP_OLP)
   {
     char* str_start = pgm_start + op_data;
     char* str_buf = make_str(str_start, pgm_start);
-    ssd1306_SetCursor(0, 0);
     ssd1306_WriteString(str_buf, Font_6x10,White);
   }
   else if(this_opcode == OP_OLU)
   {
     ssd1306_UpdateScreen();
+  }
+  else if(this_opcode == OP_OLB)
+  {
+    ssd1306_Fill(Black);
+  }
+  else if(this_opcode == OP_OLR)
+  {
+    print_legend(0, 0);
   }
   else
   {
