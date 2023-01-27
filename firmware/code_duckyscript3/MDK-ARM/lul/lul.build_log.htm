@@ -27,16 +27,28 @@ Project File Date:  01/18/2023
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'lul'
-compiling parser.c...
-..\Src\parser.c(289): warning:  #1293-D: assignment in condition
-      while ((c = *str++) && (str <= end))
-..\Src\parser.c(313): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
-    return djb2(arg_start, kw_len);
-..\Src\parser.c: 2 warnings, 0 errors
+compiling my_tasks.c...
+..\Src\my_tasks.c(520): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
+      if (f_opendir(&dir, hid_rx_buf+3) != FR_OK)
+..\Src\my_tasks.c(537): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *restrict"
+        strncpy(hid_tx_buf+4, this_filename, FILENAME_SIZE);
+..\Src\my_tasks.c(570): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
+      if(f_open(&sd_file, hid_rx_buf+3, FA_READ) != 0)
+..\Src\my_tasks.c(581): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *restrict"
+        strncpy(hid_tx_buf+3, read_buffer, bytes_read);
+..\Src\my_tasks.c(617): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
+      if(f_open(&sd_file, hid_rx_buf+3, FA_CREATE_ALWAYS | FA_WRITE) != 0)
+..\Src\my_tasks.c(682): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
+      if(f_unlink(hid_rx_buf+3) != 0)
+..\Src\my_tasks.c(702): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
+      if(f_mkdir(hid_rx_buf+3) != 0)
+..\Src\my_tasks.c(722): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
+      if(delete_node(hid_rx_buf+3, HID_RX_BUF_SIZE - 3, &fno) != 0)
+..\Src\my_tasks.c: 8 warnings, 0 errors
 linking...
-Program Size: Code=45648 RO-data=2848 RW-data=1412 ZI-data=13828  
+Program Size: Code=45652 RO-data=2848 RW-data=1416 ZI-data=13616  
 FromELF: creating hex file...
-"lul\lul.axf" - 0 Error(s), 2 Warning(s).
+"lul\lul.axf" - 0 Error(s), 8 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -59,7 +71,7 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.3.0
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

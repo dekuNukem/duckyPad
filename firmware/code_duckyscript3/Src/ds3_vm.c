@@ -546,6 +546,14 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
   {
     button_service_all();
   }
+  else if(this_opcode == OP_NEXTP)
+  {
+    exe->result = EXE_ACTION_NEXT_PROFILE;
+  }
+  else if(this_opcode == OP_PREVP)
+  {
+    exe->result = EXE_ACTION_PREV_PROFILE;
+  }
   else
   {
     // UNKNOWN OP CODE

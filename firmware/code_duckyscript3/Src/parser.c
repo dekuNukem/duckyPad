@@ -332,7 +332,7 @@ uint8_t get_keynames(profile_cache* ppppppp)
 
   for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
   {
-    memset(ppppppp->key_fn[i], 0, FILENAME_SIZE);
+    memset(ppppppp->key_fn[i], 0, KEYNAME_SIZE);
     strcpy(ppppppp->key_fn[i], nonexistent_keyname);
   }
 
@@ -347,7 +347,7 @@ uint8_t get_keynames(profile_cache* ppppppp)
       if(this_key_index == 0)
         continue;
       this_key_index--;
-      memset(ppppppp->key_fn[this_key_index], 0, FILENAME_SIZE);
+      memset(ppppppp->key_fn[this_key_index], 0, KEYNAME_SIZE);
       strip_newline(temp_buf, PATH_SIZE);
       strcpy(ppppppp->key_fn[this_key_index], goto_next_arg(temp_buf, temp_buf+PATH_SIZE));
   }
@@ -593,52 +593,41 @@ void change_profile(uint8_t direction)
   restore_profile(next_profile);
 }
 
-ds3_exe_result my_er;
-
-void keypress_wrapper(uint8_t keynum)
-{
-  memset(temp_buf, 0, PATH_SIZE);
-  sprintf(temp_buf, "/%s/key%d.dsb", p_cache.profile_fn, keynum+1);
-  if(load_dsb(temp_buf) == DSB_OK)
-  {
-    run_dsb(&my_er, keynum);
-    if(my_er.result >= EXE_ERROR)
-    {
-      error_animation(0);
-      osDelay(1000);
-      error_animation(1);
-    }
-  }
-}
-
 void der_init(ds3_exe_result* der)
 {
-  der->result = EXE_OK;
+  der->result = EXE_EMPTY_FILE;
   der->data = 0;
   der->next_pc = 0;
 }
 
-void handle_keypress(uint8_t keynum, but_status* b_status)
+void keypress_wrapper(uint8_t keynum, ds3_exe_result* exe)
 {
-  keypress_wrapper(keynum);
+  memset(temp_buf, 0, PATH_SIZE);
+  sprintf(temp_buf, "/%s/key%d.dsb", p_cache.profile_fn, keynum+1);
+  der_init(exe);
+  if(load_dsb(temp_buf) != DSB_OK)
+    return;
+  keydown_anime_start(keynum);
+  run_dsb(exe, keynum);
+}
 
+void handle_keypress(uint8_t keynum, but_status* b_status, ds3_exe_result* exe)
+{
+  keypress_wrapper(keynum, exe);
   uint32_t hold_start = HAL_GetTick();
   while(1)
   {
-    HAL_IWDG_Refresh(&hiwdg);
     keyboard_update();
     if(b_status->button_state == BUTTON_RELEASED)
       return;
     if(HAL_GetTick() - hold_start > 500)
       break;
   }
-
   // start repeating
   while(1)
   {
-    HAL_IWDG_Refresh(&hiwdg);
     keyboard_update();
-    keypress_wrapper(keynum);
+    keypress_wrapper(keynum, exe);
     if(b_status->button_state == BUTTON_RELEASED)
       return;
   }

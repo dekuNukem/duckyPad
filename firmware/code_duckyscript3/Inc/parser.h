@@ -16,7 +16,7 @@
 #define MAX_PROFILES 32
 #define PATH_SIZE 40
 #define FILENAME_SIZE 24
-#define KEYNAME_SIZE 8
+#define KEYNAME_SIZE 10
 #define PARSE_OK 0
 #define PARSE_ERROR 1
 
@@ -42,7 +42,7 @@ typedef struct
   uint8_t current_profile;
   uint8_t available_profile[MAX_PROFILES];
   char profile_fn[FILENAME_SIZE];
-  char key_fn[MAPPABLE_KEY_COUNT][FILENAME_SIZE];
+  char key_fn[MAPPABLE_KEY_COUNT][KEYNAME_SIZE];
   uint8_t individual_key_color[MAPPABLE_KEY_COUNT][3];
   uint8_t individual_keydown_color[MAPPABLE_KEY_COUNT][3];
 } profile_cache;
@@ -55,11 +55,11 @@ typedef struct
 
 void der_init(ds3_exe_result* der);
 void change_profile(uint8_t dir);
-void handle_keypress(uint8_t key_num, but_status* b_status);
+void handle_keypress(uint8_t keynum, but_status* b_status, ds3_exe_result* exe);
 void scan_profiles(void);
 uint8_t get_last_profile(void);
 void restore_profile(uint8_t profile_id);
-void keypress_wrapper(uint8_t keynum);
+void keypress_wrapper(uint8_t keynum, ds3_exe_result* exe);
 void print_legend(void);
 void save_settings(void);
 void load_settings(void);
@@ -86,5 +86,3 @@ extern ds3_exe_result my_der;
 #endif
 
 #endif
-
-

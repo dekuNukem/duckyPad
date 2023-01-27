@@ -347,7 +347,7 @@ def check_olc(pgm_line, vt):
 			return PARSE_ERROR, "invalid cursor value"
 	return PARSE_OK, ''
 
-def check_olu(pgm_line):
+def ensure_zero_arg(pgm_line):
 	split = [x for x in pgm_line.split(' ') if len(x) > 0]
 	if len(split) != 1:
 		return PARSE_ERROR, "wrong number of arguments"
@@ -448,13 +448,17 @@ def run_once(program_listing):
 		elif first_word == cmd_OLED_CURSOR:
 			presult, pcomment = check_olc(this_line, var_table)
 		elif first_word == cmd_OLED_UPDATE:
-			presult, pcomment = check_olu(this_line)
+			presult, pcomment = ensure_zero_arg(this_line)
 		elif first_word == cmd_OLED_BLANK:
-			presult, pcomment = check_olu(this_line)
+			presult, pcomment = ensure_zero_arg(this_line)
 		elif first_word == cmd_OLED_RESTORE:
-			presult, pcomment = check_olu(this_line)
+			presult, pcomment = ensure_zero_arg(this_line)
 		elif first_word == cmd_BCLR:
-			presult, pcomment = check_olu(this_line)
+			presult, pcomment = ensure_zero_arg(this_line)
+		elif first_word == cmd_NEXT_PROFILE:
+			presult, pcomment = ensure_zero_arg(this_line)
+		elif first_word == cmd_PREV_PROFILE:
+			presult, pcomment = ensure_zero_arg(this_line)
 		else:
 			presult, pcomment = ds_syntax_check.parse_line(this_line)
 		

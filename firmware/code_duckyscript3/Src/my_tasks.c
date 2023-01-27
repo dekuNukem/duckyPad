@@ -19,7 +19,7 @@
 
 uint8_t init_complete;
 uint32_t last_keypress;
-volatile uint8_t is_sleeping, is_busy;
+volatile uint8_t is_sleeping;
 uint32_t button_hold_start, button_hold_duration;
 
 void oled_full_brightness()
@@ -121,10 +121,8 @@ void handle_tactile_button_press(uint8_t button_num)
     {
       if(button_num == KEY_BUTTON1) // -
       {
-        is_busy = 1;
         change_brightness();
         save_settings();
-        is_busy = 0;
         print_legend();
         service_all();
       }
@@ -226,7 +224,6 @@ void print_keymap(char* msg)
 const char* default_keymap_name = "English(US)";
 void select_keymap(void)
 {
-  is_busy = 1;
   uint8_t is_default_selected = 0;
   memset(temp_buf, 0, PATH_SIZE);
   print_keymap(temp_buf);
@@ -281,7 +278,6 @@ void select_keymap(void)
   select_keymap_end:
   service_all();
   f_closedir(&dir);
-  is_busy = 0;
 }
 
 uint8_t command_type;
@@ -398,19 +394,6 @@ void handle_hid_command(void)
   hid_tx_buf[0] = 4;
   hid_tx_buf[1] = 0;
   hid_tx_buf[2] = HID_RESPONSE_OK;
-
-  /*
-  duckyPad to PC
-  [0]   report_id: always 4
-  [1]   seq number (same as above)
-  [2]   0 = OK, 1 = ERROR, 2 = BUSY
-  */
-  if(is_busy)
-  {
-    hid_tx_buf[2] = HID_RESPONSE_BUSY;
-    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
-    return;
-  }
 
   /*
   HID GET INFO
@@ -792,6 +775,8 @@ void handle_hid_command(void)
   }
 }
 
+ds3_exe_result this_exe;
+
 void keypress_task_start(void const * argument)
 {
   while(init_complete == 0)
@@ -822,7 +807,6 @@ void keypress_task_start(void const * argument)
         }
         if(i <= KEY_14)
         {
-          keydown_anime_start(i);
           if(hold_cache[i].type != KEY_TYPE_UNKNOWN && hold_cache[i].code != 0)
           {
             keyboard_press(&hold_cache[i], 0);
@@ -835,22 +819,26 @@ void keypress_task_start(void const * argument)
           }
           else
           {
-            is_busy = 1;
-            handle_keypress(i, &button_status[i]); // handle the button state inside here for repeats
-            keydown_anime_end(i);
+            handle_keypress(i, &button_status[i], &this_exe);
+            if(this_exe.result != EXE_ERROR && this_exe.result != EXE_EMPTY_FILE)
+              keydown_anime_end(i);
+            if(this_exe.result == EXE_ERROR)
+            {
+              error_animation(0);
+              osDelay(1000);
+              error_animation(1);
+            }
+            else if (this_exe.result == EXE_ACTION_NEXT_PROFILE)
+            {
+              change_profile(NEXT_PROFILE);
+            }
+            else if (this_exe.result == EXE_ACTION_PREV_PROFILE)
+            {
+              change_profile(PREV_PROFILE);
+            }
             // if(my_der.type == DER_SLEEP)
             // {
             //   start_sleeping();
-            //   der_init(&my_der);
-            // }
-            // if(my_der.type == DER_PREV_PROFILE)
-            // {
-            //   change_profile(PREV_PROFILE);
-            //   der_init(&my_der);
-            // }
-            // if(my_der.type == DER_NEXT_PROFILE)
-            // {
-            //   change_profile(NEXT_PROFILE);
             //   der_init(&my_der);
             // }
             // if(my_der.type == DER_GOTO_PROFILE)
@@ -859,7 +847,6 @@ void keypress_task_start(void const * argument)
             //     restore_profile(my_der.data);
             //   der_init(&my_der);
             // }
-            is_busy = 0;
           }
         }
         else if(i == KEY_BUTTON1 || i == KEY_BUTTON2)

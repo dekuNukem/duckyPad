@@ -59,6 +59,10 @@
 #define OP_OLR 46
 #define OP_BCLR 47
 
+#define OP_PREVP 48
+#define OP_NEXTP 49
+#define OP_GOTOP 50
+
 
 #define INSTRUCTION_SIZE_BYTES 3
 #define STACK_SIZE 16
@@ -71,6 +75,7 @@
 #define EXE_ACTION_GOTO_PROFILE 4
 
 #define EXE_HALT 20
+#define EXE_EMPTY_FILE 21
 #define EXE_ERROR 30
 
 #define DSB_OK 0
