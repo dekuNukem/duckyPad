@@ -22,6 +22,7 @@ cmd_INJECT_MOD = "INJECT_MOD"
 
 cmd_SWCC = "SWCC"
 cmd_SWCB = "SWCB"
+cmd_SWCR = "SWCR"
 
 cmd_LMOUSE = "LMOUSE"
 cmd_RMOUSE = "RMOUSE"

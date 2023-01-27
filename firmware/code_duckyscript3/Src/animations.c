@@ -126,6 +126,13 @@ void redraw_bg(void)
   neopixel_show(red_buf, green_buf, blue_buf);
 }
 
+void key_reset(uint8_t which)
+{
+  neo_anime[which].animation_type = ANIMATION_NONE;
+  set_pixel_color(which, p_cache.individual_key_color[which]);
+  neopixel_show(red_buf, green_buf, blue_buf);
+}
+
 void error_animation(uint8_t stage)
 {
   if(stage == 0)

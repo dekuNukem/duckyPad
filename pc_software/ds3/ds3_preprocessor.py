@@ -294,10 +294,9 @@ def replace_delay_statements(pgm_line):
 		first_word = pgm_line.split()[0]
 	return first_word, pgm_line
 
-def is_valid_color(name, vt):
+def is_valid_swc_arg(name, vt):
 	try:
-		value = int(name)
-		return True
+		return 0 <= int(name) <= 255;
 	except:
 		pass
 	if name[0] != '$':
@@ -309,8 +308,16 @@ def check_color(pgm_line, vt):
 	if len(split) != 5:
 		return PARSE_ERROR, "wrong number of arguments"
 	for item in split[1:]:
-		if is_valid_color(item, vt) is False:
+		if is_valid_swc_arg(item, vt) is False:
 			return PARSE_ERROR, "invalid color value"
+	return PARSE_OK, ''
+
+def check_swcr(pgm_line, vt):
+	split = [x for x in pgm_line.split(' ') if len(x) > 0]
+	if len(split) != 2:
+		return PARSE_ERROR, "wrong number of arguments"
+	if is_valid_swc_arg(split[1], vt) is False:
+		return PARSE_ERROR, "invalid color value"
 	return PARSE_OK, ''
 
 def run_once(program_listing):
@@ -390,6 +397,8 @@ def run_once(program_listing):
 				presult, pcomment = is_valid_expr(this_line, var_table)
 		elif first_word == cmd_SWCC:
 			presult, pcomment = check_color(this_line, var_table)
+		elif first_word == cmd_SWCR:
+			presult, pcomment = check_swcr(this_line, var_table)
 		else:
 			presult, pcomment = ds_syntax_check.parse_line(this_line)
 		

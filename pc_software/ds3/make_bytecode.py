@@ -52,6 +52,7 @@ OP_MSCL = ("MSCL", 33)
 OP_MMOV = ("MMOV", 34)
 OP_SWCB = ("SWCB", 32)
 OP_SWCC = ("SWCC", 35)
+OP_SWCR = ("SWCR", 36)
 OP_STR = ("STR", 38)
 OP_STRLN = ("STRLN", 39)
 OP_EMUK = ("EMUK", 40)
@@ -354,20 +355,20 @@ def dict_pp(dic):
 		result += f"{key}: {dic[key]}\n"
 	return result
 
-def get_color(name):
+def get_swc_arg(name):
 	try:
-		return True, int(name)
+		return int(name)
 	except:
 		pass
-	return False, name[1:]
+	return name[1:]
 
 def parse_color(pgm_line, cmd):
 	ins_list = []
 	split = [x for x in pgm_line.split(' ') if len(x) > 0]
 	for item in split[1:]:
-		is_int, value = get_color(item)
+		value = get_swc_arg(item)
 		this_instruction = get_empty_instruction()
-		if is_int:
+		if isinstance(value, int):
 			this_instruction['opcode'] = OP_PUSHC
 		else:
 			this_instruction['opcode'] = OP_PUSHV
@@ -380,6 +381,25 @@ def parse_color(pgm_line, cmd):
 		this_instruction['opcode'] = OP_SWCC
 	else:
 		this_instruction['opcode'] = OP_SWCB
+	this_instruction['comment'] = pgm_line
+	ins_list.append(this_instruction)
+	return ins_list
+
+def parse_swcr(pgm_line, vt):
+	ins_list = []
+	split = [x for x in pgm_line.split(' ') if len(x) > 0]
+	value = get_swc_arg(split[1])
+	this_instruction = get_empty_instruction()
+	if isinstance(value, int):
+		this_instruction['opcode'] = OP_PUSHC
+	else:
+		this_instruction['opcode'] = OP_PUSHV
+	this_instruction['oparg'] = value
+	this_instruction['comment'] = pgm_line
+	ins_list.append(this_instruction)
+
+	this_instruction = get_empty_instruction()
+	this_instruction['opcode'] = OP_SWCR
 	this_instruction['comment'] = pgm_line
 	ins_list.append(this_instruction)
 	return ins_list
@@ -513,6 +533,8 @@ def make_dsb(program_listing):
 			assembly_listing.append(this_instruction)
 		elif first_word == cmd_SWCC or first_word == cmd_SWCB:
 			assembly_listing += parse_color(this_line, first_word)
+		elif first_word == cmd_SWCR:
+			assembly_listing += parse_swcr(this_line, first_word)
 		elif first_word in ds3_keyname_dict: # key combos
 			key_list = [x for x in this_line.split(" ") if len(x) > 0]
 			# press, from first to last

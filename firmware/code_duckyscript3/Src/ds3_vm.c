@@ -9,7 +9,7 @@
 #include "keyboard.h"
 #include "animations.h"
 
-#define BIN_BUF_SIZE 200
+#define BIN_BUF_SIZE 1000
 uint8_t bin_buf[BIN_BUF_SIZE];
 
 uint16_t defaultdelay_value;
@@ -239,8 +239,29 @@ void parse_color(uint8_t opcode, uint8_t keynum)
     return;
   set_pixel_3color_update_buffer(index, red, green, blue);
   if(opcode == OP_SWCC)
+  {
+    osDelay(1); // hmm don't delete this!!!!!!
     neopixel_update();
+  }
 }
+
+void parse_swcr(uint8_t keynum)
+{
+  uint16_t swcr_arg;
+  stack_pop(&arithmetic_stack, &swcr_arg);
+
+  if(swcr_arg == 0)
+    swcr_arg = keynum;
+  else
+    swcr_arg--;
+
+  if(swcr_arg >= MAPPABLE_KEY_COUNT)
+    redraw_bg();
+  else
+    key_reset(swcr_arg);
+  osDelay(1);
+}
+
 
 void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* exe, uint8_t keynum)
 {
@@ -472,6 +493,10 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
   else if(this_opcode == OP_SWCB || this_opcode == OP_SWCC)
   {
     parse_color(this_opcode, keynum);
+  }
+  else if(this_opcode == OP_SWCR)
+  {
+    parse_swcr(keynum);
   }
   else
   {

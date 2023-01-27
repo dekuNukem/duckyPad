@@ -22,6 +22,8 @@ DELAY 10
 $C = $C - 2
 END_WHILE 
 
+
+
 def make_swcolor_instruction(pgm_line):
     split = [x for x in pgm_line.split(' ') if len(x) > 0]
     cmd = split[0].strip()

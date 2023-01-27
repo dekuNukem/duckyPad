@@ -46,6 +46,7 @@
 #define OP_MMOV 34
 #define OP_SWCB 32
 #define OP_SWCC 35
+#define OP_SWCR 36
 #define OP_STR 38
 #define OP_STRLN 39
 #define OP_EMUK 40
