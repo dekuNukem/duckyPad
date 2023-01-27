@@ -3,7 +3,7 @@
 <title>Static Call Graph - [lul\lul.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image lul\lul.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Jan 27 13:14:38 2023
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Jan 27 13:18:59 2023
 <BR><P>
 <H3>Maximum Stack Usage =        440 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2029,8 +2029,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[18b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_wrapper
 </UL>
 
-<P><STRONG><a name="[14c]"></a>execute_instruction</STRONG> (Thumb, 680 bytes, Stack size 24 bytes, ds3_vm.o(i.execute_instruction))
-<BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = execute_instruction &rArr; print_legend &rArr; ssd1306_UpdateScreen &rArr; ssd1306_WriteCommand &rArr; HAL_I2C_Mem_Write &rArr; I2C_RequestMemoryWrite &rArr; I2C_WaitOnTXISFlagUntilTimeout &rArr; I2C_IsAcknowledgeFailed
+<P><STRONG><a name="[14c]"></a>execute_instruction</STRONG> (Thumb, 676 bytes, Stack size 24 bytes, ds3_vm.o(i.execute_instruction))
+<BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = execute_instruction &rArr; print_legend &rArr; ssd1306_UpdateScreen &rArr; ssd1306_WriteCommand &rArr; HAL_I2C_Mem_Write &rArr; I2C_RequestMemoryWrite &rArr; I2C_WaitOnTXISFlagUntilTimeout &rArr; I2C_IsAcknowledgeFailed
 </UL>
 <BR>[Calls]<UL><LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_WriteString
 <LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_UpdateScreen
@@ -2470,7 +2470,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_task_start
 </UL>
 
-<P><STRONG><a name="[18c]"></a>handle_tactile_button_press</STRONG> (Thumb, 120 bytes, Stack size 24 bytes, my_tasks.o(i.handle_tactile_button_press))
+<P><STRONG><a name="[18c]"></a>handle_tactile_button_press</STRONG> (Thumb, 118 bytes, Stack size 24 bytes, my_tasks.o(i.handle_tactile_button_press))
 <BR><BR>[Stack]<UL><LI>Max Depth = 416<LI>Call Chain = handle_tactile_button_press &rArr; change_profile &rArr; restore_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_update
@@ -2665,7 +2665,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_task_start
 </UL>
 
-<P><STRONG><a name="[57]"></a>keypress_task_start</STRONG> (Thumb, 310 bytes, Stack size 0 bytes, my_tasks.o(i.keypress_task_start))
+<P><STRONG><a name="[57]"></a>keypress_task_start</STRONG> (Thumb, 306 bytes, Stack size 0 bytes, my_tasks.o(i.keypress_task_start))
 <BR><BR>[Stack]<UL><LI>Max Depth = 416<LI>Call Chain = keypress_task_start &rArr; handle_tactile_button_press &rArr; change_profile &rArr; restore_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_press
@@ -3117,8 +3117,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;select_keymap
 </UL>
 
-<P><STRONG><a name="[1d3]"></a>print_keyname</STRONG> (Thumb, 154 bytes, Stack size 24 bytes, parser.o(i.print_keyname))
-<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = print_keyname &rArr; ssd1306_WriteString &rArr; ssd1306_WriteChar &rArr; ssd1306_DrawPixel
+<P><STRONG><a name="[1d3]"></a>print_keyname</STRONG> (Thumb, 144 bytes, Stack size 16 bytes, parser.o(i.print_keyname))
+<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = print_keyname &rArr; ssd1306_WriteString &rArr; ssd1306_WriteChar &rArr; ssd1306_DrawPixel
 </UL>
 <BR>[Calls]<UL><LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_WriteString
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_SetCursor
@@ -3130,8 +3130,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_legend
 </UL>
 
-<P><STRONG><a name="[157]"></a>print_legend</STRONG> (Thumb, 160 bytes, Stack size 24 bytes, parser.o(i.print_legend))
-<BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = print_legend &rArr; ssd1306_UpdateScreen &rArr; ssd1306_WriteCommand &rArr; HAL_I2C_Mem_Write &rArr; I2C_RequestMemoryWrite &rArr; I2C_WaitOnTXISFlagUntilTimeout &rArr; I2C_IsAcknowledgeFailed
+<P><STRONG><a name="[157]"></a>print_legend</STRONG> (Thumb, 144 bytes, Stack size 16 bytes, parser.o(i.print_legend))
+<BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = print_legend &rArr; ssd1306_UpdateScreen &rArr; ssd1306_WriteCommand &rArr; HAL_I2C_Mem_Write &rArr; I2C_RequestMemoryWrite &rArr; I2C_WaitOnTXISFlagUntilTimeout &rArr; I2C_IsAcknowledgeFailed
 </UL>
 <BR>[Calls]<UL><LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_WriteString
 <LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ssd1306_UpdateScreen
@@ -3215,7 +3215,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_profile
 </UL>
 
-<P><STRONG><a name="[125]"></a>restore_profile</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, parser.o(i.restore_profile))
+<P><STRONG><a name="[125]"></a>restore_profile</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, parser.o(i.restore_profile))
 <BR><BR>[Stack]<UL><LI>Max Depth = 376<LI>Call Chain = restore_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_closedir
@@ -3232,7 +3232,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1b2]"></a>run_dsb</STRONG> (Thumb, 86 bytes, Stack size 24 bytes, ds3_vm.o(i.run_dsb))
-<BR><BR>[Stack]<UL><LI>Max Depth = 240<LI>Call Chain = run_dsb &rArr; execute_instruction &rArr; print_legend &rArr; ssd1306_UpdateScreen &rArr; ssd1306_WriteCommand &rArr; HAL_I2C_Mem_Write &rArr; I2C_RequestMemoryWrite &rArr; I2C_WaitOnTXISFlagUntilTimeout &rArr; I2C_IsAcknowledgeFailed
+<BR><BR>[Stack]<UL><LI>Max Depth = 232<LI>Call Chain = run_dsb &rArr; execute_instruction &rArr; print_legend &rArr; ssd1306_UpdateScreen &rArr; ssd1306_WriteCommand &rArr; HAL_I2C_Mem_Write &rArr; I2C_RequestMemoryWrite &rArr; I2C_WaitOnTXISFlagUntilTimeout &rArr; I2C_IsAcknowledgeFailed
 </UL>
 <BR>[Calls]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 <LI><a href="#[1e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stack_init

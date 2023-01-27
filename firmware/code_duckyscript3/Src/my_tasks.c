@@ -125,7 +125,7 @@ void handle_tactile_button_press(uint8_t button_num)
         change_brightness();
         save_settings();
         is_busy = 0;
-        print_legend(0, 0);
+        print_legend();
         service_all();
       }
     }
@@ -802,7 +802,7 @@ void keypress_task_start(void const * argument)
     select_keymap();
 
   load_keymap_by_name(curr_kb_layout);
-  print_legend(0, 0);
+  print_legend();
   redraw_bg();
   service_all();
   keyboard_release_all();

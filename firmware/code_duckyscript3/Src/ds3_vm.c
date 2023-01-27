@@ -529,7 +529,7 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
   }
   else if(this_opcode == OP_OLR)
   {
-    print_legend(0, 0);
+    print_legend();
   }
   else
   {

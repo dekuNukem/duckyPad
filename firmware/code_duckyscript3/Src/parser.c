@@ -432,7 +432,7 @@ void load_profile(uint8_t pid)
   p_cache.current_profile = pid;
 }
 
-void print_keyname(char* keyname, uint8_t keynum, int8_t x_offset, int8_t y_offset)
+void print_keyname(char* keyname, uint8_t keynum)
 {
   memset(temp_buf, 0, PATH_SIZE);
   strcpy(temp_buf, keyname);
@@ -442,8 +442,8 @@ void print_keyname(char* keyname, uint8_t keynum, int8_t x_offset, int8_t y_offs
     temp_buf[7] = 0;
   uint8_t row = keynum / 3;
   uint8_t col = keynum - row * 3;
-  int8_t x_start = col_lookup[strlen(temp_buf) - 1][col] + x_offset;
-  int8_t y_start = (row + 1) * 10 + 2 + y_offset;
+  int8_t x_start = col_lookup[strlen(temp_buf) - 1][col];
+  int8_t y_start = (row + 1) * 10 + 2;
   if(x_start < 0)
     x_start = 0;
   if(y_start < 0)
@@ -452,7 +452,7 @@ void print_keyname(char* keyname, uint8_t keynum, int8_t x_offset, int8_t y_offs
   ssd1306_WriteString(temp_buf, Font_6x10,White);
 }
 
-void print_legend(int8_t x_offset, int8_t y_offset)
+void print_legend(void)
 {
   ssd1306_Fill(Black);
   memset(temp_buf, 0, PATH_SIZE);
@@ -462,15 +462,13 @@ void print_legend(int8_t x_offset, int8_t y_offset)
   sprintf(temp_buf, "P%d: %s", p_cache.current_profile, pf_name);
   if(strlen(temp_buf) > 21)
     temp_buf[21] = 0;
-  int8_t x_start = (21 - strlen(temp_buf)) * 3 + x_offset;
+  int8_t x_start = (21 - strlen(temp_buf)) * 3;
   if(x_start < 0)
     x_start = 0;
-  if(y_offset < 0)
-    y_offset = 0;
   ssd1306_SetCursor((uint8_t)x_start, 0);
   ssd1306_WriteString(temp_buf, Font_6x10,White);
   for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
-    print_keyname(p_cache.key_fn[i], i, x_offset, y_offset);
+    print_keyname(p_cache.key_fn[i], i);
   ssd1306_UpdateScreen();
 }
 
@@ -553,7 +551,7 @@ void reset_hold_cache(void)
 void restore_profile(uint8_t profile_id)
 {
   load_profile(profile_id);
-  print_legend(0, 0);
+  print_legend();
   has_valid_profiles = 1;
   f_closedir(&dir);
   f_close(&sd_file);
