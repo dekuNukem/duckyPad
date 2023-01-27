@@ -840,12 +840,16 @@ void keypress_task_start(void const * argument)
             {
               start_sleeping();
             }
-            // if(my_der.type == DER_GOTO_PROFILE)
-            // {
-            //   if(p_cache.available_profile[my_der.data])
-            //     restore_profile(my_der.data);
-            //   der_init(&my_der);
-            // }
+            else if (this_exe.result == EXE_ACTION_SLEEP)
+            {
+              start_sleeping();
+            }
+            else if (this_exe.result == EXE_ACTION_GOTO_PROFILE)
+            {
+              uint8_t target_profile = this_exe.data;
+              if(target_profile < MAX_PROFILES && p_cache.available_profile[target_profile])
+                restore_profile(target_profile);
+            }
           }
         }
         else if(i == KEY_BUTTON1 || i == KEY_BUTTON2)

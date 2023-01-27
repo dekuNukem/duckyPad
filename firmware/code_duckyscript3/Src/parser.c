@@ -27,11 +27,7 @@ FATFS sd_fs;
 FIL sd_file;
 DIR dir;
 FILINFO fno;
-uint8_t mount_result;
-uint8_t has_valid_profiles;
-int32_t cmd_delay, char_delay, char_delay_jitter;
 unsigned int bytes_read;
-ds3_exe_result my_der;
 char temp_buf[PATH_SIZE];
 char lfn_buf[FILENAME_SIZE];
 char read_buffer[READ_BUF_SIZE];
@@ -552,7 +548,6 @@ void restore_profile(uint8_t profile_id)
 {
   load_profile(profile_id);
   print_legend();
-  has_valid_profiles = 1;
   f_closedir(&dir);
   f_close(&sd_file);
   save_last_profile(profile_id);

@@ -487,7 +487,7 @@ void kb_scan_task(void const * argument)
 
   /* USER CODE BEGIN 5 */
   neopixel_off();
-  mount_result = f_mount(&sd_fs, "", 1);
+  uint8_t mount_result = f_mount(&sd_fs, "", 1);
   HAL_GPIO_WritePin(OLED_RESET_GPIO_Port, OLED_RESET_Pin, GPIO_PIN_RESET);
   osDelay(10);
   HAL_GPIO_WritePin(OLED_RESET_GPIO_Port, OLED_RESET_Pin, GPIO_PIN_SET);

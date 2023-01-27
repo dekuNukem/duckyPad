@@ -195,6 +195,8 @@ def evaluate_expr(expr):
 		this_instruction['opcode'] = OP_PUSHV
 		this_instruction['oparg'] = str(root.id)
 		instruction_list.append(this_instruction)
+	else:
+		raise ValueError(f"unknown ast node: {root}")
 	return instruction_list
 
 def replace_operators(this_line):
@@ -596,6 +598,10 @@ def make_dsb(program_listing):
 			assembly_listing.append(this_instruction)
 		elif first_word == cmd_PREV_PROFILE:
 			this_instruction['opcode'] = OP_PREVP
+			assembly_listing.append(this_instruction)
+		elif first_word == cmd_GOTO_PROFILE:
+			assembly_listing += parse_expression(this_line)
+			this_instruction['opcode'] = OP_GOTOP
 			assembly_listing.append(this_instruction)
 		elif first_word == cmd_DP_SLEEP:
 			this_instruction['opcode'] = OP_SLEEP

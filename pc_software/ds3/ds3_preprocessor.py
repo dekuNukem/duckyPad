@@ -356,6 +356,18 @@ def ensure_zero_arg(pgm_line):
 def needs_rstrip(first_word):
 	return not (first_word.startswith(cmd_STRING) or first_word == cmd_OLED_PRINT)
 
+def check_first_arg(pgm_line, vt, allow_multi_arg=False):
+	split = [x for x in pgm_line.split(' ') if len(x) > 0]
+	if allow_multi_arg is False and len(split) != 2:
+		return PARSE_ERROR, "only one argument allowed"
+	try:
+		if int(split[1]) < 0:
+			return PARSE_ERROR, "value can't be negative"
+		return PARSE_OK, ""
+	except:
+		pass
+	return is_valid_expr(pgm_line, vt)
+
 def run_once(program_listing):
 	reset()
 	return_dict = {
@@ -438,9 +450,9 @@ def run_once(program_listing):
 			else:
 				pcomment = f"Unknown function: {fun_name}"
 		elif first_word == cmd_DELAY:
-			presult, pcomment = ds_syntax_check.parse_line(this_line)
-			if presult != PARSE_OK:
-				presult, pcomment = is_valid_expr(this_line, var_table)
+			presult, pcomment = check_first_arg(this_line, var_table)
+		elif first_word == cmd_GOTO_PROFILE:
+			presult, pcomment = check_first_arg(this_line, var_table, allow_multi_arg=True)
 		elif first_word == cmd_SWCC:
 			presult, pcomment = check_color(this_line, var_table)
 		elif first_word == cmd_SWCR:

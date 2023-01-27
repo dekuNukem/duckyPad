@@ -8,7 +8,7 @@ valid_chars = ['!', '"', '#', '$', '%', '&', "'", '(',
 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~']
 
 mouse_commands = [cmd_LMOUSE, cmd_RMOUSE, cmd_MMOUSE, cmd_MOUSE_MOVE, cmd_MOUSE_WHEEL]
-ignored_but_valid_commands = [cmd_SWCB, cmd_UARTPRINT, cmd_LCR, cmd_REM, cmd_DP_SLEEP, cmd_PREV_PROFILE, cmd_NEXT_PROFILE, cmd_GOTO_PROFILE, cmd_INJECT_MOD]
+ignored_but_valid_commands = [cmd_SWCB, cmd_UARTPRINT, cmd_LCR, cmd_REM, cmd_DP_SLEEP, cmd_PREV_PROFILE, cmd_NEXT_PROFILE, cmd_INJECT_MOD]
 
 def is_ignored_but_valid_command(ducky_line):
 	for item in ignored_but_valid_commands:
@@ -60,10 +60,23 @@ def parse_mouse(ducky_line):
 		return PARSE_OK, "Success"
 	return PARSE_ERROR, "Invalid mouse command"
 
+def check_one_arg(pgm_line):
+	split = [x for x in pgm_line.split(' ') if len(x) > 0]
+	if len(split) != 2:
+		return PARSE_ERROR, "only one argument allowed"
+	try:
+		value = int(split[1])
+	except:
+		return PARSE_ERROR, 'invalid value'
+	if value < 0:
+		return PARSE_ERROR, "value can't be negative"
+	return PARSE_OK, ""
+
 def parse_line(ducky_line):
 	parse_result = PARSE_OK
 	parse_message = 'Unknown'
 	ducky_line = ducky_line.replace('\n', '').replace('\r', '')
+	split = [x for x in ducky_line.split(' ') if len(x) > 0]
 	if not (ducky_line.startswith(cmd_STRING) or ducky_line.startswith(cmd_STRINGLN) or ducky_line.startswith(cmd_REM) or ducky_line.startswith(cmd_OLED_PRINT)):
 		ducky_line = ducky_line.strip()
 	if len(ducky_line) == 0:
@@ -79,28 +92,15 @@ def parse_line(ducky_line):
 	elif ducky_line.startswith(cmd_STRING + " ") or ducky_line.startswith(cmd_STRINGLN + " ") or ducky_line.startswith(cmd_OLED_PRINT + " "):
 		return PARSE_OK, "Success"
 	elif ducky_line.startswith(cmd_REPEAT + " "):
-		try:
-			int(ducky_line[len(cmd_REPEAT + " "):].strip())
-		except Exception:
-			return PARSE_ERROR, "REPEAT invalid argument"
-		return PARSE_OK, "Success"
-	elif ducky_line.startswith(cmd_DELAY + " "):
-		try:
-			if int(ducky_line[len(cmd_DELAY + " "):].strip())/1000 <= 0:
-				return PARSE_ERROR, "can't be zero or negative"
-			else:
-				return PARSE_OK, "Success"
-		except Exception:
-			return PARSE_ERROR, "DELAY invalid argument"
-	elif [x for x in ducky_line.split(' ') if len(x) > 0][0] in ds3_keyname_dict.keys():
+		return check_one_arg(ducky_line)
+	elif split[0] in ds3_keyname_dict.keys():
 		parse_result, parse_message = parse_combo(ducky_line)
-	elif [x for x in ducky_line.split(' ') if len(x) > 0][0] in mouse_commands:
+	elif split[0] in mouse_commands:
 		parse_result, parse_message = parse_mouse(ducky_line)
 	else:
 		parse_result = PARSE_ERROR
 		parse_message = "Invalid command"
 	return parse_result, parse_message
-
 
 """
 	elif ducky_line.startswith(cmd_LOOP) and ducky_line.endswith(':') and len(ducky_line) == 6 and ducky_line[4].isnumeric():

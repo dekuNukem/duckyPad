@@ -558,6 +558,18 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
   {
     exe->result = EXE_ACTION_SLEEP;
   }
+  else if(this_opcode == OP_GOTOP)
+  {
+    uint16_t target_profile;
+    op_result = stack_pop(&arithmetic_stack, &target_profile);
+    if(op_result != STACK_OP_OK)
+    {
+      exe->result = op_result;
+      return;
+    }
+    exe->result = EXE_ACTION_GOTO_PROFILE;
+    exe->data = (uint8_t)target_profile;
+  }
   else
   {
     // UNKNOWN OP CODE

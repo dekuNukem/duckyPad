@@ -32,7 +32,6 @@ extern FIL sd_file;
 extern DIR dir;
 extern FILINFO fno;
 extern uint8_t mount_result;
-extern uint8_t has_valid_profiles;
 extern char temp_buf[PATH_SIZE];
 extern unsigned int bytes_read;
 extern char read_buffer[READ_BUF_SIZE];
