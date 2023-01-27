@@ -23,6 +23,27 @@ $C = $C - 2
 END_WHILE 
 
 
+SWCC 1 200 0 0
+SWCC 2 200 0 0
+SWCC 3 200 0 0
+SWCC 4 200 0 0
+SWCC 5 200 0 0
+SWCC 6 200 0 0
+SWCC 7 200 0 0
+SWCC 8 200 0 0
+SWCC 9 200 0 0
+SWCC 10 200 0 0
+SWCC 11 200 0 0
+SWCC 12 200 0 0
+SWCC 13 200 0 0
+SWCC 14 200 0 0
+SWCC 15 200 0 0
+DELAY 500
+
+VAR $c = 63
+
+SWCR   $c
+
 
 def make_swcolor_instruction(pgm_line):
     split = [x for x in pgm_line.split(' ') if len(x) > 0]

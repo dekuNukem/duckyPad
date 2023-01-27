@@ -24,6 +24,10 @@ cmd_SWCC = "SWCC"
 cmd_SWCB = "SWCB"
 cmd_SWCR = "SWCR"
 
+cmd_OLPRINT = "OLPRINT"
+cmd_OLUPDATE = "OLUPDATE"
+cmd_OLCURSOR = "OLCURSOR"
+
 cmd_LMOUSE = "LMOUSE"
 cmd_RMOUSE = "RMOUSE"
 cmd_MMOUSE = "MMOUSE"

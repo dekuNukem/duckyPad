@@ -76,7 +76,7 @@ def parse_line(ducky_line):
 		parse_result, parse_message = parse_combo(ducky_line[len(cmd_KEYDOWN + " "):])
 	elif ducky_line.startswith(cmd_KEYUP + " "):
 		parse_result, parse_message = parse_combo(ducky_line[len(cmd_KEYUP + " "):])
-	elif ducky_line.startswith(cmd_STRING + " ") or ducky_line.startswith(cmd_STRINGLN + " "):
+	elif ducky_line.startswith(cmd_STRING + " ") or ducky_line.startswith(cmd_STRINGLN + " ") or ducky_line.startswith(cmd_OLPRINT + " "):
 		return PARSE_OK, "Success"
 	elif ducky_line.startswith(cmd_REPEAT + " "):
 		try:
