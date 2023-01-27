@@ -66,6 +66,7 @@ OP_BCLR = ("BCLR", 47)
 OP_PREVP = ("PREVP", 48)
 OP_NEXTP = ("NEXTP", 49)
 OP_GOTOP = ("GOTOP", 50)
+OP_SLEEP = ("SLEEP", 51)
 
 arith_lookup = {
 	"Eq" : OP_EQ,
@@ -595,6 +596,9 @@ def make_dsb(program_listing):
 			assembly_listing.append(this_instruction)
 		elif first_word == cmd_PREV_PROFILE:
 			this_instruction['opcode'] = OP_PREVP
+			assembly_listing.append(this_instruction)
+		elif first_word == cmd_DP_SLEEP:
+			this_instruction['opcode'] = OP_SLEEP
 			assembly_listing.append(this_instruction)
 		elif first_word in ds3_keyname_dict: # key combos
 			key_list = [x for x in this_line.split(" ") if len(x) > 0]

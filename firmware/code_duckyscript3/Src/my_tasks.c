@@ -836,11 +836,10 @@ void keypress_task_start(void const * argument)
             {
               change_profile(PREV_PROFILE);
             }
-            // if(my_der.type == DER_SLEEP)
-            // {
-            //   start_sleeping();
-            //   der_init(&my_der);
-            // }
+            else if (this_exe.result == EXE_ACTION_SLEEP)
+            {
+              start_sleeping();
+            }
             // if(my_der.type == DER_GOTO_PROFILE)
             // {
             //   if(p_cache.available_profile[my_der.data])

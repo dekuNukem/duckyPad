@@ -459,6 +459,8 @@ def run_once(program_listing):
 			presult, pcomment = ensure_zero_arg(this_line)
 		elif first_word == cmd_PREV_PROFILE:
 			presult, pcomment = ensure_zero_arg(this_line)
+		elif first_word == cmd_DP_SLEEP:
+			presult, pcomment = ensure_zero_arg(this_line)
 		else:
 			presult, pcomment = ds_syntax_check.parse_line(this_line)
 		

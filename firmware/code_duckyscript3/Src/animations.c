@@ -47,7 +47,7 @@ void set_pixel_3color_update_buffer(uint8_t which, uint8_t r, uint8_t g, uint8_t
 void led_animation_handler(void)
 {
   frame_counter++;
-  uint8_t need_update = 0;
+  uint8_t needs_update = 0;
   for (int idx = 0; idx < NEOPIXEL_COUNT; ++idx)
   {
     int32_t current_frame = frame_counter - neo_anime[idx].animation_start;
@@ -73,10 +73,10 @@ void led_animation_handler(void)
         neo_anime[idx].current_color[i] = neo_anime[idx].target_color[i];
       neo_anime[idx].animation_type = ANIMATION_NONE;
     }
-    need_update = 1;
+    needs_update = 1;
     set_pixel_3color(neo_anime[idx].index, neo_anime[idx].current_color[0], neo_anime[idx].current_color[1], neo_anime[idx].current_color[2]);
   }
-  if(need_update)
+  if(needs_update)
     neopixel_show(red_buf, green_buf, blue_buf);
 }
 
@@ -106,6 +106,8 @@ void led_start_animation(led_animation* anime_struct, uint8_t dest_color[THREE],
 
 void neopixel_off(void)
 {
+  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+    neo_anime[i].animation_type = ANIMATION_NONE;
   memset(red_buf, 0, NEOPIXEL_COUNT);
   neopixel_show(red_buf, red_buf, red_buf);
 }

@@ -62,6 +62,7 @@
 #define OP_PREVP 48
 #define OP_NEXTP 49
 #define OP_GOTOP 50
+#define OP_SLEEP 51
 
 
 #define INSTRUCTION_SIZE_BYTES 3

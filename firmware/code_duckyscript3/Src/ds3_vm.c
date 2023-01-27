@@ -554,6 +554,10 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
   {
     exe->result = EXE_ACTION_PREV_PROFILE;
   }
+  else if(this_opcode == OP_SLEEP)
+  {
+    exe->result = EXE_ACTION_SLEEP;
+  }
   else
   {
     // UNKNOWN OP CODE
