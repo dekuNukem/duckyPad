@@ -421,9 +421,16 @@ def run_once(program_listing):
 			presult, pcomment = break_check(this_line, line_number_starting_from_1, while_search_stack, break_dict)
 		elif first_word == cmd_CONTINUE:
 			presult, pcomment = continue_check(this_line, line_number_starting_from_1, while_search_stack, continue_dict)
-		elif this_line == cmd_RETURN or this_line == cmd_HALT:
+		elif this_line == cmd_HALT:
 			presult = PARSE_OK
 			pcomment = ''
+		elif this_line == cmd_RETURN:
+			if len(func_search_stack) == 0:
+				presult = PARSE_ERROR
+				pcomment = f"RETURN outside function"
+			else:
+				presult = PARSE_OK
+				pcomment = ''
 		elif this_line.endswith("()"):
 			fun_name = this_line[0:len(this_line)-2]
 			if fun_name in func_table:

@@ -602,7 +602,7 @@ void keypress_wrapper(uint8_t keynum)
   if(load_dsb(temp_buf) == DSB_OK)
   {
     run_dsb(&my_er, keynum);
-    if(my_er.result == EXE_ERROR)
+    if(my_er.result >= EXE_ERROR)
     {
       error_animation(0);
       osDelay(1000);
