@@ -62,6 +62,7 @@ OP_OLP = ("OLP", 43)
 OP_OLU = ("OLU", 44)
 OP_OLB = ("OLB", 45)
 OP_OLR = ("OLR", 46)
+OP_BCLR = ("BCLR", 47)
 
 arith_lookup = {
 	"Eq" : OP_EQ,
@@ -451,6 +452,7 @@ def make_dsb(program_listing):
 	label_dict = {}
 	func_lookup = result_dict['func_table']
 	str_lookup = {}
+	break_dict = result_dict['break_dict']
 
 	assembly_listing = []
 
@@ -572,6 +574,13 @@ def make_dsb(program_listing):
 			assembly_listing.append(this_instruction)
 		elif first_word == cmd_OLED_RESTORE:
 			this_instruction['opcode'] = OP_OLR
+			assembly_listing.append(this_instruction)
+		elif first_word == cmd_BCLR:
+			this_instruction['opcode'] = OP_BCLR
+			assembly_listing.append(this_instruction)
+		elif first_word == cmd_BREAK:
+			this_instruction['opcode'] = OP_JMP
+			this_instruction['oparg'] = label_dict[break_dict[lnum]]
 			assembly_listing.append(this_instruction)
 		elif first_word in ds3_keyname_dict: # key combos
 			key_list = [x for x in this_line.split(" ") if len(x) > 0]

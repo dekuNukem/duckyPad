@@ -57,6 +57,8 @@
 #define OP_OLU 44
 #define OP_OLB 45
 #define OP_OLR 46
+#define OP_BCLR 47
+
 
 #define INSTRUCTION_SIZE_BYTES 3
 #define STACK_SIZE 16
@@ -81,15 +83,14 @@
 #define STACK_OP_OVERFLOW 100
 #define STACK_OP_UNDERFLOW 110
 
-#define DEFAULT_DEFAULTDELAY_MS 20
-#define DEFAULT_DEFAULTCHARDELAY_MS 20
-
 #define DEFAULTDELAY_ADDR (0xffff - 0)
 #define DEFAULTCHARDELAY_ADDR (0xffff - 1)
 #define CHARJITTER_ADDR (0xffff - 2)
 #define _RANDOM_MIN (0xffff - 3)
 #define _RANDOM_MAX (0xffff - 4)
 #define _RANDOM_INT (0xffff - 5)
+#define _TIME (0xffff - 6)
+#define _READKEY (0xffff - 7)
 
 typedef struct
 {

@@ -22,11 +22,13 @@ if_take_table = {}
 if_skip_table = {}
 # line_number_starting_from_1 : end_while line number
 while_table = {}
-
 func_search_stack = []
 if_search_stack = []
 while_search_stack = []
 if_raw_info = []
+define_dict = {}
+break_dict = {}
+continue_dict = {}
 
 def reset():
 	global var_table
@@ -41,6 +43,8 @@ def reset():
 	while_search_stack.clear()
 	define_dict = {"TRUE":"1", "FALSE":"0"}
 	if_raw_info.clear()
+	break_dict.clear()
+	continue_dict.clear()
 
 def is_valid_var_name(varname):
 	if len(varname) == 0:
@@ -247,6 +251,12 @@ def end_while_check(pgm_line, lnum, wss, wdict):
 	wdict[while_start_line] = lnum;
 	return PARSE_OK, '' 
 
+def break_check(pgm_line, lnum, wss, bdict):
+	if len(wss) == 0:
+		return PARSE_ERROR, "BREAK outside WHILE"
+	bdict[lnum] = wss[-1];
+	return PARSE_OK, '' 
+
 # ---------------------- END LINE PARSER ----------------------
 
 # ---------------------- FIRST PASS ----------------------
@@ -399,6 +409,8 @@ def run_once(program_listing):
 			presult, pcomment = new_while_check(this_line, line_number_starting_from_1, while_search_stack, while_table, var_table)
 		elif first_word == cmd_END_WHILE:
 			presult, pcomment = end_while_check(this_line, line_number_starting_from_1, while_search_stack, while_table)
+		elif first_word == cmd_BREAK:
+			presult, pcomment = break_check(this_line, line_number_starting_from_1, while_search_stack, break_dict)
 		elif this_line == cmd_RETURN or this_line == cmd_HALT:
 			presult = PARSE_OK
 			pcomment = ''
@@ -423,6 +435,8 @@ def run_once(program_listing):
 		elif first_word == cmd_OLED_BLANK:
 			presult, pcomment = check_olu(this_line)
 		elif first_word == cmd_OLED_RESTORE:
+			presult, pcomment = check_olu(this_line)
+		elif first_word == cmd_BCLR:
 			presult, pcomment = check_olu(this_line)
 		else:
 			presult, pcomment = ds_syntax_check.parse_line(this_line)
@@ -455,8 +469,12 @@ def run_once(program_listing):
 		return_dict['error_line_number_starting_from_1'] = while_search_stack[-1]
 		return return_dict
 
-
 	while_table_bidirectional = {**while_table, **dict((v,k) for k,v in while_table.items())}
+
+	for key in break_dict:
+		while_start = break_dict[key]
+		end_while = while_table_bidirectional[while_start]
+		break_dict[key] = end_while
 
 	return_dict['is_success'] = True
 	return_dict['comments'] = ""
@@ -468,6 +486,7 @@ def run_once(program_listing):
 	return_dict['if_take_table'] = if_take_table
 	return_dict['if_skip_table'] = if_skip_table
 	return_dict['while_table_bidirectional'] = while_table_bidirectional
+	return_dict['break_dict'] = break_dict
 
 	return return_dict
 

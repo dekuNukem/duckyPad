@@ -44,6 +44,8 @@ uint8_t is_pressed(but_status* butt);
 void service_press(but_status* butt);
 void keyboard_update(void);
 uint8_t is_released_but_not_serviced(but_status* butt);
+uint8_t get_first_active_key(uint8_t curr_key);
+void button_service_all(void);
 
 #ifdef __cplusplus
 }

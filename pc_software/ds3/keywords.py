@@ -30,6 +30,7 @@ cmd_OLED_CURSOR = "OLC"
 cmd_OLED_BLANK = "OLB"
 cmd_OLED_RESTORE = "OLR"
 
+cmd_BCLR = "BCLR"
 
 cmd_LMOUSE = "LMOUSE"
 cmd_RMOUSE = "RMOUSE"
@@ -138,6 +139,9 @@ cmd_ZENKAKUHANKAKU = "ZENKAKUHANKAKU"
 cmd_MENU = "MENU"
 cmd_APP = "APP"
 cmd_POWER = "POWER"
+
+cmd_BREAK = "BREAK"
+cmd_CONTINUE = "CONTINUE"
 
 english_alphabets = [
 'a', 'b', 'c', 'd', 'e','f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
@@ -379,4 +383,6 @@ reserved_variable_dict = {
 	"_RANDOM_MIN": (0xffff - 3),
 	"_RANDOM_MAX": (0xffff - 4),
 	"_RANDOM_INT": (0xffff - 5),
+	"_TIME": (0xffff - 6),
+	"_READKEY": (0xffff - 7),
 }

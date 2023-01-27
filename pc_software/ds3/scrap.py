@@ -1,3 +1,33 @@
+BCLR
+
+VAR $COND = 1
+
+WHILE $COND
+VAR $BUTT = $_READKEY
+STRINGLN $BUTT
+DELAY 500
+IF $BUTT == 16 THEN
+$COND = 0
+END_IF
+END_WHILE
+
+---
+VAR $C = 5
+WHILE 1
+    WHILE 1
+    STRINGLN C IS $C
+    $C = $C - 1
+    BREAK
+    IF $C == 2 THEN
+    BREAK
+    END_IF
+    END_WHILE
+BREAK
+END_WHILE
+
+
+---------------
+
 VAR $INDEX = 2 * 3
 VAR $RED = 33 * 2
 VAR $GREEN = 44 / 2
@@ -89,6 +119,12 @@ OLP
 OLC 0 $YY
 OLP $_RANDOM_INT
 OLU
+-------
+WHILE TRUE
+STRINGLN $_READKEY
+DELAY 500
+END_WHILE
+
 
 
 def make_swcolor_instruction(pgm_line):

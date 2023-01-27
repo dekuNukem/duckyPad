@@ -4,10 +4,10 @@
 #include <stdlib.h>
 #include "ds3_vm.h"
 #include "parser.h"
-
 #include "keyboard.h"
 #include "animations.h"
 #include "ssd1306.h"
+#include "buttons.h"
 
 #define BIN_BUF_SIZE 1000
 uint8_t bin_buf[BIN_BUF_SIZE];
@@ -167,9 +167,15 @@ void write_var(uint8_t* pgm_start, uint16_t addr, uint16_t value)
     rand_max = value;
   else if (addr == _RANDOM_INT)
     ; // this is read only, so do nothing
+  else if (addr == _TIME)
+    ; // this is read only, so do nothing
+  else if (addr == _READKEY)
+    ; // this is read only, so do nothing
   else
     store_uint16_as_two_bytes_at(value, pgm_start + addr);
 }
+
+uint8_t current_key;
 
 uint16_t read_var(uint8_t* pgm_start, uint16_t addr)
 {
@@ -185,6 +191,10 @@ uint16_t read_var(uint8_t* pgm_start, uint16_t addr)
     return rand_max;
   else if (addr == _RANDOM_INT)
     return rand() % (rand_max + 1 - rand_min) + rand_min;
+  else if (addr == _TIME)
+    return (uint16_t)HAL_GetTick();
+  else if (addr == _READKEY)
+    return get_first_active_key(current_key);
   else
     return make_uint16(pgm_start[addr], pgm_start[addr+1]);
 }
@@ -280,6 +290,7 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
   uint8_t byte1 = pgm_start[curr_pc+2];
   uint8_t op_result;
   uint16_t op_data = make_uint16(byte0, byte1);
+  current_key = keynum;
   // printf("PC: %04d | Opcode: %02d | 0x%02x 0x%02x | 0x%04x\n", curr_pc, this_opcode, byte0, byte1, op_data);
   
   exe->result = EXE_OK;
@@ -531,6 +542,10 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
   {
     print_legend();
   }
+  else if(this_opcode == OP_BCLR)
+  {
+    button_service_all();
+  }
   else
   {
     // UNKNOWN OP CODE
@@ -546,8 +561,8 @@ void run_dsb(ds3_exe_result* er, uint8_t keynum)
   stack_init(&call_stack);
   uint8_t header_size = make_uint16(bin_buf[0], bin_buf[1]);
   uint8_t* pgm_start = bin_buf + header_size;
-  defaultdelay_value = DEFAULT_DEFAULTDELAY_MS;
-  defaultchardelay_value = DEFAULT_DEFAULTCHARDELAY_MS;
+  defaultdelay_value = DEFAULT_CMD_DELAY_MS;
+  defaultchardelay_value = DEFAULT_CHAR_DELAY_MS;
   charjitter_value = 0;
   rand_max = 65535;
   rand_min = 0;

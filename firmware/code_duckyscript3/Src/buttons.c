@@ -63,3 +63,16 @@ void keyboard_update(void)
   }
 }
 
+void button_service_all(void)
+{
+  for (int i = 0; i < KEY_COUNT; ++i)
+    service_press(&button_status[i]);
+}
+
+uint8_t get_first_active_key(uint8_t curr_key)
+{
+  for (int i = 0; i < KEY_COUNT; ++i)
+    if(is_pressed(&button_status[i]))
+      return i+1;
+  return 0;
+}
