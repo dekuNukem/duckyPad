@@ -193,7 +193,7 @@ void print_str(char* start, uint8_t* pgm_start)
 {
   char* curr = start;
   uint8_t this_char, lsb, msb;
-  my_key kk;
+  memset(read_buffer, 0, READ_BUF_SIZE);
   while(1)
   {
     this_char = curr[0];
@@ -212,15 +212,15 @@ void print_str(char* start, uint8_t* pgm_start)
       uint16_t var_value = read_var(pgm_start, var_addr);
       memset(temp_buf, 0, PATH_SIZE);
       sprintf(temp_buf, "%d", var_value);
-      kb_print(temp_buf, defaultchardelay_value, charjitter_value);
+      strcat(read_buffer, temp_buf);
       continue;
     }
-    kk.type = KEY_TYPE_CHAR;
-    kk.code = utf8ascii(this_char);
-    if(kk.code != 0)
-      kb_print_char(&kk, defaultchardelay_value, charjitter_value);
+    memset(temp_buf, 0, PATH_SIZE);
+    sprintf(temp_buf, "%c", this_char);
+    strcat(read_buffer, temp_buf);
     curr++;
   }
+  kb_print(read_buffer, defaultchardelay_value, charjitter_value);
 }
 
 uint16_t index, red, green, blue;

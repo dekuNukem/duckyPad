@@ -609,7 +609,7 @@ def save_everything(save_path):
                 curr_key = this_key.name
                 this_key.binary_array = make_bytecode.make_dsb(this_key.script.split('\n'))
 
-            config_file = open(os.path.join(this_profile.path, 'config.txt'), 'w')
+            config_file = open(os.path.join(this_profile.path, 'config.txt'), 'w', encoding='utf8', newline='')
             for this_key in this_profile.keylist:
                 if this_key is None:
                     continue
@@ -654,7 +654,7 @@ def save_everything(save_path):
         except Exception as e:
             print("dps", e)
 
-        with open(dps_path, 'w+') as setting_file:
+        with open(dps_path, 'w+', encoding='utf8', newline='') as setting_file:
             setting_file.writelines(dp_settings.list_of_lines);
 
         dp_root_folder_display.set("Saved!")
