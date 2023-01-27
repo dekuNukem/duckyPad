@@ -189,7 +189,7 @@ uint16_t read_var(uint8_t* pgm_start, uint16_t addr)
     return make_uint16(pgm_start[addr], pgm_start[addr+1]);
 }
 
-void print_str(char* start, uint8_t* pgm_start)
+char* make_str(char* start, uint8_t* pgm_start)
 {
   char* curr = start;
   uint8_t this_char, lsb, msb;
@@ -220,7 +220,8 @@ void print_str(char* start, uint8_t* pgm_start)
     strcat(read_buffer, temp_buf);
     curr++;
   }
-  kb_print(read_buffer, defaultchardelay_value, charjitter_value);
+  return read_buffer;
+  // kb_print(read_buffer, defaultchardelay_value, charjitter_value);
 }
 
 uint16_t index, red, green, blue;
@@ -425,7 +426,8 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
   else if(this_opcode == OP_STR || this_opcode == OP_STRLN)
   {
     char* str_start = pgm_start + op_data;
-    print_str(str_start, pgm_start);
+    char* str_buf = make_str(str_start, pgm_start);
+    kb_print(str_buf, defaultchardelay_value, charjitter_value);
     if(this_opcode == OP_STRLN)
     {
     	press_key(0x28, 0x03); // ENTER key
