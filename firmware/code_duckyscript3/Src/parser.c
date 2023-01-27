@@ -603,7 +603,7 @@ void keypress_wrapper(uint8_t keynum)
   sprintf(temp_buf, "/%s/key%d.dsb", p_cache.profile_fn, keynum+1);
   if(load_dsb(temp_buf) == DSB_OK)
   {
-    run_dsb(&my_er);
+    run_dsb(&my_er, keynum);
     if(my_er.result == EXE_ERROR)
     {
       error_animation(0);

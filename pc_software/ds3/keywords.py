@@ -20,7 +20,8 @@ cmd_KEYDOWN = "KEYDOWN"
 cmd_KEYUP = "KEYUP"
 cmd_INJECT_MOD = "INJECT_MOD"
 
-cmd_SWCOLOR = "SWCOLOR"
+cmd_SWCC = "SWCC"
+cmd_SWCB = "SWCB"
 
 cmd_LMOUSE = "LMOUSE"
 cmd_RMOUSE = "RMOUSE"

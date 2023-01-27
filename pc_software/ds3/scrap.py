@@ -1,3 +1,27 @@
+VAR $INDEX = 2 * 3
+VAR $RED = 33 * 2
+VAR $GREEN = 44 / 2
+VAR $BLUE = 55 + 4
+
+SWCC $INDEX    8  $GREEN $BLUE
+
+SWCC 1 100 0 0
+DELAY 500
+SWCC 1 0 100 0
+DELAY 500
+SWCC 1 0 0 100
+DELAY 500
+
+SWCA
+
+VAR $C = 255
+
+WHILE $C > 5
+SWCC 1 $C $C $C
+DELAY 10
+$C = $C - 2
+END_WHILE 
+
 def make_swcolor_instruction(pgm_line):
     split = [x for x in pgm_line.split(' ') if len(x) > 0]
     cmd = split[0].strip()
@@ -32,7 +56,7 @@ def make_swcolor_instruction(pgm_line):
 
 def get_combined_value(b0, b1):
     return ((b0 % 0xff) << 8) | (b1 % 0xff)
-    
+
   else if(this_opcode == OP_PUSHV)
   {
     

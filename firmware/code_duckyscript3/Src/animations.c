@@ -28,7 +28,19 @@ void set_pixel_3color(uint8_t which, uint8_t r, uint8_t g, uint8_t b)
 
 void set_pixel_color(uint8_t which, uint8_t dest_color[THREE])
 {
+  neo_anime[which].animation_type = ANIMATION_NONE;
   set_pixel_3color(which, dest_color[0], dest_color[1], dest_color[2]);
+}
+
+void set_pixel_3color_update_buffer(uint8_t which, uint8_t r, uint8_t g, uint8_t b)
+{
+  set_pixel_3color(which, r, g, b);
+  neo_anime[which].current_color[0] = r;
+  neo_anime[which].current_color[1] = g;
+  neo_anime[which].current_color[2] = b;
+  neo_anime[which].target_color[0] = r;
+  neo_anime[which].target_color[1] = g;
+  neo_anime[which].target_color[2] = b;
 }
 
 // this runs every single frame
@@ -157,4 +169,9 @@ void keydown_anime_start(uint8_t idx)
 void keydown_anime_end(uint8_t idx)
 {
   led_start_animation(&neo_anime[idx], p_cache.individual_key_color[idx], ANIMATION_CROSS_FADE, 70);
+}
+
+void neopixel_update(void)
+{
+  neopixel_show(red_buf, green_buf, blue_buf);
 }

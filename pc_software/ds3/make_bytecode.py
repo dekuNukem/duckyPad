@@ -50,8 +50,8 @@ OP_KDOWN = ("KDOWN", 30)
 OP_KDOWND = ("KDOWND", 31)
 OP_MSCL = ("MSCL", 33)
 OP_MMOV = ("MMOV", 34)
+OP_SWCB = ("SWCB", 32)
 OP_SWCC = ("SWCC", 35)
-OP_SWCE = ("SWCE", 32)
 OP_STR = ("STR", 38)
 OP_STRLN = ("STRLN", 39)
 OP_EMUK = ("EMUK", 40)
@@ -354,22 +354,20 @@ def dict_pp(dic):
 		result += f"{key}: {dic[key]}\n"
 	return result
 
-COLOR_TYPE_INT = 0
-COLOR_TYPE_VAR = 1
 def get_color(name):
 	try:
-		return COLOR_TYPE_INT, int(name)
+		return True, int(name)
 	except:
 		pass
-	return COLOR_TYPE_VAR, name[1:]
+	return False, name[1:]
 
-def parse_color(pgm_line):
+def parse_color(pgm_line, cmd):
 	ins_list = []
 	split = [x for x in pgm_line.split(' ') if len(x) > 0]
 	for item in split[1:]:
-		ctype, value = get_color(item)
+		is_int, value = get_color(item)
 		this_instruction = get_empty_instruction()
-		if ctype == COLOR_TYPE_INT:
+		if is_int:
 			this_instruction['opcode'] = OP_PUSHC
 		else:
 			this_instruction['opcode'] = OP_PUSHV
@@ -378,7 +376,10 @@ def parse_color(pgm_line):
 		ins_list.append(this_instruction)
 
 	this_instruction = get_empty_instruction()
-	this_instruction['opcode'] = OP_SWCC
+	if cmd == OP_SWCC[0]:
+		this_instruction['opcode'] = OP_SWCC
+	else:
+		this_instruction['opcode'] = OP_SWCB
 	this_instruction['comment'] = pgm_line
 	ins_list.append(this_instruction)
 	return ins_list
@@ -510,8 +511,8 @@ def make_dsb(program_listing):
 			this_instruction['opcode'] = OP_MSCL
 			this_instruction['oparg'] = get_mouse_wheel_value(this_line)
 			assembly_listing.append(this_instruction)
-		elif this_line.startswith(cmd_SWCOLOR):
-			assembly_listing += parse_color(this_line)
+		elif first_word == cmd_SWCC or first_word == cmd_SWCB:
+			assembly_listing += parse_color(this_line, first_word)
 		elif first_word in ds3_keyname_dict: # key combos
 			key_list = [x for x in this_line.split(" ") if len(x) > 0]
 			# press, from first to last

@@ -388,7 +388,7 @@ def run_once(program_listing):
 			presult, pcomment = ds_syntax_check.parse_line(this_line)
 			if presult != PARSE_OK:
 				presult, pcomment = is_valid_expr(this_line, var_table)
-		elif first_word == cmd_SWCOLOR:
+		elif first_word == cmd_SWCC:
 			presult, pcomment = check_color(this_line, var_table)
 		else:
 			presult, pcomment = ds_syntax_check.parse_line(this_line)

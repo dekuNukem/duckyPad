@@ -44,7 +44,7 @@
 #define OP_KDOWND 31
 #define OP_MSCL 33
 #define OP_MMOV 34
-#define OP_SWCE 32
+#define OP_SWCB 32
 #define OP_SWCC 35
 #define OP_STR 38
 #define OP_STRLN 39
@@ -92,7 +92,7 @@ typedef struct
 } ds3_exe_result;
 
 uint8_t load_dsb(char* filename);
-void run_dsb(ds3_exe_result* er);
+void run_dsb(ds3_exe_result* er, uint8_t keynum);
 
 #endif
 

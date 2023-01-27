@@ -7,7 +7,7 @@
 
 #include <stdlib.h>
 #include "keyboard.h"
-
+#include "animations.h"
 
 #define BIN_BUF_SIZE 200
 uint8_t bin_buf[BIN_BUF_SIZE];
@@ -223,7 +223,26 @@ void print_str(char* start, uint8_t* pgm_start)
   }
 }
 
-void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* exe)
+uint16_t index, red, green, blue;
+void parse_color(uint8_t opcode, uint8_t keynum)
+{
+  stack_pop(&arithmetic_stack, &blue);
+  stack_pop(&arithmetic_stack, &green);
+  stack_pop(&arithmetic_stack, &red);
+  stack_pop(&arithmetic_stack, &index);
+
+  if(index == 0)
+    index = keynum;
+  else
+    index--;
+  if(index >= MAPPABLE_KEY_COUNT)
+    return;
+  set_pixel_3color_update_buffer(index, red, green, blue);
+  if(opcode == OP_SWCC)
+    neopixel_update();
+}
+
+void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* exe, uint8_t keynum)
 {
   uint8_t this_opcode = pgm_start[curr_pc];
   uint8_t byte0 = pgm_start[curr_pc+1];
@@ -450,10 +469,9 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
     keyboard_press(&kk, 0);
     osDelay(defaultdelay_value);
   }
-  else if(this_opcode == OP_SWCC)
+  else if(this_opcode == OP_SWCB || this_opcode == OP_SWCC)
   {
-    // byte 0 is color, byte 1 is key number
-    printf("OP_SWCC %d %d\n", byte0, byte1);
+    parse_color(this_opcode, keynum);
   }
   else
   {
@@ -462,7 +480,7 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
   }
 }
 
-void run_dsb(ds3_exe_result* er)
+void run_dsb(ds3_exe_result* er, uint8_t keynum)
 {
   uint16_t current_pc = 0;
 	
@@ -479,7 +497,7 @@ void run_dsb(ds3_exe_result* er)
 
   while(1)
   {
-    execute_instruction(pgm_start, current_pc, er);
+    execute_instruction(pgm_start, current_pc, er, keynum);
     if(er->result != EXE_OK)
       break;
     current_pc = er->next_pc;

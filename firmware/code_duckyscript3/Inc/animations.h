@@ -36,6 +36,8 @@ void keydown_anime_end(uint8_t idx);
 void error_animation(uint8_t stage);
 void redraw_bg(void);
 void neopixel_off(void);
+void set_pixel_3color_update_buffer(uint8_t which, uint8_t r, uint8_t g, uint8_t b);
+void neopixel_update(void);
 
 extern int8_t brightness_index;
 extern uint8_t brightness_values[BRIGHTNESS_LEVELS];

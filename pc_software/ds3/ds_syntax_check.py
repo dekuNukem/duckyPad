@@ -8,7 +8,7 @@ valid_chars = ['!', '"', '#', '$', '%', '&', "'", '(',
 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~']
 
 mouse_commands = [cmd_LMOUSE, cmd_RMOUSE, cmd_MMOUSE, cmd_MOUSE_MOVE, cmd_MOUSE_WHEEL]
-ignored_but_valid_commands = ["UARTPRINT", "LCR", cmd_REM, 'DP_SLEEP', 'PREV_PROFILE', 'NEXT_PROFILE', 'GOTO_PROFILE ', 'INJECT_MOD']
+ignored_but_valid_commands = [cmd_SWCB, cmd_UARTPRINT, cmd_LCR, cmd_REM, cmd_DP_SLEEP, cmd_PREV_PROFILE, cmd_NEXT_PROFILE, cmd_GOTO_PROFILE, cmd_INJECT_MOD]
 
 def is_ignored_but_valid_command(ducky_line):
 	for item in ignored_but_valid_commands:
