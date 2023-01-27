@@ -52,6 +52,10 @@
 #define OP_EMUK 40
 #define OP_LOOP 41
 
+#define OP_OLC 42
+#define OP_OLP 43
+#define OP_OLU 44
+
 #define INSTRUCTION_SIZE_BYTES 3
 #define STACK_SIZE 16
 

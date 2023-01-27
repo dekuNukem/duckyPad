@@ -5,9 +5,9 @@
 #include "ds3_vm.h"
 #include "parser.h"
 
-#include <stdlib.h>
 #include "keyboard.h"
 #include "animations.h"
+#include "ssd1306.h"
 
 #define BIN_BUF_SIZE 1000
 uint8_t bin_buf[BIN_BUF_SIZE];
@@ -499,6 +499,17 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
   else if(this_opcode == OP_SWCR)
   {
     parse_swcr(keynum);
+  }
+  else if(this_opcode == OP_OLP)
+  {
+    char* str_start = pgm_start + op_data;
+    char* str_buf = make_str(str_start, pgm_start);
+    ssd1306_SetCursor(0, 0);
+    ssd1306_WriteString(str_buf, Font_6x10,White);
+  }
+  else if(this_opcode == OP_OLU)
+  {
+    ssd1306_UpdateScreen();
   }
   else
   {

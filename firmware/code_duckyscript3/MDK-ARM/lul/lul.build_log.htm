@@ -34,11 +34,13 @@ compiling ds3_vm.c...
     	^
 ..\Src\ds3_vm.c(428): warning:  #144-D: a value of type "uint8_t *" cannot be used to initialize an entity of type "char *"
       char* str_start = pgm_start + op_data;
-..\Src\ds3_vm.c: 2 warnings, 0 errors
+..\Src\ds3_vm.c(505): warning:  #144-D: a value of type "uint8_t *" cannot be used to initialize an entity of type "char *"
+      char* str_start = pgm_start + op_data;
+..\Src\ds3_vm.c: 3 warnings, 0 errors
 linking...
-Program Size: Code=45416 RO-data=2848 RW-data=1412 ZI-data=13828  
+Program Size: Code=45460 RO-data=2848 RW-data=1412 ZI-data=13828  
 FromELF: creating hex file...
-"lul\lul.axf" - 0 Error(s), 2 Warning(s).
+"lul\lul.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Software Packages used:</h2>
 
