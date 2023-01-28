@@ -40,6 +40,7 @@ void set_pixel_3color_update_buffer(uint8_t which, uint8_t r, uint8_t g, uint8_t
   neo_anime[which].target_color[0] = r;
   neo_anime[which].target_color[1] = g;
   neo_anime[which].target_color[2] = b;
+  neo_anime[which].animation_type = ANIMATION_NONE;
 }
 
 // this runs every single frame

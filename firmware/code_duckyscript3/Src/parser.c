@@ -351,53 +351,30 @@ uint8_t get_keynames(profile_cache* pcache)
   return ret;
 }
 
-void parse_loop_state(char* curr, char* msg_end)
-{
-  uint8_t keynum, current_loop;
-  curr = goto_next_arg(curr, msg_end);
-  keynum = atoi(curr);
-  curr = goto_next_arg(curr, msg_end);
-  current_loop = atoi(curr);
-  if(keynum >= MAPPABLE_KEY_COUNT)
-    return;
-  key_press_count[keynum] = current_loop;
-}
-
-void parse_color_state(char* curr, char* msg_end)
-{
-  uint8_t keynum;
-  curr = goto_next_arg(curr, msg_end);
-  keynum = atoi(curr);
-  if(keynum >= MAPPABLE_KEY_COUNT)
-    return;
-  curr = goto_next_arg(curr, msg_end);
-  p_cache.individual_key_color[keynum][0] = atoi(curr);
-  curr = goto_next_arg(curr, msg_end);
-  p_cache.individual_key_color[keynum][1] = atoi(curr);
-  curr = goto_next_arg(curr, msg_end);
-  p_cache.individual_key_color[keynum][2] = atoi(curr);
-}
-
-void load_loop_state(void)
+void load_persistent_state(void)
 {
   memset(temp_buf, 0, PATH_SIZE);
-  sprintf(temp_buf, "/%s/state.txt", p_cache.profile_fn);
+  sprintf(temp_buf, "/%s/state.dsb", p_cache.profile_fn);
   if(f_open(&sd_file, temp_buf, FA_READ) != 0)
   {
-    // !!!!!!!!!! RESET ALL THE BUFFERS HERE
+    memset(key_press_count, 0, MAPPABLE_KEY_COUNT);
     f_close(&sd_file);
     return;
   }
-  memset(temp_buf, 0, PATH_SIZE);
-  while(f_gets(temp_buf, PATH_SIZE, &sd_file))
-  {
-    if(strncmp(temp_buf, "ls ", 3) == 0)
-      parse_loop_state(temp_buf, temp_buf + PATH_SIZE);
-    if(strncmp(temp_buf, "cs ", 3) == 0)
-      parse_color_state(temp_buf, temp_buf + PATH_SIZE);
-    memset(temp_buf, 0, PATH_SIZE);
-  }
+  memset(read_buffer, 0, READ_BUF_SIZE);
+  f_read(&sd_file, read_buffer, READ_BUF_SIZE, &bytes_read);
   f_close(&sd_file);
+  memcpy(key_press_count, read_buffer, MAPPABLE_KEY_COUNT);
+
+  for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+  {
+    uint8_t r_addr = i*3 + COLOR_START_ADDR;
+    uint8_t red = read_buffer[r_addr];
+    uint8_t green = read_buffer[r_addr+1];
+    uint8_t blue = read_buffer[r_addr+2];
+    set_pixel_3color_update_buffer(i, red, green, blue);
+  }
+  neopixel_update();
 }
 
 void load_profile(uint8_t pid)
@@ -409,8 +386,8 @@ void load_profile(uint8_t pid)
   strcpy(p_cache.profile_fn, profile_name);
   get_keynames(&p_cache);
   load_colors(p_cache.profile_fn);
-  load_loop_state();
   redraw_bg();
+  load_persistent_state();
   p_cache.current_profile = pid;
 }
 
@@ -563,9 +540,17 @@ void change_profile(uint8_t direction)
   while(1)
   {
     if(direction == NEXT_PROFILE)
-      next_profile = next_profile + 1 > MAX_PROFILES - 1 ? 0 : next_profile + 1;
+    {
+      next_profile = next_profile + 1;
+      if(next_profile >= MAX_PROFILES)
+       next_profile = 1;
+    }
     else
-      next_profile = next_profile - 1 > MAX_PROFILES - 1 ? MAX_PROFILES - 1 : next_profile - 1;
+    {
+      next_profile = next_profile - 1;
+      if(next_profile == 0)
+        next_profile = MAX_PROFILES - 1;
+    }
     if(p_cache.available_profile[next_profile])
       break;
   }
@@ -579,7 +564,6 @@ void der_init(ds3_exe_result* der)
   der->next_pc = 0;
 }
 
-#define COLOR_START_ADDR 32
 void save_persistent_state(void)
 {
   memset(read_buffer, 0, READ_BUF_SIZE);
@@ -616,7 +600,7 @@ void keypress_wrapper(uint8_t keynum, ds3_exe_result* exe)
   run_dsb(exe, keynum);
   key_press_count[keynum]++;
   // taskENTER_CRITICAL();
-  save_persistent_state();
+  // save_persistent_state();
   // taskEXIT_CRITICAL();
   play_keydown_animation(keynum);
 }

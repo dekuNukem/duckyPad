@@ -781,8 +781,8 @@ void keypress_task_start(void const * argument)
     select_keymap();
 
   load_keymap_by_name(curr_kb_layout);
-  print_legend();
-  redraw_bg();
+  // print_legend();
+  // redraw_bg();
   button_service_all();
   keyboard_release_all();
   for(;;)
@@ -800,7 +800,9 @@ void keypress_task_start(void const * argument)
           is_sleeping = 0;
           goto key_task_end;
         }
-        if(i <= KEY_14)
+        if(i == KEY_BUTTON1 || i == KEY_BUTTON2)
+          handle_tactile_button_press(i);
+        else if(i <= KEY_14)
         {
           handle_keypress(i, &button_status[i], &this_exe);
           if(this_exe.result != EXE_ERROR && this_exe.result != EXE_EMPTY_FILE && this_exe.result != EXE_ACTION_EMUK)
@@ -837,8 +839,6 @@ void keypress_task_start(void const * argument)
             continue;
           }
         }
-        else if(i == KEY_BUTTON1 || i == KEY_BUTTON2)
-          handle_tactile_button_press(i);
       }
       else if(is_released_but_not_serviced(i) && hold_cache[i].type != KEY_TYPE_UNKNOWN)
       {

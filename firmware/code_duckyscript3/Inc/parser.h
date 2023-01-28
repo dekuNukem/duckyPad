@@ -11,6 +11,7 @@
 #include "shared.h"
 #include "ds3_vm.h"
 
+#define COLOR_START_ADDR 32
 
 #define READ_BUF_SIZE 256
 #define MAX_PROFILES 32
