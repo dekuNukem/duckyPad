@@ -37,18 +37,12 @@ void draw_brightness_value()
   ssd1306_UpdateScreen();
 }
 
-void service_all(void)
-{
-  for (int i = 0; i < KEY_COUNT; ++i)
-    service_press(&button_status[i]);
-}
-
 void set_brightness(void)
 {
     draw_brightness_value();
     redraw_bg();
     osDelay(30);
-    service_all();
+    button_service_all();
     save_last_profile(p_cache.current_profile);
 }
 
@@ -67,24 +61,24 @@ void change_brightness()
     ssd1306_WriteString("Press any key to exit",Font_6x10,White);
     ssd1306_UpdateScreen();
     draw_brightness_value();
-    service_all();
+    button_service_all();
     while(1)
     {
       HAL_IWDG_Refresh(&hiwdg);
       keyboard_update();
 
       for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
-          if(is_pressed(&button_status[i]))
+          if(is_pressed(i))
               return;
 
-      if(is_pressed(&button_status[KEY_BUTTON1])) // -
+      if(is_pressed(KEY_BUTTON1)) // -
       {
           brightness_index--;
           if(brightness_index < 0)
               brightness_index = 0;
           set_brightness();
       }
-      if(is_pressed(&button_status[KEY_BUTTON2])) // +
+      if(is_pressed(KEY_BUTTON2)) // +
       {
           brightness_index++;
           if(brightness_index >= BRIGHTNESS_LEVELS)
@@ -124,7 +118,7 @@ void handle_tactile_button_press(uint8_t button_num)
         change_brightness();
         save_settings();
         print_legend();
-        service_all();
+        button_service_all();
       }
     }
 }
@@ -238,7 +232,7 @@ void select_keymap(void)
   {
     HAL_IWDG_Refresh(&hiwdg);
     keyboard_update();
-    if(is_pressed(&button_status[KEY_BUTTON1]) || is_pressed(&button_status[KEY_BUTTON2])) // -
+    if(is_pressed(KEY_BUTTON1) || is_pressed(KEY_BUTTON2)) // -
     {
       memset(lfn_buf, 0, FILENAME_SIZE);
       if(f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)
@@ -246,7 +240,7 @@ void select_keymap(void)
         print_keymap((char*)default_keymap_name);
         is_default_selected = 1;
         f_readdir(&dir, 0);
-        service_all();
+        button_service_all();
         continue;
       }
       if(fno.fattrib & AM_DIR)
@@ -258,11 +252,11 @@ void select_keymap(void)
         continue;
       print_keymap(keymap_filename+5);
       is_default_selected = 0;
-      service_all();
+      button_service_all();
     }
 
     for (int i = 1; i < MAPPABLE_KEY_COUNT; ++i)
-      if(is_pressed(&button_status[i]))
+      if(is_pressed(i))
         goto select_keymap_assign_new_name;
 
     osDelay(50);
@@ -276,7 +270,7 @@ void select_keymap(void)
   save_settings();
 
   select_keymap_end:
-  service_all();
+  button_service_all();
   f_closedir(&dir);
 }
 
@@ -783,19 +777,19 @@ void keypress_task_start(void const * argument)
     osDelay(16);
 
   keyboard_update();
-  if(is_pressed(&button_status[0]))
+  if(is_pressed(0))
     select_keymap();
 
   load_keymap_by_name(curr_kb_layout);
   print_legend();
   redraw_bg();
-  service_all();
+  button_service_all();
   keyboard_release_all();
   for(;;)
   {
     for (int i = 0; i < KEY_COUNT; ++i)
     {
-      if(is_pressed(&button_status[i]))
+      if(is_pressed(i))
       {
         oled_full_brightness(); // OLED back to full brightness
 
@@ -807,68 +801,56 @@ void keypress_task_start(void const * argument)
         }
         if(i <= KEY_14)
         {
-          if(hold_cache[i].type != KEY_TYPE_UNKNOWN && hold_cache[i].code != 0)
+          handle_keypress(i, &button_status[i], &this_exe);
+          if(this_exe.result != EXE_ERROR && this_exe.result != EXE_EMPTY_FILE)
+            keydown_anime_end(i);
+          if(this_exe.result == EXE_ERROR)
           {
-            keyboard_press(&hold_cache[i], 0);
-            osDelay(DEFAULT_CHAR_DELAY_MS);
-            if(hold_cache2[i].type != KEY_TYPE_UNKNOWN && hold_cache2[i].code != 0)
-            {
-              keyboard_press(&hold_cache2[i], 0);
-              osDelay(DEFAULT_CHAR_DELAY_MS);
-            }
+            error_animation(0);
+            osDelay(1000);
+            error_animation(1);
           }
-          else
+          else if (this_exe.result == EXE_ACTION_NEXT_PROFILE)
           {
-            handle_keypress(i, &button_status[i], &this_exe);
-            if(this_exe.result != EXE_ERROR && this_exe.result != EXE_EMPTY_FILE)
-              keydown_anime_end(i);
-            if(this_exe.result == EXE_ERROR)
-            {
-              error_animation(0);
-              osDelay(1000);
-              error_animation(1);
-            }
-            else if (this_exe.result == EXE_ACTION_NEXT_PROFILE)
-            {
-              change_profile(NEXT_PROFILE);
-            }
-            else if (this_exe.result == EXE_ACTION_PREV_PROFILE)
-            {
-              change_profile(PREV_PROFILE);
-            }
-            else if (this_exe.result == EXE_ACTION_SLEEP)
-            {
-              start_sleeping();
-            }
-            else if (this_exe.result == EXE_ACTION_SLEEP)
-            {
-              start_sleeping();
-            }
-            else if (this_exe.result == EXE_ACTION_GOTO_PROFILE)
-            {
-              uint8_t target_profile = this_exe.data;
-              if(target_profile < MAX_PROFILES && p_cache.available_profile[target_profile])
-                restore_profile(target_profile);
-            }
+            change_profile(NEXT_PROFILE);
+          }
+          else if (this_exe.result == EXE_ACTION_PREV_PROFILE)
+          {
+            change_profile(PREV_PROFILE);
+          }
+          else if (this_exe.result == EXE_ACTION_SLEEP)
+          {
+            start_sleeping();
+          }
+          else if (this_exe.result == EXE_ACTION_GOTO_PROFILE)
+          {
+            uint8_t target_profile = this_exe.data;
+            if(target_profile < MAX_PROFILES && p_cache.available_profile[target_profile])
+              restore_profile(target_profile);
+          }
+          else if (this_exe.result == EXE_ACTION_EMUK)
+          {
+            hold_cache[i].code = this_exe.data;
+            hold_cache[i].type = this_exe.data2;
+            // data: code, data2: type
+            // printf("EMUK: %x %x\n", this_exe.data, this_exe.data2);
+            service_press(i);
+            continue;
           }
         }
         else if(i == KEY_BUTTON1 || i == KEY_BUTTON2)
           handle_tactile_button_press(i);
       }
-      if(is_released_but_not_serviced(&button_status[i]) && hold_cache[i].type != KEY_TYPE_UNKNOWN && hold_cache[i].code != 0)
+      else if(is_released_but_not_serviced(i))
       {
-        last_keypress = HAL_GetTick();
-        keyboard_release(&hold_cache[i]);
-        osDelay(DEFAULT_CHAR_DELAY_MS);
-        if(hold_cache2[i].type != KEY_TYPE_UNKNOWN && hold_cache2[i].code != 0)
-        {
-          keyboard_release(&hold_cache2[i]);
-          osDelay(DEFAULT_CHAR_DELAY_MS);
-        }
-        keydown_anime_end(i);
+        printf("wtf\n");
+        // last_keypress = HAL_GetTick();
+        // keyboard_release(&hold_cache[i]);
+        // osDelay(DEFAULT_CHAR_DELAY_MS);
+        // keydown_anime_end(i);
       }
       key_task_end:
-      service_press(&button_status[i]);
+      service_press(i);
     } 
     osDelay(16);
   }

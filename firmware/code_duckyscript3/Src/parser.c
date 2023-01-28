@@ -35,7 +35,6 @@ char nonexistent_keyname[] = "\253";
 profile_cache p_cache;
 dp_global_settings dp_settings;
 my_key hold_cache[MAPPABLE_KEY_COUNT];
-my_key hold_cache2[MAPPABLE_KEY_COUNT];
 char curr_kb_layout[FILENAME_SIZE];
 uint8_t key_max_loop[MAPPABLE_KEY_COUNT];
 uint8_t key_press_count[MAPPABLE_KEY_COUNT];
@@ -539,8 +538,6 @@ void reset_hold_cache(void)
   {
     hold_cache[i].type = KEY_TYPE_UNKNOWN;
     hold_cache[i].code = 0;
-    hold_cache2[i].type = KEY_TYPE_UNKNOWN;
-    hold_cache2[i].code = 0;
   }
 }
 
@@ -609,6 +606,10 @@ void keypress_wrapper(uint8_t keynum, ds3_exe_result* exe)
 void handle_keypress(uint8_t keynum, but_status* b_status, ds3_exe_result* exe)
 {
   keypress_wrapper(keynum, exe);
+
+  if(exe->result != EXE_HALT)
+    return;
+
   uint32_t hold_start = HAL_GetTick();
   while(1)
   {

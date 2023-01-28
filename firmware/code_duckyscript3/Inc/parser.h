@@ -31,7 +31,6 @@ extern FATFS sd_fs;
 extern FIL sd_file;
 extern DIR dir;
 extern FILINFO fno;
-extern uint8_t mount_result;
 extern char temp_buf[PATH_SIZE];
 extern unsigned int bytes_read;
 extern char read_buffer[READ_BUF_SIZE];
@@ -72,7 +71,6 @@ extern profile_cache p_cache;
 extern char temp_buf[PATH_SIZE];
 extern dp_global_settings dp_settings;
 extern my_key hold_cache[MAPPABLE_KEY_COUNT];
-extern my_key hold_cache2[MAPPABLE_KEY_COUNT];
 
 extern char lfn_buf[FILENAME_SIZE];
 extern char read_buffer[READ_BUF_SIZE];

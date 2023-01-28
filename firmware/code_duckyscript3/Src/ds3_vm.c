@@ -458,11 +458,10 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
   }
   else if(this_opcode == OP_KDOWN)
   {
-  	press_key(byte0, byte1);
-  }
-  else if(this_opcode == OP_KUP)
-  {
-  	release_key(byte0, byte1);
+    exe->data = byte0;
+    exe->data2 = byte1;
+    exe->result = EXE_ACTION_EMUK;
+    printf("DOWN!\n");
   }
   else if(this_opcode == OP_KDOWND)
   {

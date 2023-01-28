@@ -44,7 +44,6 @@ OP_LOGIAND = ("LOGIAND", 25)
 OP_LOGIOR = ("LOGIOR", 26)
 
 OP_DELAY = ("DELAY", 27)
-OP_KUP = ("KUP", 28)
 OP_KUPD = ("KUPD", 29)
 OP_KDOWN = ("KDOWN", 30)
 OP_KDOWND = ("KDOWND", 31)
@@ -547,6 +546,10 @@ def make_dsb(program_listing):
 			assembly_listing.append(make_delay_instruction(this_line))
 		elif first_word == cmd_KEYDOWN:
 			this_instruction['opcode'] = OP_KDOWND
+			this_instruction['oparg'] = get_key_combined_value(this_line.split(' ')[-1])
+			assembly_listing.append(this_instruction)
+		elif first_word == cmd_EMUK:
+			this_instruction['opcode'] = OP_KDOWN
 			this_instruction['oparg'] = get_key_combined_value(this_line.split(' ')[-1])
 			assembly_listing.append(this_instruction)
 		elif first_word == cmd_KEYUP:

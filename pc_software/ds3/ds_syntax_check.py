@@ -97,6 +97,15 @@ def parse_line(ducky_line):
 		parse_result, parse_message = parse_combo(ducky_line)
 	elif split[0] in mouse_commands:
 		parse_result, parse_message = parse_mouse(ducky_line)
+	elif ducky_line.startswith(cmd_EMUK):
+		sssss = [x for x in ducky_line.split(' ') if len(x) > 0]
+		if len(sssss) > 2:
+			return PARSE_ERROR, "EMUK takes 1 key max"
+		if sssss[1] in ds3_keyname_dict.keys() or sssss[1] in mouse_commands[:3]:
+			return PARSE_OK, "Success"
+		elif len(sssss[1]) == 1:
+			return PARSE_OK, "Success"
+		return PARSE_ERROR, "EMUK invalid key"
 	else:
 		parse_result = PARSE_ERROR
 		parse_message = "Invalid command"
