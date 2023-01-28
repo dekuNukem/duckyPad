@@ -461,7 +461,7 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
     exe->data = byte0;
     exe->data2 = byte1;
     exe->result = EXE_ACTION_EMUK;
-    printf("DOWN!\n");
+    press_key(byte0, byte1);
   }
   else if(this_opcode == OP_KDOWND)
   {

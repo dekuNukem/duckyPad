@@ -13,9 +13,9 @@
 #include "animations.h"
 #include "usb_device.h"
 #include "usbd_desc.h"
+#include "ds3_vm.h"
 
 #define LONG_PRESS_MS 500
-#define MAX_KEYMAP_SIZE 8
 
 uint8_t init_complete;
 uint32_t last_keypress;
@@ -787,6 +787,7 @@ void keypress_task_start(void const * argument)
   keyboard_release_all();
   for(;;)
   {
+    osDelay(16);
     for (int i = 0; i < KEY_COUNT; ++i)
     {
       if(is_pressed(i))
@@ -802,7 +803,7 @@ void keypress_task_start(void const * argument)
         if(i <= KEY_14)
         {
           handle_keypress(i, &button_status[i], &this_exe);
-          if(this_exe.result != EXE_ERROR && this_exe.result != EXE_EMPTY_FILE)
+          if(this_exe.result != EXE_ERROR && this_exe.result != EXE_EMPTY_FILE && this_exe.result != EXE_ACTION_EMUK)
             keydown_anime_end(i);
           if(this_exe.result == EXE_ERROR)
           {
@@ -832,8 +833,6 @@ void keypress_task_start(void const * argument)
           {
             hold_cache[i].code = this_exe.data;
             hold_cache[i].type = this_exe.data2;
-            // data: code, data2: type
-            // printf("EMUK: %x %x\n", this_exe.data, this_exe.data2);
             service_press(i);
             continue;
           }
@@ -841,18 +840,15 @@ void keypress_task_start(void const * argument)
         else if(i == KEY_BUTTON1 || i == KEY_BUTTON2)
           handle_tactile_button_press(i);
       }
-      else if(is_released_but_not_serviced(i))
+      else if(is_released_but_not_serviced(i) && hold_cache[i].type != KEY_TYPE_UNKNOWN)
       {
-        printf("wtf\n");
-        // last_keypress = HAL_GetTick();
-        // keyboard_release(&hold_cache[i]);
-        // osDelay(DEFAULT_CHAR_DELAY_MS);
-        // keydown_anime_end(i);
+        keyboard_release(&hold_cache[i]);
+        keydown_anime_end(i);
       }
       key_task_end:
       service_press(i);
-    } 
-    osDelay(16);
+      last_keypress = HAL_GetTick();
+    }
   }
 }
 

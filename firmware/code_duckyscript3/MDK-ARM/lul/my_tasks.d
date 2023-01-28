@@ -76,3 +76,4 @@ lul\my_tasks.o: ../Inc/ds3_vm.h
 lul\my_tasks.o: ../Inc/animations.h
 lul\my_tasks.o: ../Inc/usb_device.h
 lul\my_tasks.o: ../Inc/usbd_desc.h
+lul\my_tasks.o: ../Inc/ds3_vm.h

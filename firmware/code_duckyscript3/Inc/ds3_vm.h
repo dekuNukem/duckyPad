@@ -109,6 +109,7 @@ typedef struct
 
 uint8_t load_dsb(char* filename);
 void run_dsb(ds3_exe_result* er, uint8_t keynum);
+void release_key(uint8_t code, uint8_t type);
 
 #endif
 
