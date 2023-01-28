@@ -36,7 +36,6 @@ profile_cache p_cache;
 dp_global_settings dp_settings;
 my_key hold_cache[MAPPABLE_KEY_COUNT];
 char curr_kb_layout[FILENAME_SIZE];
-uint8_t key_max_loop[MAPPABLE_KEY_COUNT];
 uint8_t key_press_count[MAPPABLE_KEY_COUNT];
 
 char project_url[] = "duckyPad.com";
@@ -315,24 +314,23 @@ void strip_newline(char* line, uint8_t size)
       line[i] = 0;
 }
 
-uint8_t get_keynames(profile_cache* ppppppp)
+uint8_t get_keynames(profile_cache* pcache)
 {
   uint8_t ret = 1;
   uint8_t this_key_index;
-  if(ppppppp == NULL)
+  if(pcache == NULL)
     return ret;
-  memset(key_max_loop, 0, MAPPABLE_KEY_COUNT);
   memset(temp_buf, 0, PATH_SIZE);
-  sprintf(temp_buf, "/%s/config.txt", ppppppp->profile_fn);
+  sprintf(temp_buf, "/%s/config.txt", pcache->profile_fn);
 
   for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
   {
-    memset(ppppppp->key_fn[i], 0, KEYNAME_SIZE);
-    strcpy(ppppppp->key_fn[i], nonexistent_keyname);
+    memset(pcache->key_fn[i], 0, KEYNAME_SIZE);
+    strcpy(pcache->key_fn[i], nonexistent_keyname);
   }
 
   if(f_open(&sd_file, temp_buf, FA_READ) != 0)
-    goto glk_end;
+    goto gkn_end;
   
   while(f_gets(temp_buf, PATH_SIZE, &sd_file))
   {
@@ -342,24 +340,13 @@ uint8_t get_keynames(profile_cache* ppppppp)
       if(this_key_index == 0)
         continue;
       this_key_index--;
-      memset(ppppppp->key_fn[this_key_index], 0, KEYNAME_SIZE);
+      memset(pcache->key_fn[this_key_index], 0, KEYNAME_SIZE);
       strip_newline(temp_buf, PATH_SIZE);
-      strcpy(ppppppp->key_fn[this_key_index], goto_next_arg(temp_buf, temp_buf+PATH_SIZE));
-  }
-  if(temp_buf[0] == 's')
-    {
-      this_key_index = atoi(temp_buf+1);
-      if(this_key_index == 0)
-        continue;
-      this_key_index--;
-      uint8_t this_key_max_loop = atoi(goto_next_arg(temp_buf, temp_buf+PATH_SIZE));
-      if(this_key_max_loop == 0)
-        continue;
-      key_max_loop[this_key_index] = this_key_max_loop;
+      strcpy(pcache->key_fn[this_key_index], goto_next_arg(temp_buf, temp_buf+PATH_SIZE));
     }
   }
   ret = 0;
-  glk_end:
+  gkn_end:
   f_close(&sd_file);
   return ret;
 }
