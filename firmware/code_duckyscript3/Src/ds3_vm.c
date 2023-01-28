@@ -9,6 +9,7 @@
 #include "ssd1306.h"
 #include "buttons.h"
 
+// 2200 seems to be max, 2000 just to be safe
 #define BIN_BUF_SIZE 1000
 uint8_t bin_buf[BIN_BUF_SIZE];
 
@@ -20,7 +21,7 @@ uint16_t rand_min, rand_max;
 typedef struct
 {
   uint8_t top;
-  uint32_t stack[STACK_SIZE]; // 32b instead of 16b to leave room for operations
+  uint16_t stack[STACK_SIZE];
 } my_stack;
 
 my_stack arithmetic_stack, call_stack;
@@ -456,19 +457,19 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
     	osDelay(defaultdelay_value);
     }
   }
-  else if(this_opcode == OP_KDOWN)
+  else if(this_opcode == OP_EMUK)
   {
     exe->data = byte0;
     exe->data2 = byte1;
     exe->result = EXE_ACTION_EMUK;
     press_key(byte0, byte1);
   }
-  else if(this_opcode == OP_KDOWND)
+  else if(this_opcode == OP_KDOWN)
   {
   	press_key(byte0, byte1);
   	osDelay(defaultdelay_value);
   }
-  else if(this_opcode == OP_KUPD)
+  else if(this_opcode == OP_KUP)
   {
   	release_key(byte0, byte1);
   	osDelay(defaultdelay_value);

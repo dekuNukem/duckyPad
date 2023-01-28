@@ -44,9 +44,8 @@ OP_LOGIAND = ("LOGIAND", 25)
 OP_LOGIOR = ("LOGIOR", 26)
 
 OP_DELAY = ("DELAY", 27)
-OP_KUPD = ("KUPD", 29)
-OP_KDOWN = ("KDOWN", 30)
-OP_KDOWND = ("KDOWND", 31)
+OP_KUP = ("KUP", 29)
+OP_KDOWN = ("KDOWN", 31)
 OP_MSCL = ("MSCL", 33)
 OP_MMOV = ("MMOV", 34)
 OP_SWCB = ("SWCB", 32)
@@ -545,15 +544,15 @@ def make_dsb(program_listing):
 			assembly_listing += parse_expression(this_line)
 			assembly_listing.append(make_delay_instruction(this_line))
 		elif first_word == cmd_KEYDOWN:
-			this_instruction['opcode'] = OP_KDOWND
-			this_instruction['oparg'] = get_key_combined_value(this_line.split(' ')[-1])
-			assembly_listing.append(this_instruction)
-		elif first_word == cmd_EMUK:
 			this_instruction['opcode'] = OP_KDOWN
 			this_instruction['oparg'] = get_key_combined_value(this_line.split(' ')[-1])
 			assembly_listing.append(this_instruction)
+		elif first_word == cmd_EMUK:
+			this_instruction['opcode'] = OP_EMUK
+			this_instruction['oparg'] = get_key_combined_value(this_line.split(' ')[-1])
+			assembly_listing.append(this_instruction)
 		elif first_word == cmd_KEYUP:
-			this_instruction['opcode'] = OP_KUPD
+			this_instruction['opcode'] = OP_KUP
 			this_instruction['oparg'] = get_key_combined_value(this_line.split(' ')[-1])
 			assembly_listing.append(this_instruction)
 		elif first_word == cmd_RETURN:
@@ -614,14 +613,14 @@ def make_dsb(program_listing):
 			# press, from first to last
 			for item in key_list:
 				this_instruction = get_empty_instruction()
-				this_instruction['opcode'] = OP_KDOWND
+				this_instruction['opcode'] = OP_KDOWN
 				this_instruction['oparg'] = get_key_combined_value(item)
 				this_instruction['comment'] = this_line
 				assembly_listing.append(this_instruction)
 			# release, from last to first
 			for item in reversed(key_list):
 				this_instruction = get_empty_instruction()
-				this_instruction['opcode'] = OP_KUPD
+				this_instruction['opcode'] = OP_KUP
 				this_instruction['oparg'] = get_key_combined_value(item)
 				this_instruction['comment'] = this_line
 				assembly_listing.append(this_instruction)

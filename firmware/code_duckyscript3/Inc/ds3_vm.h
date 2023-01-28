@@ -38,10 +38,8 @@
 #define OP_LOGIOR 26
 
 #define OP_DELAY 27
-#define OP_KUP 28
-#define OP_KUPD 29
-#define OP_KDOWN 30
-#define OP_KDOWND 31
+#define OP_KUP 29
+#define OP_KDOWN 31
 #define OP_MSCL 33
 #define OP_MMOV 34
 #define OP_SWCB 32
@@ -64,9 +62,8 @@
 #define OP_GOTOP 50
 #define OP_SLEEP 51
 
-
 #define INSTRUCTION_SIZE_BYTES 3
-#define STACK_SIZE 16
+#define STACK_SIZE 10
 
 #define EXE_OK 0
 
