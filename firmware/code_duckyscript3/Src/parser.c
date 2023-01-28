@@ -579,15 +579,46 @@ void der_init(ds3_exe_result* der)
   der->next_pc = 0;
 }
 
+#define COLOR_START_ADDR 32
+void save_persistent_state(void)
+{
+  memset(read_buffer, 0, READ_BUF_SIZE);
+  memcpy(read_buffer, key_press_count, MAPPABLE_KEY_COUNT);
+  for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+  {
+    uint8_t r_addr = i*3 + COLOR_START_ADDR;
+    uint8_t g_addr = r_addr + 1;
+    uint8_t b_addr = g_addr + 1;
+    uint8_t red, green, blue;
+    get_current_color(i, &red, &green, &blue);
+    read_buffer[r_addr] = red;
+    read_buffer[g_addr] = green;
+    read_buffer[b_addr] = blue;
+  }
+  memset(temp_buf, 0, PATH_SIZE);
+  sprintf(temp_buf, "/%s/state.dsb", p_cache.profile_fn);
+  f_open(&sd_file, temp_buf, FA_CREATE_ALWAYS | FA_WRITE);
+  f_write(&sd_file, read_buffer, READ_BUF_SIZE, &bytes_read);
+  f_close(&sd_file);
+}
+
 void keypress_wrapper(uint8_t keynum, ds3_exe_result* exe)
 {
   memset(temp_buf, 0, PATH_SIZE);
   sprintf(temp_buf, "/%s/key%d.dsb", p_cache.profile_fn, keynum+1);
   der_init(exe);
-  if(load_dsb(temp_buf) != DSB_OK)
+  uint8_t load_result;
+  taskENTER_CRITICAL();
+  load_result = load_dsb(temp_buf);
+  taskEXIT_CRITICAL();
+  if(load_result != DSB_OK)
     return;
-  play_keydown_animation(keynum);
   run_dsb(exe, keynum);
+  key_press_count[keynum]++;
+  // taskENTER_CRITICAL();
+  save_persistent_state();
+  // taskEXIT_CRITICAL();
+  play_keydown_animation(keynum);
 }
 
 void handle_keypress(uint8_t keynum, but_status* b_status, ds3_exe_result* exe)

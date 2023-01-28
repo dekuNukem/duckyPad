@@ -1,3 +1,8 @@
+  for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+    printf("%d ", key_press_count[i]);
+  printf("\n");
+// printf("%d: %d %d %d\n", i, red_addr, green_addr, blue_addr);
+  // printf("%d: %d %d %d\n", i, red, green, blue);
 void keypress_wrap(uint8_t keynum)
 {
   memset(temp_buf, 0, PATH_SIZE);

@@ -12,9 +12,8 @@ uint8_t red_buf[NEOPIXEL_COUNT];
 uint8_t green_buf[NEOPIXEL_COUNT];
 uint8_t blue_buf[NEOPIXEL_COUNT];
 led_animation neo_anime[NEOPIXEL_COUNT];
-uint8_t error_color_red[THREE] = {255, 0, 0};
+uint8_t color_red[THREE] = {255, 0, 0};
 uint8_t color_black[THREE] = {0, 0, 0};
-uint8_t color_blue[THREE] = {0, 0, 128};
 uint8_t profile_quickswitch_color[THREE] = {50, 50, 50};
 int8_t brightness_index = BRIGHTNESS_LEVELS - 1;
 uint8_t brightness_values[BRIGHTNESS_LEVELS] = {0, 20, 50, 70, 100};
@@ -142,7 +141,7 @@ void error_animation(uint8_t stage)
     for (int j = 0; j < 3; ++j)
     {
       for (int i = 0; i < NEOPIXEL_COUNT; ++i)
-        set_pixel_color(i, error_color_red);
+        set_pixel_color(i, color_red);
       neopixel_show(red_buf, green_buf, blue_buf);
       osDelay(500);
       for (int i = 0; i < NEOPIXEL_COUNT; ++i)
@@ -151,7 +150,7 @@ void error_animation(uint8_t stage)
       osDelay(500);
     }
     for (int i = 0; i < NEOPIXEL_COUNT; ++i)
-      set_pixel_color(i, error_color_red);
+      set_pixel_color(i, color_red);
     neopixel_show(red_buf, green_buf, blue_buf);
     osDelay(50);
   }
@@ -183,4 +182,11 @@ void play_keyup_animation(uint8_t idx)
 void neopixel_update(void)
 {
   neopixel_show(red_buf, green_buf, blue_buf);
+}
+
+void get_current_color(uint8_t which, uint8_t* red, uint8_t* green, uint8_t* blue)
+{
+  *red = red_buf[pixel_map[which]];
+  *green = green_buf[pixel_map[which]];
+  *blue = blue_buf[pixel_map[which]];
 }
