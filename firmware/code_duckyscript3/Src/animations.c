@@ -163,7 +163,7 @@ void error_animation(uint8_t stage)
   }
 }
 
-void keydown_anime_start(uint8_t idx)
+void play_keydown_animation(uint8_t idx)
 {
   set_pixel_color(idx, p_cache.individual_keydown_color[idx]);
   neo_anime[idx].current_color[0] = p_cache.individual_keydown_color[idx][0];
@@ -175,7 +175,7 @@ void keydown_anime_start(uint8_t idx)
   neopixel_show(red_buf, green_buf, blue_buf);
 }
 
-void keydown_anime_end(uint8_t idx)
+void play_keyup_animation(uint8_t idx)
 {
   led_start_animation(&neo_anime[idx], p_cache.individual_key_color[idx], ANIMATION_CROSS_FADE, 70);
 }

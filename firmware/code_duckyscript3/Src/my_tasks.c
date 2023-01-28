@@ -804,7 +804,7 @@ void keypress_task_start(void const * argument)
         {
           handle_keypress(i, &button_status[i], &this_exe);
           if(this_exe.result != EXE_ERROR && this_exe.result != EXE_EMPTY_FILE && this_exe.result != EXE_ACTION_EMUK)
-            keydown_anime_end(i);
+            play_keyup_animation(i);
           if(this_exe.result == EXE_ERROR)
           {
             error_animation(0);
@@ -843,7 +843,7 @@ void keypress_task_start(void const * argument)
       else if(is_released_but_not_serviced(i) && hold_cache[i].type != KEY_TYPE_UNKNOWN)
       {
         keyboard_release(&hold_cache[i]);
-        keydown_anime_end(i);
+        play_keyup_animation(i);
       }
       key_task_end:
       service_press(i);

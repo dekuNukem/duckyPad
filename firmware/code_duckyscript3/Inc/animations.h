@@ -31,8 +31,8 @@ typedef struct
 
 void led_animation_handler(void);
 void anime_init(void);
-void keydown_anime_start(uint8_t idx);
-void keydown_anime_end(uint8_t idx);
+void play_keydown_animation(uint8_t idx);
+void play_keyup_animation(uint8_t idx);
 void error_animation(uint8_t stage);
 void redraw_bg(void);
 void neopixel_off(void);

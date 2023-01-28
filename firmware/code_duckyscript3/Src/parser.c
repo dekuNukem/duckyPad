@@ -599,7 +599,7 @@ void keypress_wrapper(uint8_t keynum, ds3_exe_result* exe)
   der_init(exe);
   if(load_dsb(temp_buf) != DSB_OK)
     return;
-  keydown_anime_start(keynum);
+  play_keydown_animation(keynum);
   run_dsb(exe, keynum);
 }
 
