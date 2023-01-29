@@ -351,7 +351,7 @@ uint8_t get_keynames(profile_cache* pcache)
   return ret;
 }
 
-void load_persistent_state(void)
+uint8_t load_persistent_state(void)
 {
   memset(temp_buf, 0, PATH_SIZE);
   sprintf(temp_buf, "/%s/state.dsb", p_cache.profile_fn);
@@ -359,7 +359,7 @@ void load_persistent_state(void)
   {
     memset(key_press_count, 0, MAPPABLE_KEY_COUNT);
     f_close(&sd_file);
-    return;
+    return 1;
   }
   memset(read_buffer, 0, READ_BUF_SIZE);
   f_read(&sd_file, read_buffer, READ_BUF_SIZE, &bytes_read);
@@ -375,6 +375,7 @@ void load_persistent_state(void)
     set_pixel_3color_update_buffer(i, red, green, blue);
   }
   neopixel_update();
+  return 0;
 }
 
 void load_profile(uint8_t pid)
@@ -386,8 +387,8 @@ void load_profile(uint8_t pid)
   strcpy(p_cache.profile_fn, profile_name);
   get_keynames(&p_cache);
   load_colors(p_cache.profile_fn);
-  redraw_bg();
-  load_persistent_state();
+  if(load_persistent_state() != 0)
+    redraw_bg();
   p_cache.current_profile = pid;
 }
 

@@ -511,6 +511,7 @@ def run_once(program_listing):
 			presult, pcomment = ensure_zero_arg(this_line)
 		elif this_line.startswith(cmd_SWCOLOR):
 			presult, pcomment, arg_list = check_swcolor(this_line, first_word)
+			return_dict['color_state_save_needed'] = True
 		elif this_line.startswith(cmd_LOOP):
 			presult, pcomment, value = check_loop(this_line)
 			if value is not None:
