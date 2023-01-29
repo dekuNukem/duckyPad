@@ -839,6 +839,7 @@ void keypress_task_start(void const * argument)
             continue;
           }
         }
+        last_keypress = HAL_GetTick();
       }
       else if(is_released_but_not_serviced(i) && hold_cache[i].type != KEY_TYPE_UNKNOWN)
       {
@@ -847,7 +848,6 @@ void keypress_task_start(void const * argument)
       }
       key_task_end:
       service_press(i);
-      last_keypress = HAL_GetTick();
     }
   }
 }
@@ -855,7 +855,6 @@ void keypress_task_start(void const * argument)
 void start_sleeping(void)
 {
   neopixel_off();
-  osDelay(66);
   ssd1306_Fill(Black);
   ssd1306_UpdateScreen();
   ssd1306_UpdateScreen();

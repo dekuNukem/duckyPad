@@ -458,11 +458,10 @@ def make_dsb(program_listing):
 	str_lookup = {}
 	break_dict = result_dict['break_dict']
 	continue_dict = result_dict['continue_dict']
-	needs_sps = result_dict['state_save_needed']
 
 	assembly_listing = []
 
-	if needs_sps:
+	if result_dict['state_save_needed']:
 		this_instruction = get_empty_instruction()
 		this_instruction['opcode'] = OP_PUSHC
 		this_instruction['oparg'] = 1
