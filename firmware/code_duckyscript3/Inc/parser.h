@@ -27,6 +27,9 @@
 #define DEFAULT_CHAR_DELAY_MS 18
 #define PF_CACHE_FILENAME_MAXLEN 7
 
+#define LOOP_STATE 0x1
+#define COLOR_STATE 0x2
+
 extern FRESULT sd_fresult;
 extern FATFS sd_fs;
 extern FIL sd_file;
@@ -67,7 +70,6 @@ void print_keyname(char* keyname, uint8_t keynum);
 char* goto_next_arg(char* buf, char* buf_end);
 void delay_wrapper(int32_t amount, int32_t fuzz);
 uint16_t get_hash_at_first_nonspace_word(char* msg);
-void save_persistent_state(void);
 
 extern profile_cache p_cache;
 extern char temp_buf[PATH_SIZE];

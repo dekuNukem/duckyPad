@@ -368,6 +368,18 @@ def check_first_arg(pgm_line, vt, allow_multi_arg=False):
 		pass
 	return is_valid_expr(pgm_line, vt)
 
+def check_loop(pgm_line):
+	try:
+		line_split = [x for x in pgm_line.split(cmd_LOOP) if len(x) > 0]
+		if ':' not in line_split[0]:
+			return PARSE_ERROR, 'missing ":"', None
+		number_split = [x for x in line_split[0].split(":") if len(x) > 0]
+		if len(number_split) != 1:
+			return PARSE_ERROR, "wrong number of arguments", None
+		return PARSE_OK, "", int(number_split[0])
+	except Exception as e:
+		return PARSE_ERROR, str(e), None
+
 def run_once(program_listing):
 	reset()
 	return_dict = {
@@ -381,8 +393,12 @@ def run_once(program_listing):
 	'if_take_table':None,
 	'if_skip_table':None,
 	'while_table_bdbc':None,
-	'state_save_needed':False,
+	'loop_state_save_needed':False,
+	'color_state_save_needed':False,
+	'loop_size':None,
 	}
+
+	loop_numbers = set()
 
 	for line_number_starting_from_1, this_line in enumerate(program_listing):
 		line_number_starting_from_1 += 1;
@@ -455,7 +471,7 @@ def run_once(program_listing):
 		elif first_word == cmd_GOTO_PROFILE:
 			presult, pcomment = check_first_arg(this_line, var_table, allow_multi_arg=True)
 		elif first_word == cmd_SWCC:
-			return_dict['state_save_needed'] = True
+			return_dict['color_state_save_needed'] = True
 			presult, pcomment = check_color(this_line, var_table)
 		elif first_word == cmd_SWCR:
 			presult, pcomment = check_swcr(this_line, var_table)
@@ -475,6 +491,11 @@ def run_once(program_listing):
 			presult, pcomment = ensure_zero_arg(this_line)
 		elif first_word == cmd_DP_SLEEP:
 			presult, pcomment = ensure_zero_arg(this_line)
+		elif this_line.startswith(cmd_LOOP):
+			presult, pcomment, value = check_loop(this_line)
+			if value is not None:
+				return_dict['loop_state_save_needed'] = True
+				loop_numbers.add(value)
 		else:
 			presult, pcomment = ds_syntax_check.parse_line(this_line)
 		
@@ -525,7 +546,8 @@ def run_once(program_listing):
 	return_dict['while_table_bidirectional'] = while_table_bidirectional
 	return_dict['break_dict'] = break_dict
 	return_dict['continue_dict'] = continue_dict
-
+	if len(loop_numbers) > 0:
+		return_dict['loop_size'] = max(loop_numbers)
 	return return_dict
 
 def run_all(program_listing):
@@ -537,8 +559,19 @@ def run_all(program_listing):
 
 	# ----------- making condensed version ----------
 
-	ddict = rdict['define_dict']
+	def_dict = rdict['define_dict']
 	second_pass_program_listing = []
+	needs_end_if = False
+
+	sps = 0
+	if rdict['loop_state_save_needed']:
+		sps |= 0x1
+	if rdict['color_state_save_needed']:
+		sps |= 0x2
+	if sps != 0:
+		second_pass_program_listing.append((1, f"$_NEEDS_SPS = {sps}"))
+	if rdict['loop_size'] is not None:
+		second_pass_program_listing.append((1, f"$_LOOP_SIZE = {rdict['loop_size']+1}"))
 
 	for line_number_starting_from_1, this_line in enumerate(program_listing):
 		line_number_starting_from_1 += 1;
@@ -552,9 +585,8 @@ def run_all(program_listing):
 		if first_word == cmd_REM or first_word == cmd_INJECT_MOD:
 			continue
 		if first_word != cmd_DEFINE:
-			is_success, replaced_str = replace_DEFINE(this_line, ddict)
+			is_success, replaced_str = replace_DEFINE(this_line, def_dict)
 			if is_success is False:
-				print(f"Recursive DEFINE on line {line_number_starting_from_1}: this_line")
 				rdict['is_success'] = False
 				rdict['comments'] = "Recursive DEFINE"
 				rdict['error_line_number_starting_from_1'] = line_number_starting_from_1
@@ -567,7 +599,6 @@ def run_all(program_listing):
 
 		if first_word == cmd_REPEAT:
 			if len(second_pass_program_listing) == 0:
-				print("Nothing before REPEAT")
 				rdict['is_success'] = False
 				rdict['comments'] = "Nothing before REPEAT"
 				rdict['error_line_number_starting_from_1'] = line_number_starting_from_1
@@ -576,38 +607,23 @@ def run_all(program_listing):
 			last_line = second_pass_program_listing[-1]
 			for x in range(int(this_line[len(cmd_REPEAT):].strip())):
 				second_pass_program_listing.append(last_line)
+		elif this_line.startswith(cmd_LOOP):
+			presult, pcomment, value = check_loop(this_line)
+			if needs_end_if:
+				second_pass_program_listing.append((line_number_starting_from_1, cmd_END_IF))
+			loop_str = f'{cmd_IF} $_KEYPRESS_COUNT % $_LOOP_SIZE == {value} {cmd_THEN}'
+			second_pass_program_listing.append((line_number_starting_from_1, loop_str))
+			needs_end_if = True
 		else:
 			second_pass_program_listing.append((line_number_starting_from_1, this_line))
 
-	# third pass, replace lines that are too long
+	if needs_end_if:
+		second_pass_program_listing.append((line_number_starting_from_1, cmd_END_IF))
 
 	print("---------Second pass OK!---------\n")
 
-	third_pass_program_listing = []
-	MAX_LINE_LEN = 245
-	for item in second_pass_program_listing:
-		orig_line_number_starting_from_1 = item[0]
-		code_content = item[1]
-		first_word = code_content.split(" ")[0]
-
-		if len(code_content) > MAX_LINE_LEN:
-			if first_word.startswith(cmd_STRING) is False:
-				rdict['is_success'] = False
-				rdict['comments'] = "Line too long, unable to auto-split"
-				rdict['error_line_number_starting_from_1'] = orig_line_number_starting_from_1
-				rdict['error_line_str'] = code_content
-				return rdict
-			chunk_size = MAX_LINE_LEN
-			chunks = [code_content[i:i+chunk_size] for i in range(0, len(code_content), chunk_size)]
-			for item in chunks:
-				# print(f"{orig_line_number_starting_from_1} {first_word} {item}")
-				third_pass_program_listing.append((orig_line_number_starting_from_1, f"{first_word} {item}"))
-		else:
-			# print(f"{orig_line_number_starting_from_1} {code_content}")
-			third_pass_program_listing.append((orig_line_number_starting_from_1, code_content))
-
-	final_dict = run_once([x[1] for x in third_pass_program_listing])
-	final_dict["compact_listing"] = third_pass_program_listing
+	final_dict = run_once([x[1] for x in second_pass_program_listing])
+	final_dict["compact_listing"] = second_pass_program_listing
 
 	if_info_list = []
 	for item in if_raw_info:	

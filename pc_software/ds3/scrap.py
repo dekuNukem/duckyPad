@@ -8,6 +8,22 @@
         this_instruction['oparg'] = "_NEEDS_SPS"
         assembly_listing.append(this_instruction)
 
+$_LOOP_MAX = 3
+
+IF $_KEYPRESS_COUNT % $_LOOP_MAX == 0 THEN
+STRINGLN first action
+END_IF
+
+IF $_KEYPRESS_COUNT % $_LOOP_MAX == 1 THEN
+STRINGLN second action
+END_IF
+
+IF $_KEYPRESS_COUNT % $_LOOP_MAX == 2 THEN
+STRINGLN third action
+END_IF
+
+
+
 ----------
 
 
@@ -298,3 +314,49 @@ root.update()
 
 pc_app_update_label = Label(master=updates_lf)
 pc_app_update_label.place(x=scaled_size(5), y=scaled_size(0))
+
+--------------------
+
+    # third pass, replace lines that are too long
+
+    print("---------Second pass OK!---------\n")
+
+    third_pass_program_listing = []
+    MAX_LINE_LEN = 245
+    for item in second_pass_program_listing:
+        orig_line_number_starting_from_1 = item[0]
+        code_content = item[1]
+        first_word = code_content.split(" ")[0]
+
+        if len(code_content) > MAX_LINE_LEN:
+            if first_word.startswith(cmd_STRING) is False:
+                rdict['is_success'] = False
+                rdict['comments'] = "Line too long, unable to auto-split"
+                rdict['error_line_number_starting_from_1'] = orig_line_number_starting_from_1
+                rdict['error_line_str'] = code_content
+                return rdict
+            chunk_size = MAX_LINE_LEN
+            chunks = [code_content[i:i+chunk_size] for i in range(0, len(code_content), chunk_size)]
+            for item in chunks:
+                # print(f"{orig_line_number_starting_from_1} {first_word} {item}")
+                third_pass_program_listing.append((orig_line_number_starting_from_1, f"{first_word} {item}"))
+        else:
+            # print(f"{orig_line_number_starting_from_1} {code_content}")
+            third_pass_program_listing.append((orig_line_number_starting_from_1, code_content))
+
+    final_dict = run_once([x[1] for x in third_pass_program_listing])
+    final_dict["compact_listing"] = third_pass_program_listing
+
+    if_info_list = []
+    for item in if_raw_info:    
+        if_root = list(item.keys())[0]
+        if_info = {
+        'root':if_root,
+        "else_if":item[if_root]['else_if'],
+        "else":item[if_root]['else'],
+        "end_if":item[if_root]['end_if'],
+        }
+        if_info_list.append(if_info)
+    final_dict["if_info"] = if_info_list
+    print("---------Preprocessing Done!---------\n")
+    return final_dict

@@ -387,7 +387,7 @@ void load_profile(uint8_t pid)
   get_keynames(&p_cache);
   load_colors(p_cache.profile_fn);
   redraw_bg();
-  // load_persistent_state();
+  load_persistent_state();
   p_cache.current_profile = pid;
 }
 
@@ -564,17 +564,27 @@ void der_init(ds3_exe_result* der)
   der->next_pc = 0;
 }
 
-void save_persistent_state(void)
+void save_persistent_state(uint8_t options)
 {
   memset(read_buffer, 0, READ_BUF_SIZE);
-  memcpy(read_buffer, key_press_count, MAPPABLE_KEY_COUNT);
+  if(options & LOOP_STATE)
+    memcpy(read_buffer, key_press_count, MAPPABLE_KEY_COUNT);
   for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
   {
     uint8_t r_addr = i*3 + COLOR_START_ADDR;
     uint8_t g_addr = r_addr + 1;
     uint8_t b_addr = g_addr + 1;
     uint8_t red, green, blue;
-    get_current_color(i, &red, &green, &blue);
+    if(options & COLOR_STATE)
+    {
+      get_current_color(i, &red, &green, &blue);
+    }
+    else
+    {
+      red = p_cache.individual_key_color[i][0];
+      green = p_cache.individual_key_color[i][1];
+      blue = p_cache.individual_key_color[i][2];
+    }
     read_buffer[r_addr] = red;
     read_buffer[g_addr] = green;
     read_buffer[b_addr] = blue;
@@ -599,9 +609,9 @@ void keypress_wrapper(uint8_t keynum, ds3_exe_result* exe)
     return;
   play_keydown_animation(keynum);
   run_dsb(exe, keynum);
-  if(exe->needs_sps)
-    save_persistent_state();
   key_press_count[keynum]++;
+  if(exe->needs_sps)
+    save_persistent_state(exe->needs_sps);
 }
 
 void handle_keypress(uint8_t keynum, but_status* b_status, ds3_exe_result* exe)

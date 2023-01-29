@@ -769,7 +769,18 @@ void handle_hid_command(void)
   }
 }
 
-ds3_exe_result this_exe;
+uint8_t need_keyup_animation(ds3_exe_result* exe)
+{
+  if(exe->result == EXE_ERROR)
+    return 0;
+  if(exe->result == EXE_EMPTY_FILE)
+    return 0;
+  if(exe->result == EXE_ACTION_EMUK)
+    return 0;
+  if(exe->needs_sps & COLOR_STATE)
+    return 0;
+  return 1;
+}
 
 void keypress_task_start(void const * argument)
 {
@@ -780,9 +791,8 @@ void keypress_task_start(void const * argument)
   if(is_pressed(0))
     select_keymap();
 
+  ds3_exe_result this_exe;
   load_keymap_by_name(curr_kb_layout);
-  // print_legend();
-  // redraw_bg();
   button_service_all();
   keyboard_release_all();
   for(;;)
@@ -806,7 +816,7 @@ void keypress_task_start(void const * argument)
         else if(i <= KEY_14)
         {
           handle_keypress(i, &button_status[i], &this_exe);
-          if(this_exe.result != EXE_ERROR && this_exe.result != EXE_EMPTY_FILE && this_exe.result != EXE_ACTION_EMUK)
+          if(need_keyup_animation(&this_exe))
             play_keyup_animation(i);
           if(this_exe.result == EXE_ERROR)
           {
