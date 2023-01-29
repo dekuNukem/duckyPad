@@ -102,6 +102,8 @@ cmd_CTRL = "CTRL"
 cmd_RCONTROL = "RCONTROL"
 cmd_RCTRL = "RCTRL"
 
+cmd_SWCOLOR = "SWCOLOR"
+
 cmd_NUMLOCK = "NUMLOCK" # Keyboard Num Lock and Clear
 cmd_KPSLASH = "KP_SLASH" # Keypad /
 cmd_KPASTERISK = "KP_ASTERISK" # Keypad *

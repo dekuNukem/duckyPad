@@ -330,6 +330,24 @@ def check_color(pgm_line, vt):
 			return PARSE_ERROR, "invalid color value"
 	return PARSE_OK, ''
 
+def check_swcolor(pgm_line, first_word):
+	with_underscore = cmd_SWCOLOR+'_'
+	if pgm_line.startswith(with_underscore):
+		new_line = pgm_line.replace(with_underscore, '')
+	else:
+		new_line = pgm_line.replace(cmd_SWCOLOR, '')
+	split = [x for x in new_line.split(' ') if len(x) > 0]
+	if first_word == cmd_SWCOLOR and len(split) != 3:
+		return PARSE_ERROR, "wrong number of arguments", None
+	if pgm_line.startswith(with_underscore) and len(split) != 4:
+		return PARSE_ERROR, "wrong number of arguments", None
+
+	arg_list = []
+	if first_word == cmd_SWCOLOR:
+		arg_list.append("0")
+	arg_list += split
+	return PARSE_OK, '', arg_list
+
 def check_swcr(pgm_line, vt):
 	split = [x for x in pgm_line.split(' ') if len(x) > 0]
 	if len(split) != 2:
@@ -491,6 +509,8 @@ def run_once(program_listing):
 			presult, pcomment = ensure_zero_arg(this_line)
 		elif first_word == cmd_DP_SLEEP:
 			presult, pcomment = ensure_zero_arg(this_line)
+		elif this_line.startswith(cmd_SWCOLOR):
+			presult, pcomment, arg_list = check_swcolor(this_line, first_word)
 		elif this_line.startswith(cmd_LOOP):
 			presult, pcomment, value = check_loop(this_line)
 			if value is not None:
@@ -607,6 +627,12 @@ def run_all(program_listing):
 			last_line = second_pass_program_listing[-1]
 			for x in range(int(this_line[len(cmd_REPEAT):].strip())):
 				second_pass_program_listing.append(last_line)
+		elif this_line.startswith(cmd_SWCOLOR):
+			presult, pcomment, arg_list = check_swcolor(this_line, first_word)
+			this_str = f"{cmd_SWCC} "
+			for item in arg_list:
+				this_str += f"{item} "
+			second_pass_program_listing.append((line_number_starting_from_1, this_str))
 		elif this_line.startswith(cmd_LOOP):
 			presult, pcomment, value = check_loop(this_line)
 			if needs_end_if:
@@ -621,6 +647,10 @@ def run_all(program_listing):
 		second_pass_program_listing.append((line_number_starting_from_1, cmd_END_IF))
 
 	print("---------Second pass OK!---------\n")
+
+	# for item in second_pass_program_listing:
+	# 	print(item)
+	# exit()
 
 	final_dict = run_once([x[1] for x in second_pass_program_listing])
 	final_dict["compact_listing"] = second_pass_program_listing

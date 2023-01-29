@@ -1,3 +1,18 @@
+LOOP0:
+SWCC 1 200 0 0
+STRINGLN first action
+
+LOOP1:
+SWCC 1 0 200 0
+STRINGLN second action
+
+LOOP2:
+SWCC 1 0 0 200
+STRINGLN third action
+
+
+
+
     if result_dict['state_save_needed']:
         this_instruction = get_empty_instruction()
         this_instruction['opcode'] = OP_PUSHC
