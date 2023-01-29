@@ -461,16 +461,6 @@ def make_dsb(program_listing):
 
 	assembly_listing = []
 
-	if result_dict['state_save_needed']:
-		this_instruction = get_empty_instruction()
-		this_instruction['opcode'] = OP_PUSHC
-		this_instruction['oparg'] = 1
-		assembly_listing.append(this_instruction)
-		this_instruction = get_empty_instruction()
-		this_instruction['opcode'] = OP_POP
-		this_instruction['oparg'] = "_NEEDS_SPS"
-		assembly_listing.append(this_instruction)
-
 	for lnum, this_line in enumerate(compact_program_listing):
 		lnum += 1
 		this_instruction = get_empty_instruction()

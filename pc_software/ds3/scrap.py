@@ -1,3 +1,16 @@
+    if result_dict['state_save_needed']:
+        this_instruction = get_empty_instruction()
+        this_instruction['opcode'] = OP_PUSHC
+        this_instruction['oparg'] = 1
+        assembly_listing.append(this_instruction)
+        this_instruction = get_empty_instruction()
+        this_instruction['opcode'] = OP_POP
+        this_instruction['oparg'] = "_NEEDS_SPS"
+        assembly_listing.append(this_instruction)
+
+----------
+
+
 BCLR
 VAR $COND = 1
 WHILE $COND

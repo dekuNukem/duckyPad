@@ -792,6 +792,7 @@ void keypress_task_start(void const * argument)
     {
       if(is_pressed(i))
       {
+        last_keypress = HAL_GetTick();
         oled_full_brightness(); // OLED back to full brightness
 
         if(is_sleeping) // wake up from sleep
@@ -839,7 +840,6 @@ void keypress_task_start(void const * argument)
             continue;
           }
         }
-        last_keypress = HAL_GetTick();
       }
       else if(is_released_but_not_serviced(i) && hold_cache[i].type != KEY_TYPE_UNKNOWN)
       {
@@ -876,9 +876,11 @@ void animation_task_start(void)
   if(is_sleeping)
     return;
 
-  if(dp_settings.sleep_after_ms != 0 && HAL_GetTick() - last_keypress > dp_settings.sleep_after_ms)
+  uint32_t ms_since_last_keypress = HAL_GetTick() - last_keypress;
+
+  if(dp_settings.sleep_after_ms != 0 && ms_since_last_keypress > dp_settings.sleep_after_ms)
     start_sleeping();
   // dim OLED screen after 5 minutes of idle to prevent burn-in
-  if(HAL_GetTick() - last_keypress > 300000)
+  if(ms_since_last_keypress > 300000)
     ssd1306_dim(1);    
 }
