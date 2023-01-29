@@ -45,10 +45,16 @@ compiling my_tasks.c...
 ..\Src\my_tasks.c(716): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
       if(delete_node(hid_rx_buf+3, HID_RX_BUF_SIZE - 3, &fno) != 0)
 ..\Src\my_tasks.c: 8 warnings, 0 errors
+compiling parser.c...
+..\Src\parser.c(283): warning:  #1293-D: assignment in condition
+      while ((c = *str++) && (str <= end))
+..\Src\parser.c(307): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
+    return djb2(arg_start, kw_len);
+..\Src\parser.c: 2 warnings, 0 errors
 linking...
-Program Size: Code=45812 RO-data=2848 RW-data=1412 ZI-data=13460  
+Program Size: Code=45816 RO-data=2848 RW-data=1412 ZI-data=13460  
 FromELF: creating hex file...
-"lul\lul.axf" - 0 Error(s), 8 Warning(s).
+"lul\lul.axf" - 0 Error(s), 10 Warning(s).
 
 <h2>Software Packages used:</h2>
 

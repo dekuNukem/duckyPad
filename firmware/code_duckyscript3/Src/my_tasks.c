@@ -820,6 +820,7 @@ void keypress_task_start(void const * argument)
             play_keyup_animation(i);
           if(this_exe.result == EXE_ERROR)
           {
+            keyboard_release_all();
             error_animation(0);
             osDelay(1000);
             error_animation(1);
