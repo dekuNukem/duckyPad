@@ -1088,7 +1088,7 @@ def check_syntax():
         script_textbox.tag_add("error", str(error_lnum)+".0", str(error_lnum)+".0 lineend")
         check_syntax_label.config(text=result_dict['comments'], fg='red')
 
-check_syntax_label = Label(scripts_lf, text="Hello world!")
+check_syntax_label = Label(scripts_lf, text="")
 check_syntax_label.place(x=scaled_size(10), y=scaled_size(417))
 root.update()
 

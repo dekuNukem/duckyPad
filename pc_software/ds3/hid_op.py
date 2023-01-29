@@ -192,7 +192,7 @@ def dump_from_hid(save_path, string_var):
                     continue
                 lv2_list.append(my_file_obj(fff[0], fff[1], duckypad_read_file(item.name + "/" + fff[0])))
             item.content = lv2_list
-            
+
     try:
         shutil.rmtree(save_path)
         time.sleep(0.1)
@@ -344,6 +344,10 @@ def duckypad_hid_file_sync(old_dir, new_dir, string_var):
 
         subdir_file_to_remove = subf_to_delete | subf_with_difference
 
+        for item in list(subdir_file_to_remove):
+            if item.startswith("key"):
+                subdir_file_to_remove.add(item.replace('.txt', '.dsb'))
+
         for item in subdir_file_to_remove:
             fatfs_path = os.path.join(common_dir_name, item)
             print("\tdeleting...", fatfs_path)
@@ -351,8 +355,10 @@ def duckypad_hid_file_sync(old_dir, new_dir, string_var):
             duckypad_delete_file(fatfs_path)
 
         subdir_file_to_copy = subf_to_add | subf_with_difference
-        # print("writing...", common_dir_name)
-        string_var.set(f'writing: {common_dir_name}')
+
+        for item in list(subdir_file_to_copy):
+            if item.startswith("key"):
+                subdir_file_to_copy.add(item.replace('.txt', '.dsb'))
 
         for item in subdir_file_to_copy:
             fatfs_path = os.path.join(common_dir_name, item)
