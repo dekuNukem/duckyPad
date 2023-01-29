@@ -70,7 +70,7 @@ def parse_rvalue(rvalue_str, vt):
 	var_list = sorted(list(vt.keys()), key=len, reverse=True)
 	for key in var_list:
 		if "$"+key in rvalue_str:
-			rvalue_str = rvalue_str.replace("$"+key, str(vt[key])).strip()
+			rvalue_str = rvalue_str.replace("$"+key, str(vt[key]+1)).strip() # +1 is to prevent div by zero exception
 	rvalue_str = rvalue_str.replace("^", "**")
 	# search longest name first
 	define_list = sorted(list(define_dict.keys()), key=len, reverse=True)
@@ -85,8 +85,8 @@ def parse_rvalue(rvalue_str, vt):
 		rvalue_str = rvalue_str.replace("||", " or ").replace("&&", " and ")
 		# print("rvalue_str after replacement:", rvalue_str)
 		eval_result = eval(rvalue_str)
-	except Exception:
-		return False, "Expression evaluation failed", 0
+	except Exception as e:
+		return False, f"expr eval fail: {e}", 0
 	return True, '', int(eval_result)
 
 def is_valid_expr(whole_line, vt):
