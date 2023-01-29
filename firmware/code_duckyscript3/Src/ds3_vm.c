@@ -10,7 +10,7 @@
 #include "buttons.h"
 
 // 2200 seems to be max, 2000 just to be safe
-#define BIN_BUF_SIZE 1000
+#define BIN_BUF_SIZE 2050
 uint8_t bin_buf[BIN_BUF_SIZE];
 
 uint16_t defaultdelay_value;

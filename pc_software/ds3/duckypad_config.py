@@ -632,6 +632,9 @@ def save_everything(save_path):
                 pre, ext = os.path.splitext(dsb_path)
                 dsb_path = pre + '.dsb'
 
+                if len(this_key.binary_array) >= 2000:
+                    messagebox.showerror("Error", f'Profile {this_profile.name}\nKey {this_key.name}\n\nScript size too large')
+
                 with open(dsb_path, 'wb') as dsb_file:
                     dsb_file.write(this_key.binary_array)   
                 if this_key.color is not None:
