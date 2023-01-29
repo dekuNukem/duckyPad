@@ -528,6 +528,8 @@ void handle_hid_command(void)
       if (fno.fattrib & AM_DIR)
         hid_tx_buf[3] = 1;
       this_filename = fno.lfname[0] ? fno.lfname : fno.fname;
+      if(strstr(this_filename, ".dsb")) // saves some time skipping dsb file
+        continue;
       strncpy(hid_tx_buf+4, this_filename, FILENAME_SIZE);
       USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
       

@@ -1,3 +1,12 @@
+with open(dps_path, 'w+', encoding='utf8', newline='') as setting_file:
+            for line in dp_settings.list_of_lines:
+                setting_file.write(line.replace('\r', '').replace('\n', '')+'\n');
+
+    # if hash1 != hash2:
+    #   print(f"{file1} and {file2} are different!")
+    #   print(hash1, hash2)
+    #   print(open(file1,'rb').read())
+    #   print(open(file2,'rb').read())
 LOOP0:
 SWCC 1 200 0 0
 STRINGLN first action

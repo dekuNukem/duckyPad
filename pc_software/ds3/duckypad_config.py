@@ -1054,7 +1054,7 @@ def script_textbox_modified():
             cantthinkofaname = "Checking..."
         check_syntax_label.config(text=cantthinkofaname, fg="black")
     if profile_list[profile_index].keylist[selected_key] is not None:
-        profile_list[profile_index].keylist[selected_key].script = script_textbox.get(1.0, END)#.replace('\r','').strip().strip('\n')
+        profile_list[profile_index].keylist[selected_key].script = script_textbox.get(1.0, END)
         modification_checked = 0
     
 def script_textbox_event(event):
