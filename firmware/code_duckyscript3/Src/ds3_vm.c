@@ -18,6 +18,7 @@ uint16_t defaultchardelay_value;
 uint16_t charjitter_value;
 uint16_t rand_min, rand_max;
 uint16_t loop_max;
+uint8_t needs_sps;
 
 typedef struct
 {
@@ -177,6 +178,8 @@ void write_var(uint8_t* pgm_start, uint16_t addr, uint16_t value)
     loop_max = value;
   else if (addr == _KEYPRESS_COUNT)
     ; // this is read only, so do nothing
+  else if (addr == _NEEDS_SPS)
+    needs_sps = value; // this is read only, so do nothing
   else
     store_uint16_as_two_bytes_at(value, pgm_start + addr);
 }
@@ -205,6 +208,8 @@ uint16_t read_var(uint8_t* pgm_start, uint16_t addr)
     return get_first_active_key(current_key);
   else if (addr == _KEYPRESS_COUNT)
     return key_press_count[current_key];
+  else if (addr == _NEEDS_SPS)
+    return needs_sps;
   else
     return make_uint16(pgm_start[addr], pgm_start[addr+1]);
 }
@@ -579,10 +584,6 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
     exe->result = EXE_ACTION_GOTO_PROFILE;
     exe->data = (uint8_t)target_profile;
   }
-  else if(this_opcode == OP_SPS)
-  {
-    save_persistent_state();
-  }
   else
   {
     // UNKNOWN OP CODE
@@ -603,6 +604,8 @@ void run_dsb(ds3_exe_result* er, uint8_t keynum)
   charjitter_value = 0;
   rand_max = 65535;
   rand_min = 0;
+  loop_max = 0;
+  needs_sps = 0;
   srand(HAL_GetTick());
 
   while(1)
@@ -612,5 +615,6 @@ void run_dsb(ds3_exe_result* er, uint8_t keynum)
       break;
     current_pc = er->next_pc;
   }
+  er->needs_sps = needs_sps;
   // printf("execution halted: %d\n", er->result);
 }

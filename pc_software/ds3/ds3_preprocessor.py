@@ -381,6 +381,7 @@ def run_once(program_listing):
 	'if_take_table':None,
 	'if_skip_table':None,
 	'while_table_bdbc':None,
+	'state_save_needed':False,
 	}
 
 	for line_number_starting_from_1, this_line in enumerate(program_listing):
@@ -454,6 +455,7 @@ def run_once(program_listing):
 		elif first_word == cmd_GOTO_PROFILE:
 			presult, pcomment = check_first_arg(this_line, var_table, allow_multi_arg=True)
 		elif first_word == cmd_SWCC:
+			return_dict['state_save_needed'] = True
 			presult, pcomment = check_color(this_line, var_table)
 		elif first_word == cmd_SWCR:
 			presult, pcomment = check_swcr(this_line, var_table)

@@ -65,7 +65,6 @@ OP_PREVP = ("PREVP", 48)
 OP_NEXTP = ("NEXTP", 49)
 OP_GOTOP = ("GOTOP", 50)
 OP_SLEEP = ("SLEEP", 51)
-OP_SPS = ("SPS", 52)
 
 arith_lookup = {
 	"Eq" : OP_EQ,
@@ -459,8 +458,19 @@ def make_dsb(program_listing):
 	str_lookup = {}
 	break_dict = result_dict['break_dict']
 	continue_dict = result_dict['continue_dict']
+	needs_sps = result_dict['state_save_needed']
 
 	assembly_listing = []
+
+	if needs_sps:
+		this_instruction = get_empty_instruction()
+		this_instruction['opcode'] = OP_PUSHC
+		this_instruction['oparg'] = 1
+		assembly_listing.append(this_instruction)
+		this_instruction = get_empty_instruction()
+		this_instruction['opcode'] = OP_POP
+		this_instruction['oparg'] = "_NEEDS_SPS"
+		assembly_listing.append(this_instruction)
 
 	for lnum, this_line in enumerate(compact_program_listing):
 		lnum += 1
@@ -627,10 +637,6 @@ def make_dsb(program_listing):
 				assembly_listing.append(this_instruction)
 		else:
 			raise ValueError(f"Unknown command: {this_line}")
-
-	this_instruction = get_empty_instruction()
-	this_instruction['opcode'] = OP_SPS
-	assembly_listing.append(this_instruction)
 
 	this_instruction = get_empty_instruction()
 	this_instruction['opcode'] = OP_HALT

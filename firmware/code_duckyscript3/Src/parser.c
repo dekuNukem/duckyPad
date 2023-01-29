@@ -597,9 +597,11 @@ void keypress_wrapper(uint8_t keynum, ds3_exe_result* exe)
   taskEXIT_CRITICAL();
   if(load_result != DSB_OK)
     return;
-  run_dsb(exe, keynum);
-  key_press_count[keynum]++;
   play_keydown_animation(keynum);
+  run_dsb(exe, keynum);
+  if(exe->needs_sps)
+    save_persistent_state();
+  key_press_count[keynum]++;
 }
 
 void handle_keypress(uint8_t keynum, but_status* b_status, ds3_exe_result* exe)
