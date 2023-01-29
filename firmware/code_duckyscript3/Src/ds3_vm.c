@@ -17,6 +17,7 @@ uint16_t defaultdelay_value;
 uint16_t defaultchardelay_value;
 uint16_t charjitter_value;
 uint16_t rand_min, rand_max;
+uint16_t loop_max;
 
 typedef struct
 {
@@ -172,6 +173,10 @@ void write_var(uint8_t* pgm_start, uint16_t addr, uint16_t value)
     ; // this is read only, so do nothing
   else if (addr == _READKEY)
     ; // this is read only, so do nothing
+  else if (addr == _LOOP_MAX)
+    loop_max = value;
+  else if (addr == _KEYPRESS_COUNT)
+    ; // this is read only, so do nothing
   else
     store_uint16_as_two_bytes_at(value, pgm_start + addr);
 }
@@ -194,8 +199,12 @@ uint16_t read_var(uint8_t* pgm_start, uint16_t addr)
     return rand() % (rand_max + 1 - rand_min) + rand_min;
   else if (addr == _TIME)
     return (uint16_t)HAL_GetTick();
+  else if (addr == _LOOP_MAX)
+    return loop_max;
   else if (addr == _READKEY)
     return get_first_active_key(current_key);
+  else if (addr == _KEYPRESS_COUNT)
+    return key_press_count[current_key];
   else
     return make_uint16(pgm_start[addr], pgm_start[addr+1]);
 }

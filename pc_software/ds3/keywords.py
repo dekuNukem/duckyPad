@@ -385,4 +385,6 @@ reserved_variable_dict = {
 	"_RANDOM_INT": (0xffff - 5),
 	"_TIME": (0xffff - 6),
 	"_READKEY": (0xffff - 7),
+	"_LOOP_MAX": (0xffff - 8),
+	"_KEYPRESS_COUNT": (0xffff - 9),
 }

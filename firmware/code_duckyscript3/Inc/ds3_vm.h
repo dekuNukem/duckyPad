@@ -95,6 +95,8 @@
 #define _RANDOM_INT (0xffff - 5)
 #define _TIME (0xffff - 6)
 #define _READKEY (0xffff - 7)
+#define _LOOP_MAX (0xffff - 8)
+#define _KEYPRESS_COUNT (0xffff - 9)
 
 typedef struct
 {

@@ -79,6 +79,8 @@ extern char curr_kb_layout[FILENAME_SIZE];
 extern char project_url[];
 extern ds3_exe_result my_der;
 
+extern uint8_t key_press_count[MAPPABLE_KEY_COUNT];
+
 #ifdef __cplusplus
 }
 #endif
