@@ -579,6 +579,10 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
     exe->result = EXE_ACTION_GOTO_PROFILE;
     exe->data = (uint8_t)target_profile;
   }
+  else if(this_opcode == OP_SPS)
+  {
+    save_persistent_state();
+  }
   else
   {
     // UNKNOWN OP CODE

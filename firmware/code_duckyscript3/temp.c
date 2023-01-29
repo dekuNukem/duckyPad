@@ -13,7 +13,9 @@ void keypress_wrap(uint8_t keynum)
   kp_end:
   f_close(&sd_file);
 }
-
+  // taskENTER_CRITICAL();
+  // save_persistent_state();
+  // taskEXIT_CRITICAL();
 
   /*
   HID SET RGB LED COLOUR

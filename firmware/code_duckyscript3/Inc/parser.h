@@ -67,6 +67,7 @@ void print_keyname(char* keyname, uint8_t keynum);
 char* goto_next_arg(char* buf, char* buf_end);
 void delay_wrapper(int32_t amount, int32_t fuzz);
 uint16_t get_hash_at_first_nonspace_word(char* msg);
+void save_persistent_state(void);
 
 extern profile_cache p_cache;
 extern char temp_buf[PATH_SIZE];

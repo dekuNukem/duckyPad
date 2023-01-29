@@ -65,6 +65,7 @@ OP_PREVP = ("PREVP", 48)
 OP_NEXTP = ("NEXTP", 49)
 OP_GOTOP = ("GOTOP", 50)
 OP_SLEEP = ("SLEEP", 51)
+OP_SPS = ("SPS", 52)
 
 arith_lookup = {
 	"Eq" : OP_EQ,
@@ -626,6 +627,10 @@ def make_dsb(program_listing):
 				assembly_listing.append(this_instruction)
 		else:
 			raise ValueError(f"Unknown command: {this_line}")
+
+	this_instruction = get_empty_instruction()
+	this_instruction['opcode'] = OP_SPS
+	assembly_listing.append(this_instruction)
 
 	this_instruction = get_empty_instruction()
 	this_instruction['opcode'] = OP_HALT
