@@ -4,34 +4,55 @@
 
 ----
 
-# UNDER CONSTRUCTION!!!!!! COMING SOON!!!!!!!!!!
+# UNDER CONSTRUCTION!!!!!!1 COMING SOON!!!!!!!!!!
 
+Welcome to **duckyScript 3** beta test!
+
+DS3 was released by [Hak5](https://docs.hak5.org/hak5-usb-rubber-ducky/) in late 2022, with new features and improved capabilities.
+
+Major work had to be done to port it to duckyPad, but I'm glad to announce it's (mostly) finished!
 
 ## What's New
 
-* Variables, calculations, operations
+duckyScript 3 now behaves a lot more like a **general-purpose language**, with:
 
-* General Purpose language
+* Variables
 
-* Conditional statements
+* Conditional Statements
 
-* Loops
+* Loops 
 
-* Much faster
+* Functions
 
-* Bytecode VM
+* Math & Logical Operators
 
-* New commands, OLED and LED color
+As a result, you can now write much more elaborate scripts for your automation needs!
 
-* Backwards compatible (at least should!)
+-----
 
-* Code cleanup, new code check more detailed error
+* DS3 is now compiled into **Bytecode** and executed on a **virtual machine**, resulting in **much faster** performance!
+
+* **New commands** for **printing to OLED screen** and **reading button status**
+
+* **Backwards compatible** with existing scripts (or at least should!)
+
+* More detailed code check error reports
+
+* General cleanup and bug fixes
 
 ## Limitations
 
-bugs (let me know)
+### Bugs!
 
-no longer editable with text editor (old version still available and maintained)
+This is a huge update, so expect some bugs, especially at this stage.
+
+If you run into any, feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), ask in [Discord](https://discord.gg/4sJCBx5), or email `dekuNukem`@`gmail`.`com` @
+
+### hmm
+
+no longer editable with text editor 
+
+(old version still available and maintained)
 
 ## Instructions
 
