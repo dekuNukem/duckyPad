@@ -36,7 +36,7 @@ As a result, you can now write much more elaborate scripts for your automation n
 
 * Optimised code for faster performance
 
-* More detailed code check error reports
+* More detailed syntax check error reports
 
 * General cleanup and bug fixes
 
@@ -46,11 +46,13 @@ As a result, you can now write much more elaborate scripts for your automation n
 
 This is a huge update, so expect bugs, especially at this stage.
 
-If you run into any, feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), ask in [Discord](https://discord.gg/4sJCBx5), or email `dekuNukem`@`gmail`.`com` @
+If you run into any, feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), ask in [Discord](https://discord.gg/4sJCBx5), or email `dekuNukem`@`gmail`.`com`
 
 ### Bytecode Compiler
 
-With DS3 now very much a general-purpose language, it takes a lot more work to process it properly. Examples include:
+With DS3 now very much a general-purpose language, it takes a lot more work to process it properly.
+
+Examples include:
 
 * Expression evaluation via abstract syntax tree (AST)
 
@@ -72,19 +74,23 @@ Download new firmware and new configurator
 
 suggested to fresh format the SD card
 
-## Variables
+## duckyScript 3 New Syntaxes
 
-## Operators
+First of all, [existing duckyScript rules](duckyscript_info.md) still apply, so check that out if you need a refresher.
 
-## Conditional Statements 
+### Variables
 
-## Loops
+### Operators
 
-## LED Colour
+### Conditional Statements 
 
-## OLED Print
+### Loops
 
-## LOOP info
+### LED Colour
+
+### OLED Print
+
+### LOOP info
 
 ## VM assembly information
 
