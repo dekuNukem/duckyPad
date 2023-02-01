@@ -48,28 +48,17 @@ This is a huge update, so expect bugs, especially at this stage.
 
 If you run into any, feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), ask in [Discord](https://discord.gg/4sJCBx5), or email `dekuNukem`@`gmail`.`com` @
 
-### Editing Scripts
+### Bytecode Compiler
 
-DS3 now needs compiling.
+With DS3 now very much a general-purpose language, it takes a lot more work to process it properly. Examples include expression evaluation via abstract syntax tree (AST), flow control with jump tables, arithmetic and call stacks, and more. 
 
-With DS3 now much closer to a general-purpose language, a lot more work is needed to process it for proper execution.
+This is much too complicated to do on-device, therefore, DS3 is now compiled into bytecode, and executed on a virtual stack machine.
 
-Therefore, instead of being parsed on-device, DS3 is now compiled into bytecode, and executed by a virtual machine.
+Good news is the configurator takes care of everything for you, so it's business as usual.
 
+However, if you want to manually edit the SD card, it is now a bit more involved, since you'll need to compile the script and copy over the binary too.
 
-Topics involved include:
-
-* Expression evaluation
-
-* Syntax tree parsing, , flow control, 
-
-arithmetic and call stacks
-
- it is no longer feasible to process the script on-device.
-
-no longer editable with text editor 
-
-(old version still available and maintained)
+See below for instructions, and in the meantime I'll try to support the old firmware version in the foreseeable future.
 
 ## Instructions
 
