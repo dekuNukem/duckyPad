@@ -4,13 +4,13 @@
 
 ----
 
-# UNDER CONSTRUCTION!!!!!!1 COMING SOON!!!!!!!!!!
+# UNDER CONSTRUCTION!!!!!!1 information might not be complete or accurate until its done!!!!!1234567890
 
 Welcome to **duckyScript 3** beta test!
 
 DS3 was released by [Hak5](https://docs.hak5.org/hak5-usb-rubber-ducky/) in late 2022, with new features and improved capabilities.
 
-Major work had to be done to port it to duckyPad, but I'm glad to announce it's (mostly) finished!
+Major work was done to implement it on duckyPad, but I'm glad to announce it's (mostly) finished!
 
 ## What's New
 
@@ -30,7 +30,7 @@ As a result, you can now write much more elaborate scripts for your automation n
 
 -----
 
-* DS3 is now compiled into **Bytecode** and executed on a **virtual machine**, resulting in **much faster** performance!
+* DS3 is now also compiled into **Bytecode** and executed on a **virtual machine**, resulting in **much faster** performance!
 
 * **New commands** for **printing to OLED screen** and **reading button status**
 
@@ -44,11 +44,28 @@ As a result, you can now write much more elaborate scripts for your automation n
 
 ### Bugs!
 
-This is a huge update, so expect some bugs, especially at this stage.
+This is a huge update, so expect bugs, especially at this stage.
 
 If you run into any, feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), ask in [Discord](https://discord.gg/4sJCBx5), or email `dekuNukem`@`gmail`.`com` @
 
-### hmm
+### Editing Scripts
+
+DS3 now needs compiling.
+
+With DS3 now much closer to a general-purpose language, a lot more work is needed to process it for proper execution.
+
+Therefore, instead of being parsed on-device, DS3 is now compiled into bytecode, and executed by a virtual machine.
+
+
+Topics involved include:
+
+* Expression evaluation
+
+* Syntax tree parsing, , flow control, 
+
+arithmetic and call stacks
+
+ it is no longer feasible to process the script on-device.
 
 no longer editable with text editor 
 
