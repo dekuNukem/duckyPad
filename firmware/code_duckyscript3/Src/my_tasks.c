@@ -675,8 +675,9 @@ void handle_hid_command(void)
   else if(command_type == HID_COMMAND_DELETE_FILE)
   {
     f_close(&sd_file);
-    if(f_unlink(hid_rx_buf+3) != 0)
-      hid_tx_buf[2] = HID_RESPONSE_ERROR;
+    // if(f_unlink(hid_rx_buf+3) != 0)
+    //   hid_tx_buf[2] = HID_RESPONSE_ERROR;
+    f_unlink(hid_rx_buf+3);
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
   }
   /*
@@ -715,8 +716,9 @@ void handle_hid_command(void)
   */
   else if(command_type == HID_COMMAND_DELETE_DIR)
   {
-    if(delete_node(hid_rx_buf+3, HID_RX_BUF_SIZE - 3, &fno) != 0)
-      hid_tx_buf[2] = HID_RESPONSE_ERROR;
+    // if(delete_node(hid_rx_buf+3, HID_RX_BUF_SIZE - 3, &fno) != 0)
+    //   hid_tx_buf[2] = HID_RESPONSE_ERROR;
+    delete_node(hid_rx_buf+3, HID_RX_BUF_SIZE - 3, &fno);
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
   }
   /*

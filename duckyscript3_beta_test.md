@@ -1,20 +1,61 @@
-# duckyPad Kickstarter Information
+# duckyScript 3 Public Beta Test
 
 [Get duckyPad](https://www.tindie.com/products/21984/) | [Official Discord](https://discord.gg/4sJCBx5) | [Getting Started](getting_started.md) | [Table of Contents](#table-of-contents)
 
 ----
 
-## Kickstarter Successful!
-
-Thanks to the interest and support from the [amazing backers](kickstarter_backers.md)
-, the [duckyPad Kickstarter](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) had been a great success! With over 630% funded from 705 backers!
-
-duckyPad is [now available on Tindie!](https://www.tindie.com/products/21984), feel free to grab one there!
-
-Also consider [joining our discord](https://discord.gg/4sJCBx5) for latest updates and discussions.
+# UNDER CONSTRUCTION!!!!!! COMING SOON!!!!!!!!!!
 
 
-## Stay in touch!
+## What's New
+
+* Variables, calculations, operations
+
+* General Purpose language
+
+* Conditional statements
+
+* Loops
+
+* Much faster
+
+* Bytecode VM
+
+* New commands, OLED and LED color
+
+* Backwards compatible (at least should!)
+
+* Code cleanup, new code check more detailed error
+
+## Limitations
+
+bugs (let me know)
+
+no longer editable with text editor (old version still available and maintained)
+
+## Instructions
+
+Download new firmware and new configurator
+
+suggested to fresh format the SD card
+
+## Variables
+
+## Operators
+
+## Conditional Statements 
+
+## Loops
+
+## LED Colour
+
+## OLED Print
+
+## LOOP info
+
+## VM assembly information
+
+## Get in Touch!
 
 Questions, comments, feedbacks? Feel free to ask in the [Official Discord!](https://discord.gg/4sJCBx5)
 
