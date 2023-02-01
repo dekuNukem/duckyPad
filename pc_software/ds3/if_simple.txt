@@ -1,6 +1,11 @@
-LOOP0:
-SWCOLOR 255 0 0
-NUMLOCK
-LOOP1:
-SWCOLOR 0 255 0
-NUMLOCK
+VAR $count = 3
+
+WHILE $count > 0
+	
+	IF $count == 2 THEN
+		CONTINUE
+	END_IF
+
+	STRINGLN Counter is $count!
+	$count = $count - 1
+END_WHILE
