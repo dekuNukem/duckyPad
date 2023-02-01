@@ -30,11 +30,11 @@ As a result, you can now write much more elaborate scripts for your automation n
 
 -----
 
-* DS3 is now also compiled into **Bytecode** and executed on a **virtual machine**, resulting in **much faster** performance!
-
 * **New commands** for **printing to OLED screen** and **reading button status**
 
 * **Backwards compatible** with existing scripts (or at least should!)
+
+* Optimised code for faster performance
 
 * More detailed code check error reports
 
@@ -50,15 +50,21 @@ If you run into any, feel free to [open an issue](https://github.com/dekuNukem/d
 
 ### Bytecode Compiler
 
-With DS3 now very much a general-purpose language, it takes a lot more work to process it properly. Examples include expression evaluation via abstract syntax tree (AST), flow control with jump tables, arithmetic and call stacks, and more. 
+With DS3 now very much a general-purpose language, it takes a lot more work to process it properly. Examples include:
 
-This is much too complicated to do on-device, therefore, DS3 is now compiled into bytecode, and executed on a virtual stack machine.
+* Expression evaluation via abstract syntax tree (AST)
 
-Good news is the configurator takes care of everything for you, so it's business as usual.
+* Flow control with jump tables
 
-However, if you want to manually edit the SD card, it is now a bit more involved, since you'll need to compile the script and copy over the binary too.
+* Arithmetic and call stacks
 
-See below for instructions, and in the meantime I'll try to support the old firmware version in the foreseeable future.
+This is much too complicated to do on-device, therefore, DS3 is now compiled into **bytecode**, and executed on a **virtual stack machine**.
+
+The configurator takes care of everything for you, so it's business as usual.
+
+However, if you want to manually edit the SD card, it is now a bit more involved, as you'll need to compile the script and copy over the binary too.
+
+See below for instructions, and in the meantime I'll try to keep supporting the old firmware version in the foreseeable future.
 
 ## Instructions
 
