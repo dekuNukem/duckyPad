@@ -603,7 +603,7 @@ def run_all(program_listing):
 		first_word, this_line = replace_delay_statements(this_line)
 		if needs_rstrip(first_word):
 			this_line = this_line.rstrip(" \t")
-		if first_word == cmd_REM or first_word == cmd_INJECT_MOD:
+		if first_word == cmd_REM or first_word == cmd_INJECT_MOD or this_line.startswith(cmd_C_COMMENT):
 			continue
 		if first_word != cmd_DEFINE:
 			is_success, replaced_str = replace_DEFINE(this_line, def_dict)

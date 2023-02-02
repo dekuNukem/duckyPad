@@ -392,7 +392,7 @@ Set where to print on screen.
 
 `OLED_PRINT hello world!` 
 
-This writes the message into display buffer.
+This prints the message into display buffer.
 
 #### `OLED_UPDATE`
 
@@ -400,11 +400,31 @@ Actually update the OLED.
 
 You should use multiple `OLED_CURSOR` and `OLED_PRINT` to set up the display, then use this to print it.
 
-This is faster than writing to screen on every line.
-
 #### `OLED_RESTORE`
 
 Restore the default profile/key name display.
+
+### Reading Buttons
+
+```
+WHILE 1
+	OLED_CLEAR
+	OLED_CURSOR 64 32
+	OLED_PRINT $_READKEY
+	OLED_UPDATE
+	DELAY 100
+
+	IF $_READKEY == 1 THEN
+		BREAK
+	END_IF
+
+END_WHILE
+OLED_RESTORE
+```
+
+### Randomisation
+
+
 
 ## Get in Touch!
 
@@ -412,7 +432,7 @@ Questions, comments, feedbacks? Feel free to ask in the [Official Discord!](http
 
 And of course, there will be regular backer updates on Kickstarter once it's launched.
 
-Media enquiries? Email `dekuNukem` `gmail`.`com`, or DM me on discord `dekuNukem#6998`.
+Media inquiries? Email `dekuNukem` `gmail`.`com`, or DM me on discord `dekuNukem#6998`.
 
 ## Table of Contents
 

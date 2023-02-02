@@ -113,6 +113,9 @@ ready for public release
 
 0.22.1 20230118
 fixed a bug where STRING prints an extra space
+
+0.23.0 20230202
+beta release for duckyscript 3
 */
 
 uint8_t fw_version_major = 0;

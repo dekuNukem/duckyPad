@@ -77,7 +77,10 @@ def parse_line(ducky_line):
 	parse_message = 'Unknown'
 	ducky_line = ducky_line.replace('\n', '').replace('\r', '')
 	split = [x for x in ducky_line.split(' ') if len(x) > 0]
-	if not (ducky_line.startswith(cmd_STRING) or ducky_line.startswith(cmd_STRINGLN) or ducky_line.startswith(cmd_REM) or ducky_line.startswith(cmd_OLED_PRINT)):
+
+	if ducky_line.startswith(cmd_C_COMMENT) or ducky_line.startswith(cmd_REM):
+		return PARSE_OK, ""
+	if not (ducky_line.startswith(cmd_STRING) or ducky_line.startswith(cmd_STRINGLN) or ducky_line.startswith(cmd_OLED_PRINT)):
 		ducky_line = ducky_line.strip()
 	if len(ducky_line) == 0:
 		return PARSE_OK, "Empty line"
