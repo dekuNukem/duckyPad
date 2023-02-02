@@ -12,7 +12,6 @@ duckypad_file_whitelist = [
 
 duckypad_file_blacklist = [
 	"keymaps",
-	"dsb",
 ]
 
 def is_duckypad_file(name):
@@ -31,7 +30,9 @@ def is_file_different(file1, file2):
 		print(f"{file1} and {file2} are different!")
 		# print(hash1, hash2)
 		print(open(file1,'rb').read())
+		print(len(open(file1,'rb').read()))
 		print(open(file2,'rb').read())
+		print(len(open(file2,'rb').read()))
 	return hash1 != hash2
 
 def compare(old_path, new_path):

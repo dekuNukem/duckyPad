@@ -128,37 +128,28 @@ def duckypad_hid_resume():
     pc_to_duckypad_buf[2] = HID_COMMAND_OP_RESUME   # Command type
     h.write(pc_to_duckypad_buf)
 
-timestamp = 0
-
 def duckypad_read_file(file_dir):
     print("duckypad_read_file", file_dir)
-    ret = ''
+    ret = bytearray()
     pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
     pc_to_duckypad_buf[0] = 5   # HID Usage ID, always 5
     pc_to_duckypad_buf[2] = HID_COMMAND_READ_FILE   # Command type
 
     for x in range(0, len(file_dir)):
         pc_to_duckypad_buf[3+x] = ord(file_dir[x])
-
-    # timestamp = time.time()
     h.write(pc_to_duckypad_buf)
-    # print(f"A: took {int((time.time() - timestamp) * 1000)}ms")
     
     while 1:
         time.sleep(HID_WAIT_TIME)
-        # timestamp = time.time()
         result = _read_duckypad()
-        # print(f"B: took {int((time.time() - timestamp) * 1000)}ms")
         if len(result) == 0 or result[2] == HID_RESPONSE_EOF:
             break
         _check_hid_err(result)
-        ret += "".join([chr(x) for x in result[3:]]).strip('\0')
-        # print("".join([chr(x) for x in result]))
-        # timestamp = time.time()
+        for index, value in enumerate(result[3:]):
+            if index < result[1]:
+                ret += value.to_bytes(1, 'little')
         duckypad_hid_resume()
-        # print(f"C: took {int((time.time() - timestamp) * 1000)}ms")
-        # print("------------")
-    return ret.replace('\r', '')
+    return ret
 
 TYPE_FILE = 0
 TYPE_DIR = 1
@@ -183,35 +174,40 @@ def dump_from_hid(save_path, string_var):
             files_in_this_dir = duckypad_list_files(item.name)
             lv2_list = []
             for fff in files_in_this_dir:
-                print('listing', fff)
                 string_var.set("Loading " + str(item.name + "/" + fff[0]))
                 if fff[1] != TYPE_FILE:
                     continue
-                # no need to dump dsb file since we'll be generating a new one
-                if(fff[0].lower().endswith('.dsb')):
-                    continue
+
                 lv2_list.append(my_file_obj(fff[0], fff[1], duckypad_read_file(item.name + "/" + fff[0])))
             item.content = lv2_list
 
     try:
         shutil.rmtree(save_path)
-        time.sleep(0.1)
+        time.sleep(0.05)
     except FileNotFoundError:
         pass
     ensure_dir(save_path)
 
     for item in file_struct_list:
         if item.type == TYPE_FILE and item.content is not None:
-            with open(os.path.join(save_path, item.name), 'w', encoding='utf8', newline='') as this_file:
-                this_file.write(item.content)
+            if item.name.endswith('.dsb'):
+                with open(os.path.join(save_path, item.name), 'wb') as this_file:
+                    this_file.write(item.content)
+            else:
+                with open(os.path.join(save_path, item.name), 'w', encoding='utf8', newline='') as this_file:
+                    this_file.write(item.content.decode())
 
         if item.type == TYPE_DIR and item.content is not None:
             this_folder_path = os.path.join(save_path, item.name)
             ensure_dir(this_folder_path)
             for subfile in item.content:
-                if subfile.type == 0 and subfile.content is not None:
-                    with open(os.path.join(this_folder_path, subfile.name), 'w', encoding='utf8', newline='') as this_file:
-                        this_file.write(subfile.content)
+                if subfile.type == TYPE_FILE and subfile.content is not None:
+                    if subfile.name.endswith('.dsb'):
+                        with open(os.path.join(this_folder_path, subfile.name), 'wb') as this_file:
+                            this_file.write(subfile.content)
+                    else:
+                        with open(os.path.join(this_folder_path, subfile.name), 'w', encoding='utf8', newline='') as this_file:
+                            this_file.write(subfile.content.decode())
 
 def duckypad_open_file_for_writing(file_dir):
     pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
@@ -253,12 +249,9 @@ def duckypad_write_one_chunk(content):
     result = _read_duckypad()
     _check_hid_err(result)
 
-    # print("wrote", content)
-
 def duckypad_write_file(content):
     n=60
     line_list = [content[i:i+n] for i in range(0, len(content), n)]
-    # print(line_list)
     for line in line_list:
         duckypad_write_one_chunk(line)
 

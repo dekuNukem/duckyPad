@@ -1,3 +1,10 @@
+        # ret += "".join([chr(x) for x in result[3:]]).strip('\0')
+                # no need to dump dsb file since we'll be generating a new one
+                # if(fff[0].lower().endswith('.dsb')):
+                #     continue
+
+
+
 with open(dps_path, 'w+', encoding='utf8', newline='') as setting_file:
             for line in dp_settings.list_of_lines:
                 setting_file.write(line.replace('\r', '').replace('\n', '')+'\n');
