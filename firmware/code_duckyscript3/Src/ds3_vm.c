@@ -312,6 +312,8 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
   exe->next_pc = curr_pc + INSTRUCTION_SIZE_BYTES;
   exe->data = 0;
 
+  HAL_IWDG_Refresh(&hiwdg);
+
   if(this_opcode == OP_NOP)
   {
     return;

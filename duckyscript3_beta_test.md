@@ -16,7 +16,7 @@ It was quite a journey implementing it on duckyPad, but I'm glad to announce it'
 
 ## What's New
 
-duckyScript 3 now behaves a lot like a **general-purpose language**, with:
+duckyScript 3 now behaves more like a **general-purpose language**, with:
 
 * Variables
 
@@ -52,7 +52,7 @@ If you run into any, feel free to [open an issue](https://github.com/dekuNukem/d
 
 ### Missing Commands
 
-As duckyPad is more about macro scripting than pentesting, I skipped some commands about payload management and data exfiltration.
+As duckyPad is more about macro scripting than pentesting, commands about payload management and data exfiltration are skipped.
 
 ### Bytecode Compiler
 
@@ -68,7 +68,7 @@ Examples include:
 
 This is much too complicated to do on-device, therefore, DS3 is now compiled into **bytecode**, and executed on a **virtual stack machine**.
 
-The configurator takes care of everything for you, so it's business as usual.
+The configurator takes care of everything, so it's business as usual.
 
 However, if you want to manually edit the SD card, you'll need to compile the script and copy over the binary too.
 
@@ -108,8 +108,8 @@ You can declare a variable using `VAR` command:
 
 ```
 // Declaration
-$spam = 1
-$eggs = 10
+VAR $spam = 0
+VAR $eggs = 10
 
 // Assignment
 $spam = 20
@@ -119,9 +119,9 @@ Variables must start with dollar sign `$`.
 
 Variables are **unsigned 16-bit integers**, and can hold values from **0 to 65535**.
 
-All variables have a **global scope**, and can be referenced anywhere in the script.
+All variables have **global scope**, and can be referenced anywhere in the script.
 
-They can be printed with `STRING`, `STRINGLN`, and `OLP` commands.
+They can be printed with `STRING`, `STRINGLN`, and (spoiler alert!)`OLP` commands.
 
 ```
 STRING The value is: $spam
@@ -299,17 +299,26 @@ Counter is 2!
 Use `CONTINUE` to jump to beginning of the loop immediately.
 
 ```
-VAR $count = 3
+VAR $count = 4
 
 WHILE $count > 0
-	
+	$count = $count - 1
+
 	IF $count == 2 THEN
 		CONTINUE
 	END_IF
 
 	STRINGLN Counter is $count!
-	$count = $count - 1
+
 END_WHILE
+```
+
+In this example when `$count` is 2, it will skip printing and start from beginning instead.
+
+```
+Counter is 3!
+Counter is 1!
+Counter is 0!
 ```
 
 ### LED Colour
