@@ -802,9 +802,9 @@ void keypress_task_start(void const * argument)
   for(;;)
   {
     osDelay(16);
+    HAL_IWDG_Refresh(&hiwdg);
     for (int i = 0; i < KEY_COUNT; ++i)
     {
-      HAL_IWDG_Refresh(&hiwdg);
       if(is_pressed(i))
       {
         last_keypress = HAL_GetTick();
