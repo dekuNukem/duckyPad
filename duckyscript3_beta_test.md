@@ -127,6 +127,46 @@ They can be printed with `STRING`, `STRINGLN`, and (spoiler alert!)`OLP` command
 STRING The value is: $spam
 ```
 
+### Reserved Variables
+
+There are a few reserved variables that are always available.
+
+You can read or write to them to adjust settings. Some are read-only.
+
+##### `_DEFAULTDELAY`
+
+##### `_DEFAULTCHARDELAY`
+
+##### `_CHARJITTER`
+
+Values of those settings are stored here.
+
+##### `_RANDOM_MIN`
+
+Lower bound of random number generator (RNG).
+
+##### `_RANDOM_MAX`
+
+Upper bound of RNG.
+
+##### `_RANDOM_INT`
+
+Get a random number between the upper and lower bound.
+
+##### `_TIME`
+
+Get the current time in **milliseconds**. Read-only.
+
+##### `_READKEY`
+
+Get the key that is being pressed. Read-only.
+
+Returns 0 if no key is pressed. 1 to 17 otherwise.
+
+##### `_KEYPRESS_COUNT`
+
+Get how many times the current key has been pressed. Read-only.
+
 ### Operators
 
 You can perform operations on constants and variables.
@@ -190,15 +230,11 @@ Then `$spam && $eggs` evaluates to 0, `$spam || $eggs` evaluates to 1, and so on
 
 ### Conditional Statements
 
-#### `IF`
-
 `IF` statement is used to conditionally execute code.
 
 At simplest, it involves `IF expression THEN`, and `END_IF`:
 
 ```
-VAR $spam = 5
-
 IF $spam > 0 THEN
 	STRING spam is non-zero!
 END_IF
@@ -232,8 +268,6 @@ END_IF
 
 You can use `WHILE` loops to repeat instructions until a certain condition is met.
 
-#### `WHILE`
-
 Syntax:
 
 ```
@@ -244,14 +278,13 @@ END_WHILE
 
 If `expression` evaluates to zero, the code is skipped. Otherwise the code inside is repeated.
 
-Here is a simple example that loops 3 times.
+This simple example loops 3 times.
 
 ```
-VAR $count = 3
-
-WHILE $count > 0
-	STRINGLN Counter is $count!
-	$count = $count - 1
+VAR $ct = 3
+WHILE $ct > 0
+	STRINGLN Counter is $ct!
+	$ct = $ct - 1
 END_WHILE
 ```
 
@@ -261,31 +294,19 @@ Counter is 2!
 Counter is 1!
 ```
 
-#### Infinite Loop
-
-Use `WHILE 1` to run a block of code infinitely.
-
-```
-WHILE 1
-	PRINTLN Hello!
-END_WHILE
-```
-
 #### `BREAK`
 
 Use `BREAK` to exit a loop immediately.
 
 ```
-VAR $count = 0
-
+VAR $ct = 0
 WHILE 1
-	STRINGLN Counter is $count!
-	$count = $count + 1
+	STRINGLN Counter is $ct!
+	$ct = $ct + 1
 
-	IF $count == 3 THEN
+	IF $ct == 3 THEN
 		BREAK
 	END_IF
-
 END_WHILE
 ```
 ```
@@ -299,21 +320,19 @@ Counter is 2!
 Use `CONTINUE` to jump to beginning of the loop immediately.
 
 ```
-VAR $count = 4
+VAR $ct = 4
+WHILE $ct > 0
+	$ct = $ct - 1
 
-WHILE $count > 0
-	$count = $count - 1
-
-	IF $count == 2 THEN
+	IF $ct == 2 THEN
 		CONTINUE
 	END_IF
 
-	STRINGLN Counter is $count!
-
+	STRINGLN Counter is $ct!
 END_WHILE
 ```
 
-In this example when `$count` is 2, it will skip printing and start from beginning instead.
+Here when `$count` is 2, it will skip printing and start from beginning instead.
 
 ```
 Counter is 3!
@@ -321,13 +340,71 @@ Counter is 1!
 Counter is 0!
 ```
 
-### LED Colour
+### Functions
 
-### OLED Print
+Functions let you run a block of code efficiently instead of copy pasting.
 
-### LOOP info
+Syntax:
 
-## VM assembly information
+```
+FUNCTION func_name()
+	code
+END_FUNCTION
+```
+
+You can use **`RETURN`** to exit a function early.
+
+Arguments and return values are NOT supported, use global variables instead.
+
+Simple example:
+
+```
+FUNCTION print_info():
+	STRING My email is example@gmail.com
+	STRING I'm 69 years old!
+END_FUNCTION
+
+// call it
+print_info()
+```
+
+Of course you can use `IF`s and loops to make more complex functions!
+
+### OLED Commands
+
+You can now control the OLED screen to display anything you want with the following new commands.
+
+#### `OLED_CLEAR`
+
+Clears everything on the screen.
+
+#### `OLED_CURSOR x y`
+
+Set where to print on screen.
+
+`x` and `y` are coordinates in pixels. The characters prints from **top-left** corner.
+
+`x` must be between `0` and `127`
+
+`y` must be between `0` and `63`
+
+#### `OLED_PRINT`
+
+`OLED_PRINT hello world!` 
+
+This writes the message into display buffer.
+
+#### `OLED_UPDATE`
+
+Actually update the OLED.
+
+You should use multiple `OLED_CURSOR` and `OLED_PRINT` to set up the display, then use this to print it.
+
+This is faster than writing to screen on every line.
+
+#### `OLED_RESTORE`
+
+Restore the default profile/key name display.
 
 ## Get in Touch!
 

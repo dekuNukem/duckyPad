@@ -113,7 +113,7 @@ void handle_tactile_button_press(uint8_t button_num)
     }
     else // long press
     {
-      if(button_num == KEY_BUTTON1) // -
+      if(button_num == KEY_BUTTON1 || button_num == KEY_BUTTON2) // -
       {
         change_brightness();
         save_settings();
@@ -804,6 +804,7 @@ void keypress_task_start(void const * argument)
     osDelay(16);
     for (int i = 0; i < KEY_COUNT; ++i)
     {
+      HAL_IWDG_Refresh(&hiwdg);
       if(is_pressed(i))
       {
         last_keypress = HAL_GetTick();

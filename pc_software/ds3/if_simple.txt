@@ -1,11 +1,16 @@
-VAR $count = 3
+BCLR
 
-WHILE $count > 0
-	
-	IF $count == 2 THEN
-		CONTINUE
+WHILE 1
+	OLED_CLEAR
+	OLED_CURSOR 64 32
+	OLED_PRINT $_READKEY
+	OLED_UPDATE
+	DELAY 100
+
+	IF $_READKEY == 17 THEN
+		BREAK
 	END_IF
 
-	STRINGLN Counter is $count!
-	$count = $count - 1
 END_WHILE
+
+OLED_RESTORE

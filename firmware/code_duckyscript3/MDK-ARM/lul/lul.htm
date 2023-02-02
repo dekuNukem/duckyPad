@@ -3,7 +3,7 @@
 <title>Static Call Graph - [lul\lul.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image lul\lul.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu Feb 02 11:36:54 2023
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu Feb 02 16:12:21 2023
 <BR><P>
 <H3>Maximum Stack Usage =        432 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -803,6 +803,7 @@ Global Symbols
 <P><STRONG><a name="[121]"></a>HAL_IWDG_Refresh</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f0xx_hal_iwdg.o(i.HAL_IWDG_Refresh))
 <BR><BR>[Called By]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kb_scan_task
 <LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;select_keymap
+<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_task_start
 <LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_tactile_button_press
 <LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_brightness
 <LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;execute_instruction
@@ -2097,7 +2098,6 @@ Global Symbols
 <LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_settings
 <LI><a href="#[1b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_persistent_state
 <LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_last_profile
-<LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_profile
 <LI><a href="#[19e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_settings
 <LI><a href="#[1bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_persistent_state
 <LI><a href="#[1bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_colors
@@ -2115,7 +2115,6 @@ Global Symbols
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_hid_command
 <LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delete_node
 <LI><a href="#[19f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_profiles
-<LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_profile
 <LI><a href="#[179]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_profile
 </UL>
 
@@ -2515,7 +2514,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypress_task_start
 </UL>
 
-<P><STRONG><a name="[18f]"></a>handle_tactile_button_press</STRONG> (Thumb, 110 bytes, Stack size 24 bytes, my_tasks.o(i.handle_tactile_button_press))
+<P><STRONG><a name="[18f]"></a>handle_tactile_button_press</STRONG> (Thumb, 114 bytes, Stack size 24 bytes, my_tasks.o(i.handle_tactile_button_press))
 <BR><BR>[Stack]<UL><LI>Max Depth = 416<LI>Call Chain = handle_tactile_button_press &rArr; change_profile &rArr; restore_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[190]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_release_all
@@ -2692,7 +2691,7 @@ Global Symbols
 <LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_keypress
 </UL>
 
-<P><STRONG><a name="[57]"></a>keypress_task_start</STRONG> (Thumb, 312 bytes, Stack size 16 bytes, my_tasks.o(i.keypress_task_start))
+<P><STRONG><a name="[57]"></a>keypress_task_start</STRONG> (Thumb, 320 bytes, Stack size 16 bytes, my_tasks.o(i.keypress_task_start))
 <BR><BR>[Stack]<UL><LI>Max Depth = 432<LI>Call Chain = keypress_task_start &rArr; handle_tactile_button_press &rArr; change_profile &rArr; restore_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[190]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_release_all
@@ -2704,6 +2703,7 @@ Global Symbols
 <LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;button_service_all
 <LI><a href="#[1b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;play_keyup_animation
 <LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;error_animation
+<LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_IWDG_Refresh
 <LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;start_sleeping
 <LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;select_keymap
 <LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;oled_full_brightness
@@ -3247,12 +3247,10 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;restore_profile
 </UL>
 
-<P><STRONG><a name="[126]"></a>restore_profile</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, parser.o(i.restore_profile))
+<P><STRONG><a name="[126]"></a>restore_profile</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, parser.o(i.restore_profile))
 <BR><BR>[Stack]<UL><LI>Max Depth = 376<LI>Call Chain = restore_profile &rArr; load_profile &rArr; load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_closedir
-<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
-<LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_last_profile
+<BR>[Calls]<UL><LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_last_profile
 <LI><a href="#[1ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reset_hold_cache
 <LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_legend
 <LI><a href="#[1c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;load_profile
