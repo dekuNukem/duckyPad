@@ -140,10 +140,9 @@ void ssd1306_Fill(SSD1306_COLOR color)
 //
 void ssd1306_UpdateScreen(void) 
 {
-	uint8_t i;
 	// 29ms total at 400KHz I2C clock
 	taskENTER_CRITICAL();
-	for (i = 0; i < 8; i++) {
+	for (uint8_t i = 0; i < 8; i++) {
 		ssd1306_WriteCommand(0xB0 + i);
 		ssd1306_WriteCommand(0x00);
 		ssd1306_WriteCommand(0x10);

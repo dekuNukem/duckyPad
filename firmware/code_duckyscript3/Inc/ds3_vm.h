@@ -63,7 +63,7 @@
 #define OP_SLEEP 51
 
 #define INSTRUCTION_SIZE_BYTES 3
-#define STACK_SIZE 10
+#define STACK_SIZE 8
 
 #define EXE_OK 0
 
@@ -97,7 +97,7 @@
 #define _READKEY (0xffff - 7)
 #define _LOOP_SIZE (0xffff - 8)
 #define _KEYPRESS_COUNT (0xffff - 9)
-#define _NEEDS_SPS  (0xffff - 10)
+#define _NEEDS_EPILOGUE  (0xffff - 10)
 
 typedef struct
 {
@@ -105,7 +105,7 @@ typedef struct
   uint16_t next_pc;
   uint8_t data;
   uint8_t data2;
-  uint8_t needs_sps;
+  uint8_t epilogue_actions;
 } ds3_exe_result;
 
 uint8_t load_dsb(char* filename);

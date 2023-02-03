@@ -562,7 +562,7 @@ void der_init(ds3_exe_result* der)
   der->next_pc = 0;
   der->data = 0;
   der->data2 = 0;
-  der->needs_sps = 0;
+  der->epilogue_actions = 0;
 }
 
 void save_persistent_state(uint8_t options)
@@ -611,8 +611,8 @@ void keypress_wrapper(uint8_t keynum, ds3_exe_result* exe)
   play_keydown_animation(keynum);
   run_dsb(exe, keynum);
   key_press_count[keynum]++;
-  if(exe->needs_sps & 0x3)
-    save_persistent_state(exe->needs_sps);
+  if(exe->epilogue_actions & 0x3)
+    save_persistent_state(exe->epilogue_actions);
 }
 
 void handle_keypress(uint8_t keynum, but_status* b_status, ds3_exe_result* exe)

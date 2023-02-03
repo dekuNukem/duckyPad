@@ -781,7 +781,7 @@ uint8_t need_keyup_animation(ds3_exe_result* exe)
     return 0;
   if(exe->result == EXE_ACTION_EMUK)
     return 0;
-  if(exe->needs_sps & COLOR_STATE)
+  if(exe->epilogue_actions & COLOR_STATE)
     return 0;
   return 1;
 }
@@ -855,10 +855,8 @@ void keypress_task_start(void const * argument)
             service_press(i);
             continue;
           }
-          if (this_exe.needs_sps & NEED_OLED_REFRESH)
+          if (this_exe.epilogue_actions & NEED_OLED_REFRESH)
           {
-            // ssd1306_Fill(Black);
-            // ssd1306_UpdateScreen();
             print_legend();
           }
         }

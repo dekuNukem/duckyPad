@@ -593,18 +593,18 @@ def run_all(program_listing):
 	second_pass_program_listing = []
 	needs_end_if = False
 
-	sps = 0
+	epilogue = 0
 	if rdict['loop_state_save_needed']:
-		sps |= 0x1
+		epilogue |= 0x1
 	if rdict['color_state_save_needed']:
-		sps |= 0x2
+		epilogue |= 0x2
 	if rdict['oled_restore_needed']:
-		sps |= 0x4
+		epilogue |= 0x4
 
+	if epilogue != 0:
+		second_pass_program_listing.append((1, f"$_NEEDS_EPILOGUE = {epilogue}"))
 	if rdict['button_buf_clear_needed']:
 		second_pass_program_listing.append((1, cmd_BCLR))
-	if sps != 0:
-		second_pass_program_listing.append((1, f"$_NEEDS_SPS = {sps}"))
 	if rdict['loop_size'] is not None:
 		second_pass_program_listing.append((1, f"$_LOOP_SIZE = {rdict['loop_size']+1}"))
 

@@ -91,6 +91,15 @@ OLED_RESTORE
 // END_WHILE
 // OLED_RESTORE
 
+void restore_profile(uint8_t profile_id)
+{
+  load_profile(profile_id);
+  print_legend();
+  f_closedir(&dir);
+  f_close(&sd_file);
+  save_last_profile(profile_id);
+  reset_hold_cache();
+}
         
 
         # ret += "".join([chr(x) for x in result[3:]]).strip('\0')

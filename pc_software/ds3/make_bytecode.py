@@ -459,6 +459,9 @@ def make_dsb(program_listing):
 	break_dict = result_dict['break_dict']
 	continue_dict = result_dict['continue_dict']
 
+	for item in compact_program_listing:
+		print(item)
+
 	assembly_listing = []
 
 	for lnum, this_line in enumerate(compact_program_listing):

@@ -18,7 +18,7 @@ uint16_t defaultchardelay_value;
 uint16_t charjitter_value;
 uint16_t rand_min, rand_max;
 uint16_t loop_size;
-uint8_t needs_sps;
+uint8_t epilogue_actions;
 
 typedef struct
 {
@@ -178,8 +178,8 @@ void write_var(uint8_t* pgm_start, uint16_t addr, uint16_t value)
     loop_size = value;
   else if (addr == _KEYPRESS_COUNT)
     ; // this is read only, so do nothing
-  else if (addr == _NEEDS_SPS)
-    needs_sps = value; // this is read only, so do nothing
+  else if (addr == _NEEDS_EPILOGUE)
+    epilogue_actions = value; // this is read only, so do nothing
   else
     store_uint16_as_two_bytes_at(value, pgm_start + addr);
 }
@@ -208,8 +208,8 @@ uint16_t read_var(uint8_t* pgm_start, uint16_t addr)
     return get_first_active_key(current_key);
   else if (addr == _KEYPRESS_COUNT)
     return key_press_count[current_key];
-  else if (addr == _NEEDS_SPS)
-    return needs_sps;
+  else if (addr == _NEEDS_EPILOGUE)
+    return epilogue_actions;
   else
     return make_uint16(pgm_start[addr], pgm_start[addr+1]);
 }
@@ -607,7 +607,7 @@ void run_dsb(ds3_exe_result* er, uint8_t keynum)
   rand_max = 65535;
   rand_min = 0;
   loop_size = 0;
-  needs_sps = 0;
+  epilogue_actions = 0;
   srand(HAL_GetTick());
 
   while(1)
@@ -617,6 +617,6 @@ void run_dsb(ds3_exe_result* er, uint8_t keynum)
       break;
     current_pc = er->next_pc;
   }
-  er->needs_sps = needs_sps;
+  er->epilogue_actions = epilogue_actions;
   // printf("execution halted: %d\n", er->result);
 }

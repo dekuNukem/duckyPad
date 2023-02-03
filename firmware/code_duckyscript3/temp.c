@@ -1,3 +1,30 @@
+void print_stack(my_stack* ms)
+{
+  printf("----\n");
+  for (int i = 0; i < ms->top; ++i)
+    printf("%d\n", ms->stack[i]);
+  printf("----\n");
+}
+void my_i2c_write(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint16_t MemAddress, uint16_t MemAddSize, uint8_t *pData, uint16_t Size, uint32_t Timeout)
+{
+  uint8_t result = HAL_I2C_Mem_Write(hi2c, DevAddress, MemAddress, MemAddSize, pData, Size, Timeout);
+  printf("%d %d/ ", hi2c->State, result);
+}
+if (this_exe.needs_sps & NEED_OLED_REFRESH)
+          {
+            // ssd1306_Fill(Black);
+            // ssd1306_UpdateScreen();
+            // NVIC_SystemReset();
+            // print_legend();
+
+            // HAL_GPIO_WritePin(OLED_RESET_GPIO_Port, OLED_RESET_Pin, GPIO_PIN_RESET);
+            // osDelay(10);
+            // HAL_GPIO_WritePin(OLED_RESET_GPIO_Port, OLED_RESET_Pin, GPIO_PIN_SET);
+            // osDelay(20);
+            // ssd1306_Init();
+            // print_legend();
+          }
+
   for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
     printf("%d ", key_press_count[i]);
   printf("\n");

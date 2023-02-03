@@ -389,6 +389,5 @@ reserved_variable_dict = {
 	"_READKEY": (0xffff - 7),
 	"_LOOP_SIZE": (0xffff - 8),
 	"_KEYPRESS_COUNT": (0xffff - 9),
-	"_NEEDS_SPS": (0xffff - 10),
-	"_NEEDS_CLEANUP": (0xffff - 11),
+	"_NEEDS_EPILOGUE": (0xffff - 10),
 }
