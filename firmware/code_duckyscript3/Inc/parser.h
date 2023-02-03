@@ -29,6 +29,7 @@
 
 #define LOOP_STATE 0x1
 #define COLOR_STATE 0x2
+#define NEED_OLED_REFRESH 0x4
 
 extern FRESULT sd_fresult;
 extern FATFS sd_fs;

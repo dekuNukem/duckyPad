@@ -1,7 +1,127 @@
+DEFAULTCHARDELAY 25
+DEFAULTDELAY 25
+
+// WINDOWS R
+// DELAY 750
+
+// STRINGLN notepad
+// DELAY 750
+
+// STRINGLN Welcome to duckyScript 3 beta test!
+// ENTER
+
+STRINGLN Declare variables and perform operations!
+VAR $spam = 10
+$spam = 10 * 4 + 2
+STRINGLN    Spam is: $spam
+ENTER
+
+//---------------
+$spam = 0
+$_RANDOM_MIN = 1
+$_RANDOM_MAX = 10
+
+STRINGLN Conditional statements and loops!
+
+WHILE $spam < 4
+    VAR $this_number = $_RANDOM_INT
+    STRING  Random number: $this_number
+
+    IF $this_number >= 5 THEN
+        STRINGLN , it is more than 5!
+    ELSE
+        STRINGLN , it is less than 5!
+    END_IF
+
+    $spam = $spam + 1
+END_WHILE
+ENTER
+
+//----------------
+STRINGLN Print to OLED screen too!
+STRINGLN Look at the screen!
+
+OLED_CLEAR
+OLED_CURSOR 20 0
+OLED_PRINT Hello World!
+OLED_CURSOR 20 12
+OLED_PRINT Press a key!
+OLED_UPDATE
+DELAY 2000
+OLED_RESTORE
+
+BCLR
+WHILE 1
+    OLED_CLEAR
+    OLED_CURSOR 20 0
+    OLED_PRINT Hello World!
+    OLED_CURSOR 20 12
+    OLED_PRINT Press a key!
+    OLED_CURSOR 10 52
+    OLED_PRINT Press + to exit
+
+    VAR $this_key = $_READKEY
+
+    IF $this_key != 0 THEN
+        OLED_CURSOR 10 30
+        OLED_PRINT I pressed key $this_key!
+    END_IF
+
+    IF $this_key == 17 THEN
+        BREAK
+    END_IF
+
+    OLED_UPDATE
+    DELAY 50
+END_WHILE
+
+OLED_RESTORE
+
+// WHILE 1
+// OLED_CLEAR
+// OLED_CURSOR 64 32
+// OLED_PRINT $_READKEY
+// OLED_UPDATE
+// DELAY 100
+
+// IF $_READKEY == 1 THEN
+//  BREAK
+// END_IF
+
+// END_WHILE
+// OLED_RESTORE
+
+        
+
         # ret += "".join([chr(x) for x in result[3:]]).strip('\0')
                 # no need to dump dsb file since we'll be generating a new one
                 # if(fff[0].lower().endswith('.dsb')):
                 #     continue
+//---------------
+STRINGLN Also conditional statements!
+IF $spam > 40 THEN
+    STRINGLN    It is more than 40!
+ELSE IF $spam > 20 THEN
+    STRINGLN    It is more than 20!
+ELSE
+    STRINGLN    Nevermind!
+END_IF
+ENTER
+
+// WHILE 1
+//  OLED_CLEAR
+//  OLED_CURSOR 64 32
+//  OLED_PRINT $_READKEY
+//  OLED_UPDATE
+//  DELAY 100
+
+//  IF $_READKEY == 1 THEN
+//      BREAK
+//  END_IF
+
+// END_WHILE
+// REM sjldkf
+// OLED_RESTORE
 
 
 

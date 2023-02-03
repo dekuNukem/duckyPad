@@ -114,12 +114,12 @@ ready for public release
 0.22.1 20230118
 fixed a bug where STRING prints an extra space
 
-0.23.0 20230202
+1.0.0 20230202
 beta release for duckyscript 3
 */
 
-uint8_t fw_version_major = 0;
-uint8_t fw_version_minor = 22;
+uint8_t fw_version_major = 1;
+uint8_t fw_version_minor = 0;
 uint8_t fw_version_patch = 0;
 char instruction[] = "For instructions, see";
 /* USER CODE END PV */

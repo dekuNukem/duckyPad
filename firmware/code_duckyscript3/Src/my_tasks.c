@@ -855,6 +855,12 @@ void keypress_task_start(void const * argument)
             service_press(i);
             continue;
           }
+          if (this_exe.needs_sps & NEED_OLED_REFRESH)
+          {
+            // ssd1306_Fill(Black);
+            // ssd1306_UpdateScreen();
+            print_legend();
+          }
         }
       }
       else if(is_released_but_not_serviced(i) && hold_cache[i].type != KEY_TYPE_UNKNOWN)

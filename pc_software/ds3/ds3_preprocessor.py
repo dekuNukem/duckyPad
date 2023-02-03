@@ -413,6 +413,8 @@ def run_once(program_listing):
 	'while_table_bdbc':None,
 	'loop_state_save_needed':False,
 	'color_state_save_needed':False,
+	'oled_restore_needed':False,
+	'button_buf_clear_needed':False,
 	'loop_size':None,
 	}
 
@@ -427,6 +429,9 @@ def run_once(program_listing):
 		first_word = this_line.split()[0]
 		if needs_rstrip(first_word):
 			this_line = this_line.rstrip(" \t")
+
+		if "_READKEY" in this_line:
+			return_dict['button_buf_clear_needed'] = True
 
 		presult = PARSE_ERROR
 		pcomment = f"empty comment"
@@ -496,6 +501,7 @@ def run_once(program_listing):
 		elif first_word == cmd_OLED_CURSOR:
 			presult, pcomment = check_olc(this_line, var_table)
 		elif first_word == cmd_OLED_UPDATE:
+			return_dict['oled_restore_needed'] = True
 			presult, pcomment = ensure_zero_arg(this_line)
 		elif first_word == cmd_OLED_BLANK:
 			presult, pcomment = ensure_zero_arg(this_line)
@@ -532,19 +538,22 @@ def run_once(program_listing):
 
 	if len(if_search_stack) != 0:
 		return_dict['is_success'] = False
-		return_dict['comments'] = f"END_IF missing for IF at line {list(if_search_stack[0].keys())[0]}"
+		# return_dict['comments'] = f"END_IF missing for IF at line {list(if_search_stack[0].keys())[0]}"
+		return_dict['comments'] = "Missing END_IF"
 		return_dict['error_line_number_starting_from_1'] = list(if_search_stack[0].keys())[0]
 		return return_dict
 
 	if len(func_search_stack) != 0:
 		return_dict['is_success'] = False
-		return_dict['comments'] = f"END_FUNCTION missing for FUNCTION {func_search_stack[0]}() at line {func_table[func_search_stack[0]]['fun_start']}"
+		# return_dict['comments'] = f"END_FUNCTION missing for FUNCTION {func_search_stack[0]}() at line {func_table[func_search_stack[0]]['fun_start']}"
+		return_dict['comments'] = "Missing END_FUNCTION"
 		return_dict['error_line_number_starting_from_1'] = func_table[func_search_stack[0]]['fun_start']
 		return return_dict
 
 	if len(while_search_stack) != 0:
 		return_dict['is_success'] = False
-		return_dict['comments'] = f"END_WHILE missing for WHILE at line {while_search_stack[-1]}"
+		# return_dict['comments'] = f"END_WHILE missing for WHILE at line {while_search_stack[-1]}"
+		return_dict['comments'] = "Missing END_WHILE"
 		return_dict['error_line_number_starting_from_1'] = while_search_stack[-1]
 		return return_dict
 
@@ -589,6 +598,11 @@ def run_all(program_listing):
 		sps |= 0x1
 	if rdict['color_state_save_needed']:
 		sps |= 0x2
+	if rdict['oled_restore_needed']:
+		sps |= 0x4
+
+	if rdict['button_buf_clear_needed']:
+		second_pass_program_listing.append((1, cmd_BCLR))
 	if sps != 0:
 		second_pass_program_listing.append((1, f"$_NEEDS_SPS = {sps}"))
 	if rdict['loop_size'] is not None:
@@ -646,6 +660,9 @@ def run_all(program_listing):
 
 	if needs_end_if:
 		second_pass_program_listing.append((line_number_starting_from_1, cmd_END_IF))
+
+	if rdict['button_buf_clear_needed']:
+		second_pass_program_listing.append((line_number_starting_from_1, cmd_BCLR))
 
 	print("---------Second pass OK!---------\n")
 

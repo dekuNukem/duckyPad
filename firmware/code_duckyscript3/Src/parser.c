@@ -559,8 +559,10 @@ void change_profile(uint8_t direction)
 void der_init(ds3_exe_result* der)
 {
   der->result = EXE_EMPTY_FILE;
-  der->data = 0;
   der->next_pc = 0;
+  der->data = 0;
+  der->data2 = 0;
+  der->needs_sps = 0;
 }
 
 void save_persistent_state(uint8_t options)
@@ -609,7 +611,7 @@ void keypress_wrapper(uint8_t keynum, ds3_exe_result* exe)
   play_keydown_animation(keynum);
   run_dsb(exe, keynum);
   key_press_count[keynum]++;
-  if(exe->needs_sps)
+  if(exe->needs_sps & 0x3)
     save_persistent_state(exe->needs_sps);
 }
 
