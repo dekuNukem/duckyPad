@@ -23,7 +23,7 @@ cmd_KEYUP = "KEYUP"
 cmd_INJECT_MOD = "INJECT_MOD"
 
 cmd_SWCC = "SWCC"
-cmd_SWCB = "SWCB"
+cmd_SWCF = "SWCF"
 cmd_SWCR = "SWCR"
 
 cmd_OLED_PRINT = "OLED_PRINT"

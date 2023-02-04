@@ -72,3 +72,4 @@ lul\ds3_vm.o: ../Inc/ds3_vm.h
 lul\ds3_vm.o: ../Inc/animations.h
 lul\ds3_vm.o: ../Inc/ssd1306.h
 lul\ds3_vm.o: ../Inc/fonts.h
+lul\ds3_vm.o: ../Inc/neopixel.h

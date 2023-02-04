@@ -1,101 +1,26 @@
-DEFAULTCHARDELAY 25
-DEFAULTDELAY 25
-
-WINDOWS R
-DELAY 750
-
-STRINGLN notepad
-DELAY 750
-
-STRINGLN Welcome to duckyScript 3 beta test! Here's a quick demo.
-ENTER
-
-STRINGLN Variables and operations:
-VAR $spam = 10
-$spam = 10 * 4 + 2
-STRINGLN 	Spam is: $spam
-ENTER
-
-//---------------
-$spam = 0
-$_RANDOM_MIN = 1
-$_RANDOM_MAX = 10
-
-STRINGLN Conditions and loops:
-
-WHILE $spam < 4
-    VAR $this_number = $_RANDOM_INT
-    STRING 	Random number: $this_number
-
-    IF $this_number > 5 THEN
-        STRINGLN , it's more than 5!
-    ELSE IF $this_number == 5 THEN
-        STRINGLN , exactly 5!
-    ELSE
-        STRINGLN , it's less than 5!
-    END_IF
-
-    $spam = $spam + 1
-END_WHILE
-ENTER
-
-//----------------
-STRINGLN Printing to OLED screen
-STRINGLN Look at the screen!
-
+BCLR
+VAR $selection = 0
 WHILE 1
     OLED_CLEAR
-    OLED_CURSOR 20 0
-    OLED_PRINT Hello World!
-    OLED_CURSOR 20 12
-    OLED_PRINT Press a key!
-    OLED_CURSOR 10 52
-    OLED_PRINT Press + to exit
+    OLED_CURSOR 10 0
+    OLED_PRINT Example Sub-Menu
+    OLED_CURSOR 5 12
+    OLED_PRINT Action 1
+    OLED_CURSOR 5 22
+    OLED_PRINT Action 2
+    OLED_CURSOR 5 32
+    OLED_PRINT Action 3
+    OLED_CURSOR 5 42
+    OLED_PRINT Action 4
+    OLED_CURSOR 5 52
+    OLED_PRINT Action 5
+    OLED_UPDATE
 
-    VAR $this_key = $_READKEY
+    $selection = $_READKEY
 
-    IF $this_key != 0 THEN
-        OLED_CURSOR 10 31
-        OLED_PRINT I pressed key $this_key!
-    END_IF
-
-    IF $this_key == 17 THEN
+    IF $selection > 0 && $selection <= 5 THEN
         BREAK
     END_IF
 
-    OLED_UPDATE
     DELAY 50
 END_WHILE
-
-
-
-WHILE 1
-	OLED_CLEAR
-	OLED_CURSOR 20 20
-	OLED_PRINT Continue demo?
-
-	OLED_CURSOR 25 32
-	OLED_PRINT - No + Yes
-	OLED_UPDATE
-
-	VAR $this_key = $_READKEY
-
-	IF $this_key == 16 || $this_key == 17 THEN
-        BREAK
-    END_IF
-
-	DELAY 50
-END_WHILE
-
-OLED_CLEAR
-
-IF $this_key == 16 THEN
-    OLED_CURSOR 10 32
-    OLED_PRINT OK back to monitor!
-    OLED_UPDATE
-    DELAY 2000
-    HALT
-END_IF
-
-// this_key has to be 17
-

@@ -8,6 +8,7 @@
 #include "animations.h"
 #include "ssd1306.h"
 #include "buttons.h"
+#include "neopixel.h"
 
 // 2200 seems to be max, 2000 just to be safe
 #define BIN_BUF_SIZE 2050
@@ -264,11 +265,17 @@ void parse_color(uint8_t opcode, uint8_t keynum)
   if(index >= MAPPABLE_KEY_COUNT)
     return;
   set_pixel_3color_update_buffer(index, red, green, blue);
-  if(opcode == OP_SWCC)
-  {
-    osDelay(1); // hmm don't delete this!!!!!!
-    neopixel_update();
-  }
+  neopixel_update();
+}
+
+void parse_swcf(void)
+{
+  stack_pop(&arithmetic_stack, &blue);
+  stack_pop(&arithmetic_stack, &green);
+  stack_pop(&arithmetic_stack, &red);
+  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+    set_pixel_3color_update_buffer(i, red, green, blue);
+  neopixel_update();
 }
 
 void parse_swcr(uint8_t keynum)
@@ -528,9 +535,13 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
     keyboard_press(&kk, 0);
     osDelay(defaultdelay_value);
   }
-  else if(this_opcode == OP_SWCB || this_opcode == OP_SWCC)
+  else if(this_opcode == OP_SWCC)
   {
     parse_color(this_opcode, keynum);
+  }
+  else if(this_opcode == OP_SWCF)
+  {
+    parse_swcf();
   }
   else if(this_opcode == OP_SWCR)
   {

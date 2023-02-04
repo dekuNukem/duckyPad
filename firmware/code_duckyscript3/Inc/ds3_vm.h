@@ -42,7 +42,7 @@
 #define OP_KDOWN 31
 #define OP_MSCL 33
 #define OP_MMOV 34
-#define OP_SWCB 32
+#define OP_SWCF 32
 #define OP_SWCC 35
 #define OP_SWCR 36
 #define OP_STR 38

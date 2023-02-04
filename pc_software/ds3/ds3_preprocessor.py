@@ -120,8 +120,8 @@ def assign_var(var_keyword, pgm_line, vt, check_duplicate=False):
 		return PARSE_ERROR, "unknown variable"
 	if check_duplicate and lvalue in vt:
 		return PARSE_ERROR, "variable already declared"
-	if rv_int < 0:
-		return PARSE_ERROR, 'var cannot be negative'
+	# if rv_int < 0:
+	# 	return PARSE_ERROR, 'var cannot be negative'
 	vt[lvalue] = rv_int
 	return PARSE_OK, ''
 
@@ -330,6 +330,15 @@ def check_color(pgm_line, vt):
 			return PARSE_ERROR, "invalid color value"
 	return PARSE_OK, ''
 
+def check_swcf(pgm_line, vt):
+	split = [x for x in pgm_line.split(' ') if len(x) > 0]
+	if len(split) != 4:
+		return PARSE_ERROR, "wrong number of arguments"
+	for item in split[1:]:
+		if is_valid_swc_arg(item, vt) is False:
+			return PARSE_ERROR, "invalid color value"
+	return PARSE_OK, ''
+
 def check_swcolor(pgm_line, first_word):
 	with_underscore = cmd_SWCOLOR+'_'
 	if pgm_line.startswith(with_underscore):
@@ -496,6 +505,8 @@ def run_once(program_listing):
 		elif first_word == cmd_SWCC:
 			return_dict['color_state_save_needed'] = True
 			presult, pcomment = check_color(this_line, var_table)
+		elif first_word == cmd_SWCF:
+			presult, pcomment = check_swcf(this_line, var_table)
 		elif first_word == cmd_SWCR:
 			presult, pcomment = check_swcr(this_line, var_table)
 		elif first_word == cmd_OLED_CURSOR:
