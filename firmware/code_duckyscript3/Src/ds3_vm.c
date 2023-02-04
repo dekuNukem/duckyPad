@@ -10,8 +10,8 @@
 #include "buttons.h"
 #include "neopixel.h"
 
-// 2200 seems to be max, 2000 just to be safe
-#define BIN_BUF_SIZE 2050
+// 2300 seems to be max, 2000 just to be safe
+#define BIN_BUF_SIZE 2300
 uint8_t bin_buf[BIN_BUF_SIZE];
 
 uint16_t defaultdelay_value;
@@ -171,7 +171,7 @@ void write_var(uint8_t* pgm_start, uint16_t addr, uint16_t value)
     rand_max = value;
   else if (addr == _RANDOM_INT)
     ; // this is read only, so do nothing
-  else if (addr == _TIME)
+  else if (addr == _TIME_MS)
     ; // this is read only, so do nothing
   else if (addr == _READKEY)
     ; // this is read only, so do nothing
@@ -201,7 +201,7 @@ uint16_t read_var(uint8_t* pgm_start, uint16_t addr)
     return rand_max;
   else if (addr == _RANDOM_INT)
     return rand() % (rand_max + 1 - rand_min) + rand_min;
-  else if (addr == _TIME)
+  else if (addr == _TIME_MS)
     return (uint16_t)HAL_GetTick();
   else if (addr == _LOOP_SIZE)
     return loop_size;

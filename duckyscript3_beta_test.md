@@ -36,11 +36,17 @@ As a result, you can now write much more elaborate scripts for your automation n
 
 * **Backwards compatible** with existing scripts (or at least should!)
 
-* Optimised code for faster performance
+* Improved performance
 
 * More detailed syntax check error reports
 
 * General cleanup and bug fixes
+
+## Instructions
+
+Download new firmware and new configurator
+
+suggested to fresh format the SD card
 
 ## Limitations
 
@@ -52,31 +58,17 @@ If you run into any, feel free to [open an issue](https://github.com/dekuNukem/d
 
 ### Missing Commands
 
-As duckyPad is more about macro scripting than pentesting, commands about payload management and data exfiltration are skipped.
+As duckyPad is more about macro scripting than pentesting, commands for payload management and data exfiltration are not yet implemented.
 
 ### Bytecode Compiler
 
-With DS3 now very much a general-purpose language, it takes a lot more work to process it properly.
+With much increased complexity, it is no longer practical to process everything on-device.
 
-Examples include:
+As such, duckyScript3 is now compiled into **bytecode** and executed on a **virtual stack machine**.
 
-* Expression evaluation via abstract syntax tree (AST)
-
-* Flow control with jump tables
-
-* Arithmetic and call stacks
-
-This is much too complicated to do on-device, therefore, DS3 is now compiled into **bytecode**, and executed on a **virtual stack machine**.
-
-The configurator takes care of everything, so it's business as usual.
+The configurator takes care of everything, so business as usual.
 
 However, if you want to manually edit the SD card, you'll need to compile the script and copy over the binary too.
-
-## Instructions
-
-Download new firmware and new configurator
-
-suggested to fresh format the SD card
 
 ## New Commands
 
@@ -121,51 +113,11 @@ Variables are **unsigned 16-bit integers**, and can hold values from **0 to 6553
 
 All variables have **global scope**, and can be referenced anywhere in the script.
 
-They can be printed with `STRING`, `STRINGLN`, and (spoiler alert!)`OLP` commands.
+They can be printed with `STRING`, `STRINGLN`, and (spoiler alert!)`OLED_PRINT` commands.
 
 ```
 STRING The value is: $spam
 ```
-
-### Reserved Variables
-
-There are a few reserved variables that are always available.
-
-You can read or write to them to adjust settings. Some are read-only.
-
-##### `_DEFAULTDELAY`
-
-##### `_DEFAULTCHARDELAY`
-
-##### `_CHARJITTER`
-
-Values of those settings are stored here.
-
-##### `_RANDOM_MIN`
-
-Lower bound of random number generator (RNG).
-
-##### `_RANDOM_MAX`
-
-Upper bound of RNG.
-
-##### `_RANDOM_INT`
-
-Get a random number between the upper and lower bound.
-
-##### `_TIME`
-
-Get the current time in **milliseconds**. Read-only.
-
-##### `_READKEY`
-
-Get the key that is being pressed. Read-only.
-
-Returns 0 if no key is pressed. 1 to 17 otherwise.
-
-##### `_KEYPRESS_COUNT`
-
-Get how many times the current key has been pressed. Read-only.
 
 ### Operators
 
@@ -281,17 +233,17 @@ If `expression` evaluates to zero, the code is skipped. Otherwise the code insid
 This simple example loops 3 times.
 
 ```
-VAR $ct = 3
-WHILE $ct > 0
-	STRINGLN Counter is $ct!
-	$ct = $ct - 1
+VAR $i = 0
+WHILE $i < 3
+	STRINGLN Counter is $i!
+	$i = $i + 1
 END_WHILE
 ```
 
 ```
-Counter is 3!
-Counter is 2!
+Counter is 0!
 Counter is 1!
+Counter is 2!
 ```
 
 #### `BREAK`
@@ -299,12 +251,12 @@ Counter is 1!
 Use `BREAK` to exit a loop immediately.
 
 ```
-VAR $ct = 0
+VAR $i = 0
 WHILE 1
-	STRINGLN Counter is $ct!
-	$ct = $ct + 1
+	STRINGLN Counter is $i!
+	$i = $i + 1
 
-	IF $ct == 3 THEN
+	IF $i == 3 THEN
 		BREAK
 	END_IF
 END_WHILE
@@ -320,15 +272,15 @@ Counter is 2!
 Use `CONTINUE` to jump to beginning of the loop immediately.
 
 ```
-VAR $ct = 4
-WHILE $ct > 0
-	$ct = $ct - 1
+VAR $i = 4
+WHILE $i > 0
+	$i = $i - 1
 
-	IF $ct == 2 THEN
+	IF $i == 2 THEN
 		CONTINUE
 	END_IF
 
-	STRINGLN Counter is $ct!
+	STRINGLN Counter is $i!
 END_WHILE
 ```
 
@@ -368,15 +320,7 @@ END_FUNCTION
 print_info()
 ```
 
-Of course you can use `IF`s and loops to make more complex functions!
-
 ### OLED Commands
-
-You can now control the OLED screen to display anything you want with the following new commands.
-
-#### `OLED_CLEAR`
-
-Clears everything on the screen.
 
 #### `OLED_CURSOR x y`
 
@@ -392,39 +336,137 @@ Set where to print on screen.
 
 `OLED_PRINT hello world!` 
 
-This prints the message into display buffer.
+Prints the message into display buffer at current cursor location.
+
+#### `OLED_CLEAR`
+
+Clears the display buffer.
 
 #### `OLED_UPDATE`
 
 Actually update the OLED.
 
-You should use multiple `OLED_CURSOR` and `OLED_PRINT` to set up the display, then use this to print it.
+You should use `OLED_CLEAR`, `OLED_CURSOR`, and `OLED_PRINT` to set up the display, then use this to print it.
 
 #### `OLED_RESTORE`
 
-Restore the default profile/key name display.
+Restore the default profile/key name display. `OLED_UPDATE` **NOT NEEDED**.
+
+### RGB LED Commands
+
+#### Change color
+
+`SWC_SET n r g b`
+
+Set `n` to 0 for current key.
+
+Set `n` between 1 to 15 for a particular key.
+
+`r, g, b` between 0 and 255 inclusive.
+
+#### Fill color
+
+Change color of **ALL** LEDs.
+
+`SWC_FILL r g b`
+
+`r, g, b` between 0 and 255 inclusive.
+
+#### Reset Color
+
+`SWC_RESET n`
+
+Resets the key to default background color.
+
+Set `n` to 0 for current key.
+
+Set `n` from 1 to 15 for a particular key.
+
+Set `n` to 99 for all keys.
+
+### Reserved Variables
+
+There are a few **reserved variables** that are always available.
+
+You can read or write (RW) to them to adjust settings. Some are read-only (RO).
+
+More details in upcoming sections.
+
+##### `_DEFAULTDELAY` (RW)
+
+##### `_DEFAULTCHARDELAY` (RW)
+
+##### `_CHARJITTER` (RW)
+
+Write to those variables to change the settings.
+
+##### `_RANDOM_MIN` (RW)
+
+Lower bound of random number generator (RNG).
+
+##### `_RANDOM_MAX` (RW)
+
+Upper bound of RNG.
+
+##### `_RANDOM_INT` (RW)
+
+Get a random number between the upper and lower bound.
+
+##### `_TIME_MS` (RO)
+
+Get current time in **milliseconds**.
+
+##### `_READKEY` (RO)
+
+Get the key that is being pressed.
+
+Returns 0 if no key is pressed. 1 to 17 otherwise.
+
+##### `_KEYPRESS_COUNT` (RO)
+
+Get how many times the current key has been pressed.
 
 ### Reading Buttons
 
+Reading the reserved variable `$_READKEY` returns the currently pressed key.
+
+The value is 0 if no key is pressed. 1 to 17 otherwise.
+
+Normally you would read this variable in a loop until it is none-zero:
+
 ```
-WHILE 1
-	OLED_CLEAR
-	OLED_CURSOR 64 32
-	OLED_PRINT $_READKEY
-	OLED_UPDATE
-	DELAY 100
+VAR $k = 0
 
-	IF $_READKEY == 1 THEN
-		BREAK
-	END_IF
-
+WHILE $k == 0
+    $k = $_READKEY
+    DELAY 20
 END_WHILE
-OLED_RESTORE
+
+STRINGLN I pressed key $k!
 ```
+
+If reading button multiple times, use `BCLR` command inbetween to clear the button status buffer.
+
+This way it won't trigger again right away.
 
 ### Randomisation
 
+Read from `$_RANDOM_INT` to get a random number.
 
+By default, it is between 0 and 65535.
+
+You can change the upper and lower bounds (inclusive) by writing to `_RANDOM_MAX` and `_RANDOM_MIN`.
+
+```
+VAR $i = 0
+$_RANDOM_MIN = 0
+$_RANDOM_MAX = 100
+
+WHILE $i < 5
+    STRINGLN Random number: $_RANDOM_INT
+    $i = $i + 1
+END_WHILE
+```
 
 ## Get in Touch!
 

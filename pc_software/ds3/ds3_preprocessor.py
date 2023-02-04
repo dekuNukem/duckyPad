@@ -439,7 +439,7 @@ def run_once(program_listing):
 		if needs_rstrip(first_word):
 			this_line = this_line.rstrip(" \t")
 
-		if "_READKEY" in this_line:
+		if "$_READKEY" in this_line:
 			return_dict['button_buf_clear_needed'] = True
 
 		presult = PARSE_ERROR

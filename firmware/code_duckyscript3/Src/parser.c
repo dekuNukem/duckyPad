@@ -354,7 +354,7 @@ uint8_t get_keynames(profile_cache* pcache)
 uint8_t load_persistent_state(void)
 {
   memset(temp_buf, 0, PATH_SIZE);
-  sprintf(temp_buf, "/%s/state.dsb", p_cache.profile_fn);
+  sprintf(temp_buf, "/%s/state.sps", p_cache.profile_fn);
   if(f_open(&sd_file, temp_buf, FA_READ) != 0)
   {
     memset(key_press_count, 0, MAPPABLE_KEY_COUNT);
@@ -591,7 +591,7 @@ void save_persistent_state(uint8_t options)
     read_buffer[b_addr] = blue;
   }
   memset(temp_buf, 0, PATH_SIZE);
-  sprintf(temp_buf, "/%s/state.dsb", p_cache.profile_fn);
+  sprintf(temp_buf, "/%s/state.sps", p_cache.profile_fn);
   f_open(&sd_file, temp_buf, FA_CREATE_ALWAYS | FA_WRITE);
   f_write(&sd_file, read_buffer, READ_BUF_SIZE, &bytes_read);
   f_close(&sd_file);

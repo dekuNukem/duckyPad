@@ -22,9 +22,10 @@ cmd_KEYDOWN = "KEYDOWN"
 cmd_KEYUP = "KEYUP"
 cmd_INJECT_MOD = "INJECT_MOD"
 
-cmd_SWCC = "SWCC"
-cmd_SWCF = "SWCF"
-cmd_SWCR = "SWCR"
+cmd_SWCOLOR = "SWCOLOR"
+cmd_SWCC = "SWC_SET"
+cmd_SWCF = "SWC_FILL"
+cmd_SWCR = "SWC_RESET"
 
 cmd_OLED_PRINT = "OLED_PRINT"
 cmd_OLED_UPDATE = "OLED_UPDATE"
@@ -103,8 +104,6 @@ cmd_CONTROL = "CONTROL"
 cmd_CTRL = "CTRL"
 cmd_RCONTROL = "RCONTROL"
 cmd_RCTRL = "RCTRL"
-
-cmd_SWCOLOR = "SWCOLOR"
 
 cmd_NUMLOCK = "NUMLOCK" # Keyboard Num Lock and Clear
 cmd_KPSLASH = "KP_SLASH" # Keypad /
@@ -385,7 +384,7 @@ reserved_variable_dict = {
 	"_RANDOM_MIN": (0xffff - 3),
 	"_RANDOM_MAX": (0xffff - 4),
 	"_RANDOM_INT": (0xffff - 5),
-	"_TIME": (0xffff - 6),
+	"_TIME_MS": (0xffff - 6),
 	"_READKEY": (0xffff - 7),
 	"_LOOP_SIZE": (0xffff - 8),
 	"_KEYPRESS_COUNT": (0xffff - 9),

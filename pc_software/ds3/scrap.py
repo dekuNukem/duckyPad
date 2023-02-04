@@ -1,3 +1,22 @@
+### Bytecode Compiler
+
+With DS3 now very much a general-purpose language, it takes a lot more work to process it properly.
+
+Examples include:
+
+* Expression evaluation via abstract syntax tree (AST)
+
+* Flow control with jump tables
+
+* Arithmetic and call stacks
+
+This is much too complicated to do on-device, therefore, DS3 is now compiled into **bytecode**, and executed on a **virtual stack machine**.
+
+The configurator takes care of everything, so it's business as usual.
+
+However, if you want to manually edit the SD card, you'll need to compile the script and copy over the binary too.
+
+
 DEFAULTCHARDELAY 25
 DEFAULTDELAY 25
 
