@@ -62,39 +62,33 @@ def contains_english_alphabet(in_str):
 			return True
 	return False
 
-def parse_rvalue(rvalue_str, vt):
+def check_rvalue(rvalue_str, vt):
 	if len(rvalue_str) == 0:
-		return False, "empty rvalue", 0
+		return False, "empty rvalue"
 	# print("rvalue_str before replacement:", rvalue_str)
-	# search longest name first
 	var_list = sorted(list(vt.keys()), key=len, reverse=True)
 	for key in var_list:
 		if "$"+key in rvalue_str:
-			rvalue_str = rvalue_str.replace("$"+key, str(vt[key]+1)).strip() # +1 is to prevent div by zero exception
+			rvalue_str = rvalue_str.replace("$"+key, str(vt[key])).strip()
 	rvalue_str = rvalue_str.replace("^", "**")
-	# search longest name first
-	define_list = sorted(list(define_dict.keys()), key=len, reverse=True)
-	for key in define_list:
-		if key in rvalue_str:
-			rvalue_str = rvalue_str.replace(key, str(define_dict[key])).strip()
 	# print("rvalue_str after replacement:", rvalue_str)
 
 	if contains_english_alphabet(rvalue_str):
-		return False, "unknown variable or invalid character", 0
+		return False, "unknown variable or invalid character"
 	try:
 		rvalue_str = rvalue_str.replace("||", " or ").replace("&&", " and ")
 		# print("rvalue_str after replacement:", rvalue_str)
 		eval_result = eval(rvalue_str)
 	except Exception as e:
-		return False, f"expr eval fail: {e}", 0
-	return True, '', int(eval_result)
+		return False, f"expr eval fail: {e}"
+	return True, ''
 
 def is_valid_expr(whole_line, vt):
 	presult = PARSE_ERROR
 	pcomment = 'invalid expression'
 	try:
 		whole_line = whole_line.split(' ', 1)[1]
-		is_valid_rv, rv_comment, rv_int = parse_rvalue(whole_line, vt)
+		is_valid_rv, rv_comment = check_rvalue(whole_line, vt)
 		if is_valid_rv:
 			presult = PARSE_OK
 			return presult, pcomment
@@ -113,16 +107,14 @@ def assign_var(var_keyword, pgm_line, vt, check_duplicate=False):
 	if_valid_vn, vn_comment = is_valid_var_name(lvalue)
 	if if_valid_vn is False:
 		return PARSE_ERROR, vn_comment
-	is_valid_rv, rv_comment, rv_int = parse_rvalue(rvalue, vt)
+	is_valid_rv, rv_comment = check_rvalue(rvalue, vt)
 	if is_valid_rv is False:
 		return PARSE_ERROR, rv_comment
 	if var_keyword == cmd_VAR_ASSIGN and lvalue not in vt:
 		return PARSE_ERROR, "unknown variable"
 	if check_duplicate and lvalue in vt:
 		return PARSE_ERROR, "variable already declared"
-	# if rv_int < 0:
-	# 	return PARSE_ERROR, 'var cannot be negative'
-	vt[lvalue] = rv_int
+	vt[lvalue] = 127 # the actual value doesn't matter, since it will change at runtime anyway
 	return PARSE_OK, ''
 
 def new_func_check(pgm_line, lnum, fss, fdict):
@@ -155,7 +147,7 @@ def if_check(pgm_line, lnum, iss, vt):
 		return PARSE_ERROR, "missing THEN at end"
 	if_expr = pgm_line.replace(cmd_IF, '', 1)
 	if_expr = if_expr[:len(if_expr) - len(cmd_THEN)]
-	success, comment, value = parse_rvalue(if_expr, vt)
+	success, comment = check_rvalue(if_expr, vt)
 	if success is False:
 		return PARSE_ERROR, comment
 	iss.append({lnum:{"else_if":[], "else":None, "end_if":None}})
@@ -215,7 +207,7 @@ def elseif_check(pgm_line, lnum, iss, vt):
 	# print(ifdict)
 	elseif_expr = pgm_line.replace(cmd_ELSE_IF, '', 1)
 	elseif_expr = elseif_expr[:len(elseif_expr) - len(cmd_THEN)]
-	success, comment, value = parse_rvalue(elseif_expr, vt)
+	success, comment = check_rvalue(elseif_expr, vt)
 	if success is False:
 		return PARSE_ERROR, comment
 	return PARSE_OK, ''
@@ -235,7 +227,7 @@ def else_check(pgm_line, lnum, iss):
 
 def new_while_check(pgm_line, lnum, wss, wdict, vt):
 	while_expr = pgm_line.replace(cmd_WHILE, '', 1)
-	success, comment, value = parse_rvalue(while_expr, var_table)
+	success, comment = check_rvalue(while_expr, var_table)
 	if success is False:
 		return PARSE_ERROR, comment
 	wss.append(lnum)
@@ -497,17 +489,19 @@ def run_once(program_listing):
 			if fun_name in func_table:
 				presult = PARSE_OK
 			else:
-				pcomment = f"Unknown function: {fun_name}"
+				pcomment = f"Unknown function"
 		elif first_word == cmd_DELAY:
-			presult, pcomment = check_first_arg(this_line, var_table)
+			presult, pcomment = check_first_arg(this_line, var_table, allow_multi_arg=True)
 		elif first_word == cmd_GOTO_PROFILE:
 			presult, pcomment = check_first_arg(this_line, var_table, allow_multi_arg=True)
 		elif first_word == cmd_SWCC:
 			return_dict['color_state_save_needed'] = True
 			presult, pcomment = check_color(this_line, var_table)
 		elif first_word == cmd_SWCF:
+			return_dict['color_state_save_needed'] = True
 			presult, pcomment = check_swcf(this_line, var_table)
 		elif first_word == cmd_SWCR:
+			return_dict['color_state_save_needed'] = True
 			presult, pcomment = check_swcr(this_line, var_table)
 		elif first_word == cmd_OLED_CURSOR:
 			presult, pcomment = check_olc(this_line, var_table)

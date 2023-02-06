@@ -1,7 +1,11 @@
 DS3 was released by [Hak5](https://docs.hak5.org/hak5-usb-rubber-ducky/) in late 2022 with major improvements such as:
 
 * 
-
+    # search longest name first
+    # define_list = sorted(list(define_dict.keys()), key=len, reverse=True)
+    # for key in define_list:
+    #   if key in rvalue_str:
+    #       rvalue_str = rvalue_str.replace(key, str(define_dict[key])).strip()
 
 ### Bytecode Compiler
 

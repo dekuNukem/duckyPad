@@ -82,6 +82,8 @@ As a result, you can now write much more elaborate scripts for your needs!
 
     - [Operators](#operators)
 
+    - [Variables as Arguments](#variables-as-arguments)
+
     - [Conditional Statements](#conditional-statements)
 
     - [Loops](#loops)
@@ -233,6 +235,17 @@ $eggs = 0
 ```
 
 Then `$spam && $eggs` evaluates to 0, `$spam || $eggs` evaluates to 1, and so on.
+
+### Variables as Arguments
+
+You can now also use an **expression or variable** in `DELAY` and `GOTO_PROFILE` command:
+
+```
+VAR $amount = 100
+
+DELAY $amount
+DELAY $amount * 2 + 5
+```
 
 ### Conditional Statements
 
@@ -388,9 +401,9 @@ Set where to print on screen.
 
 `x` and `y` are coordinates in pixels. The characters prints from **top-left** corner.
 
-`x` must be between `0` and `127`
+`x` can be constants or variables between `0` and `127`
 
-`y` must be between `0` and `63`
+`y` can be constants or variables between `0` and `63`
 
 #### `OLED_PRINT`
 
@@ -422,13 +435,13 @@ Set `n` to 0 for current key.
 
 Set `n` between 1 to 15 for a particular key.
 
-`r, g, b` between 0 and 255 inclusive.
+`r, g, b` can be constants or variables between 0 and 255.
 
 #### `SWC_FILL r g b`
 
 Change color of **ALL** LEDs.
 
-`r, g, b` between 0 and 255 inclusive.
+`r, g, b` can be constants or variables between 0 and 255.
 
 #### `SWC_RESET n`
 
