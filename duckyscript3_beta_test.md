@@ -4,9 +4,9 @@
 
 ----
 
-Welcome to **duckyScript 3** beta test for duckyPad!
+Welcome to **duckyScript 3** beta test!
 
-DS3 gives your duckyPad a big boost in capability. Highlights include:
+duckyScript 3 gives your duckyPad a big boost in capability. Highlights include:
 
 * Variables, `IF` statements, `WHILE` loops, functions, and more!
 
@@ -56,21 +56,57 @@ As a result, you can now write much more elaborate scripts for your needs!
 
 * [Click me to download the beta firmware](https://github.com/dekuNukem/duckyPad/raw/master/firmware/beta_1.0.0_duckyscript3.dfu)
 
-* Firmware updates are simple and reversible, so you can go back anytime!
+* [Follow this guide](firmware_updates_and_version_history.md) to update your duckyPad, use the file you just downloaded. You can go back at any time.
 
-* [Follow this guide](firmware_updates_and_version_history.md) to update your duckyPad, use the file you just downloaded.
+* [Scroll down and download](https://github.com/dekuNukem/duckyPad/releases/tag/1.0.0) the new beta configurator software.
 
+* Launch and use it as usual!
 
+* [Try this script](resources/duckyscirpt_3_test_script.txt) for a demo of new features. Select all, and copy paste everything as-is into the configurator.
 
-suggested to fresh format the SD card
+* Read the **rest of this guide** and try out the new commands yourself!
+
+* Loading and saving might take a bit longer at first, but should be faster afterwards.
+
+* Any issues or questions? Feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), ask in [Discord](https://discord.gg/4sJCBx5), or email `dekuNukem`@`gmail`.`com`
+
+## Table of Contents
+
+- [Limitations](#limitations)
+
+- [New Commands](#new-commands)
+
+    - [C-style comments](#c-style-comments)
+
+    - [Constants](#constants)
+
+    - [Variables](#variables)
+
+    - [Operators](#operators)
+
+    - [Conditional Statements](#conditional-statements)
+
+    - [Loops](#loops)
+
+    - [Functions](#functions)
+
+    - [OLED Commands](#oled-commands)
+
+    - [RGB LED Commands](#rgb-led-commands)
+
+    - [Reserved Variables](#reserved-variables)
+
+    - [Reading Buttons](#reading-buttons)
+
+    - [Randomisation](#randomisation)
+
+- [Questions or Comments?](#questions-or-comments)
 
 ## Limitations
 
 ### Bugs!
 
 This is a huge update, so expect bugs, especially at this stage.
-
-If you run into any, feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), ask in [Discord](https://discord.gg/4sJCBx5), or email `dekuNukem`@`gmail`.`com`
 
 ### Missing Commands
 
@@ -80,9 +116,9 @@ As duckyPad is more about macro scripting than pentesting, commands for payload 
 
 With much increased complexity, it is no longer practical to process everything on-device.
 
-As such, duckyScript3 is now compiled into **bytecode** and executed on a **virtual stack machine**.
+As a result, duckyScript3 is now compiled into **bytecode** and executed on a **virtual stack machine**.
 
-The configurator takes care of everything, so business as usual.
+The configurator takes care of everything, so no need to worry about it.
 
 However, if you want to manually edit the SD card, you'll need to compile the script and copy over the binary too.
 
@@ -92,9 +128,13 @@ First of all, [existing duckyScript rules](duckyscript_info.md) still apply, so 
 
 Also, feel free to check out [official documentation](https://docs.hak5.org/hak5-usb-rubber-ducky/) for more info.
 
+### C-style comments
+
+In addition to `REM`, You can now also use `//` at the beginning of a line for comments!
+
 ### Constants
 
-You can use `DEFINE` to set a constant.
+You can use `DEFINE` to, well, define a constant.
 
 It can be either **integer** or **string**.
 
@@ -169,7 +209,7 @@ $spam = $eggs * 10
 |    >=    | Greater than or equal |
 |    <=    |   Less than or equal  |
 
-All comparison operators evaluate to **either 0 or 1**.
+All comparisons evaluate to **either 0 or 1**.
 
 So if we have:
 
@@ -225,8 +265,8 @@ VAR $spam = 5
 
 IF $spam == 0 THEN
 	STRING spam is zero!
-ELSE IF $spam == 2 THEN
-	STRING spam is two!
+ELSE IF $spam == 1 THEN
+	STRING spam is one!
 ELSE
 	STRING spam is none of those!
 END_IF
@@ -264,11 +304,11 @@ Counter is 2!
 
 #### `BREAK`
 
-Use `BREAK` to exit a loop immediately.
+Use `BREAK` to **exit a loop** immediately.
 
 ```
 VAR $i = 0
-WHILE 1
+WHILE TRUE
 	STRINGLN Counter is $i!
 	$i = $i + 1
 
@@ -285,14 +325,14 @@ Counter is 2!
 
 #### `CONTINUE`
 
-Use `CONTINUE` to jump to beginning of the loop immediately.
+Use `CONTINUE` to **jump to start of the loop** immediately.
 
 ```
-VAR $i = 4
-WHILE $i > 0
-	$i = $i - 1
+VAR $i = 0
+WHILE $i < 5
+	$i = $i + 1
 
-	IF $i == 2 THEN
+	IF $i == 3 THEN
 		CONTINUE
 	END_IF
 
@@ -300,12 +340,13 @@ WHILE $i > 0
 END_WHILE
 ```
 
-Here when `$count` is 2, it will skip printing and start from beginning instead.
+Here when `$count` is 3, it will skip printing and start from beginning instead.
 
 ```
-Counter is 3!
 Counter is 1!
-Counter is 0!
+Counter is 2!
+Counter is 4!
+Counter is 5!
 ```
 
 ### Functions
@@ -370,9 +411,9 @@ Restore the default profile/key name display. `OLED_UPDATE` **NOT NEEDED**.
 
 ### RGB LED Commands
 
-#### Change color
+#### `SWC_SET n r g b`
 
-`SWC_SET n r g b`
+Change LED color 
 
 Set `n` to 0 for current key.
 
@@ -380,17 +421,13 @@ Set `n` between 1 to 15 for a particular key.
 
 `r, g, b` between 0 and 255 inclusive.
 
-#### Fill color
+#### `SWC_FILL r g b`
 
 Change color of **ALL** LEDs.
 
-`SWC_FILL r g b`
-
 `r, g, b` between 0 and 255 inclusive.
 
-#### Reset Color
-
-`SWC_RESET n`
+#### `SWC_RESET n`
 
 Resets the key to default background color.
 
@@ -406,39 +443,37 @@ There are a few **reserved variables** that are always available.
 
 You can read or write (RW) to them to adjust settings. Some are read-only (RO).
 
-More details in upcoming sections.
+##### `$_DEFAULTDELAY` (RW)
 
-##### `_DEFAULTDELAY` (RW)
+##### `$_DEFAULTCHARDELAY` (RW)
 
-##### `_DEFAULTCHARDELAY` (RW)
-
-##### `_CHARJITTER` (RW)
+##### `$_CHARJITTER` (RW)
 
 Write to those variables to change the settings.
 
-##### `_RANDOM_MIN` (RW)
+##### `$_RANDOM_MIN` (RW)
 
 Lower bound of random number generator (RNG).
 
-##### `_RANDOM_MAX` (RW)
+##### `$_RANDOM_MAX` (RW)
 
 Upper bound of RNG.
 
-##### `_RANDOM_INT` (RW)
+##### `$_RANDOM_INT` (RW)
 
 Get a random number between the upper and lower bound.
 
-##### `_TIME_MS` (RO)
+##### `$_TIME_MS` (RO)
 
 Get current time in **milliseconds**.
 
-##### `_READKEY` (RO)
+##### `$_READKEY` (RO)
 
 Get the key that is being pressed.
 
 Returns 0 if no key is pressed. 1 to 17 otherwise.
 
-##### `_KEYPRESS_COUNT` (RO)
+##### `$_KEYPRESS_COUNT` (RO)
 
 Get how many times the current key has been pressed.
 
@@ -448,14 +483,14 @@ Reading the reserved variable `$_READKEY` returns the currently pressed key.
 
 The value is 0 if no key is pressed. 1 to 17 otherwise.
 
-Normally you would read this variable in a loop until it is none-zero:
+Normally you would read this variable in a loop until it is non-zero:
 
 ```
 VAR $k = 0
 
 WHILE $k == 0
     $k = $_READKEY
-    DELAY 20
+    DELAY 50
 END_WHILE
 
 STRINGLN I pressed key $k!
@@ -484,15 +519,11 @@ WHILE $i < 5
 END_WHILE
 ```
 
-## Get in Touch!
+## Questions or Comments?
 
-Questions, comments, feedbacks? Feel free to ask in the [Official Discord!](https://discord.gg/4sJCBx5)
+Please feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), ask in [official discord](https://discord.gg/4sJCBx5), DM me on discord `dekuNukem#6998`, or email `dekuNukem`@`gmail`.`com` for inquires.
 
-And of course, there will be regular backer updates on Kickstarter once it's launched.
-
-Media inquiries? Email `dekuNukem` `gmail`.`com`, or DM me on discord `dekuNukem#6998`.
-
-## Table of Contents
+## Project Pages
 
 [Main page](README.md)
 
