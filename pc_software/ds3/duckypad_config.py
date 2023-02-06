@@ -40,9 +40,11 @@ ask to confirm if trying to quit while saving data
 0.15.0 2023 01 23
 working on adding DSB support
 
+1.0.0 2023 02 06
+duckyScript 3 public beta
 """
 
-THIS_VERSION_NUMBER = '0.15.0'
+THIS_VERSION_NUMBER = '1.0.0'
 
 ENV_UI_SCALE = os.getenv("DUCKYPAD_UI_SCALE")
 UI_SCALE = float(ENV_UI_SCALE) if ENV_UI_SCALE else 1
