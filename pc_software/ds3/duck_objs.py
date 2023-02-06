@@ -1,6 +1,5 @@
 import os
 import sys
-import check_update
 import json
 import socket
 import urllib.request
@@ -211,25 +210,4 @@ def load_keymap(root_dir_path):
 		this_keymap = load_keymap_from_file(os.path.join(keymap_folder_path, item))
 		if this_keymap.is_valid:
 			return_list.append(this_keymap)
-	return return_list
-
-keymap_url = 'https://api.github.com/repos/dekuNukem/duckyPad/contents/sample_profiles/keymaps?ref=master'
-
-def load_online_keymap():
-	if check_update.is_internet_available() is False:
-		return []
-	file_list = json.loads(urllib.request.urlopen(keymap_url).read())
-	return_list = []
-	for item in file_list:
-		if not ('name' in item and 'type' in item and item['type'] == 'file'):
-			continue
-		if not (item['name'].startswith("dpkm_") and item['name'].endswith(".txt")):
-			continue
-		this_keymap = dp_keymap()
-		this_keymap.file_name = item['name']
-		this_keymap.display_name = this_keymap.file_name.replace('dpkm_', '').replace('.txt', '')
-		# this_keymap.content = str(urllib.request.urlopen(item['download_url']).read().decode('utf-8')).split('\n')
-		this_keymap.url = item['download_url'] # download the content later, when saving
-		this_keymap.is_valid = 1
-		return_list.append(this_keymap)
 	return return_list

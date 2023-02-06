@@ -66,7 +66,7 @@ backup_path = os.path.join(save_path, 'profile_backups')
 ensure_dir(save_path)
 ensure_dir(backup_path)
 save_filename = os.path.join(save_path, 'config.txt')
-print(save_path)
+# print(save_path)
 config_dict = {}
 hid_dump_path = os.path.join(save_path, "hid_dump")
 hid_modified_dir_path = os.path.join(save_path, "hid_new")
@@ -303,7 +303,6 @@ def enable_buttons():
     dim_unused_keys_checkbox.config(state=NORMAL)
     key_rename_button.config(state=NORMAL)
     key_remove_button.config(state=NORMAL)
-    keyboard_layout_button.config(state=NORMAL)
     for button in script_command_button_list:
         button.config(state=NORMAL)
     key_name_entrybox.config(state=NORMAL)
@@ -1133,121 +1132,6 @@ def minutes_to_str(value):
 def slider_adjust_sleepmode(value):
     enter_sleep_mode_label.config(text="Sleep after: " + minutes_to_str(value))
 
-kbl_online_listbox = None
-kbl_on_sd_card_listbox = None
-online_keymap_list = []
-online_keymap_display_list = None
-online_keymap_var = StringVar()
-sd_keymap_var = StringVar()
-
-def update_sd_listbox():
-    sd_card_display_list = [x.display_name for x in sd_card_keymap_list]
-    sd_card_display_list.insert(0, "English (US)")
-    sd_keymap_var.set(sd_card_display_list)
-
-def online_keymap_add_to_sd_button_click():
-    global sd_card_keymap_list
-    global kbl_online_listbox
-    if len(kbl_online_listbox.curselection()) <= 0: # nothing selected
-        return
-    index = kbl_online_listbox.curselection()[0]
-    if index == 0: # default keymap, already in firmware
-        return
-    if len(sd_card_keymap_list) >= 7:
-        return
-    if online_keymap_list[index-1].file_name in [x.file_name for x in sd_card_keymap_list]:
-        return;
-    sd_card_keymap_list.append(online_keymap_list[index-1])
-    update_sd_listbox()
-
-def remove_keymap_from_sd_card_button_click():
-    global sd_card_keymap_list
-    global kbl_on_sd_card_listbox
-    if len(kbl_on_sd_card_listbox.curselection()) <= 0: # nothing selected
-        return
-    index = kbl_on_sd_card_listbox.curselection()[0]
-    if index == 0: # default keymap, already in firmware
-        return
-    sd_card_keymap_list.pop(index-1)
-    update_sd_listbox()
-
-def add_local_keymap_to_sd_card_button_click():
-    global sd_card_keymap_list
-    local_keymap_file_path = filedialog.askopenfilename()
-    if len(local_keymap_file_path) <= 0:
-        return
-    nameonly = os.path.basename(local_keymap_file_path)
-    override_name_check = False
-    if not (nameonly.startswith("dpkm_") and nameonly.endswith(".txt")):
-        override_name_check = messagebox.askokcancel("Warning", "It doesn't look like a valid keymap file. Load it anyway?")
-        if override_name_check is False:
-            return
-    this_keymap = duck_objs.load_keymap_from_file(local_keymap_file_path)
-    if this_keymap.is_valid == 0:
-        return
-    if len(sd_card_keymap_list) >= 7:
-        return
-    if override_name_check:
-        if not this_keymap.file_name.startswith("dpkm_"):
-            this_keymap.file_name = "dpkm_" + this_keymap.file_name
-        if not this_keymap.file_name.endswith(".txt"):
-            this_keymap.file_name = this_keymap.file_name + '.txt'
-    if this_keymap.file_name in [x.file_name for x in sd_card_keymap_list]:
-        return;
-    sd_card_keymap_list.append(this_keymap)
-    update_sd_listbox()
-
-def keymap_instruction_click(event):
-    webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/keymap_instructions.md')
-
-def create_keyboard_layout_window():
-    global kbl_on_sd_card_listbox
-    global online_keymap_list
-    global online_keymap_display_list
-    global online_keymap_var
-    global sd_keymap_var
-    global kbl_online_listbox
-    kbl_window = Toplevel(root)
-    kbl_window.title("Keyboard layouts")
-    kbl_window.geometry(str(scaled_size(480)) + "x" + str(scaled_size(210)))
-    kbl_window.resizable(width=FALSE, height=FALSE)
-    kbl_window.grab_set()
-
-    try:
-        if len(online_keymap_list) <= 0:
-            online_keymap_list = duck_objs.load_online_keymap()
-    except Exception as e:
-        messagebox.showerror("Error", e)
-
-    update_sd_listbox()
-
-    online_keymap_display_list = [x.display_name for x in online_keymap_list]
-    online_keymap_display_list.insert(0, "English (US)")
-    online_keymap_var.set(online_keymap_display_list)
-
-    kbl_online_listbox = Listbox(kbl_window, listvariable=online_keymap_var, height=8, exportselection=0) #, selectmode='single'?
-    kbl_online_listbox.place(x=scaled_size(20), y=scaled_size(30), width=scaled_size(160), height=scaled_size(150))
-
-    online_kbl_label = Label(master=kbl_window, text="Available layouts:")
-    online_kbl_label.place(x=scaled_size(20), y=scaled_size(5))
-
-    kbl_on_sd_card_listbox = Listbox(kbl_window, listvariable=sd_keymap_var, height=8, exportselection=0) #, selectmode='single'?
-    kbl_on_sd_card_listbox.place(x=scaled_size(295), y=scaled_size(30), width=scaled_size(160), height=scaled_size(150))
-
-    online_keymap_add_to_sd_button = Button(kbl_window, text="Add\n--->", command=online_keymap_add_to_sd_button_click)
-    online_keymap_add_to_sd_button.place(x=scaled_size(185), y=scaled_size(45), width=scaled_size(100))
-    remove_keymap_from_sd_card_button = Button(kbl_window, text="Remove", command=remove_keymap_from_sd_card_button_click)
-    remove_keymap_from_sd_card_button.place(x=scaled_size(185), y=scaled_size(100), width=scaled_size(100))
-    add_local_keymap_to_sd_card_button = Button(kbl_window, text="Add local file", command=add_local_keymap_to_sd_card_button_click)
-    add_local_keymap_to_sd_card_button.place(x=scaled_size(185), y=scaled_size(140), width=scaled_size(100))
-
-    keymaps_on_sd_card_label = Label(master=kbl_window, text="Layouts on duckyPad:")
-    keymaps_on_sd_card_label.place(x=scaled_size(295), y=scaled_size(5))
-
-    keymap_instruction_label = Label(master=kbl_window, text="Click me to learn more about keymaps, including how to make your own!", fg="blue", cursor="hand2")
-    keymap_instruction_label.place(x=scaled_size(45), y=scaled_size(185))
-    keymap_instruction_label.bind("<Button-1>", keymap_instruction_click)
-
 settings_lf = LabelFrame(root, text="Settings", width=scaled_size(516), height=scaled_size(70))
 settings_lf.place(x=scaled_size(10), y=scaled_size(525))
 enter_sleep_mode_label = Label(master=settings_lf, text="Sleep after: Never")
@@ -1279,14 +1163,11 @@ else:
 dp_fw_update_label = Label(master=updates_lf, text="Firmware: Unknown")
 dp_fw_update_label.place(x=scaled_size(5), y=scaled_size(25))
 
-keyboard_layout_button = Button(settings_lf, text="Keyboard Layouts...", command=create_keyboard_layout_window, state=DISABLED)
-keyboard_layout_button.place(x=scaled_size(220), y=scaled_size(13), width=scaled_size(140), height=BUTTON_HEIGHT)
-
 def open_profile_autoswitcher_url():
     webbrowser.open('https://github.com/dekuNukem/duckyPad-profile-autoswitcher/blob/master/README.md#duckypad-profile-auto-switcher')
 
-autoswitch_button = Button(settings_lf, text="Profile\nAutoswitcher", command=open_profile_autoswitcher_url)
-autoswitch_button.place(x=scaled_size(370), y=0, width=scaled_size(125), height=scaled_size(40))
+autoswitch_button = Button(settings_lf, text="Profile Autoswitcher", command=open_profile_autoswitcher_url)
+autoswitch_button.place(x=scaled_size(250), y=0, width=scaled_size(200), height=scaled_size(40))
 
 root.update()
 
@@ -1311,7 +1192,7 @@ def t1_worker():
             try:
                 start_ts = time.time()
                 hid_op.dump_from_hid(hid_dump_path, dp_root_folder_display)
-                print("hid_dump:", time.time() - start_ts, "seconds")
+                # print("hid_dump:", time.time() - start_ts, "seconds")
                 select_root_folder(hid_dump_path)
                 dp_root_folder_display.set("done!")
             except Exception as e:
