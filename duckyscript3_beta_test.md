@@ -300,6 +300,11 @@ Counter is 1!
 Counter is 2!
 ```
 
+To exit an infinite loop, you can [check button status](#reading-buttons), or just press the RESET button:
+
+![Alt text](resources/pics/dfu_buttons_new.jpg)
+
+
 #### `BREAK`
 
 Use `BREAK` to **exit a loop** immediately.
