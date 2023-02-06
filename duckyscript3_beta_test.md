@@ -6,7 +6,7 @@
 
 Welcome to **duckyScript 3** beta test!
 
-duckyScript 3 gives your duckyPad a big boost in capability. Highlights include:
+duckyScript 3 gives duckyPad a big boost in capability. Highlights include:
 
 * Variables, `IF` statements, `WHILE` loops, functions, and more!
 
@@ -18,15 +18,13 @@ duckyScript 3 gives your duckyPad a big boost in capability. Highlights include:
 
 ![Alt text](resources/pics/ds3.png)
 
-You can learn about and try out the new features by following this guide.
-
-It is a bit long, but should cover everything you need. So please take some time to read through!
+This guide is a bit long, but should cover everything you need. So please take some time to read through!
 
 ## What's New
 
 duckyScript 3 was released by [Hak5](https://docs.hak5.org/hak5-usb-rubber-ducky/) in late 2022.
 
-It now behaves more like a **general-purpose language**, with:
+It is now much closer to a **general-purpose language**, with:
 
 * Variables
 
@@ -56,13 +54,13 @@ As a result, you can now write much more elaborate scripts for your needs!
 
 * [Click me to download the beta firmware](https://github.com/dekuNukem/duckyPad/raw/master/firmware/beta_1.0.0_duckyscript3.dfu)
 
-* [Follow this guide](firmware_updates_and_version_history.md) to update your duckyPad, use the file you just downloaded. You can go back at any time.
+* [Follow this guide](firmware_updates_and_version_history.md#usb-firmware-updates) to update your duckyPad, use the file you just downloaded. You can go back at any time.
 
-* [Scroll down and download](https://github.com/dekuNukem/duckyPad/releases/tag/1.0.0) the new beta configurator software.
+* [Head here, scroll down and download](https://github.com/dekuNukem/duckyPad/releases/tag/1.0.0) the new beta configurator software.
 
 * Launch and use it as usual!
 
-* [Try this script](resources/duckyscirpt_3_test_script.txt) for a demo of new features. Select all, and copy paste everything as-is into the configurator.
+* [Try this script](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/resources/duckyscirpt_3_test_script.txt) for a demo of new features. Select all and copy paste everything as-is into the configurator.
 
 * Read the **rest of this guide** and try out the new commands yourself!
 
