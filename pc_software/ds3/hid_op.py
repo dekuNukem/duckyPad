@@ -338,6 +338,7 @@ def duckypad_hid_file_sync(old_dir, new_dir, string_var):
         # print(subf_to_add, subf_to_delete, subf_with_difference, common_subdirs)
 
         subdir_file_to_remove = subf_to_delete | subf_with_difference
+        subdir_file_to_remove.add("state.sps")
 
         for item in list(subdir_file_to_remove):
             if item.startswith("key"):
