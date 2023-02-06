@@ -1,3 +1,8 @@
+DS3 was released by [Hak5](https://docs.hak5.org/hak5-usb-rubber-ducky/) in late 2022 with major improvements such as:
+
+* 
+
+
 ### Bytecode Compiler
 
 With DS3 now very much a general-purpose language, it takes a lot more work to process it properly.

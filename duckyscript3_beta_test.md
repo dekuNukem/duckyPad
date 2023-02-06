@@ -4,19 +4,29 @@
 
 ----
 
-# UNDER CONSTRUCTION!!!!!!1 
+Welcome to **duckyScript 3** beta test for duckyPad!
 
-# Information might not be complete or accurate until its done!!!!
+DS3 gives your duckyPad a big boost in capability. Highlights include:
 
-Welcome to **duckyScript 3** beta test!
+* Variables, `IF` statements, `WHILE` loops, functions, and more!
 
-DS3 was released by [Hak5](https://docs.hak5.org/hak5-usb-rubber-ducky/) in late 2022, with new features and improved capabilities.
+* Print to OLED screen
 
-It was quite a journey implementing it on duckyPad, but I'm glad to announce it's (mostly) finished!
+* Read button status
+
+* Many optimisations and bug fixes
+
+![Alt text](resources/pics/ds3.png)
+
+You can learn about and try out the new features by following this guide.
+
+It is a bit long, but should cover everything you need. So please take some time to read through!
 
 ## What's New
 
-duckyScript 3 now behaves more like a **general-purpose language**, with:
+duckyScript 3 was released by [Hak5](https://docs.hak5.org/hak5-usb-rubber-ducky/) in late 2022.
+
+It now behaves more like a **general-purpose language**, with:
 
 * Variables
 
@@ -28,7 +38,7 @@ duckyScript 3 now behaves more like a **general-purpose language**, with:
 
 * Math & Logical Operators
 
-As a result, you can now write much more elaborate scripts for your automation needs!
+As a result, you can now write much more elaborate scripts for your needs!
 
 -----
 
