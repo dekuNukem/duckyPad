@@ -54,7 +54,13 @@ As a result, you can now write much more elaborate scripts for your needs!
 
 ## Instructions
 
-Download new firmware and new configurator
+* [Click me to download the beta firmware](https://github.com/dekuNukem/duckyPad/raw/master/firmware/beta_1.0.0_duckyscript3.dfu)
+
+* Firmware updates are simple and reversible, so you can go back anytime!
+
+* [Follow this guide](firmware_updates_and_version_history.md) to update your duckyPad, use the file you just downloaded.
+
+
 
 suggested to fresh format the SD card
 
