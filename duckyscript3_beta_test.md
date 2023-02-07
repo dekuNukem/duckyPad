@@ -52,7 +52,7 @@ As a result, you can now write much more elaborate scripts for your needs!
 
 ## Instructions
 
-* ⚠️ If you only just got your duckyPad, it's a better idea to [familiarise with the current version](getting_started.md) first!
+* ⚠️ If you only just got your duckyPad, it's a better idea to [get familiar with the current version](getting_started.md) first!
 
 * [Click me to download the beta firmware](https://github.com/dekuNukem/duckyPad/raw/master/firmware/beta_1.0.0_duckyscript3.dfu)
 
