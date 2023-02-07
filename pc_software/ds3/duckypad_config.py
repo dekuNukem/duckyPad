@@ -45,10 +45,11 @@ duckyScript 3 public beta
 
 1.0.1 2023 02 07
 minor bug fixes
+better handles saving when code contains errors
 removed unused code
 """
 
-THIS_VERSION_NUMBER = '1.0.0'
+THIS_VERSION_NUMBER = '1.0.1'
 
 ENV_UI_SCALE = os.getenv("DUCKYPAD_UI_SCALE")
 UI_SCALE = float(ENV_UI_SCALE) if ENV_UI_SCALE else 1
@@ -270,7 +271,7 @@ def connect_button_click():
         return
 
     if init_success is False and 'linux' in sys.platform:
-        box_result = messagebox.askyesnocancel("Info", "duckyPad detected, but additional permissions are needed before I can access it.\n\nClick Yes for instructions\n\nClick No to configure via SD card.")
+        box_result = messagebox.askyesnocancel("Info", "duckyPad detected, but additional permissions needed.\n\nClick Yes for instructions\n\nClick No to configure via SD card.")
         if box_result is True:
             webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/app_posix.md')
         elif box_result is False:
@@ -278,7 +279,7 @@ def connect_button_click():
         return
 
     if init_success is False and 'darwin' in sys.platform and is_root() is False:
-        box_result = messagebox.askyesnocancel("Info", "duckyPad detected, but this app lacks permission to access it.\n\nClick Yes for instructions\n\nClick No to configure via SD card.")
+        box_result = messagebox.askyesnocancel("Info", "duckyPad detected, but additional permissions needed to access it.\n\nClick Yes for instructions\n\nClick No to configure via SD card.")
         if box_result is True:
             webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/troubleshooting.md#autoswitcher--usb-configuration-isnt-working-on-macos')
         elif box_result is False:
@@ -286,7 +287,7 @@ def connect_button_click():
         return
 
     if init_success is False and 'darwin' in sys.platform and is_root() is True:
-        box_result = messagebox.askyesnocancel("Info", "duckyPad detected, however, due to macOS restrictions, you'll need to enable some privacy settings.\n\nClick Yes to learn how.\n\nClick No to configure via SD card.")
+        box_result = messagebox.askyesnocancel("Info", "duckyPad detected, however, due to macOS restrictions, you need to enable some privacy settings.\n\nClick Yes to learn how.\n\nClick No to configure via SD card.")
         if box_result is True:
             webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/troubleshooting.md#autoswitcher--usb-configuration-isnt-working-on-macos')
         elif box_result is False:
@@ -586,11 +587,25 @@ def dump_keymap(save_path):
         with open(file_path, 'w', encoding='utf8') as keymap_file:
             keymap_file.writelines(s.replace('\n', '').replace('\r', '') + '\n' for s in item.content);
 
+def compile_all_scripts():
+    try:
+        for this_profile in profile_list:
+            for this_key in this_profile.keylist:
+                if this_key is not None:
+                    this_key.binary_array = make_bytecode.make_dsb(this_key.script.split('\n'))
+        return True
+    except Exception as e:
+        error_msg = "Code contains error!\n"
+        error_msg += f"Profile [{this_profile.name}] Key [{this_key.name}]:\n"
+        error_msg += str(e)
+        messagebox.showerror("Error", error_msg)
+    return False
+
 def save_everything(save_path):
+    if compile_all_scripts() is False:
+        return False
     dp_root_folder_display.set("Saving...")
     root.update()
-    curr_profile = None
-    curr_key = None
     try:
         validate_data_objs(save_path)
         ensure_dir(save_path)
@@ -606,13 +621,6 @@ def save_everything(save_path):
         for this_profile in profile_list:
             os.mkdir(this_profile.path)
             time.sleep(0.05)
-
-            curr_profile = this_profile.name
-            for this_key in this_profile.keylist:
-                if this_key is None:
-                    continue
-                curr_key = this_key.name
-                this_key.binary_array = make_bytecode.make_dsb(this_key.script.split('\n'))
 
             config_file = open(os.path.join(this_profile.path, 'config.txt'), 'w', encoding='utf8', newline='')
             for this_key in this_profile.keylist:
@@ -666,14 +674,12 @@ def save_everything(save_path):
             setting_file.writelines(dp_settings.list_of_lines);
 
         dp_root_folder_display.set("Saved!")
-
+        return True
     except Exception as e:
-        error_msg = "Save Failed:\n\n"
-        if curr_profile is not None or curr_key is not None:
-            error_msg += f"Profile [{curr_profile}] Key [{curr_key}]:\n"
-        error_msg += str(e)
+        error_msg = f"Save Failed:\n\n{e}"
         messagebox.showerror("Error", error_msg)
         dp_root_folder_display.set("Save FAILED!")
+    return False
 
 def make_default_backup_dir_name():
     return 'duckyPad_backup_' + datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
@@ -681,8 +687,8 @@ def make_default_backup_dir_name():
 def save_click():
     global is_using_hid
     global current_hid_op
-    if config_dict['auto_backup_enabled']:
-        save_everything(os.path.join(backup_path, make_default_backup_dir_name()))
+    if save_everything(os.path.join(backup_path, make_default_backup_dir_name())) is False:
+        return
     if is_using_hid is False:
         save_everything(dp_root_folder_path)
     else:
@@ -690,20 +696,13 @@ def save_click():
         current_hid_op = HID_SAVE
 
 def backup_button_click():
-    if config_dict['auto_backup_enabled']:
-        messagebox.showinfo("Backups", "Auto backup is ON!\n\nAll your backups are here!")
-        if 'darwin' in sys.platform:
-            subprocess.Popen(["open", backup_path])
-        elif 'linux' in sys.platform:
-            subprocess.Popen(["xdg-open", backup_path])
-        else:
-            webbrowser.open(backup_path)
+    messagebox.showinfo("Backups", "All your backups are here!\n\nCopy back to SD card to restore")
+    if 'darwin' in sys.platform:
+        subprocess.Popen(["open", backup_path])
+    elif 'linux' in sys.platform:
+        subprocess.Popen(["xdg-open", backup_path])
     else:
-        messagebox.showinfo("Backups", "Auto backup is OFF!\n\nSelect a folder to save a backup.")
-        dir_result = filedialog.askdirectory(initialdir=os.path.join(os.path.expanduser('~'), "Desktop"))
-        if len(dir_result) <= 0:
-            return
-        save_everything(os.path.join(dir_result, make_default_backup_dir_name()))
+        webbrowser.open(backup_path)
 
 def key_button_click_event(event):
     key_button_click(event.widget)

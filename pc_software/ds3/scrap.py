@@ -1,3 +1,19 @@
+
+def backup_button_click():
+    if config_dict['auto_backup_enabled']:
+        messagebox.showinfo("Backups", "Auto backup is ON!\n\nAll your backups are here!")
+        if 'darwin' in sys.platform:
+            subprocess.Popen(["open", backup_path])
+        elif 'linux' in sys.platform:
+            subprocess.Popen(["xdg-open", backup_path])
+        else:
+            webbrowser.open(backup_path)
+    else:
+        messagebox.showinfo("Backups", "Auto backup is OFF!\n\nSelect a folder to save a backup.")
+        dir_result = filedialog.askdirectory(initialdir=os.path.join(os.path.expanduser('~'), "Desktop"))
+        if len(dir_result) <= 0:
+            return
+        save_everything(os.path.join(dir_result, make_default_backup_dir_name()))
 DS3 was released by [Hak5](https://docs.hak5.org/hak5-usb-rubber-ducky/) in late 2022 with major improvements such as:
 
 * 

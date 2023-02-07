@@ -357,14 +357,6 @@ def replace_var_in_str(msg, vad):
 		curr += 1
 	return bytearr
 
-def dict_pp(dic):
-	result = ''
-	for key in dic:
-		if dic[key] is None:
-			continue
-		result += f"{key}: {dic[key]}\n"
-	return result
-
 def get_swc_arg(name):
 	try:
 		return int(name)
@@ -463,7 +455,7 @@ def make_dsb(program_listing):
 	# result_dict should at least contain is_success and comments
 	result_dict = ds3_preprocessor.run_all(program_listing)
 	if result_dict["is_success"] is False:
-		raise ValueError(f"code contains errors:\n{dict_pp(result_dict)}")
+		raise ValueError(f"{result_dict['comments']}")
 
 	if_skip_table = result_dict['if_skip_table']
 	if_info_list = result_dict["if_info"]
