@@ -592,7 +592,7 @@ def run_all(program_listing):
 	if rdict['is_success'] is False:
 		return rdict
 
-	print("\n---------First pass OK!---------\n")
+	print("\n---------First Pass OK!---------\n")
 
 	# ----------- making condensed version ----------
 
@@ -671,7 +671,7 @@ def run_all(program_listing):
 	if rdict['button_buf_clear_needed']:
 		second_pass_program_listing.append((line_number_starting_from_1, cmd_BCLR))
 
-	print("---------Second pass OK!---------\n")
+	print("---------Second Pass OK!---------\n")
 
 	# for item in second_pass_program_listing:
 	# 	print(item)

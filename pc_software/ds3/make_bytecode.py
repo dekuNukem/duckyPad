@@ -114,16 +114,16 @@ def get_empty_instruction():
 
 def print_instruction(instruction):
 	if instruction['label'] is not None:
-		print(f"----{instruction['label']}:")
+		print(f"~~~~{instruction['label']}:")
 
 	if instruction['addr'] is not None:
 		print(str(instruction['addr']).ljust(5), end='')
 	print(instruction['opcode'][0].ljust(10), end='')
 	tempstr = ""
 	if instruction['oparg'] is not None:
-		tempstr = f"{instruction['oparg']}  "
+		tempstr = f"{instruction['oparg']}".ljust(6)
 		if isinstance(instruction['oparg'], int):
-			tempstr += f"{hex(instruction['oparg'])}"
+			tempstr += f"{hex(instruction['oparg'])}".ljust(6)
 	print(tempstr.ljust(20), end='')
 	tempstr = ""
 	if instruction['comment'] is not None:
@@ -455,6 +455,10 @@ def make_dsb(program_listing):
 	# result_dict should at least contain is_success and comments
 	result_dict = ds3_preprocessor.run_all(program_listing)
 	if result_dict["is_success"] is False:
+		print("\n\n\n>>>>>>>>>> ERROR FOUND\n\n")
+		for key in result_dict:
+			print(f'{key}: {result_dict[key]}')
+		print("\n\n\n>>>>>>>>>> END ERROR REPORT\n\n")
 		raise ValueError(f"{result_dict['comments']}")
 
 	if_skip_table = result_dict['if_skip_table']
@@ -468,8 +472,11 @@ def make_dsb(program_listing):
 	break_dict = result_dict['break_dict']
 	continue_dict = result_dict['continue_dict']
 
-	for item in compact_program_listing:
-		print(item)
+	print("--------- Program Listing After Preprocessing: ---------")
+
+	for index, item in enumerate(compact_program_listing):
+		print(str(index+1).ljust(4), item)
+	print()
 
 	assembly_listing = []
 
@@ -645,14 +652,10 @@ def make_dsb(program_listing):
 	this_instruction['opcode'] = OP_HALT
 	assembly_listing.append(this_instruction)
 
+	print("--------- Assembly Listing, Unresolved ---------")
+
 	print_asslist(assembly_listing)
-
-	print('assembly line count:', len(assembly_listing))
-	print("label_dict:", label_dict)
-	print("func_lookup:", func_lookup)
-	print("str_lookup:", str_lookup)
-	print("var_lookup:", var_lookup)
-
+	
 	# ------------------ generate binary ------------------
 
 	for index, item in enumerate(assembly_listing):
@@ -712,6 +715,8 @@ def make_dsb(program_listing):
 			item['oparg'] = label_to_addr_dict[item['oparg']]
 		item['oparg'] = int(item['oparg'])
 
+	print("--------- Assembly Listing, Resolved ---------")
+
 	print_asslist(assembly_listing)
 
 	output_bin_array = bytearray()
@@ -739,13 +744,29 @@ def make_dsb(program_listing):
 	dsb_header += bytearray(2)
 	output_bin_array = dsb_header + output_bin_array
 
-	print("label_to_addr_dict:", label_to_addr_dict)	
-	print("var_addr_dict:", var_addr_dict)
-	print('var_lookup:', var_lookup)
-	print("var_bin_start:", var_bin_start)
-	print("str_bin_start:", str_bin_start)
-	print("str_list:", str_list)
+	# print("label_to_addr_dict:", label_to_addr_dict)	
+	# print("var_addr_dict:", var_addr_dict)
+	# print('var_lookup:', var_lookup)
+	# print("var_bin_start:", var_bin_start)
+	# print("str_bin_start:", str_bin_start)
+	# print("str_list:", str_list)
 
+	# print('assembly line count:', len(assembly_listing))
+	# print("label_dict:", label_dict)
+	# print("func_lookup:", func_lookup)
+	# print("str_lookup:", str_lookup)
+	# print("var_lookup:", var_lookup)
+
+	print("--------- Bytecode header ---------")
+	for index, number in enumerate(output_bin_array[:8]):
+		print("0x{:02x}".format(number), end=' ')
+	print('\n\n--------- Bytecode ---------')
+	for index, number in enumerate(output_bin_array[8:]):
+		print("0x{:02x}".format(number), end=' ')
+		if (index+1) % 9 == 0:
+			print()
+	print('\n')
+	print(f'Binary Size: {len(output_bin_array)} Bytes')
 	return output_bin_array
 
 if __name__ == "__main__":
@@ -759,7 +780,6 @@ if __name__ == "__main__":
 	text_file.close()
 
 	bin_arr = make_dsb(program_listing)
-	print(bin_arr)
 
 	bin_out = open("key1.dsb", 'wb')
 	bin_out.write(bin_arr)
