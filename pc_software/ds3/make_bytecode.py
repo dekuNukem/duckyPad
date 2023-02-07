@@ -771,8 +771,8 @@ def make_dsb(program_listing):
 
 if __name__ == "__main__":
 
-	if len(sys.argv) <= 1:
-		print(__file__, "script_file")
+	if len(sys.argv) <= 2:
+		print(__file__, "ds3_script output")
 		exit()
 
 	text_file = open(sys.argv[1])
@@ -781,7 +781,7 @@ if __name__ == "__main__":
 
 	bin_arr = make_dsb(program_listing)
 
-	bin_out = open("key1.dsb", 'wb')
+	bin_out = open(sys.argv[2], 'wb')
 	bin_out.write(bin_arr)
 	bin_out.close()
 
