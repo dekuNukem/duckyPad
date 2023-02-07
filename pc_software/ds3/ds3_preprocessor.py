@@ -281,6 +281,8 @@ def new_define(pgm_line, dd):
 	if define_source_start == -1:
 		return PARSE_ERROR, "DEFINE content not found"
 	segments = pgm_line[define_source_start:].split(' ', 1)
+	if len(segments) != 2:
+		return PARSE_ERROR, "empty DEFINE"
 	define_source = segments[0]
 	define_destination = segments[1]
 	is_valid, comment = is_valid_var_name(define_source)

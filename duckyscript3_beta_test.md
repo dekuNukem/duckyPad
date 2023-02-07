@@ -402,6 +402,8 @@ END_FUNCTION
 print_info()
 ```
 
+No recursion! Don't even think about it!
+
 ### OLED Commands
 
 #### `OLED_CURSOR x y`

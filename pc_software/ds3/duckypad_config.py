@@ -42,6 +42,10 @@ working on adding DSB support
 
 1.0.0 2023 02 06
 duckyScript 3 public beta
+
+1.0.1 2023 02 07
+minor bug fixes
+removed unused code
 """
 
 THIS_VERSION_NUMBER = '1.0.0'
