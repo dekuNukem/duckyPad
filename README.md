@@ -16,7 +16,7 @@ duckyPad has all the goodies of a high-end mechanical keyboard:
 * **USB-C**
 * Open-source
 
-But more crucially, it also features **previously-unseen** innovations such as:
+But more crucially, it also features **previously-unseen innovations** such as:
 
 * **OLED** screen showing what each key does
 * Sophisticated **multi-line scripting** with [duckyScript](duckyscript_info.md)
@@ -67,11 +67,11 @@ Finally, here's a video of duckyPad in action!
 
 By **`automating commonly used actions with duckyPad`**, you can streamline and speed up your everyday routine. Here are a few examples:
 
-### Photoshop / CAD 
+### Launching Applications  
 
-You can put all your commonly used shortcuts in one place, resulting in a more efficient workflow: 
+You can set up duckyPad to open your favourite app with the press of a button: 
 
-![Alt text](resources/pics/cad.gif)
+![Alt text](resources/pics/winapps.gif)
 
 ### Managing Livestreams 
 
@@ -89,23 +89,21 @@ But of course, it's up to you to decide what to do!
 
 ![Alt text](resources/pics/badusb.gif)
 
-### Launching Applications  
+### Photoshop / CAD 
 
-You can set up duckyPad to open your favourite app with the press of a button: 
+You can put all your commonly used shortcuts in one place, resulting in a more efficient workflow: 
 
-![Alt text](resources/pics/winapps.gif)
+![Alt text](resources/pics/cad.gif)
 
 ### One-finger Twitch Chat
-
-😉
 
 ![Alt text](resources/pics/twitch.gif)
 
 ### Switching Profiles
 
-With all those potential usages, duckyPad supports up to 32 profiles.
+With all the potential usages, duckyPad supports up to 32 profiles.
 
-Simply press the +/- button to switch between them:
+Simply press the +/- button to switch between them, or use the [profile autoswitcher](https://github.com/dekuNukem/duckyPad-profile-autoswitcher) to **switch automatically** based on **current active window**.
 
 ![Alt text](resources/pics/profiles.gif)
 
@@ -168,9 +166,9 @@ Now when you press a key on duckyPad, it will bring up the Task Manager, no need
 
 ![Alt text](resources/pics/task.gif)
 
-Of course, duckyScript can do much more! Such as multi-line scripts for complex keyboard automation tasks.
+Of course, duckyScript can do much more!
 
-Here is an example that open up notepad, types "Hello world", and increases text size:
+Here is a more complex multi-line example that open up notepad, types "Hello world", and increases text size:
 
 ```
 WINDOWS R
