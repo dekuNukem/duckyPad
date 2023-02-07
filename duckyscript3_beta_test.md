@@ -236,6 +236,15 @@ $eggs = 0
 
 Then `$spam && $eggs` evaluates to 0, `$spam || $eggs` evaluates to 1, and so on.
 
+#### Bitwise
+
+| Operator |          Name         |
+|:--------:|:---------------------:|
+|     &    |      Bitwise AND      |
+|    \|    |       Bitwise OR      |
+|    <<    |       Left Shift      |
+|    >>    |      Right Shift      |
+
 ### Variables as Arguments
 
 You can now also use an **expression or variable** in `DELAY` and `GOTO_PROFILE` command:
