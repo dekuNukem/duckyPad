@@ -42,8 +42,6 @@ Simply plug it into your computer, and voilà:
 
 * Press `+` and `-` button to switch profiles.
 
-* **`Hold down`** `+` button for profile quickswitch.
-
 * **`Hold down`** `-` button to change backlight brightness.
 
 * To change keyboard layout, **`HOLD DOWN TOP LEFT KEY`** while **`PLUGGING IT IN`**, then select your layout.
@@ -72,7 +70,7 @@ Extract the `.zip` file and launch the application by clicking `duckypad_config.
 
 ### "Untrusted App" Warnings
 
-Your system might complain when trying to run the app. This is because I haven't had the code digitally signed, which costs hundreds of dollars a year.
+Your system might complain when launching the app. This is because I haven't had the code digitally signed, which costs hundreds of dollars a year.
 
 Feel free to [review the code](https://github.com/dekuNukem/duckyPad/tree/master/pc_software). You can also run `duckypad_config.py` itself with Python3, or [configure it manually](#Configure-duckyPad-Manually) with a text editor.
 
@@ -100,7 +98,7 @@ It should load the data from duckyPad:
 
 If for some reason it didn't work, you can also **load from SD card**.
 
-* Push the SD card inwards until it pops out
+* Push the SD card inwards to pop it out
 
 * Mount it on your computer
 
@@ -128,7 +126,7 @@ The GUI might look a bit overwhelming, but don't worry, let's break it down.
 
 * Choose a background color for the RGB backlight.
 
-* `Activation color` is the color that a key changes into when you press it. On `Auto` it would be the inverse of background color.
+* `Activation color` is the color that a key changes into when you press it. On `Auto` it will be the inverse of background color.
 
 * By default unused keys are dimmed, you can override this by unticking the checkbox.
 
@@ -178,25 +176,11 @@ By default, duckyPad goes to sleep after 30 minutes. Adjust the slider to set yo
 
 ### Keyboard Layouts
 
-duckyPad supports multiple keyboard layouts.
-
-Press `Keyboard Layouts...` button to open its setting:
-
-![Alt text](resources/pics/app/kbl_window.png)
-
-* [Available keymaps](sample_profiles/keymaps) are shown in the left column.
-
-* Select one and press `Add` to add it to your duckyPad.
-
-* Up to 8 keymaps can be loaded at one time.
-
-* To make your own keymap, see [this guide](./keymap_instructions.md).
-
 * To change keyboard layout, **`HOLD DOWN TOP LEFT KEY`** while **`PLUGGING DUCKYPAD IN`**, then select your layout.
 
 ### Don't forget to save!
 
-* Press the `Save` button to save the changes. It might take a few seconds.
+* Press `Save` button to save the changes. It might take a few seconds.
 
 ![Alt text](resources/pics/app/save.png)
 
@@ -218,8 +202,6 @@ If configuring via SD card, pop it back and power on.
 
 * Press `+` and `-` button to switch profiles.
 
-* **`Hold down`** `+` for profile quickswitch.
-
 * **`Hold down`** `-` to change RGB backlight brightness.
 
 ### Faster SD Card
@@ -232,15 +214,15 @@ So if you have a spare, just [format it in FAT or FAT32](resources/pics/format.P
 
 You can [use this app](https://github.com/dekuNukem/duckyPad-profile-autoswitcher) to **switch profiles automatically** based on **current active window**. Check it out!
 
-You can also control duckyPad from PC by sending HID commands, see above repo for details.
+You can also control duckyPad from PC by sending HID commands, see link for details.
 
 ### Careful with Passwords!
 
-It might be tempting to have duckyPad type out passwords, but it's probably **NOT** a good idea!
+It might be tempting to have duckyPad type out passwords, but it's **NOT** a good idea!
 
 All scripts are stored as **plain text** on SD card, and can be easily accessed with a card reader or though HID commands.
 
-duckyPad is NOT intended to be a security device, so use at your own risk.
+duckyPad is NOT designed to be a security device, so use at your own risk.
 
 ## Tips and Tricks
 

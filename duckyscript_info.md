@@ -6,7 +6,11 @@
 
 ## Overview
 
-duckyScript is a simple scripting language for automating keypresses. It was originally developed for [USB Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky-deluxe).
+duckyScript is a simple scripting language for automating keypresses.
+
+It was originally developed for [USB Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky-deluxe).
+
+**duckyScript 3** with vastly improved capability is currently under [public beta testing](duckyscript3_beta_test.md), but please go through this first if it's your first time.
 
 ## Examples
 
@@ -24,7 +28,7 @@ CONTROL SHIFT ESC
 
 ```
 WINDOWS r
-DELAY 400
+DELAY 500
 STRING https://www.youtube.com/watch?v=dQw4w9WgXcQ
 ENTER
 ```
@@ -33,9 +37,9 @@ ENTER
 
 ```
 CONTROL s
-DELAY 600
+DELAY 750
 ENTER
-DELAY 600
+DELAY 750
 CONTROL w
 ```
 
@@ -77,6 +81,8 @@ CONTROL w
 
 [LOOP](#LOOP)
 
+[duckyScript 3 Beta Test](#duckyscript-3)
+
 -----
 
 ### REM
@@ -94,12 +100,6 @@ DEFAULTDELAY 100
 
 REM duckyPad will wait 100ms between each subsequent command
 ```
-
-### DEFAULTDELAYFUZZ X
-
-Adds an **additional** random delay from 0 to X milliseconds after `each line of command`, can be used to make typing more human-like.
-
-Set to 0 to disable.
 
 ### DEFAULTCHARDELAY
 
@@ -121,7 +121,7 @@ Set to 0 to disable.
 
 ### DELAY
 
-`DELAY` creates a momentary pause in script execution. Useful for waiting for UI to catch up.
+`DELAY` creates a pause in script execution. Useful for waiting for UI to catch up.
 
 ```
 DELAY 1000
@@ -378,6 +378,20 @@ ENTER
 * `LCR x y` resets key `x` loop counter to `y`, making that key start from `LOOP`y again. `x` is between 1 to 15. `y` is between 0 to 9.
 
 * Try not to mix `LOOP` and `LCR` commands in the same script, probably won't end well.
+
+## duckyScript 3!
+
+duckyScript 3 was released by [Hak5](https://docs.hak5.org/hak5-usb-rubber-ducky/) in late 2022 with **vastly improved capabilities**.
+
+It is now much closer to a **general-purpose language**. New features include:
+
+* Variables, IF statements, WHILE loops, functions, and more.
+
+* Print to OLED screen
+
+* Read button status
+
+It is currently under **public beta test**. [Click me for instructions!](duckyscript3_beta_test.md)
 
 ## Table of Contents
 

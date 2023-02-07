@@ -4,11 +4,11 @@
 
 ----
 
-duckyPad is a 15-key mechanical macropad that helps **consolidate and speed up your workflow** by automating keyboard (and mouse!) inputs. 
+duckyPad is a 15-key mechanical macropad that helps **speed up your workflow** by automating keyboard (and mouse!) inputs. 
 
 ![Alt text](resources/pics/title_jpg.jpg)
 
-duckyPad has a sleek design and all the goodies of a high-end mechanical keyboard:
+duckyPad has all the goodies of a high-end mechanical keyboard:
 
 * Mechanical switches
 * **Hot-swap**
@@ -16,7 +16,7 @@ duckyPad has a sleek design and all the goodies of a high-end mechanical keyboar
 * **USB-C**
 * Open-source
 
-But more crucially, duckyPad also features **previously-unseen-in-macropads** innovations such as:
+But more crucially, it also features **previously-unseen** innovations such as:
 
 * **OLED** screen showing what each key does
 * Sophisticated **multi-line scripting** with [duckyScript](duckyscript_info.md)
@@ -119,19 +119,17 @@ Those are just some examples! You can use duckyPad to do whatever **`you`** want
 
 duckyPad is compatible with Cherry MX-style mechanical switches (3 or 5-pin).
 
-By default, duckyPad comes with **`Gateron Green`** switches, which are firm and clicky.
-
-![Alt text](resources/pics/switch.jpg)
+duckyPad comes with **`Gateron Green`** or **`Kalih BOX Navy`** switches, both of which are firm and clicky.
 
 Of course, you can also install your own switches!
 
 ### Keycaps
 
-By default, duckyPad comes with 15 blank translucent ABS R4 keycaps that complement the RGB backlight in all conditions:
+By default, duckyPad comes with blank translucent ABS R4 keycaps:
 
 ![Alt text](resources/pics/caps.jpg)
 
-Of course, you can also install your own key caps!
+Of course, you can also install your own!
 
 ### Hot-swap Sockets
 
@@ -143,7 +141,7 @@ You can install/remove the switches by hand, **`no soldering needed`**.
 
 ### Per-key RGB backlight
 
-Each key on duckyPad has its own configurable RGB backlight. You can assign them unique colours to suit your needs.
+Each key on duckyPad has its own RGB backlight. You can assign unique colours to suit your needs.
 
 ### OLED screen
 
@@ -158,23 +156,21 @@ duckyPad has an OLED screen. It displays current **`profile and key names`**, so
 
 ### duckyScript
 
-duckyPad uses [duckyScript](duckyscript_info.md), a scripting language for keyboard automation. It was originally developed for [USB Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky-deluxe).
+duckyPad uses [duckyScript](duckyscript_info.md) for keyboard automation. It was originally developed for [USB Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky-deluxe).
 
-duckyScript is easy and straightforward to write, but can also achieve powerful results.
+duckyScript is powerful but also easy and straightforward to write.
 
-A simple example would look like this:
+A simple example look like this:
 
 `CONTROL SHIFT ESC`
 
-Now when you press a key on duckyPad, it will execute this script and bring up the Task Manager, eliminating the need for memorising and pressing a 3-key combo.
+Now when you press a key on duckyPad, it will bring up the Task Manager, no need for memorising and pressing a 3-key combo.
 
 ![Alt text](resources/pics/task.gif)
 
-Of course, duckyScript can do much more than that!
+Of course, duckyScript can do much more! Such as multi-line scripts for complex keyboard automation tasks.
 
-Instead of just hotkeys, you can write multi-line scripts for complex keyboard automation tasks.
-
-Here is a multi-line example that open up notepad, types "Hello world", and increases text size:
+Here is an example that open up notepad, types "Hello world", and increases text size:
 
 ```
 WINDOWS R
@@ -188,21 +184,7 @@ CONTROL +
 REPEAT 10
 ```
 
-Note how simple and intuitive it is. You can write you own duckyScript very easily to achieve powerful results.
-
 ![Alt text](resources/pics/hello.gif)
-
-Whether it's for simple hotkeys or multi-line epic, duckyScript is ready to meet all your keyboard automation needs!
-
-### SD Card Storage
-
-duckyPad stores its scripts and settings on a regular microSD card. Compared to other methods:
-
-* MicroSD cards are universal and inexpensive
-* Easy to edit and backup
-* Up to 64GB supported with FAT32 format
-
-![Alt text](resources/pics/sd.jpg)
 
 ### Companion App
 
@@ -229,7 +211,7 @@ duckyPad uses USB-C connector for maximum device compatibility.
 
 ![Alt text](resources/pics/usbc.jpg)
 
-You can use duckyPad out-of-box on nearly anything that supports USB keyboards, **`no driver needed`**. Examples include:
+You can use duckyPad out-of-box on pretty much anything that supports USB keyboards, **`no driver needed`**. Examples include:
 
 * PC
 * Mac
@@ -239,9 +221,6 @@ You can use duckyPad out-of-box on nearly anything that supports USB keyboards, 
 * Android phones and tablets
 * Chromebooks
 * Game consoles
-* and more!
-
-![Alt text](resources/pics/devices.gif)
 
 duckyPad’s firmware can also be [easily updated via USB-C](firmware_updates_and_version_history.md) for new features and bug fixes.
 
@@ -255,8 +234,6 @@ duckyPad supports multiple keyboard layouts:
 * German
 * Dvorak
 * ...and more [user-created](keymap_instructions.md) layouts!
-
-You can load up to *8 keyboard layouts* to duckyPad and switch them on-the-fly.
 
 ### Dimensions
 
