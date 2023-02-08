@@ -18,11 +18,11 @@ In duckyScript 1, it's sufficient to simply parse line-by-line, as each line is 
 
 duckyScript 3 introduced variables, `IF` statements, `WHILE` loops, and function calls.
 
-Now much more complex, it makes sense to compile the script into bytecode and execute it on a virtual machine instead.
+Being much more complex, it makes sense to compile the script into bytecode and execute it on a virtual machine instead.
 
 ## Virtual Stack Machine
 
-DPDS3 VM is a simple stack machine with two stacks, and a Program Counter (PC).
+DPDS3 VM is a simple stack machine with two stacks and a Program Counter (PC).
 
 * PC points to the current instruction being executed.
 
@@ -52,7 +52,7 @@ The binary file should have extension `.dsb` (duckyScript binary).
 
 Normally this is taken care of in the configurator. But you can also try it out on its own:
 
-* [Download the source code](pc_software/ds3/duckypad_config_latest_source.zip)
+* [Download the source code](https://github.com/dekuNukem/duckyPad/raw/master/pc_software/ds3/duckypad_config_latest_source.zip)
 
 * Unzip, and run with Python 3: `python3 make_bytecode.py input output`
 
@@ -121,7 +121,7 @@ All reference to **"stack"** refers to **Arithmetic Stack**. Unless noted otherw
 |   Opcode<br>Name  | Byte 0<br>Decimal | Byte 0<br>Hex |                                                                                        Comment                                                                                       |   Byte 1  |   Byte 2  |
 |:-------:|:---:|:----:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------:|:---------:|
 |   NOP   |  0  |  0x0 |                                                                                      Do nothing                                                                                      |           |           |
-|  PUSHC  |  1  |  0x1 |                                                                               Push a constant on stack                                                                               | CONST_LSB | CONST_LSB |
+|  PUSHC  |  1  |  0x1 |                                                                               Push a constant on stack                                                                               | CONST_LSB | CONST_MSB |
 |  PUSHV  |  2  |  0x2 |                                                                              Push value at ADDR on stack                                                                             |  ADDR_LSB |  ADDR_MSB |
 |   POP   |  3  |  0x3 |                                                                     Pop one item off top of stack<br>Write it to ADDR                                                                    |  ADDR_LSB |  ADDR_MSB |
 |   BRZ   |  4  |  0x4 |                                                              Pop one item off top of stack<br>If value is zero, jump to ADDR                                                             |  ADDR_LSB |  ADDR_MSB |
