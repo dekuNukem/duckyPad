@@ -20,6 +20,18 @@ duckyScript 3 introduced variables, `IF` statements, `WHILE` loops, and function
 
 Now much more complex, it makes sense to compile the script into bytecode and execute it on a virtual machine instead.
 
+## Virtual Stack Machine
+
+DPDS3 VM is a simple stack machine with two stacks, and a Program Counter (PC).
+
+* PC points to the current instruction being executed.
+
+* Arithmetic Stack: Used to perform calculations and store arguments.
+
+* Call Stack: Keeps track of function calls.
+
+Compiled binary is loaded into memory, and PC starts executing at the beginning of the program.
+
 ## Instruction Set
 
 Each DPDS3 instruction has a **fixed-length** of **three bytes**.
@@ -34,23 +46,73 @@ Each DPDS3 instruction has a **fixed-length** of **three bytes**.
 
 ## Compiler
 
-Under construction
+The DPDS3 compiler takes a text file and outputs a executable binary file.
+
+The binary file should have extension `.dsb` (duckyScript binary).
+
+Normally this is taken care of in the configurator. But you can also try it out on its own:
+
+* [Download the source code](pc_software/ds3/duckypad_config_latest_source.zip)
+
+* Unzip, and run with Python 3: `python3 make_bytecode.py input output`
+
+Let's say you have a simple script in `sample_script.txt`:
+
+```
+DEFINE TEN 10
+VAR $spam = TEN*7+3
+DELAY $spam
+```
+
+Compile with `python3 make_bytecode.py sample_script.txt output.dsb`
+
+Compiled binary is written to `output.dsb`, along with some extra info:
+
+```
+--------- Program Listing After Preprocessing: ---------
+1    VAR $spam = 10*7+3
+2    DELAY $spam
+
+--------- Assembly Listing, Unresolved ---------
+
+PUSHC     10    0xa           ;VAR $spam = 10*7+3
+PUSHC     7     0x7           ;VAR $spam = 10*7+3
+MULT                          ;VAR $spam = 10*7+3
+PUSHC     3     0x3           ;VAR $spam = 10*7+3
+ADD                           ;VAR $spam = 10*7+3
+POP       spam                ;VAR $spam = 10*7+3
+PUSHV     spam                ;DELAY $spam
+DELAY                         ;DELAY $spam
+HALT
+
+--------- Assembly Listing, Resolved ---------
+
+0    PUSHC     10    0xa           ;VAR $spam = 10*7+3
+3    PUSHC     7     0x7           ;VAR $spam = 10*7+3
+6    MULT                          ;VAR $spam = 10*7+3
+9    PUSHC     3     0x3           ;VAR $spam = 10*7+3
+12   ADD                           ;VAR $spam = 10*7+3
+15   POP       27    0x1b          ;VAR $spam = 10*7+3
+18   PUSHV     27    0x1b          ;DELAY $spam
+21   DELAY                         ;DELAY $spam
+24   HALT
+
+--------- Bytecode header ---------
+0x08 0x00 0x1b 0x00 0x1d 0x00 0x00 0x00
+
+--------- Bytecode ---------
+0x01 0x0a 0x00 0x01 0x07 0x00 0x11 0x00 0x00
+0x01 0x03 0x00 0x0f 0x00 0x00 0x03 0x1b 0x00
+0x02 0x1b 0x00 0x1b 0x00 0x00 0x08 0x00 0x00
+0x00 0x00
+
+Binary Size: 37 Bytes
+```
 
 ## Binary Format
 
 Under construction
 
-## Virtual Stack Machine
-
-DPDS3 VM is a simple stack machine with two stacks, and a Program Counter (PC).
-
-* PC points to the current instruction being executed.
-
-* Arithmetic Stack: Used to perform calculations and store arguments.
-
-* Call Stack: Keeps track of function calls.
-
-Compiled binary is loaded into memory, and PC starts executing at the beginning of the program.
 
 ## CPU Instructions
 

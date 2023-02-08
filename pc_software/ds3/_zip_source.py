@@ -16,5 +16,6 @@ if THIS_VERSION is None:
 	exit()
 
 zip_file_name = "duckypad_config_" + THIS_VERSION + "_source.zip"
+zip_file_name = "duckypad_config_latest_source.zip"
 os.system("rm -fv ./*.zip")
 os.system(f"7z.exe a {zip_file_name} ./ -x!_*")

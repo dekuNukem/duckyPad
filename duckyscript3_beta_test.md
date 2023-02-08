@@ -96,11 +96,13 @@ As a result, you can now write much more elaborate scripts for your needs!
 
     - [RGB LED Commands](#rgb-led-commands)
 
-    - [Reserved Variables](#reserved-variables)
+- [Reserved Variables](#reserved-variables)
 
-    - [Reading Buttons](#reading-buttons)
+- [Reading Buttons](#reading-buttons)
 
-    - [Randomisation](#randomisation)
+- [Randomisation](#randomisation)
+
+- [Instruction Set Details](#instruction-set-details)
 
 - [Questions or Comments?](#questions-or-comments)
 
@@ -470,47 +472,47 @@ Set `n` from 1 to 15 for a particular key.
 
 Set `n` to 99 for all keys.
 
-### Reserved Variables
+## Reserved Variables
 
 There are a few **reserved variables** that are always available.
 
 You can read or write (RW) to them to adjust settings. Some are read-only (RO).
 
-##### `$_DEFAULTDELAY` (RW)
+#### `$_DEFAULTDELAY` (RW)
 
-##### `$_DEFAULTCHARDELAY` (RW)
+#### `$_DEFAULTCHARDELAY` (RW)
 
-##### `$_CHARJITTER` (RW)
+#### `$_CHARJITTER` (RW)
 
 Write to those variables to change the settings.
 
-##### `$_RANDOM_MIN` (RW)
+#### `$_RANDOM_MIN` (RW)
 
 Lower bound of random number generator (RNG).
 
-##### `$_RANDOM_MAX` (RW)
+#### `$_RANDOM_MAX` (RW)
 
 Upper bound of RNG.
 
-##### `$_RANDOM_INT` (RW)
+#### `$_RANDOM_INT` (RW)
 
 Get a random number between the upper and lower bound.
 
-##### `$_TIME_MS` (RO)
+#### `$_TIME_MS` (RO)
 
 Get current time in **milliseconds**.
 
-##### `$_READKEY` (RO)
+#### `$_READKEY` (RO)
 
 Get the key that is being pressed.
 
 Returns 0 if no key is pressed. 1 to 17 otherwise.
 
-##### `$_KEYPRESS_COUNT` (RO)
+#### `$_KEYPRESS_COUNT` (RO)
 
 Get how many times the current key has been pressed.
 
-### Reading Buttons
+## Reading Buttons
 
 Reading the reserved variable `$_READKEY` returns the currently pressed key.
 
@@ -533,7 +535,7 @@ If reading button multiple times, use `BCLR` command inbetween to clear the butt
 
 This way it won't trigger again right away.
 
-### Randomisation
+## Randomisation
 
 Read from `$_RANDOM_INT` to get a random number.
 
@@ -551,6 +553,10 @@ WHILE $i < 5
     $i = $i + 1
 END_WHILE
 ```
+
+## Instruction Set Details
+
+[Check this out](duckyscript3_bytecode_vm.md) if you want to learn how the new bytecode VM works!
 
 ## Questions or Comments?
 
