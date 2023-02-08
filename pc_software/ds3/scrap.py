@@ -1,3 +1,17 @@
+def write_var(var_name, var_value):
+    ins_list = []
+    this_instruction = get_empty_instruction()
+    this_instruction['opcode'] = OP_PUSHC
+    this_instruction['oparg'] = var_value
+    ins_list.append(this_instruction)
+    this_instruction = get_empty_instruction()
+    this_instruction['opcode'] = OP_POP
+    this_instruction['oparg'] = var_name
+    ins_list.append(this_instruction)
+    return ins_list
+
+def get_int_args(pgm_line):
+    return [int(x) for x in pgm_line.split(" ")[1:] if len(x) > 0]
 
 def backup_button_click():
     if config_dict['auto_backup_enabled']:

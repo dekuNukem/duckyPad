@@ -78,7 +78,7 @@ def check_rvalue(rvalue_str, vt):
 	try:
 		rvalue_str = rvalue_str.replace("||", " or ").replace("&&", " and ")
 		# print("rvalue_str after replacement:", rvalue_str)
-		eval_result = eval(rvalue_str)
+		eval(rvalue_str)
 	except Exception as e:
 		return False, f"expr eval fail: {e}"
 	return True, ''

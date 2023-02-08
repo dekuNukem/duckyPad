@@ -7,7 +7,6 @@ import traceback
 import duck_objs
 import webbrowser
 import check_update
-import ds_syntax_check
 from tkinter import *
 from tkinter import filedialog
 from tkinter import simpledialog
@@ -87,13 +86,6 @@ except Exception as e:
     pass
 
 config_dict['auto_backup_enabled'] = True
-
-def save_config():
-    try:
-        with open(save_filename, 'w', encoding='utf8') as save_file:
-                save_file.write(json.dumps(config_dict, sort_keys=True))
-    except Exception as e:
-        messagebox.showerror("Error", "Save failed!\n\n"+str(traceback.format_exc()))
 
 default_button_color = 'SystemButtonFace'
 if 'linux' in sys.platform:
@@ -202,7 +194,7 @@ def check_firmware_update():
                     return check_update.get_firmware_update_status(line), line
     return 2, None
 
-def fw_update_click(what):
+def fw_update_click():
     webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/firmware_updates_and_version_history.md')
 
 def print_fw_update_label():
@@ -235,7 +227,7 @@ def select_root_folder(root_path=None):
         sd_card_keymap_list = duck_objs.load_keymap(dp_root_folder_path)
     except Exception as e:
         print(e)
-    current_duckypad_fw_ver = print_fw_update_label()
+    print_fw_update_label()
     ui_reset()
     update_profile_display()
     enable_buttons()
@@ -1193,7 +1185,7 @@ def t1_worker():
             dp_root_folder_display.set("Loading...")
             current_hid_op = HID_NOP
             try:
-                start_ts = time.time()
+                # start_ts = time.time()
                 hid_op.dump_from_hid(hid_dump_path, dp_root_folder_display)
                 # print("hid_dump:", time.time() - start_ts, "seconds")
                 select_root_folder(hid_dump_path)
