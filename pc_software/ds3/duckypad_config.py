@@ -585,6 +585,9 @@ def compile_all_scripts():
             for this_key in this_profile.keylist:
                 if this_key is not None:
                     this_key.binary_array = make_bytecode.make_dsb(this_key.script.split('\n'))
+                    if len(this_key.binary_array) >= 2250:
+                        messagebox.showerror("Error", f'Script size too large!\n\nProfile: {this_profile.name}\nKey: {this_key.name}')
+                        return False
         return True
     except Exception as e:
         error_msg = "Code contains error!\n"
@@ -636,9 +639,6 @@ def save_everything(save_path):
                 dsb_path = this_key.path
                 pre, ext = os.path.splitext(dsb_path)
                 dsb_path = pre + '.dsb'
-
-                if len(this_key.binary_array) >= 2250:
-                    messagebox.showerror("Error", f'Profile {this_profile.name}\nKey {this_key.name}\n\nScript size too large')
 
                 with open(dsb_path, 'wb') as dsb_file:
                     dsb_file.write(this_key.binary_array)   
