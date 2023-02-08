@@ -26,13 +26,13 @@ def is_duckypad_file(name):
 def is_file_different(file1, file2):
 	hash1 = hashlib.md5(open(file1,'rb').read()).hexdigest()
 	hash2 = hashlib.md5(open(file2,'rb').read()).hexdigest()
-	if hash1 != hash2:
-		print(f"{file1} and {file2} are different!")
-		# print(hash1, hash2)
-		print(open(file1,'rb').read())
-		print(len(open(file1,'rb').read()))
-		print(open(file2,'rb').read())
-		print(len(open(file2,'rb').read()))
+	# if hash1 != hash2:
+	# 	print(f"{file1} and {file2} are different!")
+	# 	print(hash1, hash2)
+	# 	print(open(file1,'rb').read())
+	# 	print(len(open(file1,'rb').read()))
+	# 	print(open(file2,'rb').read())
+	# 	print(len(open(file2,'rb').read()))
 	return hash1 != hash2
 
 def compare(old_path, new_path):

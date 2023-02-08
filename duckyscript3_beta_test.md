@@ -134,6 +134,10 @@ Also, feel free to check out [official documentation](https://docs.hak5.org/hak5
 
 In addition to `REM`, You can now also use `//` at the beginning of a line for comments!
 
+### `HALT`
+
+You can use `HALT` command to stop execution at anytime
+
 ### Constants
 
 You can use `DEFINE` to, well, define a constant.
