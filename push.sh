@@ -21,7 +21,7 @@ python update_firmware_ref.py
 # rm ./sample_profiles.zip
 # 7z.exe a -r sample_profiles.zip ./sample_profiles/*
 # zip -rv sample_profiles.zip ./sample_profiles/*
-cd ./pc_software/ds3
+cd ./pc_software/duckyscript3
 python _zip_source.py
 
 git add --all
