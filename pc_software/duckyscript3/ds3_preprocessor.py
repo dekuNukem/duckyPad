@@ -450,6 +450,7 @@ def run_once(program_listing):
 			this_line = replaced_str
 
 		first_word, this_line = replace_delay_statements(this_line)
+
 		if first_word == cmd_DEFINE:
 			presult, pcomment = new_define(this_line, define_dict)
 		elif first_word == cmd_VAR_DECLARE:
@@ -486,12 +487,6 @@ def run_once(program_listing):
 			else:
 				presult = PARSE_OK
 				pcomment = ''
-		elif this_line.endswith("()"):
-			fun_name = this_line[0:len(this_line)-2]
-			if fun_name in func_table:
-				presult = PARSE_OK
-			else:
-				pcomment = f"Unknown function"
 		elif first_word == cmd_DELAY:
 			presult, pcomment = check_first_arg(this_line, var_table, allow_multi_arg=True)
 		elif first_word == cmd_GOTO_PROFILE:
@@ -530,6 +525,15 @@ def run_once(program_listing):
 			if value is not None:
 				return_dict['loop_state_save_needed'] = True
 				loop_numbers.add(value)
+		elif first_word in [cmd_STRING, cmd_STRINGLN, cmd_OLED_PRINT]:
+			presult = PARSE_OK
+			pcomment = ''
+		elif this_line.endswith("()"):
+			fun_name = this_line[0:len(this_line)-2]
+			if fun_name in func_table:
+				presult = PARSE_OK
+			else:
+				pcomment = f"Unknown function"
 		else:
 			presult, pcomment = ds_syntax_check.parse_line(this_line)
 		

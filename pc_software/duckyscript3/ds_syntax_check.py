@@ -75,13 +75,11 @@ def check_one_arg(pgm_line):
 def parse_line(ducky_line):
 	parse_result = PARSE_OK
 	parse_message = 'Unknown'
-	ducky_line = ducky_line.replace('\n', '').replace('\r', '')
+	ducky_line = ducky_line.replace('\n', '').replace('\r', '').strip()
 	split = [x for x in ducky_line.split(' ') if len(x) > 0]
 
 	if ducky_line.startswith(cmd_C_COMMENT) or ducky_line.startswith(cmd_REM):
 		return PARSE_OK, ""
-	if not (ducky_line.startswith(cmd_STRING) or ducky_line.startswith(cmd_STRINGLN) or ducky_line.startswith(cmd_OLED_PRINT)):
-		ducky_line = ducky_line.strip()
 	if len(ducky_line) == 0:
 		return PARSE_OK, "Empty line"
 	elif len(ducky_line) >= 250:
@@ -92,8 +90,6 @@ def parse_line(ducky_line):
 		parse_result, parse_message = parse_combo(ducky_line[len(cmd_KEYDOWN + " "):])
 	elif ducky_line.startswith(cmd_KEYUP + " "):
 		parse_result, parse_message = parse_combo(ducky_line[len(cmd_KEYUP + " "):])
-	elif ducky_line.startswith(cmd_STRING + " ") or ducky_line.startswith(cmd_STRINGLN + " ") or ducky_line.startswith(cmd_OLED_PRINT + " "):
-		return PARSE_OK, "Success"
 	elif ducky_line.startswith(cmd_REPEAT + " "):
 		return check_one_arg(ducky_line)
 	elif split[0] in ds3_keyname_dict.keys():
