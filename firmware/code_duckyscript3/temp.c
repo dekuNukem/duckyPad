@@ -1,3 +1,63 @@
+wrong
+957 10
+957 42
+va 957
+vv 0
+
+
+correct
+147 10
+147 42
+va 147
+vv 42
+
+// void store_uint16_as_two_bytes_at(uint16_t addr, uint16_t value)
+// {
+//   printf("s16 %d %d\n", addr, value);
+//   uint8_t ddd = write_byte(addr, value & 0xff);
+//   printf("%d\n", ddd);
+//   write_byte(addr+1, value >> 8);
+//   printf("%d\n", ddd);
+//   printf("---\n");
+// }
+
+
+char* make_str(char* start)
+{
+  char* curr = start;
+  uint8_t this_char, lsb, msb;
+  memset(read_buffer, 0, READ_BUF_SIZE);
+  while(1)
+  {
+    this_char = curr[0];
+    if(this_char == 0)
+      break;
+
+    if(this_char == VAR_BOUNDARY)
+    {
+      curr++;
+      lsb = curr[0];
+      curr++;
+      msb = curr[0];
+      curr++;
+      curr++;
+      uint16_t var_addr = make_uint16(lsb, msb);
+      uint16_t var_value = read_var(var_addr);
+      memset(temp_buf, 0, PATH_SIZE);
+      sprintf(temp_buf, "%d", var_value);
+      strcat(read_buffer, temp_buf);
+      continue;
+    }
+    memset(temp_buf, 0, PATH_SIZE);
+    sprintf(temp_buf, "%c", this_char);
+    strcat(read_buffer, temp_buf);
+    curr++;
+  }
+  return read_buffer;
+  // kb_print(read_buffer, defaultchardelay_value, charjitter_value);
+}
+
+
 uint8_t load_dsb(char* filename)
 {
   uint8_t op_result = DSB_OK;

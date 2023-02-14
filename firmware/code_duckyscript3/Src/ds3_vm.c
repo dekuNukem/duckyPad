@@ -14,7 +14,6 @@
 #define BIN_BUF_SIZE 1024
 uint8_t bin_buf[BIN_BUF_SIZE];
 uint8_t current_chunk;
-
 uint16_t defaultdelay_value;
 uint16_t defaultchardelay_value;
 uint16_t charjitter_value;
@@ -58,12 +57,6 @@ uint8_t stack_pop(my_stack* ms, uint16_t *result)
 uint16_t make_uint16(uint8_t b0, uint8_t b1)
 {
   return b0 | (b1 << 8);
-}
-
-void store_uint16_as_two_bytes_at(uint16_t value, uint8_t* buf)
-{
-  buf[0] = value & 0xff;
-  buf[1] = (value >> 8);
 }
 
 uint16_t binop_add(uint16_t a, uint16_t b) {return a + b;}
@@ -134,7 +127,13 @@ void release_key(uint8_t code, uint8_t type)
 
 #define VAR_BOUNDARY (0x1f)
 
-void write_var(uint8_t* pgm_start, uint16_t addr, uint16_t value)
+void store_uint16_as_two_bytes_at(uint16_t addr, uint16_t value)
+{
+  write_byte(addr, value & 0xff);
+  write_byte(addr+1, value >> 8);
+}
+
+void write_var(uint16_t addr, uint16_t value)
 {
   if(addr == DEFAULTDELAY_ADDR)
     defaultdelay_value = value;
@@ -159,12 +158,12 @@ void write_var(uint8_t* pgm_start, uint16_t addr, uint16_t value)
   else if (addr == _NEEDS_EPILOGUE)
     epilogue_actions = value; // this is read only, so do nothing
   else
-    store_uint16_as_two_bytes_at(value, pgm_start + addr);
+    store_uint16_as_two_bytes_at(addr, value);
 }
 
 uint8_t current_key;
 
-uint16_t read_var(uint8_t* pgm_start, uint16_t addr)
+uint16_t read_var(uint16_t addr)
 {
   if(addr == DEFAULTDELAY_ADDR)
     return defaultdelay_value;
@@ -189,39 +188,42 @@ uint16_t read_var(uint8_t* pgm_start, uint16_t addr)
   else if (addr == _NEEDS_EPILOGUE)
     return epilogue_actions;
   else
-    return make_uint16(pgm_start[addr], pgm_start[addr+1]);
+    return make_uint16(read_byte(addr), read_byte(addr+1));
 }
 
-char* make_str(char* start, uint8_t* pgm_start)
+#define STR_BUF_SIZE 8
+char make_str_buf[STR_BUF_SIZE];
+
+char* make_str(uint16_t str_start_addr)
 {
-  char* curr = start;
+  uint16_t curr_addr = str_start_addr;
   uint8_t this_char, lsb, msb;
   memset(read_buffer, 0, READ_BUF_SIZE);
   while(1)
   {
-    this_char = curr[0];
+    this_char = read_byte(curr_addr);
     if(this_char == 0)
       break;
 
     if(this_char == VAR_BOUNDARY)
     {
-      curr++;
-      lsb = curr[0];
-      curr++;
-      msb = curr[0];
-      curr++;
-      curr++;
+      curr_addr++;
+      lsb = read_byte(curr_addr);
+      curr_addr++;
+      msb = read_byte(curr_addr);
+      curr_addr++;
+      curr_addr++;
       uint16_t var_addr = make_uint16(lsb, msb);
-      uint16_t var_value = read_var(pgm_start, var_addr);
-      memset(temp_buf, 0, PATH_SIZE);
-      sprintf(temp_buf, "%d", var_value);
-      strcat(read_buffer, temp_buf);
+      uint16_t var_value = read_var(var_addr);
+      memset(make_str_buf, 0, STR_BUF_SIZE);
+      sprintf(make_str_buf, "%d", var_value);
+      strcat(read_buffer, make_str_buf);
       continue;
     }
-    memset(temp_buf, 0, PATH_SIZE);
-    sprintf(temp_buf, "%c", this_char);
-    strcat(read_buffer, temp_buf);
-    curr++;
+    memset(make_str_buf, 0, STR_BUF_SIZE);
+    sprintf(make_str_buf, "%c", this_char);
+    strcat(read_buffer, make_str_buf);
+    curr_addr++;
   }
   return read_buffer;
   // kb_print(read_buffer, defaultchardelay_value, charjitter_value);
@@ -282,11 +284,11 @@ void parse_olc(void)
   ssd1306_SetCursor(xxx, yyy);
 }
 
-void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* exe, uint8_t keynum)
+void execute_instruction(uint16_t curr_pc, ds3_exe_result* exe, uint8_t keynum)
 {
-  uint8_t this_opcode = pgm_start[curr_pc];
-  uint8_t byte0 = pgm_start[curr_pc+1];
-  uint8_t byte1 = pgm_start[curr_pc+2];
+  uint8_t this_opcode = read_byte(curr_pc);
+  uint8_t byte0 = read_byte(curr_pc+1);
+  uint8_t byte1 = read_byte(curr_pc+2);
   uint8_t op_result;
   uint16_t op_data = make_uint16(byte0, byte1);
   current_key = keynum;
@@ -313,7 +315,7 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
   }
   else if(this_opcode == OP_PUSHV)
   {
-    op_result = stack_push(&arithmetic_stack, read_var(pgm_start, op_data));
+    op_result = stack_push(&arithmetic_stack, read_var(op_data));
     if(op_result != STACK_OP_OK)
     {
       exe->result = op_result;
@@ -329,7 +331,7 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
       exe->result = op_result;
       return;
     }
-    write_var(pgm_start, op_data, this_item);
+    write_var(op_data, this_item);
   }
   else if(this_opcode == OP_BRZ)
   {
@@ -446,8 +448,7 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
   }
   else if(this_opcode == OP_STR || this_opcode == OP_STRLN)
   {
-    char* str_start = pgm_start + op_data;
-    char* str_buf = make_str(str_start, pgm_start);
+    char* str_buf = make_str(op_data);
     kb_print(str_buf, defaultchardelay_value, charjitter_value);
     if(this_opcode == OP_STRLN)
     {
@@ -521,8 +522,7 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
   }
   else if(this_opcode == OP_OLP)
   {
-    char* str_start = pgm_start + op_data;
-    char* str_buf = make_str(str_start, pgm_start);
+    char* str_buf = make_str(op_data);
     ssd1306_WriteString(str_buf, Font_6x10,White);
   }
   else if(this_opcode == OP_OLU)
@@ -607,12 +607,18 @@ uint8_t switch_chunk(uint16_t addr)
   return op_result;
 }
 
-uint8_t read_byte(uint16_t addr, uint8_t* data)
+uint8_t read_byte(uint16_t addr)
+{
+  switch_chunk(addr);
+  return bin_buf[addr%BIN_BUF_SIZE];
+}
+
+uint8_t write_byte(uint16_t addr, uint8_t data)
 {
   uint8_t op_result = switch_chunk(addr);
   if(op_result != DSB_OK)
     return op_result;
-  *data = bin_buf[addr%BIN_BUF_SIZE];
+  bin_buf[addr%BIN_BUF_SIZE] = data;
   return DSB_OK;
 }
 
@@ -630,22 +636,14 @@ void run_dsb(ds3_exe_result* er, uint8_t keynum)
   loop_size = 0;
   epilogue_actions = 0;
   srand(HAL_GetTick());
-  uint8_t dddd;
-  // printf("rb:%d, %d\n", read_byte(1200, &dddd), dddd);
 
-  for (int i = 0; i < 1554; ++i)
+  while(1)
   {
-    read_byte(i, &dddd);
-    printf("%c", dddd);
+    execute_instruction(current_pc, er, keynum);
+    if(er->result != EXE_OK)
+      break;
+    current_pc = er->next_pc;
   }
-
-  // while(1)
-  // {
-  //   execute_instruction(bin_buf, current_pc, er, keynum);
-  //   if(er->result != EXE_OK)
-  //     break;
-  //   current_pc = er->next_pc;
-  // }
-  // er->epilogue_actions = epilogue_actions;
+  er->epilogue_actions = epilogue_actions;
   // printf("execution halted: %d\n", er->result);
 }
