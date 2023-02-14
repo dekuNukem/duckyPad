@@ -11,7 +11,7 @@
 #include "neopixel.h"
 
 // 2300 seems to be max, 2000 just to be safe
-#define BIN_BUF_SIZE 2300
+#define BIN_BUF_SIZE 2000
 uint8_t bin_buf[BIN_BUF_SIZE];
 
 uint16_t defaultdelay_value;
@@ -594,6 +594,8 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
     exe->result = EXE_ERROR;
   }
 }
+
+uint8_t current_chunk;
 
 void run_dsb(ds3_exe_result* er, uint8_t keynum)
 {

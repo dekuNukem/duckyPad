@@ -602,13 +602,10 @@ void keypress_wrapper(uint8_t keynum, ds3_exe_result* exe)
   memset(temp_buf, 0, PATH_SIZE);
   sprintf(temp_buf, "/%s/key%d.dsb", p_cache.profile_fn, keynum+1);
   der_init(exe);
-  uint8_t load_result;
-  taskENTER_CRITICAL();
-  load_result = load_dsb(temp_buf);
-  taskEXIT_CRITICAL();
-  if(load_result != DSB_OK)
+  if(f_stat(temp_buf, NULL) != 0)
     return;
   play_keydown_animation(keynum);
+  load_dsb(temp_buf);
   run_dsb(exe, keynum);
   key_press_count[keynum]++;
   if(exe->epilogue_actions & 0x3)
