@@ -603,8 +603,6 @@ void run_dsb(ds3_exe_result* er, uint8_t keynum)
 	
   stack_init(&arithmetic_stack);
   stack_init(&call_stack);
-  uint8_t header_size = make_uint16(bin_buf[0], bin_buf[1]);
-  uint8_t* pgm_start = bin_buf + header_size;
   defaultdelay_value = DEFAULT_CMD_DELAY_MS;
   defaultchardelay_value = DEFAULT_CHAR_DELAY_MS;
   charjitter_value = 0;
@@ -616,7 +614,7 @@ void run_dsb(ds3_exe_result* er, uint8_t keynum)
 
   while(1)
   {
-    execute_instruction(pgm_start, current_pc, er, keynum);
+    execute_instruction(bin_buf, current_pc, er, keynum);
     if(er->result != EXE_OK)
       break;
     current_pc = er->next_pc;

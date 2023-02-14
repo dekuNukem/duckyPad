@@ -3,7 +3,7 @@
 <title>Static Call Graph - [lul\lul.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image lul\lul.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue Feb 14 11:35:29 2023
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue Feb 14 11:41:19 2023
 <BR><P>
 <H3>Maximum Stack Usage =        432 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -3280,8 +3280,8 @@ Global Symbols
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_profile
 </UL>
 
-<P><STRONG><a name="[1b6]"></a>run_dsb</STRONG> (Thumb, 94 bytes, Stack size 32 bytes, ds3_vm.o(i.run_dsb))
-<BR><BR>[Stack]<UL><LI>Max Depth = 264<LI>Call Chain = run_dsb &rArr; execute_instruction &rArr; print_legend &rArr; ssd1306_UpdateScreen &rArr; ssd1306_WriteCommand &rArr; HAL_I2C_Mem_Write &rArr; I2C_RequestMemoryWrite &rArr; I2C_WaitOnTXISFlagUntilTimeout &rArr; I2C_IsAcknowledgeFailed
+<P><STRONG><a name="[1b6]"></a>run_dsb</STRONG> (Thumb, 80 bytes, Stack size 24 bytes, ds3_vm.o(i.run_dsb))
+<BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = run_dsb &rArr; execute_instruction &rArr; print_legend &rArr; ssd1306_UpdateScreen &rArr; ssd1306_WriteCommand &rArr; HAL_I2C_Mem_Write &rArr; I2C_RequestMemoryWrite &rArr; I2C_WaitOnTXISFlagUntilTimeout &rArr; I2C_IsAcknowledgeFailed
 </UL>
 <BR>[Calls]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 <LI><a href="#[1ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stack_init

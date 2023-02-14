@@ -719,14 +719,16 @@ def make_dsb(program_listing):
 	for item in str_list:
 		output_bin_array += item['bytes']
 
-	dsb_header_size = 8
-	pgm_start = dsb_header_size
-	dsb_header = bytearray()
-	dsb_header += pgm_start.to_bytes(2, endianness)
-	dsb_header += var_bin_start.to_bytes(2, endianness)
-	dsb_header += str_bin_start.to_bytes(2, endianness)
-	dsb_header += bytearray(2)
-	output_bin_array = dsb_header + output_bin_array
+	# ----------------- bytecode header --------------
+	# dsb_header_size = 8
+	# pgm_start = dsb_header_size
+	# dsb_header = bytearray()
+	# dsb_header += pgm_start.to_bytes(2, endianness)
+	# dsb_header += var_bin_start.to_bytes(2, endianness)
+	# dsb_header += str_bin_start.to_bytes(2, endianness)
+	# dsb_header += bytearray(2)
+	# output_bin_array = dsb_header + output_bin_array
+	# ------------------------------------------------
 
 	# print("label_to_addr_dict:", label_to_addr_dict)	
 	# print("var_addr_dict:", var_addr_dict)
@@ -741,11 +743,11 @@ def make_dsb(program_listing):
 	# print("str_lookup:", str_lookup)
 	# print("var_lookup:", var_lookup)
 
-	print("--------- Bytecode header ---------")
-	for index, number in enumerate(output_bin_array[:8]):
-		print("0x{:02x}".format(number), end=' ')
+	# print("--------- Bytecode header ---------")
+	# for index, number in enumerate(output_bin_array[:8]):
+	# 	print("0x{:02x}".format(number), end=' ')
 	print('\n\n--------- Bytecode ---------')
-	for index, number in enumerate(output_bin_array[8:]):
+	for index, number in enumerate(output_bin_array):
 		print("0x{:02x}".format(number), end=' ')
 		if (index+1) % 9 == 0:
 			print()
