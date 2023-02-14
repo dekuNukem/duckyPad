@@ -50,6 +50,7 @@ fixed a function detection bug
 
 1.1.0 2023 02 14
 updated dsb binary format to allow banked loading
+cleaned up opcode values
 """
 
 THIS_VERSION_NUMBER = '1.1.0'

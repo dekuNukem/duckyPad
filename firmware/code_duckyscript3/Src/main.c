@@ -119,6 +119,7 @@ beta release for duckyscript 3
 
 1.1.0 20230214
 added banked loading for large dsb files
+cleaned up opcode values
 */
 
 uint8_t fw_version_major = 1;

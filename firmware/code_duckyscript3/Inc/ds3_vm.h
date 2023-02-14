@@ -13,54 +13,45 @@
 #define OP_CALL 6
 #define OP_RET 7
 #define OP_HALT 8
-
 #define OP_EQ 9
 #define OP_NOTEQ 10
-
 #define OP_LT 11
 #define OP_LTE 12
 #define OP_GT 13
 #define OP_GTE 14
-
 #define OP_ADD 15
 #define OP_SUB 16
 #define OP_MULT 17
 #define OP_DIV 18
 #define OP_MOD 19
 #define OP_POW 20
-
 #define OP_LSHIFT 21
 #define OP_RSHIFT 22
 #define OP_BITOR 23
 #define OP_BITAND 24
-
 #define OP_LOGIAND 25
 #define OP_LOGIOR 26
-
 #define OP_DELAY 27
-#define OP_KUP 29
-#define OP_KDOWN 31
-#define OP_MSCL 33
-#define OP_MMOV 34
+#define OP_KUP 28
+#define OP_KDOWN 29
+#define OP_MSCL 30
+#define OP_MMOV 31
 #define OP_SWCF 32
-#define OP_SWCC 35
-#define OP_SWCR 36
-#define OP_STR 38
-#define OP_STRLN 39
-#define OP_EMUK 40
-#define OP_LOOP 41
-
-#define OP_OLC 42
-#define OP_OLP 43
-#define OP_OLU 44
-#define OP_OLB 45
-#define OP_OLR 46
-#define OP_BCLR 47
-
-#define OP_PREVP 48
-#define OP_NEXTP 49
-#define OP_GOTOP 50
-#define OP_SLEEP 51
+#define OP_SWCC 33
+#define OP_SWCR 34
+#define OP_STR 35
+#define OP_STRLN 36
+#define OP_EMUK 37
+#define OP_OLC 38
+#define OP_OLP 39
+#define OP_OLU 40
+#define OP_OLB 41
+#define OP_OLR 42
+#define OP_BCLR 43
+#define OP_PREVP 44
+#define OP_NEXTP 45
+#define OP_GOTOP 46
+#define OP_SLEEP 47
 
 #define INSTRUCTION_SIZE_BYTES 3
 #define STACK_SIZE 8
