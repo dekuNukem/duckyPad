@@ -605,7 +605,7 @@ void keypress_wrapper(uint8_t keynum, ds3_exe_result* exe)
   if(f_stat(temp_buf, NULL) != 0)
     return;
   play_keydown_animation(keynum);
-  load_dsb(temp_buf);
+  // load_dsb(temp_buf);
   run_dsb(exe, keynum);
   key_press_count[keynum]++;
   if(exe->epilogue_actions & 0x3)

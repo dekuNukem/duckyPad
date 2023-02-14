@@ -22,6 +22,45 @@ uint8_t load_dsb(char* filename)
   return op_result;
 }
 
+uint8_t load_dsb(char* filename)
+{
+  uint8_t op_result = DSB_OK;
+  UINT bytes_read = 0;
+  if(f_open(&sd_file, filename, FA_READ) != 0)
+  {
+    op_result = DSB_FOPEN_FAILED;
+    goto load_dsb_end;
+  }
+ 
+  uint32_t this_file_size = f_size(&sd_file);
+  if(this_file_size == 0)
+    op_result = DSB_EMPTY_FILE;
+  if(this_file_size >= BIN_BUF_SIZE)
+    op_result = DSB_FILE_TOO_LARGE;
+  memset(bin_buf, 0, BIN_BUF_SIZE);
+  f_read(&sd_file, bin_buf, BIN_BUF_SIZE, &bytes_read);
+  if(bytes_read != this_file_size)
+    op_result = DSB_FREAD_ERROR;
+  load_dsb_end:
+  f_close(&sd_file);
+  return op_result;
+}
+
+void keypress_wrapper(uint8_t keynum, ds3_exe_result* exe)
+{
+  memset(temp_buf, 0, PATH_SIZE);
+  sprintf(temp_buf, "/%s/key%d.dsb", p_cache.profile_fn, keynum+1);
+  der_init(exe);
+  if(f_stat(temp_buf, NULL) != 0)
+    return;
+  play_keydown_animation(keynum);
+  load_dsb(temp_buf);
+  run_dsb(exe, keynum);
+  key_press_count[keynum]++;
+  if(exe->epilogue_actions & 0x3)
+    save_persistent_state(exe->epilogue_actions);
+}
+
 void keypress_wrapper(uint8_t keynum, ds3_exe_result* exe)
 {
   memset(temp_buf, 0, PATH_SIZE);

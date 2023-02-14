@@ -10,9 +10,10 @@
 #include "buttons.h"
 #include "neopixel.h"
 
-// 2300 seems to be max, 2000 just to be safe
-#define BIN_BUF_SIZE 2000
+// 2300 seems to be max, 2048 just to be safe
+#define BIN_BUF_SIZE 1024
 uint8_t bin_buf[BIN_BUF_SIZE];
+uint8_t current_chunk;
 
 uint16_t defaultdelay_value;
 uint16_t defaultchardelay_value;
@@ -57,30 +58,6 @@ uint8_t stack_pop(my_stack* ms, uint16_t *result)
 uint16_t make_uint16(uint8_t b0, uint8_t b1)
 {
   return b0 | (b1 << 8);
-}
-
-uint8_t load_dsb(char* filename)
-{
-  uint8_t op_result = DSB_OK;
-  UINT bytes_read = 0;
-  if(f_open(&sd_file, filename, FA_READ) != 0)
-  {
-  	op_result = DSB_FOPEN_FAILED;
-  	goto load_dsb_end;
-  }
- 
- 	uint32_t this_file_size = f_size(&sd_file);
-  if(this_file_size == 0)
-    op_result = DSB_EMPTY_FILE;
-  if(this_file_size >= BIN_BUF_SIZE)
-    op_result = DSB_FILE_TOO_LARGE;
-  memset(bin_buf, 0, BIN_BUF_SIZE);
-  f_read(&sd_file, bin_buf, BIN_BUF_SIZE, &bytes_read);
-  if(bytes_read != this_file_size)
-  	op_result = DSB_FREAD_ERROR;
-  load_dsb_end:
-  f_close(&sd_file);
-  return op_result;
 }
 
 void store_uint16_as_two_bytes_at(uint16_t value, uint8_t* buf)
@@ -595,12 +572,47 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
   }
 }
 
-uint8_t current_chunk;
+uint8_t read_byte(uint16_t addr, uint8_t* data)
+{
+  uint8_t target_chunk = addr/BIN_BUF_SIZE;
+  if(target_chunk == current_chunk)
+    goto load_dsb_end;
+
+  printf("cc:%d, tc:%d\n", current_chunk, target_chunk);
+
+  uint8_t op_result = DSB_OK;
+  UINT bytes_read = 0;
+  if(f_open(&sd_file, temp_buf, FA_READ) != 0)
+  {
+    op_result = DSB_FOPEN_FAILED;
+    goto load_dsb_end;
+  }
+
+  if(addr >= f_size(&sd_file))
+  {
+    op_result = DSB_READ_OVERFLOW;
+    goto load_dsb_end;
+  }
+
+  if(f_lseek(&sd_file, target_chunk*BIN_BUF_SIZE) != 0)
+  {
+    op_result = DSB_CHUNK_LOAD_ERROR;
+    goto load_dsb_end;
+  }
+
+  memset(bin_buf, 0, BIN_BUF_SIZE);
+  f_read(&sd_file, bin_buf, BIN_BUF_SIZE, &bytes_read);
+  current_chunk = target_chunk;
+  load_dsb_end:
+  f_close(&sd_file);
+  *data = bin_buf[addr%BIN_BUF_SIZE];
+  return op_result;
+}
 
 void run_dsb(ds3_exe_result* er, uint8_t keynum)
 {
   uint16_t current_pc = 0;
-	
+	current_chunk = 255;
   stack_init(&arithmetic_stack);
   stack_init(&call_stack);
   defaultdelay_value = DEFAULT_CMD_DELAY_MS;
@@ -611,14 +623,22 @@ void run_dsb(ds3_exe_result* er, uint8_t keynum)
   loop_size = 0;
   epilogue_actions = 0;
   srand(HAL_GetTick());
+  uint8_t dddd;
+  // printf("rb:%d, %d\n", read_byte(1200, &dddd), dddd);
 
-  while(1)
+  for (int i = 0; i < 1554; ++i)
   {
-    execute_instruction(bin_buf, current_pc, er, keynum);
-    if(er->result != EXE_OK)
-      break;
-    current_pc = er->next_pc;
+    read_byte(i, &dddd);
+    printf("%c", dddd);
   }
-  er->epilogue_actions = epilogue_actions;
+
+  // while(1)
+  // {
+  //   execute_instruction(bin_buf, current_pc, er, keynum);
+  //   if(er->result != EXE_OK)
+  //     break;
+  //   current_pc = er->next_pc;
+  // }
+  // er->epilogue_actions = epilogue_actions;
   // printf("execution halted: %d\n", er->result);
 }
