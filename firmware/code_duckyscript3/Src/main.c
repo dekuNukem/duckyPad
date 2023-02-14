@@ -116,10 +116,13 @@ fixed a bug where STRING prints an extra space
 
 1.0.0 20230202
 beta release for duckyscript 3
+
+1.1.0 20230214
+added banked loading for large dsb files
 */
 
 uint8_t fw_version_major = 1;
-uint8_t fw_version_minor = 0;
+uint8_t fw_version_minor = 1;
 uint8_t fw_version_patch = 0;
 char instruction[] = "For instructions, see";
 /* USER CODE END PV */

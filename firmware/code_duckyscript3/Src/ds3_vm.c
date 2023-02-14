@@ -11,9 +11,11 @@
 #include "neopixel.h"
 
 // 2300 seems to be max, 2048 just to be safe
-#define BIN_BUF_SIZE 1024
+#define BIN_BUF_SIZE 2048
 uint8_t bin_buf[BIN_BUF_SIZE];
-uint8_t current_chunk;
+#define VAR_BUF_SIZE 128
+uint8_t var_buf[VAR_BUF_SIZE];
+uint8_t current_bank;
 uint16_t defaultdelay_value;
 uint16_t defaultchardelay_value;
 uint16_t charjitter_value;
@@ -129,8 +131,8 @@ void release_key(uint8_t code, uint8_t type)
 
 void store_uint16_as_two_bytes_at(uint16_t addr, uint16_t value)
 {
-  write_byte(addr, value & 0xff);
-  write_byte(addr+1, value >> 8);
+  var_buf[addr] = value & 0xff;
+  var_buf[addr+1] = value >> 8;
 }
 
 void write_var(uint16_t addr, uint16_t value)
@@ -157,7 +159,7 @@ void write_var(uint16_t addr, uint16_t value)
     ; // this is read only, so do nothing
   else if (addr == _NEEDS_EPILOGUE)
     epilogue_actions = value; // this is read only, so do nothing
-  else
+  else if(addr < VAR_BUF_SIZE)
     store_uint16_as_two_bytes_at(addr, value);
 }
 
@@ -187,8 +189,9 @@ uint16_t read_var(uint16_t addr)
     return key_press_count[current_key];
   else if (addr == _NEEDS_EPILOGUE)
     return epilogue_actions;
-  else
-    return make_uint16(read_byte(addr), read_byte(addr+1));
+  else if(addr < VAR_BUF_SIZE)
+    return make_uint16(var_buf[addr], var_buf[addr+1]);
+  return 0;
 }
 
 #define STR_BUF_SIZE 8
@@ -572,60 +575,60 @@ void execute_instruction(uint16_t curr_pc, ds3_exe_result* exe, uint8_t keynum)
   }
 }
 
-uint8_t switch_chunk(uint16_t addr)
+uint8_t switch_bank(uint16_t addr)
 {
-  uint8_t target_chunk = addr/BIN_BUF_SIZE;
-  if(target_chunk == current_chunk)
+  uint8_t target_bank = addr/BIN_BUF_SIZE;
+  if(target_bank == current_bank)
     return DSB_OK;
 
-  printf("\n---cc:%d, tc:%d---\n", current_chunk, target_chunk);
+  // printf("\n---cc:%d, tc:%d---\n", current_bank, target_bank);
   uint8_t op_result = DSB_OK;
   UINT bytes_read = 0;
   if(f_open(&sd_file, temp_buf, FA_READ) != 0)
   {
     op_result = DSB_FOPEN_FAILED;
-    goto switch_chunk_end;
+    goto switch_bank_end;
   }
 
   if(addr >= f_size(&sd_file))
   {
     op_result = DSB_READ_OVERFLOW;
-    goto switch_chunk_end;
+    goto switch_bank_end;
   }
 
-  if(f_lseek(&sd_file, target_chunk*BIN_BUF_SIZE) != 0)
+  if(f_lseek(&sd_file, target_bank*BIN_BUF_SIZE) != 0)
   {
     op_result = DSB_CHUNK_LOAD_ERROR;
-    goto switch_chunk_end;
+    goto switch_bank_end;
   }
 
   memset(bin_buf, 0, BIN_BUF_SIZE);
   f_read(&sd_file, bin_buf, BIN_BUF_SIZE, &bytes_read);
-  current_chunk = target_chunk;
-  switch_chunk_end:
+  current_bank = target_bank;
+  switch_bank_end:
   f_close(&sd_file);
   return op_result;
 }
 
 uint8_t read_byte(uint16_t addr)
 {
-  switch_chunk(addr);
+  taskENTER_CRITICAL();
+  uint8_t bank_switch_result = switch_bank(addr);
+  taskEXIT_CRITICAL();
+  if(bank_switch_result != DSB_OK)
+  {
+    keyboard_release_all();
+    error_animation(0);
+    osDelay(2000);
+    NVIC_SystemReset();
+  }
   return bin_buf[addr%BIN_BUF_SIZE];
-}
-
-uint8_t write_byte(uint16_t addr, uint8_t data)
-{
-  uint8_t op_result = switch_chunk(addr);
-  if(op_result != DSB_OK)
-    return op_result;
-  bin_buf[addr%BIN_BUF_SIZE] = data;
-  return DSB_OK;
 }
 
 void run_dsb(ds3_exe_result* er, uint8_t keynum)
 {
   uint16_t current_pc = 0;
-	current_chunk = 255;
+	current_bank = 255;
   stack_init(&arithmetic_stack);
   stack_init(&call_stack);
   defaultdelay_value = DEFAULT_CMD_DELAY_MS;

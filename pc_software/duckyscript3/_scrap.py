@@ -1,3 +1,31 @@
+    # ----------------- bytecode header --------------
+    # dsb_header_size = 8
+    # pgm_start = dsb_header_size
+    # dsb_header = bytearray()
+    # dsb_header += pgm_start.to_bytes(2, endianness)
+    # dsb_header += var_bin_start.to_bytes(2, endianness)
+    # dsb_header += str_bin_start.to_bytes(2, endianness)
+    # dsb_header += bytearray(2)
+    # output_bin_array = dsb_header + output_bin_array
+    # ------------------------------------------------
+
+    # print("label_to_addr_dict:", label_to_addr_dict)  
+    # print("var_addr_dict:", var_addr_dict)
+    # print('var_lookup:', var_lookup)
+    # print("var_bin_start:", var_bin_start)
+    # print("str_bin_start:", str_bin_start)
+    # print("str_list:", str_list)
+
+    # print('assembly line count:', len(assembly_listing))
+    # print("label_dict:", label_dict)
+    # print("func_lookup:", func_lookup)
+    # print("str_lookup:", str_lookup)
+    # print("var_lookup:", var_lookup)
+
+    # print("--------- Bytecode header ---------")
+    # for index, number in enumerate(output_bin_array[:8]):
+    #   print("0x{:02x}".format(number), end=' ')
+
 def write_var(var_name, var_value):
     ins_list = []
     this_instruction = get_empty_instruction()

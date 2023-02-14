@@ -1,1 +1,37 @@
-STRINGLN RETURN()
+DEFAULTCHARDELAY 25
+DEFAULTDELAY 25
+
+STRINGLN Welcome to duckyScript 3 beta test!
+STRINGLN Here's a quick demo.
+ENTER
+
+STRINGLN Variables and operations:
+VAR $spam = 10
+VAR $eggs = 22
+VAR $foo = 3
+$spam = $spam * 4 + 2
+STRINGLN     Spam is: $spam
+ENTER
+
+//---------------
+STRINGLN Conditions and loops:
+
+$spam = 0
+$_RANDOM_MIN = 1
+$_RANDOM_MAX = 10
+
+WHILE $spam < 4
+    VAR $this_number = $_RANDOM_INT
+    STRING     Random number: $this_number
+
+    IF $this_number > 5 THEN
+        STRINGLN , it's more than 5!
+    ELSE IF $this_number == 5 THEN
+        STRINGLN , exactly 5!
+    ELSE
+        STRINGLN , it's less than 5!
+    END_IF
+
+    $spam = $spam + 1
+END_WHILE
+ENTER

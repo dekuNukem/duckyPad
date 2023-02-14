@@ -47,9 +47,12 @@ minor bug fixes
 better handles saving when code contains errors
 removed unused code
 fixed a function detection bug
+
+1.1.0 2023 02 14
+updated dsb binary format to allow banked loading
 """
 
-THIS_VERSION_NUMBER = '1.0.1'
+THIS_VERSION_NUMBER = '1.1.0'
 
 ENV_UI_SCALE = os.getenv("DUCKYPAD_UI_SCALE")
 UI_SCALE = float(ENV_UI_SCALE) if ENV_UI_SCALE else 1

@@ -3,7 +3,6 @@ DEFAULTDELAY 25
 
 WINDOWS R
 DELAY 1000
-
 STRINGLN notepad
 DELAY 1000
 
@@ -48,20 +47,23 @@ STRINGLN Look at the screen!
 // fill all LED with color
 SWC_FILL 128 0 255
 
-WHILE 1
-    OLED_CLEAR
-    OLED_CURSOR 20 0
-    OLED_PRINT Hello World!
-    OLED_CURSOR 20 12
-    OLED_PRINT Press a key!
-    OLED_CURSOR 10 52
-    OLED_PRINT Press + to exit
+OLED_CLEAR
+OLED_CURSOR 20 0
+OLED_PRINT Hello World!
+OLED_CURSOR 20 12
+OLED_PRINT Press a key!
+OLED_CURSOR 10 52
+OLED_PRINT Press + to exit
+OLED_UPDATE
 
+WHILE 1
     VAR $this_key = $_READKEY
 
+    OLED_CURSOR 10 31
     IF $this_key != 0 THEN
-        OLED_CURSOR 10 31
         OLED_PRINT I pressed key $this_key!
+    ELSE
+        OLED_PRINT                           
     END_IF
 
     IF $this_key == 17 THEN
@@ -90,24 +92,24 @@ SWC_SET 4 128 0 0
 SWC_SET 5 128 0 0
 
 BCLR
-VAR $selection = 0
-WHILE 1
-    OLED_CLEAR
-    OLED_CURSOR 10 0
-    OLED_PRINT Example Sub-Menu
-    OLED_CURSOR 5 12
-    OLED_PRINT Action 1
-    OLED_CURSOR 5 22
-    OLED_PRINT Action 2
-    OLED_CURSOR 5 32
-    OLED_PRINT Action 3
-    OLED_CURSOR 5 42
-    OLED_PRINT Action 4
-    OLED_CURSOR 5 52
-    OLED_PRINT Action 5
-    OLED_UPDATE
 
-    $selection = $_READKEY
+OLED_CLEAR
+OLED_CURSOR 10 0
+OLED_PRINT Example Sub-Menu
+OLED_CURSOR 5 12
+OLED_PRINT Action 1
+OLED_CURSOR 5 22
+OLED_PRINT Action 2
+OLED_CURSOR 5 32
+OLED_PRINT Action 3
+OLED_CURSOR 5 42
+OLED_PRINT Action 4
+OLED_CURSOR 5 52
+OLED_PRINT Action 5
+OLED_UPDATE
+
+WHILE 1
+    VAR $selection = $_READKEY
 
     IF $selection > 0 && $selection <= 5 THEN
         BREAK
@@ -119,15 +121,15 @@ END_WHILE
 OLED_CLEAR
 OLED_CURSOR 0 30
 IF $selection == 1 THEN
-	OLED_PRINT I selected Option 1!
+    OLED_PRINT I selected Option 1!
 ELSE IF $selection == 2 THEN
-	OLED_PRINT I selected Option 2!
+    OLED_PRINT I selected Option 2!
 ELSE IF $selection == 3 THEN
-	OLED_PRINT I selected Option 3!
+    OLED_PRINT I selected Option 3!
 ELSE IF $selection == 4 THEN
-	OLED_PRINT I selected Option 4!
+    OLED_PRINT I selected Option 4!
 ELSE IF $selection == 5 THEN
-	OLED_PRINT I selected Option 5!
+    OLED_PRINT I selected Option 5!
 END_IF
 OLED_UPDATE
 DELAY 3000
@@ -170,7 +172,7 @@ WHILE 1
     $blue = $count 
 
     SWC_FILL $red $green $blue
-    DELAY 5
+    DELAY 2
 
     IF $direction == UP THEN
         $count = $count + 1
