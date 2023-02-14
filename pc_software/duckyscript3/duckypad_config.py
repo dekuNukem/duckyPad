@@ -590,7 +590,7 @@ def compile_all_scripts():
             for this_key in this_profile.keylist:
                 if this_key is not None:
                     this_key.binary_array = make_bytecode.make_dsb(this_key.script.split('\n'))
-                    if len(this_key.binary_array) >= 2250:
+                    if len(this_key.binary_array) >= 65530:
                         messagebox.showerror("Error", f'Script size too large!\n\nProfile: {this_profile.name}\nKey: {this_key.name}')
                         return False
         return True
