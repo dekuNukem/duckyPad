@@ -572,41 +572,48 @@ void execute_instruction(uint8_t* pgm_start, uint16_t curr_pc, ds3_exe_result* e
   }
 }
 
-uint8_t read_byte(uint16_t addr, uint8_t* data)
+uint8_t switch_chunk(uint16_t addr)
 {
   uint8_t target_chunk = addr/BIN_BUF_SIZE;
   if(target_chunk == current_chunk)
-    goto load_dsb_end;
+    return DSB_OK;
 
-  printf("cc:%d, tc:%d\n", current_chunk, target_chunk);
-
+  printf("\n---cc:%d, tc:%d---\n", current_chunk, target_chunk);
   uint8_t op_result = DSB_OK;
   UINT bytes_read = 0;
   if(f_open(&sd_file, temp_buf, FA_READ) != 0)
   {
     op_result = DSB_FOPEN_FAILED;
-    goto load_dsb_end;
+    goto switch_chunk_end;
   }
 
   if(addr >= f_size(&sd_file))
   {
     op_result = DSB_READ_OVERFLOW;
-    goto load_dsb_end;
+    goto switch_chunk_end;
   }
 
   if(f_lseek(&sd_file, target_chunk*BIN_BUF_SIZE) != 0)
   {
     op_result = DSB_CHUNK_LOAD_ERROR;
-    goto load_dsb_end;
+    goto switch_chunk_end;
   }
 
   memset(bin_buf, 0, BIN_BUF_SIZE);
   f_read(&sd_file, bin_buf, BIN_BUF_SIZE, &bytes_read);
   current_chunk = target_chunk;
-  load_dsb_end:
+  switch_chunk_end:
   f_close(&sd_file);
-  *data = bin_buf[addr%BIN_BUF_SIZE];
   return op_result;
+}
+
+uint8_t read_byte(uint16_t addr, uint8_t* data)
+{
+  uint8_t op_result = switch_chunk(addr);
+  if(op_result != DSB_OK)
+    return op_result;
+  *data = bin_buf[addr%BIN_BUF_SIZE];
+  return DSB_OK;
 }
 
 void run_dsb(ds3_exe_result* er, uint8_t keynum)

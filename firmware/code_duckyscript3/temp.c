@@ -21,6 +21,103 @@ uint8_t load_dsb(char* filename)
   f_close(&sd_file);
   return op_result;
 }
+uint8_t read_byte(uint16_t addr, uint8_t* data)
+{
+  uint8_t target_chunk = addr/BIN_BUF_SIZE;
+  if(target_chunk == current_chunk)
+  {
+    *data = bin_buf[addr%BIN_BUF_SIZE];
+    return DSB_OK;
+  }
+  // printf("cc:%d, tc:%d\n", current_chunk, target_chunk);
+  uint8_t op_result = DSB_OK;
+  UINT bytes_read = 0;
+  if(f_open(&sd_file, temp_buf, FA_READ) != 0)
+  {
+    op_result = DSB_FOPEN_FAILED;
+    goto load_dsb_end;
+  }
+
+  if(addr >= f_size(&sd_file))
+  {
+    op_result = DSB_READ_OVERFLOW;
+    goto load_dsb_end;
+  }
+
+  if(f_lseek(&sd_file, target_chunk*BIN_BUF_SIZE) != 0)
+  {
+    op_result = DSB_CHUNK_LOAD_ERROR;
+    goto load_dsb_end;
+  }
+
+  memset(bin_buf, 0, BIN_BUF_SIZE);
+  f_read(&sd_file, bin_buf, BIN_BUF_SIZE, &bytes_read);
+  current_chunk = target_chunk;
+  load_dsb_end:
+  f_close(&sd_file);
+  *data = bin_buf[addr%BIN_BUF_SIZE];
+  return op_result;
+}
+void run_dsb(ds3_exe_result* er, uint8_t keynum)
+{
+  uint16_t current_pc = 0;
+  current_chunk = 255;
+  stack_init(&arithmetic_stack);
+  stack_init(&call_stack);
+  defaultdelay_value = DEFAULT_CMD_DELAY_MS;
+  defaultchardelay_value = DEFAULT_CHAR_DELAY_MS;
+  charjitter_value = 0;
+  rand_max = 65535;
+  rand_min = 0;
+  loop_size = 0;
+  epilogue_actions = 0;
+  srand(HAL_GetTick());
+  uint8_t dddd;
+  // printf("rb:%d, %d\n", read_byte(1200, &dddd), dddd);
+
+  for (int i = 0; i < 1554; ++i)
+  {
+    read_byte(i, &dddd);
+    printf("%c", dddd);
+  }
+
+  // while(1)
+  // {
+  //   execute_instruction(bin_buf, current_pc, er, keynum);
+  //   if(er->result != EXE_OK)
+  //     break;
+  //   current_pc = er->next_pc;
+  // }
+  // er->epilogue_actions = epilogue_actions;
+  // printf("execution halted: %d\n", er->result);
+}
+
+void run_dsb(ds3_exe_result* er, uint8_t keynum)
+{
+  uint16_t current_pc = 0;
+  current_chunk = 255;
+  stack_init(&arithmetic_stack);
+  stack_init(&call_stack);
+  defaultdelay_value = DEFAULT_CMD_DELAY_MS;
+  defaultchardelay_value = DEFAULT_CHAR_DELAY_MS;
+  charjitter_value = 0;
+  rand_max = 65535;
+  rand_min = 0;
+  loop_size = 0;
+  epilogue_actions = 0;
+  srand(HAL_GetTick());
+
+  while(1)
+  {
+    execute_instruction(bin_buf, current_pc, er, keynum);
+    if(er->result != EXE_OK)
+      break;
+    current_pc = er->next_pc;
+  }
+  er->epilogue_actions = epilogue_actions;
+  printf("execution halted: %d\n", er->result);
+}
+
 
 uint8_t load_dsb(char* filename)
 {
