@@ -793,7 +793,10 @@ void keypress_task_start(void const * argument)
 
   keyboard_update();
   if(is_pressed(0))
+  {
     select_keymap();
+    print_legend();
+  }
 
   ds3_exe_result this_exe;
   load_keymap_by_name(curr_kb_layout);
