@@ -186,7 +186,7 @@ def ui_reset():
     kd_color_button.config(background=default_button_color)
     key_color_rb1.config(state=DISABLED)
     key_color_rb2.config(state=DISABLED)
-    clear_and_disable_script_textbox()
+    script_textbox.delete(1.0, 'end')
     check_syntax_label.config(text="", fg="green")
     sleepmode_slider.config(state=DISABLED)
 
@@ -392,12 +392,8 @@ def update_profile_display():
     key_color_button.config(background=default_button_color)
     key_color_rb1.config(state=DISABLED)
     key_color_rb2.config(state=DISABLED)
-    clear_and_disable_script_textbox()
-    check_syntax_label.config(text="", fg="green")
-
-def clear_and_disable_script_textbox():
     script_textbox.delete(1.0, 'end')
-    script_textbox.config(state=DISABLED)
+    check_syntax_label.config(text="", fg="green")
 
 def update_key_button_appearances(profile_index):
     if profile_index is None:
@@ -719,16 +715,18 @@ def key_button_click(button_widget):
     button_widget.config(borderwidth=7, relief='sunken')
     key_name_entrybox.delete(0, 'end')
     if profile_list[profile_index].keylist[selected_key] is not None:
+        scripts_lf.place(x=keys_lf.winfo_x() + keys_lf.winfo_width() + PADDING, y=keys_lf.winfo_y())
+        empty_script_lf.place_forget()
         key_name_entrybox.insert(0, profile_list[profile_index].keylist[selected_key].name)
-        script_textbox.config(state=NORMAL)
         script_textbox.delete(1.0, 'end')
         script_textbox.insert(1.0, profile_list[profile_index].keylist[selected_key].script.rstrip('\n').rstrip('\r'))
-
-    if profile_list[profile_index].keylist[selected_key] is None:
+    else:
+        scripts_lf.place_forget()
+        empty_script_lf.place(x=scaled_size(600), y=scaled_size(300))
         key_color_button.config(background=default_button_color)
         key_color_rb1.config(state=DISABLED)
         key_color_rb2.config(state=DISABLED)
-        clear_and_disable_script_textbox()
+        script_textbox.delete(1.0, 'end')
         return
 
     key_color_rb1.config(state=NORMAL)
@@ -955,7 +953,6 @@ def key_rename_click():
         new_key.name = result
         profile_list[profile_index].keylist[selected_key] = new_key
         update_keylist_index()
-    # print(profile_list[profile_index].keylist[selected_key])
     update_key_button_appearances(profile_index)
     key_button_click(key_button_list[selected_key])
 
@@ -1028,7 +1025,6 @@ key_color_button.bind("<Button-1>", key_color_button_click)
 
 # ------------- Scripts frame -------------
 scripts_lf = LabelFrame(root, text="Scripts", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_COLUMN_HEIGHT - HEIGHT_ROOT_FOLDER_LF - PADDING)
-scripts_lf.place(x=keys_lf.winfo_x() + keys_lf.winfo_width() + PADDING, y=keys_lf.winfo_y())
 
 def open_duckyscript_url():
     webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#writing-duckyscript')
@@ -1068,7 +1064,7 @@ def script_textbox_event(event):
     script_textbox_modified()
     script_textbox.tk.call(script_textbox._w, 'edit', 'modified', 0)
 
-script_textbox = Text(scripts_lf, relief='solid', borderwidth=1, padx=2, pady=2, spacing3=5, wrap="word", state=DISABLED)
+script_textbox = Text(scripts_lf, relief='solid', borderwidth=1, padx=2, pady=2, spacing3=5, wrap="word")
 script_textbox.place(x=key_button_list[0].winfo_x(), y=KEY_BUTTON_HEADROOM+PADDING-3, width=key_button_list[-1].winfo_x() + KEY_BUTTON_WIDTH - KEY_BUTTON_GAP, height=key_button_list[-1].winfo_y() - key_button_list[0].winfo_y() + KEY_BUTTON_HEIGHT + 5)
 root.update()
 script_textbox.bind("<<Modified>>", script_textbox_event)
@@ -1172,6 +1168,8 @@ def open_profile_autoswitcher_url():
 autoswitch_button = Button(settings_lf, text="Profile Autoswitcher", command=open_profile_autoswitcher_url)
 autoswitch_button.place(x=scaled_size(250), y=0, width=scaled_size(200), height=scaled_size(40))
 
+empty_script_lf = Label(root, text="<-- Select a key")
+empty_script_lf.place(x=scaled_size(600), y=scaled_size(300))
 root.update()
 
 def repeat_func():
