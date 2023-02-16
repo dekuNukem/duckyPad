@@ -59,9 +59,11 @@ changed loop break command to LBREAK to avoid conflict with BREAK keyboard key
 script display now hidden if no key is selected
 automatically selects first profile after loading
 added color to key apply and remove button
+added minimum firmware version check
 """
 
-THIS_VERSION_NUMBER = '1.1.1'
+THIS_VERSION_NUMBER = '1.1.2'
+MIN_DUCKYPAD_FIRMWARE_VERSION = "1.1.1"
 
 ENV_UI_SCALE = os.getenv("DUCKYPAD_UI_SCALE")
 UI_SCALE = float(ENV_UI_SCALE) if ENV_UI_SCALE else 1
@@ -234,7 +236,12 @@ def select_root_folder(root_path=None):
     root_folder_path_label.config(foreground='navy')
     profile_list = duck_objs.build_profile(root_path)
     dp_settings.load_from_path(dp_root_folder_path)
-    print_fw_update_label()
+    duckypad_fw_ver = print_fw_update_label()
+
+    if check_update.versiontuple(duckypad_fw_ver) < check_update.versiontuple(MIN_DUCKYPAD_FIRMWARE_VERSION):
+        if messagebox.askokcancel("Info", "Incompatible duckyPad firmware: too old!\n\nSee how to update it?"):
+            fw_update_click()
+
     ui_reset()
     update_profile_display()
     enable_buttons()
