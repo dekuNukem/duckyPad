@@ -54,11 +54,11 @@ As a result, you can now write much more elaborate scripts for your needs!
 
 * ⚠️ If you only just got your duckyPad, it's a better idea to [get familiar with the current version](getting_started.md) first!
 
-* [Click me to download the beta firmware](https://github.com/dekuNukem/duckyPad/raw/master/firmware/beta_1.0.0_duckyscript3.dfu)
+* [Click me to download the beta firmware](https://github.com/dekuNukem/duckyPad/raw/master/firmware/beta_1.1.1_duckyscript3.dfu)
 
 * [Follow this guide](firmware_updates_and_version_history.md#usb-firmware-updates) to update your duckyPad, use the file you just downloaded. You can go back at any time.
 
-* [Head here, scroll down and download](https://github.com/dekuNukem/duckyPad/releases/tag/1.0.1) the new beta configurator software.
+* [Head here, scroll down and download](https://github.com/dekuNukem/duckyPad/releases/tag/1.1.1) the new beta configurator software.
 
 * Launch and use it as usual!
 
