@@ -56,7 +56,7 @@ cleaned up opcode values
 changed loop break command to LBREAK to avoid conflict with BREAK keyboard key
 """
 
-THIS_VERSION_NUMBER = '1.1.0'
+THIS_VERSION_NUMBER = '1.1.1'
 
 ENV_UI_SCALE = os.getenv("DUCKYPAD_UI_SCALE")
 UI_SCALE = float(ENV_UI_SCALE) if ENV_UI_SCALE else 1
