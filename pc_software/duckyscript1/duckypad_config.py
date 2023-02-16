@@ -1041,6 +1041,7 @@ key_color_button.bind("<Button-1>", key_color_button_click)
 
 # ------------- Scripts frame -------------
 scripts_lf = LabelFrame(root, text="Scripts", width=int(MAIN_WINDOW_WIDTH / 3 - PADDING * 1.3), height=MAIN_COLUMN_HEIGHT - HEIGHT_ROOT_FOLDER_LF - PADDING)
+print(keys_lf.winfo_x() + keys_lf.winfo_width() + PADDING, keys_lf.winfo_y())
 scripts_lf.place(x=keys_lf.winfo_x() + keys_lf.winfo_width() + PADDING, y=keys_lf.winfo_y())
 
 def open_duckyscript_url():

@@ -108,7 +108,6 @@ INVALID_ROOT_FOLDER_STRING = "<-- Press to connect to duckyPad"
 last_rgb = (238,130,238)
 dp_settings = duck_objs.dp_global_settings()
 discord_link_url = "https://raw.githubusercontent.com/dekuNukem/duckyPad/master/resources/discord_link.txt"
-sd_card_keymap_list = []
 
 def open_discord_link():
     try:
@@ -220,7 +219,6 @@ def print_fw_update_label():
 
 def select_root_folder(root_path=None):
     global profile_list
-    global sd_card_keymap_list
     global dp_root_folder_path
     if root_path is None:
         root_path = filedialog.askdirectory()
@@ -231,14 +229,15 @@ def select_root_folder(root_path=None):
     root_folder_path_label.config(foreground='navy')
     profile_list = duck_objs.build_profile(root_path)
     dp_settings.load_from_path(dp_root_folder_path)
-    try:
-        sd_card_keymap_list = duck_objs.load_keymap(dp_root_folder_path)
-    except Exception as e:
-        print(e)
     print_fw_update_label()
     ui_reset()
     update_profile_display()
     enable_buttons()
+    try:
+        profile_lstbox.select_set(0)
+        update_profile_display()
+    except Exception as e:
+        print("select_root_folder:", e)
 
 HID_NOP = 0
 HID_DUMP = 1
@@ -566,23 +565,6 @@ def validate_data_objs(save_path):
             this_key.path = os.path.join(this_profile.path, 'key'+str(key_index+1)+'.txt')
             this_key.index = key_index + 1
 
-def dump_keymap(save_path):
-    global sd_card_keymap_list
-    file_list = [d for d in os.listdir(save_path) if d.startswith("dpkm_") and d.endswith(".txt")]
-    for item in file_list:
-        file_path = os.path.join(save_path, item)
-        try:
-            os.remove(file_path)
-        except Exception:
-            pass
-    for item in sd_card_keymap_list:
-        if item.url is not None:
-            item.content = str(urllib.request.urlopen(item.url).read().decode('latin-1')).split('\n')
-    for item in sd_card_keymap_list:
-        file_path = os.path.join(save_path, item.file_name)
-        with open(file_path, 'w', encoding='utf8') as keymap_file:
-            keymap_file.writelines(s.replace('\n', '').replace('\r', '') + '\n' for s in item.content);
-
 def compile_all_scripts():
     try:
         for this_profile in profile_list:
@@ -650,10 +632,6 @@ def save_everything(save_path):
                     config_file.write('SWCOLOR_%d %d %d %d\n' % (this_key.index, this_key.color[0], this_key.color[1], this_key.color[2]))
             config_file.close()
 
-        keymap_folder_path = os.path.join(save_path, 'keymaps')
-        ensure_dir(keymap_folder_path)
-        dump_keymap(keymap_folder_path)
-
         dps_path = os.path.join(save_path, 'dp_settings.txt')
         try:
             found = False
@@ -715,7 +693,7 @@ def key_button_click(button_widget):
     button_widget.config(borderwidth=7, relief='sunken')
     key_name_entrybox.delete(0, 'end')
     if profile_list[profile_index].keylist[selected_key] is not None:
-        scripts_lf.place(x=keys_lf.winfo_x() + keys_lf.winfo_width() + PADDING, y=keys_lf.winfo_y())
+        scripts_lf.place(x=scaled_size(536), y=scaled_size(50))
         empty_script_lf.place_forget()
         key_name_entrybox.insert(0, profile_list[profile_index].keylist[selected_key].name)
         script_textbox.delete(1.0, 'end')
