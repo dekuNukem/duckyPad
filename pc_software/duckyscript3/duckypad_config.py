@@ -51,6 +51,9 @@ fixed a function detection bug
 1.1.0 2023 02 14
 updated dsb binary format to allow banked loading
 cleaned up opcode values
+
+1.1.1 2023 02 16
+changed loop break command to LBREAK to avoid conflict with BREAK keyboard key
 """
 
 THIS_VERSION_NUMBER = '1.1.0'

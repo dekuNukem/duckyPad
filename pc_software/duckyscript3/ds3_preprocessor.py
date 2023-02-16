@@ -473,7 +473,7 @@ def run_once(program_listing):
 			presult, pcomment = new_while_check(this_line, line_number_starting_from_1, while_search_stack, while_table, var_table)
 		elif first_word == cmd_END_WHILE:
 			presult, pcomment = end_while_check(this_line, line_number_starting_from_1, while_search_stack, while_table)
-		elif first_word == cmd_BREAK:
+		elif first_word == cmd_LOOP_BREAK:
 			presult, pcomment = break_check(this_line, line_number_starting_from_1, while_search_stack, break_dict)
 		elif first_word == cmd_CONTINUE:
 			presult, pcomment = continue_check(this_line, line_number_starting_from_1, while_search_stack, continue_dict)

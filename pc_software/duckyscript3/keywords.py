@@ -143,7 +143,7 @@ cmd_MENU = "MENU"
 cmd_APP = "APP"
 cmd_POWER = "POWER"
 
-cmd_BREAK = "BREAK"
+cmd_LOOP_BREAK = "LBREAK"
 cmd_CONTINUE = "CONTINUE"
 
 english_alphabets = [

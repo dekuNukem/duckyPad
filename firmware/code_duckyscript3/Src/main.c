@@ -120,12 +120,14 @@ beta release for duckyscript 3
 1.1.0 20230214
 added banked loading for large dsb files
 cleaned up opcode values
+
+1.1.1 20230215
 fixed a bug where screen doesnt update when exiting keymap selection screen
 */
 
 uint8_t fw_version_major = 1;
 uint8_t fw_version_minor = 1;
-uint8_t fw_version_patch = 0;
+uint8_t fw_version_patch = 1;
 char instruction[] = "For instructions, see";
 /* USER CODE END PV */
 

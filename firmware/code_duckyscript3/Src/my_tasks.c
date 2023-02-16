@@ -232,7 +232,7 @@ void select_keymap(void)
   {
     HAL_IWDG_Refresh(&hiwdg);
     keyboard_update();
-    if(is_pressed(KEY_BUTTON1) || is_pressed(KEY_BUTTON2)) // -
+    if(is_pressed(KEY_BUTTON1) || is_pressed(KEY_BUTTON2)) // + -
     {
       memset(lfn_buf, 0, FILENAME_SIZE);
       if(f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)

@@ -67,7 +67,7 @@ WHILE 1
     END_IF
 
     IF $this_key == 17 THEN
-        BREAK
+        LBREAK
     END_IF
 
     OLED_UPDATE
@@ -112,7 +112,7 @@ WHILE 1
     VAR $selection = $_READKEY
 
     IF $selection > 0 && $selection <= 5 THEN
-        BREAK
+        LBREAK
     END_IF
 
     DELAY 50
@@ -158,7 +158,7 @@ VAR $direction = UP
 WHILE 1
 
     IF $_READKEY != 0 THEN
-        BREAK
+        LBREAK
     END_IF
 
     IF $direction == UP && $count == 250 THEN

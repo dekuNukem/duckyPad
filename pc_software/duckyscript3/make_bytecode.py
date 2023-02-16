@@ -592,7 +592,7 @@ def make_dsb(program_listing):
         elif first_word == cmd_BCLR:
             this_instruction['opcode'] = OP_BCLR
             assembly_listing.append(this_instruction)
-        elif first_word == cmd_BREAK:
+        elif first_word == cmd_LOOP_BREAK:
             this_instruction['opcode'] = OP_JMP
             this_instruction['oparg'] = label_dict[break_dict[lnum]]
             assembly_listing.append(this_instruction)
