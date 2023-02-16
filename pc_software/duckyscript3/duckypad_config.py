@@ -54,6 +54,11 @@ cleaned up opcode values
 
 1.1.1 2023 02 16
 changed loop break command to LBREAK to avoid conflict with BREAK keyboard key
+
+1.1.2 2023 02 16
+script display now hidden if no key is selected
+automatically selects first profile after loading
+added color to key apply and remove button
 """
 
 THIS_VERSION_NUMBER = '1.1.1'
@@ -801,7 +806,7 @@ kd_color_button.bind("<Button-1>", kd_color_click)
 
 dim_unused_keys_checkbox_var = IntVar()
 dim_unused_keys_checkbox = Checkbutton(profiles_lf, text="Dim unused keys", variable=dim_unused_keys_checkbox_var, command=dim_unused_keys_click, state=DISABLED)
-dim_unused_keys_checkbox.place(x=scaled_size(22), y=scaled_size(425))
+dim_unused_keys_checkbox.place(x=scaled_size(20), y=scaled_size(425))
 
 kd_color_var = IntVar()
 kd_R1 = Radiobutton(profiles_lf, text="      Auto", variable=kd_color_var, value=0, command=kd_radiobutton_auto_click, state=DISABLED)
@@ -942,10 +947,10 @@ def key_remove_click():
     update_key_button_appearances(profile_index)
     key_button_click(key_button_list[selected_key])
 
-key_rename_button = Button(keys_lf, text="Apply", command=key_rename_click, state=DISABLED)
+key_rename_button = Button(keys_lf, text="Apply", command=key_rename_click, state=DISABLED, fg="green")
 key_rename_button.place(x=KEY_BUTTON_GAP, y=scaled_size(340), width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 root.update()
-key_remove_button = Button(keys_lf, text="Remove", command=key_remove_click, state=DISABLED)
+key_remove_button = Button(keys_lf, text="Remove", command=key_remove_click, state=DISABLED, fg="red")
 key_remove_button.place(x=KEY_BUTTON_GAP*2+key_rename_button.winfo_width(), y=scaled_size(340), width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 
 key_color_text = Label(master=keys_lf, text="Key color:", fg='grey')
