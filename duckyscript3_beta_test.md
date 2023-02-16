@@ -330,14 +330,9 @@ Counter is 1!
 Counter is 2!
 ```
 
-To exit an infinite loop, you can [check button status](#reading-buttons), or just press the RESET button:
+#### `LBREAK`
 
-![Alt text](resources/pics/dfu_buttons_new.jpg)
-
-
-#### `BREAK`
-
-Use `BREAK` to **exit a loop** immediately.
+Use `LBREAK` to **exit a loop** immediately.
 
 ```
 VAR $i = 0
@@ -346,7 +341,7 @@ WHILE TRUE
 	$i = $i + 1
 
 	IF $i == 3 THEN
-		BREAK
+		LBREAK
 	END_IF
 END_WHILE
 ```
@@ -381,6 +376,10 @@ Counter is 2!
 Counter is 4!
 Counter is 5!
 ```
+
+To exit an infinite loop, you can [check button status](#reading-buttons), or just press the RESET button:
+
+![Alt text](resources/pics/dfu_buttons_new.jpg)
 
 ### Functions
 
