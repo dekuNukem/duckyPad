@@ -4,7 +4,7 @@
 
 ----
 
-duckyPad is a 15-key mechanical macropad that helps **speed up your workflow** by automating keyboard (and mouse!) inputs. 
+duckyPad is a 15-key mechanical macropad that helps **consolidate & speed up workflow** by automating keyboard (and mouse!) inputs. 
 
 ![Alt text](resources/pics/title_jpg.jpg)
 
@@ -16,7 +16,7 @@ duckyPad has all the goodies of a high-end mechanical keyboard:
 * **USB-C**
 * Open-source
 
-But more crucially, it also features **previously-unseen innovations** such as:
+More crucially, it also features innovations such as:
 
 * **OLED** screen showing what each key does
 * Sophisticated **multi-line scripting** with [duckyScript](duckyscript_info.md)
@@ -27,13 +27,9 @@ But more crucially, it also features **previously-unseen innovations** such as:
 
 ![Alt text](resources/pics/teaser.gif)
 
-When pressed, each key execute a *`duckyScript`* to automate keyboard actions.
+When pressed, each key execute [duckyScript](duckyscript_info.md) to automate keyboard actions.
 
-It can be as simple as shortcuts like `Control + C`, or as complex as launching applications, managing livestreams, or even [creating root backdoors](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---OSX-Root-Backdoor) or [grabbing passwords](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---download-mimikatz%2C-grab-passwords-and-email-them-via-gmail). It's all up to you!
-
-## Join Our Discord!
-
-Feel free to join our [Official Discord](https://discord.gg/4sJCBx5) for discussions, questions, sharing scripts, and latest updates!
+It can be as simple as shortcuts like `Control + C`, or as complex as launching applications, managing livestreams, or even [creating root backdoors](https://shop.hak5.org/blogs/usb-rubber-ducky/the-3-second-reverse-shell-with-a-usb-rubber-ducky) or [grabbing passwords](https://shop.hak5.org/blogs/usb-rubber-ducky/15-second-password-hack-mr-robot-style). It's all up to you!
 
 ## Get a duckyPad!
 
@@ -47,6 +43,11 @@ Finally, here's a video of duckyPad in action!
     <td><a href="https://www.youtube.com/watch?v=dqWWlOURo6A" title="YouTube" rel="noopener"><img src="https://i.imgur.com/767Nnyt.png"></a></td>
   </tr>
 </table>
+
+## Join Our Discord!
+
+Feel free to join our [Official Discord](https://discord.gg/4sJCBx5) for discussions, questions, sharing scripts, and latest updates!
+
 
 ## Highlights
 
