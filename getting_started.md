@@ -60,7 +60,7 @@ The samples might be fun, but duckyPad is designed to do what YOU want! So here'
 
 ### Download the duckyPad Configurator
 
-[Head here to download the latest release](https://github.com/dekuNukem/duckyPad/releases) for Windows, macOS, and Linux.
+[Head here to download the latest release](https://github.com/dekuNukem/duckyPad/releases/latest) for Windows, macOS, and Linux.
 
 Extract the `.zip` file and launch the application by clicking `duckypad_config.exe`:
 
