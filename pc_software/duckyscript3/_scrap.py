@@ -1,3 +1,28 @@
+def load_keymap_from_file(file_path):
+    this_keymap = dp_keymap()
+    this_keymap.file_name = os.path.basename(file_path)
+    this_keymap.display_name = this_keymap.file_name.replace('dpkm_', '').replace('.txt', '')
+    with open(file_path, encoding='utf8') as keymap_file:
+        this_keymap.content = keymap_file.readlines()
+    this_keymap.is_valid = 1
+    return this_keymap
+
+def load_keymap(root_dir_path):
+    keymap_folder_path = os.path.join(root_dir_path, 'keymaps')
+    if os.path.isdir(keymap_folder_path) is False:
+        return []
+    keymap_file_list = [d for d in os.listdir(keymap_folder_path) if d.startswith("dpkm_") and d.endswith(".txt")]
+    return_list = []
+    for item in keymap_file_list:
+        this_keymap = load_keymap_from_file(os.path.join(keymap_folder_path, item))
+        if this_keymap.is_valid:
+            return_list.append(this_keymap)
+    return return_list
+    
+profile_remove_button = Button(profiles_lf, text="Remove", command=profile_remove_click, state=DISABLED)
+profile_remove_button.place(x=PADDING * 2, y=BUTTON_Y_POS + BUTTON_HEIGHT + int(PADDING/2), width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
+
+
     # ----------------- bytecode header --------------
     # dsb_header_size = 8
     # pgm_start = dsb_header_size

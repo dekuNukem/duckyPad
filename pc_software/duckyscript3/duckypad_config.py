@@ -55,14 +55,15 @@ cleaned up opcode values
 1.1.1 2023 02 16
 changed loop break command to LBREAK to avoid conflict with BREAK keyboard key
 
-1.1.2 2023 02 16
+1.2.0 2023 02 17
+added profile import function
 script display now hidden if no key is selected
 automatically selects first profile after loading
 added color to key apply and remove button
 added minimum firmware version check
 """
 
-THIS_VERSION_NUMBER = '1.1.2'
+THIS_VERSION_NUMBER = '1.2.0'
 MIN_DUCKYPAD_FIRMWARE_VERSION = "1.1.1"
 
 ENV_UI_SCALE = os.getenv("DUCKYPAD_UI_SCALE")
@@ -170,7 +171,6 @@ def ui_reset():
     profile_down_button.config(state=DISABLED)
     profile_dupe_button.config(state=DISABLED)
     save_button.config(state=DISABLED)
-    # backup_button.config(state=DISABLED)
     kd_R1.config(state=DISABLED)
     kd_R2.config(state=DISABLED)
     dim_unused_keys_checkbox.config(state=DISABLED)
@@ -195,6 +195,7 @@ def ui_reset():
     script_textbox.delete(1.0, 'end')
     check_syntax_label.config(text="", fg="green")
     sleepmode_slider.config(state=DISABLED)
+    profile_import_button.config(state=DISABLED)
 
 def check_firmware_update():
     filelist = os.listdir(dp_root_folder_path)
@@ -328,6 +329,7 @@ def enable_buttons():
     key_color_text.config(fg='black')
     sleepmode_slider.config(state=NORMAL)
     sleepmode_slider.set(dp_settings.sleep_after_minutes)
+    profile_import_button.config(state=NORMAL)
 
 # def debug_set_root_folder():
 #     global profile_list
@@ -776,23 +778,25 @@ profile_lstbox.place(x=scaled_size(32), y=PADDING, width=scaled_size(182), heigh
 profile_lstbox.bind('<<ListboxSelect>>', on_profile_lstbox_select)
 
 profile_up_button = Button(profiles_lf, text="↑", command=profile_shift_up, state=DISABLED)
-profile_up_button.place(x=scaled_size(5), y=scaled_size(80), width=scaled_size(20), height=scaled_size(40))
+profile_up_button.place(x=scaled_size(5), y=scaled_size(60), width=scaled_size(20), height=scaled_size(40))
+
+profile_remove_button = Button(profiles_lf, text="X", command=profile_remove_click, state=DISABLED)
+profile_remove_button.place(x=scaled_size(5), y=scaled_size(110), width=scaled_size(20), height=scaled_size(40))
 
 profile_down_button = Button(profiles_lf, text="↓", command=profile_shift_down, state=DISABLED)
-profile_down_button.place(x=scaled_size(5), y=scaled_size(140), width=scaled_size(20), height=scaled_size(40))
+profile_down_button.place(x=scaled_size(5), y=scaled_size(160), width=scaled_size(20), height=scaled_size(40))
 
 BUTTON_WIDTH = int(profiles_lf.winfo_width() / 2.5)
 BUTTON_HEIGHT = scaled_size(25)
 BUTTON_Y_POS = scaled_size(295)
+
+print(PADDING*2)
 
 profile_add_button = Button(profiles_lf, text="New", command=profile_add_click, state=DISABLED)
 profile_add_button.place(x=PADDING*2, y=BUTTON_Y_POS, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 
 profile_dupe_button = Button(profiles_lf, text="Duplicate", command=profile_dupe_click, state=DISABLED)
 profile_dupe_button.place(x=PADDING * 2.5 + BUTTON_WIDTH, y=BUTTON_Y_POS, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
-
-profile_remove_button = Button(profiles_lf, text="Remove", command=profile_remove_click, state=DISABLED)
-profile_remove_button.place(x=PADDING * 2, y=BUTTON_Y_POS + BUTTON_HEIGHT + int(PADDING/2), width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 
 profile_rename_button = Button(profiles_lf, text="Rename", command=profile_rename_click, state=DISABLED)
 profile_rename_button.place(x=PADDING * 2.5 + BUTTON_WIDTH, y=BUTTON_Y_POS + BUTTON_HEIGHT + int(PADDING/2), width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
@@ -1101,6 +1105,8 @@ for x in range(9):
     script_command_button_list.append(this_button)
 script_command_button_list[-1].config(command=open_duckyscript_url)
 
+PADDING = scaled_size(10)
+
 def add_s(word, value):
     if value == 1:
         return word
@@ -1155,8 +1161,24 @@ dp_fw_update_label.place(x=scaled_size(5), y=scaled_size(25))
 def open_profile_autoswitcher_url():
     webbrowser.open('https://github.com/dekuNukem/duckyPad-profile-autoswitcher/blob/master/README.md#duckypad-profile-auto-switcher')
 
+def import_profile_click():
+    global profile_list
+    # messagebox.showinfo("Import", f"Select a folder containing the profiles")
+    import_path = filedialog.askdirectory()
+    if len(import_path) <= 0:
+        return
+    is_success, content = duck_objs.import_profile(import_path)
+    if is_success is False:
+        messagebox.showinfo("Import", f"Import failed:\n\n{content}")
+        return
+    profile_list += content
+    update_profile_display()
+
 autoswitch_button = Button(settings_lf, text="Profile Autoswitcher", command=open_profile_autoswitcher_url)
 autoswitch_button.place(x=scaled_size(250), y=0, width=scaled_size(200), height=scaled_size(40))
+
+profile_import_button = Button(profiles_lf, text="Import", command=import_profile_click, state=DISABLED)
+profile_import_button.place(x=PADDING * 2, y=BUTTON_Y_POS + BUTTON_HEIGHT + int(PADDING/2), width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 
 empty_script_lf = Label(root, text="<-- Select a key")
 empty_script_lf.place(x=scaled_size(600), y=scaled_size(300))
