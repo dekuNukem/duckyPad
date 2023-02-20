@@ -19,7 +19,7 @@
 
 uint8_t init_complete;
 uint32_t last_keypress;
-volatile uint8_t is_sleeping;
+volatile uint8_t is_sleeping, is_busy;
 uint32_t button_hold_start, button_hold_duration;
 
 void oled_full_brightness()
@@ -115,9 +115,11 @@ void handle_tactile_button_press(uint8_t button_num)
     {
       if(button_num == KEY_BUTTON1 || button_num == KEY_BUTTON2) // -
       {
+        is_busy = 1;
         change_brightness();
         save_settings();
         print_legend();
+        is_busy = 0;
         button_service_all();
       }
     }
@@ -388,6 +390,19 @@ void handle_hid_command(void)
   hid_tx_buf[0] = 4;
   hid_tx_buf[1] = 0;
   hid_tx_buf[2] = HID_RESPONSE_OK;
+
+  /*
+  duckyPad to PC
+  [0]   report_id: always 4
+  [1]   seq number (same as above)
+  [2]   0 = OK, 1 = ERROR, 2 = BUSY
+  */
+  if(is_busy)
+  {
+    hid_tx_buf[2] = HID_RESPONSE_BUSY;
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
+    return;
+  }
 
   /*
   HID GET INFO
@@ -788,6 +803,7 @@ uint8_t need_keyup_animation(ds3_exe_result* exe)
 
 void keypress_task_start(void const * argument)
 {
+  is_busy = 1;
   while(init_complete == 0)
     osDelay(16);
 
@@ -798,6 +814,7 @@ void keypress_task_start(void const * argument)
     print_legend();
   }
 
+  is_busy = 0;
   ds3_exe_result this_exe;
   load_keymap_by_name(curr_kb_layout);
   button_service_all();
@@ -823,7 +840,9 @@ void keypress_task_start(void const * argument)
           handle_tactile_button_press(i);
         else if(i <= KEY_14)
         {
+          is_busy = 1;
           handle_keypress(i, &button_status[i], &this_exe);
+          is_busy = 0;
           if(need_keyup_animation(&this_exe))
             play_keyup_animation(i);
           if(this_exe.result == EXE_ERROR)

@@ -1195,17 +1195,19 @@ def t1_worker():
     global current_hid_op
     while(1):
         time.sleep(0.2)
-        # print(current_hid_op)
         if current_hid_op == HID_NOP:
+            continue
+        if hid_op.is_idle() is False:
+            messagebox.showerror("Error", "duckyPad is busy!")
+            dp_root_folder_display.set("duckyPad is busy!")
+            current_hid_op = HID_NOP
             continue
         if current_hid_op == HID_DUMP:
             root_folder_path_label.config(foreground='navy')
             dp_root_folder_display.set("Loading...")
             current_hid_op = HID_NOP
             try:
-                # start_ts = time.time()
                 hid_op.dump_from_hid(hid_dump_path, dp_root_folder_display)
-                # print("hid_dump:", time.time() - start_ts, "seconds")
                 select_root_folder(hid_dump_path)
                 dp_root_folder_display.set("done!")
             except Exception as e:
