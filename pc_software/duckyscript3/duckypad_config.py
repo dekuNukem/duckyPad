@@ -61,10 +61,14 @@ script display now hidden if no key is selected
 automatically selects first profile after loading
 added color to key apply and remove button
 added minimum firmware version check
+
+1.2.1 2023 02 21
+added hid busy check
+
 """
 
-THIS_VERSION_NUMBER = '1.2.0'
-MIN_DUCKYPAD_FIRMWARE_VERSION = "1.1.1"
+THIS_VERSION_NUMBER = '1.2.1'
+MIN_DUCKYPAD_FIRMWARE_VERSION = "1.1.2"
 
 ENV_UI_SCALE = os.getenv("DUCKYPAD_UI_SCALE")
 UI_SCALE = float(ENV_UI_SCALE) if ENV_UI_SCALE else 1
