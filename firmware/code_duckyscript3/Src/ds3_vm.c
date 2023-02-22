@@ -22,6 +22,9 @@ uint16_t charjitter_value;
 uint16_t rand_min, rand_max;
 uint16_t loop_size;
 uint8_t epilogue_actions;
+uint8_t cursor_x;
+uint8_t cursor_y;
+extern SSD1306_t SSD1306;
 
 typedef struct
 {
@@ -159,6 +162,10 @@ void write_var(uint16_t addr, uint16_t value)
     ; // this is read only, so do nothing
   else if (addr == _NEEDS_EPILOGUE)
     epilogue_actions = value; // this is read only, so do nothing
+	else if (addr == _CURSORX)
+		cursor_x = value; // this is read only, so do nothing
+	else if (addr == _CURSORY)
+		cursor_y = value; // this is read only, so do nothing
   else if(addr < VAR_BUF_SIZE)
     store_uint16_as_two_bytes_at(addr, value);
 }
@@ -189,6 +196,10 @@ uint16_t read_var(uint16_t addr)
     return key_press_count[current_key];
   else if (addr == _NEEDS_EPILOGUE)
     return epilogue_actions;
+  else if (addr == _CURSORX)
+    return SSD1306.CurrentX;
+  else if (addr == _CURSORY)
+    return SSD1306.CurrentY;
   else if(addr < VAR_BUF_SIZE)
     return make_uint16(var_buf[addr], var_buf[addr+1]);
   return 0;

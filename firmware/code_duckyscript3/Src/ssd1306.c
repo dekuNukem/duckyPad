@@ -33,7 +33,7 @@
 static uint8_t SSD1306_Buffer[SSD1306_WIDTH * SSD1306_HEIGHT / 8];
 
 // Een scherm-object om lokaal in te werken
-static SSD1306_t SSD1306;
+SSD1306_t SSD1306;
 
 uint8_t i2c_status;
 uint8_t last_dim;

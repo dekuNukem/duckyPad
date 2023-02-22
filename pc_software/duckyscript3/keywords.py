@@ -389,4 +389,6 @@ reserved_variable_dict = {
 	"_LOOP_SIZE": (0xffff - 8),
 	"_KEYPRESS_COUNT": (0xffff - 9),
 	"_NEEDS_EPILOGUE": (0xffff - 10),
+    "_CURSORX": (0xffff - 11),
+    "_CURSORY": (0xffff - 12)
 }
