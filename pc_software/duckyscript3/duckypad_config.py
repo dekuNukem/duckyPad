@@ -243,7 +243,7 @@ def select_root_folder(root_path=None):
     dp_settings.load_from_path(dp_root_folder_path)
     duckypad_fw_ver = print_fw_update_label()
 
-    if check_update.versiontuple(duckypad_fw_ver) < check_update.versiontuple(MIN_DUCKYPAD_FIRMWARE_VERSION):
+    if duckypad_fw_ver is None or check_update.versiontuple(duckypad_fw_ver) < check_update.versiontuple(MIN_DUCKYPAD_FIRMWARE_VERSION):
         if messagebox.askokcancel("Info", "Incompatible duckyPad firmware: too old!\n\nSee how to update it?"):
             fw_update_click()
 
