@@ -65,9 +65,11 @@ added minimum firmware version check
 1.2.1 2023 02 21
 added hid busy check
 
+1.2.2 2023 03 01
+fixed HID busy detection bug
 """
 
-THIS_VERSION_NUMBER = '1.2.1'
+THIS_VERSION_NUMBER = '1.2.2'
 MIN_DUCKYPAD_FIRMWARE_VERSION = "1.1.2"
 
 ENV_UI_SCALE = os.getenv("DUCKYPAD_UI_SCALE")
@@ -1201,9 +1203,10 @@ def t1_worker():
         time.sleep(0.2)
         if current_hid_op == HID_NOP:
             continue
-        if hid_op.is_idle() is False:
-            messagebox.showerror("Error", "duckyPad is busy!")
-            dp_root_folder_display.set("duckyPad is busy!")
+        is_idle, comment = hid_op.is_idle()
+        if is_idle is False:
+            messagebox.showerror("Error", comment)
+            dp_root_folder_display.set("")
             current_hid_op = HID_NOP
             continue
         if current_hid_op == HID_DUMP:

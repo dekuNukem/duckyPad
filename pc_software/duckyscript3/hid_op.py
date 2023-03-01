@@ -68,13 +68,6 @@ HID_COMMAND_SW_RESET = 20
 
 h = hid.device()
 
-def is_idle():
-    pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
-    pc_to_duckypad_buf[0] = 5   # HID Usage ID, always 5
-    h.write(pc_to_duckypad_buf)
-    result = _read_duckypad()
-    return result[2] == 0
-
 def _check_hid_err(result):
     """
     Check the HID result and raise a python exception if it is one that
@@ -130,6 +123,18 @@ def duckypad_list_files(root_dir = None):
         ret.append(this_filename)
         duckypad_hid_resume()
     return ret
+
+def is_idle():
+    pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
+    pc_to_duckypad_buf[0] = 5   # HID Usage ID, always 5
+    try:
+        duckypad_hid_close()
+        duckypad_hid_init()
+        h.write(pc_to_duckypad_buf)
+        result = _read_duckypad()
+    except Exception as e:
+        return False, str(e)
+    return result[2] == 0, 'duckyPad is busy!'
 
 def duckypad_hid_resume():
     pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
