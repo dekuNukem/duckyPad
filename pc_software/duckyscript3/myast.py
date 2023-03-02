@@ -20,17 +20,18 @@ def get_right(node):
 def is_leaf(node):
 	return 'left' not in node.__dict__ and 'right' not in node.__dict__
 
-def postorder_walk(node, action, instruction_list):
+def postorder_walk(node, action, instruction_list, expr):
+	# this generates an error 
+	# IF $kc > 12 != 14 THEN
+	# c:\users\allen\appdata\roaming\python\python38\scripts\astboom.exe ast "(kc > 12) != 14"
 	if node is None:
-		print("postorder_walk error: Get child node failed")
-		exit()
+		raise ValueError(f"Expression parsing fail:\n{expr}\nTry adding parentheses!")
 	if isinstance(node, ast.BoolOp):
 		for item in node.values:
-			postorder_walk(item, action, instruction_list)
+			postorder_walk(item, action, instruction_list, expr)
 	if is_leaf(node):
-		# print("[LEAF] ", end='')
 		action(node, instruction_list)
 		return;
-	postorder_walk(node.left, action, instruction_list)
-	postorder_walk(get_right(node), action, instruction_list)
+	postorder_walk(node.left, action, instruction_list, expr)
+	postorder_walk(get_right(node), action, instruction_list, expr)
 	action(node, instruction_list)

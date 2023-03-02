@@ -181,7 +181,7 @@ def evaluate_expr(expr):
     instruction_list = []
     root = ast.parse(expr).body[0].value
     if myast.is_walkable(root):
-        myast.postorder_walk(root, visit_node, instruction_list)
+        myast.postorder_walk(root, visit_node, instruction_list, expr)
     elif isinstance(root, ast.Constant):
         this_instruction = get_empty_instruction()
         this_instruction['opcode'] = OP_PUSHC
