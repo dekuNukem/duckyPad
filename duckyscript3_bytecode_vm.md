@@ -1,5 +1,3 @@
-# UNDER CONSTRUCTION!!!!
-
 # duckyScript 3 Bytecode Instruction Set
 
 [Get duckyPad](https://www.tindie.com/products/21984/) | [Official Discord](https://discord.gg/4sJCBx5) | [Getting Started](getting_started.md) | [Table of Contents](#table-of-contents)
@@ -8,7 +6,7 @@
 
 Details of duckyPad duckyScript 3 (**DPDS3**) instruction set, compiler, and binary format.
 
-This is NOT the official implementation, which appears to be closed-source.
+This is NOT the official implementation, which appears to be close-source.
 
 I designed everything here myself from scratch.
 
@@ -92,27 +90,32 @@ HALT
 6    MULT                          ;VAR $spam = 10*7+3
 9    PUSHC     3     0x3           ;VAR $spam = 10*7+3
 12   ADD                           ;VAR $spam = 10*7+3
-15   POP       27    0x1b          ;VAR $spam = 10*7+3
-18   PUSHV     27    0x1b          ;DELAY $spam
+15   POP       0     0x0           ;VAR $spam = 10*7+3
+18   PUSHV     0     0x0           ;DELAY $spam
 21   DELAY                         ;DELAY $spam
 24   HALT
 
---------- Bytecode header ---------
-0x08 0x00 0x1b 0x00 0x1d 0x00 0x00 0x00
+
 
 --------- Bytecode ---------
 0x01 0x0a 0x00 0x01 0x07 0x00 0x11 0x00 0x00
-0x01 0x03 0x00 0x0f 0x00 0x00 0x03 0x1b 0x00
-0x02 0x1b 0x00 0x1b 0x00 0x00 0x08 0x00 0x00
-0x00 0x00
+0x01 0x03 0x00 0x0f 0x00 0x00 0x03 0x00 0x00
+0x02 0x00 0x00 0x1b 0x00 0x00 0x08 0x00 0x00
 
-Binary Size: 37 Bytes
+
+Binary Size: 27 Bytes
+
 ```
 
-## Binary Format
+## Binary Executable
 
-Under construction
+When a key is pressed, the corresponding `.dsb` file is loaded into `bin_buf` in [ds3_vm.c](https://github.com/dekuNukem/duckyPad/blob/master/firmware/code_duckyscript3/Src/ds3_vm.c). Execution occurs inside `run_dsb()` with `execute_instruction()`.
 
+Zero-terminated strings are stored at the end of the binary file.
+
+Variables are stored in `var_buf`. Up to 64 variables can be declared. 
+
+`bin_buf` can hold 2048 bytes, if the file is bigger, chunks are loaded on-the-fly from SD card. This might slow down execution, so try to keep it under 2KB.
 
 ## CPU Instructions
 
