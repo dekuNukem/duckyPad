@@ -402,7 +402,7 @@ Arguments and return values are NOT supported, use global variables instead.
 Simple example:
 
 ```
-FUNCTION print_info():
+FUNCTION print_info()
 	STRING My email is example@gmail.com
 	STRING I'm 69 years old!
 END_FUNCTION
