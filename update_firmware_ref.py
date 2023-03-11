@@ -1,9 +1,13 @@
 import os
 import sys
 
-if not (sys.version_info.major >= 3 and sys.version_info.minor >= 4):
-	print('update_firmware_ref: PYTHON VERISON TOO LOW, 3.4+ REQUIRED')
+if sys.platform != 'win32':
+	print(__file__ + ": not under windows")
 	exit()
+
+# if not (sys.version_info.major >= 3 and sys.version_info.minor >= 4):
+# 	print('update_firmware_ref: PYTHON VERISON TOO LOW, 3.4+ REQUIRED')
+# 	exit()
 
 try:
 	dfu_folder = os.path.join('.', 'firmware')

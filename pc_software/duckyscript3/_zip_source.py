@@ -1,5 +1,9 @@
 import os
 
+if sys.platform != 'win32':
+	print(__file__ + ": not under windows")
+	exit()
+
 THIS_VERSION = None
 try:
 	mainfile = open('duckypad_config.py')
