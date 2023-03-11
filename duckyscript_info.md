@@ -6,11 +6,16 @@
 
 ## Overview
 
-duckyScript is a simple scripting language for automating keypresses.
+duckyScript is a simple scripting language for automating keyboard inputs.
 
-It was originally developed for [USB Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky-deluxe).
+It was originally developed for security research with [USB Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky-deluxe).
 
-**duckyScript 3** with vastly improved capability is currently under [public beta testing](duckyscript3_beta_test.md), but please go through this first if it's your first time.
+However, [duckyPad uses it too](https://www.tindie.com/products/dekunukem/duckypad-do-it-all-mechanical-macropad/) to provide powerful macro scripting instead.
+
+![Alt text](resources/pics/topdown.jpg)
+
+
+**duckyScript 3** with much improved capability is currently under [public beta testing](duckyscript3_beta_test.md).
 
 ## Examples
 
