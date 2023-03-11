@@ -1,4 +1,5 @@
 import os
+import sys
 
 if sys.platform != 'win32':
 	print(__file__ + ": not under windows")
