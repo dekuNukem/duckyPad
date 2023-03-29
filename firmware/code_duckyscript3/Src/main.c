@@ -126,11 +126,14 @@ fixed a bug where screen doesnt update when exiting keymap selection screen
 
 1.1.2 20230221
 added busy state
+
+1.1.3 20230329
+fixing a rand() bug where modulus power of 2 result in repeating patterns
 */
 
 uint8_t fw_version_major = 1;
 uint8_t fw_version_minor = 1;
-uint8_t fw_version_patch = 2;
+uint8_t fw_version_patch = 3;
 char instruction[] = "For instructions, see";
 /* USER CODE END PV */
 

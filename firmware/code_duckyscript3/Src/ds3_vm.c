@@ -19,7 +19,7 @@ uint8_t current_bank;
 uint16_t defaultdelay_value;
 uint16_t defaultchardelay_value;
 uint16_t charjitter_value;
-uint16_t rand_min, rand_max;
+uint32_t rand_min, rand_max;
 uint16_t loop_size;
 uint8_t epilogue_actions;
 
@@ -164,7 +164,6 @@ void write_var(uint16_t addr, uint16_t value)
 }
 
 uint8_t current_key;
-
 uint16_t read_var(uint16_t addr)
 {
   if(addr == DEFAULTDELAY_ADDR)
@@ -178,7 +177,7 @@ uint16_t read_var(uint16_t addr)
   else if (addr == _RANDOM_MAX)
     return rand_max;
   else if (addr == _RANDOM_INT)
-    return rand() % (rand_max + 1 - rand_min) + rand_min;
+    return (rand() + htim6.Instance->CNT) % (rand_max + 1 - rand_min) + rand_min;
   else if (addr == _TIME_MS)
     return (uint16_t)HAL_GetTick();
   else if (addr == _LOOP_SIZE)
