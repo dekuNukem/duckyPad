@@ -129,6 +129,9 @@ added busy state
 
 1.1.3 20230329
 fixing a rand() bug where modulus power of 2 result in repeating patterns
+
+1.1.4 20230409
+fixed a SD card timing bug
 */
 
 uint8_t fw_version_major = 1;
