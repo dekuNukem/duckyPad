@@ -513,6 +513,14 @@ Returns 0 if no key is pressed. 1 to 17 otherwise.
 
 Get how many times the current key has been pressed.
 
+#### `$_CURSORX` (RO)
+
+Returns current X position of cursor on OLED screen.
+
+#### `$_CURSORY` (RO)
+
+Returns current Y position of cursor on OLED screen.
+
 ## Reading Buttons
 
 Reading the reserved variable `$_READKEY` returns the currently pressed key.

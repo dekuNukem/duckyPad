@@ -63,5 +63,6 @@ void ssd1306_SetCursor(uint8_t x, uint8_t y);
 void ssd1306_dim(uint8_t is_dim);
 
 static void ssd1306_WriteCommand(uint8_t command);
+extern SSD1306_t SSD1306;
 
 #endif
