@@ -377,6 +377,8 @@ Actually update the OLED.
 
 You should use `OLED_CLEAR`, `OLED_CURSOR`, and `OLED_PRINT` to set up the display, then use this to print it.
 
+This is much faster than updating the whole screen for every change.
+
 ### `OLED_RESTORE`
 
 Restore the default profile/key name display. `OLED_UPDATE` **NOT NEEDED**.

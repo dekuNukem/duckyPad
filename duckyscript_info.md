@@ -49,47 +49,47 @@ CONTROL w
 
 ## List of Commands
 
-- [`REM` and `//`](#rem-and)
+- [REM and //](#rem-and-)
 
-- [`DEFAULTDELAY`](#defaultdelay)
+- [DEFAULTDELAY](#defaultdelay)
 
-- [`DEFAULTCHARDELAY`](#defaultchardelay)
+- [DEFAULTCHARDELAY](#defaultchardelay)
 
-- [`CHARJITTER X`](#charjitter-x)
+- [CHARJITTER](#charjitter-x)
 
-- [`DELAY`](#delay)
+- [DELAY](#delay)
 
-- [`STRING` and `STRINGLN`](#string--and--stringln)
+- [STRING and STRINGLN](#string-and-stringln)
 
-- [`REPEAT`](#repeat)
+- [REPEAT](#repeat)
 
 - [Special Keys](#special-keys)
 
-- [`KEYDOWN` / `KEYUP`](#keydown-----keyup)
+- [KEYDOWN / KEYUP](#keydown--keyup)
 
 - [Mouse Buttons](#mouse-buttons)
 
-- [`MOUSE_MOVE X Y`](#mouse-move-x-y)
+- [MOUSE_MOVE](#mouse_move-x-y)
 
-- [`MOUSE_WHEEL X`](#mouse-wheel-x)
+- [MOUSE_WHEEL](#mouse_wheel-x)
 
-- [`SWC_SET n r g b`](#swc-set-n-r-g-b)
+- [SWC_SET](#swc_set-n-r-g-b)
 
-- [`SWC_FILL r g b`](#swc-fill-r-g-b)
+- [SWC_FILL](#swc_fill-r-g-b)
 
-- [`SWC_RESET n`](#swc-reset-n)
+- [SWC_RESET](#swc_reset-n)
 
-- [`DP_SLEEP`](#dp-sleep)
+- [DP_SLEEP](#dp_sleep)
 
-- [`PREV_PROFILE` / `NEXT_PROFILE`](#prev-profile-----next-profile)
+- [PREV_PROFILE / NEXT_PROFILE](#prev_profile--next_profile)
 
-- [`GOTO_PROFILE`](#goto-profile)
+- [GOTO_PROFILE](#goto_profile)
 
-- [`EMUK`](#emuk)
+- [EMUK](#emuk)
 
-- [`LOOP`](#loop)
+- [LOOP](#loop)
 
-[duckyScript 3 Advanced Features](#duckyscript-3-advanced-features)
+- [duckyScript 3 Advanced Features](#duckyscript-3-advanced-features)
 
 ### `REM` and `//`
 
@@ -368,13 +368,11 @@ ENTER
 
 duckyScript 3 gives duckyPad a big boost in capability. Featuring:
 
-* Variables, `IF` statements, `WHILE` loops, functions, and more!
+* Variables, `IF` statements, `WHILE` loops, functions, randomisation, and more!
 
 * Print to OLED screen
 
 * Read button status
-
-* Many optimisations and bug fixes
 
 [Click me to learn more about advanced features!](duckyscript3_instructions.md)
 
