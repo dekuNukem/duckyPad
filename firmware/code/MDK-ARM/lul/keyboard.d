@@ -68,3 +68,4 @@ lul\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
 lul\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h
 lul\keyboard.o: ../Inc/parser.h
 lul\keyboard.o: ../Inc/buttons.h
+lul\keyboard.o: ../Inc/ds3_vm.h

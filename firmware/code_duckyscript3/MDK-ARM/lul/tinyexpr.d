@@ -1,9 +1,0 @@
-lul\tinyexpr.o: ..\Src\tinyexpr.c
-lul\tinyexpr.o: ../Inc/tinyexpr.h
-lul\tinyexpr.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
-lul\tinyexpr.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-lul\tinyexpr.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-lul\tinyexpr.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-lul\tinyexpr.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-lul\tinyexpr.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\ctype.h
-lul\tinyexpr.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h

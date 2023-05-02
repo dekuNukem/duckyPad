@@ -106,7 +106,7 @@
 
 typedef struct
 {
-  uint8_t key_type;
+  uint8_t type;
   uint8_t code;
   uint8_t code2;
 } my_key;
@@ -120,6 +120,7 @@ void media_key_release(void);
 uint8_t is_mouse_type(my_key* this_key);
 void mouse_test(void);
 void kb_print_char(my_key *kk, int32_t chardelay, int32_t char_delay_fuzz);
+uint8_t utf8ascii(uint8_t ascii);
 
 extern uint16_t circumflex;
 extern uint16_t diaeresis;

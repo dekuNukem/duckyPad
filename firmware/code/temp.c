@@ -1,3 +1,286 @@
+wrong
+957 10
+957 42
+va 957
+vv 0
+
+
+correct
+147 10
+147 42
+va 147
+vv 42
+
+// void store_uint16_as_two_bytes_at(uint16_t addr, uint16_t value)
+// {
+//   printf("s16 %d %d\n", addr, value);
+//   uint8_t ddd = write_byte(addr, value & 0xff);
+//   printf("%d\n", ddd);
+//   write_byte(addr+1, value >> 8);
+//   printf("%d\n", ddd);
+//   printf("---\n");
+// }
+
+
+char* make_str(char* start)
+{
+  char* curr = start;
+  uint8_t this_char, lsb, msb;
+  memset(read_buffer, 0, READ_BUF_SIZE);
+  while(1)
+  {
+    this_char = curr[0];
+    if(this_char == 0)
+      break;
+
+    if(this_char == VAR_BOUNDARY)
+    {
+      curr++;
+      lsb = curr[0];
+      curr++;
+      msb = curr[0];
+      curr++;
+      curr++;
+      uint16_t var_addr = make_uint16(lsb, msb);
+      uint16_t var_value = read_var(var_addr);
+      memset(temp_buf, 0, PATH_SIZE);
+      sprintf(temp_buf, "%d", var_value);
+      strcat(read_buffer, temp_buf);
+      continue;
+    }
+    memset(temp_buf, 0, PATH_SIZE);
+    sprintf(temp_buf, "%c", this_char);
+    strcat(read_buffer, temp_buf);
+    curr++;
+  }
+  return read_buffer;
+  // kb_print(read_buffer, defaultchardelay_value, charjitter_value);
+}
+
+
+uint8_t load_dsb(char* filename)
+{
+  uint8_t op_result = DSB_OK;
+  UINT bytes_read = 0;
+  if(f_open(&sd_file, filename, FA_READ) != 0)
+  {
+    op_result = DSB_FOPEN_FAILED;
+    goto load_dsb_end;
+  }
+ 
+  uint32_t this_file_size = f_size(&sd_file);
+  if(this_file_size == 0)
+    op_result = DSB_EMPTY_FILE;
+  if(this_file_size >= BIN_BUF_SIZE)
+    op_result = DSB_FILE_TOO_LARGE;
+  memset(bin_buf, 0, BIN_BUF_SIZE);
+  f_read(&sd_file, bin_buf, BIN_BUF_SIZE, &bytes_read);
+  if(bytes_read != this_file_size)
+    op_result = DSB_FREAD_ERROR;
+  load_dsb_end:
+  f_close(&sd_file);
+  return op_result;
+}
+uint8_t read_byte(uint16_t addr, uint8_t* data)
+{
+  uint8_t target_chunk = addr/BIN_BUF_SIZE;
+  if(target_chunk == current_chunk)
+  {
+    *data = bin_buf[addr%BIN_BUF_SIZE];
+    return DSB_OK;
+  }
+  // printf("cc:%d, tc:%d\n", current_chunk, target_chunk);
+  uint8_t op_result = DSB_OK;
+  UINT bytes_read = 0;
+  if(f_open(&sd_file, temp_buf, FA_READ) != 0)
+  {
+    op_result = DSB_FOPEN_FAILED;
+    goto load_dsb_end;
+  }
+
+  if(addr >= f_size(&sd_file))
+  {
+    op_result = DSB_READ_OVERFLOW;
+    goto load_dsb_end;
+  }
+
+  if(f_lseek(&sd_file, target_chunk*BIN_BUF_SIZE) != 0)
+  {
+    op_result = DSB_CHUNK_LOAD_ERROR;
+    goto load_dsb_end;
+  }
+
+  memset(bin_buf, 0, BIN_BUF_SIZE);
+  f_read(&sd_file, bin_buf, BIN_BUF_SIZE, &bytes_read);
+  current_chunk = target_chunk;
+  load_dsb_end:
+  f_close(&sd_file);
+  *data = bin_buf[addr%BIN_BUF_SIZE];
+  return op_result;
+}
+void run_dsb(ds3_exe_result* er, uint8_t keynum)
+{
+  uint16_t current_pc = 0;
+  current_chunk = 255;
+  stack_init(&arithmetic_stack);
+  stack_init(&call_stack);
+  defaultdelay_value = DEFAULT_CMD_DELAY_MS;
+  defaultchardelay_value = DEFAULT_CHAR_DELAY_MS;
+  charjitter_value = 0;
+  rand_max = 65535;
+  rand_min = 0;
+  loop_size = 0;
+  epilogue_actions = 0;
+  srand(HAL_GetTick());
+  uint8_t dddd;
+  // printf("rb:%d, %d\n", read_byte(1200, &dddd), dddd);
+
+  for (int i = 0; i < 1554; ++i)
+  {
+    read_byte(i, &dddd);
+    printf("%c", dddd);
+  }
+
+  // while(1)
+  // {
+  //   execute_instruction(bin_buf, current_pc, er, keynum);
+  //   if(er->result != EXE_OK)
+  //     break;
+  //   current_pc = er->next_pc;
+  // }
+  // er->epilogue_actions = epilogue_actions;
+  // printf("execution halted: %d\n", er->result);
+}
+
+void run_dsb(ds3_exe_result* er, uint8_t keynum)
+{
+  uint16_t current_pc = 0;
+  current_chunk = 255;
+  stack_init(&arithmetic_stack);
+  stack_init(&call_stack);
+  defaultdelay_value = DEFAULT_CMD_DELAY_MS;
+  defaultchardelay_value = DEFAULT_CHAR_DELAY_MS;
+  charjitter_value = 0;
+  rand_max = 65535;
+  rand_min = 0;
+  loop_size = 0;
+  epilogue_actions = 0;
+  srand(HAL_GetTick());
+
+  while(1)
+  {
+    execute_instruction(bin_buf, current_pc, er, keynum);
+    if(er->result != EXE_OK)
+      break;
+    current_pc = er->next_pc;
+  }
+  er->epilogue_actions = epilogue_actions;
+  printf("execution halted: %d\n", er->result);
+}
+
+
+uint8_t load_dsb(char* filename)
+{
+  uint8_t op_result = DSB_OK;
+  UINT bytes_read = 0;
+  if(f_open(&sd_file, filename, FA_READ) != 0)
+  {
+    op_result = DSB_FOPEN_FAILED;
+    goto load_dsb_end;
+  }
+ 
+  uint32_t this_file_size = f_size(&sd_file);
+  if(this_file_size == 0)
+    op_result = DSB_EMPTY_FILE;
+  if(this_file_size >= BIN_BUF_SIZE)
+    op_result = DSB_FILE_TOO_LARGE;
+  memset(bin_buf, 0, BIN_BUF_SIZE);
+  f_read(&sd_file, bin_buf, BIN_BUF_SIZE, &bytes_read);
+  if(bytes_read != this_file_size)
+    op_result = DSB_FREAD_ERROR;
+  load_dsb_end:
+  f_close(&sd_file);
+  return op_result;
+}
+
+void keypress_wrapper(uint8_t keynum, ds3_exe_result* exe)
+{
+  memset(temp_buf, 0, PATH_SIZE);
+  sprintf(temp_buf, "/%s/key%d.dsb", p_cache.profile_fn, keynum+1);
+  der_init(exe);
+  if(f_stat(temp_buf, NULL) != 0)
+    return;
+  play_keydown_animation(keynum);
+  load_dsb(temp_buf);
+  run_dsb(exe, keynum);
+  key_press_count[keynum]++;
+  if(exe->epilogue_actions & 0x3)
+    save_persistent_state(exe->epilogue_actions);
+}
+
+void keypress_wrapper(uint8_t keynum, ds3_exe_result* exe)
+{
+  memset(temp_buf, 0, PATH_SIZE);
+  sprintf(temp_buf, "/%s/key%d.dsb", p_cache.profile_fn, keynum+1);
+  der_init(exe);
+  taskENTER_CRITICAL();
+  uint8_t load_result = load_dsb(temp_buf);
+  taskEXIT_CRITICAL();
+  if(load_result != DSB_OK)
+    return;
+  play_keydown_animation(keynum);
+  run_dsb(exe, keynum);
+  key_press_count[keynum]++;
+  if(exe->epilogue_actions & 0x3)
+    save_persistent_state(exe->epilogue_actions);
+}
+
+void print_stack(my_stack* ms)
+{
+  printf("----\n");
+  for (int i = 0; i < ms->top; ++i)
+    printf("%d\n", ms->stack[i]);
+  printf("----\n");
+}
+void my_i2c_write(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint16_t MemAddress, uint16_t MemAddSize, uint8_t *pData, uint16_t Size, uint32_t Timeout)
+{
+  uint8_t result = HAL_I2C_Mem_Write(hi2c, DevAddress, MemAddress, MemAddSize, pData, Size, Timeout);
+  printf("%d %d/ ", hi2c->State, result);
+}
+if (this_exe.needs_sps & NEED_OLED_REFRESH)
+          {
+            // ssd1306_Fill(Black);
+            // ssd1306_UpdateScreen();
+            // NVIC_SystemReset();
+            // print_legend();
+
+            // HAL_GPIO_WritePin(OLED_RESET_GPIO_Port, OLED_RESET_Pin, GPIO_PIN_RESET);
+            // osDelay(10);
+            // HAL_GPIO_WritePin(OLED_RESET_GPIO_Port, OLED_RESET_Pin, GPIO_PIN_SET);
+            // osDelay(20);
+            // ssd1306_Init();
+            // print_legend();
+          }
+
+  for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
+    printf("%d ", key_press_count[i]);
+  printf("\n");
+// printf("%d: %d %d %d\n", i, red_addr, green_addr, blue_addr);
+  // printf("%d: %d %d %d\n", i, red, green, blue);
+void keypress_wrap(uint8_t keynum)
+{
+  memset(temp_buf, 0, PATH_SIZE);
+  sprintf(temp_buf, "/%s/key%d.dsb", p_cache.profile_fn, keynum+1);
+  printf("%s\n", temp_buf);
+  if(f_open(&sd_file, temp_buf, FA_READ) != 0)
+    goto kp_end;
+  kp_end:
+  f_close(&sd_file);
+}
+  // taskENTER_CRITICAL();
+  // save_persistent_state();
+  // taskEXIT_CRITICAL();
+
   /*
   HID SET RGB LED COLOUR
   -----------

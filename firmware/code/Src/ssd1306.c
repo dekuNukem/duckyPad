@@ -1,4 +1,5 @@
 #include "ssd1306.h"
+#include "shared.h"
 
 #define SSD1306_LCDWIDTH 128
 #define SSD1306_LCDHEIGHT 64
@@ -139,10 +140,9 @@ void ssd1306_Fill(SSD1306_COLOR color)
 //
 void ssd1306_UpdateScreen(void) 
 {
-	uint8_t i;
-	
 	// 29ms total at 400KHz I2C clock
-	for (i = 0; i < 8; i++) {
+	taskENTER_CRITICAL();
+	for (uint8_t i = 0; i < 8; i++) {
 		ssd1306_WriteCommand(0xB0 + i);
 		ssd1306_WriteCommand(0x00);
 		ssd1306_WriteCommand(0x10);
@@ -151,6 +151,7 @@ void ssd1306_UpdateScreen(void)
 		if(i2c_status == HAL_OK)
 			HAL_I2C_Mem_Write(&hi2c1,SSD1306_I2C_ADDR,0x40,1,&SSD1306_Buffer[SSD1306_WIDTH * i],SSD1306_WIDTH,100);
 	}
+	taskEXIT_CRITICAL();
 }
 
 //

@@ -6,31 +6,31 @@
 
 but_status button_status[KEY_COUNT];
 
-void mark_as_pressed(but_status* butt)
+void mark_as_pressed(uint8_t which)
 {
-  butt->button_state = BUTTON_PRESSED;
-  butt->service_status = BUTTON_SERVICE_UNSERVICED;
+  button_status[which].button_state = BUTTON_PRESSED;
+  button_status[which].service_status = BUTTON_SERVICE_UNSERVICED;
 }
 
-void mark_as_released(but_status* butt)
+void mark_as_released(uint8_t which)
 {
-  butt->button_state = BUTTON_RELEASED;
-  butt->service_status = BUTTON_SERVICE_UNSERVICED;
+  button_status[which].button_state = BUTTON_RELEASED;
+  button_status[which].service_status = BUTTON_SERVICE_UNSERVICED;
 }
 
-uint8_t is_pressed(but_status* butt)
+uint8_t is_pressed(uint8_t which)
 {
-  return butt->button_state == BUTTON_PRESSED && butt->service_status == BUTTON_SERVICE_UNSERVICED;
+  return button_status[which].button_state == BUTTON_PRESSED && button_status[which].service_status == BUTTON_SERVICE_UNSERVICED;
 }
 
-uint8_t is_released_but_not_serviced(but_status* butt)
+uint8_t is_released_but_not_serviced(uint8_t which)
 {
-  return butt->button_state == BUTTON_RELEASED && butt->service_status == BUTTON_SERVICE_UNSERVICED;
+  return button_status[which].button_state == BUTTON_RELEASED && button_status[which].service_status == BUTTON_SERVICE_UNSERVICED;
 }
 
-void service_press(but_status* butt)
+void service_press(uint8_t which)
 {
-  butt->service_status = BUTTON_SERVICE_SERVICED;
+  button_status[which].service_status = BUTTON_SERVICE_SERVICED;
 }
 
 void keyboard_update(void)
@@ -56,10 +56,23 @@ void keyboard_update(void)
   for (int i = 0; i < KEY_COUNT; ++i)
   {
     if(button_status[i].prev_state == BUTTON_RELEASED && button_status[i].button_state == BUTTON_PRESSED)
-      mark_as_pressed(&button_status[i]);
+      mark_as_pressed(i);
     else if(button_status[i].prev_state == BUTTON_PRESSED && button_status[i].button_state == BUTTON_RELEASED)
-      mark_as_released(&button_status[i]);
+      mark_as_released(i);
     button_status[i].prev_state = button_status[i].button_state;
   }
 }
 
+void button_service_all(void)
+{
+  for (int i = 0; i < KEY_COUNT; ++i)
+    service_press(i);
+}
+
+uint8_t get_first_active_key(uint8_t curr_key)
+{
+  for (int i = 0; i < KEY_COUNT; ++i)
+    if(is_pressed(i))
+      return i+1;
+  return 0;
+}

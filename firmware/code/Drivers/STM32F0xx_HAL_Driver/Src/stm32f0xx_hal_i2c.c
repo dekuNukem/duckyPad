@@ -1735,7 +1735,8 @@ HAL_StatusTypeDef HAL_I2C_Mem_Write(I2C_HandleTypeDef *hi2c, uint16_t DevAddress
   /* Check the parameters */
   assert_param(IS_I2C_MEMADD_SIZE(MemAddSize));
 
-  if(hi2c->State == HAL_I2C_STATE_READY)
+  if(1)
+  // if(hi2c->State == HAL_I2C_STATE_READY)
   {
     if((pData == NULL) || (Size == 0U))
     {

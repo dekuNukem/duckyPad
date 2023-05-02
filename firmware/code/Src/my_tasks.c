@@ -13,9 +13,9 @@
 #include "animations.h"
 #include "usb_device.h"
 #include "usbd_desc.h"
+#include "ds3_vm.h"
 
 #define LONG_PRESS_MS 500
-#define MAX_KEYMAP_SIZE 8
 
 uint8_t init_complete;
 uint32_t last_keypress;
@@ -37,18 +37,12 @@ void draw_brightness_value()
   ssd1306_UpdateScreen();
 }
 
-void service_all(void)
-{
-  for (int i = 0; i < KEY_COUNT; ++i)
-    service_press(&button_status[i]);
-}
-
 void set_brightness(void)
 {
     draw_brightness_value();
     redraw_bg();
     osDelay(30);
-    service_all();
+    button_service_all();
     save_last_profile(p_cache.current_profile);
 }
 
@@ -67,24 +61,24 @@ void change_brightness()
     ssd1306_WriteString("Press any key to exit",Font_6x10,White);
     ssd1306_UpdateScreen();
     draw_brightness_value();
-    service_all();
+    button_service_all();
     while(1)
     {
       HAL_IWDG_Refresh(&hiwdg);
       keyboard_update();
 
       for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
-          if(is_pressed(&button_status[i]))
+          if(is_pressed(i))
               return;
 
-      if(is_pressed(&button_status[KEY_BUTTON1])) // -
+      if(is_pressed(KEY_BUTTON1)) // -
       {
           brightness_index--;
           if(brightness_index < 0)
               brightness_index = 0;
           set_brightness();
       }
-      if(is_pressed(&button_status[KEY_BUTTON2])) // +
+      if(is_pressed(KEY_BUTTON2)) // +
       {
           brightness_index++;
           if(brightness_index >= BRIGHTNESS_LEVELS)
@@ -119,14 +113,14 @@ void handle_tactile_button_press(uint8_t button_num)
     }
     else // long press
     {
-      if(button_num == KEY_BUTTON1) // -
+      if(button_num == KEY_BUTTON1 || button_num == KEY_BUTTON2) // -
       {
         is_busy = 1;
         change_brightness();
         save_settings();
+        print_legend();
         is_busy = 0;
-        print_legend(0, 0);
-        service_all();
+        button_service_all();
       }
     }
 }
@@ -226,7 +220,6 @@ void print_keymap(char* msg)
 const char* default_keymap_name = "English(US)";
 void select_keymap(void)
 {
-  is_busy = 1;
   uint8_t is_default_selected = 0;
   memset(temp_buf, 0, PATH_SIZE);
   print_keymap(temp_buf);
@@ -241,7 +234,7 @@ void select_keymap(void)
   {
     HAL_IWDG_Refresh(&hiwdg);
     keyboard_update();
-    if(is_pressed(&button_status[KEY_BUTTON1]) || is_pressed(&button_status[KEY_BUTTON2])) // -
+    if(is_pressed(KEY_BUTTON1) || is_pressed(KEY_BUTTON2)) // + -
     {
       memset(lfn_buf, 0, FILENAME_SIZE);
       if(f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)
@@ -249,7 +242,7 @@ void select_keymap(void)
         print_keymap((char*)default_keymap_name);
         is_default_selected = 1;
         f_readdir(&dir, 0);
-        service_all();
+        button_service_all();
         continue;
       }
       if(fno.fattrib & AM_DIR)
@@ -261,11 +254,11 @@ void select_keymap(void)
         continue;
       print_keymap(keymap_filename+5);
       is_default_selected = 0;
-      service_all();
+      button_service_all();
     }
 
     for (int i = 1; i < MAPPABLE_KEY_COUNT; ++i)
-      if(is_pressed(&button_status[i]))
+      if(is_pressed(i))
         goto select_keymap_assign_new_name;
 
     osDelay(50);
@@ -279,12 +272,11 @@ void select_keymap(void)
   save_settings();
 
   select_keymap_end:
-  service_all();
+  button_service_all();
   f_closedir(&dir);
-  is_busy = 0;
 }
 
-uint8_t command_type, seq_number;
+uint8_t command_type;
 uint8_t hid_tx_buf[HID_TX_BUF_SIZE];
 
 #define HID_COMMAND_GET_INFO 0
@@ -317,7 +309,6 @@ uint8_t hid_tx_buf[HID_TX_BUF_SIZE];
 #define HID_RESPONSE_EOF 3
 
 #define HID_FILE_READ_BUF_SIZE 60
-#define HID_TX_DELAY 10
 
 /*
   HID OP RESUME
@@ -393,12 +384,11 @@ void handle_hid_command(void)
   //   printf("%c, ", hid_rx_buf[i]);
   // printf("\ndone\n");
 
-  seq_number = hid_rx_buf[1];
   command_type = hid_rx_buf[2];
 
   memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
   hid_tx_buf[0] = 4;
-  hid_tx_buf[1] = seq_number;
+  hid_tx_buf[1] = 0;
   hid_tx_buf[2] = HID_RESPONSE_OK;
 
   /*
@@ -545,7 +535,7 @@ void handle_hid_command(void)
       memset(lfn_buf, 0, FILENAME_SIZE);
       memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
       hid_tx_buf[0] = 4;
-      hid_tx_buf[1] = seq_number;
+      hid_tx_buf[1] = 0;
       hid_tx_buf[2] = HID_RESPONSE_OK;
       
       if (f_readdir(&dir, &fno) != FR_OK || fno.fname[0] == 0)
@@ -553,6 +543,8 @@ void handle_hid_command(void)
       if (fno.fattrib & AM_DIR)
         hid_tx_buf[3] = 1;
       this_filename = fno.lfname[0] ? fno.lfname : fno.fname;
+      // if(strstr(this_filename, ".dsb")) // saves some time skipping dsb file
+      //   continue;
       strncpy(hid_tx_buf+4, this_filename, FILENAME_SIZE);
       USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
       
@@ -563,10 +555,9 @@ void handle_hid_command(void)
     list_file_end:
     memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
     hid_tx_buf[0] = 4;
-    hid_tx_buf[1] = seq_number;
+    hid_tx_buf[1] = 0;
     hid_tx_buf[2] = HID_RESPONSE_EOF;
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
-    // osDelay(HID_TX_DELAY);
     f_closedir(&dir);
     hid_rx_has_unprocessed_data = 0;
   }
@@ -590,34 +581,31 @@ void handle_hid_command(void)
     if(f_open(&sd_file, hid_rx_buf+3, FA_READ) != 0)
       goto hid_read_file_end;
 
-    uint8_t count = 0;
     while(1)
     {
       hid_rx_has_unprocessed_data = 0;
       memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
+      memset(read_buffer, 0, READ_BUF_SIZE);
       hid_tx_buf[0] = 4;
-      hid_tx_buf[1] = seq_number + count;
       hid_tx_buf[2] = HID_RESPONSE_OK;
       f_read(&sd_file, read_buffer, HID_FILE_READ_BUF_SIZE, &bytes_read);
-      strncpy(hid_tx_buf+3, read_buffer, bytes_read);
+      memcpy(hid_tx_buf+3, read_buffer, bytes_read);
+      hid_tx_buf[1] = bytes_read;
       USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
 
       if(check_resume() == 0)
         goto hid_read_file_end;
-
-      memset(read_buffer, 0, READ_BUF_SIZE);
+      
       if(bytes_read < HID_FILE_READ_BUF_SIZE)
         break;
-      count++;
     }
     hid_read_file_end:
     f_close(&sd_file);
     memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
     hid_tx_buf[0] = 4;
-    hid_tx_buf[1] = seq_number + count;
+    hid_tx_buf[1] = 0;
     hid_tx_buf[2] = HID_RESPONSE_EOF;
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
-    // osDelay(HID_TX_DELAY);
     hid_rx_has_unprocessed_data = 0;
   }
   /*
@@ -652,19 +640,18 @@ void handle_hid_command(void)
   -----------
   PC to duckyPad:
   [0]   report_id: always 5
-  [1]   seq number
+  [1]   data length in bytes
   [2]   command: 15
   [3 ... 63]   content
   -----------
   duckyPad to PC
   [0]   report_id: always 4
-  [1]   seq number (same as above)
+  [1]   reserved
   [2]   0 = OK, 1 = ERROR, 2 = BUSY
   */
   else if(command_type == HID_COMMAND_WRITE_FILE)
   {
-    // printf("to write: %s\n", hid_rx_buf+3);
-    if(f_write(&sd_file, hid_rx_buf+3, strlen(hid_rx_buf+3), &bytes_read) != 0)
+    if(f_write(&sd_file, hid_rx_buf+3, hid_rx_buf[1], &bytes_read) != 0)
       hid_tx_buf[2] = HID_RESPONSE_ERROR;
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
   }
@@ -703,8 +690,9 @@ void handle_hid_command(void)
   else if(command_type == HID_COMMAND_DELETE_FILE)
   {
     f_close(&sd_file);
-    if(f_unlink(hid_rx_buf+3) != 0)
-      hid_tx_buf[2] = HID_RESPONSE_ERROR;
+    // if(f_unlink(hid_rx_buf+3) != 0)
+    //   hid_tx_buf[2] = HID_RESPONSE_ERROR;
+    f_unlink(hid_rx_buf+3);
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
   }
   /*
@@ -743,8 +731,9 @@ void handle_hid_command(void)
   */
   else if(command_type == HID_COMMAND_DELETE_DIR)
   {
-    if(delete_node(hid_rx_buf+3, HID_RX_BUF_SIZE - 3, &fno) != 0)
-      hid_tx_buf[2] = HID_RESPONSE_ERROR;
+    // if(delete_node(hid_rx_buf+3, HID_RX_BUF_SIZE - 3, &fno) != 0)
+    //   hid_tx_buf[2] = HID_RESPONSE_ERROR;
+    delete_node(hid_rx_buf+3, HID_RX_BUF_SIZE - 3, &fno);
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
   }
   /*
@@ -763,6 +752,7 @@ void handle_hid_command(void)
   else if(command_type == HID_COMMAND_SW_RESET)
   {
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
+    osDelay(50);
     NVIC_SystemReset();
   }
   /*
@@ -798,26 +788,46 @@ void handle_hid_command(void)
   }
 }
 
+uint8_t need_keyup_animation(ds3_exe_result* exe)
+{
+  if(exe->result == EXE_ERROR)
+    return 0;
+  if(exe->result == EXE_EMPTY_FILE)
+    return 0;
+  if(exe->result == EXE_ACTION_EMUK)
+    return 0;
+  if(exe->epilogue_actions & COLOR_STATE)
+    return 0;
+  return 1;
+}
+
 void keypress_task_start(void const * argument)
 {
+  is_busy = 1;
   while(init_complete == 0)
     osDelay(16);
 
   keyboard_update();
-  if(is_pressed(&button_status[0]))
+  if(is_pressed(0))
+  {
     select_keymap();
+    print_legend();
+  }
 
+  is_busy = 0;
+  ds3_exe_result this_exe;
   load_keymap_by_name(curr_kb_layout);
-  print_legend(0, 0);
-  change_bg();
-  service_all();
+  button_service_all();
   keyboard_release_all();
   for(;;)
   {
+    osDelay(16);
+    HAL_IWDG_Refresh(&hiwdg);
     for (int i = 0; i < KEY_COUNT; ++i)
     {
-      if(is_pressed(&button_status[i]))
+      if(is_pressed(i))
       {
+        last_keypress = HAL_GetTick();
         oled_full_brightness(); // OLED back to full brightness
 
         if(is_sleeping) // wake up from sleep
@@ -826,74 +836,67 @@ void keypress_task_start(void const * argument)
           is_sleeping = 0;
           goto key_task_end;
         }
-        if(i <= KEY_14)
-        {
-          keydown_anime_start(i);
-          if(hold_cache[i].key_type != KEY_TYPE_UNKNOWN && hold_cache[i].code != 0)
-          {
-            keyboard_press(&hold_cache[i], 0);
-            osDelay(DEFAULT_CHAR_DELAY_MS);
-            if(hold_cache2[i].key_type != KEY_TYPE_UNKNOWN && hold_cache2[i].code != 0)
-            {
-              keyboard_press(&hold_cache2[i], 0);
-              osDelay(DEFAULT_CHAR_DELAY_MS);
-            }
-          }
-          else
-          {
-            is_busy = 1;
-            handle_keypress(i, &button_status[i]); // handle the button state inside here for repeats
-            keydown_anime_end(i);
-            if(my_dpc.type == DPC_SLEEP)
-            {
-              start_sleeping();
-              dpc_init(&my_dpc);
-            }
-            if(my_dpc.type == DPC_PREV_PROFILE)
-            {
-              change_profile(PREV_PROFILE);
-              dpc_init(&my_dpc);
-            }
-            if(my_dpc.type == DPC_NEXT_PROFILE)
-            {
-              change_profile(NEXT_PROFILE);
-              dpc_init(&my_dpc);
-            }
-            if(my_dpc.type == DPC_GOTO_PROFILE)
-            {
-              if(p_cache.available_profile[my_dpc.data])
-                restore_profile(my_dpc.data);
-              dpc_init(&my_dpc);
-            }
-            is_busy = 0;
-          }
-        }
-        else if(i == KEY_BUTTON1 || i == KEY_BUTTON2)
+        if(i == KEY_BUTTON1 || i == KEY_BUTTON2)
           handle_tactile_button_press(i);
-      }
-      if(is_released_but_not_serviced(&button_status[i]) && hold_cache[i].key_type != KEY_TYPE_UNKNOWN && hold_cache[i].code != 0)
-      {
-        last_keypress = HAL_GetTick();
-        keyboard_release(&hold_cache[i]);
-        osDelay(DEFAULT_CHAR_DELAY_MS);
-        if(hold_cache2[i].key_type != KEY_TYPE_UNKNOWN && hold_cache2[i].code != 0)
+        else if(i <= KEY_14)
         {
-          keyboard_release(&hold_cache2[i]);
-          osDelay(DEFAULT_CHAR_DELAY_MS);
+          is_busy = 1;
+          handle_keypress(i, &button_status[i], &this_exe);
+          is_busy = 0;
+          if(need_keyup_animation(&this_exe))
+            play_keyup_animation(i);
+          if(this_exe.result == EXE_ERROR)
+          {
+            keyboard_release_all();
+            error_animation(0);
+            osDelay(1000);
+            error_animation(1);
+          }
+          else if (this_exe.result == EXE_ACTION_NEXT_PROFILE)
+          {
+            change_profile(NEXT_PROFILE);
+          }
+          else if (this_exe.result == EXE_ACTION_PREV_PROFILE)
+          {
+            change_profile(PREV_PROFILE);
+          }
+          else if (this_exe.result == EXE_ACTION_SLEEP)
+          {
+            start_sleeping();
+          }
+          else if (this_exe.result == EXE_ACTION_GOTO_PROFILE)
+          {
+            uint8_t target_profile = this_exe.data;
+            if(target_profile < MAX_PROFILES && p_cache.available_profile[target_profile])
+              restore_profile(target_profile);
+          }
+          else if (this_exe.result == EXE_ACTION_EMUK)
+          {
+            hold_cache[i].code = this_exe.data;
+            hold_cache[i].type = this_exe.data2;
+            service_press(i);
+            continue;
+          }
+          if (this_exe.epilogue_actions & NEED_OLED_REFRESH)
+          {
+            print_legend();
+          }
         }
-        keydown_anime_end(i);
+      }
+      else if(is_released_but_not_serviced(i) && hold_cache[i].type != KEY_TYPE_UNKNOWN)
+      {
+        keyboard_release(&hold_cache[i]);
+        play_keyup_animation(i);
       }
       key_task_end:
-      service_press(&button_status[i]);
-    } 
-    osDelay(16);
+      service_press(i);
+    }
   }
 }
 
 void start_sleeping(void)
 {
   neopixel_off();
-  osDelay(66);
   ssd1306_Fill(Black);
   ssd1306_UpdateScreen();
   ssd1306_UpdateScreen();
@@ -915,9 +918,11 @@ void animation_task_start(void)
   if(is_sleeping)
     return;
 
-  if(dp_settings.sleep_after_ms != 0 && HAL_GetTick() - last_keypress > dp_settings.sleep_after_ms)
+  uint32_t ms_since_last_keypress = HAL_GetTick() - last_keypress;
+
+  if(dp_settings.sleep_after_ms != 0 && ms_since_last_keypress > dp_settings.sleep_after_ms)
     start_sleeping();
   // dim OLED screen after 5 minutes of idle to prevent burn-in
-  if(HAL_GetTick() - last_keypress > 300000)
+  if(ms_since_last_keypress > 300000)
     ssd1306_dim(1);    
 }

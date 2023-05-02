@@ -40,7 +40,7 @@ static void spi_set_speed(enum sd_speed speed)
   HAL_SPI_Init(&hspi1);
   u8 dummy = 0;
   HAL_SPI_Transmit(&hspi1, &dummy, 1, 500);
-  HAL_Delay(2);
+  // HAL_Delay(2);
 }
 
 /* SD card is connected to SPI1, PA4-7 */
