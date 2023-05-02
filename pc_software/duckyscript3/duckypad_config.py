@@ -74,7 +74,8 @@ getting ready for public release
 """
 
 THIS_VERSION_NUMBER = '1.3.0'
-MIN_DUCKYPAD_FIRMWARE_VERSION = "9.1.2"
+MIN_DUCKYPAD_FIRMWARE_VERSION = "1.1.2"
+MAX_DUCKYPAD_FIRMWARE_VERSION = "1.99.99"
 
 ENV_UI_SCALE = os.getenv("DUCKYPAD_UI_SCALE")
 UI_SCALE = float(ENV_UI_SCALE) if ENV_UI_SCALE else 1
@@ -234,8 +235,12 @@ def print_fw_update_label():
         dp_fw_update_label.unbind("<Button-1>")
     return this_version
 
-def check_if_fw_too_old():
-    pass
+def is_fw_too_old_hid():
+    dp_info = hid_op.get_dp_info()
+    print("is_fw_too_old_hid", dp_info)
+    if dp_info is None:
+        return True, ''
+    return check_update.versiontuple(f"{dp_info[3]}.{dp_info[4]}.{dp_info[5]}") < check_update.versiontuple(MIN_DUCKYPAD_FIRMWARE_VERSION), f"{dp_info[3]}.{dp_info[4]}.{dp_info[5]}"
 
 def select_root_folder(root_path=None):
     global profile_list
@@ -286,11 +291,13 @@ def connect_button_click():
     hid_op.duckypad_hid_close()
     try:
         hid_op.duckypad_hid_init()
-        dp_info = hid_op.get_dp_info()
-        print(dp_info[3], dp_info[4], dp_info[5])
+        is_unsupported_fw, fw_str = is_fw_too_old_hid()
+        if is_unsupported_fw:
+            init_success = False
+            if messagebox.askokcancel("Info", f"duckyPad firmware too old!\n\nCurrent: {fw_str}\nSupported: {MIN_DUCKYPAD_FIRMWARE_VERSION} onwards.\n\nSee how to update it?"):
+                fw_update_click()
     except Exception as e:
         init_success = False
-    init_success = False
 
     if init_success:
         current_hid_op = HID_DUMP
