@@ -124,7 +124,7 @@ def duckypad_list_files(root_dir = None):
         duckypad_hid_resume()
     return ret
 
-def is_idle():
+def get_dp_info():
     pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
     pc_to_duckypad_buf[0] = 5   # HID Usage ID, always 5
     try:
@@ -133,8 +133,17 @@ def is_idle():
         h.write(pc_to_duckypad_buf)
         result = _read_duckypad()
     except Exception as e:
-        return False, str(e)
-    return result[2] == 0, 'duckyPad is busy!'
+        print("get_dp_info:", e)
+        return None
+    return result
+
+def is_dp_ready():
+    dp_info = get_dp_info()
+    if dp_info is None:
+        return False, 'duckyPad not Found!'
+    if dp_info[2] == 0:
+        return True, 'All good!'
+    return False, 'duckyPad is busy!'
 
 def duckypad_hid_resume():
     pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE

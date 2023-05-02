@@ -67,10 +67,14 @@ added hid busy check
 
 1.2.2 2023 03 01
 fixed HID busy detection bug
+
+1.3.0 2023 05 02
+Fixed a firmware version parse bug
+getting ready for public release
 """
 
-THIS_VERSION_NUMBER = '1.2.2'
-MIN_DUCKYPAD_FIRMWARE_VERSION = "1.1.2"
+THIS_VERSION_NUMBER = '1.3.0'
+MIN_DUCKYPAD_FIRMWARE_VERSION = "9.1.2"
 
 ENV_UI_SCALE = os.getenv("DUCKYPAD_UI_SCALE")
 UI_SCALE = float(ENV_UI_SCALE) if ENV_UI_SCALE else 1
@@ -92,7 +96,6 @@ backup_path = os.path.join(save_path, 'profile_backups')
 ensure_dir(save_path)
 ensure_dir(backup_path)
 save_filename = os.path.join(save_path, 'config.txt')
-# print(save_path)
 config_dict = {}
 hid_dump_path = os.path.join(save_path, "hid_dump")
 hid_modified_dir_path = os.path.join(save_path, "hid_new")
@@ -231,6 +234,9 @@ def print_fw_update_label():
         dp_fw_update_label.unbind("<Button-1>")
     return this_version
 
+def check_if_fw_too_old():
+    pass
+
 def select_root_folder(root_path=None):
     global profile_list
     global dp_root_folder_path
@@ -245,8 +251,8 @@ def select_root_folder(root_path=None):
     dp_settings.load_from_path(dp_root_folder_path)
     duckypad_fw_ver = print_fw_update_label()
 
-    if duckypad_fw_ver is None or check_update.versiontuple(duckypad_fw_ver) < check_update.versiontuple(MIN_DUCKYPAD_FIRMWARE_VERSION):
-        if messagebox.askokcancel("Info", "Incompatible duckyPad firmware: too old!\n\nSee how to update it?"):
+    if duckypad_fw_ver is not None and check_update.versiontuple(duckypad_fw_ver) < check_update.versiontuple(MIN_DUCKYPAD_FIRMWARE_VERSION):
+        if messagebox.askokcancel("Info", f"duckyPad firmware too old!\n\nCurrent: {duckypad_fw_ver}\nI work with {MIN_DUCKYPAD_FIRMWARE_VERSION} onwards.\n\nSee how to update it?"):
             fw_update_click()
 
     ui_reset()
@@ -280,8 +286,11 @@ def connect_button_click():
     hid_op.duckypad_hid_close()
     try:
         hid_op.duckypad_hid_init()
+        dp_info = hid_op.get_dp_info()
+        print(dp_info[3], dp_info[4], dp_info[5])
     except Exception as e:
         init_success = False
+    init_success = False
 
     if init_success:
         current_hid_op = HID_DUMP
@@ -796,8 +805,6 @@ BUTTON_WIDTH = int(profiles_lf.winfo_width() / 2.5)
 BUTTON_HEIGHT = scaled_size(25)
 BUTTON_Y_POS = scaled_size(295)
 
-print(PADDING*2)
-
 profile_add_button = Button(profiles_lf, text="New", command=profile_add_click, state=DISABLED)
 profile_add_button.place(x=PADDING*2, y=BUTTON_Y_POS, width=BUTTON_WIDTH, height=BUTTON_HEIGHT)
 
@@ -1203,8 +1210,8 @@ def t1_worker():
         time.sleep(0.2)
         if current_hid_op == HID_NOP:
             continue
-        is_idle, comment = hid_op.is_idle()
-        if is_idle is False:
+        is_dp_ready, comment = hid_op.is_dp_ready()
+        if is_dp_ready is False:
             messagebox.showerror("Error", comment)
             dp_root_folder_display.set("")
             current_hid_op = HID_NOP
@@ -1216,6 +1223,7 @@ def t1_worker():
             try:
                 hid_op.dump_from_hid(hid_dump_path, dp_root_folder_display)
                 select_root_folder(hid_dump_path)
+                print("done!")
                 dp_root_folder_display.set("done!")
             except Exception as e:
                 messagebox.showerror("Error", "error:\n\n"+str(traceback.format_exc()))
