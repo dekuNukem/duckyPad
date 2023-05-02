@@ -211,7 +211,9 @@ def ui_reset():
     sleepmode_slider.config(state=DISABLED)
     profile_import_button.config(state=DISABLED)
 
-def check_firmware_update():
+def check_firmware_update(current_fw_str=None):
+    if current_fw_str is not None:
+        return check_update.get_firmware_update_status(current_fw_str), current_fw_str
     filelist = os.listdir(dp_root_folder_path)
     if 'last_profile.kbd' in filelist and 'dp_stats.txt' not in filelist:
         return 1, None
@@ -226,8 +228,8 @@ def check_firmware_update():
 def fw_update_click():
     webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/firmware_updates_and_version_history.md')
 
-def print_fw_update_label():
-    fw_result, this_version = check_firmware_update()
+def print_fw_update_label(current_fw_str=None):
+    fw_result, this_version = check_firmware_update(current_fw_str)
     if fw_result == 0:
         dp_fw_update_label.config(text='Firmware (' + str(this_version) +'): Up to date', fg='black', bg=default_button_color)
         dp_fw_update_label.unbind("<Button-1>")
@@ -261,7 +263,7 @@ def check_fw_support(current_fw_str):
         print('check_fw_support', current_fw_str, e)
         return FW_UNKNOWN
 
-def select_root_folder(root_path=None):
+def select_root_folder(root_path=None, check_fw=True):
     global profile_list
     global dp_root_folder_path
     if root_path is None:
@@ -273,10 +275,12 @@ def select_root_folder(root_path=None):
     root_folder_path_label.config(foreground='navy')
     profile_list = duck_objs.build_profile(root_path)
     dp_settings.load_from_path(dp_root_folder_path)
-    duckypad_fw_ver = print_fw_update_label()
-    fw_status = check_fw_support(duckypad_fw_ver)
-    if fw_status != FW_OK:
-        incompatible_fw_msgbox(duckypad_fw_ver, fw_status)
+
+    if check_fw:
+        duckypad_fw_ver = print_fw_update_label()
+        fw_status = check_fw_support(duckypad_fw_ver)
+        if fw_status != FW_OK:
+            incompatible_fw_msgbox(duckypad_fw_ver, fw_status)
 
     ui_reset()
     update_profile_display()
@@ -324,6 +328,7 @@ def connect_button_click():
         if fw_status != FW_OK:
             init_success = False
             incompatible_fw_msgbox(fw_str, fw_status)
+        print_fw_update_label(fw_str)
     except Exception as e:
         print("connect_button_click 1", e)
         init_success = False
@@ -1255,7 +1260,7 @@ def t1_worker():
             current_hid_op = HID_NOP
             try:
                 hid_op.dump_from_hid(hid_dump_path, dp_root_folder_display)
-                select_root_folder(hid_dump_path)
+                select_root_folder(hid_dump_path, check_fw=False)
                 print("done!")
                 dp_root_folder_display.set("done!")
             except Exception as e:
