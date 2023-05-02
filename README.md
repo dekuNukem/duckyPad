@@ -37,27 +37,19 @@ duckyPad is [now available on Tindie](https://www.tindie.com/products/21984), fe
 
 And thanks to the interest and support from the [amazing people like you](kickstarter_backers.md), the [Kickstarter campaign](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) has been a great success!
 
-Finally, here's a video of duckyPad in action!
-<table>
-  <tr>
-    <td><a href="https://www.youtube.com/watch?v=dqWWlOURo6A" title="YouTube" rel="noopener"><img src="https://i.imgur.com/767Nnyt.png"></a></td>
-  </tr>
-</table>
-
 ## Join Our Discord!
 
 Feel free to join our [Official Discord](https://discord.gg/4sJCBx5) for discussions, questions, sharing scripts, and latest updates!
-
 
 ## Highlights
 
 * 15 Mechanical Switches
 * **`Hot-Swap`** Sockets
 * Per-Key **`RGB Lighting`** 
-* **`OLED Screen`**, showing profile and key names.
-* Powerful multi-line scripting with [duckyScript](duckyscript_info.md).
+* **`OLED Screen`** showing profile and key names.
+* Powerful multi-line scripting with [duckyScript](duckyscript_info.md)
 * 32 profiles of 15 keys, 480 macros total.
-* [Automatic profile switching](https://github.com/dekuNukem/duckyPad-profile-autoswitcher) based on active window.
+* [Automatic profile switching](https://github.com/dekuNukem/duckyPad-profile-autoswitcher) based on active window
 * microSD storage
 * USB-C Connector
 * Works with all major OSs, no driver needed.
@@ -66,7 +58,9 @@ Feel free to join our [Official Discord](https://discord.gg/4sJCBx5) for discuss
 
 ## Showcase
 
-By **`automating commonly used actions with duckyPad`**, you can streamline and speed up your everyday routine. Here are a few examples:
+By **`automating frequently-used actions with duckyPad`**, you can streamline and speed up your everyday routine.
+
+Here are a few examples:
 
 ### Launching Applications  
 
@@ -84,7 +78,7 @@ With the press of a key, you can switch scenes, start/stop stream, start/stop re
 
 With the ability to automate keyboard inputs, it is possible to take over an entire computer with the push of a button.
 
-This is known as [BadUSB attack](https://arstechnica.com/information-technology/2014/07/this-thumbdrive-hacks-computers-badusb-exploit-makes-devices-turn-evil/), and it was the original purpose of [duckyScript and USB Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky-deluxe).
+This is known as [BadUSB attack](https://arstechnica.com/information-technology/2014/07/this-thumbdrive-hacks-computers-badusb-exploit-makes-devices-turn-evil/), and it was the original purpose of [USB Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky-deluxe).
 
 But of course, it's up to you to decide what to do!
 
@@ -92,7 +86,7 @@ But of course, it's up to you to decide what to do!
 
 ### Photoshop / CAD 
 
-You can put all your commonly used shortcuts in one place, resulting in a more efficient workflow: 
+You can put all your shortcuts in one place, resulting in a more efficient workflow: 
 
 ![Alt text](resources/pics/cad.gif)
 
