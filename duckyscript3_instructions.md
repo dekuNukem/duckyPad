@@ -1,12 +1,12 @@
-# duckyScript 3 Public Beta Test
+# duckyScript 3 Advanced Features
 
 [Get duckyPad](https://www.tindie.com/products/21984/) | [Official Discord](https://discord.gg/4sJCBx5) | [Getting Started](getting_started.md) | [Table of Contents](#table-of-contents)
 
 ----
 
-Welcome to **duckyScript 3** beta test!
+duckyScript 3 support was added on [firmware version 1.2.0](firmware_updates_and_version_history.md)!
 
-duckyScript 3 gives duckyPad a big boost in capability. Highlights include:
+It gives duckyPad a big boost in capability. Highlights include:
 
 * Variables, `IF` statements, `WHILE` loops, functions, and more!
 
@@ -22,27 +22,13 @@ This guide is a bit long, but should cover everything you need. So please take s
 
 ## What's New
 
-duckyScript 3 was released by [Hak5](https://docs.hak5.org/hak5-usb-rubber-ducky/) in late 2022.
+* Variables, Math, & Logical Operators
 
-It is now much closer to a **general-purpose language**, with:
-
-* Variables
-
-* Conditional Statements
-
-* Loops 
+* `IF` Statements and `WHILE` Loops 
 
 * Functions
 
-* Math & Logical Operators
-
-As a result, you can now write much more elaborate scripts for your needs!
-
------
-
-* **New commands** for **printing to OLED screen** and **reading button status**
-
-* **Backwards compatible** with existing scripts (or at least should!)
+* **Printing to OLED screen** and **reading button status**
 
 * Improved performance
 
@@ -54,17 +40,13 @@ As a result, you can now write much more elaborate scripts for your needs!
 
 ## Instructions
 
-* ⚠️ If you only just got your duckyPad, it's a better idea to [get familiar with the current version](getting_started.md) first!
+* [Follow this guide](firmware_updates_and_version_history.md#usb-firmware-updates) to update duckyPad to latest firmware (at least V1.2.0)
 
-* [Click me to download the beta firmware](https://github.com/dekuNukem/duckyPad/raw/master/firmware/beta_1.1.4_duckyscript3.dfu)
-
-* [Follow this guide](firmware_updates_and_version_history.md#usb-firmware-updates) to update your duckyPad, use the file you just downloaded. You can go back at any time.
-
-* [Head here, scroll down and download](https://github.com/dekuNukem/duckyPad/releases/tag/1.2.2) the new beta configurator software.
+* [Download the latest](https://github.com/dekuNukem/duckyPad/releases/latest) configurator software.
 
 * Launch and use it as usual!
 
-* [Try this script](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/resources/duckyscirpt_3_test_script.txt) for a demo of new features. Select all and copy paste everything as-is into the configurator.
+* [Try this script](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/resources/duckyscirpt_3_test_script.txt) for a demo of new features. Copy everything as-is into the configurator.
 
 * Read the **rest of this guide** and try out the new commands yourself!
 
@@ -74,29 +56,23 @@ As a result, you can now write much more elaborate scripts for your needs!
 
 ## Table of Contents
 
-- [Limitations](#limitations)
+- [C-style comments](#c-style-comments)
 
-- [New Commands](#new-commands)
+- [Constants](#constants)
 
-    - [C-style comments](#c-style-comments)
+- [Variables](#variables)
 
-    - [Constants](#constants)
+- [Operators](#operators)
 
-    - [Variables](#variables)
+- [Variables as Arguments](#variables-as-arguments)
 
-    - [Operators](#operators)
+- [Conditional Statements](#conditional-statements)
 
-    - [Variables as Arguments](#variables-as-arguments)
+- [Loops](#loops)
 
-    - [Conditional Statements](#conditional-statements)
+- [Functions](#functions)
 
-    - [Loops](#loops)
-
-    - [Functions](#functions)
-
-    - [OLED Commands](#oled-commands)
-
-    - [RGB LED Commands](#rgb-led-commands)
+- [OLED Commands](#oled-commands)
 
 - [Reserved Variables](#reserved-variables)
 
@@ -108,41 +84,19 @@ As a result, you can now write much more elaborate scripts for your needs!
 
 - [Questions or Comments?](#questions-or-comments)
 
-## Limitations
-
-### Bugs!
-
-This is a huge update, so expect bugs, especially at this stage.
-
-### Missing Commands
-
-As duckyPad is more about macro scripting than pentesting, commands for payload management and data exfiltration are not yet implemented.
-
-### Bytecode Compiler
-
-With much increased complexity, it is no longer practical to process everything on-device.
-
-As a result, duckyScript3 is now compiled into **bytecode** and executed on a **virtual stack machine**.
-
-The configurator takes care of everything, so no need to worry about it.
-
-However, if you want to manually edit the SD card, you'll need to compile the script and copy over the binary too.
-
 ## New Commands
 
 First of all, [existing duckyScript rules](duckyscript_info.md) still apply, so take a look if you need a refresher.
 
-Also, feel free to check out [official documentation](https://docs.hak5.org/hak5-usb-rubber-ducky/) for more info.
+## C-style comments
 
-### C-style comments
+In addition to `REM`, You can now also use `//` at the beginning of a line for comments.
 
-In addition to `REM`, You can now also use `//` at the beginning of a line for comments!
-
-### `HALT`
+## `HALT`
 
 You can use `HALT` command to stop execution at anytime
 
-### Constants
+## Constants
 
 You can use `DEFINE` to, well, define a constant.
 
@@ -158,9 +112,9 @@ STRING My email is MY_EMAIL!
 STRING I'm MY_AGE years old! 
 ```
 
-Internally, `TRUE` is defined as `1`, and `FALSE` is defined as `0`.
+Internally, `TRUE` is `1`, and `FALSE` is `0`.
 
-### Variables
+## Variables
 
 You can declare a variable using `VAR` command:
 
@@ -185,11 +139,11 @@ They can be printed with `STRING`, `STRINGLN`, and (spoiler alert!)`OLED_PRINT` 
 STRING The value is: $spam
 ```
 
-### Operators
+## Operators
 
 You can perform operations on constants and variables.
 
-#### Mathematics
+### Mathematics
 
 | Operator |   Name  |
 |:--------:|:----------:|
@@ -208,7 +162,7 @@ $spam = 2+3
 $spam = $eggs * 10
 ```
 
-#### Comparison
+### Comparison
 
 | Operator |        Name        |
 |:--------:|:---------------------:|
@@ -221,32 +175,14 @@ $spam = $eggs * 10
 
 All comparisons evaluate to **either 0 or 1**.
 
-So if we have:
-
-```
-$spam = 5
-$eggs = 10
-```
-
-Then `$spam == $eggs` evaluates to 0, `$spam <= $eggs` evaluates to 1, and so on.
-
-#### Logical 
+### Logical 
 
 | Operator |          Name         | Comment                                                |
 |:--------:|:---------------------:|--------------------------------------------------------|
 |    &&    |      Logical AND      | Evaluates to 1 if BOTH side are non-zero, otherwise 0. |
 |   \|\|   |       Logical OR      | Evaluates to 1 if ANY side is non-zero, otherwise 0.   |
 
-So if we have:
-
-```
-$spam = 5
-$eggs = 0
-```
-
-Then `$spam && $eggs` evaluates to 0, `$spam || $eggs` evaluates to 1, and so on.
-
-#### Bitwise
+### Bitwise
 
 | Operator |          Name         |
 |:--------:|:---------------------:|
@@ -255,7 +191,7 @@ Then `$spam && $eggs` evaluates to 0, `$spam || $eggs` evaluates to 1, and so on
 |    <<    |       Left Shift      |
 |    >>    |      Right Shift      |
 
-### Variables as Arguments
+## Variables as Arguments
 
 You can now also use an **expression or variable** in `DELAY` and `GOTO_PROFILE` command:
 
@@ -266,15 +202,15 @@ DELAY $amount
 DELAY $amount * 2 + 5
 ```
 
-### Conditional Statements
+## Conditional Statements
 
 `IF` statement is used to conditionally execute code.
 
-At simplest, it involves `IF expression THEN`, and `END_IF`:
+At simplest, it involves `IF`, `THEN`, and `END_IF`:
 
 ```
-IF $spam > 0 THEN
-	STRING spam is non-zero!
+IF expression THEN
+	code to execute
 END_IF
 ```
 
@@ -282,9 +218,9 @@ The code inside is executed if the **expression evaluates to non-zero**.
 
 Indent doesn't matter, feel free to add them for a cleaner look.
 
-#### `ELSE IF` and `ELSE`
+----
 
-You can use them for additional checks.
+You can use `ELSE IF` and `ELSE` for additional checks.
 
 If the first `IF` evaluate to 0, `ELSE IF`s are checked and executed if condition is met.
 
@@ -302,7 +238,7 @@ ELSE
 END_IF
 ```
 
-### Loops
+## Loops
 
 You can use `WHILE` loops to repeat instructions until a certain condition is met.
 
@@ -332,7 +268,7 @@ Counter is 1!
 Counter is 2!
 ```
 
-#### `LBREAK`
+### `LBREAK`
 
 Use `LBREAK` to **exit a loop** immediately.
 
@@ -353,9 +289,9 @@ Counter is 1!
 Counter is 2!
 ```
 
-#### `CONTINUE`
+### `CONTINUE`
 
-Use `CONTINUE` to **jump to start of the loop** immediately.
+Use `CONTINUE` to **jump to the start of loop** immediately.
 
 ```
 VAR $i = 0
@@ -370,7 +306,7 @@ WHILE $i < 5
 END_WHILE
 ```
 
-Here when `$count` is 3, it will skip printing and start from beginning instead.
+Here when `$count` is 3, it skips printing and start from beginning instead.
 
 ```
 Counter is 1!
@@ -383,7 +319,7 @@ To exit an infinite loop, you can [check button status](#reading-buttons), or ju
 
 ![Alt text](resources/pics/dfu_buttons_new.jpg)
 
-### Functions
+## Functions
 
 Functions let you run a block of code efficiently instead of copy pasting.
 
@@ -413,9 +349,9 @@ print_info()
 
 No recursion! Don't even think about it!
 
-### OLED Commands
+## OLED Commands
 
-#### `OLED_CURSOR x y`
+### `OLED_CURSOR x y`
 
 Set where to print on screen.
 
@@ -425,53 +361,25 @@ Set where to print on screen.
 
 `y` can be constants or variables between `0` and `63`
 
-#### `OLED_PRINT`
+### `OLED_PRINT`
 
 `OLED_PRINT hello world!` 
 
 Prints the message into display buffer at current cursor location.
 
-#### `OLED_CLEAR`
+### `OLED_CLEAR`
 
 Clears the display buffer.
 
-#### `OLED_UPDATE`
+### `OLED_UPDATE`
 
 Actually update the OLED.
 
 You should use `OLED_CLEAR`, `OLED_CURSOR`, and `OLED_PRINT` to set up the display, then use this to print it.
 
-#### `OLED_RESTORE`
+### `OLED_RESTORE`
 
 Restore the default profile/key name display. `OLED_UPDATE` **NOT NEEDED**.
-
-### RGB LED Commands
-
-#### `SWC_SET n r g b`
-
-Change LED color 
-
-Set `n` to 0 for current key.
-
-Set `n` between 1 to 15 for a particular key.
-
-`r, g, b` can be constants or variables between 0 and 255.
-
-#### `SWC_FILL r g b`
-
-Change color of **ALL** LEDs.
-
-`r, g, b` can be constants or variables between 0 and 255.
-
-#### `SWC_RESET n`
-
-Resets the key to default background color.
-
-Set `n` to 0 for current key.
-
-Set `n` from 1 to 15 for a particular key.
-
-Set `n` to 99 for all keys.
 
 ## Reserved Variables
 
@@ -532,7 +440,7 @@ END_WHILE
 STRINGLN I pressed key $k!
 ```
 
-If reading button multiple times, use `BCLR` command inbetween to clear the button status buffer.
+If reading button multiple times, use `BCLR` command to clear the button status buffer.
 
 This way it won't trigger again right away.
 

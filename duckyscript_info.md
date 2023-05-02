@@ -49,41 +49,45 @@ CONTROL w
 
 ## List of Commands
 
-[REM](#REM)
+- [`REM` and `//`](#rem-and)
 
-[DEFAULTDELAY](#DEFAULTDELAY)
+- [`DEFAULTDELAY`](#defaultdelay)
 
-[DEFAULTCHARDELAY](#DEFAULTCHARDELAY)
+- [`DEFAULTCHARDELAY`](#defaultchardelay)
 
-[DELAY](#DELAY)
+- [`CHARJITTER X`](#charjitter-x)
 
-[STRING](#STRING)
+- [`DELAY`](#delay)
 
-[STRINGLN](#STRINGLN)
+- [`STRING` and `STRINGLN`](#string--and--stringln)
 
-[REPEAT](#REPEAT)
+- [`REPEAT`](#repeat)
 
-[Special Keys](#Special-Keys)
+- [Special Keys](#special-keys)
 
-[Mouse Buttons](#Mouse-Buttons)
+- [`KEYDOWN` / `KEYUP`](#keydown-----keyup)
 
-[MOUSE_MOVE](#MOUSE_MOVE-X-Y)
+- [Mouse Buttons](#mouse-buttons)
 
-[MOUSE_WHEEL](#MOUSE_WHEEL-X)
+- [`MOUSE_MOVE X Y`](#mouse-move-x-y)
 
-[KEYDOWN / KEYUP](#KEYDOWN--KEYUP)
+- [`MOUSE_WHEEL X`](#mouse-wheel-x)
 
-[SWCOLOR](#SWCOLOR)
+- [`SWC_SET n r g b`](#swc-set-n-r-g-b)
 
-[DP_SLEEP](#DP_SLEEP)
+- [`SWC_FILL r g b`](#swc-fill-r-g-b)
 
-[PREV_PROFILE / NEXT_PROFILE](#PREV_PROFILE--NEXT_PROFILE)
+- [`SWC_RESET n`](#swc-reset-n)
 
-[GOTO_PROFILE](#GOTO_PROFILE)
+- [`DP_SLEEP`](#dp-sleep)
 
-[EMUK](#emuk)
+- [`PREV_PROFILE` / `NEXT_PROFILE`](#prev-profile-----next-profile)
 
-[LOOP](#LOOP)
+- [`GOTO_PROFILE`](#goto-profile)
+
+- [`EMUK`](#emuk)
+
+- [`LOOP`](#loop)
 
 [duckyScript 3 Advanced Features](#duckyscript-3-advanced-features)
 
@@ -91,7 +95,7 @@ CONTROL w
 
 They are comments. Any line starting with them is ignored.
 
-### DEFAULTDELAY
+### `DEFAULTDELAY`
 
 `DEFAULTDELAY` specifies how long (in milliseconds) to wait between **`each line of command`**.
 
@@ -102,7 +106,7 @@ DEFAULTDELAY 100
 // duckyPad will wait 100ms between each subsequent command
 ```
 
-### DEFAULTCHARDELAY
+### `DEFAULTCHARDELAY`
 
 `DEFAULTCHARDELAY` specifies how long (in milliseconds) to wait between each **`key stroke`**.
 
@@ -113,7 +117,7 @@ DEFAULTCHARDELAY 50
 // duckyPad will wait 50ms between each key stroke
 ```
 
-### CHARJITTER X
+### `CHARJITTER X`
 
 Adds an **additional** random delay from 0 to X milliseconds after `each key stroke`.
 
@@ -121,7 +125,7 @@ Can be used to make typing more human-like.
 
 Set to 0 to disable.
 
-### DELAY
+### `DELAY`
 
 `DELAY` creates a pause in script execution. Useful for waiting for UI to catch up.
 
@@ -141,7 +145,7 @@ STRING Hello world!
 
 `STRINGLN` also presses **enter key** at the end.
 
-### REPEAT
+### `REPEAT`
 
 Repeats the last line **`n`** times.
 
@@ -151,7 +155,7 @@ REPEAT 10
 // types out "Hello world" 11 times (1 original + 10 repeats)
 ```
 
-Check out `WHILE` LOOPs fore more advanced usage!
+For more advanced usage with functions and `WHILE` loops, check out [duckyScript 3 guide](duckyscript3_instructions.md).
 
 ### Special Keys
 
@@ -210,7 +214,6 @@ KP_DOT
 KP_EQUAL
 
 (Japanese input method keys)
-(Available after firmware 0.20.4)
 ZENKAKUHANKAKU
 HENKAN
 MUHENKAN
@@ -235,6 +238,22 @@ Those special keys can be used on their own:
 
 * **`UP TO 6 KEYS`** can be pressed simultaneously.
 
+### `KEYDOWN` / `KEYUP`
+
+Holds / Releases a key.
+
+Can be used to input [Alt Codes](https://en.wikipedia.org/wiki/Alt_code) for special characters:
+
+```
+KEYDOWN ALT
+KP_1
+KP_7
+KP_2
+KEYUP ALT
+
+// types out ¼
+```
+
 ### Mouse Buttons
 
 * `LMOUSE`: Click LEFT mouse button
@@ -243,7 +262,7 @@ Those special keys can be used on their own:
 
 * `MMOUSE`: Click MIDDLE mouse button
 
-### MOUSE_MOVE X Y
+### `MOUSE_MOVE X Y`
 
 Move mouse cursor `X` pixels horizontally, and `Y` pixels vertically.
 
@@ -257,7 +276,7 @@ Move mouse cursor `X` pixels horizontally, and `Y` pixels vertically.
 
 * Use `REPEAT` command to move further.
 
-### MOUSE_WHEEL X
+### `MOUSE_WHEEL X`
 
 Scroll mouse wheel `X` lines.
 
@@ -265,37 +284,33 @@ Scroll mouse wheel `X` lines.
 
 * A positive number scrolls UP, negative number scrolls DOWN.
 
-### KEYDOWN / KEYUP
+### `SWC_SET n r g b`
 
-Holds / Releases a key.
+Change LED color of a switch
 
-Can be character or special key.
+Set `n` to 0 for current key.
 
-Example:
+Set `n` between 1 to 15 for a particular key.
 
-```
-KEYDOWN SHIFT
-STRING hello
-KEYUP SHIFT
-```
+`r, g, b` can be constants or variables between 0 and 255.
 
-### SWCOLOR
+### `SWC_FILL r g b`
 
-You can change the color of a key on-the-fly with `SWCOLOR` command.
+Change color of **ALL** LEDs.
 
-To change the color of the **current key**, use `SWCOLOR R G B`:
+`r, g, b` can be constants or variables between 0 and 255.
 
-`SWCOLOR 128 0 0`
+### `SWC_RESET n`
 
-To change the color of a **particular key**, use `SWCOLOR_n R G B`:
+Resets the key to default background color.
 
-`SWCOLOR_1 0 128 0`
+Set `n` to 0 for current key.
 
-* `n` is between 1 and 15 inclusive.
+Set `n` from 1 to 15 for a particular key.
 
-* `R G B` is between `0` and `255` inclusive. 0 off, 255 brightest.
+Set `n` to 99 for all keys.
 
-### DP_SLEEP
+### `DP_SLEEP`
 
 You can use `DP_SLEEP` command to make duckyPad go to sleep.
 
@@ -303,17 +318,19 @@ Backlight and screen are turned off.
 
 Press any key to wake it up.
 
-### PREV_PROFILE / NEXT_PROFILE
+### `PREV_PROFILE` / `NEXT_PROFILE`
 
 You can use `PREV_PROFILE` or `NEXT_PROFILE` command to switch to the previous / next profile.
 
-### GOTO_PROFILE
+### `GOTO_PROFILE`
 
 Use this command to jump to a particular profile.
 
-`GOTO_PROFILE 3` // jump to profile #3
-
-### EMUK
+```
+GOTO_PROFILE 3
+// jump to profile #3
+```
+### `EMUK`
 
 Emulates a regular key.
 
@@ -323,7 +340,7 @@ Possible uses include push-to-talk voice chat, or WASD gamepad.
 
 You should only use `EMUK` command **on its own**, i.e. the script should only have a single line of `EMUK` command and **nothing else**.
 
-### LOOP
+### `LOOP`
 
 This command allows you to **assign different actions to the same key**.
 
@@ -349,17 +366,17 @@ ENTER
 
 ## duckyScript 3 Advanced Features
 
-duckyScript 3 was released by [Hak5](https://docs.hak5.org/hak5-usb-rubber-ducky/) in late 2022 with **vastly improved capabilities**.
+duckyScript 3 gives duckyPad a big boost in capability. Featuring:
 
-It is now much closer to a **general-purpose language**. New features include:
-
-* Variables, IF statements, WHILE loops, functions, and more.
+* Variables, `IF` statements, `WHILE` loops, functions, and more!
 
 * Print to OLED screen
 
 * Read button status
 
-[Click me for instructions!](duckyscript3_instructions.md)
+* Many optimisations and bug fixes
+
+[Click me to learn more about advanced features!](duckyscript3_instructions.md)
 
 ## Table of Contents
 
