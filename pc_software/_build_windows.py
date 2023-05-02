@@ -28,7 +28,8 @@ if THIS_VERSION is None:
 	print('could not find version number!')
 	exit()
 
-os.system("pyinstaller.exe --noconsole --icon=_icon.ico duckypad_config.py")
+# --noconsole
+os.system("pyinstaller.exe --icon=_icon.ico duckypad_config.py")
 
 output_folder_path = os.path.join('.', "dist")
 original_name = os.path.join(output_folder_path, "duckypad_config")
