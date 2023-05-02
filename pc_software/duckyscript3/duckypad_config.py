@@ -71,11 +71,12 @@ fixed HID busy detection bug
 1.3.0 2023 05 02
 Fixed a firmware version parse bug
 getting ready for public release
+added firmware version compatibility check with upper and lower bound, both HID and file based.
 """
 
 THIS_VERSION_NUMBER = '1.3.0'
 MIN_DUCKYPAD_FIRMWARE_VERSION = "1.1.2"
-MAX_DUCKYPAD_FIRMWARE_VERSION = "1.99.99"
+MAX_DUCKYPAD_FIRMWARE_VERSION = "1.10.10"
 
 ENV_UI_SCALE = os.getenv("DUCKYPAD_UI_SCALE")
 UI_SCALE = float(ENV_UI_SCALE) if ENV_UI_SCALE else 1
