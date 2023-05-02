@@ -161,6 +161,9 @@ def open_duckypad_user_manual_url():
 def open_duckypad_troubleshooting_url():
     webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/troubleshooting.md')
 
+def app_update_click(event):
+    webbrowser.open('https://github.com/dekuNukem/duckyPad/releases/latest')
+
 def reset_key_button_relief():
     for item in key_button_list:
         item.config(borderwidth=1, relief="solid")
@@ -235,12 +238,27 @@ def print_fw_update_label():
         dp_fw_update_label.unbind("<Button-1>")
     return this_version
 
-def is_fw_too_old_hid():
+def get_fw_str_hid():
     dp_info = hid_op.get_dp_info()
-    print("is_fw_too_old_hid", dp_info)
     if dp_info is None:
-        return True, ''
-    return check_update.versiontuple(f"{dp_info[3]}.{dp_info[4]}.{dp_info[5]}") < check_update.versiontuple(MIN_DUCKYPAD_FIRMWARE_VERSION), f"{dp_info[3]}.{dp_info[4]}.{dp_info[5]}"
+        return None
+    return f"{dp_info[3]}.{dp_info[4]}.{dp_info[5]}"
+    
+FW_OK = 0
+FW_TOO_LOW = 1
+FW_TOO_HIGH = 2
+FW_UNKNOWN = 3
+
+def check_fw_support(current_fw_str):
+    try:
+        if check_update.versiontuple(current_fw_str) < check_update.versiontuple(MIN_DUCKYPAD_FIRMWARE_VERSION):
+            return FW_TOO_LOW
+        if check_update.versiontuple(current_fw_str) > check_update.versiontuple(MAX_DUCKYPAD_FIRMWARE_VERSION):
+            return FW_TOO_HIGH
+        return FW_OK
+    except Exception as e:
+        print('check_fw_support', current_fw_str, e)
+        return FW_UNKNOWN
 
 def select_root_folder(root_path=None):
     global profile_list
@@ -255,10 +273,9 @@ def select_root_folder(root_path=None):
     profile_list = duck_objs.build_profile(root_path)
     dp_settings.load_from_path(dp_root_folder_path)
     duckypad_fw_ver = print_fw_update_label()
-
-    if duckypad_fw_ver is not None and check_update.versiontuple(duckypad_fw_ver) < check_update.versiontuple(MIN_DUCKYPAD_FIRMWARE_VERSION):
-        if messagebox.askokcancel("Info", f"duckyPad firmware too old!\n\nCurrent: {duckypad_fw_ver}\nI work with {MIN_DUCKYPAD_FIRMWARE_VERSION} onwards.\n\nSee how to update it?"):
-            fw_update_click()
+    fw_status = check_fw_support(duckypad_fw_ver)
+    if fw_status != FW_OK:
+        incompatible_fw_msgbox(duckypad_fw_ver, fw_status)
 
     ui_reset()
     update_profile_display()
@@ -274,6 +291,16 @@ HID_DUMP = 1
 HID_SAVE = 2
 current_hid_op = HID_NOP
 is_using_hid = False
+
+def incompatible_fw_msgbox(current_fw_str, fw_status):
+    if fw_status == FW_TOO_LOW:
+        if messagebox.askokcancel("Info", f"duckyPad firmware too low!\n\nCurrent: {current_fw_str}\nSupported: Between {MIN_DUCKYPAD_FIRMWARE_VERSION} and {MAX_DUCKYPAD_FIRMWARE_VERSION}.\n\nSee how to update it?"):
+            fw_update_click()
+    elif fw_status == FW_TOO_HIGH:
+        if messagebox.askokcancel("Info", f"duckyPad firmware too high!\n\nCurrent: {current_fw_str}\nSupported: Between {MIN_DUCKYPAD_FIRMWARE_VERSION} and {MAX_DUCKYPAD_FIRMWARE_VERSION}.\n\nSee how to update this app?"):
+            app_update_click(None)
+    else:
+        messagebox.showinfo("Info", f"duckyPad firmware unknown!\n\n You shouldn't see this!")
 
 def connect_button_click():
     global current_hid_op
@@ -291,12 +318,13 @@ def connect_button_click():
     hid_op.duckypad_hid_close()
     try:
         hid_op.duckypad_hid_init()
-        is_unsupported_fw, fw_str = is_fw_too_old_hid()
-        if is_unsupported_fw:
+        fw_str = get_fw_str_hid()
+        fw_status = check_fw_support(fw_str)
+        if fw_status != FW_OK:
             init_success = False
-            if messagebox.askokcancel("Info", f"duckyPad firmware too old!\n\nCurrent: {fw_str}\nSupported: {MIN_DUCKYPAD_FIRMWARE_VERSION} onwards.\n\nSee how to update it?"):
-                fw_update_click()
+            incompatible_fw_msgbox(fw_str, fw_status)
     except Exception as e:
+        print("connect_button_click 1", e)
         init_success = False
 
     if init_success:
@@ -784,9 +812,6 @@ save_button.place(x=scaled_size(630), y=0, width=scaled_size(65), height=scaled_
 
 backup_button = Button(root_folder_lf, text="Backup...", command=backup_button_click)
 backup_button.place(x=scaled_size(700), y=0, width=scaled_size(65), height=scaled_size(25))
-
-def app_update_click(event):
-    webbrowser.open('https://github.com/dekuNukem/duckyPad/releases')
 
 # ------------- Profiles frame -------------
 
