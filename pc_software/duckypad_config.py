@@ -279,7 +279,7 @@ def select_root_folder(root_path=None, check_fw=True):
     if check_fw:
         duckypad_fw_ver = print_fw_update_label()
         fw_status = check_fw_support(duckypad_fw_ver)
-        if fw_status != FW_OK:
+        if fw_status == FW_TOO_LOW or fw_status == FW_TOO_HIGH:
             incompatible_fw_msgbox(duckypad_fw_ver, fw_status)
 
     ui_reset()
@@ -305,7 +305,7 @@ def incompatible_fw_msgbox(current_fw_str, fw_status):
         if messagebox.askokcancel("Info", f"duckyPad firmware too high!\n\nCurrent: {current_fw_str}\nSupported: Between {MIN_DUCKYPAD_FIRMWARE_VERSION} and {MAX_DUCKYPAD_FIRMWARE_VERSION}.\n\nSee how to update this app?"):
             app_update_click(None)
     else:
-        messagebox.showinfo("Info", f"duckyPad firmware unknown!\n\n You shouldn't see this!")
+        messagebox.showinfo("Info", f"duckyPad firmware unknown!\n\n")
 
 def connect_button_click():
     global current_hid_op
