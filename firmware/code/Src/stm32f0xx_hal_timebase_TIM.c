@@ -49,6 +49,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f0xx_hal.h"
 #include "stm32f0xx_hal_tim.h"
+#include "shared.h"
 /** @addtogroup STM32F7xx_HAL_Examples
   * @{
   */

@@ -291,7 +291,7 @@ void keyboard_release_all(void)
 
 uint8_t is_mouse_type(my_key* this_key)
 {
-  return this_key->key_type >= KEY_TYPE_MOUSE_BUTTON && this_key->key_type <= KEY_TYPE_MOUSE_MOVEMENT;
+  return this_key->type >= KEY_TYPE_MOUSE_BUTTON && this_key->type <= KEY_TYPE_MOUSE_MOVEMENT;
 }
 
 void media_key_release(void)
@@ -329,16 +329,16 @@ void mouse_press(my_key* this_key)
   memset(kb_buf, 0, KB_BUF_SIZE);
   kb_buf[0] = 3;
 
-  if(this_key->key_type == KEY_TYPE_MOUSE_BUTTON)
+  if(this_key->type == KEY_TYPE_MOUSE_BUTTON)
   {
     kb_buf[1] = this_key->code;
   }
-  else if(this_key->key_type == KEY_TYPE_MOUSE_MOVEMENT)
+  else if(this_key->type == KEY_TYPE_MOUSE_MOVEMENT)
   {
     kb_buf[2] = this_key->code;
     kb_buf[3] = ~(this_key->code2) + 1;
   }
-  else if(this_key->key_type == KEY_TYPE_MOUSE_WHEEL)
+  else if(this_key->type == KEY_TYPE_MOUSE_WHEEL)
   {
     kb_buf[4] = this_key->code;
   }
@@ -348,16 +348,16 @@ void mouse_press(my_key* this_key)
 void mouse_release(my_key* this_key)
 {
   kb_buf[0] = 3;
-  if(this_key->key_type == KEY_TYPE_MOUSE_BUTTON)
+  if(this_key->type == KEY_TYPE_MOUSE_BUTTON)
   {
     kb_buf[1] = 0;
   }
-  else if(this_key->key_type == KEY_TYPE_MOUSE_MOVEMENT)
+  else if(this_key->type == KEY_TYPE_MOUSE_MOVEMENT)
   {
     kb_buf[2] = 0;
     kb_buf[3] = 0;
   }
-  else if(this_key->key_type == KEY_TYPE_MOUSE_WHEEL)
+  else if(this_key->type == KEY_TYPE_MOUSE_WHEEL)
   {
     kb_buf[4] = 0;
   }
@@ -367,7 +367,7 @@ void mouse_release(my_key* this_key)
 void keyboard_press(my_key* this_key, uint8_t use_mod)
 {
   uint16_t duckcode;
-  if(this_key->key_type == KEY_TYPE_MEDIA)
+  if(this_key->type == KEY_TYPE_MEDIA)
   {
     media_key_press(this_key);
     return;
@@ -377,31 +377,31 @@ void keyboard_press(my_key* this_key, uint8_t use_mod)
     mouse_press(this_key);
     return;
   }
-  else if(this_key->key_type == KEY_TYPE_MODIFIER)
+  else if(this_key->type == KEY_TYPE_MODIFIER)
   {
     kb_buf[1] |= this_key->code;
     duckcode = 0;
   }
-  else if(this_key->key_type == KEY_TYPE_SPECIAL)
+  else if(this_key->type == KEY_TYPE_SPECIAL)
     duckcode = this_key->code;
-  else if(this_key->key_type == KEY_TYPE_CHAR)
+  else if(this_key->type == KEY_TYPE_CHAR)
     duckcode = _asciimap[this_key->code];
-  else if(this_key->key_type == KEY_TYPE_DEAD_GRAVE_ACCENT)
+  else if(this_key->type == KEY_TYPE_DEAD_GRAVE_ACCENT)
     duckcode = grave_accent;
-  else if(this_key->key_type == KEY_TYPE_DEAD_ACUTE_ACCENT)
+  else if(this_key->type == KEY_TYPE_DEAD_ACUTE_ACCENT)
     duckcode = acute_accent;
-  else if(this_key->key_type == KEY_TYPE_DEAD_CIRCUMFLEX)
+  else if(this_key->type == KEY_TYPE_DEAD_CIRCUMFLEX)
     duckcode = circumflex;
-  else if(this_key->key_type == KEY_TYPE_DEAD_TILDE)
+  else if(this_key->type == KEY_TYPE_DEAD_TILDE)
     duckcode = tilde;
-  else if(this_key->key_type == KEY_TYPE_DEAD_DIAERESIS)
+  else if(this_key->type == KEY_TYPE_DEAD_DIAERESIS)
     duckcode = diaeresis;
-  else if(this_key->key_type == KEY_TYPE_DEAD_CEDILLA)
+  else if(this_key->type == KEY_TYPE_DEAD_CEDILLA)
     duckcode = cedilla;
   else
     return;
 
-  if(use_mod && should_use_mod(this_key->key_type))
+  if(use_mod && should_use_mod(this_key->type))
   {
     if(duckcode & SHIFT)
       kb_buf[1] |= KEY_LEFT_SHIFT;
@@ -425,7 +425,7 @@ void keyboard_press(my_key* this_key, uint8_t use_mod)
 void keyboard_release(my_key* this_key)
 {
   uint16_t duckcode;
-  if(this_key->key_type == KEY_TYPE_MEDIA)
+  if(this_key->type == KEY_TYPE_MEDIA)
   {
     media_key_release();
     return;
@@ -435,31 +435,31 @@ void keyboard_release(my_key* this_key)
     mouse_release(this_key);
     return;
   }
-  else if(this_key->key_type == KEY_TYPE_MODIFIER)
+  else if(this_key->type == KEY_TYPE_MODIFIER)
   {
     kb_buf[1] &= ~(this_key->code);
     duckcode = 0;
   }
-  else if(this_key->key_type == KEY_TYPE_SPECIAL)
+  else if(this_key->type == KEY_TYPE_SPECIAL)
     duckcode = this_key->code;
-  else if(this_key->key_type == KEY_TYPE_CHAR)
+  else if(this_key->type == KEY_TYPE_CHAR)
     duckcode = _asciimap[this_key->code];
-  else if(this_key->key_type == KEY_TYPE_DEAD_GRAVE_ACCENT)
+  else if(this_key->type == KEY_TYPE_DEAD_GRAVE_ACCENT)
     duckcode = grave_accent;
-  else if(this_key->key_type == KEY_TYPE_DEAD_ACUTE_ACCENT)
+  else if(this_key->type == KEY_TYPE_DEAD_ACUTE_ACCENT)
     duckcode = acute_accent;
-  else if(this_key->key_type == KEY_TYPE_DEAD_CIRCUMFLEX)
+  else if(this_key->type == KEY_TYPE_DEAD_CIRCUMFLEX)
     duckcode = circumflex;
-  else if(this_key->key_type == KEY_TYPE_DEAD_TILDE)
+  else if(this_key->type == KEY_TYPE_DEAD_TILDE)
     duckcode = tilde;
-  else if(this_key->key_type == KEY_TYPE_DEAD_DIAERESIS)
+  else if(this_key->type == KEY_TYPE_DEAD_DIAERESIS)
     duckcode = diaeresis;
-  else if(this_key->key_type == KEY_TYPE_DEAD_CEDILLA)
+  else if(this_key->type == KEY_TYPE_DEAD_CEDILLA)
     duckcode = cedilla;
   else
     return;
 
-  if(should_use_mod(this_key->key_type))
+  if(should_use_mod(this_key->type))
   {
     if(duckcode & SHIFT)
       kb_buf[1] &= ~(KEY_LEFT_SHIFT);
@@ -495,7 +495,7 @@ uint8_t utf8ascii(uint8_t ascii) {
 
 my_key temp_shift_key;
 my_key temp_altgr_key;
-void kb_print_char(my_key *kk, int32_t chardelay, int32_t char_delay_fuzz)
+void kb_print_char(my_key *kk, int32_t chardelay, int32_t charjitter)
 {
   /*
   kk.code is the ASCII character
@@ -510,64 +510,64 @@ void kb_print_char(my_key *kk, int32_t chardelay, int32_t char_delay_fuzz)
   uint16_t is_deadkey = duckcode & 0xf000;
   if(duckcode & SHIFT)
   {
-    temp_shift_key.key_type = KEY_TYPE_MODIFIER;
+    temp_shift_key.type = KEY_TYPE_MODIFIER;
     temp_shift_key.code = KEY_LEFT_SHIFT;
     keyboard_press(&temp_shift_key, 1);
-    delay_wrapper(chardelay, char_delay_fuzz);
+    delay_wrapper(chardelay, charjitter);
   }
   if(duckcode & ALT_GR)
   {
-    temp_altgr_key.key_type = KEY_TYPE_MODIFIER;
+    temp_altgr_key.type = KEY_TYPE_MODIFIER;
     temp_altgr_key.code = KEY_RIGHT_ALT;
     keyboard_press(&temp_altgr_key, 1);
-    delay_wrapper(chardelay, char_delay_fuzz);
+    delay_wrapper(chardelay, charjitter);
   }
   if(is_deadkey != 0) // deadkey
   {
     switch(duckcode >> 12)
     {
-      case 1: deadkey.key_type = KEY_TYPE_DEAD_GRAVE_ACCENT; break;
-      case 2: deadkey.key_type = KEY_TYPE_DEAD_ACUTE_ACCENT; break;
-      case 3: deadkey.key_type = KEY_TYPE_DEAD_CIRCUMFLEX; break;
-      case 4: deadkey.key_type = KEY_TYPE_DEAD_TILDE; break;
-      case 5: deadkey.key_type = KEY_TYPE_DEAD_DIAERESIS; break;
-      case 6: deadkey.key_type = KEY_TYPE_DEAD_CEDILLA; break;
-      default: deadkey.key_type = KEY_TYPE_UNKNOWN; deadkey.code = 0;
+      case 1: deadkey.type = KEY_TYPE_DEAD_GRAVE_ACCENT; break;
+      case 2: deadkey.type = KEY_TYPE_DEAD_ACUTE_ACCENT; break;
+      case 3: deadkey.type = KEY_TYPE_DEAD_CIRCUMFLEX; break;
+      case 4: deadkey.type = KEY_TYPE_DEAD_TILDE; break;
+      case 5: deadkey.type = KEY_TYPE_DEAD_DIAERESIS; break;
+      case 6: deadkey.type = KEY_TYPE_DEAD_CEDILLA; break;
+      default: deadkey.type = KEY_TYPE_UNKNOWN; deadkey.code = 0;
     }
     keyboard_press(&deadkey, 1);
-    delay_wrapper(chardelay, char_delay_fuzz);
+    delay_wrapper(chardelay, charjitter);
   }
   keyboard_press(kk, 1);
-  delay_wrapper(chardelay, char_delay_fuzz);
+  delay_wrapper(chardelay, charjitter);
   keyboard_release(kk);
-  delay_wrapper(chardelay, char_delay_fuzz);
+  delay_wrapper(chardelay, charjitter);
   if(is_deadkey != 0) // deadkey
   {
     keyboard_release(&deadkey);
-    delay_wrapper(chardelay, char_delay_fuzz);
+    delay_wrapper(chardelay, charjitter);
   }
   if(duckcode & ALT_GR)
   {
     keyboard_release(&temp_altgr_key);
-    delay_wrapper(chardelay, char_delay_fuzz);
+    delay_wrapper(chardelay, charjitter);
   }
   if(duckcode & SHIFT)
   {
     keyboard_release(&temp_shift_key);
-    delay_wrapper(chardelay, char_delay_fuzz);
+    delay_wrapper(chardelay, charjitter);
   }
 }
 
-void kb_print(char* msg, int32_t chardelay, int32_t char_delay_fuzz)
+void kb_print(char* msg, int32_t chardelay, int32_t charjitter)
 {
   my_key kk;
   for (int i = 0; i < strlen(msg); ++i)
   {
-    kk.key_type = KEY_TYPE_CHAR;
+    kk.type = KEY_TYPE_CHAR;
     kk.code = utf8ascii(msg[i]);
     if(kk.code == 0)
       continue;
-    kb_print_char(&kk, chardelay, char_delay_fuzz);
+    kb_print_char(&kk, chardelay, charjitter);
   }
 }
 
@@ -575,6 +575,6 @@ void init_my_key(my_key* kk)
 {
   if(kk == NULL)
     return;
-  kk->key_type = KEY_TYPE_UNKNOWN;
+  kk->type = KEY_TYPE_UNKNOWN;
   kk->code = 0;
 }

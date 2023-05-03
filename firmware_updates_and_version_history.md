@@ -6,25 +6,31 @@
 
 ## Latest Firmware
 
-### 0.21.0 (Nov 23 2022)
+### 1.2.0 (May 3 2023)
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.21.0.dfu)
+👉👉 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v1.2.0.dfu)
 
-🚨 Make sure to use the [LATEST CONFIGURATOR](https://github.com/dekuNukem/duckyPad/releases/latest) with this update!
+🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
 
-🆕 Renamed `HOLD` to `EMUK` for compatibility with duckyScript 3
+**Make sure to use the [LATEST CONFIGURATOR](https://github.com/dekuNukem/duckyPad/releases/latest) with this update!**
 
-🆕 Added Japanese input mode keys
+🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
 
-🆕 Added JIS keymap
+🆕 **duckyScript 3** support! 
 
-🐞 Minor bug fixes
+🆕 Variables, IF statements, WHILE loops, functions, and more.
+
+🆕 Print to OLED screen
+
+🆕 Read button status
+
+🆕 Improved performance
+
+🐞 Assorted bug fixes
 
 💭 As usual, [Let me know](#questions-or-comments) if you encounter any issues.
 
-## USB Firmware Updates
-
-You can update duckyPad's firmware via USB, for bug fixes and and/or new features. 
+## USB Firmware Update
 
 ### Enter DFU Mode
 
@@ -42,9 +48,11 @@ If all went well, `the backlight and display should stay off`.
 
 ### Windows
 
-Download and install the [STM32 DfuSe tool](resources/en.stsw-stm32080_stm32_DfuSe.zip) from this repo. (You can also get it from [official website](https://www.st.com/en/development-tools/stsw-stm32080.html), but requires creating an account.)
+Download and install the [STM32 DfuSe tool](resources/en.stsw-stm32080_stm32_DfuSe.zip) from this repo.
 
-Launch the `DfuSeDemo`:
+(You can also get it from [official website](https://www.st.com/en/development-tools/stsw-stm32080.html), but requires creating an account.)
+
+Launch `DfuSeDemo`:
 
 ![Alt text](resources/pics/dfu_start.png)
 
@@ -56,7 +64,7 @@ In `Available DFU Devices`, you should see a `STM Device in DFU Mode`.
 
 Press `Choose...` button and select a firmware file in `.dfu` format.
 
-* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.21.0.dfu) to download the latest firmware (v0.21.0)
+* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v1.2.0.dfu) to download the latest firmware (v1.2.0)
 
 * ...or [scroll down](#firmware-version-history) for older firmware versions.
 
@@ -86,17 +94,29 @@ After completion, press **`RESET`** button (or power-cycle) to start using the n
 
 ## Firmware Version History
 
-### 0.20.2 (Oct 28 2022)
+👇👇👇👇👇👇👇👇👇
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.20.2.dfu)
+[Download Old Firmwares Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/old)
+
+☝️☝️☝️☝️☝️☝️☝️☝️☝️☝️
+
+### 0.21.0 (Nov 23 2022)
+
+🆕 Renamed `HOLD` to `EMUK` for compatibility with duckyScript 3
+
+🆕 Added Japanese input mode keys
+
+🆕 Added JIS keymap
+
+🐞 Minor bug fixes
+
+### 0.20.2 (Oct 28 2022)
 
 🆕 Added `STRINGLN` command. Same as `STRING` but presses enter key at the end.
 
 🐞 Fixed a bug that causes unresponsive keys.
 
 ### 0.20.1 (Jul 21 2022)
-
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.20.1.dfu)
 
 🆕 `LOOP` state and RGB LED color is now persistent across profile switches and reboots!
 
@@ -106,8 +126,6 @@ After completion, press **`RESET`** button (or power-cycle) to start using the n
 
 ### 0.19.8 (Dec 23 2021)
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.19.8.dfu)
-
 🆕 Shortened profile switching animation, feels much more snappy now!
 
 🆕 Added sleep status byte in [HID info packet](https://github.com/dekuNukem/duckyPad-profile-autoswitcher/blob/master/HID_details.md#info-0x00).
@@ -116,24 +134,13 @@ After completion, press **`RESET`** button (or power-cycle) to start using the n
 
 🐞 Fixed a configuration error that prevented F13-F24 keys from working under Linux.
 
-⚠️ * Some AMD motherboard users have experienced disconnection issues. This is a [well-known chipset bug](https://www.pcmag.com/news/amd-locates-root-cause-of-usb-issues-on-b550-x570-motherboards). Apply latest updates or plug in through an USB hub to fix the issue.
-
-💭 Questions, feedbacks, bugs? [Let me know](#questions-or-comments)!
-
-
 ### 0.19.1
-
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.19.1.dfu)
 
 🆕 Configure duckyPad via USB **WITHOUT taking out SD card!** [Click me for details.](https://github.com/dekuNukem/duckyPad/blob/master/getting_started.md#using-duckypad-configurator)
 
 🆕 Added `KEYUP` and `KEYDOWN` commands for holding keys
 
-⚠️ As this is a fairly large update, there might be some bugs lurking around. [Let me know](#questions-or-comments) if you run into one!
-
 ### 0.18.0
-
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.18.0.dfu)
 
 🆕 **Mouse support!** [Click me for details.](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#mouse-buttons)
 
@@ -141,17 +148,7 @@ After completion, press **`RESET`** button (or power-cycle) to start using the n
 
 🆕 [Two-way HID communication](https://github.com/dekuNukem/duckyPad-profile-autoswitcher/blob/master/HID_details.md) support! Write your own software to control duckyPad!
 
-⚠️ As this is a fairly large update, there might be some bugs lurking around. [Let me know](#questions-or-comments) if you run into one!
-
-⚠️ Known issues:
-
-* An user reported capitalized letters not working on Chromebook, let me know if that's the case on yours!
-
-* Some AMD B550/X570 motherboard users reported disconnection issues. This is a chipset bug. [Apply the patch](https://www.pcmag.com/news/amd-locates-root-cause-of-usb-issues-on-b550-x570-motherboards) or use it through an USB hub should fix it.
-
 ### 0.17.0
-
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.17.0.dfu)
 
 * `LOOP` counter will no longer reset during sleep.
 
@@ -159,10 +156,7 @@ After completion, press **`RESET`** button (or power-cycle) to start using the n
 
 * `MENU` key now works properly.
 
-
 ### 0.16.0
-
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.16.0.dfu)
 
 * Added `COMMAND` and `OPTION` aliases for macOS. 
 
@@ -172,8 +166,6 @@ After completion, press **`RESET`** button (or power-cycle) to start using the n
 
 ### 0.15.0
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.15.0.dfu)
-
 * Added `DP_SLEEP` command to make duckyPad to go sleep.
 
 * Added `PREV_PROFILE`, `NEXT_PROFILE`, and `GOTO_PROFILE` commands for profile switching.
@@ -182,15 +174,11 @@ After completion, press **`RESET`** button (or power-cycle) to start using the n
 
 ### 0.14.0
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.14.0.dfu)
-
 * Added attributions and metadata in keymap files, updated firmware to handle them.
 
 * Added support for cedilla deadkey in keymaps.
 
 ### 0.13.0
-
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.13.0.dfu)
 
 * Added `SWCOLOR` command to change the colour of a key inside a script.
 
@@ -198,13 +186,9 @@ After completion, press **`RESET`** button (or power-cycle) to start using the n
 
 ### 0.12.1
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.12.1.dfu)
-
 * Fixed an issue of key sticking with `HOLD` command.
 
 ### 0.12.0
-
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.12.0.dfu)
 
 * Added an **experimental** `LOOP` command, allowing cycling through different actions on the same key.
 
@@ -212,19 +196,13 @@ After completion, press **`RESET`** button (or power-cycle) to start using the n
 
 ### 0.11.3
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.11.3.dfu)
-
 * Fixed a bug that prevented `HOLD` command from working on the very first press.
 
 ### 0.11.2
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.11.2.dfu)
-
 * Fixed a bug in keymap parser to allow `SHIFT` and `AltGr` to be pressed simultaneously.
 
 ### 0.11.1
-
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.11.1.dfu)
 
 * Increased maximum simultaneous key presses to 6.
 
@@ -233,8 +211,6 @@ After completion, press **`RESET`** button (or power-cycle) to start using the n
 * Using duckyPad as a WASD gamepad with [`HOLD` command](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md#hold-experimental) becomes more viable too.
 
 ### 0.11.0
-
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.11.0.dfu)
 
 🆕 Added keymap file support for multiple keyboard layouts.
 
@@ -260,21 +236,15 @@ After completion, press **`RESET`** button (or power-cycle) to start using the n
 
 ### 0.10.0
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.10.0.dfu)
-
 * Improved `HOLD` command performance
 
 ### 0.9.0
-
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.9.0.dfu)
 
 * Added profile quickswitching
 
 * **`Hold down`** `+` button and jump between profiles
 
 ### 0.8.0
-
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.8.0.dfu)
 
 * Added `HOLD` command, where duckyPad will hold a key when you press it, and release only when you release it.
 
@@ -288,13 +258,9 @@ After completion, press **`RESET`** button (or power-cycle) to start using the n
 
 ### 0.7.0
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.7.0.dfu)
-
 * Added support for numpad keys. See [this guide](https://github.com/dekuNukem/duckyPad/blob/master/duckyscript_info.md) for details. 
 
 ### 0.6.0
-
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.6.0.dfu)
 
 * Added support for `AZERTY (French)`, `AZERTY (Belgium)`, and `Dvorak` layout.
 
@@ -304,15 +270,11 @@ After completion, press **`RESET`** button (or power-cycle) to start using the n
 
 ### 0.5.0
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.5.0.dfu)
-
 * Added RGB LED brightness adjustment
 
 * Hold down +/- button to change brightness
 
 ### 0.4.0
-
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.4.0.dfu)
 
 * Added support media keys (volume up/down, play/pause, mute, prev/next track, etc)
 
@@ -320,21 +282,15 @@ After completion, press **`RESET`** button (or power-cycle) to start using the n
 
 ### 0.3.0
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.3.0.dfu)
-
 * Added support for `MENU` key (the 'right click' key on windows keyboard that no one uses).
 
 * Increased max number of profiles to 32.
 
 ### 0.2.1
 
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.2.1.dfu)
-
 * duckyPad now store its firmware version on SD card, so PC app can check for updates.
 
 ### 0.2.0
-
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.2.0.dfu)
 
 Major update. New features and optimisations.
 
@@ -347,8 +303,6 @@ Major update. New features and optimisations.
 * Other minor fixes
 
 ### 0.1.0
-
-[Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v0.1.0.dfu)
 
 Initial Release
 

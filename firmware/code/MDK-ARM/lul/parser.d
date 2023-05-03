@@ -67,8 +67,9 @@ lul\parser.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
 lul\parser.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h
 lul\parser.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
 lul\parser.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h
+lul\parser.o: ../Inc/ds3_vm.h
 lul\parser.o: ../Inc/ssd1306.h
 lul\parser.o: ../Inc/fonts.h
 lul\parser.o: ../Inc/animations.h
 lul\parser.o: ../Inc/usbd_desc.h
-lul\parser.o: ../Inc/hash_lookup.h
+lul\parser.o: ../Inc/ds3_vm.h

@@ -113,11 +113,33 @@ ready for public release
 
 0.22.1 20230118
 fixed a bug where STRING prints an extra space
+
+1.0.0 20230202
+beta release for duckyscript 3
+
+1.1.0 20230214
+added banked loading for large dsb files
+cleaned up opcode values
+
+1.1.1 20230215
+fixed a bug where screen doesnt update when exiting keymap selection screen
+
+1.1.2 20230221
+added busy state
+
+1.1.3 20230329
+fixing a rand() bug where modulus power of 2 result in repeating patterns
+
+1.1.4 20230409
+fixed a SD card timing bug
+
+1.2.0 20230502
+ready for public release
 */
 
-uint8_t fw_version_major = 0;
-uint8_t fw_version_minor = 22;
-uint8_t fw_version_patch = 1;
+uint8_t fw_version_major = 1;
+uint8_t fw_version_minor = 2;
+uint8_t fw_version_patch = 0;
 char instruction[] = "For instructions, see";
 /* USER CODE END PV */
 
@@ -467,6 +489,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   HAL_Delay(200);
   NVIC_SystemReset();
 }
+
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_kb_scan_task */
@@ -485,8 +508,8 @@ void kb_scan_task(void const * argument)
   MX_USB_DEVICE_Init();
 
   /* USER CODE BEGIN 5 */
-  led_reset();
-  mount_result = f_mount(&sd_fs, "", 1);
+  neopixel_off();
+  uint8_t mount_result = f_mount(&sd_fs, "", 1);
   HAL_GPIO_WritePin(OLED_RESET_GPIO_Port, OLED_RESET_Pin, GPIO_PIN_RESET);
   osDelay(10);
   HAL_GPIO_WritePin(OLED_RESET_GPIO_Port, OLED_RESET_Pin, GPIO_PIN_SET);

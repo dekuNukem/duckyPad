@@ -110,8 +110,6 @@ If for some reason it didn't work, you can also **load from SD card**.
 
 ### Profiles
 
-The GUI might look a bit overwhelming, but don't worry, let's break it down.
-
 * The leftmost column is for *profiles*.
 
 * Each profile contains a group of scripts corresponding to the keys on the duckyPad.
@@ -120,13 +118,13 @@ The GUI might look a bit overwhelming, but don't worry, let's break it down.
 
 ![Alt text](resources/pics/app/profiles.png)
 
-* Use the buttons to create a new profile, duplicate an existing profile, and remove/rename a profile.
+* Use the buttons to create, duplicate, name, and import a profile.
 
-* Use the up/down arrow button to reorder profiles.
+* Use the up/down/x button to reorder/delete profiles.
 
 * Choose a background color for the RGB backlight.
 
-* `Activation color` is the color that a key changes into when you press it. On `Auto` it will be the inverse of background color.
+* `Activation color` is the color that a key changes into when you press it.
 
 * By default unused keys are dimmed, you can override this by unticking the checkbox.
 
@@ -138,13 +136,13 @@ The middle column is for *keys*:
 
 * Here you can configure the keys on your duckyPad.
 
-* Click a key to select it.
+* Click a key to select.
 
-* Type to give it a name, or click `Remove` to delete it.
+* Give it a name, or click `Remove` to delete.
 
 * You can assign an unique color to each key, or use the same color as background.
 
-* Drag a key to rearrange its order.
+* Drag a key to rearrange order.
 
 ### Scripts
 
@@ -157,14 +155,6 @@ Finally, the rightmost column is for *scripts*:
 * duckyPad uses duckyScript, [**read about its usage here**](duckyscript_info.md).
 
 * Code check will be performed as you type, errors will be highlighted in yellow.
-
-* Press `Run this script!` to test-run it on your computer. **`MAKE SURE YOU TRUST THE SCRIPT!`**
-
-* Test-run might not be 100% accurate. Some keys and commands like `Capslock` or `SWCOLOR` can't be emulated in software. **Always test on the real thing**.
-
-* Test-run can't get past [Windows User Account Control](resources/pics/app/uac.png) screens.
-
-* On macOS, if test-run doesn't work, [go to System Preferences -> Security & Privacy -> Accessibility](resources/pics/app/macos.png), unlock, remove then add the app.
 
 ### Settings & Updates
 
@@ -180,7 +170,7 @@ By default, duckyPad goes to sleep after 30 minutes. Adjust the slider to set yo
 
 ### Don't forget to save!
 
-* Press `Save` button to save the changes. It might take a few seconds.
+* Press `Save` button to write the changes back to duckyPad.
 
 ![Alt text](resources/pics/app/save.png)
 
