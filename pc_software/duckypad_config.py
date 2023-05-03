@@ -225,7 +225,7 @@ def check_firmware_update(current_fw_str=None):
                     return check_update.get_firmware_update_status(line), line
     return 2, None
 
-def fw_update_click():
+def fw_update_click(event):
     webbrowser.open('https://github.com/dekuNukem/duckyPad/blob/master/firmware_updates_and_version_history.md')
 
 def print_fw_update_label(current_fw_str=None):
@@ -300,7 +300,7 @@ is_using_hid = False
 def incompatible_fw_msgbox(current_fw_str, fw_status):
     if fw_status == FW_TOO_LOW:
         if messagebox.askokcancel("Info", f"duckyPad firmware too low!\n\nCurrent: {current_fw_str}\nSupported: Between {MIN_DUCKYPAD_FIRMWARE_VERSION} and {MAX_DUCKYPAD_FIRMWARE_VERSION}.\n\nSee how to update it?"):
-            fw_update_click()
+            fw_update_click(None)
     elif fw_status == FW_TOO_HIGH:
         if messagebox.askokcancel("Info", f"duckyPad firmware too high!\n\nCurrent: {current_fw_str}\nSupported: Between {MIN_DUCKYPAD_FIRMWARE_VERSION} and {MAX_DUCKYPAD_FIRMWARE_VERSION}.\n\nSee how to update this app?"):
             app_update_click(None)
