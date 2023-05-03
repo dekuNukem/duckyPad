@@ -25,4 +25,4 @@ python _zip_source.py
 
 git add --all
 git commit -m "$@"
-git push origin ds3_release
+git push origin master
