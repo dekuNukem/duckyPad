@@ -118,9 +118,8 @@ def duckypad_list_files(root_dir = None):
             break
         _check_hid_err(result)
         this_filename = ("".join([chr(x) for x in result[4:]]).strip('\0'), result[3])
-        if this_filename[0].lower().endswith(".sps"):
-            continue
-        ret.append(this_filename)
+        if not (this_filename[0].lower().endswith(".sps") or '._' in this_filename[0]):
+            ret.append(this_filename)
         duckypad_hid_resume()
     return ret
 

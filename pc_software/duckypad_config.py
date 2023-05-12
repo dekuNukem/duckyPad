@@ -72,9 +72,12 @@ fixed HID busy detection bug
 Fixed a firmware version parse bug
 getting ready for public release
 added firmware version compatibility check with upper and lower bound, both HID and file based.
+
+1.3.5 2023 05 12
+fixed a bug where it trys to load junk macOS files
 """
 
-THIS_VERSION_NUMBER = '1.3.0'
+THIS_VERSION_NUMBER = '1.3.5'
 MIN_DUCKYPAD_FIRMWARE_VERSION = "1.1.2"
 MAX_DUCKYPAD_FIRMWARE_VERSION = "1.10.10"
 
