@@ -75,6 +75,7 @@ added firmware version compatibility check with upper and lower bound, both HID 
 
 1.3.5 2023 05 12
 fixed a bug where it trys to load junk macOS files
+added back COMMAND key 
 """
 
 THIS_VERSION_NUMBER = '1.3.5'
