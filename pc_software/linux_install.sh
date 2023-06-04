@@ -24,7 +24,7 @@ tee /usr/share/applications/duckyconfig.desktop <<EOF &> /dev/null
 [Desktop Entry]
 Name=DuckyPad Configurator
 Version=v0.13.3
-Icon=/opt/duckypad_config/icon.ico
+Icon=/opt/duckypad_config/_icon.ico
 Exec=$HIDPI python3 /opt/duckypad_config/duckypad_config.py
 Terminal=false
 Type=Application
