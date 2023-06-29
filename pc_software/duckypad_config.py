@@ -521,11 +521,11 @@ def bg_color_click(event):
     selection = profile_lstbox.curselection()
     if len(selection) <= 0:
         return
-    result = askcolor()[-1]
+    result = askcolor(color=profile_list[selection[0]].bg_color, title="Choose background color for " + profile_list[selection[0]].name + " profile")[0]
     if result is None:
         return
-    last_rgb = hex_to_rgb(result)
-    profile_list[selection[0]].bg_color = hex_to_rgb(result)
+    last_rgb = result
+    profile_list[selection[0]].bg_color = result
     update_profile_display()
 
 def kd_color_click(event):
@@ -533,10 +533,10 @@ def kd_color_click(event):
     selection = profile_lstbox.curselection()
     if len(selection) <= 0 or kd_color_var.get() == 0:
         return
-    result = askcolor()[-1]
+    result = askcolor(color=profile_list[selection[0]].kd_color, title="Choose activation color for " + profile_list[selection[0]].name + " profile")[0]
     if result is None:
         return
-    profile_list[selection[0]].kd_color = hex_to_rgb(result)
+    profile_list[selection[0]].kd_color = result
     update_profile_display()
 
 invalid_filename_characters = ['<', '>', ':', '"', '/', '\\', '|', '?', '*']
@@ -1054,11 +1054,13 @@ def key_color_button_click(event):
         return
     profile_index = profile_lstbox.curselection()[0]
     if profile_list[profile_index].keylist[selected_key] is not None:
-        result = askcolor()[-1]
+        # Color picker should have an initial colour set in colour picker
+        initial_color = profile_list[profile_index].keylist[selected_key].color if profile_list[profile_index].keylist[selected_key].color is not None else profile_list[profile_index].bg_color
+        result = askcolor(color=initial_color, title="Choose key color for " + profile_list[profile_index].keylist[selected_key].name)[0]
         if result is None:
             return
-        last_rgb = hex_to_rgb(result)
-        profile_list[profile_index].keylist[selected_key].color = hex_to_rgb(result)
+        last_rgb = result
+        profile_list[profile_index].keylist[selected_key].color = result
     update_key_button_appearances(profile_index)
     key_button_click(key_button_list[selected_key])
 
