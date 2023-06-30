@@ -64,7 +64,7 @@ void change_brightness()
     button_service_all();
     while(1)
     {
-      // HAL_IWDG_Refresh(&hiwdg);
+      HAL_IWDG_Refresh(&hiwdg);
       keyboard_update();
 
       for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
@@ -94,7 +94,7 @@ void handle_tactile_button_press(uint8_t button_num)
     button_hold_start = HAL_GetTick();
     while(1)
     {
-        // HAL_IWDG_Refresh(&hiwdg);
+        HAL_IWDG_Refresh(&hiwdg);
         keyboard_update();
         button_hold_duration = HAL_GetTick() - button_hold_start;
         if(button_status[button_num].button_state == BUTTON_RELEASED)
@@ -232,7 +232,7 @@ void select_keymap(void)
   sprintf(temp_buf, "dpkm_");
   while(1)
   {
-    // HAL_IWDG_Refresh(&hiwdg);
+    HAL_IWDG_Refresh(&hiwdg);
     keyboard_update();
     if(is_pressed(KEY_BUTTON1) || is_pressed(KEY_BUTTON2)) // + -
     {
@@ -753,8 +753,7 @@ void handle_hid_command(void)
   {
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
     osDelay(50);
-    while(1);
-    // NVIC_SystemReset();
+    NVIC_SystemReset();
   }
   /*
   HID SLEEP
@@ -823,7 +822,7 @@ void keypress_task_start(void const * argument)
   for(;;)
   {
     osDelay(16);
-    // HAL_IWDG_Refresh(&hiwdg);
+    HAL_IWDG_Refresh(&hiwdg);
     for (int i = 0; i < KEY_COUNT; ++i)
     {
       if(is_pressed(i))
@@ -842,6 +841,8 @@ void keypress_task_start(void const * argument)
         if(hold_cache[i].type != KEY_TYPE_UNKNOWN && hold_cache[i].code != 0)
         {
           press_key(hold_cache[i].code, hold_cache[i].type);
+          play_keydown_animation(i);
+          emuk_state[i] = 1;
           osDelay(DEFAULT_CHAR_DELAY_MS);
         }
         else if(i <= KEY_14)
@@ -884,6 +885,7 @@ void keypress_task_start(void const * argument)
             hold_cache[i].type = this_exe.data2;
             press_key(hold_cache[i].code, hold_cache[i].type);
             service_press(i);
+            emuk_state[i] = 1;
             continue;
           }
           if (this_exe.epilogue_actions & NEED_OLED_REFRESH)
@@ -892,10 +894,13 @@ void keypress_task_start(void const * argument)
           }
         }
       }
-      else if(is_released(i) && hold_cache[i].type != KEY_TYPE_UNKNOWN)
+      else if(i <= KEY_14 && emuk_state[i] && is_released(i) && hold_cache[i].type != KEY_TYPE_UNKNOWN)
       {
+        // printf("%d\n", HAL_GetTick());
         keyboard_release(&hold_cache[i]);
         play_keyup_animation(i);
+        osDelay(10);
+        emuk_state[i] = 0;
       }
       key_task_end:
       service_press(i);

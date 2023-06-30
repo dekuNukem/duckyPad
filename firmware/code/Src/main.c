@@ -199,7 +199,7 @@ int main(void)
   MX_USART1_UART_Init();
   MX_SPI1_Init();
   MX_I2C1_Init();
-  // MX_IWDG_Init();
+  MX_IWDG_Init();
   /* USER CODE BEGIN 2 */
   /* USER CODE END 2 */
 
@@ -490,8 +490,7 @@ static void MX_GPIO_Init(void)
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   HAL_Delay(200);
-  while(1);
-  // NVIC_SystemReset();
+  NVIC_SystemReset();
 }
 
 /* USER CODE END 4 */
@@ -539,7 +538,7 @@ void kb_scan_task(void const * argument)
     ssd1306_UpdateScreen();
     while(1)
     {
-      // HAL_IWDG_Refresh(&hiwdg);
+      HAL_IWDG_Refresh(&hiwdg);
       osDelay(30);
     }
   }
@@ -559,10 +558,10 @@ void kb_scan_task(void const * argument)
   anime_init();
   for(;;)
   {
-    // HAL_IWDG_Refresh(&hiwdg);
+    HAL_IWDG_Refresh(&hiwdg);
     keyboard_update();
     animation_task_start();
-    osDelay(16);
+    osDelay(2);
   }
   /* USER CODE END 5 */ 
 }

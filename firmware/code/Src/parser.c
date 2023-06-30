@@ -35,6 +35,7 @@ char nonexistent_keyname[] = "\253";
 profile_cache p_cache;
 dp_global_settings dp_settings;
 my_key hold_cache[MAPPABLE_KEY_COUNT];
+uint8_t emuk_state[MAPPABLE_KEY_COUNT];
 char curr_kb_layout[FILENAME_SIZE];
 uint8_t key_press_count[MAPPABLE_KEY_COUNT];
 
@@ -138,18 +139,11 @@ uint8_t load_colors(char* pf_fn)
   ret = f_open(&sd_file, temp_buf, FA_READ);
 
   if(ret == FR_OK)
-  {
     goto color_normal;
-  }
   else if(ret == FR_NO_FILE)
-  {
     goto color_end;
-  }
   else
-  {
-    while(1);
-    // HAL_NVIC_SystemReset();
-  }
+    HAL_NVIC_SystemReset();
 
   color_normal:
   while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
@@ -511,6 +505,7 @@ void reset_hold_cache(void)
     hold_cache[i].type = KEY_TYPE_UNKNOWN;
     hold_cache[i].code = 0;
   }
+  memset(emuk_state, 0, MAPPABLE_KEY_COUNT);
 }
 
 void restore_profile(uint8_t profile_id)

@@ -76,7 +76,7 @@ extern profile_cache p_cache;
 extern char temp_buf[PATH_SIZE];
 extern dp_global_settings dp_settings;
 extern my_key hold_cache[MAPPABLE_KEY_COUNT];
-
+extern uint8_t emuk_state[MAPPABLE_KEY_COUNT];
 extern char lfn_buf[FILENAME_SIZE];
 extern char read_buffer[READ_BUF_SIZE];
 extern char curr_kb_layout[FILENAME_SIZE];
