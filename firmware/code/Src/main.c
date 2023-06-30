@@ -137,7 +137,9 @@ fixed a SD card timing bug
 ready for public release
 
 1.2.1 20230630
-fixed EMK laggy and stuck
+fixed laggy EMUK
+fixed EMUK-related n-key rollover bug
+fixed pad crashing when changing profiles
 */
 
 uint8_t fw_version_major = 1;
@@ -561,7 +563,7 @@ void kb_scan_task(void const * argument)
     HAL_IWDG_Refresh(&hiwdg);
     keyboard_update();
     animation_task_start();
-    osDelay(2);
+    osDelay(16);
   }
   /* USER CODE END 5 */ 
 }
