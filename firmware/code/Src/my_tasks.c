@@ -64,7 +64,7 @@ void change_brightness()
     button_service_all();
     while(1)
     {
-      HAL_IWDG_Refresh(&hiwdg);
+      // HAL_IWDG_Refresh(&hiwdg);
       keyboard_update();
 
       for (int i = 0; i < MAPPABLE_KEY_COUNT; ++i)
@@ -94,7 +94,7 @@ void handle_tactile_button_press(uint8_t button_num)
     button_hold_start = HAL_GetTick();
     while(1)
     {
-        HAL_IWDG_Refresh(&hiwdg);
+        // HAL_IWDG_Refresh(&hiwdg);
         keyboard_update();
         button_hold_duration = HAL_GetTick() - button_hold_start;
         if(button_status[button_num].button_state == BUTTON_RELEASED)
@@ -232,7 +232,7 @@ void select_keymap(void)
   sprintf(temp_buf, "dpkm_");
   while(1)
   {
-    HAL_IWDG_Refresh(&hiwdg);
+    // HAL_IWDG_Refresh(&hiwdg);
     keyboard_update();
     if(is_pressed(KEY_BUTTON1) || is_pressed(KEY_BUTTON2)) // + -
     {
@@ -753,7 +753,8 @@ void handle_hid_command(void)
   {
     USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
     osDelay(50);
-    NVIC_SystemReset();
+    while(1);
+    // NVIC_SystemReset();
   }
   /*
   HID SLEEP
@@ -822,7 +823,7 @@ void keypress_task_start(void const * argument)
   for(;;)
   {
     osDelay(16);
-    HAL_IWDG_Refresh(&hiwdg);
+    // HAL_IWDG_Refresh(&hiwdg);
     for (int i = 0; i < KEY_COUNT; ++i)
     {
       if(is_pressed(i))

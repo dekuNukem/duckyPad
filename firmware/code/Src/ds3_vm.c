@@ -284,7 +284,7 @@ void execute_instruction(uint16_t curr_pc, ds3_exe_result* exe, uint8_t keynum)
   exe->next_pc = curr_pc + INSTRUCTION_SIZE_BYTES;
   exe->data = 0;
 
-  HAL_IWDG_Refresh(&hiwdg);
+  // HAL_IWDG_Refresh(&hiwdg);
 
   if(this_opcode == OP_NOP)
   {
@@ -602,7 +602,8 @@ uint8_t read_byte(uint16_t addr)
     keyboard_release_all();
     error_animation(0);
     osDelay(2000);
-    NVIC_SystemReset();
+    while(1);
+    // NVIC_SystemReset();
   }
   return bin_buf[addr%BIN_BUF_SIZE];
 }

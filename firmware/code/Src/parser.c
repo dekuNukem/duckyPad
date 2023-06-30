@@ -138,11 +138,18 @@ uint8_t load_colors(char* pf_fn)
   ret = f_open(&sd_file, temp_buf, FA_READ);
 
   if(ret == FR_OK)
+  {
     goto color_normal;
+  }
   else if(ret == FR_NO_FILE)
+  {
     goto color_end;
+  }
   else
-    HAL_NVIC_SystemReset();
+  {
+    while(1);
+    // HAL_NVIC_SystemReset();
+  }
 
   color_normal:
   while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
