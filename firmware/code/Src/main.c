@@ -135,6 +135,9 @@ fixed a SD card timing bug
 
 1.2.0 20230502
 ready for public release
+
+1.2.1 20230630
+fixed EMK laggy and stuck
 */
 
 uint8_t fw_version_major = 1;

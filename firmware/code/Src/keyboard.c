@@ -578,3 +578,19 @@ void init_my_key(my_key* kk)
   kk->type = KEY_TYPE_UNKNOWN;
   kk->code = 0;
 }
+
+void press_key(uint8_t code, uint8_t type)
+{
+  my_key kk;
+  kk.code = code;
+  kk.type = type;
+  keyboard_press(&kk, 0);
+}
+
+void release_key(uint8_t code, uint8_t type)
+{
+  my_key kk;
+  kk.code = code;
+  kk.type = type;
+  keyboard_release(&kk);
+}
