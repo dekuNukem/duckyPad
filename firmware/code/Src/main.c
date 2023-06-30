@@ -142,7 +142,7 @@ fixed EMK laggy and stuck
 
 uint8_t fw_version_major = 1;
 uint8_t fw_version_minor = 2;
-uint8_t fw_version_patch = 0;
+uint8_t fw_version_patch = 1;
 char instruction[] = "For instructions, see";
 /* USER CODE END PV */
 
