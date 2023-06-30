@@ -28,6 +28,11 @@ uint8_t is_released_but_not_serviced(uint8_t which)
   return button_status[which].button_state == BUTTON_RELEASED && button_status[which].service_status == BUTTON_SERVICE_UNSERVICED;
 }
 
+uint8_t is_released(uint8_t which)
+{
+  return button_status[which].button_state == BUTTON_RELEASED;
+}
+
 void service_press(uint8_t which)
 {
   button_status[which].service_status = BUTTON_SERVICE_SERVICED;

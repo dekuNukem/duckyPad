@@ -883,7 +883,7 @@ void keypress_task_start(void const * argument)
           }
         }
       }
-      else if(is_released_but_not_serviced(i) && hold_cache[i].type != KEY_TYPE_UNKNOWN)
+      else if(is_released(i) && hold_cache[i].type != KEY_TYPE_UNKNOWN)
       {
         keyboard_release(&hold_cache[i]);
         play_keyup_animation(i);
