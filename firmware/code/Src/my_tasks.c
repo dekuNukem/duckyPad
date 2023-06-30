@@ -838,6 +838,12 @@ void keypress_task_start(void const * argument)
         }
         if(i == KEY_BUTTON1 || i == KEY_BUTTON2)
           handle_tactile_button_press(i);
+        // if(hold_cache[i].key_type != KEY_TYPE_UNKNOWN && hold_cache[i].code != 0)
+        // {
+        //   keyboard_press(&hold_cache[i], 0);
+        //   press_key(byte0, byte1);
+        //   osDelay(DEFAULT_CHAR_DELAY_MS);
+        // }
         else if(i <= KEY_14)
         {
           is_busy = 1;
@@ -874,6 +880,7 @@ void keypress_task_start(void const * argument)
           {
             hold_cache[i].code = this_exe.data;
             hold_cache[i].type = this_exe.data2;
+            press_key(hold_cache[i].code, hold_cache[i].type);
             service_press(i);
             continue;
           }
