@@ -98,14 +98,6 @@ After completion, press **`RESET`** button (or power-cycle) to start using the n
 
 ### 1.2.0 (May 3 2023)
 
-👉👉 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v1.2.0.dfu)
-
-🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
-
-**Make sure to use the [LATEST CONFIGURATOR](https://github.com/dekuNukem/duckyPad/releases/latest) with this update!**
-
-🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
-
 🆕 **duckyScript 3** support! 
 
 🆕 Variables, IF statements, WHILE loops, functions, and more.
