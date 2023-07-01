@@ -76,9 +76,12 @@ added firmware version compatibility check with upper and lower bound, both HID 
 1.3.5 2023 05 12
 fixed a bug where it trys to load junk macOS files
 added back COMMAND key 
+
+1.4.0 2023 07 01
+added _TIME_S read-only variable
 """
 
-THIS_VERSION_NUMBER = '1.3.5'
+THIS_VERSION_NUMBER = '1.4.0'
 MIN_DUCKYPAD_FIRMWARE_VERSION = "1.1.2"
 MAX_DUCKYPAD_FIRMWARE_VERSION = "1.10.10"
 
