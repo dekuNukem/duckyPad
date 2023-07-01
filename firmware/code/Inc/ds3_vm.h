@@ -89,6 +89,7 @@
 #define _LOOP_SIZE (0xffff - 8)
 #define _KEYPRESS_COUNT (0xffff - 9)
 #define _NEEDS_EPILOGUE  (0xffff - 10)
+#define _TIME_S  (0xffff - 11)
 
 typedef struct
 {

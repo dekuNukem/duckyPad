@@ -135,6 +135,8 @@ void write_var(uint16_t addr, uint16_t value)
     ; // this is read only, so do nothing
   else if (addr == _TIME_MS)
     ; // this is read only, so do nothing
+  else if (addr == _TIME_S)
+    ; // this is read only, so do nothing
   else if (addr == _READKEY)
     ; // this is read only, so do nothing
   else if (addr == _LOOP_SIZE)
@@ -164,6 +166,8 @@ uint16_t read_var(uint16_t addr)
     return (rand() + htim6.Instance->CNT) % (rand_max + 1 - rand_min) + rand_min;
   else if (addr == _TIME_MS)
     return (uint16_t)HAL_GetTick();
+  else if (addr == _TIME_S)
+    return (uint16_t)(HAL_GetTick() / 1000);
   else if (addr == _LOOP_SIZE)
     return loop_size;
   else if (addr == _READKEY)

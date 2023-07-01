@@ -140,11 +140,15 @@ ready for public release
 fixed laggy EMUK
 fixed EMUK-related n-key rollover bug
 fixed pad crashing when changing profiles
+
+1.3.0 20230701
+added _TIME_S read-only variable
+
 */
 
 uint8_t fw_version_major = 1;
-uint8_t fw_version_minor = 2;
-uint8_t fw_version_patch = 1;
+uint8_t fw_version_minor = 3;
+uint8_t fw_version_patch = 0;
 char instruction[] = "For instructions, see";
 /* USER CODE END PV */
 
