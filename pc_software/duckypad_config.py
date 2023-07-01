@@ -74,11 +74,12 @@ getting ready for public release
 added firmware version compatibility check with upper and lower bound, both HID and file based.
 
 1.3.5 2023 05 12
-fixed a bug where it trys to load junk macOS files
+fixed a bug where it tries to load junk macOS files
 added back COMMAND key 
 
 1.4.0 2023 07 01
 added _TIME_S read-only variable
+Updated colour pickers to provide an appropriate initial colour and title for the dialog window. (PR#135)
 """
 
 THIS_VERSION_NUMBER = '1.4.0'
@@ -524,7 +525,7 @@ def bg_color_click(event):
     selection = profile_lstbox.curselection()
     if len(selection) <= 0:
         return
-    result = askcolor(color=profile_list[selection[0]].bg_color, title="Choose background color for " + profile_list[selection[0]].name + " profile")[0]
+    result = askcolor(color=profile_list[selection[0]].bg_color, title="Background color for " + profile_list[selection[0]].name + " profile")[0]
     if result is None:
         return
     last_rgb = result
@@ -536,7 +537,7 @@ def kd_color_click(event):
     selection = profile_lstbox.curselection()
     if len(selection) <= 0 or kd_color_var.get() == 0:
         return
-    result = askcolor(color=profile_list[selection[0]].kd_color, title="Choose activation color for " + profile_list[selection[0]].name + " profile")[0]
+    result = askcolor(color=profile_list[selection[0]].kd_color, title="Activation color for " + profile_list[selection[0]].name + " profile")[0]
     if result is None:
         return
     profile_list[selection[0]].kd_color = result
@@ -1059,7 +1060,7 @@ def key_color_button_click(event):
     if profile_list[profile_index].keylist[selected_key] is not None:
         # Color picker should have an initial colour set in colour picker
         initial_color = profile_list[profile_index].keylist[selected_key].color if profile_list[profile_index].keylist[selected_key].color is not None else profile_list[profile_index].bg_color
-        result = askcolor(color=initial_color, title="Choose key color for " + profile_list[profile_index].keylist[selected_key].name)[0]
+        result = askcolor(color=initial_color, title="Key color for " + profile_list[profile_index].keylist[selected_key].name)[0]
         if result is None:
             return
         last_rgb = result
