@@ -6,9 +6,9 @@
 
 ## Latest Firmware
 
-### 1.2.0 (May 3 2023)
+### 1.3.0 (May 3 2023)
 
-👉👉 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v1.2.0.dfu)
+👉👉 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v1.3.0.dfu)
 
 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
 
@@ -16,17 +16,13 @@
 
 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
 
-🆕 **duckyScript 3** support! 
+🆕 Added `_TIME_S` reserved variable
 
-🆕 Variables, IF statements, WHILE loops, functions, and more.
+🐞 Fixed laggy `EMUK`
 
-🆕 Print to OLED screen
+🐞 Fixed `EMUK` n-key rollover not working
 
-🆕 Read button status
-
-🆕 Improved performance
-
-🐞 Assorted bug fixes
+🐞 Fixed pad crashing when changing profile under certain circumstances
 
 💭 As usual, [Let me know](#questions-or-comments) if you encounter any issues.
 
@@ -64,7 +60,7 @@ In `Available DFU Devices`, you should see a `STM Device in DFU Mode`.
 
 Press `Choose...` button and select a firmware file in `.dfu` format.
 
-* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v1.2.0.dfu) to download the latest firmware (v1.2.0)
+* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v1.3.0.dfu) to download the latest firmware (v1.3.0)
 
 * ...or [scroll down](#firmware-version-history) for older firmware versions.
 
@@ -99,6 +95,30 @@ After completion, press **`RESET`** button (or power-cycle) to start using the n
 [Download Old Firmwares Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/old)
 
 ☝️☝️☝️☝️☝️☝️☝️☝️☝️☝️
+
+### 1.2.0 (May 3 2023)
+
+👉👉 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v1.2.0.dfu)
+
+🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
+
+**Make sure to use the [LATEST CONFIGURATOR](https://github.com/dekuNukem/duckyPad/releases/latest) with this update!**
+
+🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
+
+🆕 **duckyScript 3** support! 
+
+🆕 Variables, IF statements, WHILE loops, functions, and more.
+
+🆕 Print to OLED screen
+
+🆕 Read button status
+
+🆕 Improved performance
+
+🐞 Assorted bug fixes
+
+💭 As usual, [Let me know](#questions-or-comments) if you encounter any issues.
 
 ### 0.21.0 (Nov 23 2022)
 
