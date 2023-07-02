@@ -85,7 +85,7 @@ def check_rvalue(rvalue_str, vt):
 
 def is_valid_expr(whole_line, vt):
 	presult = PARSE_ERROR
-	pcomment = 'invalid expression'
+	pcomment = 'Invalid expression'
 	try:
 		whole_line = whole_line.split(' ', 1)[1]
 		is_valid_rv, rv_comment = check_rvalue(whole_line, vt)
@@ -402,6 +402,7 @@ def check_loop(pgm_line):
 		return PARSE_ERROR, str(e), None
 
 def run_once(program_listing):
+	global profile_list
 	reset()
 	return_dict = {
 	'is_success':False,
@@ -491,6 +492,10 @@ def run_once(program_listing):
 			presult, pcomment = check_first_arg(this_line, var_table, allow_multi_arg=True)
 		elif first_word == cmd_GOTO_PROFILE:
 			presult, pcomment = check_first_arg(this_line, var_table, allow_multi_arg=True)
+		elif first_word == cmd_GOTO_PROFILE_NAME:
+			# print("cmd_GOTO_PROFILE_NAME", profile_list)
+			presult = PARSE_OK
+			pcomment = ''
 		elif first_word == cmd_SWCC:
 			return_dict['color_state_save_needed'] = True
 			presult, pcomment = check_color(this_line, var_table)
