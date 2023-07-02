@@ -614,7 +614,7 @@ def make_dsb(program_listing, profile_list=None):
             cmd, profile_name = this_line.split(" ")
             profile_index = 0
             for index, profile in enumerate(profile_list):
-                if profile.name == profile_name:
+                if profile.name.lower() == profile_name.lower():
                     profile_index = index + 1
 
             this_line = f"GOTO_PROFILE {profile_index}"
