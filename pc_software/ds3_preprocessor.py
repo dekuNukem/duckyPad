@@ -402,7 +402,6 @@ def check_loop(pgm_line):
 		return PARSE_ERROR, str(e), None
 
 def run_once(program_listing):
-	global profile_list
 	reset()
 	return_dict = {
 	'is_success':False,
@@ -493,7 +492,6 @@ def run_once(program_listing):
 		elif first_word == cmd_GOTO_PROFILE:
 			presult, pcomment = check_first_arg(this_line, var_table, allow_multi_arg=True)
 		elif first_word == cmd_GOTO_PROFILE_NAME:
-			# print("cmd_GOTO_PROFILE_NAME", profile_list)
 			presult = PARSE_OK
 			pcomment = ''
 		elif first_word == cmd_SWCC:
