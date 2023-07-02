@@ -6,7 +6,7 @@
 
 ## Latest Firmware
 
-### 1.3.0 (May 3 2023)
+### 1.3.0 (July 2 2023)
 
 👉👉 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v1.3.0.dfu)
 
