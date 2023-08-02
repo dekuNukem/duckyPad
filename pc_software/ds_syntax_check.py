@@ -100,6 +100,8 @@ def parse_line(ducky_line):
 		sssss = [x for x in ducky_line.split(' ') if len(x) > 0]
 		if len(sssss) > 2:
 			return PARSE_ERROR, "EMUK takes 1 key max"
+		if len(sssss) == 1:
+			return PARSE_ERROR, "Missing key"
 		if sssss[1] in ds3_keyname_dict.keys() or sssss[1] in mouse_commands[:3]:
 			return PARSE_OK, "Success"
 		elif len(sssss[1]) == 1:

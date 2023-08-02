@@ -80,9 +80,12 @@ added back COMMAND key
 1.4.0 2023 07 01
 added _TIME_S read-only variable
 Updated colour pickers to provide an appropriate initial colour and title for the dialog window. (PR#135)
+
+1.4.1 2023 07 01
+Fixed a crash when typing EMUK command too slowly
 """
 
-THIS_VERSION_NUMBER = '1.4.0'
+THIS_VERSION_NUMBER = '1.4.1'
 MIN_DUCKYPAD_FIRMWARE_VERSION = "1.1.2"
 MAX_DUCKYPAD_FIRMWARE_VERSION = "1.10.10"
 
