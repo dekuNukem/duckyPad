@@ -72,9 +72,20 @@ fixed HID busy detection bug
 Fixed a firmware version parse bug
 getting ready for public release
 added firmware version compatibility check with upper and lower bound, both HID and file based.
+
+1.3.5 2023 05 12
+fixed a bug where it tries to load junk macOS files
+added back COMMAND key 
+
+1.4.0 2023 07 01
+added _TIME_S read-only variable
+Updated colour pickers to provide an appropriate initial colour and title for the dialog window. (PR#135)
+
+1.4.1 2023 07 01
+Fixed a crash when typing EMUK command too slowly
 """
 
-THIS_VERSION_NUMBER = '1.3.0'
+THIS_VERSION_NUMBER = '1.4.1'
 MIN_DUCKYPAD_FIRMWARE_VERSION = "1.1.2"
 MAX_DUCKYPAD_FIRMWARE_VERSION = "1.10.10"
 
@@ -517,11 +528,11 @@ def bg_color_click(event):
     selection = profile_lstbox.curselection()
     if len(selection) <= 0:
         return
-    result = askcolor()[-1]
+    result = askcolor(color=profile_list[selection[0]].bg_color, title="Background color for " + profile_list[selection[0]].name + " profile")[0]
     if result is None:
         return
-    last_rgb = hex_to_rgb(result)
-    profile_list[selection[0]].bg_color = hex_to_rgb(result)
+    last_rgb = result
+    profile_list[selection[0]].bg_color = result
     update_profile_display()
 
 def kd_color_click(event):
@@ -529,10 +540,10 @@ def kd_color_click(event):
     selection = profile_lstbox.curselection()
     if len(selection) <= 0 or kd_color_var.get() == 0:
         return
-    result = askcolor()[-1]
+    result = askcolor(color=profile_list[selection[0]].kd_color, title="Activation color for " + profile_list[selection[0]].name + " profile")[0]
     if result is None:
         return
-    profile_list[selection[0]].kd_color = hex_to_rgb(result)
+    profile_list[selection[0]].kd_color = result
     update_profile_display()
 
 invalid_filename_characters = ['<', '>', ':', '"', '/', '\\', '|', '?', '*']
@@ -640,7 +651,7 @@ def compile_all_scripts():
         for this_profile in profile_list:
             for this_key in this_profile.keylist:
                 if this_key is not None:
-                    this_key.binary_array = make_bytecode.make_dsb(this_key.script.split('\n'))
+                    this_key.binary_array = make_bytecode.make_dsb(this_key.script.split('\n'), profile_list)
                     if len(this_key.binary_array) >= 65530:
                         messagebox.showerror("Error", f'Script size too large!\n\nProfile: {this_profile.name}\nKey: {this_key.name}')
                         return False
@@ -1050,11 +1061,13 @@ def key_color_button_click(event):
         return
     profile_index = profile_lstbox.curselection()[0]
     if profile_list[profile_index].keylist[selected_key] is not None:
-        result = askcolor()[-1]
+        # Color picker should have an initial colour set in colour picker
+        initial_color = profile_list[profile_index].keylist[selected_key].color if profile_list[profile_index].keylist[selected_key].color is not None else profile_list[profile_index].bg_color
+        result = askcolor(color=initial_color, title="Key color for " + profile_list[profile_index].keylist[selected_key].name)[0]
         if result is None:
             return
-        last_rgb = hex_to_rgb(result)
-        profile_list[profile_index].keylist[selected_key].color = hex_to_rgb(result)
+        last_rgb = result
+        profile_list[profile_index].keylist[selected_key].color = result
     update_key_button_appearances(profile_index)
     key_button_click(key_button_list[selected_key])
 

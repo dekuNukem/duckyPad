@@ -1,13 +1,13 @@
 # Running duckyPad Configurator on Linux
 
 ## Script Install Method
-To use duckyPad configurator, clone the repo or download the latest source files from the [release page](https://github.com/dekuNukem/duckyPad/releases/latest). Enter `pc_software` directory in terminal, then use `duckypad_config_install.sh` file to install the software on your system.
+To use duckyPad configurator, clone the repo or download the latest source files from the [release page](https://github.com/dekuNukem/duckyPad/releases/latest). Enter `pc_software` directory in terminal, then use `linux_install.sh` file to install the software on your system.
 
 The Install script will move all files to the `/opt/duckypad_config` directory. It will also install the python dependencies and the udev rules. Currently, this has only been tested with Ubuntu based distros.
 
 ```bash
-sudo +x ./duckypad_config_install.sh
-./duckypad_config_install.sh
+sudo chmod +x ./linux_install.sh
+./linux_install.sh
 ```
 
 ## Manual Install Method

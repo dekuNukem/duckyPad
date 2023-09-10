@@ -28,6 +28,11 @@ uint8_t is_released_but_not_serviced(uint8_t which)
   return button_status[which].button_state == BUTTON_RELEASED && button_status[which].service_status == BUTTON_SERVICE_UNSERVICED;
 }
 
+uint8_t is_released(uint8_t which)
+{
+  return button_status[which].button_state == BUTTON_RELEASED;
+}
+
 void service_press(uint8_t which)
 {
   button_status[which].service_status = BUTTON_SERVICE_SERVICED;
@@ -52,7 +57,6 @@ void keyboard_update(void)
   button_status[KEY_14].button_state = 1 - HAL_GPIO_ReadPin(SW15_GPIO_Port, SW15_Pin);
   button_status[KEY_BUTTON1].button_state = 1 - HAL_GPIO_ReadPin(BUTTON_1_GPIO_Port, BUTTON_1_Pin);
   button_status[KEY_BUTTON2].button_state = 1 - HAL_GPIO_ReadPin(BUTTON_2_GPIO_Port, BUTTON_2_Pin);
-
   for (int i = 0; i < KEY_COUNT; ++i)
   {
     if(button_status[i].prev_state == BUTTON_RELEASED && button_status[i].button_state == BUTTON_PRESSED)

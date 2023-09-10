@@ -427,7 +427,7 @@ def parse_olc(pgm_line):
     ins_list.append(this_instruction)
     return ins_list
 
-def make_dsb(program_listing):
+def make_dsb(program_listing, profile_list=None):
     global if_skip_table
     global if_info_list
     global while_lookup
@@ -608,6 +608,18 @@ def make_dsb(program_listing):
             assembly_listing.append(this_instruction)
         elif first_word == cmd_GOTO_PROFILE:
             assembly_listing += parse_expression(this_line)
+            this_instruction['opcode'] = OP_GOTOP
+            assembly_listing.append(this_instruction)
+        elif first_word == cmd_GOTO_PROFILE_NAME:
+            cmd, profile_name = this_line.split(" ")
+            profile_index = 0
+            for index, profile in enumerate(profile_list):
+                if profile.name.lower() == profile_name.lower():
+                    profile_index = index + 1
+
+            this_line = f"GOTO_PROFILE {profile_index}"
+            assembly_listing += parse_expression(this_line)
+
             this_instruction['opcode'] = OP_GOTOP
             assembly_listing.append(this_instruction)
         elif first_word == cmd_DP_SLEEP:

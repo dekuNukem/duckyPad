@@ -46,7 +46,7 @@ void keyboard_update(void);
 uint8_t is_released_but_not_serviced(uint8_t which);
 uint8_t get_first_active_key(uint8_t curr_key);
 void button_service_all(void);
-
+uint8_t is_released(uint8_t which);
 #ifdef __cplusplus
 }
 #endif

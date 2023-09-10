@@ -35,6 +35,7 @@ char nonexistent_keyname[] = "\253";
 profile_cache p_cache;
 dp_global_settings dp_settings;
 my_key hold_cache[MAPPABLE_KEY_COUNT];
+uint8_t emuk_state[MAPPABLE_KEY_COUNT];
 char curr_kb_layout[FILENAME_SIZE];
 uint8_t key_press_count[MAPPABLE_KEY_COUNT];
 
@@ -504,6 +505,7 @@ void reset_hold_cache(void)
     hold_cache[i].type = KEY_TYPE_UNKNOWN;
     hold_cache[i].code = 0;
   }
+  memset(emuk_state, 0, MAPPABLE_KEY_COUNT);
 }
 
 void restore_profile(uint8_t profile_id)

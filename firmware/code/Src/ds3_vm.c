@@ -111,22 +111,6 @@ void binop(ds3_exe_result* exe, FUNC_PTR bin_func)
   }
 }
 
-void press_key(uint8_t code, uint8_t type)
-{
-	my_key kk;
-	kk.code = code;
-  kk.type = type;
-  keyboard_press(&kk, 0);
-}
-
-void release_key(uint8_t code, uint8_t type)
-{
-	my_key kk;
-	kk.code = code;
-  kk.type = type;
-  keyboard_release(&kk);
-}
-
 #define VAR_BOUNDARY (0x1f)
 
 void store_uint16_as_two_bytes_at(uint16_t addr, uint16_t value)
@@ -150,6 +134,8 @@ void write_var(uint16_t addr, uint16_t value)
   else if (addr == _RANDOM_INT)
     ; // this is read only, so do nothing
   else if (addr == _TIME_MS)
+    ; // this is read only, so do nothing
+  else if (addr == _TIME_S)
     ; // this is read only, so do nothing
   else if (addr == _READKEY)
     ; // this is read only, so do nothing
@@ -180,6 +166,8 @@ uint16_t read_var(uint16_t addr)
     return (rand() + htim6.Instance->CNT) % (rand_max + 1 - rand_min) + rand_min;
   else if (addr == _TIME_MS)
     return (uint16_t)HAL_GetTick();
+  else if (addr == _TIME_S)
+    return (uint16_t)(HAL_GetTick() / 1000);
   else if (addr == _LOOP_SIZE)
     return loop_size;
   else if (addr == _READKEY)
@@ -465,7 +453,6 @@ void execute_instruction(uint16_t curr_pc, ds3_exe_result* exe, uint8_t keynum)
     exe->data = byte0;
     exe->data2 = byte1;
     exe->result = EXE_ACTION_EMUK;
-    press_key(byte0, byte1);
   }
   else if(this_opcode == OP_KDOWN)
   {

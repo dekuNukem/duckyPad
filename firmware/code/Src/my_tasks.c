@@ -838,6 +838,13 @@ void keypress_task_start(void const * argument)
         }
         if(i == KEY_BUTTON1 || i == KEY_BUTTON2)
           handle_tactile_button_press(i);
+        if(hold_cache[i].type != KEY_TYPE_UNKNOWN && hold_cache[i].code != 0)
+        {
+          press_key(hold_cache[i].code, hold_cache[i].type);
+          play_keydown_animation(i);
+          emuk_state[i] = 1;
+          osDelay(DEFAULT_CHAR_DELAY_MS);
+        }
         else if(i <= KEY_14)
         {
           is_busy = 1;
@@ -872,9 +879,13 @@ void keypress_task_start(void const * argument)
           }
           else if (this_exe.result == EXE_ACTION_EMUK)
           {
+            // we are only here if hold cache is empty
+            // otherwise it will check and execute from cache instead
             hold_cache[i].code = this_exe.data;
             hold_cache[i].type = this_exe.data2;
+            press_key(hold_cache[i].code, hold_cache[i].type);
             service_press(i);
+            emuk_state[i] = 1;
             continue;
           }
           if (this_exe.epilogue_actions & NEED_OLED_REFRESH)
@@ -883,10 +894,13 @@ void keypress_task_start(void const * argument)
           }
         }
       }
-      else if(is_released_but_not_serviced(i) && hold_cache[i].type != KEY_TYPE_UNKNOWN)
+      else if(i <= KEY_14 && emuk_state[i] && is_released(i) && hold_cache[i].type != KEY_TYPE_UNKNOWN)
       {
+        // printf("%d\n", HAL_GetTick());
         keyboard_release(&hold_cache[i]);
         play_keyup_animation(i);
+        osDelay(10);
+        emuk_state[i] = 0;
       }
       key_task_end:
       service_press(i);
