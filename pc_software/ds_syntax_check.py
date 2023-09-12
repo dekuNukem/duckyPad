@@ -82,8 +82,8 @@ def parse_line(ducky_line):
 		return PARSE_OK, ""
 	if len(ducky_line) == 0:
 		return PARSE_OK, "Empty line"
-	elif len(ducky_line) >= 250:
-		return PARSE_ERROR, "Line too long, max 250 char"
+	# elif len(ducky_line) >= 250:
+	# 	return PARSE_ERROR, "Line too long, max 250 char"
 	elif is_ignored_but_valid_command(ducky_line):
 		return PARSE_OK, "Success"
 	elif ducky_line.startswith(cmd_KEYDOWN + " "):

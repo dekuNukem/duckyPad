@@ -152,7 +152,7 @@ def rem_block_end_check(pgm_line, lnum, rbss, rbdict):
     if len(rbss) != 1:
         return PARSE_ERROR, "unmatched REM_BLOCK"
     rbdict[rbss.pop()] = lnum
-    print(pgm_line, lnum, rbss, rbdict)
+    # print(pgm_line, lnum, rbss, rbdict)
     return PARSE_OK, ''
 
 def func_end_check(pgm_line, lnum, fss, fdict):
@@ -421,6 +421,14 @@ def check_loop(pgm_line):
     except Exception as e:
         return PARSE_ERROR, str(e), None
 
+def is_within_rem_block(lnum, rbdict):
+    for key in rbdict:
+        if rbdict[key] is None:
+            return lnum >= key
+        if key <= lnum <= rbdict[key]:
+            return True
+    return False
+
 def run_once(program_listing):
     reset()
     return_dict = {
@@ -505,6 +513,9 @@ def run_once(program_listing):
             presult, pcomment = new_rem_block_check(this_line, line_number_starting_from_1, rem_block_search_stack, rem_block_table)
         elif first_word == cmd_END_REM:
             presult, pcomment = rem_block_end_check(this_line, line_number_starting_from_1, rem_block_search_stack, rem_block_table)
+        elif is_within_rem_block(line_number_starting_from_1, rem_block_table):
+            presult = PARSE_OK
+            pcomment = ''
         elif this_line == cmd_RETURN:
             if len(func_search_stack) == 0:
                 presult = PARSE_ERROR
@@ -627,12 +638,6 @@ def run_once(program_listing):
     if len(loop_numbers) > 0:
         return_dict['loop_size'] = max(loop_numbers)
     return return_dict
-
-def is_within_rem_block(lnum, rbdict):
-    for key in rbdict:
-        if key <= lnum <= rbdict[key]:
-            return True
-    return False
 
 def run_all(program_listing):
     rdict = run_once(program_listing)

@@ -83,6 +83,9 @@ Updated colour pickers to provide an appropriate initial colour and title for th
 
 1.4.1 2023 07 01
 Fixed a crash when typing EMUK command too slowly
+
+1.4.2 2023 09 12
+added REM_BLOCK and REM_END
 """
 
 THIS_VERSION_NUMBER = '1.4.1'
