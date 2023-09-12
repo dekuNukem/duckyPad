@@ -1,3 +1,29 @@
+REM_BLOCK
+ESC
+END_REM
+DELAY 20
+REM_BLOCK
+GUI
+END_REM
+
+
+if first_word == REM_BLOCK:
+            print("hhhhh")
+            exit()
+        elif first_word == cmd_REM_BLOCK:
+            return_dict['comment_block_dict'][line_number_starting_from_1] = None
+            presult = PARSE_OK
+            pcomment = ''
+        elif first_word == cmd_END_REM:
+            rem_block_keys = list(return_dict['comment_block_dict'].keys())
+            if len(rem_block_keys) <= 0:
+                presult = PARSE_ERROR
+                pcomment = "orphan END_REM block"
+            else:
+                return_dict['comment_block_dict'][rem_block_keys[0]] = line_number_starting_from_1
+                presult = PARSE_OK
+                pcomment = ''
+
 """
 ### LCR (Loop Counter Reset)
 

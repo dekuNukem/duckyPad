@@ -1,0 +1,197 @@
+REM_BLOCK
+ESC
+END_REM
+CTRL
+REM_BLOCK
+GUI
+END_REM
+
+DEFAULTCHARDELAY 25
+DEFAULTDELAY 25
+
+WINDOWS R
+DELAY 1000
+STRINGLN notepad
+DELAY 1000
+
+STRINGLN Welcome to duckyScript 3 beta test!
+STRINGLN Here's a quick demo.
+ENTER
+
+STRINGLN Variables and operations:
+VAR $spam = 10
+$spam = $spam * 4 + 2
+STRINGLN     Spam is: $spam
+ENTER
+
+//---------------
+STRINGLN Conditions and loops:
+
+$spam = 0
+$_RANDOM_MIN = 1
+$_RANDOM_MAX = 10
+
+WHILE $spam < 4
+    VAR $this_number = $_RANDOM_INT
+    STRING     Random number: $this_number
+
+    IF $this_number > 5 THEN
+        STRINGLN , it's more than 5!
+    ELSE IF $this_number == 5 THEN
+        STRINGLN , exactly 5!
+    ELSE
+        STRINGLN , it's less than 5!
+    END_IF
+
+    $spam = $spam + 1
+END_WHILE
+ENTER
+
+//--------OLED screen--------
+
+STRINGLN Printing to OLED screen
+STRINGLN Look at the screen!
+
+// fill all LED with color
+SWC_FILL 128 0 255
+
+OLED_CLEAR
+OLED_CURSOR 20 0
+OLED_PRINT Hello World!
+OLED_CURSOR 20 12
+OLED_PRINT Press a key!
+OLED_CURSOR 10 52
+OLED_PRINT Press + to exit
+OLED_UPDATE
+
+WHILE 1
+    VAR $this_key = $_READKEY
+
+    OLED_CURSOR 10 31
+    IF $this_key != 0 THEN
+        OLED_PRINT I pressed key $this_key!
+    ELSE
+        OLED_PRINT                           
+    END_IF
+
+    IF $this_key == 17 THEN
+        LBREAK
+    END_IF
+
+    OLED_UPDATE
+    DELAY 50
+END_WHILE
+
+//------- mini menu ----------
+
+OLED_CLEAR
+OLED_CURSOR 5 20
+OLED_PRINT You can use it to
+OLED_CURSOR 0 32
+OLED_PRINT make mini sub-menus!
+OLED_UPDATE
+DELAY 4000
+
+SWC_FILL 0 0 0
+SWC_SET 1 128 0 0
+SWC_SET 2 128 0 0
+SWC_SET 3 128 0 0
+SWC_SET 4 128 0 0
+SWC_SET 5 128 0 0
+
+BCLR
+
+OLED_CLEAR
+OLED_CURSOR 10 0
+OLED_PRINT Example Sub-Menu
+OLED_CURSOR 5 12
+OLED_PRINT Action 1
+OLED_CURSOR 5 22
+OLED_PRINT Action 2
+OLED_CURSOR 5 32
+OLED_PRINT Action 3
+OLED_CURSOR 5 42
+OLED_PRINT Action 4
+OLED_CURSOR 5 52
+OLED_PRINT Action 5
+OLED_UPDATE
+
+WHILE 1
+    VAR $selection = $_READKEY
+
+    IF $selection > 0 && $selection <= 5 THEN
+        LBREAK
+    END_IF
+
+    DELAY 50
+END_WHILE
+
+OLED_CLEAR
+OLED_CURSOR 0 30
+IF $selection == 1 THEN
+    OLED_PRINT I selected Option 1!
+ELSE IF $selection == 2 THEN
+    OLED_PRINT I selected Option 2!
+ELSE IF $selection == 3 THEN
+    OLED_PRINT I selected Option 3!
+ELSE IF $selection == 4 THEN
+    OLED_PRINT I selected Option 4!
+ELSE IF $selection == 5 THEN
+    OLED_PRINT I selected Option 5!
+END_IF
+OLED_UPDATE
+DELAY 3000
+
+//------- light show ---------
+REM_BLOCK
+OLED_CLEAR
+OLED_CURSOR 10 20
+OLED_PRINT Bonus lightshow!
+OLED_CURSOR 15 35
+OLED_PRINT Anykey to exit
+OLED_UPDATE
+
+BCLR
+
+VAR $red = 0
+VAR $green = 0
+VAR $blue = 0
+
+VAR $count = 0
+
+DEFINE UP 0
+DEFINE DOWN 1
+
+VAR $direction = UP
+WHILE 1
+
+    IF $_READKEY != 0 THEN
+        LBREAK
+    END_IF
+
+    IF $direction == UP && $count == 250 THEN
+        $direction = DOWN
+    ELSE IF $direction == DOWN && $count == 0 THEN
+        $direction = UP
+    END_IF
+
+    $red = $count / 3
+    $green = $count / 2
+    $blue = $count 
+
+    SWC_FILL $red $green $blue
+    DELAY 2
+
+    IF $direction == UP THEN
+        $count = $count + 1
+    ELSE IF $direction == DOWN THEN
+        $count = $count - 1
+    END_IF
+
+END_WHILE
+
+END_REM
+
+// restore all RGB LED to default colors
+SWC_RESET 99
+
