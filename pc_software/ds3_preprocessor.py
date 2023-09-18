@@ -731,6 +731,11 @@ def run_once(program_listing):
     return return_dict
 
 def run_all(program_listing):
+    for index, this_line in enumerate(program_listing):
+        first_word = this_line.split(" ")[0]
+        if first_word == cmd_INJECT_MOD:
+            program_listing[index] = this_line.replace(cmd_INJECT_MOD, "", 1)
+
     rdict = run_once(program_listing)
     if rdict['is_success'] is False:
         return rdict
@@ -776,7 +781,7 @@ def run_all(program_listing):
             this_line = "STRING " + orig_line
         if needs_rstrip(first_word):
             this_line = this_line.rstrip(" \t")
-        if first_word == cmd_REM or first_word == cmd_INJECT_MOD or this_line.startswith(cmd_C_COMMENT):
+        if first_word == cmd_REM or this_line.startswith(cmd_C_COMMENT):
             continue
         if first_word != cmd_DEFINE:
             is_success, replaced_str = replace_DEFINE(this_line, def_dict)
