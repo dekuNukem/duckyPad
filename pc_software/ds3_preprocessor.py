@@ -31,6 +31,8 @@ break_dict = {}
 continue_dict = {}
 rem_block_search_stack = []
 rem_block_table = {}
+strlen_block_search_stack = []
+strlen_block_table = {}
 
 def reset():
     global var_table
@@ -49,6 +51,8 @@ def reset():
     continue_dict.clear()
     rem_block_search_stack.clear()
     rem_block_table.clear()
+    strlen_block_search_stack.clear()
+    strlen_block_table.clear()
 
 def is_valid_var_name(varname):
     if len(varname) == 0:
@@ -128,6 +132,14 @@ def new_rem_block_check(pgm_line, lnum, rbss, rbdict):
     rbdict[lnum] = None;
     return PARSE_OK, ''
 
+def new_stringln_block_check(pgm_line, lnum, slbss, slbdict):
+    if len(slbss) != 0:
+        return PARSE_ERROR, "unmatched END_STRINGLN"
+    slbss.append(lnum)
+    slbdict[lnum] = None;
+    # print("new_stringln_block_check:", slbss, slbdict)
+    return PARSE_OK, ''
+
 def new_func_check(pgm_line, lnum, fss, fdict):
     if len(fss) != 0:
         return PARSE_ERROR, "unmatched END_FUNCTION"
@@ -153,6 +165,15 @@ def rem_block_end_check(pgm_line, lnum, rbss, rbdict):
         return PARSE_ERROR, "unmatched REM_BLOCK"
     rbdict[rbss.pop()] = lnum
     # print(pgm_line, lnum, rbss, rbdict)
+    return PARSE_OK, ''
+
+def stringln_block_end_check(pgm_line, lnum, slbss, slbdict):
+    if len(slbss) == 0:
+        return PARSE_ERROR, "orphan END_STRINGLN"
+    if len(slbss) != 1:
+        return PARSE_ERROR, "unmatched STRINGLN_BLOCK"
+    slbdict[slbss.pop()] = lnum
+    # print("stringln_block_end_check", lnum, slbss, slbdict)
     return PARSE_OK, ''
 
 def func_end_check(pgm_line, lnum, fss, fdict):
@@ -429,6 +450,14 @@ def is_within_rem_block(lnum, rbdict):
             return True
     return False
 
+def is_within_strlen_block(lnum, slbdict):
+    for key in slbdict:
+        if slbdict[key] is None:
+            return True
+        if key < lnum < slbdict[key]:
+            return True
+    return False
+
 def run_once(program_listing):
     reset()
     return_dict = {
@@ -480,7 +509,17 @@ def run_once(program_listing):
 
         first_word, this_line = replace_delay_statements(this_line)
 
-        if first_word == cmd_DEFINE:
+        if first_word == cmd_END_REM:
+            presult, pcomment = rem_block_end_check(this_line, line_number_starting_from_1, rem_block_search_stack, rem_block_table)
+        elif is_within_rem_block(line_number_starting_from_1, rem_block_table):
+            presult = PARSE_OK
+            pcomment = ''
+        elif first_word == cmd_END_STRINGLN:
+            presult, pcomment = stringln_block_end_check(this_line, line_number_starting_from_1, strlen_block_search_stack, strlen_block_table)
+        elif is_within_strlen_block(line_number_starting_from_1, strlen_block_table):
+            presult = PARSE_OK
+            pcomment = ''
+        elif first_word == cmd_DEFINE:
             presult, pcomment = new_define(this_line, define_dict)
         elif first_word == cmd_VAR_DECLARE:
             presult, pcomment = assign_var(cmd_VAR_DECLARE, this_line, var_table, check_duplicate=True)
@@ -511,11 +550,8 @@ def run_once(program_listing):
             pcomment = ''
         elif first_word == cmd_REM_BLOCK:
             presult, pcomment = new_rem_block_check(this_line, line_number_starting_from_1, rem_block_search_stack, rem_block_table)
-        elif first_word == cmd_END_REM:
-            presult, pcomment = rem_block_end_check(this_line, line_number_starting_from_1, rem_block_search_stack, rem_block_table)
-        elif is_within_rem_block(line_number_starting_from_1, rem_block_table):
-            presult = PARSE_OK
-            pcomment = ''
+        elif first_word == cmd_STRINGLN_BLOCK:
+            presult, pcomment = new_stringln_block_check(this_line, line_number_starting_from_1, strlen_block_search_stack, strlen_block_table)
         elif this_line == cmd_RETURN:
             if len(func_search_stack) == 0:
                 presult = PARSE_ERROR
@@ -615,6 +651,14 @@ def run_once(program_listing):
             return_dict['error_line_str'] = ""
             return return_dict
 
+    for key in strlen_block_table:
+        if strlen_block_table[key] is None:
+            return_dict['is_success'] = False
+            return_dict['comments'] = "Missing END_STRINGLN"
+            return_dict['error_line_number_starting_from_1'] = key
+            return_dict['error_line_str'] = ""
+            return return_dict
+
     while_table_bidirectional = {**while_table, **dict((v,k) for k,v in while_table.items())}
 
     for key in break_dict:
@@ -635,6 +679,7 @@ def run_once(program_listing):
     return_dict['break_dict'] = break_dict
     return_dict['continue_dict'] = continue_dict
     return_dict['rem_block_table'] = rem_block_table
+    return_dict['strlen_block_table'] = strlen_block_table
     if len(loop_numbers) > 0:
         return_dict['loop_size'] = max(loop_numbers)
     return return_dict
@@ -669,6 +714,7 @@ def run_all(program_listing):
 
     for line_number_starting_from_1, this_line in enumerate(program_listing):
         line_number_starting_from_1 += 1;
+        orig_line = this_line
         this_line = this_line.lstrip(' \t')
         if len(this_line) == 0:
             continue
@@ -676,7 +722,10 @@ def run_all(program_listing):
         first_word, this_line = replace_delay_statements(this_line)
         if is_within_rem_block(line_number_starting_from_1, rdict['rem_block_table']):
             continue
-        # print(line_number_starting_from_1, iwrb, this_line)
+        if first_word in [cmd_STRINGLN_BLOCK, cmd_END_STRINGLN]:
+            continue
+        if is_within_strlen_block(line_number_starting_from_1, rdict['strlen_block_table']):
+            this_line = "STRINGLN " + orig_line
         if needs_rstrip(first_word):
             this_line = this_line.rstrip(" \t")
         if first_word == cmd_REM or first_word == cmd_INJECT_MOD or this_line.startswith(cmd_C_COMMENT):
