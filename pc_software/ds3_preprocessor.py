@@ -477,6 +477,7 @@ def run_once(program_listing):
     'button_buf_clear_needed':False,
     'loop_size':None,
     'rem_block_table':None,
+    'strlen_block_table':None,
     }
 
     loop_numbers = set()
