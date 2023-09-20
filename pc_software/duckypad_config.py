@@ -121,6 +121,9 @@ config_dict = {}
 hid_dump_path = os.path.join(save_path, "hid_dump")
 hid_modified_dir_path = os.path.join(save_path, "hid_new")
 
+print("This window will print debug information!")
+print("Used for troubleshooting if it crashes!")
+
 try:
     with open(save_filename) as json_file:
         temp = json.load(json_file)
