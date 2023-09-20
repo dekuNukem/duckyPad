@@ -61,6 +61,8 @@ CONTROL w
 
 - [STRING and STRINGLN](#string-and-stringln)
 
+- [STRINGLN_BLOCK and END_STRINGLN](#stringln_block-and-end_stringln)
+
 - [REPEAT](#repeat)
 
 - [Special Keys](#special-keys)
@@ -93,15 +95,15 @@ CONTROL w
 
 ### `REM` and `//`
 
-They are comments. Any line starting with them is ignored.
+Comments. Any line starting with them is ignored.
 
 ### `REM_BLOCK` and `END_REM`
 
-Block comment, everything inbetween is ignored.
+Comment block. Everything in-between is ignored.
 
 ### `DEFAULTDELAY`
 
-`DEFAULTDELAY` specifies how long (in milliseconds) to wait between **`each line of command`**.
+Specifies how long (in milliseconds) to wait between **`each line of command`**.
 
 If unspecified, `DEFAULTDELAY` is 18ms.
 
@@ -169,7 +171,7 @@ END_STRINGLN
 
 ### `STRING_BLOCK` and `END_STRING`
 
-Similar to above, but no new line at the end.
+Similar to above, but without new line at the end.
 
 ### `REPEAT`
 
@@ -181,7 +183,7 @@ REPEAT 10
 // types out "Hello world" 11 times (1 original + 10 repeats)
 ```
 
-For more advanced usage with functions and `WHILE` loops, check out [duckyScript 3 guide](duckyscript3_instructions.md).
+For more advanced usage, use functions and `WHILE` loops in the [duckyScript 3 guide](duckyscript3_instructions.md).
 
 ### Special Keys
 
@@ -338,19 +340,19 @@ Set `n` to 99 for all keys.
 
 ### `DP_SLEEP`
 
-You can use `DP_SLEEP` command to make duckyPad go to sleep.
+Make duckyPad go to sleep.
 
 Backlight and screen are turned off.
 
-Press any key to wake it up.
+Press any key to wake up.
 
 ### `PREV_PROFILE` / `NEXT_PROFILE`
 
-You can use `PREV_PROFILE` or `NEXT_PROFILE` command to switch to the previous / next profile.
+Switch to the previous / next profile.
 
 ### `GOTO_PROFILE`
 
-Use this command to jump to a particular profile.
+Jump to a particular profile.
 
 ```
 GOTO_PROFILE 3
@@ -368,7 +370,7 @@ You should only use `EMUK` command **on its own**, i.e. the script should only h
 
 ### `LOOP`
 
-This command allows you to **assign different actions to the same key**.
+Allows you to **assign different actions to the same key**.
 
 You can use it to toggle / cycle through several actions like this:
 
@@ -392,7 +394,7 @@ ENTER
 
 ## duckyScript 3 Advanced Features
 
-duckyScript 3 gives duckyPad a big boost in capability. Featuring:
+duckyScript 3 gives duckyPad a big boost in capability, including:
 
 * Variables, `IF` statements, `WHILE` loops, functions, randomisation, and more!
 
