@@ -95,6 +95,10 @@ CONTROL w
 
 They are comments. Any line starting with them is ignored.
 
+### `REM_BLOCK` and `END_REM`
+
+Block comment, everything inbetween is ignored.
+
 ### `DEFAULTDELAY`
 
 `DEFAULTDELAY` specifies how long (in milliseconds) to wait between **`each line of command`**.
@@ -144,6 +148,28 @@ STRING Hello world!
 ```
 
 `STRINGLN` also presses **enter key** at the end.
+
+### `STRINGLN_BLOCK` and `END_STRINGLN`
+
+Type out everything inside the block as-is.
+
+Also presses **enter key** at the end of each line.
+
+```
+STRINGLN_BLOCK
+
+According to all known laws of aviation,
+
+there is no way a bee should be able to fly.
+
+Its wings are too small to get its fat little body off the ground.
+
+END_STRINGLN
+```
+
+### `STRING_BLOCK` and `END_STRING`
+
+Similar to above, but no new line at the end.
 
 ### `REPEAT`
 
