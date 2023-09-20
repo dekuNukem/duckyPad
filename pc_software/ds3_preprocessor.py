@@ -764,9 +764,13 @@ def run_all(program_listing):
         second_pass_program_listing.append((1, f"$_LOOP_SIZE = {rdict['loop_size']+1}"))
 
     for line_number_starting_from_1, this_line in enumerate(program_listing):
-        line_number_starting_from_1 += 1;
-        orig_line = this_line
-        this_line = this_line.lstrip(' \t')
+        line_number_starting_from_1 += 1
+        if is_within_strlen_block(line_number_starting_from_1, rdict['strlen_block_table']):
+            this_line = "STRINGLN " + this_line
+        elif is_within_str_block(line_number_starting_from_1, rdict['str_block_table']):
+            this_line = "STRING " + this_line
+        else:
+            this_line = this_line.lstrip(' \t')
         if len(this_line) == 0:
             continue
         first_word = this_line.split(" ")[0]
@@ -775,10 +779,6 @@ def run_all(program_listing):
             continue
         if first_word in [cmd_STRINGLN_BLOCK, cmd_END_STRINGLN, cmd_STRING_BLOCK, cmd_END_STRING]:
             continue
-        if is_within_strlen_block(line_number_starting_from_1, rdict['strlen_block_table']):
-            this_line = "STRINGLN " + orig_line
-        if is_within_str_block(line_number_starting_from_1, rdict['str_block_table']):
-            this_line = "STRING " + orig_line
         if needs_rstrip(first_word):
             this_line = this_line.rstrip(" \t")
         if first_word == cmd_REM or this_line.startswith(cmd_C_COMMENT):
