@@ -28,6 +28,15 @@ def parse_combo(combo_line):
 			return PARSE_ERROR, 'Invalid combo character'
 	return PARSE_OK, 'Success'
 
+def get_mousemove_xy(ducky_line):
+	try:
+		x_amount = int([x for x in ducky_line.split(' ') if len(x) > 0][1])
+		y_amount = int([x for x in ducky_line.split(' ') if len(x) > 0][2])
+		return PARSE_OK, x_amount, y_amount
+	except:
+		pass
+	return PARSE_ERROR, 0, 0
+
 def parse_mouse(ducky_line):
 	mouse_command_list = [x for x in mouse_commands if x in ducky_line]
 	if len(mouse_command_list) != 1:
@@ -40,14 +49,8 @@ def parse_mouse(ducky_line):
 	elif this_mouse_command == cmd_MMOUSE:
 		return PARSE_OK, "Success"
 	elif this_mouse_command == cmd_MOUSE_MOVE:
-		try:
-			x_amount = int([x for x in ducky_line.split(' ') if len(x) > 0][1])
-			y_amount = int([x for x in ducky_line.split(' ') if len(x) > 0][2])
-			if x_amount > 127 or x_amount < -127:
-				raise ValueError
-			if y_amount > 127 or y_amount < -127:
-				raise ValueError
-		except:
+		mmresult, x_amount, y_amount = get_mousemove_xy(ducky_line)
+		if mmresult == PARSE_ERROR or x_amount > 127 or x_amount < -127 or y_amount > 127 or y_amount < -127:
 			return PARSE_ERROR, 'should be between -127 to 127'
 		return PARSE_OK, "Success"
 	elif this_mouse_command == cmd_MOUSE_WHEEL:
@@ -71,6 +74,10 @@ def check_one_arg(pgm_line):
 	if value < 0:
 		return PARSE_ERROR, "value can't be negative"
 	return PARSE_OK, ""
+
+def is_mouse_move(ducky_line):
+	split = [x for x in ducky_line.split(' ') if len(x) > 0]
+	return len(split) > 0 and split[0] == cmd_MOUSE_MOVE
 
 def parse_line(ducky_line):
 	parse_result = PARSE_OK
