@@ -95,9 +95,12 @@ adjust INJECT_MOD behaviour
 1.5.1 2023 09 20
 STRINGLN_BLOCK and STRING_BLOCK now preserves empty lines and white spaces
 
+1.6.0 2023 10 10
+automatically expands MOUSE_MOVE is value is more than 127
+
 """
 
-THIS_VERSION_NUMBER = '1.5.1'
+THIS_VERSION_NUMBER = '1.6.0'
 MIN_DUCKYPAD_FIRMWARE_VERSION = "1.1.2"
 MAX_DUCKYPAD_FIRMWARE_VERSION = "1.10.10"
 
