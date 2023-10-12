@@ -142,7 +142,7 @@ def is_dp_ready():
         return False, 'duckyPad not Found!'
     if dp_info[2] == 0:
         return True, 'All good!'
-    return False, 'duckyPad is busy!'
+    return False, 'duckyPad is busy!\n\nMake sure no script is running.'
 
 def duckypad_hid_resume():
     pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE

@@ -95,12 +95,13 @@ adjust INJECT_MOD behaviour
 1.5.1 2023 09 20
 STRINGLN_BLOCK and STRING_BLOCK now preserves empty lines and white spaces
 
-1.6.0 2023 10 10
+1.6.1 2023 10 10
 automatically expands MOUSE_MOVE is value is more than 127
+checks if duckypad is busy before trying to connect
 
 """
 
-THIS_VERSION_NUMBER = '1.6.0'
+THIS_VERSION_NUMBER = '1.6.1'
 MIN_DUCKYPAD_FIRMWARE_VERSION = "1.1.2"
 MAX_DUCKYPAD_FIRMWARE_VERSION = "1.10.10"
 
@@ -352,6 +353,10 @@ def connect_button_click():
     hid_op.duckypad_hid_close()
     try:
         hid_op.duckypad_hid_init()
+        is_dp_ready, comment = hid_op.is_dp_ready()
+        if is_dp_ready is False:
+            messagebox.showerror("Error", comment)
+            return
         fw_str = get_fw_str_hid()
         fw_status = check_fw_support(fw_str)
         if fw_status != FW_OK:
