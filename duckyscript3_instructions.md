@@ -409,6 +409,10 @@ Upper bound of RNG.
 
 Get a random number between the upper and lower bound.
 
+#### `$_TIME_S` (RO)
+
+Get current time in **seconds**.
+
 #### `$_TIME_MS` (RO)
 
 Get current time in **milliseconds**.

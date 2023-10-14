@@ -294,8 +294,6 @@ KEYUP ALT
 
 Move mouse cursor `X` pixels horizontally, and `Y` pixels vertically.
 
-* `X` and `Y` must be between `-127` and `127`
-
 * For `X`, a positive number moves RIGHT, negative number moves LEFT.
 
 * For `Y`, a positive number moves UP, negative number moves DOWN.
