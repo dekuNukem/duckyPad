@@ -32,8 +32,6 @@ If your duckyPad has not been assembled yet, [see this guide](/kit_assembly_guid
 
 ## Quick Start
 
-A micro SD card is used to store all the data, and your duckyPad should have come with one.
-
 Simply plug it into your computer, and voilà:
 
 ![Alt text](resources/pics/win_laptop.png)
@@ -50,17 +48,17 @@ Simply plug it into your computer, and voilà:
 
 Are you using **`AMD motherboard?`** If so, read about the [USB chipset bug here!](https://www.tomshardware.com/uk/news/amd-suggest-possible-fixes-for-usb-connectivity-issues)
 
-Try using a USB hub, update chipset drivers, or different ports.
+Try using a **USB hub**, update chipset drivers, or different ports.
 
 For other issues, check out the [troubleshooting guide](troubleshooting.md).
 
 ## Writing Your Own Scripts
 
-The samples might be fun, but duckyPad is designed to do what YOU want! So here's how.
+The examples might be fun, but duckyPad is designed to do what YOU want! So here's how.
 
 ### Download the duckyPad Configurator
 
-[Head here to download the latest release](https://github.com/dekuNukem/duckyPad/releases/latest) for Windows, macOS, and Linux.
+[Head here to download the latest release](https://github.com/dekuNukem/duckyPad/releases/latest).
 
 Extract the `.zip` file and launch the application by clicking `duckypad_config.exe`:
 
@@ -70,9 +68,11 @@ Extract the `.zip` file and launch the application by clicking `duckypad_config.
 
 ### "Untrusted App" Warnings
 
-Your system might complain when launching the app. This is because I haven't had the code digitally signed, which costs hundreds of dollars a year.
+Your system might complain when launching the app.
 
-Feel free to [review the code](https://github.com/dekuNukem/duckyPad/tree/master/pc_software). You can also run `duckypad_config.py` itself with Python3, or [configure it manually](#Configure-duckyPad-Manually) with a text editor.
+This is because I haven't had the code digitally signed, which costs hundreds of dollars a year.
+
+Feel free to [review the code](https://github.com/dekuNukem/duckyPad/tree/master/pc_software). You can also run `duckypad_config.py` itself with Python3.
 
 For Windows 10, click `More info` and then `Run anyway`.
 
@@ -84,11 +84,7 @@ For macOS, **`RIGHT CLICK`** on the app and select `Open`. You might need to do 
 
 ### Using duckyPad configurator
 
-The app should look like this:
-
-![Alt text](resources/pics/app/unselected.png)
-
-Make sure your duckyPad is plugged in, and press the `Connect` button.
+Make sure your duckyPad is plugged in. Press the `Connect` button near top left.
 
 It should load the data from duckyPad:
 
@@ -276,13 +272,13 @@ Press the `+` button, select an app to open, assign a hotkey, and set up duckyPa
 
 You can use the free and open-source [autohotkey](https://www.autohotkey.com) for even more sophisticated needs, such as controlling mouse movements, executing scripts, etc.
 
-To do this, duckyPad can be set up to press a simple combo like `WIN + F1`, which then gets captured by autohotkey to execute a more complex script on your PC.
+To do this, duckyPad can press a simple combo like `WIN + F1`, which then gets captured by autohotkey to execute a more complex script on your PC.
 
 * Download and install [autohotkey](https://www.autohotkey.com)
 
 * Download and save [this sample autohotkey script](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/resources/duckypad_autohotkey_script.ahk) as an `.ahk` file.
 
-* Switch the profile on duckyPad to [`autohotkey`](sample_profiles/profile7_autohotkey), and run the script by right clicking and select `Run Script`.
+* Switch the profile on duckyPad to `autohotkey`, and run the script by right clicking and select `Run Script`.
 
 ![Alt text](resources/pics/ahk_run.png)
 
@@ -309,12 +305,6 @@ If that doesn't help, feel free to contact me by [opening an issue](https://gith
 You can update duckyPad's firmware for new features and bug fixes. 
 
 [Please see this guide](./firmware_updates_and_version_history.md).
-
-## Configure duckyPad Manually
-
-If you don't trust or unable to run the software, you can also configure duckyPad manually.
-
-[Please see this guide](./manual_setup.md).
 
 ## Table of Contents
 

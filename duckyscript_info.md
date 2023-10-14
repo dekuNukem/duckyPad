@@ -14,7 +14,7 @@ However, [duckyPad uses it too](https://www.tindie.com/products/dekunukem/duckyp
 
 ![Alt text](resources/pics/topdown.jpg)
 
-**duckyScript 3** with much improved capability is now available!
+**duckyScript 3** with much improved capability is [now available](duckyscript3_instructions.md)!
 
 ## Examples
 
@@ -95,7 +95,7 @@ CONTROL w
 
 ### `REM` and `//`
 
-Comments. Any line starting with them is ignored.
+Comments. Any line starting with those is ignored.
 
 ### `REM_BLOCK` and `END_REM`
 
@@ -125,7 +125,7 @@ DEFAULTCHARDELAY 50
 
 ### `CHARJITTER X`
 
-Adds an **additional** random delay from 0 to X milliseconds after `each key stroke`.
+Adds an **additional** random delay between 0 and X milliseconds after `each key stroke`.
 
 Can be used to make typing more human-like.
 
@@ -183,7 +183,7 @@ REPEAT 10
 // types out "Hello world" 11 times (1 original + 10 repeats)
 ```
 
-For more advanced usage, use functions and `WHILE` loops in the [duckyScript 3 guide](duckyscript3_instructions.md).
+For more advanced usage, use functions and `WHILE` loops in [duckyScript 3](duckyscript3_instructions.md).
 
 ### Special Keys
 
@@ -198,10 +198,7 @@ COMMAND / RCOMMAND (mac)
 OPTION / ROPTION (mac)
 ESC
 ENTER
-UP
-DOWN
-LEFT
-RIGHT
+UP / DOWN / LEFT / RIGHT
 SPACE
 BACKSPACE
 TAB
@@ -212,8 +209,7 @@ PAUSE
 BREAK
 INSERT
 HOME
-PAGEUP
-PAGEDOWN
+PAGEUP / PAGEDOWN
 DELETE
 END
 MENU
