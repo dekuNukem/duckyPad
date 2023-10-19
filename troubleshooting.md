@@ -32,8 +32,6 @@ Click a question below to jump to the answer!
 
 * [Numpad keys doesn't work!](#Numpad-keys-doesnt-work)
 
-* [In-app test-run doesn't work!](#In-app-test-run-doesnt-work)
-
 * [SD Card doesn't work on mac!](#SD-Card-doesnt-work-on-mac)
 
 * [USB configuration / Autoswitcher isn't working on macOS!](#usb-configuration--autoswitcher-isnt-working-on-macos)
@@ -47,6 +45,10 @@ If you have some issues that's not in this list, feel free to join our [Official
 ## I press a key and nothing happens!
 
 First, make sure the key has a valid script mapped to it. If in doubt, use one of the sample profiles.
+
+### Just updated firmware?
+
+Use the [latest configurator](https://github.com/dekuNukem/duckyPad/releases/latest), press `Connect` to load up the data, then press `Save` button to save it back. It should work afterwards.
 
 ### If *none* of the keys work
 
@@ -68,13 +70,13 @@ Take off the switch and inspect the pins, chances are one of them is bent:
 
 If so, straighten it up with a pair of pliers, then insert again. Make sure the **pins are straight** and aim for hot-swap socket holes.
 
-## The letters and symbols come out wrong!
+## Letters and symbols come out wrong!
 
-You'll need select a different keyboard layout.
+You need select the correct keyboard layout.
 
 * **`HOLD DOWN TOP LEFT KEY`** while **`plugging it in`**.
 
-* Select a keyboard layout, use `+ / -` button to switch pages.
+* Select a keyboard layout.
 
 * Read more about [adding keyboard layouts](getting_started.md#keyboard-layouts) and [writing keymaps](keymap_instructions.md).
 
@@ -146,8 +148,6 @@ You can also use your [own faster SD card](#i-want-to-use-my-own-sd-card).
 
 Measures have been taken to prevent OLED burn-in.
 
-* The pixels shifts around slightly every 2 minutes.
-
 * The screen dims after 5 minutes.
 
 * duckyPad goes to sleep after 30 minutes ([adjustable](getting_started.md#settings--updates)).
@@ -179,16 +179,6 @@ If your OLED screen is acting weird, you might want to try to re-seat its ribbon
 ## Numpad keys doesn't work!
 
 Make sure your `NUM LOCK` is on.
-
-## In-app test-run doesn't work!
-
-The in-app test-run has some limitations.
-
-* Test-run can't get past [Windows User Account Control](resources/pics/app/uac.png) screens. You'll have to run it on real thing.
-
-* On macOS, if test-run doesn't work, [go to System Preferences -> Security & Privacy -> Accessibility](resources/pics/app/macos.png), unlock, remove then add the app.
-
-* Test-run might not be 100% accurate, some keys and commands like `Capslock`, `Numlock`, `LOOP`, `SWCOLOR` can't be emulated in software. Run your scripts on the real thing if you're not sure.
 
 ## SD Card doesn't work on mac!
 
@@ -264,15 +254,13 @@ Due to the security restrictions of macOS, to use USB configuration and autoswit
 
 [Kit Assembly Guide](kit_assembly_guide.md)
 
-[Using duckyScript](duckyscript_info.md)
+[Using duckyScript](duckyscript_info.md) | [duckyScript 3 Info](duckyscript3_instructions.md)
 
 [Common issues / Troubleshooting](troubleshooting.md)
 
 [Firmware Updates and Version History](firmware_updates_and_version_history.md)
 
 [Make Your Own Keymap](./keymap_instructions.md)
-
-[Manual Setup](./manual_setup.md)
 
 [Build a duckyPad Yourself](build_it_yourself.md)
 

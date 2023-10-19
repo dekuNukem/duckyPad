@@ -409,6 +409,10 @@ Upper bound of RNG.
 
 Get a random number between the upper and lower bound.
 
+#### `$_TIME_S` (RO)
+
+Get current time in **seconds**.
+
 #### `$_TIME_MS` (RO)
 
 Get current time in **milliseconds**.
@@ -481,15 +485,13 @@ Please feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues
 
 [Kit Assembly Guide](kit_assembly_guide.md)
 
-[Using duckyScript](duckyscript_info.md)
+[Using duckyScript](duckyscript_info.md) | [duckyScript 3 Info](duckyscript3_instructions.md)
 
 [Common issues / Troubleshooting](troubleshooting.md)
 
 [Firmware Updates and Version History](firmware_updates_and_version_history.md)
 
 [Make Your Own Keymap](./keymap_instructions.md)
-
-[Manual Setup](./manual_setup.md)
 
 [Build a duckyPad Yourself](build_it_yourself.md)
 
