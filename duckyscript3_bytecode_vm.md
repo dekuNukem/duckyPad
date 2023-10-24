@@ -50,7 +50,7 @@ The binary file should have extension `.dsb` (duckyScript binary).
 
 Normally this is taken care of in the configurator. But you can also try it out on its own:
 
-* [Download the source code](https://github.com/dekuNukem/duckyPad/blob/master/pc_software/duckyscript3/duckypad_config_latest_source.zip)
+* [Download the source code](https://github.com/dekuNukem/duckyPad/blob/master/pc_software/duckypad_config_latest_source.zip)
 
 * Unzip, and run with Python 3: `python3 make_bytecode.py input output`
 
