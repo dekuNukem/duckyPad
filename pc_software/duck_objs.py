@@ -4,7 +4,7 @@ import json
 import socket
 import urllib.request
 
-MAX_PROFILE_COUNT = 32
+MAX_PROFILE_COUNT = 64
 
 class dp_key(object):
 	def load_script(self, path):
