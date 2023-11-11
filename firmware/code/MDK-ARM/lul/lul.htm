@@ -3,9 +3,9 @@
 <title>Static Call Graph - [lul\lul.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image lul\lul.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sat Jul 01 11:25:52 2023
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sat Nov 11 00:06:57 2023
 <BR><P>
-<H3>Maximum Stack Usage =        504 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        512 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 keypress_task_start &rArr; handle_keypress &rArr; keypress_wrapper &rArr; run_dsb &rArr; execute_instruction &rArr; make_str &rArr; read_byte &rArr; switch_bank &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 <P>
@@ -262,7 +262,9 @@ Global Symbols
 <LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_settings
 <LI><a href="#[1d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_keyname
 <LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
+<LI><a href="#[1eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switch_bank
 <LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_var
+<LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_byte
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;binop_mod
 <LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;binop_divide
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_InitTick
@@ -2056,7 +2058,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[14d]"></a>execute_instruction</STRONG> (Thumb, 796 bytes, Stack size 40 bytes, ds3_vm.o(i.execute_instruction))
-<BR><BR>[Stack]<UL><LI>Max Depth = 416<LI>Call Chain = execute_instruction &rArr; make_str &rArr; read_byte &rArr; switch_bank &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
+<BR><BR>[Stack]<UL><LI>Max Depth = 424<LI>Call Chain = execute_instruction &rArr; make_str &rArr; read_byte &rArr; switch_bank &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;release_key
 <LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;press_key
@@ -2533,7 +2535,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[190]"></a>handle_keypress</STRONG> (Thumb, 70 bytes, Stack size 32 bytes, parser.o(i.handle_keypress))
-<BR><BR>[Stack]<UL><LI>Max Depth = 488<LI>Call Chain = handle_keypress &rArr; keypress_wrapper &rArr; run_dsb &rArr; execute_instruction &rArr; make_str &rArr; read_byte &rArr; switch_bank &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
+<BR><BR>[Stack]<UL><LI>Max Depth = 496<LI>Call Chain = handle_keypress &rArr; keypress_wrapper &rArr; run_dsb &rArr; execute_instruction &rArr; make_str &rArr; read_byte &rArr; switch_bank &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_update
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
@@ -2721,7 +2723,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[57]"></a>keypress_task_start</STRONG> (Thumb, 430 bytes, Stack size 16 bytes, my_tasks.o(i.keypress_task_start))
-<BR><BR>[Stack]<UL><LI>Max Depth = 504<LI>Call Chain = keypress_task_start &rArr; handle_keypress &rArr; keypress_wrapper &rArr; run_dsb &rArr; execute_instruction &rArr; make_str &rArr; read_byte &rArr; switch_bank &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
+<BR><BR>[Stack]<UL><LI>Max Depth = 512<LI>Call Chain = keypress_task_start &rArr; handle_keypress &rArr; keypress_wrapper &rArr; run_dsb &rArr; execute_instruction &rArr; make_str &rArr; read_byte &rArr; switch_bank &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;press_key
 <LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_release_all
@@ -2751,7 +2753,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> main.o(.constdata)
 </UL>
 <P><STRONG><a name="[191]"></a>keypress_wrapper</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, parser.o(i.keypress_wrapper))
-<BR><BR>[Stack]<UL><LI>Max Depth = 456<LI>Call Chain = keypress_wrapper &rArr; run_dsb &rArr; execute_instruction &rArr; make_str &rArr; read_byte &rArr; switch_bank &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
+<BR><BR>[Stack]<UL><LI>Max Depth = 464<LI>Call Chain = keypress_wrapper &rArr; run_dsb &rArr; execute_instruction &rArr; make_str &rArr; read_byte &rArr; switch_bank &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;run_dsb
 <LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;play_keydown_animation
@@ -2795,7 +2797,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;play_keyup_animation
 </UL>
 
-<P><STRONG><a name="[1bd]"></a>load_colors</STRONG> (Thumb, 544 bytes, Stack size 40 bytes, parser.o(i.load_colors))
+<P><STRONG><a name="[1bd]"></a>load_colors</STRONG> (Thumb, 552 bytes, Stack size 40 bytes, parser.o(i.load_colors))
 <BR><BR>[Stack]<UL><LI>Max Depth = 352<LI>Call Chain = load_colors &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
@@ -2900,7 +2902,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[151]"></a>make_str</STRONG> (Thumb, 128 bytes, Stack size 24 bytes, ds3_vm.o(i.make_str))
-<BR><BR>[Stack]<UL><LI>Max Depth = 376<LI>Call Chain = make_str &rArr; read_byte &rArr; switch_bank &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
+<BR><BR>[Stack]<UL><LI>Max Depth = 384<LI>Call Chain = make_str &rArr; read_byte &rArr; switch_bank &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_var
 <LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_byte
@@ -3144,7 +3146,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;execute_instruction
 </UL>
 
-<P><STRONG><a name="[1b2]"></a>play_keydown_animation</STRONG> (Thumb, 90 bytes, Stack size 24 bytes, animations.o(i.play_keydown_animation))
+<P><STRONG><a name="[1b2]"></a>play_keydown_animation</STRONG> (Thumb, 94 bytes, Stack size 24 bytes, animations.o(i.play_keydown_animation))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = play_keydown_animation &rArr; neopixel_show &rArr; HAL_SPI_Transmit &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;neopixel_show
@@ -3244,8 +3246,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInitialiseNewTask
 </UL>
 
-<P><STRONG><a name="[14e]"></a>read_byte</STRONG> (Thumb, 70 bytes, Stack size 16 bytes, ds3_vm.o(i.read_byte))
-<BR><BR>[Stack]<UL><LI>Max Depth = 352<LI>Call Chain = read_byte &rArr; switch_bank &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
+<P><STRONG><a name="[14e]"></a>read_byte</STRONG> (Thumb, 74 bytes, Stack size 16 bytes, ds3_vm.o(i.read_byte))
+<BR><BR>[Stack]<UL><LI>Max Depth = 360<LI>Call Chain = read_byte &rArr; switch_bank &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keyboard_release_all
 <LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
@@ -3253,6 +3255,7 @@ Global Symbols
 <LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;error_animation
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 <LI><a href="#[1eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switch_bank
+<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;make_str
 <LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;execute_instruction
@@ -3313,7 +3316,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1b7]"></a>run_dsb</STRONG> (Thumb, 82 bytes, Stack size 24 bytes, ds3_vm.o(i.run_dsb))
-<BR><BR>[Stack]<UL><LI>Max Depth = 440<LI>Call Chain = run_dsb &rArr; execute_instruction &rArr; make_str &rArr; read_byte &rArr; switch_bank &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
+<BR><BR>[Stack]<UL><LI>Max Depth = 448<LI>Call Chain = run_dsb &rArr; execute_instruction &rArr; make_str &rArr; read_byte &rArr; switch_bank &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 <LI><a href="#[1ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stack_init
@@ -3628,14 +3631,15 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_keynames
 </UL>
 
-<P><STRONG><a name="[1eb]"></a>switch_bank</STRONG> (Thumb, 104 bytes, Stack size 24 bytes, ds3_vm.o(i.switch_bank))
-<BR><BR>[Stack]<UL><LI>Max Depth = 336<LI>Call Chain = switch_bank &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
+<P><STRONG><a name="[1eb]"></a>switch_bank</STRONG> (Thumb, 116 bytes, Stack size 32 bytes, ds3_vm.o(i.switch_bank))
+<BR><BR>[Stack]<UL><LI>Max Depth = 344<LI>Call Chain = switch_bank &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
 <LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 <LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
 <LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
 <LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
+<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_byte
 </UL>

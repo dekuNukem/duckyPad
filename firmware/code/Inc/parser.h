@@ -14,7 +14,7 @@
 #define COLOR_START_ADDR 32
 
 #define READ_BUF_SIZE 256
-#define MAX_PROFILES 32
+#define MAX_PROFILES 64
 #define PATH_SIZE 40
 #define FILENAME_SIZE 24
 #define KEYNAME_SIZE 10

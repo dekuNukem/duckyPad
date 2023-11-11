@@ -144,11 +144,16 @@ fixed pad crashing when changing profiles
 1.3.0 20230701
 added _TIME_S read-only variable
 
+1.3.1
+20231111
+increased max profiles to 64
+change MAX_PROFILES in parser.h
+change BIN_BUF_SIZE in ds3_vm.c if out of space
 */
 
 uint8_t fw_version_major = 1;
 uint8_t fw_version_minor = 3;
-uint8_t fw_version_patch = 0;
+uint8_t fw_version_patch = 1;
 char instruction[] = "For instructions, see";
 /* USER CODE END PV */
 

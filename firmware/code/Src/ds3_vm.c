@@ -11,7 +11,7 @@
 #include "neopixel.h"
 
 // 2300 seems to be max, 2048 just to be safe
-#define BIN_BUF_SIZE 2048
+#define BIN_BUF_SIZE 1750
 uint8_t bin_buf[BIN_BUF_SIZE];
 #define VAR_BUF_SIZE 128
 uint8_t var_buf[VAR_BUF_SIZE];
