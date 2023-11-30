@@ -763,9 +763,27 @@ def expand_mousemove(xtotal, ytotal):
 
     return result_listing
 
-def run_all(program_listing):
-    new_program_listing = []
+STRING_MAX_SIZE = 240
 
+def split_string(input_string, max_length=STRING_MAX_SIZE):
+    if len(input_string) <= max_length:
+        return [input_string]
+    return [input_string[i:i+max_length] for i in range(0, len(input_string), max_length)]
+
+def split_str_cmd(cmd_type, this_line):
+    str_content = this_line.split(cmd_type + " ", 1)[-1]
+    if len(str_content) <= STRING_MAX_SIZE:
+        return [this_line]
+    cmd_list = []
+    for item in split_string(str_content):
+        cmd_list.append(cmd_STRING + " " + item)
+    if cmd_type == cmd_STRINGLN:
+        cmd_list[-1] = cmd_list[-1].replace(cmd_STRING, cmd_STRINGLN, 1)
+    return cmd_list
+
+def run_all(program_listing):
+    # ----------- expand MOUSE_MOVE ----------
+    new_program_listing = []
     for index, this_line in enumerate(program_listing):
         if ds_syntax_check.is_mouse_move(this_line) is False:
             new_program_listing.append(this_line)
@@ -783,10 +801,14 @@ def run_all(program_listing):
 
     program_listing = new_program_listing
 
+    # ----------- remove cmd_INJECT_MOD ----------
+
     for index, this_line in enumerate(program_listing):
         first_word = this_line.split(" ")[0]
         if first_word == cmd_INJECT_MOD:
             program_listing[index] = this_line.replace(cmd_INJECT_MOD, "", 1)
+
+    # ----------- Do a pass ---------------
 
     rdict = run_once(program_listing)
     if rdict['is_success'] is False:
@@ -794,7 +816,44 @@ def run_all(program_listing):
 
     print("\n---------First Pass OK!---------\n")
 
-    # ----------- making condensed version ----------
+    # ----------- expand STRING_BLOCK and STRINGLN_BLOCK, split STRING and STRINGLN ----------
+
+    new_program_listing = []
+    for line_number_starting_from_1, this_line in enumerate(program_listing):
+        line_number_starting_from_1 += 1
+
+        if is_within_strlen_block(line_number_starting_from_1, rdict['strlen_block_table']):
+            this_line = "STRINGLN " + this_line
+        elif is_within_str_block(line_number_starting_from_1, rdict['str_block_table']):
+            this_line = "STRING " + this_line
+        else:
+            this_line = this_line.lstrip(' \t')
+        if len(this_line) == 0:
+            continue
+
+        first_word = this_line.split(" ")[0]
+        first_word, this_line = replace_delay_statements(this_line)
+
+        if first_word in [cmd_STRINGLN_BLOCK, cmd_END_STRINGLN, cmd_STRING_BLOCK, cmd_END_STRING]:
+            continue
+
+        if first_word in [cmd_STRINGLN, cmd_STRING]:
+            for item in split_str_cmd(first_word, this_line):
+                new_program_listing.append(item)
+        else:
+            new_program_listing.append(this_line)
+
+    program_listing = new_program_listing
+
+    # ----------- Do another pass ---------------
+
+    rdict = run_once(program_listing)
+    if rdict['is_success'] is False:
+        return rdict
+
+    print("\n---------STR expansion OK!---------\n")
+
+    # ----------- make condensed version ----------
 
     def_dict = rdict['define_dict']
     second_pass_program_listing = []
@@ -817,19 +876,11 @@ def run_all(program_listing):
 
     for line_number_starting_from_1, this_line in enumerate(program_listing):
         line_number_starting_from_1 += 1
-        if is_within_strlen_block(line_number_starting_from_1, rdict['strlen_block_table']):
-            this_line = "STRINGLN " + this_line
-        elif is_within_str_block(line_number_starting_from_1, rdict['str_block_table']):
-            this_line = "STRING " + this_line
-        else:
-            this_line = this_line.lstrip(' \t')
+        this_line = this_line.lstrip(' \t')
         if len(this_line) == 0:
             continue
         first_word = this_line.split(" ")[0]
-        first_word, this_line = replace_delay_statements(this_line)
         if is_within_rem_block(line_number_starting_from_1, rdict['rem_block_table']):
-            continue
-        if first_word in [cmd_STRINGLN_BLOCK, cmd_END_STRINGLN, cmd_STRING_BLOCK, cmd_END_STRING]:
             continue
         if needs_rstrip(first_word):
             this_line = this_line.rstrip(" \t")

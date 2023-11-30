@@ -99,12 +99,15 @@ STRINGLN_BLOCK and STRING_BLOCK now preserves empty lines and white spaces
 automatically expands MOUSE_MOVE is value is more than 127
 checks if duckypad is busy before trying to connect
 
-
 1.6.2 2023 11 11
 increased max profile to 64
+
+1.6.3 2023 11 30
+automatically splits STRING/STRINGLN commands if too long
+
 """
 
-THIS_VERSION_NUMBER = '1.6.2'
+THIS_VERSION_NUMBER = '1.6.3'
 MIN_DUCKYPAD_FIRMWARE_VERSION = "1.1.2"
 MAX_DUCKYPAD_FIRMWARE_VERSION = "1.10.10"
 
