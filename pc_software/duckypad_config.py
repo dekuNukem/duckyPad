@@ -105,9 +105,12 @@ increased max profile to 64
 1.6.3 2023 11 30
 automatically splits STRING/STRINGLN commands if too long
 
+1.6.4 2024 01 22
+Fixed a bug where TRUE and FALSE is replaced with 1 and 0 inside STRING statements
+
 """
 
-THIS_VERSION_NUMBER = '1.6.3'
+THIS_VERSION_NUMBER = '1.6.4'
 MIN_DUCKYPAD_FIRMWARE_VERSION = "1.1.2"
 MAX_DUCKYPAD_FIRMWARE_VERSION = "1.10.10"
 
