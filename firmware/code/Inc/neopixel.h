@@ -14,7 +14,7 @@
 #define WS_BIT_0 0xc0
 #define WS_BIT_1 0xf8
 
-void neopixel_show(uint8_t* red, uint8_t* green, uint8_t* blue);
+void neopixel_show(uint8_t* red, uint8_t* green, uint8_t* blue, uint8_t brightness);
 
 #ifdef __cplusplus
 }

@@ -19,9 +19,21 @@ void spi_fastwrite_buf_size_even(uint8_t *pData, int count)
   }
 }
 
+uint8_t red_after_brightness[NEOPIXEL_COUNT];
+uint8_t green_after_brightness[NEOPIXEL_COUNT];
+uint8_t blue_after_brightness[NEOPIXEL_COUNT];
+
 // make sure spi speed is between 8MHz and 10MHz
-void neopixel_show(uint8_t* red, uint8_t* green, uint8_t* blue)
+void neopixel_show(uint8_t* red, uint8_t* green, uint8_t* blue, uint8_t brightness)
 {
+  float brightness_percent = (float)brightness/100;
+  for (int i = 0; i < NEOPIXEL_COUNT; ++i)
+  {
+    red_after_brightness[i] = (float)red[i] * brightness_percent;
+    green_after_brightness[i] = (float)green[i] * brightness_percent;
+    blue_after_brightness[i] = (float)blue[i] * brightness_percent;
+  }
+
   taskENTER_CRITICAL();
   HAL_SPI_Transmit(&hspi1, ws_padding_buf, NEOPIXEL_PADDING_BUF_SIZE, 5);
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
@@ -29,17 +41,17 @@ void neopixel_show(uint8_t* red, uint8_t* green, uint8_t* blue)
     memset(ws_spi_buf, 0, WS_SPI_BUF_SIZE);
     for (int j = 0; j < 8; ++j)
     {
-      if((uint8_t)(green[i] & (1 << (7 - j))) != 0)
+      if((uint8_t)(green_after_brightness[i] & (1 << (7 - j))) != 0)
         ws_spi_buf[j] = WS_BIT_1;
       else
         ws_spi_buf[j] = WS_BIT_0;
 
-      if((uint8_t)(red[i] & (1 << (7 - j))) != 0)
+      if((uint8_t)(red_after_brightness[i] & (1 << (7 - j))) != 0)
         ws_spi_buf[8 + j] = WS_BIT_1;
       else
         ws_spi_buf[8 + j] = WS_BIT_0;
 
-      if((uint8_t)(blue[i] & (1 << (7 - j))) != 0)
+      if((uint8_t)(blue_after_brightness[i] & (1 << (7 - j))) != 0)
         ws_spi_buf[16 + j] = WS_BIT_1;
       else
         ws_spi_buf[16 + j] = WS_BIT_0;

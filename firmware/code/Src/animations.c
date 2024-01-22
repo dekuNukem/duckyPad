@@ -20,9 +20,9 @@ uint8_t brightness_values[BRIGHTNESS_LEVELS] = {0, 20, 50, 70, 100};
 
 void set_pixel_3color(uint8_t which, uint8_t r, uint8_t g, uint8_t b)
 {
-  red_buf[pixel_map[which]] = (uint8_t)((uint16_t)r * (uint16_t)brightness_values[brightness_index] / (uint16_t)100);
-  green_buf[pixel_map[which]] = (uint8_t)((uint16_t)g * (uint16_t)brightness_values[brightness_index] / (uint16_t)100);
-  blue_buf[pixel_map[which]] = (uint8_t)((uint16_t)b * (uint16_t)brightness_values[brightness_index] / (uint16_t)100);
+  red_buf[pixel_map[which]] = r;
+  green_buf[pixel_map[which]] = g;
+  blue_buf[pixel_map[which]] = b;
 }
 
 void set_pixel_color(uint8_t which, uint8_t dest_color[THREE])
@@ -77,7 +77,7 @@ void led_animation_handler(void)
     set_pixel_3color(neo_anime[idx].index, neo_anime[idx].current_color[0], neo_anime[idx].current_color[1], neo_anime[idx].current_color[2]);
   }
   if(needs_update)
-    neopixel_show(red_buf, green_buf, blue_buf);
+    neopixel_show(red_buf, green_buf, blue_buf, brightness_values[brightness_index]);
 }
 
 void led_animation_init(led_animation* anime_struct, uint8_t index)
@@ -109,7 +109,7 @@ void neopixel_off(void)
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
     neo_anime[i].animation_type = ANIMATION_NONE;
   memset(red_buf, 0, NEOPIXEL_COUNT);
-  neopixel_show(red_buf, red_buf, red_buf);
+  neopixel_show(red_buf, red_buf, red_buf, brightness_values[brightness_index]);
 }
 
 void anime_init(void)
@@ -125,14 +125,14 @@ void redraw_bg(void)
     neo_anime[i].animation_type = ANIMATION_NONE;
     set_pixel_color(i, p_cache.individual_key_color[i]);
   }
-  neopixel_show(red_buf, green_buf, blue_buf);
+  neopixel_show(red_buf, green_buf, blue_buf, brightness_values[brightness_index]);
 }
 
 void key_reset(uint8_t which)
 {
   neo_anime[which].animation_type = ANIMATION_NONE;
   set_pixel_color(which, p_cache.individual_key_color[which]);
-  neopixel_show(red_buf, green_buf, blue_buf);
+  neopixel_show(red_buf, green_buf, blue_buf, brightness_values[brightness_index]);
 }
 
 void error_animation(uint8_t stage)
@@ -143,23 +143,23 @@ void error_animation(uint8_t stage)
     {
       for (int i = 0; i < NEOPIXEL_COUNT; ++i)
         set_pixel_color(i, color_red);
-      neopixel_show(red_buf, green_buf, blue_buf);
+      neopixel_show(red_buf, green_buf, blue_buf, brightness_values[brightness_index]);
       osDelay(500);
       for (int i = 0; i < NEOPIXEL_COUNT; ++i)
         set_pixel_color(i, color_black);
-      neopixel_show(red_buf, green_buf, blue_buf);
+      neopixel_show(red_buf, green_buf, blue_buf, brightness_values[brightness_index]);
       osDelay(500);
     }
     for (int i = 0; i < NEOPIXEL_COUNT; ++i)
       set_pixel_color(i, color_red);
-    neopixel_show(red_buf, green_buf, blue_buf);
+    neopixel_show(red_buf, green_buf, blue_buf, brightness_values[brightness_index]);
     osDelay(50);
   }
   else
   {
     for (int i = 0; i < NEOPIXEL_COUNT; ++i)
       set_pixel_color(i, p_cache.individual_key_color[i]);
-    neopixel_show(red_buf, green_buf, blue_buf);
+    neopixel_show(red_buf, green_buf, blue_buf, brightness_values[brightness_index]);
   }
 }
 
@@ -172,7 +172,7 @@ void play_keydown_animation(uint8_t idx)
   neo_anime[idx].target_color[0] = p_cache.individual_keydown_color[idx][0];
   neo_anime[idx].target_color[1] = p_cache.individual_keydown_color[idx][1];
   neo_anime[idx].target_color[2] = p_cache.individual_keydown_color[idx][2];
-  neopixel_show(red_buf, green_buf, blue_buf);
+  neopixel_show(red_buf, green_buf, blue_buf, brightness_values[brightness_index]);
 }
 
 void play_keyup_animation(uint8_t idx)
@@ -182,7 +182,7 @@ void play_keyup_animation(uint8_t idx)
 
 void neopixel_update(void)
 {
-  neopixel_show(red_buf, green_buf, blue_buf);
+  neopixel_show(red_buf, green_buf, blue_buf, brightness_values[brightness_index]);
 }
 
 void get_current_color(uint8_t which, uint8_t* red, uint8_t* green, uint8_t* blue)

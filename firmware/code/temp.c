@@ -1,3 +1,11 @@
+void set_pixel_3color(uint8_t which, uint8_t r, uint8_t g, uint8_t b)
+{
+  red_buf[pixel_map[which]] = (uint8_t)((uint16_t)r * (uint16_t)brightness_values[brightness_index] / (uint16_t)100);
+  green_buf[pixel_map[which]] = (uint8_t)((uint16_t)g * (uint16_t)brightness_values[brightness_index] / (uint16_t)100);
+  blue_buf[pixel_map[which]] = (uint8_t)((uint16_t)b * (uint16_t)brightness_values[brightness_index] / (uint16_t)100);
+}
+
+
 wrong
 957 10
 957 42
