@@ -167,6 +167,9 @@ english_alphabets = set(english_alphabets)
 valid_var_chars = set(valid_var_chars)
 
 def replace_DEFINE(pgm_line, dd):
+	if pgm_line.startswith(cmd_STRING+" ") or pgm_line.startswith(cmd_STRINGLN+" "):
+		dd.pop("TRUE", None)
+		dd.pop("FALSE", None)
 	dd_list_longest_first = sorted(list(dd.keys()), key=len, reverse=True)
 	temp_line = f" {pgm_line} "
 	for key in dd_list_longest_first:
