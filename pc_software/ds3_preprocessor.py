@@ -782,6 +782,27 @@ def split_str_cmd(cmd_type, this_line):
     return cmd_list
 
 def run_all(program_listing):
+
+    # a bit preprocessing
+    new_program_listing = []
+    for index, this_line in enumerate(program_listing):
+
+        # remove leading space and tabs
+        this_line = this_line.lstrip(" ").lstrip("\t")
+        first_word = this_line.split(" ")[0]
+
+        # remove single-line comments 
+        if first_word == cmd_REM or first_word.startswith(cmd_C_COMMENT):
+            continue
+
+        # remove cmd_INJECT_MOD
+        if first_word == cmd_INJECT_MOD:
+            this_line = this_line.replace(cmd_INJECT_MOD, "", 1)
+
+        this_line = this_line.lstrip(" ").lstrip("\t")
+        new_program_listing.append(this_line)
+    program_listing = new_program_listing
+
     # ----------- expand MOUSE_MOVE ----------
     new_program_listing = []
     for index, this_line in enumerate(program_listing):
@@ -801,12 +822,9 @@ def run_all(program_listing):
 
     program_listing = new_program_listing
 
-    # ----------- remove cmd_INJECT_MOD ----------
-
-    for index, this_line in enumerate(program_listing):
-        first_word = this_line.split(" ")[0]
-        if first_word == cmd_INJECT_MOD:
-            program_listing[index] = this_line.replace(cmd_INJECT_MOD, "", 1)
+    print("preprocessed lines:")
+    for item in program_listing:
+        print(item)
 
     # ----------- Do a pass ---------------
 
