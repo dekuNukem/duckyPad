@@ -51,6 +51,14 @@ Ubuntu/Pop!_OS/Linux Mint Users will also need to execute the duckypad_config.py
 python3 duckypad_config.py
 ```
 
+### NixOS - nix-shell
+
+To run duckypad on NixOS download the [shell.nix](https://github.com/dekuNukem/duckyPad/tree/master/resources/shell.nix) file.
+
+```bash
+nix-shell
+```
+
 ### Udev Rule
 
 To enable USB profile editing on Linux, you may need to install a Udev rule to allow your user to access the HID device.
