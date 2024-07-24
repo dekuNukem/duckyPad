@@ -87,6 +87,8 @@ CONTROL w
 
 - [GOTO_PROFILE](#goto_profile)
 
+- [GOTO_PROFILE_NAME](#goto_profile_name)
+
 - [EMUK](#emuk)
 
 - [LOOP](#loop)
@@ -351,6 +353,14 @@ Jump to a particular profile.
 ```
 GOTO_PROFILE 3
 // jump to profile #3
+```
+### `GOTO_PROFILE_NAME`
+
+Use this command to jump to a particular profile by name.
+
+```
+GOTO_PROFILE_NAME NumPad
+// jump to profile with name "NumPad"
 ```
 ### `EMUK`
 
