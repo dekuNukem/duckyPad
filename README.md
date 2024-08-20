@@ -4,7 +4,7 @@
 
 ----
 
-duckyPad is a 15-key mechanical macropad that helps **consolidate and speed up workflow** by automating keyboard (and mouse!) inputs. 
+duckyPad is a 15-key mechanical macropad that helps **consolidate and speed up workflow** by automating keyboard/mouse inputs. 
 
 ![Alt text](resources/pics/title_jpg.jpg)
 
@@ -19,7 +19,7 @@ But also features **not seen anywhere else**:
 
 * Configurable **OLED** screen
 * Custom **[duckyScript](duckyscript_info.md)** engine, **NOT QMK/VIA**.
-* Much **longer and sophisticated** macros!
+* Much **longer and sophisticated** macros
 * **32 profiles** of 15 keys, 480 macros total.
 * [Automatic profile switching](https://github.com/dekuNukem/duckyPad-profile-autoswitcher) based on active window.
 * microSD storage, move between devices with ease.
@@ -41,7 +41,7 @@ Compared to QMK/VIA, you get:
 	* [Entire Bee Movie](resources/beemovie.txt) in one macro? Yes please!
 	* Up to 480 in total!
 
-* **Sophisticated Scripting**
+* **Sophisticated Interactive Scripting**
 	* Keyboard, Mouse, and Media Keys.
 	* Variables, `IF` statements, loops, functions, etc.
 	* Reading Buttons
@@ -91,9 +91,9 @@ Switch scenes, start/stop stream, start/stop recording, play ads, and a lot more
 
 ### Security Research
 
-With the ability to automate keyboard inputs, it is possible to take over an entire computer with the push of a button.
+By automating *1337 scriptz*, you can take over an entire computer with the push of a button.
 
-This is known as [BadUSB attack](https://arstechnica.com/information-technology/2014/07/this-thumbdrive-hacks-computers-badusb-exploit-makes-devices-turn-evil/), and it was the original purpose of [USB Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky-deluxe).
+This is known as [BadUSB attack](https://arstechnica.com/information-technology/2014/07/this-thumbdrive-hacks-computers-badusb-exploit-makes-devices-turn-evil/), and was the original purpose of [USB Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky-deluxe).
 
 But of course, it's up to you to decide what to do!
 
@@ -107,7 +107,7 @@ Put all your shortcuts in one place, makes things faster:
 
 ### One-finger Twitch Chat
 
-Well no need to explain this one
+no need to explain this one
 
 ![Alt text](resources/pics/twitch.gif)
 
