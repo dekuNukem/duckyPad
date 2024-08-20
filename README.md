@@ -4,7 +4,7 @@
 
 ----
 
-duckyPad is a 15-key mechanical macropad that helps **consolidate and speed up workflow** by automating keyboard/mouse inputs. 
+duckyPad is a 15-key mechanical macropad that helps **consolidate and speed up workflow** by automating keyboard/mouse inputs using **duckyScript**. 
 
 ![Alt text](resources/pics/title_jpg.jpg)
 
