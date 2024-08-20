@@ -15,7 +15,7 @@ It has all the basics:
 * USB-C
 * Fully **open-source**
 
-But also features **not seen anywhere else**:
+But also unique features **not seen anywhere else**:
 
 * Configurable **OLED** screen
 * Custom **[duckyScript](duckyscript_info.md)** engine, **NOT QMK/VIA**.
