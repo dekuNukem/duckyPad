@@ -52,9 +52,9 @@ Compared to QMK/VIA, you get:
 
 * **Existing Resources**
 	* Lots of [scripts](https://github.com/hak5/usbrubberducky-payloads) to try out
-	* Thriving [Discord](https://discord.gg/4sJCBx5) community!
+	* Thriving [Discord](https://discord.gg/4sJCBx5) community
 
-While QMK/VIA are great for regular keyboards, they are rather hopeless at even the bare minimum of input automation.
+While QMK/VIA are great for regular keyboards, they are hopeless at even basics of input automations.
 
 duckyScript is a no-brainer if you're serious about macro scripting!
 
@@ -80,7 +80,7 @@ Open your favorite app with the press of a button:
 
 ![Alt text](resources/pics/winapps.gif)
 
-### Managing Livestreams 
+### Managing Livestreams
 
 Switch scenes, start/stop stream, start/stop recording, play ads, and a lot more!
 
