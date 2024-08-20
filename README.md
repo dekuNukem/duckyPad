@@ -13,7 +13,7 @@ It has all the basics:
 * **Hot-swap**
 * Per-key RGB
 * USB-C
-* Fully Open-source
+* Fully **open-source**
 
 But also features **not seen anywhere else**:
 
@@ -27,9 +27,7 @@ But also features **not seen anywhere else**:
 
 ![Alt text](resources/pics/teaser.gif)
 
-When pressed, each key executes a [duckyScript](duckyscript_info.md) macro.
-
-It can be as simple as shortcuts like `Ctrl + C`, or as complex as filling forms, launching applications, or even [creating root backdoors](https://shop.hak5.org/blogs/usb-rubber-ducky/the-3-second-reverse-shell-with-a-usb-rubber-ducky) or [grabbing passwords](https://shop.hak5.org/blogs/usb-rubber-ducky/15-second-password-hack-mr-robot-style). It's all up to you!
+The macros can be as simple as `Ctrl + C`, or as complex as filling forms, launching applications, or even [creating root backdoors](https://shop.hak5.org/blogs/usb-rubber-ducky/the-3-second-reverse-shell-with-a-usb-rubber-ducky) or [grabbing passwords](https://shop.hak5.org/blogs/usb-rubber-ducky/15-second-password-hack-mr-robot-style). It's all up to you!
 
 ## duckyScript vs QMK/VIA
 
@@ -42,7 +40,6 @@ Compared to QMK/VIA, you get:
 	* Up to 480 in total!
 
 * **Sophisticated Interactive Scripting**
-	* Keyboard, Mouse, and Media Keys.
 	* Variables, `IF` statements, loops, functions, etc.
 	* Reading Buttons
 	* Print to OLED screen
@@ -59,7 +56,7 @@ Compared to QMK/VIA, you get:
 
 While QMK/VIA are great for regular keyboards, they are rather hopeless at even the bare minimum of input automation.
 
-duckyScript is no-brainer if you're serious about macro scripting!
+duckyScript is a no-brainer if you're serious about macro scripting!
 
 ## Get duckyPad
 
@@ -91,7 +88,7 @@ Switch scenes, start/stop stream, start/stop recording, play ads, and a lot more
 
 ### Security Research
 
-By automating *1337 scriptz*, you can take over an entire computer with the push of a button.
+By automating keystrokes, you can take over an entire computer with the push of a button.
 
 This is known as [BadUSB attack](https://arstechnica.com/information-technology/2014/07/this-thumbdrive-hacks-computers-badusb-exploit-makes-devices-turn-evil/), and was the original purpose of [USB Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky-deluxe).
 
