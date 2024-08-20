@@ -1,3 +1,20 @@
+
+## Highlights
+
+* 15 Mechanical Switches
+* **`Hot-Swap`** Sockets
+* Per-Key **`RGB Lighting`** 
+* **`OLED Screen`** showing profile and key names.
+* Powerful multi-line scripting with [duckyScript](duckyscript_info.md)
+* 32 profiles of 15 keys, 480 macros total.
+* [Automatic profile switching](https://github.com/dekuNukem/duckyPad-profile-autoswitcher)
+* microSD storage
+* USB-C Connector
+* Works with all major OSs, no driver needed.
+* Multiple keyboard layouts (French, Belgium, German, Dvorak, etc)
+* Fully Open Source!
+
+
 void set_pixel_3color(uint8_t which, uint8_t r, uint8_t g, uint8_t b)
 {
   red_buf[pixel_map[which]] = (uint8_t)((uint16_t)r * (uint16_t)brightness_values[brightness_index] / (uint16_t)100);

@@ -4,73 +4,88 @@
 
 ----
 
-duckyPad is a 15-key mechanical macropad that helps **consolidate & speed up workflow** by automating keyboard (and mouse!) inputs. 
+duckyPad is a 15-key mechanical macropad that helps **consolidate and speed up workflow** by automating keyboard (and mouse!) inputs. 
 
 ![Alt text](resources/pics/title_jpg.jpg)
 
-duckyPad has all the goodies of a high-end mechanical keyboard:
+It has all the basics:
 
-* Mechanical switches
 * **Hot-swap**
-* **RGB**
-* **USB-C**
-* Open-source
+* Per-key RGB
+* USB-C
+* Fully Open-source
 
-More crucially, it also features innovations such as:
+But also features **not seen anywhere else**:
 
-* **OLED** screen showing what each key does
-* Sophisticated **multi-line scripting** with [duckyScript](duckyscript_info.md)
+* Configurable **OLED** screen
+* Custom **[duckyScript](duckyscript_info.md)** engine, **NOT QMK/VIA**.
+* Much **longer and sophisticated** macros!
 * **32 profiles** of 15 keys, 480 macros total.
 * [Automatic profile switching](https://github.com/dekuNukem/duckyPad-profile-autoswitcher) based on active window.
-* microSD card storage, move between devices without losing macros.
-* No driver needed, works out-of-box on anything that supports USB keyboards.
+* microSD storage, move between devices with ease.
+* No proprietary drivers, works out-of-box.
 
 ![Alt text](resources/pics/teaser.gif)
 
-When pressed, each key execute [duckyScript](duckyscript_info.md) to automate keyboard actions.
+When pressed, each key executes a [duckyScript](duckyscript_info.md) macro.
 
-It can be as simple as shortcuts like `Control + C`, or as complex as launching applications, managing livestreams, or even [creating root backdoors](https://shop.hak5.org/blogs/usb-rubber-ducky/the-3-second-reverse-shell-with-a-usb-rubber-ducky) or [grabbing passwords](https://shop.hak5.org/blogs/usb-rubber-ducky/15-second-password-hack-mr-robot-style). It's all up to you!
+It can be as simple as shortcuts like `Ctrl + C`, or as complex as filling forms, launching applications, or even [creating root backdoors](https://shop.hak5.org/blogs/usb-rubber-ducky/the-3-second-reverse-shell-with-a-usb-rubber-ducky) or [grabbing passwords](https://shop.hak5.org/blogs/usb-rubber-ducky/15-second-password-hack-mr-robot-style). It's all up to you!
 
-## Get a duckyPad!
+## duckyScript vs QMK/VIA
 
-duckyPad is [now available on Tindie](https://www.tindie.com/products/21984), feel free to grab one there!
+duckyPad uses **duckyScript**, of [USB Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky-deluxe) fame.
+
+Compared to QMK/VIA, you get:
+
+* **Much Longer Macros**
+	* [Entire Bee Movie](resources/beemovie.txt) in one macro? Yes please!
+	* Up to 480 in total!
+
+* **Sophisticated Scripting**
+	* Keyboard, Mouse, and Media Keys.
+	* Variables, `IF` statements, loops, functions, etc.
+	* Reading Buttons
+	* Print to OLED screen
+	* Change RGB Color
+
+* **Local Storage**
+	* Everything stored on SD card
+	* Quick configuration / Backup / Duplication
+	* No sketchy drivers or apps
+
+* **Existing Resources**
+	* Lots of [scripts](https://github.com/hak5/usbrubberducky-payloads) to try out
+	* Thriving [Discord](https://discord.gg/4sJCBx5) community!
+
+While QMK/VIA are great for regular keyboards, they are rather hopeless at even the bare minimum of input automation.
+
+duckyScript is no-brainer if you're serious about macro scripting!
+
+## Get duckyPad
+
+duckyPad is [now available on Tindie](https://www.tindie.com/products/21984)!
 
 And thanks to the interest and support from the [amazing people like you](kickstarter_backers.md), the [Kickstarter campaign](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) has been a great success!
 
-## Join Our Discord!
+## Discord Community
 
 Feel free to join our [Official Discord](https://discord.gg/4sJCBx5) for discussions, questions, sharing scripts, and latest updates!
 
-## Highlights
-
-* 15 Mechanical Switches
-* **`Hot-Swap`** Sockets
-* Per-Key **`RGB Lighting`** 
-* **`OLED Screen`** showing profile and key names.
-* Powerful multi-line scripting with [duckyScript](duckyscript_info.md)
-* 32 profiles of 15 keys, 480 macros total.
-* [Automatic profile switching](https://github.com/dekuNukem/duckyPad-profile-autoswitcher) based on active window
-* microSD storage
-* USB-C Connector
-* Works with all major OSs, no driver needed.
-* Multiple keyboard layouts (French, Belgium, German, Dvorak, etc)
-* Fully Open Source!
-
 ## Showcase
 
-By **`automating frequently-used actions with duckyPad`**, you can streamline and speed up your everyday routine.
+By **`automating frequently-used actions`**, you can streamline and speed up your daily routine.
 
-Here are a few examples:
+A few examples:
 
 ### Launching Applications  
 
-You can set up duckyPad to open your favourite app with the press of a button: 
+Open your favorite app with the press of a button: 
 
 ![Alt text](resources/pics/winapps.gif)
 
 ### Managing Livestreams 
 
-With the press of a key, you can switch scenes, start/stop stream, start/stop recording, play ads, and a lot more!
+Switch scenes, start/stop stream, start/stop recording, play ads, and a lot more!
 
 ![Alt text](resources/pics/obs.gif)
 
@@ -86,11 +101,13 @@ But of course, it's up to you to decide what to do!
 
 ### Photoshop / CAD 
 
-You can put all your shortcuts in one place, resulting in a more efficient workflow: 
+Put all your shortcuts in one place, makes things faster: 
 
 ![Alt text](resources/pics/cad.gif)
 
 ### One-finger Twitch Chat
+
+Well no need to explain this one
 
 ![Alt text](resources/pics/twitch.gif)
 
@@ -114,7 +131,7 @@ duckyPad is compatible with Cherry MX-style mechanical switches (3 or 5-pin).
 
 duckyPad comes with **`Gateron Green`** or **`Kalih BOX Navy`** switches, both of which are firm and clicky.
 
-Of course, you can also install your own switches!
+Of course, you can also install your own!
 
 ### Keycaps
 
@@ -122,7 +139,7 @@ By default, duckyPad comes with blank translucent ABS R4 keycaps:
 
 ![Alt text](resources/pics/caps.jpg)
 
-Of course, you can also install your own!
+Again, you can use your own as well.
 
 ### Hot-swap Sockets
 
@@ -149,21 +166,21 @@ duckyPad has an OLED screen. It displays current **`profile and key names`**, so
 
 ### duckyScript
 
-duckyPad uses [duckyScript](duckyscript_info.md) for keyboard automation. It was originally developed for [USB Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky-deluxe).
+duckyPad uses **duckyScript** for keyboard automation. 
 
-duckyScript is powerful but also easy and straightforward to write.
+It is powerful, but also easy and straightforward to write.
 
 A simple example look like this:
 
 `CONTROL SHIFT ESC`
 
-Now when you press a key on duckyPad, it will bring up the Task Manager, no need for memorising and pressing a 3-key combo.
+When you press a key, it will bring up the Task Manager, no need for memorising the 3-key combo.
 
 ![Alt text](resources/pics/task.gif)
 
-Of course, duckyScript can do much more!
+Of course, it can do much more!
 
-Here is a more complex multi-line example that open up notepad, types "Hello world", and increases text size:
+A multi-line example that open up notepad, types "Hello world", and increases text size:
 
 ```
 WINDOWS R
@@ -179,13 +196,15 @@ REPEAT 10
 
 ![Alt text](resources/pics/hello.gif)
 
+See the [full guide here](duckyscript_info.md).
+
 ### Companion App
 
 duckyPad comes with a companion app for Windows 10, macOS, and Linux. You can use it to:
 
 * Manage profiles
-* Manage key names, colours, and arrangements.
-* Write, debug, and test-run duckyScript.
+* Manage key name, color, and arrangements.
+* Write and debug duckyScript.
 * Change, save, and backup configurations.
 
 ![Alt text](resources/pics/pcapp.png)
@@ -196,7 +215,7 @@ But more importantly, duckyPad app **`respects your privacy`**:
 * No need to create an account
 * No data collection whatsoever
 * No internet connection required
-* You don’t even have to use it! You can [set up your duckyPad manually](./manual_setup.md).
+* You don't even have to use it! You can [set up your duckyPad manually](./manual_setup.md).
 
 ### USB-C and Device Compatibility
 
@@ -222,6 +241,7 @@ duckyPad’s firmware can also be [easily updated via USB-C](firmware_updates_an
 duckyPad supports multiple keyboard layouts:
 
 * English (US)
+* English (UK)
 * French
 * Belgium
 * German
@@ -236,7 +256,7 @@ duckyPad supports multiple keyboard layouts:
 
 ## I want one!
 
-duckyPad is [now available on Tindie!](https://www.tindie.com/products/21984), feel free to grab one there!
+duckyPad is [now available on Tindie.](https://www.tindie.com/products/21984)
 
 Also consider [joining our discord](https://discord.gg/4sJCBx5) for latest updates and discussions.
 
