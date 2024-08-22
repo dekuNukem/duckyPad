@@ -44,6 +44,8 @@ Compared to QMK/VIA, you get:
 	* Reading Buttons
 	* Print to OLED screen
 	* Change RGB Color
+	* Fine timing control
+	* Randomization
 
 * **Local Storage**
 	* Everything stored on SD card
@@ -54,9 +56,9 @@ Compared to QMK/VIA, you get:
 	* Lots of [scripts](https://github.com/hak5/usbrubberducky-payloads) to try out
 	* Thriving [Discord](https://discord.gg/4sJCBx5) community
 
-While QMK/VIA are great for regular keyboards, they are hopeless at even basics of input automations.
+While QMK/VIA are great for regular keyboards, they are rather hopeless at even the basics of input automations.
 
-duckyScript is a no-brainer if you're serious about macro scripting!
+duckyScript is a no-brainer for power users with more demanding scripting needs.
 
 ## Get duckyPad
 
