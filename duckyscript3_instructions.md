@@ -407,7 +407,7 @@ Upper bound of RNG.
 
 #### `$_RANDOM_INT` (RW)
 
-Get a random number between the upper and lower bound.
+Get a random number between the upper and lower bound (**inclusive**).
 
 #### `$_TIME_S` (RO)
 
