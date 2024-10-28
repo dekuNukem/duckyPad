@@ -100,6 +100,7 @@
 <layer number="116" name="Patch_BOT" color="9" fill="4" visible="yes" active="yes"/>
 <layer number="117" name="secv21" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="118" name="Rect_Pads" color="7" fill="1" visible="no" active="yes"/>
+<layer number="119" name="KAP_TEKEN" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="120" name="120" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="121" name="_tsilk" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="122" name="_bsilk" color="7" fill="1" visible="yes" active="yes"/>
@@ -113,6 +114,17 @@
 <layer number="130" name="bLogo" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="131" name="tAdjust" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="132" name="bAdjust" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="133" name="mtFinish" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="134" name="mbFinish" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="135" name="mtGlue" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="136" name="mbGlue" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="137" name="mtTest" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="138" name="mbTest" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="139" name="mtKeepout" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="140" name="mbKeepout" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="141" name="mtRestrict" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="142" name="mbRestrict" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="143" name="mvRestrict" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="144" name="Drill_legend" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="145" name="DrillLegend_01-02" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="146" name="DrillLegend_01-15" color="7" fill="1" visible="yes" active="yes"/>
@@ -125,6 +137,20 @@
 <layer number="153" name="FabDoc1" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="154" name="FabDoc2" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="155" name="FabDoc3" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="156" name="gesam-Maß" color="7" fill="1" visible="no" active="yes"/>
+<layer number="157" name="FaceMchng" color="7" fill="1" visible="no" active="yes"/>
+<layer number="158" name="FaceMMeas" color="7" fill="1" visible="no" active="yes"/>
+<layer number="159" name="Geh-Bear2" color="7" fill="1" visible="no" active="yes"/>
+<layer number="160" name="O_Dim" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="161" name="tomplace2" color="7" fill="1" visible="no" active="yes"/>
+<layer number="166" name="AntennaArea" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="168" name="4mmHeightArea" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="191" name="mNets" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="192" name="mBusses" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="193" name="mPins" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="194" name="mSymbols" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="195" name="mNames" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="196" name="mValues" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="199" name="Contour" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="200" name="200bmp" color="1" fill="10" visible="yes" active="yes"/>
 <layer number="201" name="201bmp" color="2" fill="10" visible="yes" active="yes"/>
@@ -164,6 +190,8 @@
 <layer number="249" name="Edge" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="250" name="Descript" color="3" fill="1" visible="no" active="no"/>
 <layer number="251" name="SMDround" color="12" fill="11" visible="no" active="no"/>
+<layer number="252" name="BR-BS" color="7" fill="1" visible="no" active="yes"/>
+<layer number="253" name="Extra" color="7" fill="1" visible="no" active="yes"/>
 <layer number="254" name="cooling" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="255" name="routoute" color="7" fill="1" visible="yes" active="yes"/>
 </layers>
@@ -4983,12 +5011,6 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <package name="M2_SCREW_FOOT">
 <hole x="0" y="0" drill="2.2"/>
 </package>
-<package name="342_SWICH_FOOT">
-<smd name="P$1" x="-2.2" y="-1.125" dx="1.4" dy="1.15" layer="1" thermals="no"/>
-<smd name="P$2" x="-2.2" y="1.125" dx="1.4" dy="1.15" layer="1" thermals="no"/>
-<smd name="P$3" x="2.2" y="1.125" dx="1.4" dy="1.15" layer="1" thermals="no"/>
-<smd name="P$4" x="2.2" y="-1.125" dx="1.4" dy="1.15" layer="1" thermals="no"/>
-</package>
 </packages>
 <symbols>
 <symbol name="M2_SCREW_SYM">
@@ -4998,17 +5020,6 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 <wire x1="-10.16" y1="-5.08" x2="-10.16" y2="5.08" width="0.254" layer="94"/>
 <text x="-5.08" y="0" size="1.778" layer="94">M2 SCREW</text>
 </symbol>
-<symbol name="342_SWITCH_SYM">
-<wire x1="-7.62" y1="7.62" x2="10.16" y2="7.62" width="0.254" layer="94"/>
-<wire x1="10.16" y1="7.62" x2="10.16" y2="-5.08" width="0.254" layer="94"/>
-<wire x1="10.16" y1="-5.08" x2="-10.16" y2="-5.08" width="0.254" layer="94"/>
-<wire x1="-10.16" y1="-5.08" x2="-10.16" y2="7.62" width="0.254" layer="94"/>
-<wire x1="-10.16" y1="7.62" x2="-7.62" y2="7.62" width="0.254" layer="94"/>
-<pin name="2" x="-15.24" y="5.08" length="middle"/>
-<pin name="1" x="-15.24" y="-2.54" length="middle"/>
-<pin name="3" x="15.24" y="5.08" length="middle" rot="R180"/>
-<pin name="4" x="15.24" y="-2.54" length="middle" rot="R180"/>
-</symbol>
 </symbols>
 <devicesets>
 <deviceset name="M2_SCREW_DEV">
@@ -5017,24 +5028,6 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 </gates>
 <devices>
 <device name="" package="M2_SCREW_FOOT">
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-<deviceset name="324_SW">
-<gates>
-<gate name="G$1" symbol="342_SWITCH_SYM" x="-33.02" y="0"/>
-</gates>
-<devices>
-<device name="" package="342_SWICH_FOOT">
-<connects>
-<connect gate="G$1" pin="1" pad="P$1"/>
-<connect gate="G$1" pin="2" pad="P$2"/>
-<connect gate="G$1" pin="3" pad="P$3"/>
-<connect gate="G$1" pin="4" pad="P$4"/>
-</connects>
 <technologies>
 <technology name=""/>
 </technologies>
@@ -6682,6 +6675,71 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 </deviceset>
 </devicesets>
 </library>
+<library name="duckypad">
+<description>Generated from &lt;b&gt;duckypad.sch&lt;/b&gt;&lt;p&gt;
+by exp-lbrs.ulp</description>
+<packages>
+<package name="EVQ-Q2">
+<circle x="0" y="0" radius="1.5033" width="0.127" layer="21"/>
+<circle x="0" y="0" radius="1" width="0.127" layer="21"/>
+<wire x1="-3.3" y1="3" x2="3.3" y2="3" width="0.127" layer="21"/>
+<wire x1="3.3" y1="3" x2="3.3" y2="-3" width="0.127" layer="21"/>
+<wire x1="3.3" y1="-3" x2="-3.3" y2="-3" width="0.127" layer="21"/>
+<wire x1="-3.3" y1="-3" x2="-3.3" y2="3" width="0.127" layer="21"/>
+<smd name="A" x="-3.4" y="-2.25" dx="3.2" dy="1.2" layer="1"/>
+<smd name="A'" x="3.4" y="-2.25" dx="3.2" dy="1.2" layer="1"/>
+<smd name="B" x="-3.4" y="2.25" dx="3.2" dy="1.2" layer="1"/>
+<smd name="B'" x="3.4" y="2.25" dx="3.2" dy="1.2" layer="1"/>
+<text x="-3" y="3.5" size="1.27" layer="25">&gt;NAME</text>
+<text x="-3.2" y="-4.8" size="1.27" layer="27">&gt;VALUE</text>
+</package>
+</packages>
+<symbols>
+<symbol name="TS2">
+<circle x="0" y="-2.54" radius="0.127" width="0.4064" layer="94"/>
+<circle x="0" y="2.54" radius="0.127" width="0.4064" layer="94"/>
+<wire x1="0" y1="1.905" x2="0" y2="2.54" width="0.254" layer="94"/>
+<wire x1="-4.445" y1="1.905" x2="-3.175" y2="1.905" width="0.254" layer="94"/>
+<wire x1="-4.445" y1="-1.905" x2="-3.175" y2="-1.905" width="0.254" layer="94"/>
+<wire x1="-4.445" y1="1.905" x2="-4.445" y2="0" width="0.254" layer="94"/>
+<wire x1="-4.445" y1="0" x2="-4.445" y2="-1.905" width="0.254" layer="94"/>
+<wire x1="-2.54" y1="0" x2="-1.905" y2="0" width="0.1524" layer="94"/>
+<wire x1="-1.27" y1="0" x2="-0.635" y2="0" width="0.1524" layer="94"/>
+<wire x1="-4.445" y1="0" x2="-3.175" y2="0" width="0.1524" layer="94"/>
+<wire x1="2.54" y1="2.54" x2="0" y2="2.54" width="0.1524" layer="94"/>
+<wire x1="2.54" y1="-2.54" x2="0" y2="-2.54" width="0.1524" layer="94"/>
+<wire x1="0" y1="-2.54" x2="-1.27" y2="1.905" width="0.254" layer="94"/>
+<pin name="P" x="0" y="-5.08" visible="pad" length="short" direction="pas" swaplevel="2" rot="R90"/>
+<pin name="P1" x="2.54" y="-5.08" visible="pad" length="short" direction="pas" swaplevel="2" rot="R90"/>
+<pin name="S" x="0" y="5.08" visible="pad" length="short" direction="pas" swaplevel="1" rot="R270"/>
+<pin name="S1" x="2.54" y="5.08" visible="pad" length="short" direction="pas" swaplevel="1" rot="R270"/>
+<text x="-6.35" y="-2.54" size="1.778" layer="95" rot="R90">&gt;NAME</text>
+<text x="-3.81" y="3.175" size="1.778" layer="96" rot="R90">&gt;VALUE</text>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="SPST_TACT" prefix="SW">
+<description>SMT 6mm switch, EVQQ2 series
+&lt;p&gt;http://www.ladyada.net/library/eagle&lt;/p&gt;</description>
+<gates>
+<gate name="G$1" symbol="TS2" x="0" y="0"/>
+</gates>
+<devices>
+<device name="-EVQQ2" package="EVQ-Q2">
+<connects>
+<connect gate="G$1" pin="P" pad="A"/>
+<connect gate="G$1" pin="P1" pad="A'"/>
+<connect gate="G$1" pin="S" pad="B"/>
+<connect gate="G$1" pin="S1" pad="B'"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -6831,8 +6889,6 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="C28" library="clock" deviceset="CAP" device="0805" value="1uF"/>
 <part name="C29" library="clock" deviceset="CAP" device="0805" value="100nF"/>
 <part name="GND16" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="SW3" library="3pos_slide_switch_centered" deviceset="324_SW" device="" value="324_SW"/>
-<part name="SW4" library="3pos_slide_switch_centered" deviceset="324_SW" device="" value="324_SW"/>
 <part name="SW5" library="lul" deviceset="KAILH_SWITCH_SOCKET_KAILH_SWITCH_SOCKET" device=""/>
 <part name="SW6" library="lul" deviceset="KAILH_SWITCH_SOCKET_KAILH_SWITCH_SOCKET" device=""/>
 <part name="SW7" library="lul" deviceset="KAILH_SWITCH_SOCKET_KAILH_SWITCH_SOCKET" device=""/>
@@ -6851,9 +6907,7 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="U$8" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
 <part name="U$12" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
 <part name="U$13" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
-<part name="U$17" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
 <part name="U$23" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
-<part name="U$14" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
 <part name="TP1" library="testpad" library_urn="urn:adsk.eagle:library:385" deviceset="PTR1" device="TP11SQ" package3d_urn="urn:adsk.eagle:package:27965/1" value="PTR1TP11SQ"/>
 <part name="TP2" library="testpad" library_urn="urn:adsk.eagle:library:385" deviceset="PTR1" device="TP11SQ" package3d_urn="urn:adsk.eagle:package:27965/1" value="PTR1TP11SQ"/>
 <part name="TP3" library="testpad" library_urn="urn:adsk.eagle:library:385" deviceset="PTR1" device="TP11SQ" package3d_urn="urn:adsk.eagle:package:27965/1" value="PTR1TP11SQ"/>
@@ -6874,6 +6928,8 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="TP18" library="testpad" library_urn="urn:adsk.eagle:library:385" deviceset="TP" device="TP15R" package3d_urn="urn:adsk.eagle:package:27968/1" value="TPTP15R"/>
 <part name="TP19" library="testpad" library_urn="urn:adsk.eagle:library:385" deviceset="TP" device="TP15R" package3d_urn="urn:adsk.eagle:package:27968/1" value="TPTP15R"/>
 <part name="TP20" library="testpad" library_urn="urn:adsk.eagle:library:385" deviceset="TP" device="TP15R" package3d_urn="urn:adsk.eagle:package:27968/1" value="TPTP15R"/>
+<part name="SW20" library="duckypad" deviceset="SPST_TACT" device="-EVQQ2"/>
+<part name="SW21" library="duckypad" deviceset="SPST_TACT" device="-EVQQ2"/>
 </parts>
 <sheets>
 <sheet>
@@ -7323,8 +7379,6 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <instance part="GND16" gate="1" x="78.74" y="-154.94" smashed="yes">
 <attribute name="VALUE" x="76.2" y="-157.48" size="1.778" layer="96"/>
 </instance>
-<instance part="SW3" gate="G$1" x="152.4" y="-157.48" smashed="yes" rot="R90"/>
-<instance part="SW4" gate="G$1" x="152.4" y="-210.82" smashed="yes" rot="MR270"/>
 <instance part="SW5" gate="G$1" x="58.42" y="27.94" smashed="yes">
 <attribute name="NAME" x="53.34" y="30.48" size="1.778" layer="95"/>
 </instance>
@@ -7373,9 +7427,7 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <instance part="U$8" gate="G$1" x="523.24" y="2.54" smashed="yes"/>
 <instance part="U$12" gate="G$1" x="467.36" y="2.54" smashed="yes"/>
 <instance part="U$13" gate="G$1" x="495.3" y="2.54" smashed="yes"/>
-<instance part="U$17" gate="G$1" x="523.24" y="17.78" smashed="yes"/>
 <instance part="U$23" gate="G$1" x="467.36" y="17.78" smashed="yes"/>
-<instance part="U$14" gate="G$1" x="495.3" y="17.78" smashed="yes"/>
 <instance part="TP1" gate="G$1" x="464.82" y="-157.48" smashed="yes" rot="R90">
 <attribute name="NAME" x="471.17" y="-158.496" size="1.778" layer="95" rot="R180"/>
 <attribute name="TP_SIGNAL_NAME" x="467.36" y="-156.21" size="1.778" layer="97" rot="R90"/>
@@ -7455,6 +7507,12 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <instance part="TP20" gate="G$1" x="165.1" y="-50.8" smashed="yes">
 <attribute name="NAME" x="163.83" y="-49.53" size="1.778" layer="95"/>
 <attribute name="TP_SIGNAL_NAME" x="166.37" y="-52.07" size="1.778" layer="97"/>
+</instance>
+<instance part="SW20" gate="G$1" x="149.86" y="-236.22" smashed="yes" rot="MR270">
+<attribute name="NAME" x="152.4" y="-229.87" size="1.778" layer="95" rot="MR0"/>
+</instance>
+<instance part="SW21" gate="G$1" x="149.86" y="-132.08" smashed="yes" rot="MR270">
+<attribute name="NAME" x="152.4" y="-125.73" size="1.778" layer="95" rot="MR0"/>
 </instance>
 </instances>
 <busses>
@@ -7853,21 +7911,21 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 </segment>
 <segment>
 <pinref part="GND11" gate="1" pin="GND"/>
-<wire x1="167.64" y1="-172.72" x2="172.72" y2="-172.72" width="0.1524" layer="91"/>
-<pinref part="SW3" gate="G$1" pin="1"/>
-<wire x1="154.94" y1="-172.72" x2="167.64" y2="-172.72" width="0.1524" layer="91"/>
-<pinref part="SW3" gate="G$1" pin="4"/>
-<wire x1="154.94" y1="-142.24" x2="154.94" y2="-172.72" width="0.1524" layer="91"/>
-<junction x="154.94" y="-172.72"/>
+<wire x1="154.94" y1="-172.72" x2="172.72" y2="-172.72" width="0.1524" layer="91"/>
+<wire x1="154.94" y1="-134.62" x2="154.94" y2="-172.72" width="0.1524" layer="91"/>
+<pinref part="SW21" gate="G$1" pin="P1"/>
+<pinref part="SW21" gate="G$1" pin="P"/>
+<wire x1="154.94" y1="-132.08" x2="154.94" y2="-134.62" width="0.1524" layer="91"/>
+<junction x="154.94" y="-134.62"/>
 </segment>
 <segment>
 <pinref part="GND19" gate="1" pin="GND"/>
-<wire x1="165.1" y1="-195.58" x2="175.26" y2="-195.58" width="0.1524" layer="91"/>
-<pinref part="SW4" gate="G$1" pin="1"/>
-<wire x1="154.94" y1="-195.58" x2="165.1" y2="-195.58" width="0.1524" layer="91"/>
-<pinref part="SW4" gate="G$1" pin="4"/>
-<wire x1="154.94" y1="-195.58" x2="154.94" y2="-226.06" width="0.1524" layer="91"/>
-<junction x="154.94" y="-195.58"/>
+<wire x1="154.94" y1="-195.58" x2="175.26" y2="-195.58" width="0.1524" layer="91"/>
+<wire x1="154.94" y1="-195.58" x2="154.94" y2="-236.22" width="0.1524" layer="91"/>
+<pinref part="SW20" gate="G$1" pin="P"/>
+<pinref part="SW20" gate="G$1" pin="P1"/>
+<wire x1="154.94" y1="-236.22" x2="154.94" y2="-238.76" width="0.1524" layer="91"/>
+<junction x="154.94" y="-236.22"/>
 </segment>
 <segment>
 <pinref part="C29" gate="G$1" pin="1"/>
@@ -8516,11 +8574,14 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <net name="BUTTON1" class="0">
 <segment>
 <label x="127" y="-172.72" size="1.778" layer="95"/>
-<pinref part="SW3" gate="G$1" pin="2"/>
 <wire x1="127" y1="-172.72" x2="147.32" y2="-172.72" width="0.1524" layer="91"/>
-<pinref part="SW3" gate="G$1" pin="3"/>
-<wire x1="147.32" y1="-142.24" x2="147.32" y2="-172.72" width="0.1524" layer="91"/>
-<junction x="147.32" y="-172.72"/>
+<wire x1="147.32" y1="-137.16" x2="147.32" y2="-172.72" width="0.1524" layer="91"/>
+<wire x1="147.32" y1="-137.16" x2="144.78" y2="-137.16" width="0.1524" layer="91"/>
+<pinref part="SW21" gate="G$1" pin="S1"/>
+<wire x1="144.78" y1="-137.16" x2="144.78" y2="-134.62" width="0.1524" layer="91"/>
+<pinref part="SW21" gate="G$1" pin="S"/>
+<wire x1="144.78" y1="-134.62" x2="144.78" y2="-132.08" width="0.1524" layer="91"/>
+<junction x="144.78" y="-134.62"/>
 </segment>
 <segment>
 <pinref part="IC1" gate="PORTA_L" pin="PA1"/>
@@ -8530,13 +8591,15 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 </net>
 <net name="BUTTON2" class="0">
 <segment>
-<wire x1="124.46" y1="-195.58" x2="139.7" y2="-195.58" width="0.1524" layer="91"/>
+<wire x1="124.46" y1="-195.58" x2="147.32" y2="-195.58" width="0.1524" layer="91"/>
 <label x="124.46" y="-195.58" size="1.778" layer="95"/>
-<pinref part="SW4" gate="G$1" pin="2"/>
-<wire x1="139.7" y1="-195.58" x2="147.32" y2="-195.58" width="0.1524" layer="91"/>
-<pinref part="SW4" gate="G$1" pin="3"/>
 <wire x1="147.32" y1="-195.58" x2="147.32" y2="-226.06" width="0.1524" layer="91"/>
-<junction x="147.32" y="-195.58"/>
+<pinref part="SW20" gate="G$1" pin="S"/>
+<wire x1="147.32" y1="-226.06" x2="144.78" y2="-226.06" width="0.1524" layer="91"/>
+<wire x1="144.78" y1="-226.06" x2="144.78" y2="-236.22" width="0.1524" layer="91"/>
+<pinref part="SW20" gate="G$1" pin="S1"/>
+<wire x1="144.78" y1="-238.76" x2="144.78" y2="-236.22" width="0.1524" layer="91"/>
+<junction x="144.78" y="-236.22"/>
 </segment>
 <segment>
 <pinref part="IC1" gate="PORTA_L" pin="PA2"/>
