@@ -108,9 +108,12 @@ automatically splits STRING/STRINGLN commands if too long
 1.6.4 2024 01 22
 Fixed a bug where TRUE and FALSE is replaced with 1 and 0 inside STRING statements
 
+1.6.5 2024 10 29
+added exist_ok to makedirs() to suppress exception
+
 """
 
-THIS_VERSION_NUMBER = '1.6.4'
+THIS_VERSION_NUMBER = '1.6.5'
 MIN_DUCKYPAD_FIRMWARE_VERSION = "1.1.2"
 MAX_DUCKYPAD_FIRMWARE_VERSION = "1.10.10"
 
@@ -119,7 +122,7 @@ UI_SCALE = float(ENV_UI_SCALE) if ENV_UI_SCALE else 1
 
 def ensure_dir(dir_path):
     if not os.path.exists(dir_path):
-        os.makedirs(dir_path)
+        os.makedirs(dir_path, exist_ok=True)
 
 def is_root():
     return os.getuid() == 0
