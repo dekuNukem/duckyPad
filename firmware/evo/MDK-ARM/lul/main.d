@@ -66,3 +66,4 @@ lul\main.o: ../Inc/usbd_conf.h
 lul\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 lul\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 lul\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+lul\main.o: ../Inc/fonts.h

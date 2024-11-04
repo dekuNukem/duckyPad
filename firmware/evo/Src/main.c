@@ -24,6 +24,10 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+
+
+#include "fonts.h"
+
 #pragma import(__use_no_semihosting_swi)
 #pragma import(__use_no_semihosting) 
 
