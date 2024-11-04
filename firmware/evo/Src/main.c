@@ -63,6 +63,8 @@ SPI_HandleTypeDef hspi1;
 UART_HandleTypeDef huart1;
 
 osThreadId kb_scanHandle;
+uint32_t kb_scanBuffer[ 128 ];
+osStaticThreadDef_t kb_scanControlBlock;
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -145,7 +147,7 @@ int main(void)
 
   /* Create the thread(s) */
   /* definition and creation of kb_scan */
-  osThreadDef(kb_scan, kb_scan_task, osPriorityNormal, 0, 256);
+  osThreadStaticDef(kb_scan, kb_scan_task, osPriorityNormal, 0, 128, kb_scanBuffer, &kb_scanControlBlock);
   kb_scanHandle = osThreadCreate(osThread(kb_scan), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
