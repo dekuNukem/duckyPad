@@ -25,8 +25,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
-
 #include "fonts.h"
+#include "ssd1306.h"
 
 #pragma import(__use_no_semihosting_swi)
 #pragma import(__use_no_semihosting) 
@@ -70,7 +70,10 @@ osThreadId kb_scanHandle;
 uint32_t kb_scanBuffer[ 128 ];
 osStaticThreadDef_t kb_scanControlBlock;
 /* USER CODE BEGIN PV */
-
+uint8_t fw_version_major = 1;
+uint8_t fw_version_minor = 3;
+uint8_t fw_version_patch = 2;
+char instruction[] = "For instructions, see";
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -90,8 +93,8 @@ void kb_scan_task(void const * argument);
 /* USER CODE BEGIN 0 */
 int fputc(int ch, FILE *f)
 {
-    HAL_UART_Transmit(&huart1, (unsigned char *)&ch, 1, 100);
-    return ch;
+  HAL_UART_Transmit(&huart1, (unsigned char *)&ch, 1, 100);
+  return ch;
 }
 
 /* USER CODE END 0 */
@@ -147,6 +150,9 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
+
+   ssd1306_Init();
+
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
