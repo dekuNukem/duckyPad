@@ -24,9 +24,11 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
-/*
+#include "fonts.h"
+#include "ssd1306.h"
 
-in menu
+/*
+menu bar:
 project
 manage
 runtime environment
@@ -154,6 +156,12 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  oled_reset();
+  ssd1306_Init();
+  ssd1306_Fill(Black);
+  ssd1306_SetCursor(10, 10);
+  ssd1306_WriteString("hello",Font_6x10,White);
+  ssd1306_UpdateScreen();
   while (1)
   {
     /* USER CODE END WHILE */
