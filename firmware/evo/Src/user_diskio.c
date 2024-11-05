@@ -35,6 +35,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include <string.h>
 #include "ff_gen_drv.h"
+#include "sd_util.h"
+#include "user_diskio.h"
+
+hwif hw;
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -81,6 +85,8 @@ DSTATUS USER_initialize (
 )
 {
   /* USER CODE BEGIN INIT */
+    if (hwif_init(&hw) == 0)
+      return 0;
     Stat = STA_NOINIT;
     return Stat;
   /* USER CODE END INIT */
@@ -96,8 +102,10 @@ DSTATUS USER_status (
 )
 {
   /* USER CODE BEGIN STATUS */
-    Stat = STA_NOINIT;
-    return Stat;
+  if(hw.initialized)
+    return 0;
+  Stat = STA_NOINIT;
+  return Stat;
   /* USER CODE END STATUS */
 }
 
@@ -117,7 +125,10 @@ DRESULT USER_read (
 )
 {
   /* USER CODE BEGIN READ */
-    return RES_OK;
+  for (int i=0; i<count; i++)
+    if (sd_read(&hw, sector+i, buff+512*i) != 0)
+      return RES_ERROR;
+  return RES_OK;
   /* USER CODE END READ */
 }
 
@@ -139,7 +150,10 @@ DRESULT USER_write (
 {
   /* USER CODE BEGIN WRITE */
   /* USER CODE HERE */
-    return RES_OK;
+  for (int i=0; i<count; i++)
+    if (sd_write(&hw, sector+i, buff+512*i) != 0)
+      return RES_ERROR;
+  return RES_OK;
   /* USER CODE END WRITE */
 }
 #endif /* _USE_WRITE == 1 */
@@ -159,8 +173,22 @@ DRESULT USER_ioctl (
 )
 {
   /* USER CODE BEGIN IOCTL */
-    DRESULT res = RES_ERROR;
-    return res;
+  switch (cmd)
+  {
+    case CTRL_SYNC:
+      return RES_OK;
+    case GET_SECTOR_SIZE:
+      *(WORD*)buff = 512;
+      return RES_OK;
+    case GET_SECTOR_COUNT:
+      *(DWORD*)buff = hw.sectors;
+      return RES_OK;
+    case GET_BLOCK_SIZE:
+      *(DWORD*)buff = hw.erase_sectors;
+      return RES_OK;
+  }
+  DRESULT res = RES_ERROR;
+  return res;
   /* USER CODE END IOCTL */
 }
 #endif /* _USE_IOCTL == 1 */

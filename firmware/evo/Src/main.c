@@ -23,9 +23,13 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <stdio.h>
+// #include <string.h>
+// #include <stdlib.h>
+#include <stdint.h>
 #include "fonts.h"
 #include "ssd1306.h"
+#include "sd_util.h"
 
 /*
 menu bar:
@@ -113,7 +117,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	//printf("3\n");
 }
-
+FATFS sd_fs;
 /* USER CODE END 0 */
 
 /**
@@ -162,12 +166,15 @@ int main(void)
   ssd1306_SetCursor(10, 10);
   ssd1306_WriteString("hello",Font_6x10,White);
   ssd1306_UpdateScreen();
+
+  uint8_t mount_result = f_mount(&sd_fs, "", 1);
+
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		printf("hello world\n");
+		printf("mount_result: %d\n", mount_result);
 		HAL_Delay(500);
   }
   /* USER CODE END 3 */
