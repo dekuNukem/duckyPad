@@ -32,6 +32,7 @@
 #include "ssd1306.h"
 #include "sd_util.h"
 #include "cQueue.h"
+#include "input_task.h"
 
 /*
 menu bar:
@@ -57,7 +58,6 @@ int stdin_getchar (void)
 {
   return 0;
 }
-
 int stdout_putchar (int ch) {
   return 0;
 }
@@ -94,7 +94,7 @@ TIM_HandleTypeDef htim17;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-
+FATFS sd_fs;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -120,7 +120,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	//printf("3\n");
 }
-FATFS sd_fs;
 /* USER CODE END 0 */
 
 /**
