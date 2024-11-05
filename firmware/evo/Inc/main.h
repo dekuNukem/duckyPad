@@ -31,7 +31,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "ff.h"
+
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -102,18 +102,7 @@ void Error_Handler(void);
 #define SW10_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
-extern SPI_HandleTypeDef hspi1;
-extern I2C_HandleTypeDef hi2c1;
-extern UART_HandleTypeDef huart1;
-extern IWDG_HandleTypeDef hiwdg;
-extern TIM_HandleTypeDef htim6;
 
-extern char instruction[];
-extern char project_url[];
-
-extern uint8_t fw_version_major;
-extern uint8_t fw_version_minor;
-extern uint8_t fw_version_patch;
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
