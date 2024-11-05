@@ -23,13 +23,15 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <stdio.h>
+
+// #include <stdio.h>
 // #include <string.h>
 // #include <stdlib.h>
 #include <stdint.h>
 #include "fonts.h"
 #include "ssd1306.h"
 #include "sd_util.h"
+#include "cQueue.h"
 
 /*
 menu bar:
@@ -42,6 +44,7 @@ set all to user
 check box, press save
 add code below
 */
+
 #pragma import(__use_no_semihosting_swi)
 #pragma import(__use_no_semihosting) 
 void _sys_exit(int x) { 
