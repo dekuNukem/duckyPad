@@ -8,11 +8,13 @@
 
 ### 1.3.3 (Dec 2 2024)
 
-👉👉 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v1.3.3.dfu)
+👉👉👉👉👉 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v1.3.3.dfu) 👈👈👈👈👈
 
 🐞 Fixed a bug where RGB brightness gets dimmer after reloading
 
 🐞 Fixed a bug where `MOUSE_WHEEL` command can be unresponsive
+
+----------
 
 💭 If you haven't already, check out the newly announced [duckyPad Pro](https://dekunukem.github.io/duckyPad-Pro/)!
 
@@ -20,12 +22,12 @@
 * More Keys
 * Bluetooth
 * Bigger OLED
-
-* [Pre-order on Kickstarter](https://www.kickstarter.com/projects/dekunukem/duckypad-pro-advanced-macro-scripting-beyond-qmk-via) with **Jan 2025** shipping.
+* QoL Improvements
+* [Pre-order on Kickstarter](https://www.kickstarter.com/projects/dekunukem/duckypad-pro-advanced-macro-scripting-beyond-qmk-via) with **Jan 2025** shipping
 
 Of course, your OG duckyPad will continue to be supported!
 
-I'm planning to backport many new features, expect an big update early 2025!
+I'm planning to backport many new features, expect a big update early 2025!
 
 ## USB Firmware Update
 
