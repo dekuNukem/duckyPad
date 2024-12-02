@@ -153,11 +153,15 @@ change BIN_BUF_SIZE in ds3_vm.c if out of space
 1.3.2
 2024 01 22
 fixed backlight brightness saving bug
+
+1.3.3
+2024 12 02
+Fixed non-responsive mouse scroll bug 
 */
 
 uint8_t fw_version_major = 1;
 uint8_t fw_version_minor = 3;
-uint8_t fw_version_patch = 2;
+uint8_t fw_version_patch = 3;
 char instruction[] = "For instructions, see";
 /* USER CODE END PV */
 

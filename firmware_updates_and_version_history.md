@@ -6,25 +6,26 @@
 
 ## Latest Firmware
 
-### 1.3.0 (July 2 2023)
+### 1.3.3 (Dec 2 2024)
 
-👉👉 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v1.3.0.dfu)
+👉👉 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v1.3.3.dfu)
 
-🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
+🐞 Fixed a bug where RGB brightness gets dimmer after reloading
 
-**Make sure to use the [LATEST CONFIGURATOR](https://github.com/dekuNukem/duckyPad/releases/latest) with this update!**
+🐞 Fixed a bug where `MOUSE_WHEEL` command can be unresponsive
 
-🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
+💭 If you haven't already, check out the newly announced [duckyPad Pro](https://dekunukem.github.io/duckyPad-Pro/)!
 
-🆕 Added `_TIME_S` reserved variable
+* Rotary Encoders
+* More Keys
+* Bluetooth
+* Bigger OLED
 
-🐞 Fixed laggy `EMUK`
+* [Pre-order on Kickstarter](https://www.kickstarter.com/projects/dekunukem/duckypad-pro-advanced-macro-scripting-beyond-qmk-via) with **Jan 2025** shipping.
 
-🐞 Fixed `EMUK` n-key rollover not working
+Of course, your OG duckyPad will continue to be supported!
 
-🐞 Fixed pad crashing when changing profile under certain circumstances
-
-💭 As usual, [Let me know](#questions-or-comments) if you encounter any issues.
+I'm planning to backport many new features, expect an big update early 2025!
 
 ## USB Firmware Update
 
@@ -60,7 +61,7 @@ In `Available DFU Devices`, you should see a `STM Device in DFU Mode`.
 
 Press `Choose...` button and select a firmware file in `.dfu` format.
 
-* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v1.3.0.dfu) to download the latest firmware (v1.3.0)
+* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v1.3.3.dfu) to download the latest firmware (v1.3.3)
 
 * ...or [scroll down](#firmware-version-history) for older firmware versions.
 
@@ -95,6 +96,16 @@ After completion, press **`RESET`** button (or power-cycle) to start using the n
 [Download Old Firmwares Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/old)
 
 ☝️☝️☝️☝️☝️☝️☝️☝️☝️☝️
+
+### 1.3.0 (July 2 2023)
+
+🆕 Added `_TIME_S` reserved variable
+
+🐞 Fixed laggy `EMUK`
+
+🐞 Fixed `EMUK` n-key rollover not working
+
+🐞 Fixed crashing when changing profile under certain circumstances
 
 ### 1.2.0 (May 3 2023)
 
