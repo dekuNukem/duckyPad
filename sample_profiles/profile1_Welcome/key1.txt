@@ -1,0 +1,104 @@
+DEFAULTCHARDELAY 25
+DEFAULTDELAY 25
+
+DEFINE PLUS_BUTTON 17
+
+FUNCTION blink()
+    VAR $count = 0
+    WHILE $count < 4
+        SWC_FILL 100 100 100
+        DELAY 200
+        SWC_FILL 0 0 0
+        DELAY 200
+        $count = $count + 1
+    END_WHILE
+END_FUNCTION
+
+VAR $THISKEY = 0
+FUNCTION BLOCKING_READKEY()
+    $THISKEY = 0
+    BCLR
+    WHILE 1
+        DELAY 50
+        $THISKEY = $_READKEY
+        IF $THISKEY != 0 THEN
+            LBREAK
+        END_IF
+    END_WHILE
+END_FUNCTION
+
+OLED_CLEAR
+OLED_CURSOR 20 0
+OLED_PRINT Are you using
+OLED_CURSOR 20 15
+OLED_PRINT Windows?
+
+OLED_CURSOR 20 50
+OLED_PRINT -:No     +:Yes
+OLED_UPDATE
+
+blink()
+
+VAR $temp = 0
+BLOCKING_READKEY()
+VAR $is_win = $THISKEY == PLUS_BUTTON
+
+IF $is_win THEN
+    SWC_FILL 0 128 0
+    WINDOWS R
+    DELAY 750
+    STRINGLN notepad
+    DELAY 750
+ELSE
+    OLED_CLEAR
+    OLED_CURSOR 10 20
+    OLED_PRINT Open a text editor
+    OLED_CURSOR 10 40
+    OLED_PRINT Anykey when ready
+    OLED_UPDATE
+    BLOCKING_READKEY()
+    SWC_FILL 0 128 0
+END_IF
+
+OLED_CLEAR
+OLED_CURSOR 30 25
+OLED_PRINT Typing...
+OLED_UPDATE
+
+STRINGLN_BLOCK
+Welcome to duckyPad!
+ _
+<(.)__
+ (___/
+
+I can automate any keyboard/mouse task you want.
+From simple shortcuts to complex scripts (like this one!)
+
+----
+
+duckyPad uses duckyScript. It's very powerful but can get pretty complex.
+
+Let's start simple!
+
+This row has a few shortcuts. Easy to write but still very useful.
+
+Try out each row to see what duckyPad can do!
+
+----
+
+Full instructions:
+
+duckyPad.com
+
+Questions or comments? Join our Discord!
+
+https://discord.gg/4sJCBx5
+END_STRINGLN
+
+IF $is_win THEN
+    CTRL +
+    REPEAT 4
+    WINDOWS UP
+END_IF
+
+SWC_RESET 99

@@ -1,0 +1,17 @@
+OLED_CLEAR
+OLED_CURSOR 5 20
+OLED_PRINT Simple RGB Demo!
+OLED_UPDATE
+
+// Change all RGB colors
+SWC_FILL 64 64 64
+
+// Change individual RGB
+SWC_SET 1 128 0 0
+SWC_SET 2 0 128 0
+SWC_SET 3 0 0 128
+
+DELAY 2000
+
+// reset RGB color
+SWC_RESET 99
