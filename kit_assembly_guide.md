@@ -20,35 +20,19 @@ A socket bit or **pair of pliers** also helps, but not required.
 
 ## Assembly Steps
 
-By now, you should have:
-
-* 1x duckyPad circuit board
-
-* 1x Front Plate
-
-* 1x Back Plate
-
-* 15x Cherry MX-style switches
-
-* 15x Keycaps
-
-* 4x Silicone Anti-slip Pad
-
-* Fasteners
-
-* microSD Card
+You should have the following items:
 
 ![Alt text](resources/pics/assembly/assembly1.jpeg)
 
-You should have the following fasteners:
+And the following fasteners:
 
 * 6x `8mm Screw`
 
 * 8x `2.8mm Screw`
 
-* 7x `3mm Standoff`
+* 7x `3mm Spacer`
 
-* 6x `4mm Standoff`
+* 6x `4mm Spacer`
 
 ![Alt text](resources/pics/assembly/assembly3.jpeg)
 
