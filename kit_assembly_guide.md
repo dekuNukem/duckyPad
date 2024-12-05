@@ -4,35 +4,19 @@
 
 ------
 
-Thanks for purchasing duckyPad! Here is a short guide on how to put everything together.
+Thanks for getting duckyPad!
+
+Here's how to put everything together.
 
 ## Join Our Discord!
 
 Feel free to join our [Official Discord](https://discord.gg/4sJCBx5) for discussions, asking questions, sharing scripts, and latest updates!
 
-## Recommended Tools
+## Tools
 
-A small Phillips-head screwdriver (`+`shape) is needed, there should be one provided in the package.
+A small **Phillips-head screwdriver** (`+`shape) should be provided in the package.
 
-A pair of pliers would make tightening the fasteners easier, but by no means required. You can use your hand just fine.
-
-![Alt text](resources/pics/assembly/tools.jpg)
-
-## Handling Bare Circuit Boards
-
-When handling the bare circuit board, remember to:
-
-* Wash your hands first
-
-* Always hold the circuit board by its edge
-
-* Don't touch the components
-
-The reason for hand-washing is to reduce the risk of static electricity(SE) on your body zapping the board and damage it, especially in dry weather.
-
-By washing your hands, you release the existing SE through the metal water pipe, your hands are moist to prevent further SE build-up, and your clean hands won't leave greasy fingerprints all over the place, win-win-win!
-
-Of course, your hands can't be dripping wet either, but that's just common sense.
+A socket bit or **pair of pliers** also helps, but not required.
 
 ## Assembly Steps
 
@@ -62,15 +46,19 @@ You should have the following fasteners:
 
 * 8x `2.8mm Screw`
 
-* 7x `2mm Standoff`
+* 7x `3mm Standoff`
 
 * 6x `4mm Standoff`
 
-Be careful while handling them, if you drop one you'll never find it again!
-
-Probably safer to leave them in the bag for now.
-
 ![Alt text](resources/pics/assembly/assembly3.jpeg)
+
+Pay special attention to the **brass spacers**!
+
+![Alt text](resources/pics/assembly/4mm3mm.png)
+
+* One is **slightly shorter** than the other.
+
+* Separate them out before starting, don't mix them up!
 
 Start by peeling off the protective cover on the front and back plate:
 
@@ -84,7 +72,7 @@ Start from a hole in the middle, put a `8mm Screw` through the back side:
 
 ![Alt text](resources/pics/assembly/assembly5.jpeg)
 
-Then screw on the `2mm Standoff`.
+Then screw on the `3mm Spacers`.
 
 Don't over-tighten! Doing so might deform or crack the acrylic plate.
 
@@ -100,17 +88,17 @@ Put a `2.8mm Screw` through that one:
 
 ![Alt text](resources/pics/assembly/assembly8.jpeg)
 
-And install the `2mm Standoff`.
-
-This is gonna be a PITA, but you'll eventually get it :) Careful not to drop the small parts. 
+And install the `3mm Spacers`.
 
 ![Alt text](resources/pics/assembly/assembly9.jpeg)
 
-Now go wash your hands, grab the circuit board by its edge, line up and install as shown:
+**Wash your hands** to discharge static electricity.
+
+Grab the circuit board by its edge, line up and install as shown:
 
 ![Alt text](resources/pics/assembly/assembly10.jpeg)
 
-Then install all 6 `4mm Standoffs`, moderately tighten.
+Then install all six `4mm Spacers`, moderately tighten.
 
 Also install the `2.8mm Screw` on the lower right.
 
