@@ -17,9 +17,9 @@ find ./pc_software -name "*.zip" -exec rm -rf {} \;
 find ./pc_software -type f -name "*.spec*" -exec rm -f {} \;
 
 python update_firmware_ref.py
-# rm ./sample_profiles.zip
-# 7z.exe a -r sample_profiles.zip ./sample_profiles/*
-# zip -rv sample_profiles.zip ./sample_profiles/*
+rm ./sample_profiles.zip
+7z.exe a -r sample_profiles.zip ./sample_profiles/*
+zip -rv sample_profiles.zip ./sample_profiles/*
 cd ./pc_software
 python _zip_source.py
 
