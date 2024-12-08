@@ -8,6 +8,8 @@ A couple of commonly encountered issues are explained here.
 
 Click a question below to jump to the answer!
 
+* [I plugged it in and nothing happens!](#I-plugged-it-in-and-nothing-happens)
+
 * [I press a key and nothing happens!](#I-press-a-key-and-nothing-happens)
 
 * [The letters and symbols come out wrong!](#The-letters-and-symbols-come-out-wrong)
@@ -41,6 +43,20 @@ Click a question below to jump to the answer!
 If you have some issues that's not in this list, feel free to join our [Official Discord](https://discord.gg/4sJCBx5) to ask about it! We also have discussions, script sharing, and latest updates!
 
 ----
+
+## I plugged it in and nothing happens!
+
+If after assembling your new duckyPad, and you plug it in, only to find the screen doesn't work, nor do the keyboard backlights light up, don't despair - chance are that it's probably an incompatible cable, rather than anything wrong with the hardware.
+
+We've found that some USB-C to USB-C cables don't work with the duckyPad on Mac's. For example, these cable do **not** work when connecting a duckyPad to an Apple Silicon MacBook Pro:
+
+- Thunderbolt 3 cable (USB-C to USB-C)
+- Thunderbolt 4 cable (USB-C to USB-C) 
+- USB 3.1/USB 3.1 Gen 2/USB 3.2 Gen 2x1 (USB-C to USB-C)
+
+However, using a USB 3.0 Standard-A to USB-C cable (with an [Apple USB-C to USB Adapter](https://www.apple.com/au/shop/product/MJ1M2AM/A/usb-c-to-usb-adapter)) works great.
+
+Long story short - if you plug in your new duckyPad and nothing happens - try a different cable.
 
 ## I press a key and nothing happens!
 
