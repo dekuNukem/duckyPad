@@ -813,7 +813,7 @@ int sd_read(hwif* hw, u32 address, u8 *buf)
   }
   if (tries == -1)
   {
-    // printf("%s: couldn't read sector %li\n", __func__, address);
+    printf("%s: couldn't read sector %li\n", __func__, address);
   }
 
   return r;
@@ -837,7 +837,7 @@ int sd_write(hwif* hw, u32 address,const u8 *buf)
   }
   if (tries == -1)
   {
-    // printf("%s: couldn't write sector %li\n", __func__, address);
+    printf("%s: couldn't write sector %li\n", __func__, address);
   }
 
   return r;
