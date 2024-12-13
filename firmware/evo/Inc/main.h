@@ -69,10 +69,10 @@ void Error_Handler(void);
 #define SW15_GPIO_Port GPIOF
 #define OLED_RESET_Pin GPIO_PIN_0
 #define OLED_RESET_GPIO_Port GPIOA
-#define BUTTON_1_Pin GPIO_PIN_1
-#define BUTTON_1_GPIO_Port GPIOA
-#define BUTTON_2_Pin GPIO_PIN_2
-#define BUTTON_2_GPIO_Port GPIOA
+#define MINUS_BUTTON_Pin GPIO_PIN_1
+#define MINUS_BUTTON_GPIO_Port GPIOA
+#define PLUS_BUTTON_Pin GPIO_PIN_2
+#define PLUS_BUTTON_GPIO_Port GPIOA
 #define CARD_DETECT_Pin GPIO_PIN_4
 #define CARD_DETECT_GPIO_Port GPIOA
 #define CARD_DETECT_EXTI_IRQn EXTI4_15_IRQn

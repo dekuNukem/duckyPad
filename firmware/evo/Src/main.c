@@ -95,6 +95,7 @@ UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 FATFS sd_fs;
+uint32_t current_tick;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -118,7 +119,7 @@ int fputc(int ch, FILE *f)
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	//printf("3\n");
+	current_tick++;
 }
 /* USER CODE END 0 */
 
@@ -179,7 +180,8 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		HAL_Delay(500);
+    sw_scan();
+		HAL_Delay(100);
   }
   /* USER CODE END 3 */
 }
@@ -338,9 +340,9 @@ static void MX_TIM17_Init(void)
 
   /* USER CODE END TIM17_Init 1 */
   htim17.Instance = TIM17;
-  htim17.Init.Prescaler = 47;
+  htim17.Init.Prescaler = 39;
   htim17.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim17.Init.Period = 20000;
+  htim17.Init.Period = 5000;
   htim17.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim17.Init.RepetitionCounter = 0;
   htim17.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -431,8 +433,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : BUTTON_1_Pin BUTTON_2_Pin SW4_Pin SW5_Pin */
-  GPIO_InitStruct.Pin = BUTTON_1_Pin|BUTTON_2_Pin|SW4_Pin|SW5_Pin;
+  /*Configure GPIO pins : MINUS_BUTTON_Pin PLUS_BUTTON_Pin SW4_Pin SW5_Pin */
+  GPIO_InitStruct.Pin = MINUS_BUTTON_Pin|PLUS_BUTTON_Pin|SW4_Pin|SW5_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);

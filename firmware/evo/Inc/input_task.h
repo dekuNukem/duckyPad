@@ -40,6 +40,7 @@ typedef struct
 #define EXP_BUTTON_END (MAX_TOTAL_SW_COUNT-1)
 
 void switch_init(void);
+void sw_scan(void);
 
 #ifdef __cplusplus
 }

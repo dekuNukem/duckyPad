@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdio.h>
 #include "input_task.h"
 #include "cQueue.h"
 #include "main.h"
@@ -32,6 +33,7 @@ void sw_scan(void)
     this_sw_state[MSW_12] = 1 - HAL_GPIO_ReadPin(SW13_GPIO_Port, SW13_Pin);
     this_sw_state[MSW_13] = 1 - HAL_GPIO_ReadPin(SW14_GPIO_Port, SW14_Pin);
     this_sw_state[MSW_14] = 1 - HAL_GPIO_ReadPin(SW15_GPIO_Port, SW15_Pin);
-    this_sw_state[SW_MINUS] = 1 - HAL_GPIO_ReadPin(BUTTON_1_GPIO_Port, BUTTON_1_Pin);
-    this_sw_state[SW_PLUS] = 1 - HAL_GPIO_ReadPin(BUTTON_2_GPIO_Port, BUTTON_2_Pin);
+    this_sw_state[SW_MINUS] = 1 - HAL_GPIO_ReadPin(MINUS_BUTTON_GPIO_Port, MINUS_BUTTON_Pin);
+    this_sw_state[SW_PLUS] = 1 - HAL_GPIO_ReadPin(PLUS_BUTTON_GPIO_Port, PLUS_BUTTON_Pin);
 }
+
