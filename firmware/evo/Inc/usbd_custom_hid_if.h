@@ -1,9 +1,9 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file           : usbd_storage_if.h
+  * @file           : usbd_custom_hid_if.h
   * @version        : v2.0_Cube
-  * @brief          : Header for usbd_storage_if.c file.
+  * @brief          : Header for usbd_custom_hid_if.c file.
   ******************************************************************************
   * @attention
   *
@@ -19,15 +19,15 @@
 /* USER CODE END Header */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __USBD_STORAGE_IF_H__
-#define __USBD_STORAGE_IF_H__
+#ifndef __USBD_CUSTOM_HID_IF_H__
+#define __USBD_CUSTOM_HID_IF_H__
 
 #ifdef __cplusplus
  extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "usbd_msc.h"
+#include "usbd_customhid.h"
 
 /* USER CODE BEGIN INCLUDE */
 
@@ -38,12 +38,12 @@
   * @{
   */
 
-/** @defgroup USBD_STORAGE USBD_STORAGE
-  * @brief Header file for the usb_storage_if.c file
+/** @defgroup USBD_CUSTOM_HID USBD_CUSTOM_HID
+  * @brief Usb custom human interface device module.
   * @{
   */
 
-/** @defgroup USBD_STORAGE_Exported_Defines USBD_STORAGE_Exported_Defines
+/** @defgroup USBD_CUSTOM_HID_Exported_Defines USBD_CUSTOM_HID_Exported_Defines
   * @brief Defines.
   * @{
   */
@@ -56,7 +56,7 @@
   * @}
   */
 
-/** @defgroup USBD_STORAGE_Exported_Types USBD_STORAGE_Exported_Types
+/** @defgroup USBD_CUSTOM_HID_Exported_Types USBD_CUSTOM_HID_Exported_Types
   * @brief Types.
   * @{
   */
@@ -69,7 +69,7 @@
   * @}
   */
 
-/** @defgroup USBD_STORAGE_Exported_Macros USBD_STORAGE_Exported_Macros
+/** @defgroup USBD_CUSTOM_HID_Exported_Macros USBD_CUSTOM_HID_Exported_Macros
   * @brief Aliases.
   * @{
   */
@@ -82,13 +82,13 @@
   * @}
   */
 
-/** @defgroup USBD_STORAGE_Exported_Variables USBD_STORAGE_Exported_Variables
+/** @defgroup USBD_CUSTOM_HID_Exported_Variables USBD_CUSTOM_HID_Exported_Variables
   * @brief Public variables.
   * @{
   */
 
-/** STORAGE Interface callback. */
-extern USBD_StorageTypeDef USBD_Storage_Interface_fops_FS;
+/** CUSTOMHID Interface callback. */
+extern USBD_CUSTOM_HID_ItfTypeDef USBD_CustomHID_fops_FS;
 
 /* USER CODE BEGIN EXPORTED_VARIABLES */
 
@@ -98,7 +98,7 @@ extern USBD_StorageTypeDef USBD_Storage_Interface_fops_FS;
   * @}
   */
 
-/** @defgroup USBD_STORAGE_Exported_FunctionsPrototype USBD_STORAGE_Exported_FunctionsPrototype
+/** @defgroup USBD_CUSTOM_HID_Exported_FunctionsPrototype USBD_CUSTOM_HID_Exported_FunctionsPrototype
   * @brief Public functions declaration.
   * @{
   */
@@ -123,5 +123,5 @@ extern USBD_StorageTypeDef USBD_Storage_Interface_fops_FS;
 }
 #endif
 
-#endif /* __USBD_STORAGE_IF_H__ */
+#endif /* __USBD_CUSTOM_HID_IF_H__ */
 

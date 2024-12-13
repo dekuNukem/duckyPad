@@ -20,7 +20,5 @@ int hwif_init(hwif* hw);
 int sd_read(hwif* hw, u32 address, u8 *buf);
 int sd_write(hwif* hw, u32 address,const u8 *buf);
 
-extern hwif hw;
-
 #endif
 

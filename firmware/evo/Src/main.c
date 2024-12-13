@@ -154,7 +154,7 @@ int main(void)
   MX_SPI1_Init();
   MX_FATFS_Init();
   MX_I2C1_Init();
-  // MX_USB_DEVICE_Init();
+  MX_USB_DEVICE_Init();
   MX_TIM17_Init();
   /* USER CODE BEGIN 2 */
 	HAL_TIM_Base_Start_IT(&htim17);
@@ -171,18 +171,12 @@ int main(void)
 
   uint8_t mount_result = f_mount(&sd_fs, "", 1);
 
-  if(mount_result == 0)
-  {
-    printf("USB INIT\n");
-    MX_USB_DEVICE_Init();
-  }
-
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		// printf("mount_result: %d\n", mount_result);
+		printf("mount_result: %d\n", mount_result);
 		HAL_Delay(500);
   }
   /* USER CODE END 3 */
