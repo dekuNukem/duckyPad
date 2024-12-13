@@ -1,11 +1,11 @@
 #include <string.h>
 #include <stdio.h>
 #include "input_task.h"
-#include "cQueue.h"
 #include "main.h"
+#include "shared.h"
 
 #define SWITCH_EVENT_QUEUE_SIZE 10
-Queue_t q;
+Queue_t switch_event_queue;
 
 uint8_t this_sw_state[MAX_TOTAL_SW_COUNT];
 uint8_t last_sw_state[MAX_TOTAL_SW_COUNT];
@@ -13,7 +13,9 @@ uint32_t last_press_ts[MAX_TOTAL_SW_COUNT];
 
 void switch_init(void)
 {
-    q_init(&q, sizeof(switch_event_t), SWITCH_EVENT_QUEUE_SIZE, FIFO, 0);
+    sw_scan();
+	memcpy(last_sw_state, this_sw_state, MAX_TOTAL_SW_COUNT);
+    q_init(&switch_event_queue, sizeof(switch_event_t), SWITCH_EVENT_QUEUE_SIZE, FIFO, 0);
 }
 
 void sw_scan(void)
@@ -37,3 +39,30 @@ void sw_scan(void)
     this_sw_state[SW_PLUS] = 1 - HAL_GPIO_ReadPin(PLUS_BUTTON_GPIO_Port, PLUS_BUTTON_Pin);
 }
 
+void kb_scan_task(void)
+{
+    sw_scan();
+    for (uint8_t i = 0; i < TOTAL_OBSW_COUNT; i++)
+	{
+        if(this_sw_state[i] == 1 && last_sw_state[i] == 0)
+        {
+            switch_event_t sw_event = 
+            {
+                .id = i,
+                .type = SW_EVENT_SHORT_PRESS,
+            };
+            last_press_ts[i] = millis();
+            q_push(&switch_event_queue, &sw_event);
+        }
+        else if(this_sw_state[i] == 0 && last_sw_state[i] == 1)
+        {
+            switch_event_t sw_event = 
+            {
+                .id = i,
+                .type = SW_EVENT_RELEASE,
+            };
+            q_push(&switch_event_queue, &sw_event);
+        }
+    }
+    memcpy(last_sw_state, this_sw_state, MAX_TOTAL_SW_COUNT);
+}

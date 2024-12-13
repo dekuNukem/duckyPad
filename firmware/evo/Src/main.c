@@ -33,6 +33,7 @@
 #include "sd_util.h"
 #include "cQueue.h"
 #include "input_task.h"
+#include "shared.h"
 
 /*
 menu bar:
@@ -117,10 +118,14 @@ int fputc(int ch, FILE *f)
   return ch;
 }
 
+// happens every 5ms
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	current_tick++;
+  if(current_tick % 2 == 0)
+    kb_scan_task();
 }
+
 /* USER CODE END 0 */
 
 /**
@@ -177,11 +182,15 @@ int main(void)
 
   while (1)
   {
+    HAL_Delay(100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    sw_scan();
-		HAL_Delay(100);
+    if(q_getCount(&switch_event_queue) == 0)
+      continue;
+    switch_event_t sw_event = {0};
+    q_pop(&switch_event_queue, &sw_event);
+    printf("key %d, type %d\n", sw_event.id, sw_event.type);
   }
   /* USER CODE END 3 */
 }

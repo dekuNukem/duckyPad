@@ -6,7 +6,10 @@
 #endif
 
 #include <stdint.h>
+#include "cQueue.h"
 
+#define MECH_OBSW_COUNT 15
+#define TOTAL_OBSW_COUNT 17
 #define MAX_TOTAL_SW_COUNT 64
 
 typedef struct
@@ -14,7 +17,6 @@ typedef struct
     uint8_t id;
     uint8_t type;
 } switch_event_t;
-
 
 // mechnical switches
 #define MSW_0 0
@@ -39,8 +41,15 @@ typedef struct
 #define EXP_BUTTON_START 20
 #define EXP_BUTTON_END (MAX_TOTAL_SW_COUNT-1)
 
+#define SW_EVENT_RELEASE 0
+#define SW_EVENT_SHORT_PRESS 1
+#define SW_EVENT_LONG_PRESS 2
+
 void switch_init(void);
 void sw_scan(void);
+void kb_scan_task(void);
+
+extern Queue_t switch_event_queue;
 
 #ifdef __cplusplus
 }
