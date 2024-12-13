@@ -7008,7 +7008,7 @@ by exp-lbrs.ulp</description>
 <label x="439.42" y="-200.66" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="BUTTON1" class="0">
+<net name="MINUS_BUTTON" class="0">
 <segment>
 <label x="127" y="-172.72" size="1.778" layer="95"/>
 <wire x1="127" y1="-172.72" x2="147.32" y2="-172.72" width="0.1524" layer="91"/>
@@ -7026,7 +7026,7 @@ by exp-lbrs.ulp</description>
 <label x="365.76" y="-157.48" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="BUTTON2" class="0">
+<net name="PLUS_BUTTON" class="0">
 <segment>
 <wire x1="124.46" y1="-195.58" x2="147.32" y2="-195.58" width="0.1524" layer="91"/>
 <label x="124.46" y="-195.58" size="1.778" layer="95"/>
