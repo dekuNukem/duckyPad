@@ -169,14 +169,16 @@ int main(void)
   ssd1306_WriteString("hello",Font_6x10,White);
   ssd1306_UpdateScreen();
 
+  switch_init();
+
   uint8_t mount_result = f_mount(&sd_fs, "", 1);
+  printf("mount_result: %d\n", mount_result);
 
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		printf("mount_result: %d\n", mount_result);
 		HAL_Delay(500);
   }
   /* USER CODE END 3 */
