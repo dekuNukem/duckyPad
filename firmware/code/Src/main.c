@@ -157,11 +157,15 @@ fixed backlight brightness saving bug
 1.3.3
 2024 12 02
 Fixed non-responsive mouse scroll bug 
+
+1.3.4
+2024 12 18
+Fixed dead key behaviour
 */
 
 uint8_t fw_version_major = 1;
 uint8_t fw_version_minor = 3;
-uint8_t fw_version_patch = 3;
+uint8_t fw_version_patch = 4;
 char instruction[] = "For instructions, see";
 /* USER CODE END PV */
 
