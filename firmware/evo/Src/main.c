@@ -210,9 +210,8 @@ int main(void)
     idle_loop();
   }
 
-  current_profile_number = 2;
-  load_profile(current_profile_number);
-  draw_current_profile();
+  current_profile_number = 3;
+  goto_profile(current_profile_number);
   HAL_UART_Receive_IT(&huart3, uart_byte_buf, 1);
   keypress_task();
   

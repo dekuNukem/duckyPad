@@ -21,9 +21,23 @@ static inline uint8_t is_plus_minus_button(uint8_t swid)
   return swid == SW_MINUS || swid == SW_PLUS;
 }
 
+void process_keyevent(uint8_t swid, uint8_t event_type)
+{
+  if(swid == SW_PLUS && event_type == SW_EVENT_RELEASE)
+  {
+    goto_next_profile();
+    return;
+  }
+  if(swid == SW_MINUS && event_type == SW_EVENT_RELEASE)
+  {
+    goto_prev_profile();
+    return;
+  }
+}
+
 void handle_sw_event(switch_event_t* this_sw_event)
 {
-  ;
+  process_keyevent(this_sw_event->id, this_sw_event->type);
 }
 
 void keypress_task(void)

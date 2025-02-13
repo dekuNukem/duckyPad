@@ -43,6 +43,9 @@ extern char profile_name_list[MAX_PROFILES][PROFILE_NAME_MAX_LEN];
 uint8_t mount_sd(void);
 uint8_t scan_profiles(void);
 uint8_t load_profile(uint8_t profile_number);
+void goto_profile(uint8_t profile_number);
+void goto_prev_profile(void);
+void goto_next_profile(void);
 
 #define PROFILE_SCAN_OK 0
 #define PROFILE_SCAN_ERROR_NO_TOC 1

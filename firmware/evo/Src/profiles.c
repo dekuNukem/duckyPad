@@ -5,6 +5,7 @@
 #include "shared.h"
 #include "profiles.h"
 #include "fatfs.h"
+#include "ui_task.h"
 
 const char settings_file_path[] = "dpp_config.txt";
 const char default_settings_file[] = "sleep_index 0\nbrightness_index 0\nlast_profile 1\nfw_ver 0.0.0\nserial_number DP20_000000\nkb_layout dpkm_English (US).txt\n";
@@ -205,7 +206,39 @@ uint8_t load_profile(uint8_t profile_number)
   return 0;
 }
 
+void goto_profile(uint8_t profile_number)
+{
+  if(load_profile(profile_number))
+    return;
+  current_profile_number = profile_number;
+  draw_current_profile();
+}
+
 void goto_next_profile(void)
 {
+  uint8_t new_profile_number = current_profile_number;
+  while(1)
+  {
+    new_profile_number++;
+    if(new_profile_number >= MAX_PROFILES)
+      new_profile_number = 0;
+    if(strlen(profile_name_list[new_profile_number]))
+      break;
+  }
+  goto_profile(new_profile_number);
+}
 
+void goto_prev_profile(void)
+{
+  uint8_t new_profile_number = current_profile_number;
+  while(1)
+  {
+    if(new_profile_number == 0)
+      new_profile_number = MAX_PROFILES - 1;
+    else
+      new_profile_number--;
+    if(strlen(profile_name_list[new_profile_number]))
+      break;
+  }
+  goto_profile(new_profile_number);
 }
