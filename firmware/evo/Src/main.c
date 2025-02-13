@@ -36,6 +36,7 @@
 #include "shared.h"
 #include "neopixel.h"
 #include "ui_task.h"
+#include "profiles.h"
 
 /*
 menu bar:
@@ -56,7 +57,7 @@ void _sys_exit(int x) {
 } 
 struct __FILE  { 
     int handle; 
-}; 
+};
 int stdin_getchar (void)
 {
   return 0;
@@ -97,7 +98,6 @@ TIM_HandleTypeDef htim17;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-FATFS sd_fs;
 uint32_t current_tick;
 
 uint8_t fw_version_major = 2;
@@ -177,14 +177,14 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   oled_reset();
+  neopixel_off();
   ssd1306_Init();
   draw_nosd();
-
   switch_init();
 
-  uint8_t mount_result = f_mount(&sd_fs, "", 1);
-  printf("mount_result: %d\n", mount_result);
-  neopixel_off();
+  uint8_t mount_result = mount_sd();
+  printf("mount_sd: %d\n", mount_result);
+  load_profile_info();
 
   while (1)
   {
