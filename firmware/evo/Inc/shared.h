@@ -9,6 +9,8 @@
 
 #define millis() HAL_GetTick()
 
+void delay_ms(uint32_t amount);
+
 #ifdef __cplusplus
 }
 #endif

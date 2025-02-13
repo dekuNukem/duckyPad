@@ -34,6 +34,7 @@
 #include "cQueue.h"
 #include "input_task.h"
 #include "shared.h"
+#include "neopixel.h"
 
 /*
 menu bar:
@@ -179,10 +180,11 @@ int main(void)
 
   uint8_t mount_result = f_mount(&sd_fs, "", 1);
   printf("mount_result: %d\n", mount_result);
+  redraw_bg();
 
   while (1)
   {
-    HAL_Delay(100);
+    delay_ms(100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
