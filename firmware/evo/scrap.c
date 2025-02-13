@@ -1,3 +1,20 @@
+/*
+  this caches profile name, and printable keynames
+*/
+typedef struct
+{
+  uint8_t is_loaded;
+  char dir_path[FILENAME_BUFSIZE];
+  char* pf_name;
+  char sw_name_firstline[MECH_OBSW_COUNT][KEYNAME_SIZE];
+  uint8_t sw_color[MECH_OBSW_COUNT][THREE]; // only mechanical keys have RGB LEDs
+  uint8_t sw_activation_color[MECH_OBSW_COUNT][THREE];
+  uint8_t keypress_count[MAX_TOTAL_SW_COUNT];
+  uint8_t dim_unused_keys;
+} profile_info;
+
+
+
 void load_profile_info(void)
 {
   char* dirname;

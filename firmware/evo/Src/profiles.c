@@ -26,7 +26,7 @@ const char cmd_DIM_UNUSED_KEYS[] = "DIM_UNUSED_KEYS 0";
 
 uint8_t is_profile_load_complete;
 uint8_t current_profile_number;
-profile_info all_profile_info[MAX_PROFILES];
+profile_cache p_cache;
 
 FRESULT sd_fresult;
 FATFS sd_fs;

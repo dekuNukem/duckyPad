@@ -10,7 +10,7 @@
 
 #define MECH_OBSW_COUNT 15
 #define TOTAL_OBSW_COUNT 17
-#define MAX_TOTAL_SW_COUNT 64
+#define MAX_TOTAL_SW_COUNT TOTAL_OBSW_COUNT
 
 typedef struct
 {
