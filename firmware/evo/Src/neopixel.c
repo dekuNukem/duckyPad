@@ -79,11 +79,9 @@ void set_pixel_3color(uint8_t which, uint8_t r, uint8_t g, uint8_t b)
   blue_buf[pixel_map[which]] = b;
 }
 
-void redraw_bg(void)
+void neopixel_off(void)
 {
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
-  {
-    set_pixel_3color(i, 127, 25, 25);
-  }
+    set_pixel_3color(i, 0, 0, 0);
   neopixel_show(red_buf, green_buf, blue_buf, 100);
 }

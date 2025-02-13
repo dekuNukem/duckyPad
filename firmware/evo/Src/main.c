@@ -35,6 +35,7 @@
 #include "input_task.h"
 #include "shared.h"
 #include "neopixel.h"
+#include "ui_task.h"
 
 /*
 menu bar:
@@ -98,6 +99,12 @@ UART_HandleTypeDef huart1;
 /* USER CODE BEGIN PV */
 FATFS sd_fs;
 uint32_t current_tick;
+
+uint8_t fw_version_major = 2;
+uint8_t fw_version_minor = 0;
+uint8_t fw_version_patch = 0;
+uint8_t dsvm_version = 1;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -171,16 +178,13 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   oled_reset();
   ssd1306_Init();
-  ssd1306_Fill(Black);
-  ssd1306_SetCursor(10, 10);
-  ssd1306_WriteString("hello",Font_6x10,White);
-  ssd1306_UpdateScreen();
+  draw_nosd();
 
   switch_init();
 
   uint8_t mount_result = f_mount(&sd_fs, "", 1);
   printf("mount_result: %d\n", mount_result);
-  redraw_bg();
+  neopixel_off();
 
   while (1)
   {
