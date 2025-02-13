@@ -134,6 +134,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     kb_scan_task();
 }
 
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  NVIC_SystemReset();
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -184,7 +189,7 @@ int main(void)
 
   uint8_t mount_result = mount_sd();
   printf("mount_sd: %d\n", mount_result);
-  load_profile_info();
+  load_profile_name();
 
   while (1)
   {

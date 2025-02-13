@@ -12,8 +12,9 @@
 
 #define TEMP_BUFSIZE 128
 #define FILENAME_BUFSIZE 32
-#define MAX_PROFILES 16
+#define MAX_PROFILES 32
 #define KEYNAME_SIZE 8
+#define PROFILE_NAME_MAX_LEN 16
 
 typedef struct
 {
@@ -41,8 +42,11 @@ extern char temp_buf[TEMP_BUFSIZE];
 extern char filename_buf[FILENAME_BUFSIZE];
 
 uint8_t mount_sd(void);
+uint8_t load_profile_name(void);
 
-void load_profile_info(void);
+#define PROFILE_SCAN_OK 0
+#define PROFILE_SCAN_ERROR_NO_TOC 1
+#define PROFILE_SCAN_ERROR_NO_PROFILE 2
 
 #ifdef __cplusplus
 }
