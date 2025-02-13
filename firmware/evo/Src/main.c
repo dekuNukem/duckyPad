@@ -107,6 +107,7 @@ uint8_t fw_version_minor = 0;
 uint8_t fw_version_patch = 0;
 uint8_t dsvm_version = 1;
 
+uint8_t uart_byte_buf[1];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -140,6 +141,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   NVIC_SystemReset();
+}
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+  printf("%02x ", uart_byte_buf[0]);
+  HAL_UART_Receive_IT(&huart3, uart_byte_buf, 1);
 }
 
 /* USER CODE END 0 */
@@ -206,6 +213,7 @@ int main(void)
   current_profile_number = 2;
   load_profile(current_profile_number);
   draw_current_profile();
+  HAL_UART_Receive_IT(&huart3, uart_byte_buf, 1);
   keypress_task();
   
   // we should never get here
