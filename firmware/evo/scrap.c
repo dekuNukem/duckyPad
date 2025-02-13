@@ -1,3 +1,7 @@
+  uint32_t start = millis();
+printf("took %ldms\n", millis()-start);
+
+
 /*
   this caches profile name, and printable keynames
 */
@@ -14,7 +18,10 @@ typedef struct
 } profile_info;
 
 
-
+  for (size_t i = 0; i < MECH_OBSW_COUNT; i++)
+  {
+    printf("rr %s", curr_pf_info.sw_name[i]);
+  }
 void load_profile_info(void)
 {
   char* dirname;

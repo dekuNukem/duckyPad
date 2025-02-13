@@ -193,13 +193,15 @@ int main(void)
     idle_loop();
   }
 
-  if(load_profile_info())
+  if(scan_profiles())
   {
     draw_noprofile();
     idle_loop();
   }
 
   ui_test();
+
+  load_profile(1);
 
   while (1)
   {

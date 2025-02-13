@@ -12,6 +12,9 @@ dp_global_settings dp_settings;
 
 char temp_buf[TEMP_BUFSIZE];
 char filename_buf[FILENAME_BUFSIZE];
+
+uint8_t current_profile_number;
+profile_cache curr_pf_info;
 char profile_name_list[MAX_PROFILES][PROFILE_NAME_MAX_LEN];
 
 const char config_sleep_after_index[] = "sleep_index ";
@@ -23,9 +26,7 @@ const char cmd_BG_COLOR[] = "BG_COLOR ";
 const char cmd_KD_COLOR[] = "KEYDOWN_COLOR ";
 const char cmd_SWCOLOR[] = "SWCOLOR_";
 const char cmd_DIM_UNUSED_KEYS[] = "DIM_UNUSED_KEYS 0";
-
-uint8_t current_profile_number;
-profile_cache curr_pf_info;
+const char cmd_IS_LANDSCAPE[] = "IS_LANDSCAPE 1";
 
 FRESULT sd_fresult;
 FATFS sd_fs;
@@ -45,13 +46,13 @@ uint8_t mount_sd(void)
 /*
   Reads from profile_info.txt, load profile names into profile_name_list
 */
-uint8_t load_profile_info(void)
+uint8_t scan_profiles(void)
 {
   char *this_profile_name;
   uint8_t this_profile_number;
   uint8_t valid_profile_count = 0;
   
-  if(f_open(&sd_file, "/profile_info.txt", FA_READ) != FR_OK)
+  if(f_open(&sd_file, "/profile_info.txt", FA_READ))
     return PROFILE_SCAN_ERROR_NO_TOC;
   memset(profile_name_list, 0, sizeof(profile_name_list));
   while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
@@ -75,22 +76,113 @@ uint8_t load_profile_info(void)
   return PROFILE_SCAN_OK;
 }
 
-void load_profile_config(uint8_t profile_number)
+
+const char cmd_sw_name_firstline[] = "z";
+void parse_profile_config_line(char* this_line, profile_cache* this_profile)
 {
-  ;
+  char* msg_end = this_line + strlen(this_line);
+
+  if(this_line == NULL || strlen(this_line) <= 2)
+    return;
+
+  if(strncmp(cmd_sw_name_firstline, this_line, strlen(cmd_sw_name_firstline)) == 0)
+  {
+    uint8_t this_key_index = atoi(this_line + strlen(cmd_sw_name_firstline));
+    if(this_key_index == 0)
+      return;
+    this_key_index--;
+    if(this_key_index >= MECH_OBSW_COUNT)
+      return;
+    memset(this_profile->sw_name[this_key_index], 0, KEYNAME_SIZE);
+    char* kn_start = goto_next_arg(this_line, msg_end);
+    if(kn_start == NULL)
+      return;
+    strncpy(this_profile->sw_name[this_key_index], kn_start, KEYNAME_SIZE);
+  }
+  else if(strncmp(cmd_BG_COLOR, this_line, strlen(cmd_BG_COLOR)) == 0) // order is important! BG, SW, and KD
+  {
+    char* curr = goto_next_arg(this_line, msg_end);
+    uint8_t rrr = atoi(curr);
+    curr = goto_next_arg(curr, msg_end);
+    uint8_t ggg = atoi(curr);
+    curr = goto_next_arg(curr, msg_end);
+    uint8_t bbb = atoi(curr);
+    for (size_t i = 0; i < MECH_OBSW_COUNT; i++)
+    {
+      this_profile->sw_color[i][0] = rrr;
+      this_profile->sw_color[i][1] = ggg;
+      this_profile->sw_color[i][2] = bbb;
+      this_profile->sw_activation_color[i][0] = 255 - rrr;
+      this_profile->sw_activation_color[i][1] = 255 - ggg;
+      this_profile->sw_activation_color[i][2] = 255 - bbb;
+    }
+  }
+  else if(strncmp(cmd_SWCOLOR, this_line, strlen(cmd_SWCOLOR)) == 0)
+  {
+    char* curr = this_line + strlen(cmd_SWCOLOR);
+    uint8_t sw_index = atoi(curr) - 1;
+    if(sw_index >= MECH_OBSW_COUNT)
+      return;
+    curr = goto_next_arg(curr, msg_end);
+    uint8_t rrr = atoi(curr);
+    curr = goto_next_arg(curr, msg_end);
+    uint8_t ggg = atoi(curr);
+    curr = goto_next_arg(curr, msg_end);
+    uint8_t bbb = atoi(curr);
+    this_profile->sw_color[sw_index][0] = rrr;
+    this_profile->sw_color[sw_index][1] = ggg;
+    this_profile->sw_color[sw_index][2] = bbb;
+    this_profile->sw_activation_color[sw_index][0] = 255 - rrr;
+    this_profile->sw_activation_color[sw_index][1] = 255 - ggg;
+    this_profile->sw_activation_color[sw_index][2] = 255 - bbb;
+  }
+  else if(strncmp(cmd_KD_COLOR, this_line, strlen(cmd_KD_COLOR)) == 0)
+  {
+    char* curr = goto_next_arg(this_line, msg_end);
+    uint8_t rrr = atoi(curr);
+    curr = goto_next_arg(curr, msg_end);
+    uint8_t ggg = atoi(curr);
+    curr = goto_next_arg(curr, msg_end);
+    uint8_t bbb = atoi(curr);
+    for (size_t i = 0; i < MECH_OBSW_COUNT; i++)
+    {
+      this_profile->sw_activation_color[i][0] = rrr;
+      this_profile->sw_activation_color[i][1] = ggg;
+      this_profile->sw_activation_color[i][2] = bbb;
+    }
+  }
+  else if(strncmp(cmd_DIM_UNUSED_KEYS, this_line, strlen(cmd_DIM_UNUSED_KEYS)) == 0)
+  {
+    this_profile->dim_unused_keys = 0;
+  }
+  else if(strncmp(cmd_IS_LANDSCAPE, this_line, strlen(cmd_IS_LANDSCAPE)) == 0)
+  {
+    this_profile->is_landscape = 1;
+  }
 }
 
+// fill up the current profile cache
+uint8_t load_profile(uint8_t profile_number)
+{
+  if(profile_number >= MAX_PROFILES)
+    return 1;
+  
+  memset(filename_buf, 0, FILENAME_BUFSIZE);
+  sprintf(filename_buf, "/profile_%s/config.txt", profile_name_list[profile_number]);
+  if(f_open(&sd_file, filename_buf, FA_READ))
+    return 2;
+  memset(read_buffer, 0, READ_BUF_SIZE);
+  while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
+  {
+    strip_newline(read_buffer, READ_BUF_SIZE);
+    parse_profile_config_line(read_buffer, &curr_pf_info);
+    memset(read_buffer, 0, READ_BUF_SIZE);
+  }
+  f_close(&sd_file);
+  return 0;
+}
 
-// uint8_t scan_profiles(void)
-// {
-//   memset(profile_name_list, 0, sizeof(profile_name_list));
-//   load_profile_name();
-//   uint8_t has_valid_profile = 0;
-//   for (size_t i = 0; i < MAX_PROFILES; i++)
-//     has_valid_profile += strlen(profile_name_list[i]);
-//   if(has_valid_profile == 0)
-//     return PSCAN_ERROR_NO_PROFILE;
-//   load_profile_config(0);
-//   return PSCAN_OK;
-// }
+void goto_next_profile(void)
+{
 
+}

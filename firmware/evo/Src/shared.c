@@ -24,9 +24,9 @@ char* goto_next_arg(char* buf, char* buf_end)
   return curr;
 }
 
-void strip_newline(char* line, uint8_t size)
+void strip_newline(char* line, uint32_t size)
 {
-  for(int i = 0; i < size; ++i)
+  for(uint32_t i = 0; i < size; ++i)
     if(line[i] == '\n' || line[i] == '\r')
       line[i] = 0;
 }
