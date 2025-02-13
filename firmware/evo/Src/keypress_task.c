@@ -13,6 +13,19 @@
 #include "profiles.h"
 #include "keypress_task.h"
 
+volatile uint8_t is_sleeping;
+volatile uint8_t is_busy;
+
+static inline uint8_t is_plus_minus_button(uint8_t swid)
+{
+  return swid == SW_MINUS || swid == SW_PLUS;
+}
+
+void handle_sw_event(switch_event_t* this_sw_event)
+{
+  ;
+}
+
 void keypress_task(void)
 {
   while(1)
@@ -23,6 +36,10 @@ void keypress_task(void)
     switch_event_t sw_event = {0};
     q_pop(&switch_event_queue, &sw_event);
     printf("key %d, type %d\n", sw_event.id, sw_event.type);
+
+    is_busy = 1;
+    handle_sw_event(&sw_event);
+    is_busy = 0;
   }
 }
 

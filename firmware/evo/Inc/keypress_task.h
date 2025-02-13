@@ -9,6 +9,9 @@
 
 void keypress_task(void);
 
+extern volatile uint8_t is_sleeping;
+extern volatile uint8_t is_busy;
+
 #ifdef __cplusplus
 }
 #endif

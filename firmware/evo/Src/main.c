@@ -200,7 +200,7 @@ int main(void)
     idle_loop();
   }
 
-  current_profile_number = 1;
+  current_profile_number = 2;
   load_profile(current_profile_number);
   draw_current_profile();
   keypress_task();
