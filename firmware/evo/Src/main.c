@@ -37,6 +37,7 @@
 #include "neopixel.h"
 #include "ui_task.h"
 #include "profiles.h"
+#include "keypress_task.h"
 
 /*
 menu bar:
@@ -200,20 +201,17 @@ int main(void)
   }
 
   ui_test();
-
+  uint32_t start = millis();
   load_profile(1);
-
+  printf("took %ldms\n", millis()-start);
+  keypress_task();
+  
+  // we should never get here
   while (1)
   {
-    delay_ms(100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    if(q_getCount(&switch_event_queue) == 0)
-      continue;
-    switch_event_t sw_event = {0};
-    q_pop(&switch_event_queue, &sw_event);
-    printf("key %d, type %d\n", sw_event.id, sw_event.type);
   }
   /* USER CODE END 3 */
 }

@@ -38,6 +38,13 @@ char lfn_buf[FILENAME_BUFSIZE];
 #define READ_BUF_SIZE 256
 char read_buffer[READ_BUF_SIZE];
 
+uint8_t is_valid_profile_number(uint8_t profile_number)
+{
+  if(profile_number >= MAX_PROFILES || strlen(profile_name_list[profile_number]) == 0)
+    return 0;
+  return 1;
+}
+
 uint8_t mount_sd(void)
 {
   return f_mount(&sd_fs, "", 1);
@@ -166,11 +173,14 @@ uint8_t load_profile(uint8_t profile_number)
 {
   if(profile_number >= MAX_PROFILES)
     return 1;
-  
+
   memset(filename_buf, 0, FILENAME_BUFSIZE);
   sprintf(filename_buf, "/profile_%s/config.txt", profile_name_list[profile_number]);
   if(f_open(&sd_file, filename_buf, FA_READ))
     return 2;
+
+  memset(&curr_pf_info, 0, sizeof(curr_pf_info));
+  curr_pf_info.dim_unused_keys = 1;
   memset(read_buffer, 0, READ_BUF_SIZE);
   while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
   {
@@ -179,6 +189,20 @@ uint8_t load_profile(uint8_t profile_number)
     memset(read_buffer, 0, READ_BUF_SIZE);
   }
   f_close(&sd_file);
+  if(curr_pf_info.dim_unused_keys)
+  {
+    for (size_t i = 0; i < MECH_OBSW_COUNT; i++)
+    {
+      if(strlen(curr_pf_info.sw_name[i]) > 0)
+        continue;
+      curr_pf_info.sw_color[i][0] = 0;
+      curr_pf_info.sw_color[i][1] = 0;
+      curr_pf_info.sw_color[i][2] = 0;
+      curr_pf_info.sw_activation_color[i][0] = 0;
+      curr_pf_info.sw_activation_color[i][1] = 0;
+      curr_pf_info.sw_activation_color[i][2] = 0;
+    }
+  }
   return 0;
 }
 
