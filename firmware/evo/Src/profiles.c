@@ -10,7 +10,6 @@ const char settings_file_path[] = "dpp_config.txt";
 const char default_settings_file[] = "sleep_index 0\nbrightness_index 0\nlast_profile 1\nfw_ver 0.0.0\nserial_number DP20_000000\nkb_layout dpkm_English (US).txt\n";
 dp_global_settings dp_settings;
 
-char temp_buf[TEMP_BUFSIZE];
 char filename_buf[FILENAME_BUFSIZE];
 
 uint8_t current_profile_number;

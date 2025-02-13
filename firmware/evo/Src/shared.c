@@ -3,6 +3,8 @@
 #include "main.h"
 #include "shared.h"
 
+char temp_buf[TEMP_BUFSIZE];
+
 void delay_ms(uint32_t amount)
 {
   if(amount == 0)

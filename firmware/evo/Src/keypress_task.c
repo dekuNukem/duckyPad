@@ -25,3 +25,4 @@ void keypress_task(void)
     printf("key %d, type %d\n", sw_event.id, sw_event.type);
   }
 }
+

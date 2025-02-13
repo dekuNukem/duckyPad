@@ -9,7 +9,7 @@
 
 void draw_nosd(void);
 void draw_noprofile(void);
-void ui_test(void);
+void draw_current_profile(void);
 
 #ifdef __cplusplus
 }

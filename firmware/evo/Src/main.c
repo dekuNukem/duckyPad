@@ -200,10 +200,9 @@ int main(void)
     idle_loop();
   }
 
-  ui_test();
-  uint32_t start = millis();
-  load_profile(1);
-  printf("took %ldms\n", millis()-start);
+  current_profile_number = 1;
+  load_profile(current_profile_number);
+  draw_current_profile();
   keypress_task();
   
   // we should never get here

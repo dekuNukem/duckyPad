@@ -10,7 +10,6 @@
 #include "input_task.h"
 #include "neopixel.h"
 
-#define TEMP_BUFSIZE 128
 #define FILENAME_BUFSIZE 64
 #define MAX_PROFILES 32
 #define KEYNAME_SIZE 8
@@ -38,8 +37,8 @@ extern profile_cache curr_pf_info;
 
 extern dp_global_settings dp_settings;
 extern uint8_t current_profile_number;
-extern char temp_buf[TEMP_BUFSIZE];
 extern char filename_buf[FILENAME_BUFSIZE];
+extern char profile_name_list[MAX_PROFILES][PROFILE_NAME_MAX_LEN];
 
 uint8_t mount_sd(void);
 uint8_t scan_profiles(void);
