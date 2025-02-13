@@ -45,11 +45,11 @@ uint8_t mount_sd(void)
 /*
   Reads from profile_info.txt, load profile names into profile_name_list
 */
-uint8_t load_profile_name(void)
+uint8_t load_profile_info(void)
 {
   char *this_profile_name;
   uint8_t this_profile_number;
-  uint8_t has_valid_profile = 0;
+  uint8_t valid_profile_count = 0;
   
   if(f_open(&sd_file, "/profile_info.txt", FA_READ) != FR_OK)
     return PROFILE_SCAN_ERROR_NO_TOC;
@@ -67,13 +67,11 @@ uint8_t load_profile_name(void)
       continue;
     memset(profile_name_list[this_profile_number], 0, PROFILE_NAME_MAX_LEN);
     strncpy(profile_name_list[this_profile_number], this_profile_name, PROFILE_NAME_MAX_LEN);
-    has_valid_profile++;
+    valid_profile_count++;
   }
   f_close(&sd_file);
-  for (size_t i = 0; i < PROFILE_NAME_MAX_LEN; i++)
-  {
-    printf("%d %s\n", i, profile_name_list[i]);
-  }
+  if(valid_profile_count == 0)
+    return PROFILE_SCAN_ERROR_NO_PROFILE;
   return PROFILE_SCAN_OK;
 }
 

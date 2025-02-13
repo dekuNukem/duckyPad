@@ -31,3 +31,8 @@ void strip_newline(char* line, uint8_t size)
       line[i] = 0;
 }
 
+void idle_loop(void)
+{
+  while(1)
+    delay_ms(1000);
+}

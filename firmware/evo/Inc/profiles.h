@@ -42,7 +42,7 @@ extern char temp_buf[TEMP_BUFSIZE];
 extern char filename_buf[FILENAME_BUFSIZE];
 
 uint8_t mount_sd(void);
-uint8_t load_profile_name(void);
+uint8_t load_profile_info(void);
 
 #define PROFILE_SCAN_OK 0
 #define PROFILE_SCAN_ERROR_NO_TOC 1

@@ -184,12 +184,22 @@ int main(void)
   oled_reset();
   neopixel_off();
   ssd1306_Init();
-  draw_nosd();
+  
   switch_init();
 
-  uint8_t mount_result = mount_sd();
-  printf("mount_sd: %d\n", mount_result);
-  load_profile_name();
+  if(mount_sd())
+  {
+    draw_nosd();
+    idle_loop();
+  }
+
+  if(load_profile_info())
+  {
+    draw_noprofile();
+    idle_loop();
+  }
+
+  ui_test();
 
   while (1)
   {
