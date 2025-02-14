@@ -12,6 +12,7 @@
 #include "ui_task.h"
 #include "profiles.h"
 #include "keypress_task.h"
+#include "neopixel.h"
 
 volatile uint8_t is_sleeping;
 volatile uint8_t is_busy;
@@ -33,6 +34,9 @@ void process_keyevent(uint8_t swid, uint8_t event_type)
     goto_prev_profile();
     return;
   }
+  if(is_plus_minus_button(swid))
+    return;
+  play_keyup_animation(swid);
 }
 
 void handle_sw_event(switch_event_t* this_sw_event)

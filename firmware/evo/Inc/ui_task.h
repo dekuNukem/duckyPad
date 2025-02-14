@@ -11,6 +11,18 @@ void draw_nosd(void);
 void draw_noprofile(void);
 void draw_current_profile(void);
 
+#define ONE_MINUTE_IN_MS (60*1000)
+#define ONE_HOUR_IN_MS (60*ONE_MINUTE_IN_MS)
+#define DONT_SLEEP 0xffffffff
+#define SLEEP_OPTION_SIZE 7
+
+#define OLED_DIM_AFTER_MS ONE_MINUTE_IN_MS
+#define OLED_CONTRAST_DIM 100
+#define OLED_CONTRAST_BRIGHT 255
+
+#define SETTINGS_ENTRY_SIZE 6
+
+
 #ifdef __cplusplus
 }
 #endif

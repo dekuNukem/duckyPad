@@ -136,6 +136,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	current_tick++;
   if(current_tick % 2 == 0)
     kb_scan_task();
+  if(current_tick % 4 == 0)
+    led_animation_handler();
 }
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
@@ -195,7 +197,7 @@ int main(void)
   oled_reset();
   neopixel_off();
   ssd1306_Init();
-  
+  led_animation_init();
   switch_init();
 
   if(mount_sd())
