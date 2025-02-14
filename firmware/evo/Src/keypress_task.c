@@ -13,6 +13,9 @@
 #include "profiles.h"
 #include "keypress_task.h"
 #include "neopixel.h"
+#include "usb_device.h"
+#include "usbd_customhid.h"
+#include "usbd_custom_hid_if.h"
 
 #define PLUS_MINUS_BUTTON_COOLDOWN_MS 250
 
@@ -63,6 +66,17 @@ void settings_menu(void)
   goto_profile(current_profile_number);
 }
 
+#define KB_BUF_SIZE 8
+uint8_t kb_buf[KB_BUF_SIZE];
+void kb_test(void)
+{
+  memset(kb_buf, 0, KB_BUF_SIZE);
+  kb_buf[0] = 3;
+  kb_buf[4] = 1;
+  USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, kb_buf, KB_BUF_SIZE);
+  printf("kbtest\n");
+}
+
 void process_keyevent(uint8_t swid, uint8_t event_type)
 {
   oled_brightness = OLED_CONTRAST_BRIGHT;
@@ -96,7 +110,9 @@ void process_keyevent(uint8_t swid, uint8_t event_type)
   if(event_type == SW_EVENT_RELEASE)
     play_keyup_animation(swid);
 
-  printf("%s\n%s\n", dsb_on_press_path_buf, dsb_on_release_path_buf);
+  // printf("%s\n%s\n", dsb_on_press_path_buf, dsb_on_release_path_buf);
+
+  kb_test();
 
   last_execution_exit = millis();
 }

@@ -63,7 +63,7 @@
  * -- Insert your variables declaration here --
  */
 /* USER CODE BEGIN VARIABLES */
-
+extern USBD_HandleTypeDef hUsbDeviceFS;
 /* USER CODE END VARIABLES */
 /**
   * @}
