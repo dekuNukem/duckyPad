@@ -75,6 +75,12 @@ void kb_test(void)
   kb_buf[4] = 1;
   USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, kb_buf, KB_BUF_SIZE);
   printf("kbtest\n");
+  USBD_CUSTOM_HID_HandleTypeDef *hhid = (USBD_CUSTOM_HID_HandleTypeDef*) hUsbDeviceFS.pClassData;
+  for (size_t i = 0; i < 64; i++)
+  {
+    printf("%02x ", hhid->Report_buf[i]);
+  }
+  printf("\n");
 }
 
 void process_keyevent(uint8_t swid, uint8_t event_type)
