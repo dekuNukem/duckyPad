@@ -11,8 +11,6 @@ const char settings_file_path[] = "dpp_config.txt";
 const char default_settings_file[] = "sleep_index 0\nbrightness_index 0\nlast_profile 1\nfw_ver 0.0.0\nserial_number DP20_000000\nkb_layout dpkm_English (US).txt\n";
 dp_global_settings dp_settings;
 
-char filename_buf[FILENAME_BUFSIZE];
-
 uint8_t current_profile_number;
 profile_cache curr_pf_info;
 char profile_name_list[MAX_PROFILES][PROFILE_NAME_MAX_LEN];
@@ -33,7 +31,6 @@ FATFS sd_fs;
 FIL sd_file;
 DIR dir;
 FILINFO fno;
-char lfn_buf[FILENAME_BUFSIZE];
 
 #define READ_BUF_SIZE 256
 char read_buffer[READ_BUF_SIZE];
@@ -174,9 +171,9 @@ uint8_t load_profile(uint8_t profile_number)
   if(profile_number >= MAX_PROFILES)
     return 1;
 
-  memset(filename_buf, 0, FILENAME_BUFSIZE);
-  sprintf(filename_buf, "/profile_%s/config.txt", profile_name_list[profile_number]);
-  if(f_open(&sd_file, filename_buf, FA_READ))
+  memset(temp_buf, 0, TEMP_BUFSIZE);
+  sprintf(temp_buf, "/profile_%s/config.txt", profile_name_list[profile_number]);
+  if(f_open(&sd_file, temp_buf, FA_READ))
     return 2;
 
   memset(&curr_pf_info, 0, sizeof(curr_pf_info));

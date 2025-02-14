@@ -3,9 +3,11 @@
 #include "input_task.h"
 #include "main.h"
 #include "shared.h"
+#include <stdint.h>
 
 #define SWITCH_EVENT_QUEUE_SIZE 10
 Queue_t switch_event_queue;
+#define MY_UINT32_MAX 0xffffffff
 
 uint8_t this_sw_state[MAX_TOTAL_SW_COUNT];
 uint8_t last_sw_state[MAX_TOTAL_SW_COUNT];
@@ -63,6 +65,21 @@ void kb_scan_task(void)
             };
             q_push(&switch_event_queue, &sw_event);
         }
+        else if(this_sw_state[i] == 1 && last_press_ts[i] != MY_UINT32_MAX && millis() - last_press_ts[i] > 500)
+        {
+            switch_event_t sw_event = 
+            {
+                .id = i,
+                .type = SW_EVENT_LONG_PRESS,
+            };
+            last_press_ts[i] = MY_UINT32_MAX;
+            q_push(&switch_event_queue, &sw_event);
+        }
     }
     memcpy(last_sw_state, this_sw_state, MAX_TOTAL_SW_COUNT);
+}
+
+void clear_sw_queue(void)
+{
+    q_flush(&switch_event_queue);
 }

@@ -48,6 +48,7 @@ typedef struct
 void switch_init(void);
 void sw_scan(void);
 void kb_scan_task(void);
+void clear_sw_queue(void);
 
 extern Queue_t switch_event_queue;
 

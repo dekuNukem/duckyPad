@@ -7,10 +7,13 @@
 
 #include <stdint.h>
 
-void keypress_task(void);
-
 extern volatile uint8_t is_sleeping;
 extern volatile uint8_t is_busy;
+
+void update_last_keypress(void);
+void process_keyevent(uint8_t swid, uint8_t event_type);
+void handle_sw_event(switch_event_t* this_sw_event);
+void keypress_task(void);
 
 #ifdef __cplusplus
 }
