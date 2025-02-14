@@ -37,31 +37,11 @@ static uint8_t SSD1306_Buffer[SSD1306_WIDTH * SSD1306_HEIGHT / 8];
 static SSD1306_t SSD1306;
 
 uint8_t i2c_status;
-uint8_t last_dim;
 
 static void ssd1306_WriteCommand(uint8_t command)
 {
 	if(i2c_status == HAL_OK)
 		HAL_I2C_Mem_Write(&hi2c1,SSD1306_I2C_ADDR,0x00,1,&command,1,1);
-}
-
-void ssd1306_dim(uint8_t is_dim)
-{
-	if(is_dim == last_dim)
-		return;
-	if(is_dim)
-	{
-		// printf("dim!\n");
-		ssd1306_WriteCommand(SSD1306_SETCONTRAST);
-		ssd1306_WriteCommand(0x0);
-	}
-	else
-	{
-		// printf("bright!\n");
-		ssd1306_WriteCommand(SSD1306_SETCONTRAST);
-		ssd1306_WriteCommand(0x70);
-	}
-	last_dim = is_dim;
 }
 
 uint8_t ssd1306_Init(void)
@@ -240,3 +220,12 @@ void ssd1306_Line(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, SSD1306_COLOR 
     return;
 }
 
+uint8_t current_contrast;
+void ssd1306_SetContrast(const uint8_t value)
+{
+    if(value == current_contrast)
+        return;
+    ssd1306_WriteCommand(SSD1306_SETCONTRAST);
+    ssd1306_WriteCommand(value);
+    current_contrast = value;
+}

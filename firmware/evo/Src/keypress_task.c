@@ -85,12 +85,44 @@ void process_keyevent(uint8_t swid, uint8_t event_type)
   if(is_plus_minus_button(swid))
     return; // just in case lol
 
+  memset(dsb_on_press_path_buf, 0, FILENAME_BUFSIZE);
+  sprintf(dsb_on_press_path_buf, "/profile_%s/key%d.dsb", profile_name_list[current_profile_number], swid+1);
 
+  memset(dsb_on_release_path_buf, 0, FILENAME_BUFSIZE);
+  sprintf(dsb_on_release_path_buf, "/profile_%s/key%d-release.dsb", profile_name_list[current_profile_number], swid+1);
 
   if(event_type == SW_EVENT_SHORT_PRESS)
     play_keydown_animation(swid);
   if(event_type == SW_EVENT_RELEASE)
     play_keyup_animation(swid);
+
+  printf("%s\n%s\n", dsb_on_press_path_buf, dsb_on_release_path_buf);
+
+  last_execution_exit = millis();
+}
+
+void start_sleeping(void)
+{
+  if(is_sleeping)
+    return;
+  neopixel_off();
+  ssd1306_Fill(Black);
+  ssd1306_UpdateScreen();
+  is_sleeping = 1;
+}
+
+void wakeup_from_sleep_no_load(void)
+{
+  update_last_keypress();
+  delay_ms(20);
+  is_sleeping = 0;
+  oled_brightness = OLED_CONTRAST_BRIGHT;
+}
+
+void wakeup_from_sleep_and_load_profile(uint8_t profile_to_load)
+{
+  wakeup_from_sleep_no_load();
+  goto_profile(profile_to_load);
 }
 
 void handle_sw_event(switch_event_t* this_sw_event)
@@ -103,12 +135,12 @@ void handle_sw_event(switch_event_t* this_sw_event)
   }
   else if(is_sleeping && !is_plus_minus_button(this_sw_event->id) && this_sw_event->type == SW_EVENT_SHORT_PRESS)
   {
-    // wakeup_from_sleep_and_load_profile(current_profile_number);
+    wakeup_from_sleep_and_load_profile(current_profile_number);
     return;
   }
   else if(is_sleeping && is_plus_minus_button(this_sw_event->id) && this_sw_event->type == SW_EVENT_RELEASE)
   {
-    // wakeup_from_sleep_and_load_profile(current_profile_number);
+    wakeup_from_sleep_and_load_profile(current_profile_number);
     return;
   }
   uint32_t ke_start = millis();
@@ -119,11 +151,29 @@ void handle_sw_event(switch_event_t* this_sw_event)
     clear_sw_queue();
 }
 
+uint32_t sleep_after_ms_index_to_time_lookup[SLEEP_OPTION_SIZE] = {
+  2*ONE_MINUTE_IN_MS,
+  5*ONE_MINUTE_IN_MS,
+  15*ONE_MINUTE_IN_MS,
+  30*ONE_MINUTE_IN_MS,
+  ONE_HOUR_IN_MS,
+  2*ONE_HOUR_IN_MS,
+  DONT_SLEEP,
+  };
+
 void keypress_task(void)
 {
   while(1)
   {
     delay_ms(10);
+    ssd1306_SetContrast(oled_brightness);
+
+    uint32_t ms_since_last_keypress = millis() - last_keypress;
+    if(ms_since_last_keypress > 5000) // sleep_after_ms_index_to_time_lookup[dp_settings.sleep_index]
+      start_sleeping();
+    else if(ms_since_last_keypress > 2500) // OLED_DIM_AFTER_MS
+      oled_brightness = OLED_CONTRAST_DIM;
+
     if(q_getCount(&switch_event_queue) == 0)
       continue;
     switch_event_t sw_event = {0};

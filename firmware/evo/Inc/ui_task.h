@@ -19,7 +19,7 @@ void draw_settings(dp_global_settings *dps);
 #define SLEEP_OPTION_SIZE 7
 
 #define OLED_DIM_AFTER_MS ONE_MINUTE_IN_MS
-#define OLED_CONTRAST_DIM 100
+#define OLED_CONTRAST_DIM 16
 #define OLED_CONTRAST_BRIGHT 255
 
 #define SETTINGS_ENTRY_SIZE 3
