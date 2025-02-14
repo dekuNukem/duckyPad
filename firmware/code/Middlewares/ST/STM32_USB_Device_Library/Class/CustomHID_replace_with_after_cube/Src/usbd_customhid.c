@@ -304,7 +304,7 @@ __ALIGN_BEGIN static uint8_t HID_MOUSE_ReportDesc[USBD_CUSTOM_HID_REPORT_DESC_SI
   0xB1, 0x01,        //   Feature (Const,Array,Abs,No Wrap,Linear,Preferred State,No Null Position,Non-volatile)
   0xC0,              // End Collection
 
-  0x05, 0x01,                    // USAGE_PAGE (Generic Desktop)
+  0x05, 0x3a,                    // USAGE_PAGE (Generic Desktop)
   0x09, 0x00,                    // USAGE (Undefined)
   0xa1, 0x01,                    // COLLECTION (Application)
   0x15, 0x00,                    //   LOGICAL_MINIMUM (0)
