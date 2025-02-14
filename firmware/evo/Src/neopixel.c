@@ -67,7 +67,8 @@ void neopixel_show(uint8_t* red, uint8_t* green, uint8_t* blue, uint8_t brightne
   __enable_irq();
 }
 
-//---------------- animation ----------------
+//---------------- animation code below ----------------
+
 volatile uint32_t frame_counter;
 uint8_t pixel_map[NEOPIXEL_COUNT] = {2, 1, 0, 3, 4, 5, 8, 7, 6, 9, 10, 11, 14, 13, 12};
 uint8_t red_buf[NEOPIXEL_COUNT];
@@ -77,7 +78,6 @@ uint8_t blue_buf[NEOPIXEL_COUNT];
 led_animation neo_anime[NEOPIXEL_COUNT];
 uint8_t color_red[THREE] = {64 , 0, 0};
 uint8_t brightness_index_to_percent_lookup[BRIGHTNESS_LEVEL_SIZE] = {100, 70, 50, 20, 0};
-
 
 void set_pixel_3color(uint8_t which, uint8_t r, uint8_t g, uint8_t b)
 {
@@ -163,7 +163,7 @@ void led_start_animation(led_animation* anime_struct, uint8_t dest_color[THREE],
 
 void play_keydown_animation(uint8_t sw_number)
 {
-  if(sw_number > NEOPIXEL_COUNT)
+  if(sw_number >= NEOPIXEL_COUNT)
     return;
   set_pixel_color(sw_number, curr_pf_info.sw_activation_color[sw_number]);
   neo_anime[sw_number].current_color[0] = curr_pf_info.sw_activation_color[sw_number][0];
@@ -177,7 +177,7 @@ void play_keydown_animation(uint8_t sw_number)
 
 void play_keyup_animation(uint8_t sw_number)
 {
-  if(sw_number > NEOPIXEL_COUNT)
+  if(sw_number >= NEOPIXEL_COUNT)
     return;
   led_start_animation(&neo_anime[sw_number], curr_pf_info.sw_color[sw_number], ANIMATION_CROSS_FADE, 50);
 }

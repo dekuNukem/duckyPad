@@ -215,11 +215,14 @@ int main(void)
   current_profile_number = 3;
   goto_profile(current_profile_number);
   HAL_UART_Receive_IT(&huart3, uart_byte_buf, 1);
-  keypress_task();
+  draw_settings_led();
+  draw_settings(&dp_settings);
+  // keypress_task();
   
   // we should never get here
   while (1)
   {
+    delay_ms(100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

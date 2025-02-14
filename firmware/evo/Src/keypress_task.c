@@ -36,7 +36,10 @@ void process_keyevent(uint8_t swid, uint8_t event_type)
   }
   if(is_plus_minus_button(swid))
     return;
-  play_keyup_animation(swid);
+  if(event_type == SW_EVENT_SHORT_PRESS)
+    play_keydown_animation(swid);
+  if(event_type == SW_EVENT_RELEASE)
+    play_keyup_animation(swid);
 }
 
 void handle_sw_event(switch_event_t* this_sw_event)
