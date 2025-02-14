@@ -25,6 +25,21 @@ volatile uint32_t last_execution_exit;
 char dsb_on_press_path_buf[FILENAME_BUFSIZE];
 char dsb_on_release_path_buf[FILENAME_BUFSIZE];
 
+void block_until_anykey(uint8_t event_type)
+{
+  clear_sw_queue();
+  while(1)
+  {
+    delay_ms(33);
+    if(q_getCount(&switch_event_queue) == 0)
+      continue;
+    switch_event_t sw_event = {0};
+    q_pop(&switch_event_queue, &sw_event);
+    if(sw_event.type == event_type)
+      return;
+  }
+}
+
 static inline uint8_t is_plus_minus_button(uint8_t swid)
 {
   return swid == SW_MINUS || swid == SW_PLUS;
@@ -40,8 +55,17 @@ void update_last_keypress(void)
   draw_settings(&dp_settings);
 */
 
+void settings_menu(void)
+{
+  draw_settings_led();
+  draw_settings(&dp_settings);
+  block_until_anykey(SW_EVENT_SHORT_PRESS);
+  goto_profile(current_profile_number);
+}
+
 void process_keyevent(uint8_t swid, uint8_t event_type)
 {
+  oled_brightness = OLED_CONTRAST_BRIGHT;
   if(swid == SW_PLUS && event_type == SW_EVENT_RELEASE)
   {
     goto_next_profile();
@@ -52,8 +76,17 @@ void process_keyevent(uint8_t swid, uint8_t event_type)
     goto_prev_profile();
     return;
   }
-  if(is_plus_minus_button(swid))
+  if(is_plus_minus_button(swid) && event_type == SW_EVENT_LONG_PRESS)
+  {
+    settings_menu();
+    goto_profile(current_profile_number);
     return;
+  }
+  if(is_plus_minus_button(swid))
+    return; // just in case lol
+
+
+
   if(event_type == SW_EVENT_SHORT_PRESS)
     play_keydown_animation(swid);
   if(event_type == SW_EVENT_RELEASE)
