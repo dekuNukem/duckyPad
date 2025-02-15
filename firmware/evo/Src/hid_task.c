@@ -16,7 +16,8 @@
 
 void handle_hid_command(const uint8_t* hid_rx_buf)
 {
+  printf("%ld HID MSG:\n", millis());
   for (size_t i = 0; i < USBD_CUSTOMHID_OUTREPORT_BUF_SIZE; i++)
     printf("%02x ", hid_rx_buf[i]);
-  printf("\n!!!!!!\n");
+  printf("\n--------\n");
 }
