@@ -38,6 +38,7 @@
 #include "ui_task.h"
 #include "profiles.h"
 #include "keypress_task.h"
+#include "hid_task.h"
 
 /*
 menu bar:
@@ -147,8 +148,8 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-  printf("%02x ", uart_byte_buf[0]);
-  HAL_UART_Receive_IT(&huart3, uart_byte_buf, 1);
+  // printf("EXP %02x ", uart_byte_buf[0]);
+  // HAL_UART_Receive_IT(&huart3, uart_byte_buf, 1);
 }
 
 /* USER CODE END 0 */
