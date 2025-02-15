@@ -112,7 +112,19 @@ __ALIGN_BEGIN static uint8_t CUSTOM_HID_ReportDesc_FS[USBD_CUSTOM_HID_REPORT_DES
   0x19, 0x00,        //   Usage Minimum (0x00)
   0x29, 0x94,        //   Usage Maximum (0x94) originally 65, 73 supports F13 - F24
   0x81, 0x00,        //   Input (Data,Array,Abs,No Wrap,Linear,Preferred State,No Null Position)
-  0xC0,              // End Collection
+    // LEDs?
+  0x05, 0x08, // USAGE_PAGE (LEDs)
+  0x19, 0x01, // USAGE_MINIMUM (Num Lock)
+  0x29, 0x03, // USAGE_MAXIMUM (Scroll Lock)
+  0x15, 0x00, // LOGICAL_MINIMUM (0)
+  0x25, 0x01, // LOGICAL_MAXIMUM (1)
+  0x75, 0x01, // REPORT_SIZE (1)
+  0x95, 0x03, // REPORT_COUNT (3)
+  0x91, 0x02, // OUTPUT (Data,Var,Abs)
+  0x75, 0x05, // REPORT_SIZE (5)
+  0x95, 0x01, // REPORT_COUNT (1)
+  0x91, 0x03, // OUTPUT (Cnst,Var,Abs)
+  0xc0, // END_COLLECTION
   // Report ID 2: Media Keys
   0x05, 0x0C,        // Usage Page (Consumer)
   0x09, 0x01,        // Usage (Consumer Control)

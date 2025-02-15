@@ -183,8 +183,34 @@ uint32_t sleep_after_ms_index_to_time_lookup[SLEEP_OPTION_SIZE] = {
   DONT_SLEEP,
   };
 
+uint8_t is_all0(uint8_t* buff)
+{
+  for (size_t i = 0; i < USBD_CUSTOMHID_OUTREPORT_BUF_SIZE; i++)
+    if(buff[i])
+      return 0;
+  return 1;
+}
+
 void keypress_task(void)
 {
+  USBD_CUSTOM_HID_HandleTypeDef *hhid = (USBD_CUSTOM_HID_HandleTypeDef*) hUsbDeviceFS.pClassData;
+  
+  while(1)
+  {
+    uint8_t* usb_rx_buf = hhid->Report_buf;
+    if(is_all0(usb_rx_buf))
+      continue;
+
+    printf("Protocol %ld\n", hhid->Protocol);
+    printf("IdleState %ld\n", hhid->IdleState);
+    printf("AltSetting %ld\n", hhid->AltSetting);
+    printf("IsReportAvailable %ld\n", hhid->IsReportAvailable);
+    for (size_t i = 0; i < USBD_CUSTOMHID_OUTREPORT_BUF_SIZE; i++)
+      printf("%02x ", usb_rx_buf[i]);
+    printf("--------\n");
+    memset(usb_rx_buf, 0, USBD_CUSTOMHID_OUTREPORT_BUF_SIZE);
+  }
+
   while(1)
   {
     delay_ms(10);
