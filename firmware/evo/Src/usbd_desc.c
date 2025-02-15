@@ -62,7 +62,7 @@
   * @{
   */
 
-#define USBD_VID     1155
+#define USBD_VID     0x483
 #define USBD_LANGID_STRING     1033
 #define USBD_MANUFACTURER_STRING     "dekuNukem"
 #define USBD_PID_FS     0xd11c

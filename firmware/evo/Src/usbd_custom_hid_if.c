@@ -119,10 +119,10 @@ __ALIGN_BEGIN static uint8_t CUSTOM_HID_ReportDesc_FS[USBD_CUSTOM_HID_REPORT_DES
   0x15, 0x00, // LOGICAL_MINIMUM (0)
   0x25, 0x01, // LOGICAL_MAXIMUM (1)
   0x75, 0x01, // REPORT_SIZE (1)
-  0x95, 0x03, // REPORT_COUNT (3)
+  0x95, CUSTOM_HID_EPIN_SIZE, // REPORT_COUNT, this fills up the entire butter
   0x91, 0x02, // OUTPUT (Data,Var,Abs)
   0x75, 0x05, // REPORT_SIZE (5)
-  0x95, 0x01, // REPORT_COUNT (1)
+  0x95, CUSTOM_HID_EPIN_SIZE, // REPORT_COUNT, this fills up the entire butter
   0x91, 0x03, // OUTPUT (Cnst,Var,Abs)
   0xc0, // END_COLLECTION
   // Report ID 2: Media Keys
