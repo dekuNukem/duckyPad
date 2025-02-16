@@ -39,6 +39,7 @@
 #include "profiles.h"
 #include "keypress_task.h"
 #include "hid_task.h"
+#include "keyboard.h"
 
 /*
 menu bar:

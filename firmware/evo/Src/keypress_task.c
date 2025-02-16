@@ -16,6 +16,7 @@
 #include "usb_device.h"
 #include "usbd_customhid.h"
 #include "usbd_custom_hid_if.h"
+#include "keyboard.h"
 
 #define PLUS_MINUS_BUTTON_COOLDOWN_MS 250
 
@@ -52,11 +53,6 @@ void update_last_keypress(void)
 {
   last_keypress = millis();
 }
-
-/*
-  draw_settings_led();
-  draw_settings(&dp_settings);
-*/
 
 void settings_menu(void)
 {
@@ -100,7 +96,8 @@ void process_keyevent(uint8_t swid, uint8_t event_type)
     play_keyup_animation(swid);
 
   // printf("%s\n%s\n", dsb_on_press_path_buf, dsb_on_release_path_buf);
-  
+  kb_print("hello world", 20, 0);
+
   last_execution_exit = millis();
 }
 

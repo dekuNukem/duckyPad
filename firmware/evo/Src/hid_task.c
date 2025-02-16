@@ -24,12 +24,11 @@ void handle_hid_command(const uint8_t* hid_rx_buf)
     printf("%02x ", hid_rx_buf[i]);
   printf("\n--------\n");
 
-  if(hid_rx_buf[0] == 1)
+  if(hid_rx_buf[0] == 1) //LED
   {
-    //LED
     return;
   }
-  else if(hid_rx_buf[0] == 5)
+  else if(hid_rx_buf[0] == 5) // PC data
   {
     hid_tx_buf[0] = 4;
     uint8_t result = USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
