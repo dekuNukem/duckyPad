@@ -83,3 +83,14 @@ void clear_sw_queue(void)
 {
     q_flush(&switch_event_queue);
 }
+
+uint8_t sw_queue_has_keydown_event(void)
+{
+    if(q_getCount(&switch_event_queue) == 0)
+        return;
+    switch_event_t sw_event = {0};
+    q_pop(&switch_event_queue, &sw_event);
+    if(sw_event.type == SW_EVENT_SHORT_PRESS)
+        return 1;
+    return 0;
+}
