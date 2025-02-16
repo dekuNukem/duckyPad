@@ -229,3 +229,98 @@ void ssd1306_SetContrast(const uint8_t value)
     ssd1306_WriteCommand(value);
     current_contrast = value;
 }
+
+/* Draw circle by Bresenhem's algorithm */
+void ssd1306_DrawCircle(uint8_t par_x,uint8_t par_y,uint8_t par_r,SSD1306_COLOR par_color) {
+    int32_t x = -par_r;
+    int32_t y = 0;
+    int32_t err = 2 - 2 * par_r;
+    int32_t e2;
+
+    if (par_x >= SSD1306_WIDTH || par_y >= SSD1306_HEIGHT) {
+        return;
+    }
+
+    do {
+        ssd1306_DrawPixel(par_x - x, par_y + y, par_color);
+        ssd1306_DrawPixel(par_x + x, par_y + y, par_color);
+        ssd1306_DrawPixel(par_x + x, par_y - y, par_color);
+        ssd1306_DrawPixel(par_x - x, par_y - y, par_color);
+        e2 = err;
+
+        if (e2 <= y) {
+            y++;
+            err = err + (y * 2 + 1);
+            if(-x == y && e2 <= x) {
+                e2 = 0;
+            }
+        }
+
+        if (e2 > x) {
+            x++;
+            err = err + (x * 2 + 1);
+        }
+    } while (x <= 0);
+
+    return;
+}
+
+/* Draw filled circle. Pixel positions calculated using Bresenham's algorithm */
+void ssd1306_FillCircle(uint8_t par_x,uint8_t par_y,uint8_t par_r,SSD1306_COLOR par_color) {
+    int32_t x = -par_r;
+    int32_t y = 0;
+    int32_t err = 2 - 2 * par_r;
+    int32_t e2;
+
+    if (par_x >= SSD1306_WIDTH || par_y >= SSD1306_HEIGHT) {
+        return;
+    }
+
+    do {
+        for (uint8_t _y = (par_y + y); _y >= (par_y - y); _y--) {
+            for (uint8_t _x = (par_x - x); _x >= (par_x + x); _x--) {
+                ssd1306_DrawPixel(_x, _y, par_color);
+            }
+        }
+
+        e2 = err;
+        if (e2 <= y) {
+            y++;
+            err = err + (y * 2 + 1);
+            if (-x == y && e2 <= x) {
+                e2 = 0;
+            }
+        }
+
+        if (e2 > x) {
+            x++;
+            err = err + (x * 2 + 1);
+        }
+    } while (x <= 0);
+
+    return;
+}
+
+/* Draw a rectangle */
+void ssd1306_DrawRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, SSD1306_COLOR color) {
+    ssd1306_Line(x1,y1,x2,y1,color);
+    ssd1306_Line(x2,y1,x2,y2,color);
+    ssd1306_Line(x2,y2,x1,y2,color);
+    ssd1306_Line(x1,y2,x1,y1,color);
+    return;
+}
+
+/* Draw a filled rectangle */
+void ssd1306_FillRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, SSD1306_COLOR color) {
+    uint8_t x_start = ((x1<=x2) ? x1 : x2);
+    uint8_t x_end   = ((x1<=x2) ? x2 : x1);
+    uint8_t y_start = ((y1<=y2) ? y1 : y2);
+    uint8_t y_end   = ((y1<=y2) ? y2 : y1);
+
+    for (uint8_t y= y_start; (y<= y_end)&&(y<SSD1306_HEIGHT); y++) {
+        for (uint8_t x= x_start; (x<= x_end)&&(x<SSD1306_WIDTH); x++) {
+            ssd1306_DrawPixel(x, y, color);
+        }
+    }
+    return;
+}

@@ -8,7 +8,7 @@
 #include "neopixel.h"
 #include "profiles.h"
 #include "keypress_task.h"
-// #include "ds_vm.h"
+#include "ds_vm.h"
 #include "hid_task.h"
 #include "usb_device.h"
 #include "usbd_customhid.h"
@@ -507,8 +507,8 @@ uint8_t utf8ascii(uint8_t ascii)
 
   switch (last) // conversion depending on first UTF8-character
   {   
-    case 0xC2: return  (ascii);  break;
-    case 0xC3: return  (ascii | 0xC0);  break;
+    case 0xC2: return  (ascii);
+    case 0xC3: return  (ascii | 0xC0);
     case 0x82: if(ascii==0xAC) return(0x80); // special case Euro-symbol
   }
   return 0; // otherwise: return zero, if character has to be ignored
@@ -616,3 +616,4 @@ void release_key(uint8_t code, uint8_t type)
   kk.type = type;
   action_release(&kk);
 }
+

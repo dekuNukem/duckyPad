@@ -17,6 +17,7 @@
 #include "usbd_customhid.h"
 #include "usbd_custom_hid_if.h"
 #include "keyboard.h"
+#include "ds_vm.h"
 
 #define PLUS_MINUS_BUTTON_COOLDOWN_MS 250
 
@@ -35,11 +36,8 @@ void block_until_anykey(uint8_t event_type)
   while(1)
   {
     delay_ms(33);
-    if(q_getCount(&switch_event_queue) == 0)
-      continue;
     switch_event_t sw_event = {0};
-    q_pop(&switch_event_queue, &sw_event);
-    if(sw_event.type == event_type)
+    if(q_pop(&switch_event_queue, &sw_event) && sw_event.type == event_type)
       return;
   }
 }

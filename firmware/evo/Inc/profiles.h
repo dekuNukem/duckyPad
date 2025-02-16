@@ -9,6 +9,7 @@
 
 #include "input_task.h"
 #include "neopixel.h"
+#include "fatfs.h"
 
 #define FILENAME_BUFSIZE 64
 #define MAX_PROFILES 32
@@ -50,6 +51,12 @@ void goto_next_profile(void);
 #define PROFILE_SCAN_OK 0
 #define PROFILE_SCAN_ERROR_NO_TOC 1
 #define PROFILE_SCAN_ERROR_NO_PROFILE 2
+
+extern FRESULT sd_fresult;
+extern FATFS sd_fs;
+extern FIL sd_file;
+extern DIR dir;
+extern FILINFO fno;
 
 #ifdef __cplusplus
 }

@@ -7,7 +7,7 @@
 
 #include <stdint.h>
 
-#define TEMP_BUFSIZE 128
+#define TEMP_BUFSIZE 256
 #define millis() HAL_GetTick()
 
 void delay_ms(uint32_t amount);

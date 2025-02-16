@@ -86,11 +86,18 @@ void clear_sw_queue(void)
 
 uint8_t sw_queue_has_keydown_event(void)
 {
-    if(q_getCount(&switch_event_queue) == 0)
-        return;
     switch_event_t sw_event = {0};
-    q_pop(&switch_event_queue, &sw_event);
-    if(sw_event.type == SW_EVENT_SHORT_PRESS)
+    if(q_pop(&switch_event_queue, &sw_event) && sw_event.type == SW_EVENT_SHORT_PRESS)
         return 1;
     return 0;
 }
+
+uint8_t poll_sw_state(uint8_t swid_zero_indexed, uint8_t perform_new_scan)
+{
+	if(swid_zero_indexed >= MAX_TOTAL_SW_COUNT)
+		return 0;
+	if(perform_new_scan)
+		sw_scan();
+	return this_sw_state[swid_zero_indexed];
+}
+
