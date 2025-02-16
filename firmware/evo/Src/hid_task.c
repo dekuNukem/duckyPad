@@ -14,14 +14,8 @@
 #include "usbd_customhid.h"
 #include "usbd_custom_hid_if.h"
 
-#define HID_TX_BUF_SIZE (CUSTOM_HID_EPIN_SIZE)
+#define HID_TX_BUF_SIZE (CUSTOM_HID_EPIN_SIZE+1)
 uint8_t hid_tx_buf[HID_TX_BUF_SIZE];
-
-void prepare_tx_buf(void)
-{
-  for (size_t i = 0; i < HID_TX_BUF_SIZE; i++)
-    hid_tx_buf[i] = i;
-}
 
 void handle_hid_command(const uint8_t* hid_rx_buf)
 {
@@ -37,9 +31,9 @@ void handle_hid_command(const uint8_t* hid_rx_buf)
   }
   else if(hid_rx_buf[0] == 5)
   {
-    prepare_tx_buf();
-    printf("sending!\n");
-    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
+    hid_tx_buf[0] = 4;
+    uint8_t result = USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tx_buf, HID_TX_BUF_SIZE);
+    printf("hid tx: %d\n", result);
     return;
   }
 }
