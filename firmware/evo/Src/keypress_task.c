@@ -93,8 +93,7 @@ void process_keyevent(uint8_t swid, uint8_t event_type)
   if(event_type == SW_EVENT_RELEASE)
     play_keyup_animation(swid);
 
-  // printf("%s\n%s\n", dsb_on_press_path_buf, dsb_on_release_path_buf);
-  kb_print("hello world", 20, 0);
+  printf("%s\n%s\n", dsb_on_press_path_buf, dsb_on_release_path_buf);
 
   last_execution_exit = millis();
 }
@@ -167,6 +166,14 @@ uint8_t is_all0(uint8_t* buff)
   return 1;
 }
 
+void der_init(ds3_exe_result* der)
+{
+  der->result = EXE_OK;
+  der->next_pc = 0;
+  der->data = 0;
+  der->epilogue_actions = 0;
+}
+
 void keypress_task(void)
 {
   while(1)
@@ -175,9 +182,9 @@ void keypress_task(void)
     ssd1306_SetContrast(oled_brightness);
 
     uint32_t ms_since_last_keypress = millis() - last_keypress;
-    if(ms_since_last_keypress > 5000) // sleep_after_ms_index_to_time_lookup[dp_settings.sleep_index]
+    if(ms_since_last_keypress > 500 * 1000) // sleep_after_ms_index_to_time_lookup[dp_settings.sleep_index]
       start_sleeping();
-    else if(ms_since_last_keypress > 2500) // OLED_DIM_AFTER_MS
+    else if(ms_since_last_keypress > OLED_DIM_AFTER_MS)
       oled_brightness = OLED_CONTRAST_DIM;
 
     if(q_getCount(&switch_event_queue) == 0)
@@ -191,7 +198,11 @@ void keypress_task(void)
     printf("key %d, type %d\n", sw_event.id, sw_event.type);
 
     is_busy = 1;
-    handle_sw_event(&sw_event);
+    // handle_sw_event(&sw_event);
+    ds3_exe_result this_exe;
+    der_init(&this_exe);
+    run_dsb(&this_exe, 6, "/profile_Welcome/key6.dsb");
+    printf("result: %d\n", this_exe.result);
     is_busy = 0;
   }
 }
