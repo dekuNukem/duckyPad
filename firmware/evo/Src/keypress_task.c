@@ -174,7 +174,7 @@ void der_init(ds3_exe_result* der)
   der->epilogue_actions = 0;
 }
 
-const char test_dsb_path[] = "/profile_Welcome/key6.dsb";
+const char test_dsb_path[] = "/profile_Welcome/key7.dsb";
 
 void keypress_task(void)
 {

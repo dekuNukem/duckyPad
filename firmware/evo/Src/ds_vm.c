@@ -58,7 +58,7 @@ uint8_t switch_bank(uint16_t addr, const char* dsb_path)
   if(target_bank == current_bank)
     return DSB_OK;
 
-  printf("\n---cc:%d, tc:%d---\n", current_bank, target_bank);
+  // printf("\n---cc:%d, tc:%d---\n", current_bank, target_bank);
   uint8_t op_result = DSB_OK;
   UINT bytes_read = 0;
   if(f_open(&sd_file, dsb_path, FA_READ) != 0)
@@ -89,9 +89,7 @@ uint8_t switch_bank(uint16_t addr, const char* dsb_path)
 
 uint8_t read_byte(uint16_t addr, const char* dsb_path)
 {
-  uint8_t fff = switch_bank(addr,dsb_path);
-  printf("!!!!!!!! %d\n", fff);
-  if(fff != DSB_OK)
+  if(switch_bank(addr,dsb_path) != DSB_OK)
   {
     keyboard_release_all();
     mouse_release_all();
@@ -503,7 +501,7 @@ void execute_instruction(uint16_t curr_pc, ds3_exe_result* exe, uint8_t this_key
   uint8_t byte0 = read_byte(curr_pc+1, dsb_path);
   uint8_t byte1 = read_byte(curr_pc+2, dsb_path);
   uint16_t op_data = make_uint16(byte0, byte1);
-  printf("PC: %04d | Opcode: %02d | 0x%02x 0x%02x | 0x%04x\n", curr_pc, this_opcode, byte0, byte1, op_data);
+  // printf("PC: %04d | Opcode: %02d | 0x%02x 0x%02x | 0x%04x\n", curr_pc, this_opcode, byte0, byte1, op_data);
   
   exe->result = EXE_OK;
   exe->next_pc = curr_pc + INSTRUCTION_SIZE_BYTES;
