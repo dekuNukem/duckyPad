@@ -52,16 +52,16 @@ uint8_t get_gv_index(uint16_t addr)
   return result;
 }
 
-uint8_t switch_bank(uint16_t addr)
+uint8_t switch_bank(uint16_t addr, const char* dsb_path)
 {
   uint8_t target_bank = addr/BIN_BUF_SIZE;
   if(target_bank == current_bank)
     return DSB_OK;
 
-  // printf("\n---cc:%d, tc:%d---\n", current_bank, target_bank);
+  printf("\n---cc:%d, tc:%d---\n", current_bank, target_bank);
   uint8_t op_result = DSB_OK;
   UINT bytes_read = 0;
-  if(f_open(&sd_file, temp_buf, FA_READ) != 0)
+  if(f_open(&sd_file, dsb_path, FA_READ) != 0)
   {
     op_result = DSB_FOPEN_FAILED;
     goto switch_bank_end;
@@ -87,9 +87,11 @@ uint8_t switch_bank(uint16_t addr)
   return op_result;
 }
 
-uint8_t read_byte(uint16_t addr)
+uint8_t read_byte(uint16_t addr, const char* dsb_path)
 {
-  if(switch_bank(addr) != DSB_OK)
+  uint8_t fff = switch_bank(addr,dsb_path);
+  printf("!!!!!!!! %d\n", fff);
+  if(fff != DSB_OK)
   {
     keyboard_release_all();
     mouse_release_all();
@@ -299,23 +301,23 @@ uint16_t read_var(uint16_t addr, uint8_t this_key_id)
 #define STR_BUF_SIZE 8
 char make_str_buf[STR_BUF_SIZE];
 char read_buffer[READ_BUF_SIZE];
-char* make_str(uint16_t str_start_addr, uint8_t this_key_id)
+char* make_str(uint16_t str_start_addr, uint8_t this_key_id, const char* dsb_path)
 {
   uint16_t curr_addr = str_start_addr;
   uint8_t this_char, lsb, msb;
   memset(read_buffer, 0, READ_BUF_SIZE);
   while(1)
   {
-    this_char = read_byte(curr_addr);
+    this_char = read_byte(curr_addr, dsb_path);
     if(this_char == 0)
       break;
 
     if(this_char == VAR_BOUNDARY)
     {
       curr_addr++;
-      lsb = read_byte(curr_addr);
+      lsb = read_byte(curr_addr, dsb_path);
       curr_addr++;
-      msb = read_byte(curr_addr);
+      msb = read_byte(curr_addr, dsb_path);
       curr_addr++;
       curr_addr++;
       uint16_t var_addr = make_uint16(lsb, msb);
@@ -495,13 +497,13 @@ void parse_mmov(void)
   expand_mmov(tempx, tempy);
 }
 
-void execute_instruction(uint16_t curr_pc, ds3_exe_result* exe, uint8_t this_key_id)
+void execute_instruction(uint16_t curr_pc, ds3_exe_result* exe, uint8_t this_key_id, const char* dsb_path)
 {
-  uint8_t this_opcode = read_byte(curr_pc);
-  uint8_t byte0 = read_byte(curr_pc+1);
-  uint8_t byte1 = read_byte(curr_pc+2);
+  uint8_t this_opcode = read_byte(curr_pc, dsb_path);
+  uint8_t byte0 = read_byte(curr_pc+1, dsb_path);
+  uint8_t byte1 = read_byte(curr_pc+2, dsb_path);
   uint16_t op_data = make_uint16(byte0, byte1);
-  // printf("PC: %04d | Opcode: %02d | 0x%02x 0x%02x | 0x%04x\n", curr_pc, this_opcode, byte0, byte1, op_data);
+  printf("PC: %04d | Opcode: %02d | 0x%02x 0x%02x | 0x%04x\n", curr_pc, this_opcode, byte0, byte1, op_data);
   
   exe->result = EXE_OK;
   exe->next_pc = curr_pc + INSTRUCTION_SIZE_BYTES;
@@ -630,7 +632,7 @@ void execute_instruction(uint16_t curr_pc, ds3_exe_result* exe, uint8_t this_key
   }
   else if(this_opcode == OP_STR || this_opcode == OP_STRLN)
   {
-    char* str_buf = make_str(op_data, this_key_id);
+    char* str_buf = make_str(op_data, this_key_id, dsb_path);
     if(kb_print(str_buf, defaultchardelay_value, charjitter_value))
     {
       exe->result = EXE_ABORTED;
@@ -715,7 +717,7 @@ void execute_instruction(uint16_t curr_pc, ds3_exe_result* exe, uint8_t this_key
   }
   else if(this_opcode == OP_OLP)
   {
-    char* str_buf = make_str(op_data, this_key_id);
+    char* str_buf = make_str(op_data, this_key_id, dsb_path);
     ssd1306_WriteString(str_buf, Font_6x10, White);
   }
   else if(this_opcode == OP_OLU)
@@ -759,32 +761,10 @@ void execute_instruction(uint16_t curr_pc, ds3_exe_result* exe, uint8_t this_key
   }
 }
 
-uint8_t load_dsb(char* dsb_path)
+void run_dsb(ds3_exe_result* er, uint8_t this_key_id, const char* dsb_path)
 {
-  FILE *sd_file = fopen(dsb_path, "r");
-  if(sd_file == NULL)
-    return EXE_DSB_FOPEN_FAIL;
-  memset(bin_buf, 0, BIN_BUF_SIZE);
-  if(fread(bin_buf, 1, BIN_BUF_SIZE, sd_file) == 0)
-    return EXE_DSB_FREAD_ERROR;
-  fclose(sd_file);
-  if(bin_buf[0] != OP_VMINFO)
-    return EXE_DSB_INCOMPATIBLE_VERSION;
-  if(bin_buf[2] != dsvm_version)
-    return EXE_DSB_INCOMPATIBLE_VERSION;
-  return EXE_OK;
-}
-
-void run_dsb(ds3_exe_result* er, uint8_t this_key_id, char* dsb_path)
-{
-  uint8_t dsb_load_result = load_dsb(dsb_path);
-  if(dsb_load_result)
-  {
-    er->result = dsb_load_result;
-    return;
-  }
-  
   uint16_t current_pc = 0;
+  current_bank = 255;
   stack_init(&arithmetic_stack);
   stack_init(&call_stack);
   defaultdelay_value = DEFAULT_CMD_DELAY_MS;
@@ -801,7 +781,7 @@ void run_dsb(ds3_exe_result* er, uint8_t this_key_id, char* dsb_path)
 
   while(1)
   {
-    execute_instruction(current_pc, er, this_key_id);
+    execute_instruction(current_pc, er, this_key_id, dsb_path);
     if(er->result != EXE_OK || last_stack_op_result != EXE_OK)
       break;
     current_pc = er->next_pc;

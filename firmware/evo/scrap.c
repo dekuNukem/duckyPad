@@ -1,3 +1,19 @@
+uint8_t load_dsb(char* dsb_path)
+{
+  FILE *sd_file = fopen(dsb_path, "r");
+  if(sd_file == NULL)
+    return EXE_DSB_FOPEN_FAIL;
+  memset(bin_buf, 0, BIN_BUF_SIZE);
+  if(fread(bin_buf, 1, BIN_BUF_SIZE, sd_file) == 0)
+    return EXE_DSB_FREAD_ERROR;
+  fclose(sd_file);
+  if(bin_buf[0] != OP_VMINFO)
+    return EXE_DSB_INCOMPATIBLE_VERSION;
+  if(bin_buf[2] != dsvm_version)
+    return EXE_DSB_INCOMPATIBLE_VERSION;
+  return EXE_OK;
+}
+
   uint32_t start = millis();
 printf("took %ldms\n", millis()-start);
 

@@ -174,6 +174,8 @@ void der_init(ds3_exe_result* der)
   der->epilogue_actions = 0;
 }
 
+const char test_dsb_path[] = "/profile_Welcome/key6.dsb";
+
 void keypress_task(void)
 {
   while(1)
@@ -201,7 +203,7 @@ void keypress_task(void)
     // handle_sw_event(&sw_event);
     ds3_exe_result this_exe;
     der_init(&this_exe);
-    run_dsb(&this_exe, 6, "/profile_Welcome/key6.dsb");
+    run_dsb(&this_exe, 6, test_dsb_path);
     printf("result: %d\n", this_exe.result);
     is_busy = 0;
   }

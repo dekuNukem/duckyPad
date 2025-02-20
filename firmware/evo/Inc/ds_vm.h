@@ -143,7 +143,7 @@ extern uint16_t gv_buf[GLOBAL_VARIABLE_COUNT];
 #define READ_BUF_SIZE 256 * 2
 extern char read_buffer[READ_BUF_SIZE];
 
-void run_dsb(ds3_exe_result* er, uint8_t this_key_id, char* dsb_path);
+void run_dsb(ds3_exe_result* er, uint8_t this_key_id, const char* dsb_path);
 
 #endif
 
