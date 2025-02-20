@@ -201,6 +201,7 @@ int main(void)
   ssd1306_Init();
   led_animation_init();
   switch_init();
+  printf("duckyPad EVO v%d.%d.%d\n", fw_version_major, fw_version_minor, fw_version_patch);
 
   if(mount_sd())
   {

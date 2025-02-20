@@ -6,6 +6,7 @@
 #include "profiles.h"
 #include "fatfs.h"
 #include "ui_task.h"
+#include "ds_vm.h"
 
 const char settings_file_path[] = "dpp_config.txt";
 const char default_settings_file[] = "sleep_index 0\nbrightness_index 0\nlast_profile 1\nfw_ver 0.0.0\nserial_number DP20_000000\nkb_layout dpkm_English (US).txt\n";
@@ -56,12 +57,12 @@ uint8_t scan_profiles(void)
   if(f_open(&sd_file, "/profile_info.txt", FA_READ))
     return PROFILE_SCAN_ERROR_NO_TOC;
   memset(profile_name_list, 0, sizeof(profile_name_list));
-  while(f_gets(temp_buf, TEMP_BUFSIZE, &sd_file) != NULL)
+  while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
   {
-    this_profile_number = atoi(temp_buf);
+    this_profile_number = atoi(read_buffer);
     if(this_profile_number >= MAX_PROFILES)
       continue;
-    this_profile_name = goto_next_arg(temp_buf, temp_buf + strlen(temp_buf));
+    this_profile_name = goto_next_arg(read_buffer, read_buffer + strlen(read_buffer));
     strip_newline(this_profile_name, PROFILE_NAME_MAX_LEN);
     memset(temp_buf, 0, TEMP_BUFSIZE);
     sprintf(temp_buf, "/profile_%s/config.txt", this_profile_name);
@@ -76,7 +77,6 @@ uint8_t scan_profiles(void)
     return PROFILE_SCAN_ERROR_NO_PROFILE;
   return PROFILE_SCAN_OK;
 }
-
 
 const char cmd_sw_name_firstline[] = "z";
 void parse_profile_config_line(char* this_line, profile_cache* this_profile)
@@ -175,12 +175,12 @@ uint8_t load_profile(uint8_t profile_number)
 
   memset(&curr_pf_info, 0, sizeof(curr_pf_info));
   curr_pf_info.dim_unused_keys = 1;
-  memset(temp_buf, 0, TEMP_BUFSIZE);
-  while(f_gets(temp_buf, TEMP_BUFSIZE, &sd_file) != NULL)
+  memset(read_buffer, 0, READ_BUF_SIZE);
+  while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
   {
-    strip_newline(temp_buf, TEMP_BUFSIZE);
-    parse_profile_config_line(temp_buf, &curr_pf_info);
-    memset(temp_buf, 0, TEMP_BUFSIZE);
+    strip_newline(read_buffer, READ_BUF_SIZE);
+    parse_profile_config_line(read_buffer, &curr_pf_info);
+    memset(read_buffer, 0, READ_BUF_SIZE);
   }
   f_close(&sd_file);
   if(curr_pf_info.dim_unused_keys)
