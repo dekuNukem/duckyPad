@@ -12,6 +12,8 @@ void draw_nosd(void);
 void draw_noprofile(void);
 void draw_current_profile(void);
 void draw_settings(dp_global_settings *dps);
+void oled_say(char* what);
+void draw_exe_error(uint8_t err_code);
 
 #define ONE_MINUTE_IN_MS (60*1000)
 #define ONE_HOUR_IN_MS (60*ONE_MINUTE_IN_MS)

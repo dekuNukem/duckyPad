@@ -218,7 +218,8 @@ int main(void)
   current_profile_number = 3;
   goto_profile(current_profile_number);
   HAL_UART_Receive_IT(&huart3, uart_byte_buf, 1);
-  keypress_task();
+  // keypress_task();
+  draw_exe_error(66);
   
   // we should never get here
   while (1)

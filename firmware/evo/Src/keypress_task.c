@@ -47,6 +47,98 @@ static inline uint8_t is_plus_minus_button(uint8_t swid)
   return swid == SW_MINUS || swid == SW_PLUS;
 }
 
+ds3_exe_result this_exe;
+
+void der_init(ds3_exe_result* der)
+{
+  der->result = EXE_OK;
+  der->next_pc = 0;
+  der->data = 0;
+  der->epilogue_actions = 0;
+}
+
+
+#define DSB_ALLOW_AUTOREPEAT 0
+#define DSB_DONT_PLAY_KEYUP_ANIMATION_RETURN_IMMEDIATELY 1
+#define DSB_DONT_REPEAT_RETURN_IMMEDIATELY 2
+uint8_t run_once(uint8_t swid, char* dsb_path, uint8_t* to_increment)
+{
+  der_init(&this_exe);
+  run_dsb(&this_exe, swid, dsb_path);
+  // printf("---\nexecution finished:\nresult: %d\ndata: %d\nepilogue: 0x%x\n---\n", this_exe.result, this_exe.data, this_exe.epilogue_actions);
+  if(to_increment != NULL)
+    *to_increment = *to_increment + 1;
+  
+  uint8_t what_to_do = DSB_ALLOW_AUTOREPEAT;
+
+  if(this_exe.result == EXE_ABORTED)
+  {
+    neopixel_fill(128, 128, 128);
+    oled_say("Aborted");
+    delay_ms(100);
+    media_key_release();
+    delay_ms(100);
+    keyboard_release_all();
+    delay_ms(100);
+    mouse_release_all();
+    delay_ms(1000);
+    goto_profile(current_profile_number);
+    return DSB_DONT_PLAY_KEYUP_ANIMATION_RETURN_IMMEDIATELY;
+  }
+
+  if(this_exe.epilogue_actions & EPILOGUE_SAVE_GV)
+  {
+    save_gv();
+  }
+  if(this_exe.epilogue_actions & EPILOGUE_SAVE_LOOP_STATE)
+  {
+    save_persistent_state(this_exe.epilogue_actions, swid);
+  }
+  if(this_exe.epilogue_actions & EPILOGUE_SAVE_COLOR_STATE)
+  {
+    save_persistent_state(this_exe.epilogue_actions, swid);
+    what_to_do = DSB_DONT_PLAY_KEYUP_ANIMATION_RETURN_IMMEDIATELY;
+  }
+  if(this_exe.epilogue_actions & EPILOGUE_NEED_OLED_RESTORE)
+  {
+    goto_profile_without_updating_rgb_LED(current_profile_number);
+  }
+  if(this_exe.epilogue_actions & EPILOGUE_DONT_AUTO_REPEAT)
+  {
+    what_to_do = DSB_DONT_REPEAT_RETURN_IMMEDIATELY;
+  }
+
+  if(this_exe.result >= EXE_ERROR_CODE_START)
+  {
+    neopixel_fill(128, 0, 0);
+    draw_exe_error(this_exe.result);
+    block_until_anykey(SW_EVENT_SHORT_PRESS);
+    goto_profile(current_profile_number);
+    return DSB_DONT_PLAY_KEYUP_ANIMATION_RETURN_IMMEDIATELY;
+  }
+  else if(this_exe.result == EXE_ACTION_NEXT_PROFILE)
+  {
+    goto_next_profile();
+    return DSB_DONT_PLAY_KEYUP_ANIMATION_RETURN_IMMEDIATELY;
+  }
+  else if(this_exe.result == EXE_ACTION_PREV_PROFILE)
+  {
+    goto_prev_profile();
+    return DSB_DONT_PLAY_KEYUP_ANIMATION_RETURN_IMMEDIATELY;
+  }
+  else if(this_exe.result == EXE_ACTION_SLEEP)
+  {
+    start_sleeping();
+    return DSB_DONT_PLAY_KEYUP_ANIMATION_RETURN_IMMEDIATELY;
+  }
+  else if(this_exe.result == EXE_ACTION_GOTO_PROFILE)
+  {
+    goto_profile(this_exe.data);
+    return DSB_DONT_PLAY_KEYUP_ANIMATION_RETURN_IMMEDIATELY;
+  }
+  return what_to_do;
+}
+
 void update_last_keypress(void)
 {
   last_keypress = millis();
@@ -165,16 +257,6 @@ uint8_t is_all0(uint8_t* buff)
       return 0;
   return 1;
 }
-
-void der_init(ds3_exe_result* der)
-{
-  der->result = EXE_OK;
-  der->next_pc = 0;
-  der->data = 0;
-  der->epilogue_actions = 0;
-}
-
-const char test_dsb_path[] = "/profile_Welcome/key7.dsb";
 
 void keypress_task(void)
 {

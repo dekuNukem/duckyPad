@@ -187,3 +187,47 @@ void draw_settings(dp_global_settings *dps)
   ssd1306_UpdateScreen();
   // ssd1306_take_screenshot();
 }
+
+void oled_say(char* what)
+{
+  ssd1306_Fill(Black);
+
+  ssd1306_SetCursor(center_line(strlen(what)), 30);
+  ssd1306_WriteString(what, Font_6x10, White);
+
+  ssd1306_UpdateScreen();
+}
+
+void draw_exe_error(uint8_t err_code)
+{
+  ssd1306_Fill(Black);
+
+  memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
+  sprintf(oled_line_buf, "Execution Error");
+  ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 0);
+  ssd1306_WriteString(oled_line_buf, Font_6x10, White);
+
+  ssd1306_Line(0,10,128,10,White);
+
+  memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
+  sprintf(oled_line_buf, "Error Code: %d", err_code);
+  ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 15);
+  ssd1306_WriteString(oled_line_buf, Font_6x10, White);
+
+  memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
+  sprintf(oled_line_buf, "Open & Save");
+  ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 27);
+  ssd1306_WriteString(oled_line_buf, Font_6x10, White);
+
+  memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
+  sprintf(oled_line_buf, "on PC app");
+  ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 39);
+  ssd1306_WriteString(oled_line_buf, Font_6x10, White);
+
+  memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
+  sprintf(oled_line_buf, "Press Any Key");
+  ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 53);
+  ssd1306_WriteString(oled_line_buf, Font_6x10, White);
+
+  ssd1306_UpdateScreen();
+}
