@@ -221,7 +221,11 @@ int main(void)
   printf("ls: %d\n", ls);
   ls = save_settings(&dp_settings);
   printf("ls: %d\n", ls);
-  load_gv();
+  ls = load_keymap_by_name("dpkm_German_macOS.txt");
+  printf("ls: %d\n", ls);
+  memset(temp_buf, 0, TEMP_BUFSIZE);
+  ls = get_next_keymap("dpkm_German_macOS.txt", temp_buf);
+  printf("ls: %d %s\n", ls, temp_buf);
 
   goto_profile(current_profile_number);
   HAL_UART_Receive_IT(&huart3, uart_byte_buf, 1);

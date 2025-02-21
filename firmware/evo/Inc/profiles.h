@@ -38,7 +38,6 @@ extern profile_cache curr_pf_info;
 
 extern dp_global_settings dp_settings;
 extern uint8_t current_profile_number;
-extern char filename_buf[FILENAME_BUFSIZE];
 extern char profile_name_list[MAX_PROFILES][PROFILE_NAME_MAX_LEN];
 
 uint8_t mount_sd(void);
@@ -54,10 +53,15 @@ void save_persistent_state(uint8_t epilogue_value, uint8_t swid);
 uint8_t load_persistent_state(void);
 void save_gv(void);
 void load_gv(void);
+uint8_t load_keymap_by_name(char* km_name);
+uint8_t get_next_keymap(const char* current_keymap_filename, char* next_keymap_filename);
 
 #define PROFILE_SCAN_OK 0
 #define PROFILE_SCAN_ERROR_NO_TOC 1
 #define PROFILE_SCAN_ERROR_NO_PROFILE 2
+
+#define ERROR_NO_KEYMAP_FOLDER 1
+#define ERROR_KEYMAP_NOT_FOUND 2
 
 extern FRESULT sd_fresult;
 extern FATFS sd_fs;

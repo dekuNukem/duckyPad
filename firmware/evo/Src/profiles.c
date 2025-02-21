@@ -7,6 +7,7 @@
 #include "fatfs.h"
 #include "ui_task.h"
 #include "ds_vm.h"
+#include "keyboard.h"
 
 const char settings_file_path[] = "dpp_config.txt";
 const char default_settings_file[] = "sleep_index 0\nbrightness_index 0\nlast_profile 1\nfw_ver 0.0.0\nkb_layout dpkm_English (US).txt\n";
@@ -389,4 +390,78 @@ void load_gv(void)
   f_read(&sd_file, sps_bin_buf, SPS_BIN_SIZE, &bytes_read);
   f_close(&sd_file);
   memcpy(gv_buf, sps_bin_buf, GLOBAL_VARIABLE_COUNT * sizeof(uint16_t));
+}
+
+const char* dk_circumflex = "dk_circumflex";
+const char* dk_diaeresis = "dk_diaeresis";
+const char* dk_grave_accent = "dk_grave_accent";
+const char* dk_acute_accent = "dk_acute_accent";
+const char* dk_tilde = "dk_tilde";
+const char* dk_cedilla = "dk_cedilla";
+
+uint8_t load_keymap_by_name(char* km_name)
+{
+  char* next;
+  if(km_name == NULL)
+    return 1;
+  memset(temp_buf, 0, TEMP_BUFSIZE);
+  sprintf(temp_buf, "/keymaps/%s", km_name);
+
+  if(f_open(&sd_file, temp_buf, FA_READ))
+    return ERROR_KEYMAP_NOT_FOUND;
+  
+  while(f_gets(temp_buf, TEMP_BUFSIZE, &sd_file))
+  {
+    if(strncmp(temp_buf, dk_circumflex, strlen(dk_circumflex)) == 0)
+      duckcode_circumflex = strtoul(temp_buf + strlen(dk_circumflex), NULL, 0);
+    else if(strncmp(temp_buf, dk_diaeresis, strlen(dk_diaeresis)) == 0)
+      duckcode_diaeresis = strtoul(temp_buf + strlen(dk_diaeresis), NULL, 0);
+    else if(strncmp(temp_buf, dk_grave_accent, strlen(dk_grave_accent)) == 0)
+      duckcode_grave_accent = strtoul(temp_buf + strlen(dk_grave_accent), NULL, 0);
+    else if(strncmp(temp_buf, dk_acute_accent, strlen(dk_acute_accent)) == 0)
+      duckcode_acute_accent = strtoul(temp_buf + strlen(dk_acute_accent), NULL, 0);
+    else if(strncmp(temp_buf, dk_tilde, strlen(dk_tilde)) == 0)
+      duckcode_tilde = strtoul(temp_buf + strlen(dk_tilde), NULL, 0);
+    else if(strncmp(temp_buf, dk_cedilla, strlen(dk_cedilla)) == 0)
+      duckcode_cedilla = strtoul(temp_buf + strlen(dk_cedilla), NULL, 0);
+
+    uint8_t ascii_index = strtoul(temp_buf, &next, 0);
+    uint16_t keycode = strtoul(next, NULL, 0);
+    ascii_map[ascii_index] = keycode;
+  }
+  f_close(&sd_file);
+  ascii_map[0] = 0;
+  return 0;
+}
+
+char lfn_buf[FILENAME_BUFSIZE];
+uint8_t get_next_keymap(const char* current_keymap_filename, char* next_keymap_filename)
+{
+  if(f_opendir(&dir, "/keymaps"))
+    return ERROR_NO_KEYMAP_FOLDER;
+  uint8_t found = 0;
+  fno.lfname = lfn_buf; 
+  fno.lfsize = FILENAME_BUFSIZE - 1;
+  while(1)
+  {
+    memset(lfn_buf, 0, FILENAME_BUFSIZE);
+    sd_fresult = f_readdir(&dir, &fno);
+    if (sd_fresult != FR_OK || fno.fname[0] == 0)
+      break;
+    if (fno.fattrib & AM_DIR)
+      continue;
+    char* file_name = fno.lfname[0] ? fno.lfname : fno.fname;
+    if(!(strncmp(file_name, "dpkm_", 5) == 0 && strstr(file_name, ".txt") != NULL))
+      continue;
+    if(found)
+    {
+      strcpy(next_keymap_filename, file_name);
+      f_closedir(&dir);
+      return 0;
+    }
+    if(strcmp(file_name, current_keymap_filename) == 0)
+      found = 1;
+  }
+  f_closedir(&dir);
+  return ERROR_KEYMAP_NOT_FOUND;
 }
