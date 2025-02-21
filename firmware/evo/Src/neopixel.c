@@ -6,6 +6,7 @@
 #include "neopixel.h"
 #include "ui_task.h"
 #include "profiles.h"
+#include "sd_util.h"
 
 uint8_t ws_padding_buf[NEOPIXEL_PADDING_BUF_SIZE];
 uint8_t ws_spi_buf[WS_SPI_BUF_SIZE];
@@ -29,7 +30,8 @@ uint8_t blue_after_brightness[NEOPIXEL_COUNT];
 // make sure spi speed is between 8MHz and 10MHz
 void neopixel_show(uint8_t* red, uint8_t* green, uint8_t* blue, uint8_t brightness)
 {
-  __disable_irq();
+  if(is_sd_busy)
+    return;
   float brightness_percent = (float)brightness/100;
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
   {
@@ -64,7 +66,6 @@ void neopixel_show(uint8_t* red, uint8_t* green, uint8_t* blue, uint8_t brightne
     spi_fastwrite_buf_size_even(ws_padding_buf, NEOPIXEL_PADDING_BUF_SIZE);
     HAL_GPIO_WritePin(LED_DATA_EN_GPIO_Port, LED_DATA_EN_Pin, GPIO_PIN_RESET);
   }
-  __enable_irq();
 }
 
 //---------------- animation code below ----------------

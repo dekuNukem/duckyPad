@@ -9,6 +9,7 @@
 #include "stm32f0xx_hal.h"
 #include "sd_util.h"
 #include <string.h>
+#include <stdint.h>
 
 /*
  * Code is split into 3 parts:
@@ -49,10 +50,16 @@ static void spi_init(void)
   spi_set_speed(SD_SPEED_400KHZ);
 }
 
+volatile uint8_t is_sd_busy;
+
 static u8 spi_txrx(u8 data)
 {
   u8 ret = 0;
+  is_sd_busy = 1;
+  __disable_irq();
   HAL_SPI_TransmitReceive(&hspi1, &data, &ret, 1, 500);
+  __enable_irq();
+  is_sd_busy = 0;
   return ret;
 }
 
