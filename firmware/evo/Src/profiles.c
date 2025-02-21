@@ -32,6 +32,7 @@ FATFS sd_fs;
 FIL sd_file;
 DIR dir;
 FILINFO fno;
+UINT bytes_written, bytes_read;
 
 uint8_t load_settings(dp_global_settings* dps)
 {
@@ -264,12 +265,20 @@ uint8_t load_profile(uint8_t profile_number)
   return 0;
 }
 
-void goto_profile(uint8_t profile_number)
+uint8_t goto_profile_without_updating_rgb_LED(uint8_t profile_number)
 {
   if(load_profile(profile_number))
-    return;
-  current_profile_number = profile_number;
+    return 1;
   draw_current_profile();
+  current_profile_number = profile_number;
+  save_settings(&dp_settings);
+  return 0;
+}
+
+void goto_profile(uint8_t profile_number)
+{
+  if(goto_profile_without_updating_rgb_LED(profile_number))
+    return;
 }
 
 void goto_next_profile(void)
@@ -299,4 +308,85 @@ void goto_prev_profile(void)
       break;
   }
   goto_profile(new_profile_number);
+}
+
+#define COLOR_START_ADDR MAX_TOTAL_SW_COUNT
+#define SPS_BIN_SIZE 256
+uint8_t sps_bin_buf[SPS_BIN_SIZE];
+
+void save_persistent_state(uint8_t epilogue_value, uint8_t swid)
+{
+  memset(sps_bin_buf, 0, SPS_BIN_SIZE);
+  memcpy(sps_bin_buf, curr_pf_info.keypress_count, MAX_TOTAL_SW_COUNT);
+  for (uint8_t i = 0; i < NEOPIXEL_COUNT; i++)
+  {
+    uint8_t r_addr = i*3 + COLOR_START_ADDR;
+    uint8_t g_addr = r_addr + 1;
+    uint8_t b_addr = g_addr + 1;
+    uint8_t red, green, blue;
+    get_current_color(i, &red, &green, &blue);
+    // if not asking to save color state, save the current key color with assigned switch color, instead of keydown color
+    if((epilogue_value & EPILOGUE_SAVE_COLOR_STATE) == 0 && i == swid)
+    {
+      red = curr_pf_info.sw_color[i][0];
+      green = curr_pf_info.sw_color[i][1];
+      blue = curr_pf_info.sw_color[i][2];
+    }
+    sps_bin_buf[r_addr] = red;
+    sps_bin_buf[g_addr] = green;
+    sps_bin_buf[b_addr] = blue;
+  }
+  
+  memset(temp_buf, 0, TEMP_BUFSIZE);
+  sprintf(temp_buf, "/profile_%s/state_dpp.sps", profile_name_list[current_profile_number]);
+
+  f_open(&sd_file, temp_buf, FA_WRITE | FA_CREATE_ALWAYS);
+  f_write(&sd_file, sps_bin_buf, SPS_BIN_SIZE, &bytes_written);
+  f_close(&sd_file);
+}
+
+uint8_t load_persistent_state(void)
+{
+  memset(temp_buf, 0, TEMP_BUFSIZE);
+  sprintf(temp_buf, "/profile_%s/state_dpp.sps", profile_name_list[current_profile_number]);
+
+  if(f_open(&sd_file, temp_buf, FA_READ))
+    return 1;
+  memset(sps_bin_buf, 0, SPS_BIN_SIZE);
+  if(f_read(&sd_file, sps_bin_buf, SPS_BIN_SIZE, &bytes_read))
+    return 2;
+  f_close(&sd_file);
+  memcpy(curr_pf_info.keypress_count, sps_bin_buf, MAX_TOTAL_SW_COUNT);
+
+  for (uint8_t i = 0; i < NEOPIXEL_COUNT; ++i)
+  {
+    uint8_t r_addr = i*3 + COLOR_START_ADDR;
+    uint8_t red = sps_bin_buf[r_addr];
+    uint8_t green = sps_bin_buf[r_addr+1];
+    uint8_t blue = sps_bin_buf[r_addr+2];
+    set_pixel_3color_update_buffer(i, red, green, blue);
+  }
+  return 0;
+}
+
+void save_gv(void)
+{
+  memset(sps_bin_buf, 0, SPS_BIN_SIZE);
+  memcpy(sps_bin_buf, gv_buf, GLOBAL_VARIABLE_COUNT*sizeof(uint16_t));
+  memset(temp_buf, 0, TEMP_BUFSIZE);
+  sprintf(temp_buf, "/gv.sps");
+  f_open(&sd_file, temp_buf, FA_WRITE | FA_CREATE_ALWAYS);
+  f_write(&sd_file, sps_bin_buf, SPS_BIN_SIZE, &bytes_written);
+  f_close(&sd_file);
+}
+
+void load_gv(void)
+{
+  memset(temp_buf, 0, TEMP_BUFSIZE);
+  sprintf(temp_buf, "/gv.sps");
+  f_open(&sd_file, temp_buf, FA_READ);
+  memset(sps_bin_buf, 0, SPS_BIN_SIZE);
+  f_read(&sd_file, sps_bin_buf, SPS_BIN_SIZE, &bytes_read);
+  f_close(&sd_file);
+  memcpy(gv_buf, sps_bin_buf, GLOBAL_VARIABLE_COUNT * sizeof(uint16_t));
 }
