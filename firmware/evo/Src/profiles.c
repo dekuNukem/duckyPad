@@ -465,3 +465,28 @@ uint8_t get_next_keymap(const char* current_keymap_filename, char* next_keymap_f
   f_closedir(&dir);
   return ERROR_KEYMAP_NOT_FOUND;
 }
+
+uint8_t get_first_keymap(char* keymap_filename)
+{
+  if(f_opendir(&dir, "/keymaps"))
+    return ERROR_NO_KEYMAP_FOLDER;
+  fno.lfname = lfn_buf; 
+  fno.lfsize = FILENAME_BUFSIZE - 1;
+  while(1)
+  {
+    memset(lfn_buf, 0, FILENAME_BUFSIZE);
+    sd_fresult = f_readdir(&dir, &fno);
+    if (sd_fresult != FR_OK || fno.fname[0] == 0)
+      break;
+    if (fno.fattrib & AM_DIR)
+      continue;
+    char* file_name = fno.lfname[0] ? fno.lfname : fno.fname;
+    if(!(strncmp(file_name, "dpkm_", 5) == 0 && strstr(file_name, ".txt") != NULL))
+      continue;
+    strcpy(keymap_filename, file_name);
+    f_closedir(&dir);
+    return 0;
+  }
+  f_closedir(&dir);
+  return ERROR_KEYMAP_NOT_FOUND;
+}

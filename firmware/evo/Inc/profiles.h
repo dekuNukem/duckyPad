@@ -55,6 +55,7 @@ void save_gv(void);
 void load_gv(void);
 uint8_t load_keymap_by_name(char* km_name);
 uint8_t get_next_keymap(const char* current_keymap_filename, char* next_keymap_filename);
+uint8_t get_first_keymap(char* keymap_filename);
 
 #define PROFILE_SCAN_OK 0
 #define PROFILE_SCAN_ERROR_NO_TOC 1

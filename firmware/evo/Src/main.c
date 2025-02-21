@@ -224,7 +224,7 @@ int main(void)
   ls = load_keymap_by_name("dpkm_German_macOS.txt");
   printf("ls: %d\n", ls);
   memset(temp_buf, 0, TEMP_BUFSIZE);
-  ls = get_next_keymap("dpkm_German_macOS.txt", temp_buf);
+  ls = get_first_keymap(temp_buf);
   printf("ls: %d %s\n", ls, temp_buf);
 
   goto_profile(current_profile_number);
