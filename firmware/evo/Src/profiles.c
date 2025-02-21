@@ -9,7 +9,7 @@
 #include "ds_vm.h"
 
 const char settings_file_path[] = "dpp_config.txt";
-const char default_settings_file[] = "sleep_index 0\nbrightness_index 0\nlast_profile 1\nfw_ver 0.0.0\nserial_number DP20_000000\nkb_layout dpkm_English (US).txt\n";
+const char default_settings_file[] = "sleep_index 0\nbrightness_index 0\nlast_profile 1\nfw_ver 0.0.0\nkb_layout dpkm_English (US).txt\n";
 dp_global_settings dp_settings;
 
 uint8_t current_profile_number;
@@ -70,6 +70,29 @@ uint8_t load_settings(dp_global_settings* dps)
       strip_newline(dps->current_kb_layout, FILENAME_BUFSIZE);
     }
   }
+  f_close(&sd_file);
+  return 0;
+}
+
+uint8_t save_settings(dp_global_settings* dps)
+{
+  if(dps == NULL)
+    return 1;
+  if(f_open(&sd_file, settings_file_path, FA_WRITE | FA_CREATE_ALWAYS))
+    return 2;
+  f_printf(
+    &sd_file,
+    "%s%d\n"
+    "%s%d\n"
+    "%s%d\n"
+    "fw_ver %d.%d.%d\n"
+    "%s%s\n",
+    config_sleep_after_index, dps->sleep_index,
+    config_brightness_index, dps->brightness_index,
+    config_last_used_profile, current_profile_number,
+    fw_version_major, fw_version_minor, fw_version_patch,
+    config_keyboard_layout, dps->current_kb_layout
+  );
   f_close(&sd_file);
   return 0;
 }

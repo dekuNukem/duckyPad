@@ -38,3 +38,8 @@ void idle_loop(void)
   while(1)
     delay_ms(1000);
 }
+
+uint32_t get_uuid(void)
+{
+  return (*STM32F0_UUID0) ^ (*STM32F0_UUID1) ^ (*STM32F0_UUID2);
+}

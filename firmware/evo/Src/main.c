@@ -217,6 +217,8 @@ int main(void)
 
   uint8_t ls = load_settings(&dp_settings);
   printf("ls: %d\n", ls);
+  ls = save_settings(&dp_settings);
+  printf("ls: %d\n", ls);
 
   current_profile_number = 3;
   goto_profile(current_profile_number);
