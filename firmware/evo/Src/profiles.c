@@ -270,8 +270,8 @@ uint8_t goto_profile_without_updating_rgb_LED(uint8_t profile_number)
 {
   if(load_profile(profile_number))
     return 1;
-  draw_current_profile();
   current_profile_number = profile_number;
+  draw_current_profile();
   save_settings(&dp_settings);
   return 0;
 }
