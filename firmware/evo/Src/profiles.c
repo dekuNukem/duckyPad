@@ -33,6 +33,47 @@ FIL sd_file;
 DIR dir;
 FILINFO fno;
 
+uint8_t load_settings(dp_global_settings* dps)
+{
+  if(dps == NULL)
+    return 1;
+
+  memset(dps, 0, sizeof(*dps));
+
+  if(f_stat(settings_file_path, &fno))
+  {
+    if(f_open(&sd_file, settings_file_path, FA_CREATE_ALWAYS | FA_WRITE))
+      return 2;
+    f_printf(&sd_file, "%s", default_settings_file);
+    f_close(&sd_file);
+  }
+  
+  if(f_open(&sd_file, settings_file_path, FA_READ))
+    return 3;
+
+  memset(temp_buf, 0, TEMP_BUFSIZE);
+  memset(dps->current_kb_layout, 0, FILENAME_BUFSIZE);
+
+  while(f_gets(temp_buf, TEMP_BUFSIZE, &sd_file))
+  {
+    if(strncmp(temp_buf, config_sleep_after_index, strlen(config_sleep_after_index)) == 0)
+      dps->sleep_index = atoi(temp_buf + strlen(config_sleep_after_index));
+    if(strncmp(temp_buf, config_brightness_index, strlen(config_brightness_index)) == 0)
+      dps->brightness_index = atoi(temp_buf + strlen(config_brightness_index));
+    if(strncmp(temp_buf, config_last_used_profile, strlen(config_last_used_profile)) == 0)
+      dps->last_used_profile = atoi(temp_buf + strlen(config_last_used_profile));
+    if(dps->brightness_index >= BRIGHTNESS_LEVEL_SIZE)
+      dps->brightness_index = BRIGHTNESS_LEVEL_SIZE - 1;
+    if(strncmp(temp_buf, config_keyboard_layout, strlen(config_keyboard_layout)) == 0)
+    {
+      strcpy(dps->current_kb_layout, temp_buf + strlen(config_keyboard_layout));
+      strip_newline(dps->current_kb_layout, FILENAME_BUFSIZE);
+    }
+  }
+  f_close(&sd_file);
+  return 0;
+}
+
 uint8_t is_valid_profile_number(uint8_t profile_number)
 {
   if(profile_number >= MAX_PROFILES || strlen(profile_name_list[profile_number]) == 0)

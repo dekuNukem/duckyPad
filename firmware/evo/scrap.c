@@ -1,3 +1,9 @@
+  printf("sleep_index: %d\n", dps->sleep_index);
+  printf("last_used_profile: %d\n", dps->last_used_profile);
+  printf("brightness_index: %d\n", dps->brightness_index);
+  printf("current_kb_layout: %s\n", dps->current_kb_layout);
+
+
 uint8_t load_dsb(char* dsb_path)
 {
   FILE *sd_file = fopen(dsb_path, "r");

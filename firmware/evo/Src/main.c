@@ -215,6 +215,9 @@ int main(void)
     idle_loop();
   }
 
+  uint8_t ls = load_settings(&dp_settings);
+  printf("ls: %d\n", ls);
+
   current_profile_number = 3;
   goto_profile(current_profile_number);
   HAL_UART_Receive_IT(&huart3, uart_byte_buf, 1);

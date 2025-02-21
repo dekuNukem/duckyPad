@@ -48,6 +48,8 @@ void goto_profile(uint8_t profile_number);
 void goto_prev_profile(void);
 void goto_next_profile(void);
 
+uint8_t load_settings(dp_global_settings* dps);
+
 #define PROFILE_SCAN_OK 0
 #define PROFILE_SCAN_ERROR_NO_TOC 1
 #define PROFILE_SCAN_ERROR_NO_PROFILE 2
