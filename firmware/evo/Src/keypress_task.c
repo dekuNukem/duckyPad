@@ -57,7 +57,6 @@ void der_init(ds3_exe_result* der)
   der->epilogue_actions = 0;
 }
 
-
 #define DSB_ALLOW_AUTOREPEAT 0
 #define DSB_DONT_PLAY_KEYUP_ANIMATION_RETURN_IMMEDIATELY 1
 #define DSB_DONT_REPEAT_RETURN_IMMEDIATELY 2
@@ -144,12 +143,60 @@ void update_last_keypress(void)
   last_keypress = millis();
 }
 
+void onboard_offboard_switch_press(uint8_t swid, char* press_path, char* release_path)
+{
+  if(f_stat(press_path, NULL))
+    return;
+  uint32_t hold_start;
+  play_keydown_animation(swid);
+  uint8_t* to_increment = &curr_pf_info.keypress_count[swid];
+  //-------------
+  uint8_t run_result = run_once(swid, press_path, to_increment);
+  if(run_result == DSB_DONT_PLAY_KEYUP_ANIMATION_RETURN_IMMEDIATELY)
+    return;
+  // don't repeat if on_release script exists
+  if(f_stat(release_path, NULL))
+    return;
+  if(run_result == DSB_DONT_REPEAT_RETURN_IMMEDIATELY)
+    goto handle_obsw_keydown_end;
+  //--------------
+
+  hold_start = millis();
+  while(1)
+  {
+    if(poll_sw_state(swid, 1) == 0)
+      goto handle_obsw_keydown_end;
+    if(millis()- hold_start > 500)
+      break;
+  }
+  while(1)
+  {
+    if(poll_sw_state(swid, 1) == 0)
+      break;
+    uint8_t* to_increment = &curr_pf_info.keypress_count[swid];
+    if(run_once(swid, press_path, to_increment) == DSB_DONT_PLAY_KEYUP_ANIMATION_RETURN_IMMEDIATELY)
+      return;
+  }
+  handle_obsw_keydown_end:
+  // play keyup animation only if there is no on-release DSB file 
+  if(f_stat(release_path, NULL))
+    play_keyup_animation(swid);
+}
+
 void settings_menu(void)
 {
   draw_settings_led();
   draw_settings(&dp_settings);
   block_until_anykey(SW_EVENT_SHORT_PRESS);
   goto_profile(current_profile_number);
+}
+
+void onboard_offboard_switch_release(uint8_t swid, char* release_path)
+{
+  if(f_stat(release_path, NULL))
+    return;
+  run_once(swid, release_path, NULL);
+  play_keyup_animation(swid);
 }
 
 void process_keyevent(uint8_t swid, uint8_t event_type)
@@ -181,11 +228,9 @@ void process_keyevent(uint8_t swid, uint8_t event_type)
   sprintf(dsb_on_release_path_buf, "/profile_%s/key%d-release.dsb", profile_name_list[current_profile_number], swid+1);
 
   if(event_type == SW_EVENT_SHORT_PRESS)
-    play_keydown_animation(swid);
-  if(event_type == SW_EVENT_RELEASE)
-    play_keyup_animation(swid);
-
-  printf("%s\n%s\n", dsb_on_press_path_buf, dsb_on_release_path_buf);
+    onboard_offboard_switch_press(swid, dsb_on_press_path_buf, dsb_on_release_path_buf);
+  else if(event_type == SW_EVENT_RELEASE)
+    onboard_offboard_switch_release(swid, dsb_on_release_path_buf);
 
   last_execution_exit = millis();
 }
@@ -217,7 +262,7 @@ void wakeup_from_sleep_and_load_profile(uint8_t profile_to_load)
 void handle_sw_event(switch_event_t* this_sw_event)
 {
   update_last_keypress();
-
+  // printf("swid: %d type: %d\n", this_sw_event->id, this_sw_event->type);
   if(is_sleeping && is_plus_minus_button(this_sw_event->id) && this_sw_event->type != SW_EVENT_RELEASE)
   {
     return;
@@ -235,7 +280,7 @@ void handle_sw_event(switch_event_t* this_sw_event)
   uint32_t ke_start = millis();
   process_keyevent(this_sw_event->id, this_sw_event->type);
   uint32_t execution_duration = millis() - ke_start;
-  printf("took %ldms\n", execution_duration);
+  // printf("took %ldms\n", execution_duration);
   if(execution_duration > 500)
     clear_sw_queue();
 }
