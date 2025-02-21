@@ -200,11 +200,7 @@ void keypress_task(void)
     printf("key %d, type %d\n", sw_event.id, sw_event.type);
 
     is_busy = 1;
-    // handle_sw_event(&sw_event);
-    ds3_exe_result this_exe;
-    der_init(&this_exe);
-    run_dsb(&this_exe, 6, test_dsb_path);
-    printf("result: %d\n", this_exe.result);
+    handle_sw_event(&sw_event);
     is_busy = 0;
   }
 }

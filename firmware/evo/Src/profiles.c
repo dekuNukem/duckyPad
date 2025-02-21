@@ -280,6 +280,10 @@ void goto_profile(uint8_t profile_number)
 {
   if(goto_profile_without_updating_rgb_LED(profile_number))
     return;
+  if(load_persistent_state())
+    redraw_bg();
+  else
+    neopixel_draw_current_buffer();
 }
 
 void goto_next_profile(void)

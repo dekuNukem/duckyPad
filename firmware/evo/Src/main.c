@@ -216,17 +216,6 @@ int main(void)
   }
 
   current_profile_number = 3;
-
-  uint8_t ls = load_settings(&dp_settings);
-  printf("ls: %d\n", ls);
-  ls = save_settings(&dp_settings);
-  printf("ls: %d\n", ls);
-  ls = load_keymap_by_name("dpkm_German_macOS.txt");
-  printf("ls: %d\n", ls);
-  memset(temp_buf, 0, TEMP_BUFSIZE);
-  ls = get_first_keymap(temp_buf);
-  printf("ls: %d %s\n", ls, temp_buf);
-
   goto_profile(current_profile_number);
   HAL_UART_Receive_IT(&huart3, uart_byte_buf, 1);
   keypress_task();
