@@ -89,13 +89,27 @@ uint8_t switch_bank(uint16_t addr, const char* dsb_path)
 
 uint8_t read_byte(uint16_t addr, const char* dsb_path)
 {
-  if(switch_bank(addr,dsb_path) != DSB_OK)
+  // uint8_t bs_result = switch_bank(addr,dsb_path);
+  // if(bs_result != DSB_OK)
+  // {
+  //   printf("BANK: %d\n", bs_result);
+  //   keyboard_release_all();
+  //   mouse_release_all();
+  //   HAL_Delay(1000);
+  //   NVIC_SystemReset();
+  // }
+
+  while(1)
   {
+    uint8_t bs_result = switch_bank(addr,dsb_path);
+    if(bs_result == DSB_OK)
+      break;
+    printf("BANK: %d\n", bs_result);
     keyboard_release_all();
     mouse_release_all();
     HAL_Delay(1000);
-    NVIC_SystemReset();
   }
+
   return bin_buf[addr%BIN_BUF_SIZE];
 }
 

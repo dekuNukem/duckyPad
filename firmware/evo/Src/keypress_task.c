@@ -327,8 +327,10 @@ void keypress_task(void)
 
     is_busy = 1;
     uint32_t ke_start = millis();
+    // play_keydown_animation(4);
     der_init(&this_exe);
-    run_dsb(&this_exe, 4, "/profile_Numpad/key18.dsb");
+    run_dsb(&this_exe, 18, "/profile_Numpad/key18.dsb");
+    // play_keyup_animation(4);
     printf("took %ldms\n", millis() - ke_start);
     // handle_sw_event(&sw_event);
     is_busy = 0;
