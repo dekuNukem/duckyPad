@@ -280,9 +280,9 @@ void handle_sw_event(switch_event_t* this_sw_event)
   uint32_t ke_start = millis();
   process_keyevent(this_sw_event->id, this_sw_event->type);
   uint32_t execution_duration = millis() - ke_start;
-  // printf("took %ldms\n", execution_duration);
-  if(execution_duration > 500)
-    clear_sw_queue();
+  printf("took %ldms\n", execution_duration);
+  // if(execution_duration > 500)
+  //   clear_sw_queue();
 }
 
 uint32_t sleep_after_ms_index_to_time_lookup[SLEEP_OPTION_SIZE] = {
@@ -316,10 +316,8 @@ void keypress_task(void)
     else if(ms_since_last_keypress > OLED_DIM_AFTER_MS)
       oled_brightness = OLED_CONTRAST_DIM;
 
-    if(q_getCount(&switch_event_queue) == 0)
+    if(q_pop(&switch_event_queue, &sw_event) == 0)
       continue;
-    switch_event_t sw_event = {0};
-    q_pop(&switch_event_queue, &sw_event);
 
     if(is_plus_minus_button(sw_event.id) && millis() - last_execution_exit < PLUS_MINUS_BUTTON_COOLDOWN_MS)
       continue;
