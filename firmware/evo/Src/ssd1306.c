@@ -2,6 +2,7 @@
 #include "ssd1306.h"
 #include "main.h"
 #include "stdint.h"
+#include "shared.h"
 
 #define SSD1306_LCDWIDTH 128
 #define SSD1306_LCDHEIGHT 64
@@ -57,7 +58,7 @@ uint8_t ssd1306_Init(void)
 	ssd1306_WriteCommand(0x0);                                   // no offset
 	ssd1306_WriteCommand(SSD1306_SETSTARTLINE | 0x0);            // line #0
 	ssd1306_WriteCommand(SSD1306_CHARGEPUMP);                    // 0x8D
-	HAL_Delay(150);
+	delay_ms(150);
 	ssd1306_WriteCommand(0x14);
 	ssd1306_WriteCommand(SSD1306_MEMORYMODE);                    // 0x20
 	ssd1306_WriteCommand(0x00);                                  // 0x0 act like ks0108
@@ -75,7 +76,7 @@ uint8_t ssd1306_Init(void)
 	ssd1306_WriteCommand(SSD1306_NORMALDISPLAY);                 // 0xA6
 	ssd1306_WriteCommand(SSD1306_DEACTIVATE_SCROLL);
 	ssd1306_WriteCommand(SSD1306_DISPLAYON);//--turn on oled panel
-	HAL_Delay(10);
+	delay_ms(10);
 
 	/* Clearen scherm */
 	ssd1306_Fill(Black);
@@ -187,9 +188,9 @@ void ssd1306_SetCursor(uint8_t x, uint8_t y)
 void oled_reset(void)
 {
 	HAL_GPIO_WritePin(OLED_RESET_GPIO_Port, OLED_RESET_Pin, GPIO_PIN_RESET);
-	HAL_Delay(10);
+	delay_ms(10);
 	HAL_GPIO_WritePin(OLED_RESET_GPIO_Port, OLED_RESET_Pin, GPIO_PIN_SET);
-	HAL_Delay(20);
+	delay_ms(20);
 }
 
 /* Draw line by Bresenhem's algorithm */

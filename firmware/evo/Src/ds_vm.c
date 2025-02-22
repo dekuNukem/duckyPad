@@ -94,7 +94,7 @@ uint8_t read_byte(uint16_t addr, const char* dsb_path)
     printf("BANK SWITCH FAIL\n");
     keyboard_release_all();
     mouse_release_all();
-    HAL_Delay(1000);
+    delay_ms(1000);
     NVIC_SystemReset();
   }
 
