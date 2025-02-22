@@ -303,6 +303,11 @@ uint8_t is_all0(uint8_t* buff)
   return 1;
 }
 
+uint32_t tim2_millis(void)
+{
+  return htim2.Instance->CNT;
+}
+
 void keypress_task(void)
 {
   while(1)
@@ -331,10 +336,11 @@ void keypress_task(void)
     // der_init(&this_exe);
     // run_dsb(&this_exe, 18, "/profile_Numpad/key18.dsb");
     // play_keyup_animation(4);
-    // printf("took %ldms\n", millis() - ke_start);
-    printf("ts %d\n", millis());
+    
+    uint32_t ke_start = millis();
+    uint32_t tim_start = tim2_millis();
     handle_sw_event(&sw_event);
-    printf("ts %d\n", millis());
+    printf("%ld %ld\n", millis() - ke_start, tim2_millis() - tim_start);
     is_busy = 0;
   }
 }
