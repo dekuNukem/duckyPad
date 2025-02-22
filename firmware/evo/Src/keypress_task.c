@@ -316,6 +316,7 @@ void keypress_task(void)
     else if(ms_since_last_keypress > OLED_DIM_AFTER_MS)
       oled_brightness = OLED_CONTRAST_DIM;
 
+    switch_event_t sw_event = {0};
     if(q_pop(&switch_event_queue, &sw_event) == 0)
       continue;
 
