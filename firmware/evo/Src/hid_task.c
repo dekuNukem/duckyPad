@@ -13,6 +13,7 @@
 #include "usb_device.h"
 #include "usbd_customhid.h"
 #include "usbd_custom_hid_if.h"
+#include "main.h"
 
 #define HID_TX_BUF_SIZE (CUSTOM_HID_EPIN_SIZE+1)
 uint8_t hid_tx_buf[HID_TX_BUF_SIZE];

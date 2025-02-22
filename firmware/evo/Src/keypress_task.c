@@ -18,6 +18,7 @@
 #include "usbd_custom_hid_if.h"
 #include "keyboard.h"
 #include "ds_vm.h"
+#include "main.h"
 
 #define PLUS_MINUS_BUTTON_COOLDOWN_MS 250
 
@@ -303,16 +304,11 @@ uint8_t is_all0(uint8_t* buff)
   return 1;
 }
 
-uint32_t tim2_millis(void)
-{
-  return htim2.Instance->CNT;
-}
-
 void keypress_task(void)
 {
   while(1)
   {
-    delay_ms(10);
+    delay_ms(5);
     ssd1306_SetContrast(oled_brightness);
 
     uint32_t ms_since_last_keypress = millis() - last_keypress;
@@ -338,9 +334,8 @@ void keypress_task(void)
     // play_keyup_animation(4);
     
     uint32_t ke_start = millis();
-    uint32_t tim_start = tim2_millis();
     handle_sw_event(&sw_event);
-    printf("%ld %ld\n", millis() - ke_start, tim2_millis() - tim_start);
+    printf("took %ldms\n", millis() - ke_start);
     is_busy = 0;
   }
 }

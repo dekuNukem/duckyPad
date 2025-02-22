@@ -1,9 +1,9 @@
+#include <stdint.h>
 #include <string.h>
 #include <stdio.h>
 #include "input_task.h"
 #include "main.h"
 #include "shared.h"
-#include <stdint.h>
 
 #define SWITCH_EVENT_QUEUE_SIZE 10
 Queue_t switch_event_queue;

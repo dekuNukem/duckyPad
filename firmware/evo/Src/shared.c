@@ -5,11 +5,20 @@
 
 char temp_buf[TEMP_BUFSIZE];
 
+uint32_t millis(void)
+{
+  return htim2.Instance->CNT;
+}
+
 void delay_ms(uint32_t amount)
 {
   if(amount == 0)
     return;
-  HAL_Delay(amount);
+  uint32_t start = millis();
+  while ((millis() - start) < amount)
+  {
+    ;
+  }
 }
 
 char* goto_next_arg(char* buf, char* buf_end)
