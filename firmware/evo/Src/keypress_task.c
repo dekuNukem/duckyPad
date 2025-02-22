@@ -280,7 +280,7 @@ void handle_sw_event(switch_event_t* this_sw_event)
   uint32_t ke_start = millis();
   process_keyevent(this_sw_event->id, this_sw_event->type);
   uint32_t execution_duration = millis() - ke_start;
-  printf("took %ldms\n", execution_duration);
+  // printf("took %ldms\n", execution_duration);
   // if(execution_duration > 500)
   //   clear_sw_queue();
 }
@@ -326,13 +326,15 @@ void keypress_task(void)
     printf("key %d, type %d\n", sw_event.id, sw_event.type);
 
     is_busy = 1;
-    uint32_t ke_start = millis();
+    // uint32_t ke_start = millis();
     // play_keydown_animation(4);
-    der_init(&this_exe);
-    run_dsb(&this_exe, 18, "/profile_Numpad/key18.dsb");
+    // der_init(&this_exe);
+    // run_dsb(&this_exe, 18, "/profile_Numpad/key18.dsb");
     // play_keyup_animation(4);
-    printf("took %ldms\n", millis() - ke_start);
-    // handle_sw_event(&sw_event);
+    // printf("took %ldms\n", millis() - ke_start);
+    printf("ts %d\n", millis());
+    handle_sw_event(&sw_event);
+    printf("ts %d\n", millis());
     is_busy = 0;
   }
 }

@@ -29,8 +29,8 @@ char sd_util_buf[SD_UTIL_BUF_SIZE];
 
 /*** spi functions ***/
 
-#define spi_cs_low() do { HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_RESET); } while (0)
-#define spi_cs_high() do { HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_SET); } while (0)
+#define spi_cs_low() do {__disable_irq(); HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_RESET); } while (0)
+#define spi_cs_high() do { HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_SET); __enable_irq();} while (0)
 
 static void spi_set_speed(enum sd_speed speed)
 {
@@ -50,16 +50,10 @@ static void spi_init(void)
   spi_set_speed(SD_SPEED_400KHZ);
 }
 
-volatile uint8_t is_sd_busy;
-
 static u8 spi_txrx(u8 data)
 {
   u8 ret = 0;
-  is_sd_busy = 1;
-  __disable_irq();
   HAL_SPI_TransmitReceive(&hspi1, &data, &ret, 1, 500);
-  __enable_irq();
-  is_sd_busy = 0;
   return ret;
 }
 

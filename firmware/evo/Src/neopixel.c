@@ -30,8 +30,6 @@ uint8_t blue_after_brightness[NEOPIXEL_COUNT];
 // make sure spi speed is between 8MHz and 10MHz
 void neopixel_show(uint8_t* red, uint8_t* green, uint8_t* blue, uint8_t brightness)
 {
-  if(is_sd_busy)
-    return;
   float brightness_percent = (float)brightness/100;
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
   {

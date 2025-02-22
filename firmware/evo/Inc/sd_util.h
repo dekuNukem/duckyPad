@@ -15,7 +15,6 @@ typedef struct hwif hwif;
 typedef uint8_t u8;
 typedef uint16_t u16;
 typedef uint32_t u32;
-extern volatile uint8_t is_sd_busy;
 
 int hwif_init(hwif* hw);
 int sd_read(hwif* hw, u32 address, u8 *buf);

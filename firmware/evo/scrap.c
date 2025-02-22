@@ -1,3 +1,30 @@
+uint8_t read_byte(uint16_t addr, const char* dsb_path)
+{
+  // uint8_t bs_result = switch_bank(addr,dsb_path);
+  // if(bs_result != DSB_OK)
+  // {
+  //   printf("BANK: %d\n", bs_result);
+  //   keyboard_release_all();
+  //   mouse_release_all();
+  //   HAL_Delay(1000);
+  //   NVIC_SystemReset();
+  // }
+
+  while(1)
+  {
+    uint8_t bs_result = switch_bank(addr,dsb_path);
+    if(bs_result == DSB_OK)
+      break;
+    printf("BANK: %d\n", bs_result);
+    keyboard_release_all();
+    mouse_release_all();
+    HAL_Delay(1000);
+  }
+
+  return bin_buf[addr%BIN_BUF_SIZE];
+}
+
+
     is_busy = 1;
     // handle_sw_event(&sw_event);
     ds3_exe_result this_exe;
