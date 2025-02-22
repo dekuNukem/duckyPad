@@ -326,7 +326,11 @@ void keypress_task(void)
     printf("key %d, type %d\n", sw_event.id, sw_event.type);
 
     is_busy = 1;
-    handle_sw_event(&sw_event);
+    uint32_t ke_start = millis();
+    der_init(&this_exe);
+    run_dsb(&this_exe, 4, "/profile_Numpad/key18.dsb");
+    printf("took %ldms\n", millis() - ke_start);
+    // handle_sw_event(&sw_event);
     is_busy = 0;
   }
 }
