@@ -214,9 +214,11 @@ int main(void)
     draw_noprofile();
     idle_loop();
   }
-
-  current_profile_number = 3;
-  goto_profile(current_profile_number);
+  
+  load_settings(&dp_settings);
+  load_keymap_by_name(dp_settings.current_kb_layout);
+  load_gv();
+  profile_init();
   HAL_UART_Receive_IT(&huart3, uart_byte_buf, 1);
   keypress_task();
   

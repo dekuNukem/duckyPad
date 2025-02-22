@@ -9,7 +9,7 @@
 #include "ds_vm.h"
 #include "keyboard.h"
 
-const char settings_file_path[] = "dpp_config.txt";
+const char settings_file_path[] = "/dpp_config.txt";
 const char default_settings_file[] = "sleep_index 0\nbrightness_index 0\nlast_profile 1\nfw_ver 0.0.0\nkb_layout dpkm_English (US).txt\n";
 dp_global_settings dp_settings;
 
@@ -493,4 +493,12 @@ uint8_t get_first_keymap(char* keymap_filename)
   }
   f_closedir(&dir);
   return ERROR_KEYMAP_NOT_FOUND;
+}
+
+void profile_init(void)
+{
+  if(is_valid_profile_number(dp_settings.last_used_profile))
+    goto_profile(dp_settings.last_used_profile);
+  else
+    goto_next_profile();
 }
