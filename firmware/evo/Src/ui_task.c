@@ -108,7 +108,7 @@ void print_keyname(char* keyname, uint8_t keynum)
 
 void draw_kbled_icon(uint8_t this_led_state, uint8_t update_screen)
 {
-  uint8_t color;
+  SSD1306_COLOR color;
   // numlock
   color = (this_led_state & 0x1) ? White : Black;
   ssd1306_FillCircle(118, 4, 1, color);

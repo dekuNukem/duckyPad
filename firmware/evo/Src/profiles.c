@@ -543,3 +543,37 @@ void profile_init(void)
   else
     goto_next_profile();
 }
+
+void list_files(char* path)
+{
+  if(f_opendir(&dir, path))
+    return;
+  fno.lfname = lfn_buf; 
+  fno.lfsize = FILENAME_BUFSIZE - 1;
+  while(1)
+  {
+    memset(lfn_buf, 0, FILENAME_BUFSIZE);
+    sd_fresult = f_readdir(&dir, &fno);
+    if (sd_fresult != FR_OK || fno.fname[0] == 0)
+      break;
+    if (fno.fattrib & AM_DIR)
+      continue;
+    char* file_name = fno.lfname[0] ? fno.lfname : fno.fname;
+    printf("\t%s\n", file_name);
+  }
+  f_closedir(&dir);
+}
+
+void sd_walk(void)
+{
+  for (size_t pf_num = 0; pf_num < MAX_PROFILES; pf_num++)
+  {
+    if(strlen(profile_name_list[pf_num]) == 0)
+      continue;
+    memset(temp_buf, 0, TEMP_BUFSIZE);
+    sprintf(temp_buf, "/profile_%s", profile_name_list[pf_num]);
+    printf("%s\n", temp_buf);
+    list_files(temp_buf);
+  }
+}
+

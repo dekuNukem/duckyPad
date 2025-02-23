@@ -272,8 +272,12 @@ void parse_hid_msg(const uint8_t* this_msg)
   */
   else if(command_type == HID_COMMAND_DUMP_SD)
   {
-    if(this_msg[3] == 2)
-      printf("Aborted\n");
+    // if(this_msg[3] == 2)
+    // {
+    //   printf("Aborted\n");
+    //   temp_buf[0] = 0;
+    // }
+    ;
   }
 
   else // not a valid HID command
