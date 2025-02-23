@@ -1,3 +1,14 @@
+  printf("%ld HID RES:\n", millis());
+  for (size_t i = 0; i < HID_TX_BUF_SIZE-1; i++)
+    printf("%02x ", hid_cmdbuf[i]);
+  printf("\n--------\n");
+
+  printf("%ld HID MSG:\n", millis());
+  for (size_t i = 0; i < USBD_CUSTOMHID_OUTREPORT_BUF_SIZE-1; i++)
+    printf("%02x ", this_msg[i]);
+  printf("\n--------\n");
+
+
     // uint32_t ke_start = millis();
     // play_keydown_animation(4);
     // der_init(&this_exe);
