@@ -16,7 +16,6 @@
 #include "main.h"
 
 #define HID_DP_TO_PC_USAGE_ID 4
-
 #define HID_TX_BUF_SIZE (CUSTOM_HID_EPIN_SIZE+1)
 uint8_t hid_tx_buf[HID_TX_BUF_SIZE];
 
@@ -29,7 +28,7 @@ uint8_t parse_hid_goto_profile_by_name(const uint8_t* this_buf)
 {
   if(this_buf == NULL)
     return 255;
-  char* pf_name_start = (char*)this_buf + 2;
+  char* pf_name_start = (char*)this_buf + 3;
   for (uint8_t i = 0; i < MAX_PROFILES; i++)
   {
     if(strlen(profile_name_list[i]) == 0)
@@ -43,11 +42,11 @@ uint8_t parse_hid_goto_profile_by_name(const uint8_t* this_buf)
 void parse_hid_msg(const uint8_t* this_msg)
 {
   printf("%ld HID MSG:\n", millis());
-  for (size_t i = 0; i < USBD_CUSTOMHID_OUTREPORT_BUF_SIZE-1; i++)
+  for (size_t i = 0; i < USBD_CUSTOMHID_OUTREPORT_BUF_SIZE; i++)
     printf("%02x ", this_msg[i]);
   printf("\n--------\n");
 
-  uint8_t command_type = this_msg[1];
+  uint8_t command_type = this_msg[2];
   memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
   hid_tx_buf[0] = HID_DP_TO_PC_USAGE_ID; // HID usage ID
   hid_tx_buf[2] = HID_RESPONSE_OK;
@@ -69,8 +68,9 @@ void parse_hid_msg(const uint8_t* this_msg)
     GET INFO
     -----------
     PC to duckyPad:
-    [0]   Unused
-    [1]   Command
+    [0]   Usage ID, always 5
+    [1]   Unused
+    [2]   Command
     -----------
     duckyPad to PC
     [0]   Usage ID, always 4
@@ -103,9 +103,10 @@ void parse_hid_msg(const uint8_t* this_msg)
     GOTO PROFILE BY NUMBER
     -----------
     PC to duckyPad:
-    [0]   Unused
-    [1]   Command
-    [2]   Profile number
+    [0]   Usage ID, always 5
+    [1]   Unused
+    [2]   Command
+    [3]   Profile number
     -----------
     duckyPad to PC
     [0]   Usage ID, always 4
@@ -114,7 +115,7 @@ void parse_hid_msg(const uint8_t* this_msg)
   */
   else if(command_type == HID_COMMAND_GOTO_PROFILE_BY_NUMBER)
   {
-    uint8_t target_profile = this_msg[2];
+    uint8_t target_profile = this_msg[3];
     if(target_profile >= MAX_PROFILES || strlen(profile_name_list[target_profile]) == 0)
     {
       hid_tx_buf[2] = HID_RESPONSE_INVALID_ARG;
@@ -130,9 +131,10 @@ void parse_hid_msg(const uint8_t* this_msg)
     GOTO PROFILE BY NAME
     -----------
     PC to duckyPad:
-    [0]   Unused
-    [1]   Command
-    [2]   profile name string, 0 terminated
+    [0]   Usage ID, always 5
+    [1]   Unused
+    [2]   Command
+    [3]   profile name string, 0 terminated
     -----------
     duckyPad to PC
     [0]   Usage ID, always 4
@@ -195,8 +197,9 @@ void parse_hid_msg(const uint8_t* this_msg)
     SOFTWARE RESET
     -----------
     PC to duckyPad:
-    [0]   Unused
-    [1]   Command
+    [0]   Usage ID, always 5
+    [1]   Unused
+    [2]   Command
     -----------
     duckyPad to PC
     [0]   Usage ID, always 4
@@ -214,8 +217,9 @@ void parse_hid_msg(const uint8_t* this_msg)
     SLEEP
     -----------
     PC to duckyPad:
-    [0]   Unused
-    [1]   Command
+    [0]   Usage ID, always 5
+    [1]   Unused
+    [2]   Command
     -----------
     duckyPad to PC
     [0]   Usage ID, always 4
@@ -232,8 +236,9 @@ void parse_hid_msg(const uint8_t* this_msg)
     WAKE UP
     -----------
     PC to duckyPad:
-    [0]   Unused
-    [1]   Command
+    [0]   Usage ID, always 5
+    [1]   Unused
+    [2]   Command
     -----------
     duckyPad to PC
     [0]   Usage ID, always 4
@@ -245,6 +250,32 @@ void parse_hid_msg(const uint8_t* this_msg)
     wakeup_from_sleep_and_load_profile(current_profile_number);
     send_hid_cmd_response(hid_tx_buf);
   }
+  /*
+    DUMP SD
+    -----------
+    PC to duckyPad:
+    [0]   Usage ID, always 5
+    [1]   Unused
+    [2]   Command: Dump SD
+    [3]   Action: 1: Start/resume, 2: abort
+    -----------
+    duckyPad to PC
+    [0]   Usage ID, always 4
+    [1]   Unused
+    [2]   Status
+
+    Status:
+    1: Encountered new file
+    2: Data Chunk
+    3: End of file
+    4: End of transmission
+  */
+  else if(command_type == HID_COMMAND_DUMP_SD)
+  {
+    if(this_msg[3] == 2)
+      printf("Aborted\n");
+  }
+
   else // not a valid HID command
   {
     hid_tx_buf[2] = HID_RESPONSE_UNKNOWN_CMD;
@@ -262,7 +293,7 @@ void handle_hid_command(const uint8_t* hid_rx_buf)
   if(hid_rx_buf[0] == 1) // LED
     kb_led_status = hid_rx_buf[1];
   else if(hid_rx_buf[0] == 5) // PC data
-    parse_hid_msg(hid_rx_buf+1);
+    parse_hid_msg(hid_rx_buf);
 
   printf("took %ldms\n", millis() - ke_start);
 }
