@@ -290,7 +290,7 @@ uint16_t read_var(uint16_t addr, uint8_t this_key_id)
   else if (addr == _THIS_KEYID)
     return this_key_id+1;
   else if (addr == _DP_MODEL)
-    return 2;
+    return 1; // 1 duckyPad (2020), 2 duckyPad Pro(2024)
   else if (is_global_variable(addr))
     return gv_buf[get_gv_index(addr)];
   else if(addr < VAR_BUF_SIZE)

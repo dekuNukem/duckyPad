@@ -325,7 +325,7 @@ void keypress_task(void)
     if(is_plus_minus_button(sw_event.id) && millis() - last_execution_exit < PLUS_MINUS_BUTTON_COOLDOWN_MS)
       continue;
 
-    printf("key %d, type %d\n", sw_event.id, sw_event.type);
+    // printf("key %d, type %d\n", sw_event.id, sw_event.type);
 
     is_busy = 1;
     handle_sw_event(&sw_event);
