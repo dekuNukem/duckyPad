@@ -50,16 +50,17 @@ void parse_hid_msg(const uint8_t* this_msg)
   uint8_t command_type = this_msg[1];
   memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
   hid_tx_buf[0] = HID_DP_TO_PC_USAGE_ID; // HID usage ID
-  hid_tx_buf[1] = HID_RESPONSE_OK;
+  hid_tx_buf[2] = HID_RESPONSE_OK;
 
   /*
     duckyPad to PC
-    [0]   seq number (not used)
-    [1]   Status
+    [0]   Usage ID, always 4
+    [1]   Unused
+    [2]   Status
   */
   if(is_busy)
   {
-    hid_tx_buf[1] = HID_RESPONSE_BUSY;
+    hid_tx_buf[2] = HID_RESPONSE_BUSY;
     send_hid_cmd_response(hid_tx_buf);
     return;
   }
@@ -68,32 +69,33 @@ void parse_hid_msg(const uint8_t* this_msg)
     GET INFO
     -----------
     PC to duckyPad:
-    [0]   seq number (not used)
-    [1]   command
+    [0]   Unused
+    [1]   Command
     -----------
     duckyPad to PC
     [0]   Usage ID, always 4
-    [1]   Status, 0 = OK
-    [2]   firmware version major
-    [3]   firmware version minor
-    [4]   firmware version patch
-    [5]   hardware revision
-    [6 - 9]   UUID (uint32_t)
-    [10]   current profile
-    [11] is_sleeping
+    [1]   Unused
+    [2]   Status, 0 = OK
+    [3]   firmware version major
+    [4]   firmware version minor
+    [5]   firmware version patch
+    [6]   hardware revision
+    [7 - 10]   UUID (uint32_t)
+    [12]   current profile
+    [13] is_sleeping
   */
   if(command_type == HID_COMMAND_GET_INFO)
   {
-    hid_tx_buf[2] = fw_version_major;
-    hid_tx_buf[3] = fw_version_minor;
-    hid_tx_buf[4] = fw_version_patch;
-    hid_tx_buf[5] = 20;
-    hid_tx_buf[6] = (uint8_t)get_uuid();
-    hid_tx_buf[7] = (uint8_t)(get_uuid() >> 8);
-    hid_tx_buf[8] = (uint8_t)(get_uuid() >> 16);
-    hid_tx_buf[9] = (uint8_t)(get_uuid() >> 24);
-    hid_tx_buf[10] = current_profile_number;
-    hid_tx_buf[11] = is_sleeping;
+    hid_tx_buf[3] = fw_version_major;
+    hid_tx_buf[4] = fw_version_minor;
+    hid_tx_buf[5] = fw_version_patch;
+    hid_tx_buf[6] = 20;
+    hid_tx_buf[7] = (uint8_t)get_uuid();
+    hid_tx_buf[8] = (uint8_t)(get_uuid() >> 8);
+    hid_tx_buf[9] = (uint8_t)(get_uuid() >> 16);
+    hid_tx_buf[10] = (uint8_t)(get_uuid() >> 24);
+    hid_tx_buf[11] = current_profile_number;
+    hid_tx_buf[12] = is_sleeping;
     send_hid_cmd_response(hid_tx_buf);
   }
 
@@ -101,20 +103,21 @@ void parse_hid_msg(const uint8_t* this_msg)
     GOTO PROFILE BY NUMBER
     -----------
     PC to duckyPad:
-    [0]   seq number (not used)
-    [1]   command
-    [2]   profile number
+    [0]   Unused
+    [1]   Command
+    [2]   Profile number
     -----------
     duckyPad to PC
     [0]   Usage ID, always 4
-    [1]   Status
+    [1]   Unused
+    [2]   Status, 0 = OK
   */
   else if(command_type == HID_COMMAND_GOTO_PROFILE_BY_NUMBER)
   {
     uint8_t target_profile = this_msg[2];
     if(target_profile >= MAX_PROFILES || strlen(profile_name_list[target_profile]) == 0)
     {
-      hid_tx_buf[1] = HID_RESPONSE_INVALID_ARG;
+      hid_tx_buf[2] = HID_RESPONSE_INVALID_ARG;
       send_hid_cmd_response(hid_tx_buf);
     }
     else
@@ -127,20 +130,21 @@ void parse_hid_msg(const uint8_t* this_msg)
     GOTO PROFILE BY NAME
     -----------
     PC to duckyPad:
-    [0]   seq number (not used)
-    [1]   command
+    [0]   Unused
+    [1]   Command
     [2]   profile name string, 0 terminated
     -----------
     duckyPad to PC
     [0]   Usage ID, always 4
-    [1]   Status
+    [1]   Unused
+    [2]   Status, 0 = OK
   */
   else if(command_type == HID_COMMAND_GOTO_PROFILE_BY_NAME)
   {
     uint8_t target_profile = parse_hid_goto_profile_by_name(this_msg);
     if(target_profile >= MAX_PROFILES)
     {
-      hid_tx_buf[1] = HID_RESPONSE_INVALID_ARG;
+      hid_tx_buf[2] = HID_RESPONSE_INVALID_ARG;
       send_hid_cmd_response(hid_tx_buf);
     }
     else
@@ -155,11 +159,12 @@ void parse_hid_msg(const uint8_t* this_msg)
     -----------
     PC to duckyPad:
     [0]   seq number
-    [1]   command
+    [1]   Command
     -----------
     duckyPad to PC
     [0]   Usage ID, always 4
-    [1]   0 = OK
+    [1]   Unused
+    [2]   Status, 0 = OK
   */
   else if(command_type == HID_COMMAND_PREV_PROFILE)
   {
@@ -172,11 +177,12 @@ void parse_hid_msg(const uint8_t* this_msg)
     -----------
     PC to duckyPad:
     [0]   seq number
-    [1]   command
+    [1]   Command
     -----------
     duckyPad to PC
     [0]   Usage ID, always 4
-    [1]   0 = OK
+    [1]   Unused
+    [2]   Status, 0 = OK
   */
   else if(command_type == HID_COMMAND_NEXT_PROFILE)
   {
@@ -189,12 +195,13 @@ void parse_hid_msg(const uint8_t* this_msg)
     SOFTWARE RESET
     -----------
     PC to duckyPad:
-    [0]   seq number (not used)
-    [1]   command
+    [0]   Unused
+    [1]   Command
     -----------
     duckyPad to PC
     [0]   Usage ID, always 4
-    [1]   0 = OK
+    [1]   Unused
+    [2]   Status, 0 = OK
   */
   else if(command_type == HID_COMMAND_SW_RESET)
   {
@@ -207,12 +214,13 @@ void parse_hid_msg(const uint8_t* this_msg)
     SLEEP
     -----------
     PC to duckyPad:
-    [0]   seq number (not used)
-    [1]   command
+    [0]   Unused
+    [1]   Command
     -----------
     duckyPad to PC
     [0]   Usage ID, always 4
-    [1]   0 = OK
+    [1]   Unused
+    [2]   Status, 0 = OK
   */
   else if(command_type == HID_COMMAND_SLEEP)
   {
@@ -224,12 +232,13 @@ void parse_hid_msg(const uint8_t* this_msg)
     WAKE UP
     -----------
     PC to duckyPad:
-    [0]   seq number (not used)
-    [1]   command
+    [0]   Unused
+    [1]   Command
     -----------
     duckyPad to PC
-    [0]   seq number (not used)
-    [1]   0 = OK
+    [0]   Usage ID, always 4
+    [1]   Unused
+    [2]   Status, 0 = OK
   */
   else if(command_type == HID_COMMAND_WAKEUP)
   {
@@ -238,7 +247,7 @@ void parse_hid_msg(const uint8_t* this_msg)
   }
   else // not a valid HID command
   {
-    hid_tx_buf[1] = HID_RESPONSE_UNKNOWN_CMD;
+    hid_tx_buf[2] = HID_RESPONSE_UNKNOWN_CMD;
     send_hid_cmd_response(hid_tx_buf);
   }
 
@@ -248,9 +257,13 @@ void parse_hid_msg(const uint8_t* this_msg)
 
 void handle_hid_command(const uint8_t* hid_rx_buf)
 {
+  uint32_t ke_start = millis();
+
   if(hid_rx_buf[0] == 1) // LED
     kb_led_status = hid_rx_buf[1];
   else if(hid_rx_buf[0] == 5) // PC data
     parse_hid_msg(hid_rx_buf+1);
+
+  printf("took %ldms\n", millis() - ke_start);
 }
 
