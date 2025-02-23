@@ -27,7 +27,6 @@ const char cmd_BG_COLOR[] = "BG_COLOR ";
 const char cmd_KD_COLOR[] = "KEYDOWN_COLOR ";
 const char cmd_SWCOLOR[] = "SWCOLOR_";
 const char cmd_DIM_UNUSED_KEYS[] = "DIM_UNUSED_KEYS 0";
-const char cmd_IS_LANDSCAPE[] = "IS_LANDSCAPE 1";
 
 FRESULT sd_fresult;
 FATFS sd_fs;
