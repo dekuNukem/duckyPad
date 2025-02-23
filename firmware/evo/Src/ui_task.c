@@ -165,25 +165,15 @@ void draw_settings(dp_global_settings *dps)
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  sprintf(oled_line_buf, "English (US)");
-  // if(strlen(dps->current_kb_layout) >= 9)
-  // {
-  //   strcpy(oled_line_buf, dps->current_kb_layout+5);
-  //   oled_line_buf[strlen(oled_line_buf)-4] = 0; // don't print .txt extension
-  // }
+  if(strlen(dps->current_kb_layout) >= 9)
+  {
+    strcpy(oled_line_buf, dps->current_kb_layout+5);
+    oled_line_buf[strlen(oled_line_buf)-4] = 0; // don't print .txt extension
+  }
   ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 49);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
-  // load_keymap_by_name(dp_settings.current_kb_layout);
 
 //------------------------------
-
-  // ssd1306_Line(0,115,128,115,White);
-
-  // memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  // sprintf(oled_line_buf, "FW V%d.%d.%d", fw_version_major, fw_version_minor, fw_version_patch);
-  // ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 118);
-  // ssd1306_WriteString(oled_line_buf, Font_6x10, White);
-
   ssd1306_UpdateScreen();
   // ssd1306_take_screenshot();
 }

@@ -187,10 +187,50 @@ void onboard_offboard_switch_press(uint8_t swid, char* press_path)
 
 void settings_menu(void)
 {
-  draw_settings_led();
   draw_settings(&dp_settings);
-  block_until_anykey(SW_EVENT_SHORT_PRESS);
-  goto_profile(current_profile_number);
+  draw_settings_led();
+  while(1)
+  {
+    delay_ms(10);
+    switch_event_t sw_event = { 0 };
+    if(q_pop(&switch_event_queue, &sw_event) == 0)
+      continue;
+    if(sw_event.type != SW_EVENT_RELEASE)
+      continue;
+
+    // printf("settings_menu id: %d type: %d\n", sw_event.id, sw_event.type);
+    if(sw_event.id == MSW_0)
+    {
+      dp_settings.brightness_index = (dp_settings.brightness_index + 1) % BRIGHTNESS_LEVEL_SIZE;
+      draw_settings(&dp_settings);
+      draw_settings_led();
+    }
+    else if(sw_event.id == MSW_1)
+    {
+      dp_settings.sleep_index = (dp_settings.sleep_index + 1) % SLEEP_OPTION_SIZE;
+      draw_settings(&dp_settings);
+    }
+    else if(sw_event.id == MSW_2)
+    {
+      memset(temp_buf, 0, TEMP_BUFSIZE);
+      if(get_next_keymap(dp_settings.current_kb_layout, temp_buf))
+      {
+        memset(dp_settings.current_kb_layout, 0, FILENAME_BUFSIZE);
+        get_first_keymap(dp_settings.current_kb_layout);
+      }
+      else
+      {
+        strcpy(dp_settings.current_kb_layout, temp_buf);
+      }
+      draw_settings(&dp_settings);
+      load_keymap_by_name(dp_settings.current_kb_layout);
+    }
+    else if(sw_event.id <= MAX_MSW)
+    {
+      break;
+    }
+  }
+  save_settings(&dp_settings);
 }
 
 void onboard_offboard_switch_release(uint8_t swid, char* release_path)
@@ -297,14 +337,6 @@ uint32_t sleep_after_ms_index_to_time_lookup[SLEEP_OPTION_SIZE] = {
   DONT_SLEEP,
   };
 
-uint8_t is_all0(uint8_t* buff)
-{
-  for (size_t i = 0; i < USBD_CUSTOMHID_OUTREPORT_BUF_SIZE; i++)
-    if(buff[i])
-      return 0;
-  return 1;
-}
-
 void keypress_task(void)
 {
   while(1)
@@ -313,7 +345,7 @@ void keypress_task(void)
     ssd1306_SetContrast(oled_brightness);
 
     uint32_t ms_since_last_keypress = millis() - last_keypress;
-    if(ms_since_last_keypress > 500 * 1000) // sleep_after_ms_index_to_time_lookup[dp_settings.sleep_index]
+    if(ms_since_last_keypress > sleep_after_ms_index_to_time_lookup[dp_settings.sleep_index])
       start_sleeping();
     else if(ms_since_last_keypress > OLED_DIM_AFTER_MS)
       oled_brightness = OLED_CONTRAST_DIM;
