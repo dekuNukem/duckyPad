@@ -175,8 +175,8 @@ void onboard_offboard_switch_press(uint8_t swid, char* press_path)
   {
     if(poll_sw_state(swid, 1) == 0)
       break;
-    uint8_t* to_increment = &curr_pf_info.keypress_count[swid];
-    if(run_once(swid, press_path, to_increment) == DSB_DONT_PLAY_KEYUP_ANIMATION_RETURN_IMMEDIATELY)
+    uint8_t* to_inc = &curr_pf_info.keypress_count[swid];
+    if(run_once(swid, press_path, to_inc) == DSB_DONT_PLAY_KEYUP_ANIMATION_RETURN_IMMEDIATELY)
       return;
   }
   handle_obsw_keydown_end:
@@ -282,9 +282,9 @@ void handle_sw_event(switch_event_t* this_sw_event)
   uint32_t ke_start = millis();
   process_keyevent(this_sw_event->id, this_sw_event->type);
   uint32_t execution_duration = millis() - ke_start;
-  // printf("took %ldms\n", execution_duration);
-  // if(execution_duration > 500)
-  //   clear_sw_queue();
+  printf("took %ldms\n", execution_duration);
+  if(execution_duration > 750)
+    clear_sw_queue();
 }
 
 uint32_t sleep_after_ms_index_to_time_lookup[SLEEP_OPTION_SIZE] = {
@@ -328,15 +328,7 @@ void keypress_task(void)
     printf("key %d, type %d\n", sw_event.id, sw_event.type);
 
     is_busy = 1;
-    // uint32_t ke_start = millis();
-    // play_keydown_animation(4);
-    // der_init(&this_exe);
-    // run_dsb(&this_exe, 18, "/profile_Numpad/key18.dsb");
-    // play_keyup_animation(4);
-    
-    uint32_t ke_start = millis();
     handle_sw_event(&sw_event);
-    printf("took %ldms\n", millis() - ke_start);
     is_busy = 0;
   }
 }

@@ -1,3 +1,13 @@
+    // uint32_t ke_start = millis();
+    // play_keydown_animation(4);
+    // der_init(&this_exe);
+    // run_dsb(&this_exe, 18, "/profile_Numpad/key18.dsb");
+    // play_keyup_animation(4);
+    
+    // uint32_t ke_start = millis();
+    handle_sw_event(&sw_event);
+    // printf("took %ldms\n", millis() - ke_start);
+
 uint8_t read_byte(uint16_t addr, const char* dsb_path)
 {
   // uint8_t bs_result = switch_bank(addr,dsb_path);
