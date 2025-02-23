@@ -144,10 +144,11 @@ void update_last_keypress(void)
   last_keypress = millis();
 }
 
-void onboard_offboard_switch_press(uint8_t swid, char* press_path, char* release_path)
+void onboard_offboard_switch_press(uint8_t swid, char* press_path)
 {
-  if(f_stat(press_path, NULL))
+  if((curr_pf_info.dsb_exists[swid] & DSB_ON_PRESS_EXISTS) == 0)
     return;
+
   uint32_t hold_start;
   play_keydown_animation(swid);
   uint8_t* to_increment = &curr_pf_info.keypress_count[swid];
@@ -156,7 +157,7 @@ void onboard_offboard_switch_press(uint8_t swid, char* press_path, char* release
   if(run_result == DSB_DONT_PLAY_KEYUP_ANIMATION_RETURN_IMMEDIATELY)
     return;
   // don't repeat if on_release script exists
-  if(f_stat(release_path, NULL))
+  if((curr_pf_info.dsb_exists[swid] & DSB_ON_RELEASE_EXISTS) == 0)
     return;
   if(run_result == DSB_DONT_REPEAT_RETURN_IMMEDIATELY)
     goto handle_obsw_keydown_end;
@@ -180,7 +181,7 @@ void onboard_offboard_switch_press(uint8_t swid, char* press_path, char* release
   }
   handle_obsw_keydown_end:
   // play keyup animation only if there is no on-release DSB file 
-  if(f_stat(release_path, NULL))
+  if((curr_pf_info.dsb_exists[swid] & DSB_ON_RELEASE_EXISTS) == 0)
     play_keyup_animation(swid);
 }
 
@@ -194,7 +195,7 @@ void settings_menu(void)
 
 void onboard_offboard_switch_release(uint8_t swid, char* release_path)
 {
-  if(f_stat(release_path, NULL))
+  if((curr_pf_info.dsb_exists[swid] & DSB_ON_RELEASE_EXISTS) == 0)
     return;
   run_once(swid, release_path, NULL);
   play_keyup_animation(swid);
@@ -229,7 +230,7 @@ void process_keyevent(uint8_t swid, uint8_t event_type)
   sprintf(dsb_on_release_path_buf, "/profile_%s/key%d-release.dsb", profile_name_list[current_profile_number], swid+1);
 
   if(event_type == SW_EVENT_SHORT_PRESS)
-    onboard_offboard_switch_press(swid, dsb_on_press_path_buf, dsb_on_release_path_buf);
+    onboard_offboard_switch_press(swid, dsb_on_press_path_buf);
   else if(event_type == SW_EVENT_RELEASE)
     onboard_offboard_switch_release(swid, dsb_on_release_path_buf);
 

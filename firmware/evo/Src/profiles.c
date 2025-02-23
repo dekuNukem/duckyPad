@@ -251,14 +251,14 @@ void load_dsb_exists_cache(char* profile_dir_path)
     // key4-release.dsb
     if(dash_start != NULL && strncmp(dash_start, on_release_dsb_suffix, strlen(on_release_dsb_suffix)) == 0)
     {
-      uint8_t this_key_number = atoi(file_name+3);
+      uint8_t this_key_number = atoi(file_name+3) - 1;
       if(this_key_number <= MAX_TOTAL_SW_COUNT)
         curr_pf_info.dsb_exists[this_key_number] |= DSB_ON_RELEASE_EXISTS;
     }
     // key4.dsb
     else if(dot_start != NULL && strncmp(dot_start, dsb_extension, strlen(dsb_extension)) == 0)
     {
-      uint8_t this_key_number = atoi(file_name+3);
+      uint8_t this_key_number = atoi(file_name+3) - 1;
       if(this_key_number <= MAX_TOTAL_SW_COUNT)
         curr_pf_info.dsb_exists[this_key_number] |= DSB_ON_PRESS_EXISTS;
     }
@@ -277,10 +277,6 @@ uint8_t load_profile(uint8_t profile_number)
   memset(temp_buf, 0, TEMP_BUFSIZE);
   sprintf(temp_buf, "/profile_%s", profile_name_list[profile_number]);
   load_dsb_exists_cache(temp_buf);
-  for (size_t i = 0; i < MAX_TOTAL_SW_COUNT; i++)
-  {
-    printf("%02d: %02x\n", i, curr_pf_info.dsb_exists[i]);
-  }
   
   memset(temp_buf, 0, TEMP_BUFSIZE);
   sprintf(temp_buf, "/profile_%s/config.txt", profile_name_list[profile_number]);
