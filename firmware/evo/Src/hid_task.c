@@ -41,10 +41,10 @@ uint8_t parse_hid_goto_profile_by_name(const uint8_t* this_buf)
 
 void parse_hid_msg(const uint8_t* this_msg)
 {
-  printf("%ld HID MSG:\n", millis());
-  for (size_t i = 0; i < USBD_CUSTOMHID_OUTREPORT_BUF_SIZE; i++)
-    printf("%02x ", this_msg[i]);
-  printf("\n--------\n");
+  // printf("%ld HID MSG:\n", millis());
+  // for (size_t i = 0; i < USBD_CUSTOMHID_OUTREPORT_BUF_SIZE; i++)
+  //   printf("%02x ", this_msg[i]);
+  // printf("\n--------\n");
 
   uint8_t command_type = this_msg[2];
   memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
@@ -293,12 +293,10 @@ void parse_hid_msg(const uint8_t* this_msg)
 void handle_hid_command(const uint8_t* hid_rx_buf)
 {
   uint32_t ke_start = millis();
-
   if(hid_rx_buf[0] == 1) // LED
     kb_led_status = hid_rx_buf[1];
   else if(hid_rx_buf[0] == 5) // PC data
     parse_hid_msg(hid_rx_buf);
-
-  printf("took %ldms\n", millis() - ke_start);
+  printf("HID %ldms\n", millis() - ke_start);
 }
 

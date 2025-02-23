@@ -224,7 +224,7 @@ int main(void)
   load_gv();
   profile_init();
   HAL_UART_Receive_IT(&huart3, uart_byte_buf, 1);
-  sd_walk();
+  // sd_walk();
   keypress_task();
   
   // we should never get here
