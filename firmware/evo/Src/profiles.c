@@ -16,6 +16,7 @@ dp_global_settings dp_settings;
 uint8_t current_profile_number;
 profile_cache curr_pf_info;
 char profile_name_list[MAX_PROFILES][PROFILE_NAME_MAX_LEN];
+char lfn_buf[FILENAME_BUFSIZE];
 
 const char config_sleep_after_index[] = "sleep_index ";
 const char config_brightness_index[] = "brightness_index ";
@@ -222,10 +223,47 @@ void parse_profile_config_line(char* this_line, profile_cache* this_profile)
   {
     this_profile->dim_unused_keys = 0;
   }
-  else if(strncmp(cmd_IS_LANDSCAPE, this_line, strlen(cmd_IS_LANDSCAPE)) == 0)
+}
+
+const char* on_release_dsb_suffix = "-release.dsb";
+const char* dsb_extension = ".dsb";
+
+void load_dsb_exists_cache(char* profile_dir_path)
+{
+  if(f_opendir(&dir, profile_dir_path))
+    return;
+  
+  fno.lfname = lfn_buf; 
+  fno.lfsize = FILENAME_BUFSIZE - 1;
+  while(1)
   {
-    this_profile->is_landscape = 1;
+    memset(lfn_buf, 0, FILENAME_BUFSIZE);
+    sd_fresult = f_readdir(&dir, &fno);
+    if (sd_fresult != FR_OK || fno.fname[0] == 0)
+      break;
+    char* file_name = fno.lfname[0] ? fno.lfname : fno.fname;
+  
+    // file name starts with "key"
+    if(strncmp(file_name, "key", 3))
+      continue;
+    char* dash_start = strrchr(file_name, '-');
+    char* dot_start = strrchr(file_name, '.');
+    // key4-release.dsb
+    if(dash_start != NULL && strncmp(dash_start, on_release_dsb_suffix, strlen(on_release_dsb_suffix)) == 0)
+    {
+      uint8_t this_key_number = atoi(file_name+3);
+      if(this_key_number <= MAX_TOTAL_SW_COUNT)
+        curr_pf_info.dsb_exists[this_key_number] |= DSB_ON_RELEASE_EXISTS;
+    }
+    // key4.dsb
+    else if(dot_start != NULL && strncmp(dot_start, dsb_extension, strlen(dsb_extension)) == 0)
+    {
+      uint8_t this_key_number = atoi(file_name+3);
+      if(this_key_number <= MAX_TOTAL_SW_COUNT)
+        curr_pf_info.dsb_exists[this_key_number] |= DSB_ON_PRESS_EXISTS;
+    }
   }
+  f_closedir(&dir);
 }
 
 // fill up the current profile cache
@@ -234,12 +272,21 @@ uint8_t load_profile(uint8_t profile_number)
   if(profile_number >= MAX_PROFILES)
     return 1;
 
+  memset(&curr_pf_info, 0, sizeof(curr_pf_info));
+
+  memset(temp_buf, 0, TEMP_BUFSIZE);
+  sprintf(temp_buf, "/profile_%s", profile_name_list[profile_number]);
+  load_dsb_exists_cache(temp_buf);
+  for (size_t i = 0; i < MAX_TOTAL_SW_COUNT; i++)
+  {
+    printf("%02d: %02x\n", i, curr_pf_info.dsb_exists[i]);
+  }
+  
   memset(temp_buf, 0, TEMP_BUFSIZE);
   sprintf(temp_buf, "/profile_%s/config.txt", profile_name_list[profile_number]);
   if(f_open(&sd_file, temp_buf, FA_READ))
     return 2;
 
-  memset(&curr_pf_info, 0, sizeof(curr_pf_info));
   curr_pf_info.dim_unused_keys = 1;
   memset(read_buffer, 0, READ_BUF_SIZE);
   while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
@@ -438,7 +485,6 @@ uint8_t load_keymap_by_name(char* km_name)
   return 0;
 }
 
-char lfn_buf[FILENAME_BUFSIZE];
 uint8_t get_next_keymap(const char* current_keymap_filename, char* next_keymap_filename)
 {
   if(f_opendir(&dir, "/keymaps"))

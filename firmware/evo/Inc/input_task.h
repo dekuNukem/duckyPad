@@ -8,9 +8,11 @@
 #include <stdint.h>
 #include "cQueue.h"
 
+#define MAX_EXTERNAL_SWITCHES 32
 #define MECH_OBSW_COUNT 15
 #define TOTAL_OBSW_COUNT 17
-#define MAX_TOTAL_SW_COUNT TOTAL_OBSW_COUNT
+#define MAX_TOTAL_SW_COUNT (TOTAL_OBSW_COUNT+MAX_EXTERNAL_SWITCHES)
+#define EXP_BUTTON_START (TOTAL_OBSW_COUNT+1)
 
 typedef struct
 {
@@ -37,9 +39,6 @@ typedef struct
 #define MAX_MSW MSW_14
 #define SW_MINUS 15
 #define SW_PLUS 16
-
-#define EXP_BUTTON_START 20
-#define EXP_BUTTON_END (MAX_TOTAL_SW_COUNT-1)
 
 #define SW_EVENT_RELEASE 0
 #define SW_EVENT_SHORT_PRESS 1

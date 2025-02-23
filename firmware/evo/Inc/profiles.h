@@ -30,9 +30,13 @@ typedef struct
   uint8_t sw_color[MECH_OBSW_COUNT][THREE]; // only mechanical keys have RGB LEDs
   uint8_t sw_activation_color[MECH_OBSW_COUNT][THREE];
   uint8_t keypress_count[MAX_TOTAL_SW_COUNT];
+  // Bit 0 (LSB): on_press exist, bit 1: on_release exist
+  uint8_t dsb_exists[MAX_TOTAL_SW_COUNT];
   uint8_t dim_unused_keys;
-  uint8_t is_landscape;
 } profile_cache;
+
+#define DSB_ON_PRESS_EXISTS 0x1
+#define DSB_ON_RELEASE_EXISTS 0x2
 
 extern profile_cache curr_pf_info;
 
