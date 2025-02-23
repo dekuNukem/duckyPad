@@ -27,6 +27,7 @@ void handle_hid_command(const uint8_t* hid_rx_buf)
 
   if(hid_rx_buf[0] == 1) //LED
   {
+    kb_led_status = hid_rx_buf[1];
     return;
   }
   else if(hid_rx_buf[0] == 5) // PC data

@@ -5,6 +5,7 @@
 #include "ssd1306.h"
 #include "shared.h"
 #include "profiles.h"
+#include "ds_vm.h"
 
 #define OLED_LINE_BUF_SIZE 64
 char oled_line_buf[OLED_LINE_BUF_SIZE];
@@ -105,6 +106,34 @@ void print_keyname(char* keyname, uint8_t keynum)
   ssd1306_WriteString(temp_buf, Font_6x10,White);
 }
 
+void draw_kbled_icon(uint8_t this_led_state, uint8_t update_screen)
+{
+  uint8_t color;
+  // numlock
+  color = (this_led_state & 0x1) ? White : Black;
+  ssd1306_FillCircle(118, 4, 1, color);
+  // caps lock
+  color = (this_led_state & 0x2) ? White : Black;
+  ssd1306_FillCircle(122, 4, 1, color);
+  // scroll lock
+  color = (this_led_state & 0x4) ? White : Black;
+  ssd1306_FillCircle(126, 4, 1, color);
+  ssd1306_Line(117, 0, 119, 0, White);
+  ssd1306_Line(121, 0, 123, 0, White);
+  ssd1306_Line(125, 0, 127, 0, White);
+  if(update_screen)
+    ssd1306_UpdateScreen();
+}
+
+uint8_t last_led_state = 255;
+void update_kbled_icon(uint8_t this_led_state)
+{
+  if(this_led_state == last_led_state)
+    return;
+  draw_kbled_icon(this_led_state, 1);
+  last_led_state = this_led_state;
+}
+
 void draw_current_profile(void)
 {
   ssd1306_Fill(Black);
@@ -119,6 +148,7 @@ void draw_current_profile(void)
   for (int i = 0; i < MECH_OBSW_COUNT; ++i)
     print_keyname(curr_pf_info.sw_name[i], i);
 
+  draw_kbled_icon(kb_led_status, 0);
   ssd1306_UpdateScreen();
 }
 

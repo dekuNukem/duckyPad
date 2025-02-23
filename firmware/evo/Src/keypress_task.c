@@ -349,6 +349,9 @@ void keypress_task(void)
       start_sleeping();
     else if(ms_since_last_keypress > OLED_DIM_AFTER_MS)
       oled_brightness = OLED_CONTRAST_DIM;
+    
+    if(is_sleeping == 0)
+      update_kbled_icon(kb_led_status);
 
     switch_event_t sw_event = {0};
     if(q_pop(&switch_event_queue, &sw_event) == 0)
@@ -356,8 +359,6 @@ void keypress_task(void)
 
     if(is_plus_minus_button(sw_event.id) && millis() - last_execution_exit < PLUS_MINUS_BUTTON_COOLDOWN_MS)
       continue;
-
-    // printf("key %d, type %d\n", sw_event.id, sw_event.type);
 
     is_busy = 1;
     handle_sw_event(&sw_event);
