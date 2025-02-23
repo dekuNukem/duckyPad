@@ -53,7 +53,7 @@ uint8_t load_settings(dp_global_settings* dps)
   if(f_open(&sd_file, settings_file_path, FA_READ))
     return 3;
 
-  memset(temp_buf, 0, TEMP_BUFSIZE);
+  CLEAR_TEMP_BUF();
   memset(dps->current_kb_layout, 0, FILENAME_BUFSIZE);
 
   while(f_gets(temp_buf, TEMP_BUFSIZE, &sd_file))
@@ -130,7 +130,7 @@ uint8_t scan_profiles(void)
       continue;
     this_profile_name = goto_next_arg(read_buffer, read_buffer + strlen(read_buffer));
     strip_newline(this_profile_name, PROFILE_NAME_MAX_LEN);
-    memset(temp_buf, 0, TEMP_BUFSIZE);
+    CLEAR_TEMP_BUF();
     sprintf(temp_buf, "/profile_%s/config.txt", this_profile_name);
     if(f_stat(temp_buf, &fno)) // profile does not exist
       continue;
@@ -273,11 +273,11 @@ uint8_t load_profile(uint8_t profile_number)
 
   memset(&curr_pf_info, 0, sizeof(curr_pf_info));
 
-  memset(temp_buf, 0, TEMP_BUFSIZE);
+  CLEAR_TEMP_BUF();
   sprintf(temp_buf, "/profile_%s", profile_name_list[profile_number]);
   load_dsb_exists_cache(temp_buf);
   
-  memset(temp_buf, 0, TEMP_BUFSIZE);
+  CLEAR_TEMP_BUF();
   sprintf(temp_buf, "/profile_%s/config.txt", profile_name_list[profile_number]);
   if(f_open(&sd_file, temp_buf, FA_READ))
     return 2;
@@ -383,7 +383,7 @@ void save_persistent_state(uint8_t epilogue_value, uint8_t swid)
     sps_bin_buf[b_addr] = blue;
   }
   
-  memset(temp_buf, 0, TEMP_BUFSIZE);
+  CLEAR_TEMP_BUF();
   sprintf(temp_buf, "/profile_%s/state_dpp.sps", profile_name_list[current_profile_number]);
 
   f_open(&sd_file, temp_buf, FA_WRITE | FA_CREATE_ALWAYS);
@@ -393,7 +393,7 @@ void save_persistent_state(uint8_t epilogue_value, uint8_t swid)
 
 uint8_t load_persistent_state(void)
 {
-  memset(temp_buf, 0, TEMP_BUFSIZE);
+  CLEAR_TEMP_BUF();
   sprintf(temp_buf, "/profile_%s/state_dpp.sps", profile_name_list[current_profile_number]);
 
   if(f_open(&sd_file, temp_buf, FA_READ))
@@ -419,7 +419,7 @@ void save_gv(void)
 {
   memset(sps_bin_buf, 0, SPS_BIN_SIZE);
   memcpy(sps_bin_buf, gv_buf, GLOBAL_VARIABLE_COUNT*sizeof(uint16_t));
-  memset(temp_buf, 0, TEMP_BUFSIZE);
+  CLEAR_TEMP_BUF();
   sprintf(temp_buf, "/gv.sps");
   f_open(&sd_file, temp_buf, FA_WRITE | FA_CREATE_ALWAYS);
   f_write(&sd_file, sps_bin_buf, SPS_BIN_SIZE, &bytes_written);
@@ -428,7 +428,7 @@ void save_gv(void)
 
 void load_gv(void)
 {
-  memset(temp_buf, 0, TEMP_BUFSIZE);
+  CLEAR_TEMP_BUF();
   sprintf(temp_buf, "/gv.sps");
   f_open(&sd_file, temp_buf, FA_READ);
   memset(sps_bin_buf, 0, SPS_BIN_SIZE);
@@ -449,7 +449,7 @@ uint8_t load_keymap_by_name(char* km_name)
   char* next;
   if(km_name == NULL)
     return 1;
-  memset(temp_buf, 0, TEMP_BUFSIZE);
+  CLEAR_TEMP_BUF();
   sprintf(temp_buf, "/keymaps/%s", km_name);
 
   if(f_open(&sd_file, temp_buf, FA_READ))
@@ -541,38 +541,5 @@ void profile_init(void)
     goto_profile(dp_settings.last_used_profile);
   else
     goto_next_profile();
-}
-
-void list_files(char* path)
-{
-  if(f_opendir(&dir, path))
-    return;
-  fno.lfname = lfn_buf; 
-  fno.lfsize = FILENAME_BUFSIZE - 1;
-  while(1)
-  {
-    memset(lfn_buf, 0, FILENAME_BUFSIZE);
-    sd_fresult = f_readdir(&dir, &fno);
-    if (sd_fresult != FR_OK || fno.fname[0] == 0)
-      break;
-    if (fno.fattrib & AM_DIR)
-      continue;
-    char* file_name = fno.lfname[0] ? fno.lfname : fno.fname;
-    printf("\t%s\n", file_name);
-  }
-  f_closedir(&dir);
-}
-
-void sd_walk(void)
-{
-  for (size_t pf_num = 0; pf_num < MAX_PROFILES; pf_num++)
-  {
-    if(strlen(profile_name_list[pf_num]) == 0)
-      continue;
-    memset(temp_buf, 0, TEMP_BUFSIZE);
-    sprintf(temp_buf, "/profile_%s", profile_name_list[pf_num]);
-    printf("%s\n", temp_buf);
-    list_files(temp_buf);
-  }
 }
 

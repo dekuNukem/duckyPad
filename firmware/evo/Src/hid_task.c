@@ -14,6 +14,7 @@
 #include "usbd_customhid.h"
 #include "usbd_custom_hid_if.h"
 #include "main.h"
+#include "ui_task.h"
 
 #define HID_DP_TO_PC_USAGE_ID 4
 #define HID_TX_BUF_SIZE (CUSTOM_HID_EPIN_SIZE+1)
@@ -298,5 +299,43 @@ void handle_hid_command(const uint8_t* hid_rx_buf)
   else if(hid_rx_buf[0] == 5) // PC data
     parse_hid_msg(hid_rx_buf);
   printf("HID %ldms\n", millis() - ke_start);
+}
+
+uint8_t find_first_profile(void)
+{
+  for (size_t i = 0; i < MAX_PROFILES; i++)
+    if(strlen(profile_name_list[i]))
+      return i;
+  return MAX_PROFILES;
+}
+
+#define DUMP_STATE_IDLE 0
+#define DUMP_STATE_NEW_PROFILE_DIR 1
+#define DUMP_STATE_NEW_FILE 2
+#define DUMP_STATE_DATA_TX 3
+uint8_t sd_dump_state;
+uint8_t dump_state_current_profile_number;
+char* dump_state_current_file_path;
+
+void sd_walk(void)
+{
+  if(sd_dump_state == DUMP_STATE_IDLE)
+  {
+    sd_dump_state = DUMP_STATE_NEW_PROFILE_DIR;
+    // also enter file access mode?
+    // hid reply: ack
+    dump_state_current_profile_number = find_first_profile();
+    printf("enter exclusive file access mode\n");
+    return;
+  }
+
+  if(sd_dump_state == DUMP_STATE_NEW_PROFILE_DIR)
+  {
+    printf("Create dir: /profile_%s\n", profile_name_list[dump_state_current_profile_number]);
+    CLEAR_TEMP_BUF();
+    // open dir, go to next state
+    if(f_opendir(&dir, "jhhh"))
+      draw_fatal_error(10);
+  }
 }
 

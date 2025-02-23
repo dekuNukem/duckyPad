@@ -15,6 +15,7 @@ void draw_settings(dp_global_settings *dps);
 void oled_say(char* what);
 void draw_exe_error(uint8_t err_code);
 void update_kbled_icon(uint8_t this_led_state);
+void draw_fatal_error(uint8_t err_code);
 
 #define ONE_MINUTE_IN_MS (60*1000)
 #define ONE_HOUR_IN_MS (60*ONE_MINUTE_IN_MS)

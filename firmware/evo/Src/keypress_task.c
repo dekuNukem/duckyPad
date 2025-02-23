@@ -19,6 +19,7 @@
 #include "keyboard.h"
 #include "ds_vm.h"
 #include "main.h"
+#include "hid_task.h"
 
 #define PLUS_MINUS_BUTTON_COOLDOWN_MS 250
 
@@ -212,7 +213,7 @@ void settings_menu(void)
     }
     else if(sw_event.id == MSW_2)
     {
-      memset(temp_buf, 0, TEMP_BUFSIZE);
+      CLEAR_TEMP_BUF();
       if(get_next_keymap(dp_settings.current_kb_layout, temp_buf))
       {
         memset(dp_settings.current_kb_layout, 0, FILENAME_BUFSIZE);
@@ -361,7 +362,13 @@ void keypress_task(void)
       continue;
 
     is_busy = 1;
-    handle_sw_event(&sw_event);
+    // handle_sw_event(&sw_event);
+    if(sw_event.type == SW_EVENT_SHORT_PRESS)
+    {
+      uint32_t ke_start = millis();
+      sd_walk();
+      printf("walk: %ldms\n", millis() - ke_start);
+    }
     is_busy = 0;
   }
 }

@@ -88,7 +88,7 @@ void draw_noprofile(void)
 
 void print_keyname(char* keyname, uint8_t keynum)
 {
-  memset(temp_buf, 0, TEMP_BUFSIZE);
+  CLEAR_TEMP_BUF();
   strcpy(temp_buf, keyname);
   if(temp_buf[0] == 0)
     temp_buf[0] = '-';
@@ -251,3 +251,15 @@ void draw_exe_error(uint8_t err_code)
 
   ssd1306_UpdateScreen();
 }
+
+void draw_fatal_error(uint8_t err_code)
+{
+  memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
+  sprintf(oled_line_buf, "Fatal Error:%d", err_code);
+  oled_say(oled_line_buf);
+  while(1)
+  {
+    delay_ms(500);
+  }
+}
+

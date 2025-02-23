@@ -22,6 +22,8 @@ uint32_t millis(void);
 
 extern char temp_buf[TEMP_BUFSIZE];
 
+#define CLEAR_TEMP_BUF() memset(temp_buf, 0, TEMP_BUFSIZE)
+
 #ifdef __cplusplus
 }
 #endif

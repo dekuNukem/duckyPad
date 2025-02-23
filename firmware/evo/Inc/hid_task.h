@@ -34,6 +34,7 @@
 #define HID_USAGE_ID_NAMED_PIPE 4
 
 void handle_hid_command(const uint8_t* hid_rx_buf);
+void sd_walk(void);
 
 #ifdef __cplusplus
 }
