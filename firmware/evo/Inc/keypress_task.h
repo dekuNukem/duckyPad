@@ -16,6 +16,7 @@ void handle_sw_event(switch_event_t* this_sw_event);
 void keypress_task(void);
 void start_sleeping(void);
 void wakeup_from_sleep_and_load_profile(uint8_t profile_to_load);
+void wakeup_from_sleep_no_load(void);
 
 #ifdef __cplusplus
 }

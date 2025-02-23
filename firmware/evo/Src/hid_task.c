@@ -163,9 +163,9 @@ void parse_hid_msg(const uint8_t* this_msg)
   */
   else if(command_type == HID_COMMAND_PREV_PROFILE)
   {
-      wakeup_from_sleep_no_load();
-      goto_prev_profile();
-      send_hid_cmd_response(hid_tx_buf);
+    wakeup_from_sleep_no_load();
+    goto_prev_profile();
+    send_hid_cmd_response(hid_tx_buf);
   }
   /*
     NEXT PROFILE
@@ -180,11 +180,67 @@ void parse_hid_msg(const uint8_t* this_msg)
   */
   else if(command_type == HID_COMMAND_NEXT_PROFILE)
   {
-      wakeup_from_sleep_no_load();
-      goto_next_profile();
-      send_hid_cmd_response(hid_tx_buf);
+    wakeup_from_sleep_no_load();
+    goto_next_profile();
+    send_hid_cmd_response(hid_tx_buf);
   }
 
+  /*
+    SOFTWARE RESET
+    -----------
+    PC to duckyPad:
+    [0]   seq number (not used)
+    [1]   command
+    -----------
+    duckyPad to PC
+    [0]   Usage ID, always 4
+    [1]   0 = OK
+  */
+  else if(command_type == HID_COMMAND_SW_RESET)
+  {
+    send_hid_cmd_response(hid_tx_buf);
+    delay_ms(250);
+    NVIC_SystemReset();
+  }
+
+  /*
+    SLEEP
+    -----------
+    PC to duckyPad:
+    [0]   seq number (not used)
+    [1]   command
+    -----------
+    duckyPad to PC
+    [0]   Usage ID, always 4
+    [1]   0 = OK
+  */
+  else if(command_type == HID_COMMAND_SLEEP)
+  {
+    send_hid_cmd_response(hid_tx_buf);
+    start_sleeping();
+  }
+
+  /*
+    WAKE UP
+    -----------
+    PC to duckyPad:
+    [0]   seq number (not used)
+    [1]   command
+    -----------
+    duckyPad to PC
+    [0]   seq number (not used)
+    [1]   0 = OK
+  */
+  else if(command_type == HID_COMMAND_WAKEUP)
+  {
+    wakeup_from_sleep_and_load_profile(current_profile_number);
+    send_hid_cmd_response(hid_tx_buf);
+  }
+  else // not a valid HID command
+  {
+    hid_tx_buf[1] = HID_RESPONSE_UNKNOWN_CMD;
+    send_hid_cmd_response(hid_tx_buf);
+  }
 
 // ---------------
 
