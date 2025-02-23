@@ -59,10 +59,12 @@ void neopixel_show(uint8_t* red, uint8_t* green, uint8_t* blue, uint8_t brightne
       else
         ws_spi_buf[16 + j] = WS_BIT_0;
     }
+    __disable_irq();
     HAL_GPIO_WritePin(LED_DATA_EN_GPIO_Port, LED_DATA_EN_Pin, GPIO_PIN_SET);
     spi_fastwrite_buf_size_even(ws_spi_buf, WS_SPI_BUF_SIZE);
     spi_fastwrite_buf_size_even(ws_padding_buf, NEOPIXEL_PADDING_BUF_SIZE);
     HAL_GPIO_WritePin(LED_DATA_EN_GPIO_Port, LED_DATA_EN_Pin, GPIO_PIN_RESET);
+    __enable_irq();
   }
 }
 
