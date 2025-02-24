@@ -52,6 +52,7 @@ uint8_t get_gv_index(uint16_t addr)
   return result;
 }
 
+uint32_t this_dsb_file_size;
 uint8_t switch_bank(uint16_t addr, const char* dsb_path)
 {
   uint8_t target_bank = addr/BIN_BUF_SIZE;
@@ -67,7 +68,9 @@ uint8_t switch_bank(uint16_t addr, const char* dsb_path)
     goto switch_bank_end;
   }
 
-  if(addr >= f_size(&sd_file))
+  this_dsb_file_size = f_size(&sd_file);
+
+  if(addr >= this_dsb_file_size)
   {
     op_result = DSB_READ_OVERFLOW;
     goto switch_bank_end;
@@ -103,10 +106,8 @@ uint8_t read_byte(uint16_t addr, const char* dsb_path)
 uint8_t read_byte_with_error(const char* dsb_path, uint16_t addr, uint8_t* result)
 {
   uint8_t bank_switch_result = switch_bank(addr,dsb_path);
-  if(bank_switch_result != DSB_OK)
-    return bank_switch_result;
   *result = bin_buf[addr%BIN_BUF_SIZE];
-  return DSB_OK;
+  return bank_switch_result;
 }
 
 void stack_init(my_stack* ms)

@@ -140,6 +140,7 @@ extern uint8_t allow_abort;
 extern uint8_t kb_led_status;
 extern uint16_t gv_buf[GLOBAL_VARIABLE_COUNT];
 extern uint8_t current_bank;
+extern uint32_t this_dsb_file_size;
 
 #define READ_BUF_SIZE 256 * 2
 extern char read_buffer[READ_BUF_SIZE];

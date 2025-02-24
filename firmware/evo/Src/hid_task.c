@@ -386,30 +386,21 @@ void sd_walk(void)
     this_file_name = fno.lfname[0] ? fno.lfname : fno.fname;
     CLEAR_TEMP_BUF();
     sprintf(temp_buf, "/profile_%s/%s", profile_name_list[dump_state_current_profile_number], this_file_name);
-    if(f_open(&sd_file, temp_buf, FA_READ))
-      draw_fatal_error(30);
-
-    printf("opened file: %s\n", temp_buf);
     current_bank = 255;
     uint32_t current_addr = 0;
     while(1)
     {
       char this_byte;
-      uint8_t read_byte_result = read_byte_with_error(temp_buf, current_addr, &this_byte);
-      if(read_byte_result == DSB_OK)
-      {
-        current_addr++;
-        printf("%c", this_byte);
-        continue;
-      }
-      else if(read_byte_result == DSB_READ_OVERFLOW)
-      {
-        printf("addr: %d\n", current_addr);
-        break;
-      }
-      else
-      {
+      if(read_byte_with_error(temp_buf, current_addr, &this_byte))
         draw_fatal_error(40);
+
+      printf("%c", this_byte);
+      current_addr++;
+
+      if(current_addr >= this_dsb_file_size)
+      {
+        printf("EOF: %d\n", current_addr);
+        break;
       }
     }
     // printf("new file: %s %dB\n", temp_buf, f_size(&sd_file));
