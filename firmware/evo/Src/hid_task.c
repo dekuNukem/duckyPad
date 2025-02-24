@@ -301,12 +301,13 @@ void handle_hid_command(const uint8_t* hid_rx_buf)
   printf("HID %ldms\n", millis() - ke_start);
 }
 
+#define PROFILE_OVERFLOW 255
 uint8_t find_first_profile(void)
 {
   for (uint8_t i = 0; i < MAX_PROFILES; i++)
     if(strlen(profile_name_list[i]))
       return i;
-  return 255;
+  return PROFILE_OVERFLOW;
 }
 
 uint8_t find_next_profile(uint8_t current_pf)
@@ -315,7 +316,7 @@ uint8_t find_next_profile(uint8_t current_pf)
   for (uint8_t i = current_pf; i < MAX_PROFILES; i++)
     if(strlen(profile_name_list[i]))
       return i;
-  return 255;
+  return PROFILE_OVERFLOW;
 }
 
 #define DUMP_STATE_IDLE 0
@@ -325,6 +326,7 @@ uint8_t find_next_profile(uint8_t current_pf)
 uint8_t sd_dump_state;
 uint8_t dump_state_current_profile_number;
 char* dump_state_current_file_path;
+char* this_file_name;
 
 void sd_walk(void)
 {
@@ -334,18 +336,26 @@ void sd_walk(void)
     // also enter file access mode?
     // hid reply: ack
     dump_state_current_profile_number = find_first_profile();
+    if(dump_state_current_profile_number == PROFILE_OVERFLOW)
+      draw_fatal_error(10);
     printf("enter exclusive file access mode\n");
     return;
   }
 
   if(sd_dump_state == DUMP_STATE_NEW_PROFILE_DIR)
   {
+    if(dump_state_current_profile_number == PROFILE_OVERFLOW)
+    {
+      printf("all done!"); // exist exclusive access mode, HID send EOT
+      sd_dump_state = DUMP_STATE_IDLE;
+      return;
+    }
     CLEAR_TEMP_BUF();
     sprintf(temp_buf, "/profile_%s", profile_name_list[dump_state_current_profile_number]);
     printf("Create dir: %s\n", temp_buf);
     // open dir, go to next state
     if(f_opendir(&dir, temp_buf))
-      draw_fatal_error(10);
+      draw_fatal_error(20);
     fno.lfname = lfn_buf; 
     fno.lfsize = FILENAME_BUFSIZE - 1;
     sd_dump_state = DUMP_STATE_NEW_FILE;
@@ -354,19 +364,26 @@ void sd_walk(void)
 
   if(sd_dump_state == DUMP_STATE_NEW_FILE)
   {
-    printf("new file!\n");
-    CLEAR_TEMP_BUF();
     memset(lfn_buf, 0, FILENAME_BUFSIZE);
-    // sprintf(temp_buf, "/profile_%s/", profile_name_list[dump_state_current_profile_number]);
-    sd_fresult = f_readdir(&dir, &fno);
-    if (sd_fresult != FR_OK || fno.fname[0] == 0)
+    while(1)
     {
-      // done with this dir, time for next
-      sd_dump_state = DUMP_STATE_NEW_PROFILE_DIR;
-
-      return;
+      memset(lfn_buf, 0, FILENAME_BUFSIZE);
+      sd_fresult = f_readdir(&dir, &fno);
+      if (fno.fattrib & AM_DIR)
+        continue;
+      if (sd_fresult != FR_OK || fno.fname[0] == 0)
+      {
+        // done with this dir, time for next
+        sd_dump_state = DUMP_STATE_NEW_PROFILE_DIR;
+        dump_state_current_profile_number = find_next_profile(dump_state_current_profile_number);
+        f_closedir(&dir);
+        printf("this profile done\n");
+        return;
+      }
+      break;
     }
-      
+    this_file_name = fno.lfname[0] ? fno.lfname : fno.fname;
+    printf("new file: %s\n", this_file_name);
   }
 }
 
