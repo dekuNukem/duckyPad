@@ -78,6 +78,8 @@ extern FIL sd_file;
 extern DIR dir;
 extern FILINFO fno;
 
+extern char lfn_buf[FILENAME_BUFSIZE];
+
 #ifdef __cplusplus
 }
 #endif

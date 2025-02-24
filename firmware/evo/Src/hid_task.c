@@ -303,10 +303,19 @@ void handle_hid_command(const uint8_t* hid_rx_buf)
 
 uint8_t find_first_profile(void)
 {
-  for (size_t i = 0; i < MAX_PROFILES; i++)
+  for (uint8_t i = 0; i < MAX_PROFILES; i++)
     if(strlen(profile_name_list[i]))
       return i;
-  return MAX_PROFILES;
+  return 255;
+}
+
+uint8_t find_next_profile(uint8_t current_pf)
+{
+  current_pf++;
+  for (uint8_t i = current_pf; i < MAX_PROFILES; i++)
+    if(strlen(profile_name_list[i]))
+      return i;
+  return 255;
 }
 
 #define DUMP_STATE_IDLE 0
@@ -331,11 +340,33 @@ void sd_walk(void)
 
   if(sd_dump_state == DUMP_STATE_NEW_PROFILE_DIR)
   {
-    printf("Create dir: /profile_%s\n", profile_name_list[dump_state_current_profile_number]);
     CLEAR_TEMP_BUF();
+    sprintf(temp_buf, "/profile_%s", profile_name_list[dump_state_current_profile_number]);
+    printf("Create dir: %s\n", temp_buf);
     // open dir, go to next state
-    if(f_opendir(&dir, "jhhh"))
+    if(f_opendir(&dir, temp_buf))
       draw_fatal_error(10);
+    fno.lfname = lfn_buf; 
+    fno.lfsize = FILENAME_BUFSIZE - 1;
+    sd_dump_state = DUMP_STATE_NEW_FILE;
+    return;
+  }
+
+  if(sd_dump_state == DUMP_STATE_NEW_FILE)
+  {
+    printf("new file!\n");
+    CLEAR_TEMP_BUF();
+    memset(lfn_buf, 0, FILENAME_BUFSIZE);
+    // sprintf(temp_buf, "/profile_%s/", profile_name_list[dump_state_current_profile_number]);
+    sd_fresult = f_readdir(&dir, &fno);
+    if (sd_fresult != FR_OK || fno.fname[0] == 0)
+    {
+      // done with this dir, time for next
+      sd_dump_state = DUMP_STATE_NEW_PROFILE_DIR;
+
+      return;
+    }
+      
   }
 }
 
