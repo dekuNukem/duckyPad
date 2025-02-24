@@ -382,8 +382,20 @@ void sd_walk(void)
       }
       break;
     }
+    // we found the next file
     this_file_name = fno.lfname[0] ? fno.lfname : fno.fname;
-    printf("new file: %s\n", this_file_name);
+    CLEAR_TEMP_BUF();
+    sprintf(temp_buf, "/profile_%s/%s", profile_name_list[dump_state_current_profile_number], this_file_name);
+    if(f_open(&sd_file, temp_buf, FA_READ))
+      draw_fatal_error(30);
+    printf("new file: %s %dB\n", temp_buf, f_size(&sd_file));
+    sd_dump_state = DUMP_STATE_DATA_TX;
+    return;
+  }
+  if(sd_dump_state == DUMP_STATE_DATA_TX)
+  {
+    printf("dumping data!\n");
+    return;
   }
 }
 
