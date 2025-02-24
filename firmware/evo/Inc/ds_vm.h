@@ -139,11 +139,13 @@ extern uint8_t bin_buf[BIN_BUF_SIZE];
 extern uint8_t allow_abort;
 extern uint8_t kb_led_status;
 extern uint16_t gv_buf[GLOBAL_VARIABLE_COUNT];
+extern uint8_t current_bank;
 
 #define READ_BUF_SIZE 256 * 2
 extern char read_buffer[READ_BUF_SIZE];
 
 void run_dsb(ds3_exe_result* er, uint8_t this_key_id, const char* dsb_path);
+uint8_t read_byte_with_error(const char* dsb_path, uint16_t addr, uint8_t* result);
 
 #endif
 

@@ -97,8 +97,16 @@ uint8_t read_byte(uint16_t addr, const char* dsb_path)
     delay_ms(1000);
     NVIC_SystemReset();
   }
-
   return bin_buf[addr%BIN_BUF_SIZE];
+}
+
+uint8_t read_byte_with_error(const char* dsb_path, uint16_t addr, uint8_t* result)
+{
+  uint8_t bank_switch_result = switch_bank(addr,dsb_path);
+  if(bank_switch_result != DSB_OK)
+    return bank_switch_result;
+  *result = bin_buf[addr%BIN_BUF_SIZE];
+  return DSB_OK;
 }
 
 void stack_init(my_stack* ms)
