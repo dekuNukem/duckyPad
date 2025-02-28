@@ -262,4 +262,3 @@ void draw_fatal_error(uint8_t err_code)
     delay_ms(500);
   }
 }
-

@@ -327,17 +327,20 @@ uint8_t sd_dump_state;
 uint8_t dump_state_current_profile_number;
 char* dump_state_current_file_path;
 char* this_file_name;
+volatile uint8_t is_in_file_access_mode;
 
 void sd_walk(void)
 {
   if(sd_dump_state == DUMP_STATE_IDLE)
   {
     sd_dump_state = DUMP_STATE_NEW_PROFILE_DIR;
-    // also enter file access mode?
     // hid reply: ack
     dump_state_current_profile_number = find_first_profile();
     if(dump_state_current_profile_number == PROFILE_OVERFLOW)
       draw_fatal_error(10);
+    neopixel_fill(127, 127, 127);
+    oled_say("File Access Mode");
+    is_in_file_access_mode = 1;
     printf("enter exclusive file access mode\n");
     return;
   }
@@ -346,7 +349,7 @@ void sd_walk(void)
   {
     if(dump_state_current_profile_number == PROFILE_OVERFLOW)
     {
-      printf("all done!"); // exist exclusive access mode, HID send EOT
+      printf("all done!"); // exit exclusive access mode, HID send EOT
       sd_dump_state = DUMP_STATE_IDLE;
       return;
     }
