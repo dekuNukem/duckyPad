@@ -1,4 +1,96 @@
+#define DUMP_STATE_IDLE 0
+#define DUMP_STATE_NEW_PROFILE_DIR 1
+#define DUMP_STATE_NEW_FILE 2
+#define DUMP_STATE_DATA_TX 3
+uint8_t sd_dump_state;
+uint8_t dump_state_current_profile_number;
+char* dump_state_current_file_path;
+char* this_file_name;
+volatile uint8_t is_in_file_access_mode;
 
+void sd_walk(void)
+{
+  if(sd_dump_state == DUMP_STATE_IDLE)
+  {
+    sd_dump_state = DUMP_STATE_NEW_PROFILE_DIR;
+    // hid reply: ack
+    dump_state_current_profile_number = find_first_profile();
+    if(dump_state_current_profile_number == PROFILE_OVERFLOW)
+      draw_fatal_error(10);
+    return;
+  }
+
+  if(sd_dump_state == DUMP_STATE_NEW_PROFILE_DIR)
+  {
+    if(dump_state_current_profile_number == PROFILE_OVERFLOW)
+    {
+      printf("all done!"); // exit exclusive access mode, HID send EOT
+      sd_dump_state = DUMP_STATE_IDLE;
+      return;
+    }
+    CLEAR_TEMP_BUF();
+    sprintf(temp_buf, "/profile_%s", profile_name_list[dump_state_current_profile_number]);
+    printf("Create dir: %s\n", temp_buf);
+    // open dir, go to next state
+    if(f_opendir(&dir, temp_buf))
+      draw_fatal_error(20);
+    fno.lfname = lfn_buf; 
+    fno.lfsize = FILENAME_BUFSIZE - 1;
+    sd_dump_state = DUMP_STATE_NEW_FILE;
+    return;
+  }
+
+  if(sd_dump_state == DUMP_STATE_NEW_FILE)
+  {
+    memset(lfn_buf, 0, FILENAME_BUFSIZE);
+    while(1)
+    {
+      memset(lfn_buf, 0, FILENAME_BUFSIZE);
+      sd_fresult = f_readdir(&dir, &fno);
+      if (fno.fattrib & AM_DIR)
+        continue;
+      if (sd_fresult != FR_OK || fno.fname[0] == 0)
+      {
+        // done with this dir, time for next
+        sd_dump_state = DUMP_STATE_NEW_PROFILE_DIR;
+        dump_state_current_profile_number = find_next_profile(dump_state_current_profile_number);
+        f_closedir(&dir);
+        printf("this profile done\n");
+        return;
+      }
+      break;
+    }
+    // we found the next file
+    this_file_name = fno.lfname[0] ? fno.lfname : fno.fname;
+    CLEAR_TEMP_BUF();
+    sprintf(temp_buf, "/profile_%s/%s", profile_name_list[dump_state_current_profile_number], this_file_name);
+    current_bank = 255;
+    uint32_t current_addr = 0;
+    while(1)
+    {
+      char this_byte;
+      if(read_byte_with_error(temp_buf, current_addr, &this_byte))
+        draw_fatal_error(40);
+
+      printf("%c", this_byte);
+      current_addr++;
+
+      if(current_addr >= this_dsb_file_size)
+      {
+        printf("EOF: %d\n", current_addr);
+        break;
+      }
+    }
+    // printf("new file: %s %dB\n", temp_buf, f_size(&sd_file));
+    // sd_dump_state = DUMP_STATE_DATA_TX;
+    return;
+  }
+  // if(sd_dump_state == DUMP_STATE_DATA_TX)
+  // {
+  //   printf("dumping data!\n");
+  //   return;
+  // }
+}
 void list_files(char* path)
 {
   if(f_opendir(&dir, path))
