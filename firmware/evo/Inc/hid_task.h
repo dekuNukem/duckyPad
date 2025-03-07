@@ -35,6 +35,8 @@
 
 void handle_hid_command(const uint8_t* hid_rx_buf);
 void sd_walk(void);
+void md5_test(void);
+
 extern volatile uint8_t is_in_file_access_mode;
 
 #ifdef __cplusplus

@@ -15,6 +15,7 @@
 #include "usbd_custom_hid_if.h"
 #include "main.h"
 #include "ui_task.h"
+#include "md5.h"
 
 #define HID_DP_TO_PC_USAGE_ID 4
 #define HID_TX_BUF_SIZE (CUSTOM_HID_EPIN_SIZE+1)
@@ -415,5 +416,19 @@ void sd_walk(void)
   //   printf("dumping data!\n");
   //   return;
   // }
+}
+
+void print_hash(uint8_t *p){
+  for(unsigned int i = 0; i < 16; ++i)
+    printf("%02x", p[i]);
+  printf("\n");
+}
+
+void md5_test(void)
+{
+  uint8_t result[16];
+  uint8_t fggg = md5File("/profile_Welcome/key1.dsb", result);
+  printf("fggg %d\n", fggg);
+  print_hash(result);
 }
 

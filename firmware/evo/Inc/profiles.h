@@ -77,6 +77,7 @@ extern FATFS sd_fs;
 extern FIL sd_file;
 extern DIR dir;
 extern FILINFO fno;
+extern UINT bytes_written, bytes_read;
 
 extern char lfn_buf[FILENAME_BUFSIZE];
 

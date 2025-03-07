@@ -366,7 +366,8 @@ void keypress_task(void)
     if(sw_event.type == SW_EVENT_SHORT_PRESS)
     {
       uint32_t ke_start = millis();
-      sd_walk();
+      // sd_walk();
+      md5_test();
       printf("walk: %ldms\n", millis() - ke_start);
     }
     is_busy = 0;
