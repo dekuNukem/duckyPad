@@ -25,7 +25,6 @@
 
 volatile uint8_t is_sleeping;
 volatile uint8_t is_busy;
-volatile uint8_t oled_brightness = OLED_CONTRAST_BRIGHT;
 volatile uint32_t last_keypress;
 volatile uint32_t last_execution_exit;
 
@@ -244,7 +243,7 @@ void onboard_offboard_switch_release(uint8_t swid, char* release_path)
 
 void process_keyevent(uint8_t swid, uint8_t event_type)
 {
-  oled_brightness = OLED_CONTRAST_BRIGHT;
+  ssd1306_SetContrast(OLED_CONTRAST_BRIGHT);
   if(swid == SW_PLUS && event_type == SW_EVENT_RELEASE)
   {
     goto_next_profile();
@@ -293,7 +292,7 @@ void wakeup_from_sleep_no_load(void)
   update_last_keypress();
   delay_ms(20);
   is_sleeping = 0;
-  oled_brightness = OLED_CONTRAST_BRIGHT;
+  ssd1306_SetContrast(OLED_CONTRAST_BRIGHT);
 }
 
 void wakeup_from_sleep_and_load_profile(uint8_t profile_to_load)
@@ -343,13 +342,17 @@ void keypress_task(void)
   while(1)
   {
     delay_ms(5);
-    ssd1306_SetContrast(oled_brightness);
+    if(is_in_file_access_mode)
+    {
+      ssd1306_SetContrast(OLED_CONTRAST_BRIGHT);
+      continue;
+    }
 
     uint32_t ms_since_last_keypress = millis() - last_keypress;
     if(ms_since_last_keypress > sleep_after_ms_index_to_time_lookup[dp_settings.sleep_index])
       start_sleeping();
     else if(ms_since_last_keypress > OLED_DIM_AFTER_MS)
-      oled_brightness = OLED_CONTRAST_DIM;
+      ssd1306_SetContrast(OLED_CONTRAST_DIM);
     
     if(is_sleeping == 0)
       update_kbled_icon(kb_led_status);
@@ -362,14 +365,14 @@ void keypress_task(void)
       continue;
 
     is_busy = 1;
-    // handle_sw_event(&sw_event);
-    if(sw_event.type == SW_EVENT_SHORT_PRESS)
-    {
-      uint32_t ke_start = millis();
-      // sd_walk();
-      md5_test();
-      printf("walk: %ldms\n", millis() - ke_start);
-    }
+    handle_sw_event(&sw_event);
+    // if(sw_event.type == SW_EVENT_SHORT_PRESS)
+    // {
+    //   uint32_t ke_start = millis();
+    //   // sd_walk();
+    //   md5_test();
+    //   printf("walk: %ldms\n", millis() - ke_start);
+    // }
     is_busy = 0;
   }
 }

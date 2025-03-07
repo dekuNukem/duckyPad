@@ -282,6 +282,27 @@ void parse_hid_msg(const uint8_t* this_msg)
     ;
   }
 
+  /*
+    Enter exclusive file access mode
+    -----------
+    PC to duckyPad:
+    [0]   Usage ID, always 5
+    [1]   Unused
+    [2]   Command
+    -----------
+    duckyPad to PC
+    [0]   Usage ID, always 4
+    [1]   Unused
+    [2]   0 = OK
+  */
+  else if(command_type == HID_COMMAND_ENTER_EXCLUSIVE_MODE)
+  {
+    is_in_file_access_mode = 1;
+    neopixel_fill(127, 127, 127);
+    oled_say("File Access Mode");
+    send_hid_cmd_response(hid_tx_buf);
+  }
+
   else // not a valid HID command
   {
     hid_tx_buf[2] = HID_RESPONSE_UNKNOWN_CMD;
@@ -339,10 +360,6 @@ void sd_walk(void)
     dump_state_current_profile_number = find_first_profile();
     if(dump_state_current_profile_number == PROFILE_OVERFLOW)
       draw_fatal_error(10);
-    neopixel_fill(127, 127, 127);
-    oled_say("File Access Mode");
-    is_in_file_access_mode = 1;
-    printf("enter exclusive file access mode\n");
     return;
   }
 
