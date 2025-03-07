@@ -337,16 +337,28 @@ uint32_t sleep_after_ms_index_to_time_lookup[SLEEP_OPTION_SIZE] = {
   DONT_SLEEP,
   };
 
+void file_access_mode_task(void)
+{
+  while(1)
+  {
+    delay_ms(5);
+    ssd1306_SetContrast(OLED_CONTRAST_BRIGHT);
+    switch_event_t sw_event = {0};
+    if(q_pop(&switch_event_queue, &sw_event) == 0)
+      continue;
+    if(is_plus_minus_button(sw_event.id) && sw_event.type == SW_EVENT_LONG_PRESS)
+      NVIC_SystemReset();
+  }
+}
+
 void keypress_task(void)
 {
   while(1)
   {
     delay_ms(5);
+
     if(is_in_file_access_mode)
-    {
-      ssd1306_SetContrast(OLED_CONTRAST_BRIGHT);
-      continue;
-    }
+      file_access_mode_task();
 
     uint32_t ms_since_last_keypress = millis() - last_keypress;
     if(ms_since_last_keypress > sleep_after_ms_index_to_time_lookup[dp_settings.sleep_index])
