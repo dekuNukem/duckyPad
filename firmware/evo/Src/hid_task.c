@@ -405,18 +405,45 @@ void sd_walk(void)
     }
     // we found the next file
     this_file_name = fno.lfname[0] ? fno.lfname : fno.fname;
-    CLEAR_TEMP_BUF();
-    sprintf(temp_buf, "/profile_%s/%s", profile_name_list[sd_walk_current_profile_number], this_file_name);
-    printf("current file: %s ", temp_buf);
+    
+    make_file_walk_hid_packet(this_file_name, profile_name_list[sd_walk_current_profile_number], hid_tx_buf);
 
-    memset(md5_buf, 0, MD5_BUF_SIZE);
-    md5File(temp_buf, md5_buf);
-    print_hash(md5_buf);
+    // memset(md5_buf, 0, MD5_BUF_SIZE);
+    // md5File(temp_buf, md5_buf);
+    // print_hash(md5_buf);
     return;
   }
 }
 
-uint8_t make_file_walk_hid_packet(char* filename)
-{
+#define HID_FILE_WALK_PAYLOAD_SIZE 58
 
+uint8_t make_file_walk_hid_packet(char* file_name, char* profile_name, uint8_t* tx_buf)
+{
+  CLEAR_TEMP_BUF();
+  sprintf(temp_buf, "/profile_%s/%s", profile_name, this_file_name);
+  if(f_open(&sd_file, temp_buf, FA_READ))
+    draw_fatal_error(30);
+  uint32_t this_file_size = f_size(&sd_file);
+  uint32_t packet_len = strlen(file_name) + 1 + this_file_size + 1;
+  
+  printf("current file: %s %d %d\n", temp_buf, this_file_size, packet_len);
+  memset(tx_buf, 0, HID_TX_BUF_SIZE);
+  tx_buf[0] = 4; // usage ID, always 4
+  if(packet_len <= HID_FILE_WALK_PAYLOAD_SIZE)
+  {
+    tx_buf[1] = 2; // operation type, payload is file content 
+    tx_buf[2] = 4 + strlen(file_name); // file name end, byte at this index should be 0
+    tx_buf[3] = tx_buf[2] + this_file_size; // file content end, inclusive
+
+    strncpy(tx_buf+4, file_name, strlen(file_name)); // copy file name into tx buf
+    f_read(&sd_file, tx_buf + tx_buf[2] + 1, this_file_size, &bytes_read);
+    if(bytes_read != this_file_size)
+      draw_fatal_error(40);
+
+    for (size_t i = 0; i < HID_TX_BUF_SIZE; i++)
+      printf("%d: %d %c\n", i, tx_buf[i], tx_buf[i]);
+    printf("--------\n");
+  }
+  f_close(&sd_file);
+  return 0;
 }

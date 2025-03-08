@@ -37,6 +37,7 @@
 void handle_hid_command(const uint8_t* hid_rx_buf);
 void sd_walk(void);
 void md5_test(void);
+uint8_t make_file_walk_hid_packet(char* file_name, char* profile_name, uint8_t* tx_buf);
 
 extern volatile uint8_t is_in_file_access_mode;
 
