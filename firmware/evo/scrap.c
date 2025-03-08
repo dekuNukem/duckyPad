@@ -1,3 +1,14 @@
+
+void md5_test(void)
+{
+  uint8_t result[16];
+  uint8_t fggg = md5File("/profile_Welcome/key1.dsb", result);
+  printf("fggg %d\n", fggg);
+  print_hash(result);
+}
+
+
+
 #define DUMP_STATE_IDLE 0
 #define DUMP_STATE_NEW_PROFILE_DIR 1
 #define DUMP_STATE_NEW_FILE 2

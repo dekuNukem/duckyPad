@@ -20,5 +20,8 @@ void md5Step(uint32_t *buffer, uint32_t *input);
 
 void md5String(char *input, uint8_t *result);
 uint8_t md5File(char* file_path, uint8_t *result);
+void print_hash(uint8_t *p);
+
+#define MD5_BUF_SIZE 16
 
 #endif

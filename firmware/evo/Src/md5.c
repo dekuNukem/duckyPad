@@ -247,3 +247,10 @@ uint8_t md5File(char* file_path, uint8_t *result)
     memcpy(result, ctx.digest, 16);
     return 0;
 }
+
+void print_hash(uint8_t *p)
+{
+  for(unsigned int i = 0; i < MD5_BUF_SIZE; ++i)
+    printf("%02x", p[i]);
+  printf("\n");
+}
