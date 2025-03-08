@@ -1,4 +1,31 @@
 
+uint8_t md5File(char* file_path, uint8_t *result)
+{
+    size_t input_size = 0;
+    MD5Context ctx;
+    md5Init(&ctx);
+
+    if(f_open(&sd_file, file_path, FA_READ) != 0)
+        return 10;
+    memset(bin_buf, 0, BIN_BUF_SIZE);
+
+    while(1)
+    {
+        if(f_read(&sd_file, bin_buf, BIN_BUF_SIZE, &input_size) != FR_OK)
+        {
+            f_close(&sd_file);
+            return 20;
+        }
+        if(input_size == 0)
+            break;
+        md5Update(&ctx, bin_buf, input_size);
+    }
+    f_close(&sd_file);
+    md5Finalize(&ctx);
+    memcpy(result, ctx.digest, 16);
+    return 0;
+}
+
 void md5_test(void)
 {
   uint8_t result[16];

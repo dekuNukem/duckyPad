@@ -407,16 +407,13 @@ void sd_walk(void)
     this_file_name = fno.lfname[0] ? fno.lfname : fno.fname;
     
     make_file_walk_hid_packet(this_file_name, profile_name_list[sd_walk_current_profile_number], hid_tx_buf);
-
-    // memset(md5_buf, 0, MD5_BUF_SIZE);
-    // md5File(temp_buf, md5_buf);
-    // print_hash(md5_buf);
     return;
   }
 }
 
 #define HID_FILE_WALK_PAYLOAD_SIZE 58
-
+#define MAX_FILENAME_LEN_IN_HID_PAYLOAD 45
+#define HID_MD5_PAYLOAD_FILENAME_START 18
 uint8_t make_file_walk_hid_packet(char* file_name, char* profile_name, uint8_t* tx_buf)
 {
   CLEAR_TEMP_BUF();
@@ -440,8 +437,22 @@ uint8_t make_file_walk_hid_packet(char* file_name, char* profile_name, uint8_t* 
     if(bytes_read != this_file_size)
       draw_fatal_error(40);
 
+    // for (size_t i = 0; i < HID_TX_BUF_SIZE; i++)
+    //   printf("%d: %d %c\n", i, tx_buf[i], tx_buf[i]);
+    // printf("--------\n");
+  }
+  else
+  {
+    tx_buf[1] = 3; // operation type, payload is MD5
+    memset(md5_buf, 0, MD5_BUF_SIZE);
+    md5File(&sd_file, md5_buf);
+    memcpy(tx_buf+2, md5_buf, MD5_BUF_SIZE);
+
+    strncpy(tx_buf+HID_MD5_PAYLOAD_FILENAME_START, file_name, MAX_FILENAME_LEN_IN_HID_PAYLOAD);
+    print_hash(md5_buf);
+
     for (size_t i = 0; i < HID_TX_BUF_SIZE; i++)
-      printf("%d: %d %c\n", i, tx_buf[i], tx_buf[i]);
+      printf("%d: %d %x %c\n", i, tx_buf[i], tx_buf[i], tx_buf[i]);
     printf("--------\n");
   }
   f_close(&sd_file);
