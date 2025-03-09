@@ -7,7 +7,12 @@
     //   printf("%d: %d %x %c\n", i, hid_tx_buf[i], hid_tx_buf[i], hid_tx_buf[i]);
     // printf("--------\n");
 
-
+    // if(sw_event.type == SW_EVENT_SHORT_PRESS)
+    // {
+    //   uint32_t ke_start = millis();
+    //   sd_walk();
+    //   printf("walk: %ldms\n", millis() - ke_start);
+    // }
 
 uint8_t md5File(char* file_path, uint8_t *result)
 {

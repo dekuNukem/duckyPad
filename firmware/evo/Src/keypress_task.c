@@ -351,6 +351,8 @@ void file_access_mode_task(void)
   }
 }
 
+uint32_t last_settings_save;
+
 void keypress_task(void)
 {
   while(1)
@@ -359,6 +361,12 @@ void keypress_task(void)
 
     if(is_in_file_access_mode)
       file_access_mode_task();
+    
+    if(millis() - last_settings_save > 5000)
+    {
+      save_settings(&dp_settings);
+      last_settings_save = millis();
+    }
 
     uint32_t ms_since_last_keypress = millis() - last_keypress;
     if(ms_since_last_keypress > sleep_after_ms_index_to_time_lookup[dp_settings.sleep_index])
@@ -378,12 +386,6 @@ void keypress_task(void)
 
     is_busy = 1;
     handle_sw_event(&sw_event);
-    // if(sw_event.type == SW_EVENT_SHORT_PRESS)
-    // {
-    //   uint32_t ke_start = millis();
-    //   sd_walk();
-    //   printf("walk: %ldms\n", millis() - ke_start);
-    // }
     is_busy = 0;
   }
 }
