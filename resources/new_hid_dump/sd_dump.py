@@ -1,7 +1,7 @@
-
 import os
 import hid
 import time
+import scan_md5
 
 def millis():
     return time.time_ns() // 1000000;
@@ -45,6 +45,8 @@ pc_to_duckypad_buf[2] = HID_COMMAND_DUMP_SD # Command type
 
 bbbb = millis()
 
+backup_md5_dict = scan_md5.get_md5_dict()
+
 duckypad_path = get_duckypad_path()
 if duckypad_path is None:
     raise OSError('duckyPad Not Found!')
@@ -60,17 +62,20 @@ SD_WALK_OP_EOT = 4
 
 current_dir = None
 
+def read_binary_file(file_path):
+    with open(file_path, 'rb') as file:
+        return file.read()
+
 def dump_file(file_path, file_name, file_content):
     file_path = file_path.lstrip("\\/")
     script_dir = os.path.dirname(os.path.abspath(__file__))
     full_dir_path = os.path.join(script_dir, "hid_dump", file_path)
     full_file_path = os.path.join(full_dir_path, file_name)
-    print(full_dir_path)
-    print(full_file_path)
-    print('----------')
     os.makedirs(full_dir_path, exist_ok=True)
     with open(full_file_path, 'wb') as file:
         file.write(file_content)
+
+md5_miss_list = []
 
 while 1:
     # now = millis()
@@ -96,6 +101,11 @@ while 1:
         md5_list = duckypad_to_pc_buf[2:18]
         md5_string = ''.join(f'{x:02x}' for x in md5_list)
         print(this_file_name, md5_string)
+        if md5_string in backup_md5_dict:
+            cached_file_content = read_binary_file(backup_md5_dict[md5_string])
+            dump_file(current_dir, this_file_name, cached_file_content)
+        else:
+            md5_miss_list.append(os.path.join(current_dir, this_file_name))
 
     elif duckypad_to_pc_buf[SD_WALK_OP_TYPE_INDEX] == SD_WALK_OP_FILE_CONTENT:
         file_name_end = duckypad_to_pc_buf[2] + 1
@@ -104,9 +114,9 @@ while 1:
         this_file_name = ''.join(chr(c) for c in raw_filename_list[:raw_filename_list.index(0)])
         raw_file_content_bytes = bytes(duckypad_to_pc_buf[file_name_end:file_content_end])
         dump_file(current_dir, this_file_name, raw_file_content_bytes)
-        print(this_file_name, raw_file_content_bytes)
 
 h.close()
 print("total time:", millis() - bbbb, "ms")
 
-
+for item in md5_miss_list:
+    print(item)
