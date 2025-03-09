@@ -34,12 +34,13 @@ def get_duckypad_path(start_fresh=False):
 
 h = hid.device()
 
-HID_COMMAND_READ_FILE = 33
+HID_COMMAND_OPEN_FILE_FOR_READING = 33
+HID_COMMAND_READ_FILE = 11
 
 pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
 pc_to_duckypad_buf[0] = 5   # HID Usage ID, always 5
 pc_to_duckypad_buf[1] = 0   # unused
-pc_to_duckypad_buf[2] = HID_COMMAND_READ_FILE # Command type
+pc_to_duckypad_buf[2] = HID_COMMAND_OPEN_FILE_FOR_READING # Command type
 
 HID_READ_FILE_PATH_SIZE_MAX = 55
 
@@ -58,12 +59,26 @@ if duckypad_path is None:
     raise OSError('duckyPad Not Found!')
 h.open_path(duckypad_path)
 
-now = millis()
 print("\n\nSending to duckyPad:\n", pc_to_duckypad_buf)
 h.write(pc_to_duckypad_buf)
 duckypad_to_pc_buf = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
 print("\nduckyPad response:\n", duckypad_to_pc_buf)
-print("took", millis() - now, "ms")
+
+while 1:
+    pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
+    pc_to_duckypad_buf[0] = 5   # HID Usage ID, always 5
+    pc_to_duckypad_buf[1] = 0   # unused
+    pc_to_duckypad_buf[2] = HID_COMMAND_READ_FILE
+
+    print("\n\nSending to duckyPad:\n", pc_to_duckypad_buf)
+    h.write(pc_to_duckypad_buf)
+    duckypad_to_pc_buf = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
+    print("\nduckyPad response:\n", duckypad_to_pc_buf)
+    for item in duckypad_to_pc_buf[3:]:
+        print(chr(item), end='')
+
+    if duckypad_to_pc_buf[2] == 0:
+        break
 
 h.close()
-print("total time:", millis() - bbbb, "ms")
+print("\ntotal time:", millis() - bbbb, "ms")

@@ -292,6 +292,26 @@ void parse_hid_msg(const uint8_t* this_msg)
   }
 
   /*
+    Read File
+    -----------
+    PC to duckyPad:
+    [0]   Usage ID, always 5
+    [1]   Unused
+    [2]   Command: Read file
+    -----------
+    duckyPad to PC
+    See excel file
+  */
+  else if(command_type == HID_COMMAND_READ_FILE)
+  {
+    hid_tx_buf[1] = f_read(&sd_file, hid_tx_buf+3, HID_FILE_READ_PAYLOAD_SIZE, &bytes_read);
+    hid_tx_buf[2] = (uint8_t)bytes_read;
+    if(bytes_read == 0)
+      f_close(&sd_file);
+    send_hid_cmd_response(hid_tx_buf);
+  }
+
+  /*
     Enter exclusive file access mode
     -----------
     PC to duckyPad:
@@ -428,8 +448,7 @@ void sd_walk(uint8_t* res_buf)
     return;
   }
 }
-
-#define HID_FILE_WALK_PAYLOAD_SIZE 58
+#define HID_WALK_FILE_PAYLOAD_SIZE 59
 #define HID_MD5_PAYLOAD_FILENAME_START 18
 uint8_t make_file_walk_hid_packet(char* file_name, char* profile_name, uint8_t* tx_buf)
 {
@@ -443,7 +462,7 @@ uint8_t make_file_walk_hid_packet(char* file_name, char* profile_name, uint8_t* 
   // printf("current file: %s %d %d\n", temp_buf, this_file_size, packet_len);
   memset(tx_buf, 0, HID_TX_BUF_SIZE);
   tx_buf[0] = 4; // usage ID, always 4
-  if(packet_len <= HID_FILE_WALK_PAYLOAD_SIZE)
+  if(packet_len <= HID_WALK_FILE_PAYLOAD_SIZE)
   {
     tx_buf[1] = 2; // operation type, payload is file content 
     tx_buf[2] = 4 + strlen(file_name); // file name end, byte at this index should be 0
