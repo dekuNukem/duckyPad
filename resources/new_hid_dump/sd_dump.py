@@ -1,12 +1,5 @@
-"""
-duckyPad HID example: HID read AND write
 
-For more details, see:
-
-https://github.com/dekuNukem/duckyPad-profile-autoswitcher/blob/master/HID_details.md
-
-"""
-
+import os
 import hid
 import time
 
@@ -67,6 +60,18 @@ SD_WALK_OP_EOT = 4
 
 current_dir = None
 
+def dump_file(file_path, file_name, file_content):
+    file_path = file_path.lstrip("\\/")
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    full_dir_path = os.path.join(script_dir, "hid_dump", file_path)
+    full_file_path = os.path.join(full_dir_path, file_name)
+    print(full_dir_path)
+    print(full_file_path)
+    print('----------')
+    os.makedirs(full_dir_path, exist_ok=True)
+    with open(full_file_path, 'wb') as file:
+        file.write(file_content)
+
 while 1:
     # now = millis()
     # print("\n\nSending to duckyPad:\n", pc_to_duckypad_buf)
@@ -87,18 +92,21 @@ while 1:
 
     elif duckypad_to_pc_buf[SD_WALK_OP_TYPE_INDEX] == SD_WALK_OP_FILE_MD5:
         rawchar = duckypad_to_pc_buf[18:]
-        this_file = ''.join(chr(c) for c in rawchar[:rawchar.index(0)])
+        this_file_name = ''.join(chr(c) for c in rawchar[:rawchar.index(0)])
         md5_list = duckypad_to_pc_buf[2:18]
         md5_string = ''.join(f'{x:02x}' for x in md5_list)
-        print(this_file, md5_string)
+        print(this_file_name, md5_string)
 
     elif duckypad_to_pc_buf[SD_WALK_OP_TYPE_INDEX] == SD_WALK_OP_FILE_CONTENT:
         file_name_end = duckypad_to_pc_buf[2] + 1
         file_content_end = duckypad_to_pc_buf[3] + 1
         raw_filename_list = duckypad_to_pc_buf[4:file_name_end]
-        this_file = ''.join(chr(c) for c in raw_filename_list[:raw_filename_list.index(0)])
+        this_file_name = ''.join(chr(c) for c in raw_filename_list[:raw_filename_list.index(0)])
         raw_file_content_bytes = bytes(duckypad_to_pc_buf[file_name_end:file_content_end])
-        print(this_file, raw_file_content_bytes)
+        dump_file(current_dir, this_file_name, raw_file_content_bytes)
+        print(this_file_name, raw_file_content_bytes)
 
 h.close()
 print("total time:", millis() - bbbb, "ms")
+
+
