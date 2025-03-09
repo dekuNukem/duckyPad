@@ -451,7 +451,7 @@ uint8_t make_file_walk_hid_packet(char* file_name, char* profile_name, uint8_t* 
     md5File(&sd_file, md5_buf);
     memcpy(tx_buf+2, md5_buf, MD5_BUF_SIZE);
     strncpy(tx_buf+HID_MD5_PAYLOAD_FILENAME_START, file_name, MAX_FILENAME_LEN_IN_HID_PAYLOAD);
-    // print_hash(md5_buf);
+    print_hash(md5_buf);
   }
   f_close(&sd_file);
   return 0;
