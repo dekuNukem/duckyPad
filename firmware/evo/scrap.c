@@ -1,4 +1,14 @@
 
+    // for (size_t i = 0; i < HID_TX_BUF_SIZE; i++)
+    //   printf("%d: %d %x %c\n", i, this_msg[i], this_msg[i], this_msg[i]);
+    // printf("--------\n");
+
+    // for (size_t i = 0; i < HID_TX_BUF_SIZE; i++)
+    //   printf("%d: %d %x %c\n", i, hid_tx_buf[i], hid_tx_buf[i], hid_tx_buf[i]);
+    // printf("--------\n");
+
+
+
 uint8_t md5File(char* file_path, uint8_t *result)
 {
     size_t input_size = 0;

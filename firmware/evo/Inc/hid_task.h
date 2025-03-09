@@ -19,7 +19,13 @@
 #define HID_COMMAND_GOTO_PROFILE_BY_NAME 23
 #define HID_COMMAND_ENTER_EXCLUSIVE_MODE 31
 #define HID_COMMAND_DUMP_SD 32
-#define HID_COMMAND_RESUME 12
+#define HID_COMMAND_OPEN_FILE_FOR_READING 33
+#define HID_COMMAND_READ_FILE 11
+#define HID_COMMAND_OPEN_FILE_FOR_WRITING 14
+#define HID_COMMAND_WRITE_FILE 15
+#define HID_COMMAND_DELETE_FILE 17
+#define HID_COMMAND_CREATE_DIR 18
+#define HID_COMMAND_DELETE_DIR 19
 
 #define HID_RESPONSE_OK 0
 #define HID_RESPONSE_GENERIC_ERROR 1
@@ -34,8 +40,11 @@
 #define HID_USAGE_ID_MOUSE 3
 #define HID_USAGE_ID_NAMED_PIPE 4
 
+#define HID_READ_FILE_PATH_SIZE_MAX 55
+
+
 void handle_hid_command(const uint8_t* hid_rx_buf);
-void sd_walk(void);
+void sd_walk(uint8_t* res_buf);
 void md5_test(void);
 uint8_t make_file_walk_hid_packet(char* file_name, char* profile_name, uint8_t* tx_buf);
 

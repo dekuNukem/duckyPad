@@ -259,25 +259,35 @@ void parse_hid_msg(const uint8_t* this_msg)
     [0]   Usage ID, always 5
     [1]   Unused
     [2]   Command: Dump SD
-    [3]   Action: 1: Start/resume, 2: abort
     -----------
     duckyPad to PC
-    [0]   Usage ID, always 4
-    [1]   Unused
-    [2]   Status
+    See excel file
 
-    Status:
-    1: Encountered new file
-    2: Data Chunk
-    3: End of file
-    4: End of transmission
   */
   else if(command_type == HID_COMMAND_DUMP_SD)
   {
-    sd_walk();
-    // for (size_t i = 0; i < HID_TX_BUF_SIZE; i++)
-    //   printf("%d: %d %x %c\n", i, hid_tx_buf[i], hid_tx_buf[i], hid_tx_buf[i]);
-    // printf("--------\n");
+    sd_walk(hid_tx_buf);
+    send_hid_cmd_response(hid_tx_buf);
+  }
+
+  /*
+    Open file for reading
+    -----------
+    PC to duckyPad:
+    [0]   Usage ID, always 5
+    [1]   Unused
+    [2]   Command: open file for reading
+    -----------
+    duckyPad to PC
+    See excel file
+  */
+  else if(command_type == HID_COMMAND_OPEN_FILE_FOR_READING)
+  {
+    CLEAR_TEMP_BUF();
+    strncpy(temp_buf, this_msg+3, HID_READ_FILE_PATH_SIZE_MAX);
+    printf("%s\n", temp_buf);
+    f_close(&sd_file);
+    hid_tx_buf[2] = f_open(&sd_file, temp_buf, FA_READ);
     send_hid_cmd_response(hid_tx_buf);
   }
 
@@ -351,10 +361,10 @@ char* this_file_name;
 volatile uint8_t is_in_file_access_mode;
 uint8_t md5_buf[MD5_BUF_SIZE];
 
-void sd_walk(void)
+void sd_walk(uint8_t* res_buf)
 {
-  memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
-  hid_tx_buf[0] = 4; // usage ID, always 4
+  memset(res_buf, 0, HID_TX_BUF_SIZE);
+  res_buf[0] = 4; // usage ID, always 4
   if(sd_walk_state == SD_WALK_STATE_IDLE)
   {
     sd_walk_state = SD_WALK_STATE_NEW_PROFILE_DIR;
@@ -362,7 +372,7 @@ void sd_walk(void)
     if(sd_walk_current_profile_number == PROFILE_OVERFLOW)
       draw_fatal_error(10);
     // HID Response: Ack
-    hid_tx_buf[1] = 0;
+    res_buf[1] = 0;
     return;
   }
 
@@ -373,7 +383,7 @@ void sd_walk(void)
       printf("all done!");
       sd_walk_state = SD_WALK_STATE_IDLE;
       // HID response: End of Transmission
-      hid_tx_buf[1] = 4;
+      res_buf[1] = 4;
       return;
     }
     CLEAR_TEMP_BUF();
@@ -385,8 +395,8 @@ void sd_walk(void)
     fno.lfsize = FILENAME_BUFSIZE - 1;
     sd_walk_state = SD_WALK_STATE_NEW_FILE;
     // HID response: New DIR
-    hid_tx_buf[1] = 1;
-    strncpy(hid_tx_buf+2, temp_buf, MAX_FILENAME_LEN_IN_HID_PAYLOAD);
+    res_buf[1] = 1;
+    strncpy(res_buf+2, temp_buf, MAX_FILENAME_LEN_IN_HID_PAYLOAD);
     return;
   }
 
@@ -407,14 +417,14 @@ void sd_walk(void)
         f_closedir(&dir);
         printf("this profile done\n");
         // HID Response: Ack
-        hid_tx_buf[1] = 0;
+        res_buf[1] = 0;
         return;
       }
       break;
     }
     // we found the next file
     this_file_name = fno.lfname[0] ? fno.lfname : fno.fname;
-    make_file_walk_hid_packet(this_file_name, profile_name_list[sd_walk_current_profile_number], hid_tx_buf);
+    make_file_walk_hid_packet(this_file_name, profile_name_list[sd_walk_current_profile_number], res_buf);
     return;
   }
 }
