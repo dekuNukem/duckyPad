@@ -157,7 +157,7 @@ void onboard_offboard_switch_press(uint8_t swid, char* press_path)
   if(run_result == DSB_DONT_PLAY_KEYUP_ANIMATION_RETURN_IMMEDIATELY)
     return;
   // don't repeat if on_release script exists
-  if((curr_pf_info.dsb_exists[swid] & DSB_ON_RELEASE_EXISTS) == 0)
+  if(curr_pf_info.dsb_exists[swid] & DSB_ON_RELEASE_EXISTS)
     return;
   if(run_result == DSB_DONT_REPEAT_RETURN_IMMEDIATELY)
     goto handle_obsw_keydown_end;
@@ -171,6 +171,7 @@ void onboard_offboard_switch_press(uint8_t swid, char* press_path)
     if(millis()- hold_start > 500)
       break;
   }
+
   while(1)
   {
     if(poll_sw_state(swid, 1) == 0)
@@ -179,6 +180,7 @@ void onboard_offboard_switch_press(uint8_t swid, char* press_path)
     if(run_once(swid, press_path, to_inc) == DSB_DONT_PLAY_KEYUP_ANIMATION_RETURN_IMMEDIATELY)
       return;
   }
+  
   handle_obsw_keydown_end:
   // play keyup animation only if there is no on-release DSB file 
   if((curr_pf_info.dsb_exists[swid] & DSB_ON_RELEASE_EXISTS) == 0)
