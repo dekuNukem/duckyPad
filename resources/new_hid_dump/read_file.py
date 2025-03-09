@@ -64,6 +64,8 @@ h.write(pc_to_duckypad_buf)
 duckypad_to_pc_buf = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
 print("\nduckyPad response:\n", duckypad_to_pc_buf)
 
+all_data = []
+
 while 1:
     pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
     pc_to_duckypad_buf[0] = 5   # HID Usage ID, always 5
@@ -74,11 +76,14 @@ while 1:
     h.write(pc_to_duckypad_buf)
     duckypad_to_pc_buf = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
     print("\nduckyPad response:\n", duckypad_to_pc_buf)
-    for item in duckypad_to_pc_buf[3:]:
-        print(chr(item), end='')
+    chunk_size = duckypad_to_pc_buf[2]
 
-    if duckypad_to_pc_buf[2] == 0:
+    if chunk_size == 0:
         break
+    all_data += duckypad_to_pc_buf[3:3+chunk_size]
 
 h.close()
 print("\ntotal time:", millis() - bbbb, "ms")
+
+with open("out.txt", 'wb') as file:
+    file.write(bytes(all_data))
