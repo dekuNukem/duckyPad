@@ -274,12 +274,11 @@ void parse_hid_msg(const uint8_t* this_msg)
   */
   else if(command_type == HID_COMMAND_DUMP_SD)
   {
-    // if(this_msg[3] == 2)
-    // {
-    //   printf("Aborted\n");
-    //   temp_buf[0] = 0;
-    // }
-    ;
+    sd_walk();
+    // for (size_t i = 0; i < HID_TX_BUF_SIZE; i++)
+    //   printf("%d: %d %x %c\n", i, hid_tx_buf[i], hid_tx_buf[i], hid_tx_buf[i]);
+    // printf("--------\n");
+    send_hid_cmd_response(hid_tx_buf);
   }
 
   /*
@@ -344,6 +343,7 @@ uint8_t find_next_profile(uint8_t current_pf)
 #define SD_WALK_STATE_IDLE 0
 #define SD_WALK_STATE_NEW_PROFILE_DIR 1
 #define SD_WALK_STATE_NEW_FILE 2
+#define MAX_FILENAME_LEN_IN_HID_PAYLOAD 45
 uint8_t sd_walk_state;
 uint8_t sd_walk_current_profile_number;
 char* sd_walk_current_file_path;
@@ -353,13 +353,16 @@ uint8_t md5_buf[MD5_BUF_SIZE];
 
 void sd_walk(void)
 {
+  memset(hid_tx_buf, 0, HID_TX_BUF_SIZE);
+  hid_tx_buf[0] = 4; // usage ID, always 4
   if(sd_walk_state == SD_WALK_STATE_IDLE)
   {
     sd_walk_state = SD_WALK_STATE_NEW_PROFILE_DIR;
-    // hid reply: ack
     sd_walk_current_profile_number = find_first_profile();
     if(sd_walk_current_profile_number == PROFILE_OVERFLOW)
       draw_fatal_error(10);
+    // HID Response: Ack
+    hid_tx_buf[1] = 0;
     return;
   }
 
@@ -367,19 +370,23 @@ void sd_walk(void)
   {
     if(sd_walk_current_profile_number == PROFILE_OVERFLOW)
     {
-      printf("all done!"); //  HID send EOT
+      printf("all done!");
       sd_walk_state = SD_WALK_STATE_IDLE;
+      // HID response: End of Transmission
+      hid_tx_buf[1] = 4;
       return;
     }
     CLEAR_TEMP_BUF();
     sprintf(temp_buf, "/profile_%s", profile_name_list[sd_walk_current_profile_number]);
     printf("In dir: %s\n", temp_buf);
-    // open dir, go to next state
     if(f_opendir(&dir, temp_buf))
       draw_fatal_error(20);
     fno.lfname = lfn_buf; 
     fno.lfsize = FILENAME_BUFSIZE - 1;
     sd_walk_state = SD_WALK_STATE_NEW_FILE;
+    // HID response: New DIR
+    hid_tx_buf[1] = 1;
+    strncpy(hid_tx_buf+2, temp_buf, MAX_FILENAME_LEN_IN_HID_PAYLOAD);
     return;
   }
 
@@ -399,20 +406,20 @@ void sd_walk(void)
         sd_walk_current_profile_number = find_next_profile(sd_walk_current_profile_number);
         f_closedir(&dir);
         printf("this profile done\n");
+        // HID Response: Ack
+        hid_tx_buf[1] = 0;
         return;
       }
       break;
     }
     // we found the next file
     this_file_name = fno.lfname[0] ? fno.lfname : fno.fname;
-    
     make_file_walk_hid_packet(this_file_name, profile_name_list[sd_walk_current_profile_number], hid_tx_buf);
     return;
   }
 }
 
 #define HID_FILE_WALK_PAYLOAD_SIZE 58
-#define MAX_FILENAME_LEN_IN_HID_PAYLOAD 45
 #define HID_MD5_PAYLOAD_FILENAME_START 18
 uint8_t make_file_walk_hid_packet(char* file_name, char* profile_name, uint8_t* tx_buf)
 {
@@ -423,7 +430,7 @@ uint8_t make_file_walk_hid_packet(char* file_name, char* profile_name, uint8_t* 
   uint32_t this_file_size = f_size(&sd_file);
   uint32_t packet_len = strlen(file_name) + 1 + this_file_size + 1;
   
-  printf("current file: %s %d %d\n", temp_buf, this_file_size, packet_len);
+  // printf("current file: %s %d %d\n", temp_buf, this_file_size, packet_len);
   memset(tx_buf, 0, HID_TX_BUF_SIZE);
   tx_buf[0] = 4; // usage ID, always 4
   if(packet_len <= HID_FILE_WALK_PAYLOAD_SIZE)
@@ -436,10 +443,6 @@ uint8_t make_file_walk_hid_packet(char* file_name, char* profile_name, uint8_t* 
     f_read(&sd_file, tx_buf + tx_buf[2] + 1, this_file_size, &bytes_read);
     if(bytes_read != this_file_size)
       draw_fatal_error(40);
-
-    // for (size_t i = 0; i < HID_TX_BUF_SIZE; i++)
-    //   printf("%d: %d %c\n", i, tx_buf[i], tx_buf[i]);
-    // printf("--------\n");
   }
   else
   {
@@ -447,13 +450,8 @@ uint8_t make_file_walk_hid_packet(char* file_name, char* profile_name, uint8_t* 
     memset(md5_buf, 0, MD5_BUF_SIZE);
     md5File(&sd_file, md5_buf);
     memcpy(tx_buf+2, md5_buf, MD5_BUF_SIZE);
-
     strncpy(tx_buf+HID_MD5_PAYLOAD_FILENAME_START, file_name, MAX_FILENAME_LEN_IN_HID_PAYLOAD);
-    print_hash(md5_buf);
-
-    for (size_t i = 0; i < HID_TX_BUF_SIZE; i++)
-      printf("%d: %d %x %c\n", i, tx_buf[i], tx_buf[i], tx_buf[i]);
-    printf("--------\n");
+    // print_hash(md5_buf);
   }
   f_close(&sd_file);
   return 0;
