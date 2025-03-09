@@ -16,6 +16,8 @@ find ./pc_software -name "dist" -exec rm -rf {} \;
 find ./pc_software -name "*.zip" -exec rm -rf {} \;
 find ./pc_software -type f -name "*.spec*" -exec rm -f {} \;
 
+rm -rfv ./resources/new_hid_dump/hid_dump
+
 python update_firmware_ref.py
 rm ./sample_profiles.zip
 7z.exe a -r sample_profiles.zip ./sample_profiles/*
