@@ -58,6 +58,7 @@ if duckypad_path is None:
 h.open_path(duckypad_path)
 
 SD_WALK_OP_TYPE_INDEX = 1
+
 SD_WALK_OP_ACK = 0
 SD_WALK_OP_NEW_DIR = 1
 SD_WALK_OP_FILE_CONTENT = 2
@@ -67,27 +68,37 @@ SD_WALK_OP_EOT = 4
 current_dir = None
 
 while 1:
-    now = millis()
-    print("\n\nSending to duckyPad:\n", pc_to_duckypad_buf)
+    # now = millis()
+    # print("\n\nSending to duckyPad:\n", pc_to_duckypad_buf)
     h.write(pc_to_duckypad_buf)
     duckypad_to_pc_buf = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-    print("\nduckyPad response:\n", duckypad_to_pc_buf)
-    print("took", millis() - now, "ms")
+    # print("\nduckyPad response:\n", duckypad_to_pc_buf)
+    # print("took", millis() - now, "ms")
     if duckypad_to_pc_buf[SD_WALK_OP_TYPE_INDEX] == SD_WALK_OP_ACK:
         continue
-    if duckypad_to_pc_buf[SD_WALK_OP_TYPE_INDEX] == SD_WALK_OP_EOT:
+
+    elif duckypad_to_pc_buf[SD_WALK_OP_TYPE_INDEX] == SD_WALK_OP_EOT:
         break
-    if duckypad_to_pc_buf[SD_WALK_OP_TYPE_INDEX] == SD_WALK_OP_NEW_DIR:
+
+    elif duckypad_to_pc_buf[SD_WALK_OP_TYPE_INDEX] == SD_WALK_OP_NEW_DIR:
         rawchar = duckypad_to_pc_buf[2:]
         current_dir = ''.join(chr(c) for c in rawchar[:rawchar.index(0)])
         print(current_dir)
-    if duckypad_to_pc_buf[SD_WALK_OP_TYPE_INDEX] == SD_WALK_OP_FILE_MD5:
+
+    elif duckypad_to_pc_buf[SD_WALK_OP_TYPE_INDEX] == SD_WALK_OP_FILE_MD5:
         rawchar = duckypad_to_pc_buf[18:]
         this_file = ''.join(chr(c) for c in rawchar[:rawchar.index(0)])
         md5_list = duckypad_to_pc_buf[2:18]
         md5_string = ''.join(f'{x:02x}' for x in md5_list)
         print(this_file, md5_string)
-        exit()
+
+    elif duckypad_to_pc_buf[SD_WALK_OP_TYPE_INDEX] == SD_WALK_OP_FILE_CONTENT:
+        file_name_end = duckypad_to_pc_buf[2] + 1
+        file_content_end = duckypad_to_pc_buf[3] + 1
+        raw_filename_list = duckypad_to_pc_buf[4:file_name_end]
+        this_file = ''.join(chr(c) for c in raw_filename_list[:raw_filename_list.index(0)])
+        raw_file_content_bytes = bytes(duckypad_to_pc_buf[file_name_end:file_content_end])
+        print(this_file, raw_file_content_bytes)
 
 h.close()
 print("total time:", millis() - bbbb, "ms")
