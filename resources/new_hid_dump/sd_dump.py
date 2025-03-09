@@ -1,6 +1,7 @@
 import os
 import hid
 import time
+import shutil
 import scan_md5
 
 def millis():
@@ -8,10 +9,10 @@ def millis():
 
 PC_TO_DUCKYPAD_HID_BUF_SIZE = 64
 DUCKYPAD_TO_PC_HID_BUF_SIZE = 64
+HID_READ_FILE_PATH_SIZE_MAX = 55
 
 duckypad_pid = 0xd11c
-duckypad_pro_pid = 0xd11d
-valid_pid_list = [duckypad_pro_pid, duckypad_pid]
+valid_pid_list = [duckypad_pid]
 
 def get_duckypad_path_uncached():
     path_dict = {}
@@ -43,6 +44,8 @@ pc_to_duckypad_buf[0] = 5   # HID Usage ID, always 5
 pc_to_duckypad_buf[1] = 0   # unused
 pc_to_duckypad_buf[2] = HID_COMMAND_DUMP_SD # Command type
 
+shutil.rmtree('hid_dump', ignore_errors=True)
+
 bbbb = millis()
 
 backup_md5_dict = scan_md5.get_md5_dict()
@@ -50,6 +53,7 @@ backup_md5_dict = scan_md5.get_md5_dict()
 duckypad_path = get_duckypad_path()
 if duckypad_path is None:
     raise OSError('duckyPad Not Found!')
+
 h.open_path(duckypad_path)
 
 SD_WALK_OP_TYPE_INDEX = 1
@@ -78,12 +82,8 @@ def dump_file(file_path, file_name, file_content):
 md5_miss_list = []
 
 while 1:
-    # now = millis()
-    # print("\n\nSending to duckyPad:\n", pc_to_duckypad_buf)
     h.write(pc_to_duckypad_buf)
     duckypad_to_pc_buf = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
-    # print("\nduckyPad response:\n", duckypad_to_pc_buf)
-    # print("took", millis() - now, "ms")
     if duckypad_to_pc_buf[SD_WALK_OP_TYPE_INDEX] == SD_WALK_OP_ACK:
         continue
 
@@ -105,18 +105,61 @@ while 1:
             cached_file_content = read_binary_file(backup_md5_dict[md5_string])
             dump_file(current_dir, this_file_name, cached_file_content)
         else:
-            md5_miss_list.append(os.path.join(current_dir, this_file_name))
+            md5_miss_list.append((current_dir, this_file_name))
 
     elif duckypad_to_pc_buf[SD_WALK_OP_TYPE_INDEX] == SD_WALK_OP_FILE_CONTENT:
         file_name_end = duckypad_to_pc_buf[2] + 1
         file_content_end = duckypad_to_pc_buf[3] + 1
         raw_filename_list = duckypad_to_pc_buf[4:file_name_end]
         this_file_name = ''.join(chr(c) for c in raw_filename_list[:raw_filename_list.index(0)])
+        print(this_file_name)
         raw_file_content_bytes = bytes(duckypad_to_pc_buf[file_name_end:file_content_end])
         dump_file(current_dir, this_file_name, raw_file_content_bytes)
 
-h.close()
-print("total time:", millis() - bbbb, "ms")
+def hid_dump_file(sd_file_path):
+    if len(sd_file_path) > HID_READ_FILE_PATH_SIZE_MAX:
+        raise OSError("SD file path too long")
+
+    print(f'Reading file: {sd_file_path} ', end='')
+    HID_COMMAND_OPEN_FILE_FOR_READING = 33
+    HID_COMMAND_READ_FILE = 11
+
+    pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
+    pc_to_duckypad_buf[0] = 5   # HID Usage ID, always 5
+    pc_to_duckypad_buf[1] = 0   # unused
+    pc_to_duckypad_buf[2] = HID_COMMAND_OPEN_FILE_FOR_READING # Command type
+
+    for index, value in enumerate(sd_file_path):
+        pc_to_duckypad_buf[3+index] = ord(value)
+
+    h.write(pc_to_duckypad_buf)
+    duckypad_to_pc_buf = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
+    if duckypad_to_pc_buf[2] != 0:
+        raise OSError("HID open file for read failed")
+
+    all_data = []
+    while 1:
+        pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
+        pc_to_duckypad_buf[0] = 5   # HID Usage ID, always 5
+        pc_to_duckypad_buf[1] = 0   # unused
+        pc_to_duckypad_buf[2] = HID_COMMAND_READ_FILE
+        h.write(pc_to_duckypad_buf)
+        duckypad_to_pc_buf = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
+        chunk_size = duckypad_to_pc_buf[2]
+        if chunk_size == 0:
+            break
+        all_data += duckypad_to_pc_buf[3:3+chunk_size]
+        print(len(all_data), " ", end='')
+
+    print()
+    return bytes(all_data)
 
 for item in md5_miss_list:
-    print(item)
+    sd_dir = item[0]
+    sd_file_name = item[1]
+    raw_bytes = hid_dump_file(f'{sd_dir}/{sd_file_name}')
+    dump_file(sd_dir, sd_file_name, raw_bytes)
+
+h.close()
+
+print("total time:", millis() - bbbb, "ms")
