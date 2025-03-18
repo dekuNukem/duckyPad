@@ -111,6 +111,8 @@ uint8_t mount_sd(void)
   return f_mount(&sd_fs, "", 1);
 }
 
+const char* profile_info_file_path = "/profile_info.txt";
+
 /*
   Reads from profile_info.txt, load profile names into profile_name_list
 */
@@ -120,7 +122,7 @@ uint8_t scan_profiles(void)
   uint8_t this_profile_number;
   uint8_t valid_profile_count = 0;
   
-  if(f_open(&sd_file, "/profile_info.txt", FA_READ))
+  if(f_open(&sd_file, profile_info_file_path, FA_READ))
     return PROFILE_SCAN_ERROR_NO_TOC;
   memset(profile_name_list, 0, sizeof(profile_name_list));
   while(f_gets(read_buffer, READ_BUF_SIZE, &sd_file) != NULL)
@@ -541,5 +543,69 @@ void profile_init(void)
     goto_profile(dp_settings.last_used_profile);
   else
     goto_next_profile();
+}
+
+const char* profile_str = "profile";
+
+uint8_t ensure_new_profile_format(void)
+{
+  char* this_profile_name;
+  uint8_t this_profile_number;
+
+  if(f_stat(profile_info_file_path, NULL) == 0)
+    return 1;
+  if(f_opendir(&dir, "/"))
+    return 2;
+  oled_say("Converting...");
+  fno.lfname = lfn_buf; 
+  fno.lfsize = FILENAME_BUFSIZE - 1;
+  while (1)
+  {
+    memset(lfn_buf, 0, FILENAME_BUFSIZE);
+    sd_fresult = f_readdir(&dir, &fno);
+    if (sd_fresult != FR_OK || fno.fname[0] == 0)
+      break;
+    if(!(fno.fattrib & AM_DIR))
+     continue;
+    char* dir_name = fno.lfname[0] ? fno.lfname : fno.fname;
+    if(strncmp(dir_name, profile_str, strlen(profile_str)) != 0)
+      continue;
+    
+    this_profile_number = atoi(dir_name + strlen(profile_str));
+    if(this_profile_number >= MAX_PROFILES)
+      continue;
+
+    this_profile_name = strstr(dir_name, "_");
+    if(this_profile_name == NULL)
+      continue;
+    this_profile_name++;
+    memset(profile_name_list[this_profile_number], 0, PROFILE_NAME_MAX_LEN);
+    strncpy(profile_name_list[this_profile_number], this_profile_name, PROFILE_NAME_MAX_LEN);
+  }
+  f_closedir(&dir);
+
+  if(f_open(&sd_file, profile_info_file_path, FA_WRITE | FA_CREATE_ALWAYS))
+    return 4;
+
+  for (size_t i = 0; i < MAX_PROFILES; i++)
+  {
+    if(strlen(profile_name_list[i]) == 0)
+      continue;
+    f_printf(&sd_file, "%d %s\n", i, profile_name_list[i]);
+  }
+  f_close(&sd_file);
+
+  for (size_t i = 0; i < MAX_PROFILES; i++)
+  {
+    if(strlen(profile_name_list[i]) == 0)
+      continue;
+    CLEAR_TEMP_BUF();
+    memset(lfn_buf, 0, FILENAME_BUFSIZE);
+    sprintf(temp_buf, "/profile%d_%s\n", i, profile_name_list[i]);
+    sprintf(lfn_buf, "/profile_%s\n", profile_name_list[i]);
+    f_rename(temp_buf, lfn_buf);
+  }
+  oled_say("Done!");
+  return 0;
 }
 

@@ -64,6 +64,8 @@ uint8_t get_first_keymap(char* keymap_filename);
 uint8_t goto_profile_without_updating_rgb_LED(uint8_t profile_number);
 void profile_init(void);
 
+uint8_t ensure_new_profile_format(void);
+
 #define PROFILE_SCAN_OK 0
 #define PROFILE_SCAN_ERROR_NO_TOC 1
 #define PROFILE_SCAN_ERROR_NO_PROFILE 2

@@ -213,6 +213,8 @@ int main(void)
     idle_loop();
   }
 
+  ensure_new_profile_format();
+
   if(scan_profiles())
   {
     draw_noprofile();
