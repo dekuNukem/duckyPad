@@ -173,7 +173,7 @@ void parse_hid_msg(const uint8_t* this_msg)
     PREV PROFILE
     -----------
     PC to duckyPad:
-    [0]   seq number
+    [0]   not used
     [1]   Command
     -----------
     duckyPad to PC
@@ -191,7 +191,7 @@ void parse_hid_msg(const uint8_t* this_msg)
     NEXT PROFILE
     -----------
     PC to duckyPad:
-    [0]   seq number
+    [0]   not used
     [1]   Command
     -----------
     duckyPad to PC
@@ -327,7 +327,7 @@ void parse_hid_msg(const uint8_t* this_msg)
   -----------
   PC to duckyPad:
   [0]   report_id: always 5
-  [1]   seq number
+  [1]   not used
   [2]   command: 14
   [3 ... 63]   file path, zero-terminated string
   -----------
@@ -346,6 +346,27 @@ void parse_hid_msg(const uint8_t* this_msg)
     }
     hid_tx_buf[2] = HID_RESPONSE_OK;
     hid_open_for_write_end:
+    send_hid_cmd_response(hid_tx_buf);
+  }
+
+  /*
+  HID WRITE TO FILE
+  -----------
+  PC to duckyPad:
+  [0]   report_id: always 5
+  [1]   data length in bytes
+  [2]   command: 15
+  [3 ... 63]   content
+  -----------
+  duckyPad to PC
+  [0]   report_id: always 4
+  [1]   reserved
+  [2]   0 = OK, 1 = ERROR, 2 = BUSY
+  */
+  else if(command_type == HID_COMMAND_WRITE_FILE)
+  {
+    if(f_write(&sd_file, this_msg+3, this_msg[1], &bytes_read) != 0)
+      hid_tx_buf[2] = HID_RESPONSE_GENERIC_ERROR;
     send_hid_cmd_response(hid_tx_buf);
   }
 

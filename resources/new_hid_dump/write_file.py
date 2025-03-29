@@ -37,6 +37,7 @@ h = hid.device()
 HID_COMMAND_OPEN_FILE_FOR_READING = 33
 HID_COMMAND_READ_FILE = 11
 HID_COMMAND_OPEN_FILE_FOR_WRITING = 14
+HID_COMMAND_WRITE_FILE = 15
 HID_COMMAND_CLOSE_FILE = 16
 
 pc_to_duckypad_buf = [0] * PC_TO_DUCKYPAD_HID_BUF_SIZE
@@ -46,7 +47,7 @@ pc_to_duckypad_buf[2] = HID_COMMAND_OPEN_FILE_FOR_WRITING # Command type
 
 HID_READ_FILE_PATH_SIZE_MAX = 55
 
-filename = "/bob.txt"
+filename = "/peepee.txt"
 
 if len(filename) > HID_READ_FILE_PATH_SIZE_MAX:
     raise OSError("file path too long")
@@ -58,6 +59,14 @@ duckypad_path = get_duckypad_path()
 if duckypad_path is None:
     raise OSError('duckyPad Not Found!')
 h.open_path(duckypad_path)
+
+print("\n\nSending to duckyPad:\n", pc_to_duckypad_buf)
+h.write(pc_to_duckypad_buf)
+duckypad_to_pc_buf = h.read(DUCKYPAD_TO_PC_HID_BUF_SIZE)
+print("\nduckyPad response:\n", duckypad_to_pc_buf)
+
+pc_to_duckypad_buf[1] = len(filename)
+pc_to_duckypad_buf[2] = HID_COMMAND_WRITE_FILE # Command type
 
 print("\n\nSending to duckyPad:\n", pc_to_duckypad_buf)
 h.write(pc_to_duckypad_buf)
