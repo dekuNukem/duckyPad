@@ -21,6 +21,17 @@
 #define HID_TX_BUF_SIZE (CUSTOM_HID_EPIN_SIZE+1)
 uint8_t hid_tx_buf[HID_TX_BUF_SIZE];
 
+volatile uint8_t is_in_file_access_mode;
+
+void enter_file_access_mode(void)
+{
+  if(is_in_file_access_mode)
+    return;
+  is_in_file_access_mode = 1;
+  neopixel_fill(127, 127, 127);
+  oled_say("File Access Mode");
+}
+
 void send_hid_cmd_response(uint8_t* hid_cmdbuf)
 {
   USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_cmdbuf, HID_TX_BUF_SIZE);
@@ -266,12 +277,7 @@ void parse_hid_msg(const uint8_t* this_msg)
   */
   else if(command_type == HID_COMMAND_DUMP_SD)
   {
-    if(!is_in_file_access_mode)
-    {
-      is_in_file_access_mode = 1;
-      neopixel_fill(127, 127, 127);
-      oled_say("File Access Mode");
-    }
+    enter_file_access_mode();
     sd_walk(hid_tx_buf);
     send_hid_cmd_response(hid_tx_buf);
   }
@@ -316,15 +322,64 @@ void parse_hid_msg(const uint8_t* this_msg)
       f_close(&sd_file);
     send_hid_cmd_response(hid_tx_buf);
   }
+  /*
+  HID OPEN FILE FOR WRITING
+  -----------
+  PC to duckyPad:
+  [0]   report_id: always 5
+  [1]   seq number
+  [2]   command: 14
+  [3 ... 63]   file path, zero-terminated string
+  -----------
+  duckyPad to PC
+  [0]   report_id: always 4
+  [1]   unused
+  [2]   0 = OK, 1 = ERROR, 2 = BUSY
+  */
+  else if(command_type == HID_COMMAND_OPEN_FILE_FOR_WRITING)
+  {
+    enter_file_access_mode();
+    if(f_open(&sd_file, this_msg+3, FA_CREATE_ALWAYS | FA_WRITE) != 0)
+    {
+      hid_tx_buf[2] = HID_RESPONSE_GENERIC_ERROR;
+      goto hid_open_for_write_end;
+    }
+    hid_tx_buf[2] = HID_RESPONSE_OK;
+    hid_open_for_write_end:
+    send_hid_cmd_response(hid_tx_buf);
+  }
+
+  /*
+  HID CLOSE CURRENTLY OPENED FILE
+  -----------
+  PC to duckyPad:
+  [0]   report_id: always 5
+  [1]   not used
+  [2]   command: 16
+  -----------
+  duckyPad to PC
+  [0]   report_id: always 4
+  [1]   not used
+  [2]   0 = OK, 1 = ERROR, 2 = BUSY
+  */
+  else if(command_type == HID_COMMAND_CLOSE_FILE)
+  {
+    f_close(&sd_file);
+    send_hid_cmd_response(hid_tx_buf);
+  }
+
   else // not a valid HID command
   {
     hid_tx_buf[2] = HID_RESPONSE_UNKNOWN_CMD;
     send_hid_cmd_response(hid_tx_buf);
   }
 
-// ---------------
+  
 
 }
+
+
+
 
 void handle_hid_command(const uint8_t* hid_rx_buf)
 {
@@ -362,7 +417,6 @@ uint8_t sd_walk_state;
 uint8_t sd_walk_current_profile_number;
 char* sd_walk_current_file_path;
 char* this_file_name;
-volatile uint8_t is_in_file_access_mode;
 uint8_t md5_buf[MD5_BUF_SIZE];
 
 void sd_walk(uint8_t* res_buf)
