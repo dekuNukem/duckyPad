@@ -32,6 +32,47 @@ void enter_file_access_mode(void)
   oled_say("File Access Mode");
 }
 
+uint8_t delete_node (
+    char* path,    /* Path name buffer with the sub-directory to delete */
+    uint8_t sz_buff,   /* Size of path name buffer (items) */
+    FILINFO* my_fno    /* Name read buffer */
+)
+{
+    uint16_t i, j;
+    uint16_t fr;
+    DIR dir;
+
+    fr = f_opendir(&dir, path); /* Open the sub-directory to make it empty */
+    if (fr != FR_OK) return fr;
+
+    for (i = 0; path[i]; i++) ; /* Get current path length */
+    path[i++] = _T('/');
+
+    for (;;) {
+        fr = f_readdir(&dir, my_fno);  /* Get a directory item */
+        if (fr != FR_OK || !my_fno->fname[0]) break;   /* End of directory? */
+        j = 0;
+        do {    /* Make a path name */
+            if (i + j >= sz_buff) { /* Buffer over flow? */
+                fr = 100; break;    /* Fails with 100 when buffer overflow */
+            }
+            path[i + j] = my_fno->fname[j];
+        } while (my_fno->fname[j++]);
+        if (my_fno->fattrib & AM_DIR) {    /* Item is a sub-directory */
+            fr = delete_node(path, sz_buff, my_fno);
+        } else {                        /* Item is a file */
+            fr = f_unlink(path);
+        }
+        if (fr != FR_OK) break;
+    }
+
+    path[--i] = 0;  /* Restore the path name */
+    f_closedir(&dir);
+
+    if (fr == FR_OK) fr = f_unlink(path);  /* Delete the empty sub-directory */
+    return fr;
+}
+
 void send_hid_cmd_response(uint8_t* hid_cmdbuf)
 {
   USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_cmdbuf, HID_TX_BUF_SIZE);
@@ -52,7 +93,7 @@ uint8_t parse_hid_goto_profile_by_name(const uint8_t* this_buf)
   return 255;
 }
 
-void parse_hid_msg(const uint8_t* this_msg)
+void parse_hid_msg(uint8_t* this_msg)
 {
   // printf("%ld HID MSG:\n", millis());
   // for (size_t i = 0; i < USBD_CUSTOMHID_OUTREPORT_BUF_SIZE; i++)
@@ -389,20 +430,74 @@ void parse_hid_msg(const uint8_t* this_msg)
     send_hid_cmd_response(hid_tx_buf);
   }
 
+  /*
+  HID DELETE FILE
+  -----------
+  PC to duckyPad:
+  [0]   report_id: always 5
+  [1]   unused
+  [2]   command
+  [3 ... 63]   file name string, zero terminated
+  -----------
+  duckyPad to PC
+  [0]   report_id: always 4
+  [1]   unused
+  [2]   0 = OK, 1 = ERROR, 2 = BUSY
+  */
+  else if(command_type == HID_COMMAND_DELETE_FILE)
+  {
+    f_close(&sd_file);
+    f_unlink(this_msg+3);
+    send_hid_cmd_response(hid_tx_buf);
+  }
+  /*
+  HID create DIR
+  -----------
+  PC to duckyPad:
+  [0]   report_id: always 5
+  [1]   unused
+  [2]   command
+  [3 ... 63]   directory name string, zero terminated
+  -----------
+  duckyPad to PC
+  [0]   report_id: always 4
+  [1]   unused
+  [2]   0 = OK, 1 = ERROR, 2 = BUSY
+  */
+  else if(command_type == HID_COMMAND_CREATE_DIR)
+  {
+    if(f_mkdir(this_msg+3) != 0)
+      hid_tx_buf[2] = HID_RESPONSE_GENERIC_ERROR;
+    send_hid_cmd_response(hid_tx_buf);
+  }
+  /*
+  HID DELETE DIR
+  -----------
+  PC to duckyPad:
+  [0]   report_id: always 5
+  [1]   unused
+  [2]   command
+  [3 ... 63]   dir name string, zero terminated
+  -----------
+  duckyPad to PC
+  [0]   report_id: always 4
+  [1]   unused
+  [2]   0 = OK, 1 = ERROR, 2 = BUSY
+  */
+  else if(command_type == HID_COMMAND_DELETE_DIR)
+  {
+    if(delete_node(this_msg+3, HID_TX_BUF_SIZE - 3, &fno) != FR_OK)
+      hid_tx_buf[2] = HID_RESPONSE_GENERIC_ERROR;
+    send_hid_cmd_response(hid_tx_buf);
+  }
   else // not a valid HID command
   {
     hid_tx_buf[2] = HID_RESPONSE_UNKNOWN_CMD;
     send_hid_cmd_response(hid_tx_buf);
   }
-
-  
-
 }
 
-
-
-
-void handle_hid_command(const uint8_t* hid_rx_buf)
+void handle_hid_command(uint8_t* hid_rx_buf)
 {
   uint32_t ke_start = millis();
   if(hid_rx_buf[0] == 1) // LED
