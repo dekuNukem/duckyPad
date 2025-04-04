@@ -305,7 +305,6 @@ void wakeup_from_sleep_and_load_profile(uint8_t profile_to_load)
 
 void handle_sw_event(switch_event_t* this_sw_event)
 {
-  update_last_keypress();
   // printf("swid: %d type: %d\n", this_sw_event->id, this_sw_event->type);
   if(is_sleeping && is_plus_minus_button(this_sw_event->id) && this_sw_event->type != SW_EVENT_RELEASE)
   {
@@ -388,6 +387,7 @@ void keypress_task(void)
 
     is_busy = 1;
     handle_sw_event(&sw_event);
+    update_last_keypress();
     is_busy = 0;
   }
 }

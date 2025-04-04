@@ -152,7 +152,6 @@ void parse_hid_msg(uint8_t* this_msg)
     hid_tx_buf[12] = is_sleeping;
     send_hid_cmd_response(hid_tx_buf);
   }
-
   /*
     GOTO PROFILE BY NUMBER
     -----------
@@ -336,9 +335,10 @@ void parse_hid_msg(uint8_t* this_msg)
   */
   else if(command_type == HID_COMMAND_OPEN_FILE_FOR_READING)
   {
+    enter_file_access_mode();
     CLEAR_TEMP_BUF();
     strncpy(temp_buf, this_msg+3, HID_READ_FILE_PATH_SIZE_MAX);
-    printf("%s\n", temp_buf);
+    // printf("%s\n", temp_buf);
     f_close(&sd_file);
     hid_tx_buf[2] = f_open(&sd_file, temp_buf, FA_READ);
     send_hid_cmd_response(hid_tx_buf);
@@ -357,6 +357,7 @@ void parse_hid_msg(uint8_t* this_msg)
   */
   else if(command_type == HID_COMMAND_READ_FILE)
   {
+    enter_file_access_mode();
     hid_tx_buf[1] = f_read(&sd_file, hid_tx_buf+3, HID_FILE_READ_PAYLOAD_SIZE, &bytes_read);
     hid_tx_buf[2] = (uint8_t)bytes_read;
     if(bytes_read == 0)
@@ -406,6 +407,7 @@ void parse_hid_msg(uint8_t* this_msg)
   */
   else if(command_type == HID_COMMAND_WRITE_FILE)
   {
+    enter_file_access_mode();
     if(f_write(&sd_file, this_msg+3, this_msg[1], &bytes_read) != 0)
       hid_tx_buf[2] = HID_RESPONSE_GENERIC_ERROR;
     send_hid_cmd_response(hid_tx_buf);
@@ -426,6 +428,7 @@ void parse_hid_msg(uint8_t* this_msg)
   */
   else if(command_type == HID_COMMAND_CLOSE_FILE)
   {
+    enter_file_access_mode();
     f_close(&sd_file);
     send_hid_cmd_response(hid_tx_buf);
   }
@@ -446,6 +449,7 @@ void parse_hid_msg(uint8_t* this_msg)
   */
   else if(command_type == HID_COMMAND_DELETE_FILE)
   {
+    enter_file_access_mode();
     f_close(&sd_file);
     f_unlink(this_msg+3);
     send_hid_cmd_response(hid_tx_buf);
@@ -466,6 +470,7 @@ void parse_hid_msg(uint8_t* this_msg)
   */
   else if(command_type == HID_COMMAND_CREATE_DIR)
   {
+    enter_file_access_mode();
     if(f_mkdir(this_msg+3) != 0)
       hid_tx_buf[2] = HID_RESPONSE_GENERIC_ERROR;
     send_hid_cmd_response(hid_tx_buf);
@@ -486,6 +491,7 @@ void parse_hid_msg(uint8_t* this_msg)
   */
   else if(command_type == HID_COMMAND_DELETE_DIR)
   {
+    enter_file_access_mode();
     if(delete_node(this_msg+3, HID_TX_BUF_SIZE - 3, &fno) != FR_OK)
       hid_tx_buf[2] = HID_RESPONSE_GENERIC_ERROR;
     send_hid_cmd_response(hid_tx_buf);

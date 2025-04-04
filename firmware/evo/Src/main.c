@@ -103,6 +103,21 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
+
+/*
+  version history
+
+  Apr 4 2025
+  2.0.0
+  Beta public release
+*/
+
+/*
+  TODO:
+  Expansion module code
+  Are all HID commands implemented?
+*/
+
 uint32_t current_tick;
 
 uint8_t fw_version_major = 2;
