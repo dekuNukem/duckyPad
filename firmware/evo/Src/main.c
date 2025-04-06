@@ -105,11 +105,11 @@ UART_HandleTypeDef huart3;
 /* USER CODE BEGIN PV */
 
 /*
-  version history
+  Version History
 
   Apr 4 2025
   2.0.0
-  Beta public release
+  DPP Backport beta public release
 */
 
 /*
