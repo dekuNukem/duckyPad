@@ -8,19 +8,19 @@
 
 ### 2.0.0 (Apr 7 2025)
 
-👉👉👉👉👉 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v2.0.0.dfu) 👈👈👈👈👈
-
 🆕 Backported **all new firmware features/improvements** from [duckyPad Pro](https://dekunukem.github.io/duckyPad-Pro/) to OG duckyPad (2020)!
 
 🆕 Unified Configurator that works with BOTH models
 
 🆕 Improved data transfer protocol that reduces read/write time
 
-⚠️ Requires the Latest Configurator
+⚠️ Requires the [Latest Configurator](https://github.com/duckyPad/duckyPad-Configurator/releases/latest)
 
 ⚠️ `EMUK` command has been deprecated, use `KEYDOWN` and `KEYUP` in `on_press` and `on_release` panels.
 
 ⚠️ Likely a bit buggy, [let me know](#questions-or-comments) if you run into any!
+
+👉👉👉👉👉 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v2.0.0.dfu) 👈👈👈👈👈
 
 ## USB Firmware Update
 
