@@ -6,28 +6,21 @@
 
 ## Latest Firmware
 
-### 1.3.3 (Dec 2 2024)
+### 2.0.0 (Apr 7 2025)
 
-👉👉👉👉👉 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v1.3.3.dfu) 👈👈👈👈👈
+👉👉👉👉👉 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v2.0.0.dfu) 👈👈👈👈👈
 
-🐞 Fixed a bug where RGB brightness gets dimmer after reloading
+🆕 Backported **all new firmware features/improvements** from [duckyPad Pro](https://dekunukem.github.io/duckyPad-Pro/) to OG duckyPad (2020)!
 
-🐞 Fixed a bug where `MOUSE_WHEEL` command can be unresponsive
+🆕 Unified Configurator that works with BOTH models
 
-----------
+🆕 Improved data transfer protocol that reduces read/write time
 
-💭 If you haven't already, check out the newly announced [duckyPad Pro](https://dekunukem.github.io/duckyPad-Pro/)!
+⚠️ Requires the Latest Configurator
 
-* Rotary Encoders
-* More Keys
-* Bluetooth
-* Bigger OLED
-* QoL Improvements
-* [Pre-order on Kickstarter](https://www.kickstarter.com/projects/dekunukem/duckypad-pro-advanced-macro-scripting-beyond-qmk-via) with **Jan 2025** shipping
+⚠️ `EMUK` command has been deprecated, use `KEYDOWN` and `KEYUP` in `on_press` and `on_release` panels.
 
-Of course, your OG duckyPad will continue to be supported!
-
-I'm planning to backport many new features, expect a big update early 2025!
+⚠️ Likely a bit buggy, [let me know](#questions-or-comments) if you run into any!
 
 ## USB Firmware Update
 
@@ -63,7 +56,7 @@ In `Available DFU Devices`, you should see a `STM Device in DFU Mode`.
 
 Press `Choose...` button and select a firmware file in `.dfu` format.
 
-* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v1.3.3.dfu) to download the latest firmware (v1.3.3)
+* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v2.0.0.dfu) to download the latest firmware (v2.0.0)
 
 * ...or [scroll down](#firmware-version-history) for older firmware versions.
 
@@ -91,13 +84,15 @@ Hold DFU button and connect duckyPad, then run:
 
 After completion, press **`RESET`** button (or power-cycle) to start using the new firmware. 
 
+---------------------
+
 ## Firmware Version History
 
-👇👇👇👇👇👇👇👇👇
+### 1.3.3 (Dec 2 2024)
 
-[Download Old Firmwares Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/old)
+🐞 Fixed a bug where RGB brightness gets dimmer after reloading
 
-☝️☝️☝️☝️☝️☝️☝️☝️☝️☝️
+🐞 Fixed a bug where `MOUSE_WHEEL` command can be unresponsive
 
 ### 1.3.0 (July 2 2023)
 
