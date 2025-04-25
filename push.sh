@@ -18,13 +18,6 @@ find ./pc_software -type f -name "*.spec*" -exec rm -f {} \;
 
 rm -rfv ./resources/new_hid_dump/hid_dump
 
-python update_firmware_ref.py
-rm ./sample_profiles.zip
-7z.exe a -r sample_profiles.zip ./sample_profiles/*
-zip -rv sample_profiles.zip ./sample_profiles/*
-cd ./pc_software
-python _zip_source.py
-
 git add --all
 git commit -m "$@"
 git push origin master
