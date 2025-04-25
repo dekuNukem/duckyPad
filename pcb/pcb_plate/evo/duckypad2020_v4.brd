@@ -7,7 +7,7 @@
 <setting keepoldvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.25" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="1" altunitdist="mil" altunit="mil"/>
+<grid distance="0.5" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="1" altunitdist="mil" altunit="mil"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -199,7 +199,19 @@
 <plain>
 <wire x1="0" y1="92" x2="0" y2="4" width="0" layer="20"/>
 <wire x1="0" y1="4" x2="4" y2="0" width="0" layer="20" curve="90"/>
-<wire x1="85" y1="17.75" x2="85" y2="5.75" width="0" layer="20"/>
+<wire x1="90" y1="92" x2="90" y2="32.25" width="0" layer="20"/>
+<wire x1="90" y1="32.25" x2="89" y2="31.25" width="0" layer="20" curve="-90"/>
+<wire x1="89" y1="31.25" x2="83" y2="31.25" width="0" layer="20"/>
+<wire x1="83" y1="31.25" x2="82" y2="30.25" width="0" layer="20" curve="90"/>
+<wire x1="82" y1="30.25" x2="82" y2="22.5" width="0" layer="20"/>
+<wire x1="82" y1="22.5" x2="83" y2="21.5" width="0" layer="20" curve="90"/>
+<wire x1="83" y1="21.5" x2="89" y2="21.5" width="0" layer="20"/>
+<wire x1="89" y1="21.5" x2="90" y2="20.5" width="0" layer="20" curve="-90"/>
+<wire x1="90" y1="20.5" x2="90" y2="19.5" width="0" layer="20"/>
+<wire x1="90" y1="19.5" x2="89" y2="18.5" width="0" layer="20" curve="-90"/>
+<wire x1="89" y1="18.5" x2="86" y2="18.5" width="0" layer="20"/>
+<wire x1="86" y1="18.5" x2="85" y2="17.5" width="0" layer="20" curve="90"/>
+<wire x1="85" y1="17.5" x2="85" y2="5.75" width="0" layer="20"/>
 <wire x1="85" y1="5.75" x2="86" y2="4.75" width="0" layer="20" curve="90"/>
 <wire x1="86" y1="4.75" x2="89" y2="4.75" width="0" layer="20"/>
 <wire x1="89" y1="4.75" x2="90" y2="3.75" width="0" layer="20" curve="-90"/>
@@ -208,18 +220,6 @@
 <wire x1="89" y1="0" x2="4" y2="0" width="0" layer="20"/>
 <wire x1="4" y1="96" x2="86" y2="96" width="0" layer="20"/>
 <wire x1="86" y1="96" x2="90" y2="92" width="0" layer="20" curve="-90"/>
-<wire x1="90" y1="92" x2="90" y2="32.75" width="0" layer="20"/>
-<wire x1="90" y1="32.75" x2="89" y2="31.75" width="0" layer="20" curve="-90"/>
-<wire x1="89" y1="31.75" x2="82" y2="31.75" width="0" layer="20"/>
-<wire x1="82" y1="31.75" x2="81" y2="30.75" width="0" layer="20" curve="90"/>
-<wire x1="81" y1="30.75" x2="81" y2="22" width="0" layer="20"/>
-<wire x1="81" y1="22" x2="82" y2="21" width="0" layer="20" curve="90"/>
-<wire x1="82" y1="21" x2="89" y2="21" width="0" layer="20"/>
-<wire x1="89" y1="21" x2="90" y2="20" width="0" layer="20" curve="-90"/>
-<wire x1="90" y1="20" x2="90" y2="19.75" width="0" layer="20"/>
-<wire x1="90" y1="19.75" x2="89" y2="18.75" width="0" layer="20" curve="-90"/>
-<wire x1="89" y1="18.75" x2="86" y2="18.75" width="0" layer="20"/>
-<wire x1="86" y1="18.75" x2="85" y2="17.75" width="0" layer="20" curve="90"/>
 <wire x1="4" y1="96" x2="0" y2="92" width="0" layer="20" curve="90"/>
 <text x="86.7316" y="56.5404" size="1.6764" layer="26" rot="MR0" align="center">DFU</text>
 <text x="86.757" y="49.784" size="1.6764" layer="26" rot="MR180" align="center">RST</text>
@@ -426,14 +426,10 @@ These rules have been curated by SparkFuns DFM commitee. After doing much resear
 </autorouter>
 <elements>
 <element name="U$7" library="3pos_slide_switch_centered" package="M2_SCREW_FOOT" value="M2_SCREW_DEV" x="19.5" y="19.5" smashed="yes"/>
-<element name="U$9" library="3pos_slide_switch_centered" package="M2_SCREW_FOOT" value="M2_SCREW_DEV" x="38.5" y="76.5" smashed="yes"/>
 <element name="U$10" library="3pos_slide_switch_centered" package="M2_SCREW_FOOT" value="M2_SCREW_DEV" x="82" y="93" smashed="yes"/>
 <element name="U$11" library="3pos_slide_switch_centered" package="M2_SCREW_FOOT" value="M2_SCREW_DEV" x="19.5" y="76.5" smashed="yes"/>
 <element name="U$15" library="3pos_slide_switch_centered" package="M2_SCREW_FOOT" value="M2_SCREW_DEV" x="38.5" y="57.5" smashed="yes"/>
 <element name="U$16" library="3pos_slide_switch_centered" package="M2_SCREW_FOOT" value="M2_SCREW_DEV" x="38.5" y="38.5" smashed="yes"/>
-<element name="U$8" library="3pos_slide_switch_centered" package="M2_SCREW_FOOT" value="M2_SCREW_DEV" x="19.5" y="57.5" smashed="yes"/>
-<element name="U$12" library="3pos_slide_switch_centered" package="M2_SCREW_FOOT" value="M2_SCREW_DEV" x="19.5" y="38.5" smashed="yes"/>
-<element name="U$13" library="3pos_slide_switch_centered" package="M2_SCREW_FOOT" value="M2_SCREW_DEV" x="38.5" y="19.5" smashed="yes"/>
 <element name="U$23" library="3pos_slide_switch_centered" package="M2_SCREW_FOOT" value="M2_SCREW_DEV" x="82" y="58" smashed="yes"/>
 <element name="U$1" library="3pos_slide_switch_centered" package="M2_SCREW_FOOT" value="M2_SCREW_DEV" x="72.5" y="12" smashed="yes"/>
 </elements>

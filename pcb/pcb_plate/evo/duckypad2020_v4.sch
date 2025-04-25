@@ -238,14 +238,10 @@
 </classes>
 <parts>
 <part name="U$7" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
-<part name="U$9" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
 <part name="U$10" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
 <part name="U$11" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
 <part name="U$15" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
 <part name="U$16" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
-<part name="U$8" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
-<part name="U$12" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
-<part name="U$13" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
 <part name="U$23" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
 <part name="U$1" library="3pos_slide_switch_centered" deviceset="M2_SCREW_DEV" device=""/>
 </parts>
@@ -255,14 +251,10 @@
 </plain>
 <instances>
 <instance part="U$7" gate="G$1" x="467.36" y="48.26" smashed="yes"/>
-<instance part="U$9" gate="G$1" x="495.3" y="33.02" smashed="yes"/>
 <instance part="U$10" gate="G$1" x="467.36" y="33.02" smashed="yes"/>
 <instance part="U$11" gate="G$1" x="523.24" y="33.02" smashed="yes"/>
 <instance part="U$15" gate="G$1" x="495.3" y="48.26" smashed="yes"/>
 <instance part="U$16" gate="G$1" x="523.24" y="48.26" smashed="yes"/>
-<instance part="U$8" gate="G$1" x="523.24" y="2.54" smashed="yes"/>
-<instance part="U$12" gate="G$1" x="467.36" y="2.54" smashed="yes"/>
-<instance part="U$13" gate="G$1" x="495.3" y="2.54" smashed="yes"/>
 <instance part="U$23" gate="G$1" x="467.36" y="17.78" smashed="yes"/>
 <instance part="U$1" gate="G$1" x="505.46" y="-53.34" smashed="yes"/>
 </instances>
