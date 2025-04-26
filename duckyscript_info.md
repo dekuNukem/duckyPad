@@ -943,7 +943,6 @@ Stop execution immediately
 -------
 [⬆️⬆️⬆️⬆️⬆️⬆️ Back to Top ⬆️⬆️⬆️⬆️⬆️⬆️](#list-of-commands)
 
-
 ## Table of Contents
 
 [Main page](README.md)
@@ -952,7 +951,7 @@ Stop execution immediately
 
 [Kit Assembly Guide](kit_assembly_guide.md)
 
-[Using duckyScript](duckyscript_info.md) | [duckyScript 3 Info](duckyscript3_instructions.md)
+[Using duckyScript](duckyscript_info.md)
 
 [Common issues / Troubleshooting](troubleshooting.md)
 

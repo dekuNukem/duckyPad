@@ -334,7 +334,7 @@ Initial Release
 
 [Kit Assembly Guide](kit_assembly_guide.md)
 
-[Using duckyScript](duckyscript_info.md) | [duckyScript 3 Info](duckyscript3_instructions.md)
+[Using duckyScript](duckyscript_info.md)
 
 [Common issues / Troubleshooting](troubleshooting.md)
 

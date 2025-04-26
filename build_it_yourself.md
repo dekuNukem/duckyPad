@@ -109,7 +109,7 @@ One interesting design detail is the RGB LED. The WS2812(and its clones) require
 
 [Kit Assembly Guide](kit_assembly_guide.md)
 
-[Using duckyScript](duckyscript_info.md) | [duckyScript 3 Info](duckyscript3_instructions.md)
+[Using duckyScript](duckyscript_info.md)
 
 [Common issues / Troubleshooting](troubleshooting.md)
 
