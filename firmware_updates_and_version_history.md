@@ -14,7 +14,7 @@
 
 🆕 Improved data transfer protocol that reduces read/write time
 
-⚠️ Requires the [Latest Configurator](https://github.com/duckyPad/duckyPad-Configurator/releases/latest)
+⚠️ Make sure to **load & save** with the [Latest Configurator](https://github.com/duckyPad/duckyPad-Configurator/releases/latest)
 
 ⚠️ `EMUK` command has been deprecated, use `KEYDOWN` and `KEYUP` in `on_press` and `on_release` panels.
 
