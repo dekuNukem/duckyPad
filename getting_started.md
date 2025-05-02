@@ -40,9 +40,9 @@ Simply plug it into your computer, and voilà:
 
 * Press `+` and `-` button to switch profiles.
 
-* **`Hold down`** `-` button to change backlight brightness.
+* **`Hold down`** `+` / `-` button to change settings.
 
-* To change keyboard layout, **`HOLD DOWN TOP LEFT KEY`** while **`PLUGGING IT IN`**, then select your layout.
+* **Play with the sample profiles** first!
 
 ## Help! It's not working!
 
@@ -63,8 +63,6 @@ The examples might be fun, but duckyPad is designed to do what YOU want! So here
 Extract the `.zip` file and launch the application by clicking `duckypad_config.exe`:
 
 ![Alt text](resources/pics/app/duckexe.png)
-
-**Linux users** please take a look at [additional instructions](app_posix.md).
 
 ### "Untrusted App" Warnings
 
@@ -89,20 +87,6 @@ Make sure your duckyPad is plugged in. Press the `Connect` button near top left.
 It should load the data from duckyPad:
 
 ![Alt text](resources/pics/app/overview.png)
-
-#### (OPTIONAL) Load from SD card
-
-If for some reason it didn't work, you can also **load from SD card**.
-
-* Push the SD card inwards to pop it out
-
-* Mount it on your computer
-
-* Select the **`entire SD card`**
-
-![Alt text](resources/pics/app/select_root.png)
-
-* It should load just the same
 
 ### Profiles
 
@@ -198,7 +182,7 @@ So if you have a spare, just [format it in FAT or FAT32](resources/pics/format.P
 
 ### Profile Auto-switching / Remote Control
 
-You can [use this app](https://github.com/dekuNukem/duckyPad-profile-autoswitcher) to **switch profiles automatically** based on **current active window**. Check it out!
+You can [use this app](https://github.com/duckypad/duckyPad-profile-autoswitcher) to **switch profiles automatically** based on **current active window**. Check it out!
 
 You can also control duckyPad from PC by sending HID commands, see link for details.
 
