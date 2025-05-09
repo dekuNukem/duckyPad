@@ -1,0 +1,21 @@
+SWC_FILL 0 128 0
+OLED_CLEAR
+OLED_CURSOR 10 10
+OLED_PRINT Open a text editor
+OLED_CURSOR 10 50
+OLED_PRINT Anykey when ready
+OLED_UPDATE
+VAR $temp = $_BLOCKING_READKEY
+
+OLED_CLEAR
+OLED_CURSOR 30 30
+OLED_PRINT Typing...
+OLED_UPDATE
+
+STRINGLN_BLOCK
+Once familiar with simple shortcuts, try longer multi-line scripts!
+
+Type boilerplate text, terminal commands, or perform multi-step key combos.
+
+END_STRINGLN
+SWC_RESET 99
