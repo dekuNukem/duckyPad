@@ -15,6 +15,7 @@
 #include "input_task.h"
 #include "main.h"
 #include "fatfs.h"
+#include "dsb_cache.h"
 
 uint8_t bin_buf[BIN_BUF_SIZE];
 uint8_t var_buf[VAR_BUF_SIZE];
@@ -101,13 +102,6 @@ uint8_t read_byte(uint16_t addr, const char* dsb_path)
     NVIC_SystemReset();
   }
   return bin_buf[addr%BIN_BUF_SIZE];
-}
-
-uint8_t read_byte_with_error(const char* dsb_path, uint16_t addr, uint8_t* result)
-{
-  uint8_t bank_switch_result = switch_bank(addr,dsb_path);
-  *result = bin_buf[addr%BIN_BUF_SIZE];
-  return bank_switch_result;
 }
 
 void stack_init(my_stack* ms)
@@ -770,6 +764,8 @@ void execute_instruction(uint16_t curr_pc, ds3_exe_result* exe, uint8_t this_key
   }
 }
 
+char* key_release_file_string = "release";
+
 void run_dsb(ds3_exe_result* er, uint8_t this_key_id, const char* dsb_path)
 {
   uint16_t current_pc = 0;
@@ -798,4 +794,9 @@ void run_dsb(ds3_exe_result* er, uint8_t this_key_id, const char* dsb_path)
   if(disable_autorepeat)
     epilogue_actions |= EPILOGUE_DONT_AUTO_REPEAT;
   er->epilogue_actions = epilogue_actions;
+  if(this_dsb_file_size <= DSB_CACHE_BYTE_SIZE)
+  {
+    uint8_t is_press = strstr(dsb_path, key_release_file_string) == NULL;
+    dsbc_add(current_profile_number, this_key_id, is_press, millis(), bin_buf, this_dsb_file_size);
+  }
 }

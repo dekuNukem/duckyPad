@@ -20,6 +20,7 @@
 #include "ds_vm.h"
 #include "main.h"
 #include "hid_task.h"
+#include "dsb_cache.h"
 
 #define PLUS_MINUS_BUTTON_COOLDOWN_MS 250
 
@@ -388,6 +389,13 @@ void keypress_task(void)
     is_busy = 1;
     handle_sw_event(&sw_event);
     update_last_keypress();
+
+    for (size_t i = 0; i < DSB_CACHE_ENTRIES_SIZE; i++)
+    {
+      printf("--dsbc %d---\n", i);
+      dsbc_print_item(&dsb_cache[i]);
+    }
+    
     is_busy = 0;
   }
 }

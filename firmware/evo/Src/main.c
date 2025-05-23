@@ -40,6 +40,7 @@
 #include "keypress_task.h"
 #include "hid_task.h"
 #include "keyboard.h"
+#include "dsb_cache.h"
 
 /*
 menu bar:
@@ -110,6 +111,10 @@ UART_HandleTypeDef huart3;
   Apr 4 2025
   2.0.0
   DPP Backport beta public release
+
+  May 23 2025
+  2.1.0
+  Added key caching
 */
 
 /*
@@ -121,7 +126,7 @@ UART_HandleTypeDef huart3;
 uint32_t current_tick;
 
 uint8_t fw_version_major = 2;
-uint8_t fw_version_minor = 0;
+uint8_t fw_version_minor = 1;
 uint8_t fw_version_patch = 0;
 uint8_t dsvm_version = 1;
 
