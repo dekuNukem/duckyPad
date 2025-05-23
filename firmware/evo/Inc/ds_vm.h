@@ -140,10 +140,6 @@ extern uint8_t bin_buf[BIN_BUF_SIZE];
 extern uint8_t allow_abort;
 extern uint8_t kb_led_status;
 extern uint16_t gv_buf[GLOBAL_VARIABLE_COUNT];
-extern uint32_t this_dsb_file_size;
-extern const char* key_release_file_string;
-extern uint8_t dsvm_cached_data[DSB_CACHE_BYTE_SIZE];
-
 
 #define READ_BUF_SIZE 256 * 2
 extern char read_buffer[READ_BUF_SIZE];

@@ -18,7 +18,6 @@
 #include "dsb_cache.h"
 
 uint8_t bin_buf[BIN_BUF_SIZE];
-uint8_t dsvm_cached_data[DSB_CACHE_BYTE_SIZE];
 uint8_t var_buf[VAR_BUF_SIZE];
 
 uint16_t defaultdelay_value;
@@ -769,8 +768,6 @@ void execute_instruction(uint16_t curr_pc, ds3_exe_result* exe, uint8_t this_key
     exe->result = EXE_UNKNOWN_OPCODE;
   }
 }
-
-const char* key_release_file_string = "release";
 
 void run_dsb(ds3_exe_result* er, uint8_t this_key_id, const char* dsb_path, uint8_t is_cached)
 {
