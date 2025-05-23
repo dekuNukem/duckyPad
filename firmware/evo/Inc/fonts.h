@@ -11,8 +11,7 @@ typedef struct {
 	const uint8_t *data; /*!< Pointer to data font data array */
 } FontDef;
 
-
-extern FontDef Font_6x10;
+extern const FontDef Font_6x10;
 
 #endif
 

@@ -122,7 +122,7 @@ typedef struct
 #define EPILOGUE_DONT_AUTO_REPEAT 0x8
 #define EPILOGUE_SAVE_GV 0x10
 
-#define BIN_BUF_SIZE 2048
+#define BIN_BUF_SIZE 1024
 #define VAR_BUF_SIZE 128
 
 #define GLOBAL_VARIABLE_COUNT 16

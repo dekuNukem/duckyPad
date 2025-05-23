@@ -100,4 +100,4 @@ const uint8_t Font6x10 [] = {
 0x00, 0x00, 0x00, 0x74, 0x4C, 0x00, 0x00, 0x00, 0x00, 0x00,  // ~
 };
 
-FontDef Font_6x10 = {6,10,Font6x10};
+const FontDef Font_6x10 = {6,10,Font6x10};
