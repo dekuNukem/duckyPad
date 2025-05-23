@@ -1,12 +1,12 @@
 # duckyScript 3 Advanced Features
 
-[Get duckyPad](https://dekunukem.github.io/duckyPad-Pro/doc/landing.html) | [Official Discord](https://discord.gg/4sJCBx5) | [Getting Started](getting_started.md) | [Table of Contents](#table-of-contents)
+[Get duckyPad](https://dekunukem.github.io/duckyPad-Pro/doc/duckyscript_info.html) | [Official Discord](https://discord.gg/4sJCBx5) | [Getting Started](getting_started.md) | [Table of Contents](#table-of-contents)
 
 ----
 
 ## ⚠️This Page Has Moved!⚠️
 
-👉👉👉👉 [Click Me to See the New Page!](duckyscript_info.md)
+👉👉👉👉 [Click Me to See the New Page!](https://dekunukem.github.io/duckyPad-Pro/doc/duckyscript_info.html)
 
 ----
 
