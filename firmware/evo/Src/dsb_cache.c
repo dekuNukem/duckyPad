@@ -25,7 +25,7 @@ uint8_t get_empty_idx(dsbc_item* dlist)
 
 void dsbc_add(uint8_t pf_idx, uint8_t k_idx, uint8_t is_kdown, uint32_t ts, uint8_t* data, uint8_t data_size)
 {
-  if (data == NULL || data_size == 0 || data_size >= DSB_CACHE_BYTE_SIZE)
+  if (data == NULL || data_size == 0 || data_size > DSB_CACHE_BYTE_SIZE)
     return;
 
   // Get an empty or oldest index

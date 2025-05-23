@@ -13,7 +13,11 @@
     //   sd_walk();
     //   printf("walk: %ldms\n", millis() - ke_start);
     // }
-
+    // for (size_t i = 0; i < DSB_CACHE_ENTRIES_SIZE; i++)
+    // {
+    //   printf("--dsbc %d---\n", i);
+    //   dsbc_print_item(&dsb_cache[i]);
+    // }
 uint8_t md5File(char* file_path, uint8_t *result)
 {
     size_t input_size = 0;

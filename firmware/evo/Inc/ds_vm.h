@@ -5,7 +5,8 @@
 #include <stdint.h>
 #include <string.h>
 
-#include <input_task.h>
+#include "input_task.h"
+#include "dsb_cache.h"
 
 #define OP_NOP 0
 #define OP_PUSHC 1
@@ -140,11 +141,14 @@ extern uint8_t allow_abort;
 extern uint8_t kb_led_status;
 extern uint16_t gv_buf[GLOBAL_VARIABLE_COUNT];
 extern uint32_t this_dsb_file_size;
+extern const char* key_release_file_string;
+extern uint8_t dsvm_cached_data[DSB_CACHE_BYTE_SIZE];
+
 
 #define READ_BUF_SIZE 256 * 2
 extern char read_buffer[READ_BUF_SIZE];
 
-void run_dsb(ds3_exe_result* er, uint8_t this_key_id, const char* dsb_path);
+void run_dsb(ds3_exe_result* er, uint8_t this_key_id, const char* dsb_path, uint8_t is_cached);
 
 #endif
 

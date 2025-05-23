@@ -65,7 +65,12 @@ void der_init(ds3_exe_result* der)
 uint8_t run_once(uint8_t swid, char* dsb_path, uint8_t* to_increment)
 {
   der_init(&this_exe);
-  run_dsb(&this_exe, swid, dsb_path);
+
+  uint8_t is_press = strstr(dsb_path, key_release_file_string) == NULL;
+  uint8_t is_cached = dsbc_search(current_profile_number, swid, is_press, dsvm_cached_data);
+  // printf("is_cached: %d\n", is_cached);
+
+  run_dsb(&this_exe, swid, dsb_path, is_cached);
   // printf("---\nexecution finished:\nresult: %d\ndata: %d\nepilogue: 0x%x\n---\n", this_exe.result, this_exe.data, this_exe.epilogue_actions);
   if(to_increment != NULL)
     *to_increment = *to_increment + 1;
@@ -388,14 +393,7 @@ void keypress_task(void)
 
     is_busy = 1;
     handle_sw_event(&sw_event);
-    update_last_keypress();
-
-    for (size_t i = 0; i < DSB_CACHE_ENTRIES_SIZE; i++)
-    {
-      printf("--dsbc %d---\n", i);
-      dsbc_print_item(&dsb_cache[i]);
-    }
-    
+    update_last_keypress();    
     is_busy = 0;
   }
 }

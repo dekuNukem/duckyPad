@@ -18,7 +18,9 @@
 #include "dsb_cache.h"
 
 uint8_t bin_buf[BIN_BUF_SIZE];
+uint8_t dsvm_cached_data[DSB_CACHE_BYTE_SIZE];
 uint8_t var_buf[VAR_BUF_SIZE];
+
 uint16_t defaultdelay_value;
 uint16_t defaultchardelay_value;
 uint16_t charjitter_value;
@@ -31,6 +33,7 @@ uint8_t last_stack_op_result;
 uint8_t disable_autorepeat;
 uint16_t gv_buf[GLOBAL_VARIABLE_COUNT];
 uint8_t current_bank;
+uint8_t is_this_dsb_cached;
 
 typedef struct
 {
@@ -93,6 +96,9 @@ uint8_t switch_bank(uint16_t addr, const char* dsb_path)
 
 uint8_t read_byte(uint16_t addr, const char* dsb_path)
 {
+  if(is_this_dsb_cached)
+    return dsvm_cached_data[addr];
+
   if(switch_bank(addr,dsb_path))
   {
     printf("BANK SWITCH FAIL\n");
@@ -764,9 +770,9 @@ void execute_instruction(uint16_t curr_pc, ds3_exe_result* exe, uint8_t this_key
   }
 }
 
-char* key_release_file_string = "release";
+const char* key_release_file_string = "release";
 
-void run_dsb(ds3_exe_result* er, uint8_t this_key_id, const char* dsb_path)
+void run_dsb(ds3_exe_result* er, uint8_t this_key_id, const char* dsb_path, uint8_t is_cached)
 {
   uint16_t current_pc = 0;
   current_bank = 255;
@@ -782,6 +788,7 @@ void run_dsb(ds3_exe_result* er, uint8_t this_key_id, const char* dsb_path)
   allow_abort = 0;
   last_stack_op_result = EXE_OK;
   disable_autorepeat = 0;
+  is_this_dsb_cached = is_cached;
   srand(millis());
 
   while(1)
@@ -794,9 +801,10 @@ void run_dsb(ds3_exe_result* er, uint8_t this_key_id, const char* dsb_path)
   if(disable_autorepeat)
     epilogue_actions |= EPILOGUE_DONT_AUTO_REPEAT;
   er->epilogue_actions = epilogue_actions;
-  if(this_dsb_file_size <= DSB_CACHE_BYTE_SIZE)
+  if(is_cached == 0 && this_dsb_file_size <= DSB_CACHE_BYTE_SIZE)
   {
     uint8_t is_press = strstr(dsb_path, key_release_file_string) == NULL;
     dsbc_add(current_profile_number, this_key_id, is_press, millis(), bin_buf, this_dsb_file_size);
+    printf("added %02d %02d %02d to cache!\n", current_profile_number, this_key_id, is_press);
   }
 }
