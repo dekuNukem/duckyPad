@@ -93,11 +93,6 @@ After completion, press **`RESET`** button (or power-cycle) to start using the n
 
 ⚠️ `EMUK` command has been deprecated, use `KEYDOWN` and `KEYUP` in `on_press` and `on_release` panels.
 
-⚠️ Likely a bit buggy, [let me know](#questions-or-comments) if you run into any!
-
-👉👉👉👉👉 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v2.0.0.dfu) 👈👈👈👈👈
-
-
 ### 1.3.3 (Dec 2 2024)
 
 🐞 Fixed a bug where RGB brightness gets dimmer after reloading
