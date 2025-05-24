@@ -4,11 +4,11 @@
 
 ----
 
-duckyPad is a 15-key mechanical macropad that helps **consolidate and speed up workflow** by automating keyboard/mouse inputs using **duckyScript**. 
+duckyPad is a 15-key **mechanical macropad** for power users who demand **advanced macro scripting and customisation** beyond the shackles of QMK/VIA.
 
 ![Alt text](resources/pics/title_jpg.jpg)
 
-It has all the basics:
+duckyPad has all the basics:
 
 * **Hot-swap**
 * Per-key RGB
@@ -17,9 +17,9 @@ It has all the basics:
 
 But also unique features **not seen anywhere else**:
 
-* Configurable **OLED** screen
-* Custom **[duckyScript](duckyscript_info.md)** engine, **NOT QMK/VIA**.
-* Much **longer and sophisticated** macros
+* Custom **[duckyScript](https://dekunukem.github.io/duckyPad-Pro/doc/duckyscript_info.html)** engine, **NOT QMK/VIA**.
+* **Longer and more complex** macros
+* 1.3" **OLED** screen
 * **32 profiles** of 15 keys, 480 macros total.
 * [Automatic profile switching](https://github.com/dekuNukem/duckyPad-profile-autoswitcher) based on active window.
 * microSD storage, move between devices with ease.
@@ -31,7 +31,7 @@ The macros can be as simple as `Ctrl + C`, or as complex as filling forms, launc
 
 ## duckyScript vs QMK/VIA
 
-duckyPad uses **duckyScript**, of [USB Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky-deluxe) fame.
+duckyPad uses **duckyScript**, originally designed for [USB Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky-deluxe).
 
 Compared to QMK/VIA, you get:
 
@@ -40,21 +40,16 @@ Compared to QMK/VIA, you get:
 	* Up to 480 in total!
 
 * **Sophisticated Interactive Scripting**
-	* Variables, `IF` statements, loops, functions, etc.
+	* Variables, conditions, loops, functions, etc.
 	* Reading Buttons
 	* Print to OLED screen
 	* Change RGB Color
-	* Fine timing control
-	* Randomization
+	* Fine timing control & Randomization
 
-* **Local Storage**
-	* Everything stored on SD card
-	* Quick configuration / Backup / Duplication
+* **SD Card Storage**
+	* Fast Configuration / Backup / Deployment
 	* No sketchy drivers or apps
-
-* **Existing Resources**
-	* Lots of [scripts](https://github.com/hak5/usbrubberducky-payloads) to try out
-	* Thriving [Discord](https://discord.gg/4sJCBx5) community
+	* No recompiling
 
 While QMK/VIA are great for regular keyboards, they are rather hopeless at even the basics of input automations.
 
@@ -64,7 +59,22 @@ duckyScript is a no-brainer for power users with more demanding scripting needs.
 
 duckyPad is [now available on Tindie](https://www.tindie.com/products/21984)!
 
-And thanks to the interest and support from the [amazing people like you](kickstarter_backers.md), the [Kickstarter campaign](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) has been a great success!
+duckyPad was successfully [funded on Kickstarter](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) in 2020 thanks to the [amazing backers!](kickstarter_backers.md)
+
+## 🆕 duckyPad Pro
+
+duckyPad Pro is an updated model released in 2024 with:
+
+* Rotary Encoders
+* More Keys
+* Bluetooth
+* Bigger Display
+* More Script Storage
+* Expansion Module
+
+👉👉👉👉👉 [Purchase Link](https://www.tindie.com/products/37399/) | [More Info](https://dekunukem.github.io/duckyPad-Pro/)
+
+![Alt text](https://github.com/dekuNukem/duckyPad-Pro/blob/master/resources/photos/title.jpeg?raw=true)
 
 ## Discord Community
 
