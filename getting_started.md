@@ -6,21 +6,6 @@
 
 Congratulations on your new toy! Here is a short guide on how to use your duckyPad.
 
-[Kit Assembly](#kit-assembly)
-
-[Quick Start](#quick-start)
-
-[Writing Your Own Scripts](#writing-your-own-scripts)
-
-[Tips and Tricks](#tips-and-tricks)
-
-[Troubleshooting](#im-having-issues)
-
-[USB Firmware Updates](#usb-firmware-updates)
-
-[Configure duckyPad Manually](#configure-duckypad-manually)
-
-[Questions or Comments?](#questions-or-comments)
 
 ## Join Our Discord!
 
@@ -28,21 +13,33 @@ Feel free to join our [Official Discord](https://discord.gg/4sJCBx5) for discuss
 
 ## Kit Assembly
 
-If your duckyPad has not been assembled yet, [see this guide](/kit_assembly_guide.md) to put it together.
+👇👇👇👇👇👇👇👇👇👇
+
+[See this guide](./kit_assembly_guide.md) to put your duckyPad together!
+
+☝️☝️☝️☝️☝️☝️☝️☝️☝️☝️
 
 ## Quick Start
 
-Simply plug it into your computer, and voilà:
+Plug into your computer, and voilà:
 
 ![Alt text](resources/pics/win_laptop.png)
 
-* Press a key to execute the corresponding script.
+* **`Hold down`** `+` button for settings
 
-* Press `+` and `-` button to switch profiles.
+![Alt text](./resources/pics/settings.png)
 
-* **`Hold down`** `+` / `-` button to change settings.
+* Select the correct **keyboard region**
 
-* **Play with the sample profiles** first!
+	* Adjust others to your liking
+
+* To save & exit, **press any unlit key**.
+
+* ⚠️ Start with the `Welcome` profile
+
+	* Press a key to execute script
+
+* Press `+` and `-` to switch profiles.
 
 ## Help! It's not working!
 
@@ -54,75 +51,81 @@ For other issues, check out the [troubleshooting guide](troubleshooting.md).
 
 ## Writing Your Own Scripts
 
-The examples might be fun, but duckyPad is designed to do what YOU want! So here's how.
+After playing with examples and see what duckyPad can do, time to write your own!
 
-### Download the duckyPad Configurator
+### Download Configurator
 
-[Head here to download the latest release](https://github.com/dekuNukem/duckyPad/releases/latest).
+#### Windows
 
-Extract the `.zip` file and launch the application by clicking `duckypad_config.exe`:
+[Download the latest configurator here](https://github.com/duckyPad/duckyPad-Configurator/releases/latest)
 
-![Alt text](resources/pics/app/duckexe.png)
+Unzip and launch by clicking `duckypad_config.exe`:
 
-### "Untrusted App" Warnings
+![Alt text](./resources/pics/app/duckexe.png)
 
-Your system might complain when launching the app.
+Windows might complain about unsigned app.
 
-This is because I haven't had the code digitally signed, which costs hundreds of dollars a year.
+Click `More info` and then `Run anyway`.
 
-Feel free to [review the code](https://github.com/dekuNukem/duckyPad/tree/master/pc_software). You can also run `duckypad_config.py` itself with Python3.
+Feel free to [review the files](https://github.com/duckyPad/duckyPad-Configurator), or run the source code directly with Python.
 
-For Windows 10, click `More info` and then `Run anyway`.
+![Alt text](./resources/pics/app/defender.png)
 
-![Alt text](resources/pics/app/defender2.png)
+#### MacOS & Linux
 
-For macOS, **`RIGHT CLICK`** on the app and select `Open`. You might need to do it twice.
+[See instruction here!](https://dekunukem.github.io/duckyPad-Pro/doc/linux_macos_notes.html)
 
-![Alt text](resources/pics/app/macos_warning.png)
+### Using Configurator
 
-### Using duckyPad configurator
+Press the `Connect` button near top left.
 
-Make sure your duckyPad is plugged in. Press the `Connect` button near top left.
+![Alt text](resources/pics/app/connect.png)
 
-It should load the data from duckyPad:
+Everything should load up in a few seconds.
 
 ![Alt text](resources/pics/app/overview.png)
+
+It may seem complex at first, let's break it down!
+
 
 ### Profiles
 
 * The leftmost column is for *profiles*.
 
-* Each profile contains a group of scripts corresponding to the keys on the duckyPad.
-
-* As you can see, you typically create a profile for **each app** you want to control.
+* You typically create one for **each app** you want to control.
 
 ![Alt text](resources/pics/app/profiles.png)
 
-* Use the buttons to create, duplicate, name, and import a profile.
+Let's make a new profile!
 
-* Use the up/down/x button to reorder/delete profiles.
+Click `New` button, give it a name.
+
+![Alt text](resources/pics/app/pname.png)
 
 * Choose a background color for the RGB backlight.
 
-* `Activation color` is the color that a key changes into when you press it.
+* Use the `up/down/x` buttons to reorder/delete profiles.
 
-* By default unused keys are dimmed, you can override this by unticking the checkbox.
+* `Activation color` is the color that a key changes into when you press it.
 
 ### Keys
 
-The middle column is for *keys*:
+The middle columns are for *keys*:
 
 ![Alt text](resources/pics/app/keys.png)
 
-* Here you can configure the keys on your duckyPad.
+* Select an empty key in the `Onboard Switches` section
+* Type to give it a name
+* Drag to rearrange
 
-* Click a key to select.
+---------
 
-* Give it a name, or click `Remove` to delete.
+* **`Custom Key Color`**: Set an unique color.
+* **`Press Any Key to Abort`**: Allow exiting early in long macros.
+	* Do not select if you're writing your own button-checking code
+* **`Disable Auto-Repeat`**: Macro won't repeat when key is held down.
+* Click **`Rotate`** for landscape mode.
 
-* You can assign an unique color to each key, or use the same color as background.
-
-* Drag a key to rearrange order.
 
 ### Scripts
 
@@ -130,75 +133,67 @@ Finally, the rightmost column is for *scripts*:
 
 ![Alt text](resources/pics/app/scripts.png)
 
-* When you select a key, the script it will execute is displayed here.
+* This shows the **duckyScript** that the key will execute.
 
-* duckyPad uses duckyScript, [**read about its usage here**](duckyscript_info.md).
+	* Can be anything from simple shortcuts to full-blown programs!
 
-* Code check will be performed as you type, errors will be highlighted in yellow.
+	* [**Read about detailed usage here**](https://dekunukem.github.io/duckyPad-Pro/doc/duckyscript_info.html).
 
-### Settings & Updates
+	* For this example, put in `STRING Hello World!`
 
-![Alt text](resources/pics/app/settings.png)
+* Separate scripts possible for **On Press** and **On Release**
 
-By default, duckyPad goes to sleep after 30 minutes. Adjust the slider to set your own delay. Drag it all the way left for always-on.
+	* If not sure, just leave **On Release** blank.
 
-`Updates` section shows available updates. **Click on the text** for instructions.
+* Code check will be performed as you type.
 
-### Keyboard Layouts
-
-* To change keyboard layout, **`HOLD DOWN TOP LEFT KEY`** while **`PLUGGING DUCKYPAD IN`**, then select your layout.
-
-### Don't forget to save!
+### Remember to Save!
 
 * Press `Save` button to write the changes back to duckyPad.
+* Check debug window for progress
 
-![Alt text](resources/pics/app/save.png)
 
-### Automatic backups
+### Try It Out!
 
-* A local backup is created every time `Save` button is pressed.
+duckyPad should reboot after saving.
 
-* Press `Backup...` button to access the backups.
+Press `+/-` button to go to the new profile, and press the key.
 
-* To restore, [format the SD card in FAT or FAT32](resources/pics/format.PNG), then copy everything back.
+It should execute the script and type out `Hello World!`:
 
-### Run it!
+![Alt text](resources/pics/app/hello.gif)
 
-duckyPad should automatically reboot when you press `Save`, and your new scripts will be ready to use!
+That's it! Now you know how to customise your duckyPad!
 
-If configuring via SD card, pop it back and power on.
+🎉 🎉 Great Job, but we're not done yet!
 
-* Press a key to execute the corresponding script.
+⚠️⚠️ **Please keep reading** for more useful information!
 
-* Press `+` and `-` button to switch profiles.
+------------
 
-* **`Hold down`** `-` to change RGB backlight brightness.
 
-### Faster SD Card
+### Profile Auto-Switching
 
-A newer SD card can reduce load time and make duckyPad more snappy.
+duckyPad can **switch profiles automatically** based on **current active window**.
 
-So if you have a spare, just [format it in FAT or FAT32](resources/pics/format.PNG) and copy everything back.
-
-### Profile Auto-switching / Remote Control
-
-You can [use this app](https://github.com/duckypad/duckyPad-profile-autoswitcher) to **switch profiles automatically** based on **current active window**. Check it out!
-
-You can also control duckyPad from PC by sending HID commands, see link for details.
+[Click me for details](https://github.com/dekuNukem/duckyPad-profile-autoswitcher)
 
 ### Careful with Passwords!
 
-It might be tempting to have duckyPad type out passwords, but it's **NOT** a good idea!
+It might be tempting to have duckyPad type out passwords, but beware that all scripts are stored as **plain text** on SD card. Not a good idea!
 
-All scripts are stored as **plain text** on SD card, and can be easily accessed with a card reader or though HID commands.
+### Automatic backups
 
-duckyPad is NOT designed to be a security device, so use at your own risk.
+* A local backup is created every time you save.
+* Press `Backup...` button to access the backups.
+* To restore, [format the SD card in FAT or FAT32](resources/pics/app/format.png), then copy everything back.
+
 
 ## Tips and Tricks
 
 ### Keyboard Shortcuts
 
-The most obvious use case is putting your commonly used hotkeys on duckyPad! Simply create a profile and add them in.
+The most obvious use case is putting your commonly used hotkeys on duckyPad!
 
 For many applications, you can find an official list of shortcuts. Just search `app_name shortcuts` on Google. Examples:
 
@@ -216,11 +211,11 @@ Another popular usage is launching apps. The easiest way is using Task Bar:
 
 Find the app, `Right click -> More -> Pin to taskbar`:
 
-![Alt text](resources/pics/start.png)
+![Alt text](resources/pics/app/start.png)
 
 Now you can use `WIN + number` to launch them:
 
-![Alt text](resources/pics/taskbar.png)
+![Alt text](resources/pics/app/taskbar.png)
 
 In duckyScript, it would be `WINDOWS 1`, `WINDOWS 2`, etc.
 
@@ -230,17 +225,17 @@ This method works with **`ANY FILE`**, not just apps!
 
 `Right click` on any file, select `Create shortcut`.
 
-![Alt text](resources/pics/shortcut.png)
+![Alt text](resources/pics/app/shortcut.png)
 
 Find the new shortcut, right click and select `Properties`
 
-![Alt text](resources/pics/right_prop.png)
+![Alt text](resources/pics/app/right_prop.png)
 
 Set a hotkey in the `Shortcut Key` box:
 
-![Alt text](resources/pics/sc_prop.png)
+![Alt text](resources/pics/app/sc_prop.png)
 
-Then you can use duckyPad to press this combo to launch anything with a push of a button!
+Then assign the combo on duckyPad!
 
 In this case, the duckyScript would be `CONTROL ALT D`.
 
@@ -248,33 +243,33 @@ In this case, the duckyScript would be `CONTROL ALT D`.
 
 Go to `System Preferences` -> `Keyboard` -> `Shortcuts` -> `App Shortcuts`:
 
-Press the `+` button, select an app to open, assign a hotkey, and set up duckyPad accordingly:
+Press `+` button, select app, assign a hotkey, and set up duckyPad accordingly:
 
-![Alt text](resources/pics/mac_sc.png)
+![Alt text](resources/pics/app/mac_sc.png)
 
 ### Advanced Scripting with Autohotkey
 
-You can use the free and open-source [autohotkey](https://www.autohotkey.com) for even more sophisticated needs, such as controlling mouse movements, executing scripts, etc.
+You can use the free and open-source [Autohotkey](https://www.autohotkey.com) for even more advanced scripting needs.
 
-To do this, duckyPad can press a simple combo like `WIN + F1`, which then gets captured by autohotkey to execute a more complex script on your PC.
+duckyPad can press a simple combo like `WIN + F1`, which triggers autohotkey to execute a more complex script on your PC.
 
 * Download and install [autohotkey](https://www.autohotkey.com)
 
-* Download and save [this sample autohotkey script](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/resources/duckypad_autohotkey_script.ahk) as an `.ahk` file.
+* Download and save the [sample autohotkey script](./resources/duckypad_autohotkey_script.ahk) as an `.ahk` file.
 
-* Switch the profile on duckyPad to `autohotkey`, and run the script by right clicking and select `Run Script`.
+* Activate the script by right clicking and select `Run Script`.
 
-![Alt text](resources/pics/ahk_run.png)
+![Alt text](resources/pics/app/ahk_run.png)
 
-* AHK will execute the script. Press any key on duckyPad, a corresponding message box will appear.
+* Switch to `autohotkey` profile, press a key.
 
-![Alt text](resources/pics/ahk_box.png)
+* Corresponding message box will appear.
 
-* Now you can write your own autohotkey script to do whatever you want!
+![Alt text](resources/pics/app/ahk_box.png)
 
-Check out the [official tutorials](https://www.autohotkey.com/docs_1.0/Tutorial.htm), the [autohotkey profile](sample_profiles/profile7_autohotkey), and the [sample autohotkey script](resources/duckypad_autohotkey_script.ahk) upon which you can tinker with.
+* Write your own AHK script!
 
-[Follow this guide](https://www.autohotkey.com/docs/FAQ.htm#Startup) to run your AHK scripts automatically on Windows startup.
+Check out the [official tutorials](https://www.autohotkey.com/docs_1.0/Tutorial.htm), and how to [launch AHK on startup](https://www.autohotkey.com/docs/FAQ.htm#Startup).
 
 For macOS, you can try [bettertouchtool](https://folivora.ai).
 

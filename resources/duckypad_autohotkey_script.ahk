@@ -1,45 +1,63 @@
+#Requires AutoHotkey v2.0
+
 LWin & F1::
-	Msgbox, I pressed duckypad key 1!
-	return
+{
+    MsgBox "I pressed duckypad key 1!"
+}
 LWin & F2::
-	Msgbox, I pressed duckypad key 2!
-	return
+{
+    MsgBox "I pressed duckypad key 2!"
+}
 LWin & F3::
-	Msgbox, I pressed duckypad key 3!
-	return
+{
+    MsgBox "I pressed duckypad key 3!"
+}
 LWin & F4::
-	Msgbox, I pressed duckypad key 4!
-	return
+{
+    MsgBox "I pressed duckypad key 4!"
+}
 LWin & F5::
-	Msgbox, I pressed duckypad key 5!
-	return
+{
+    MsgBox "I pressed duckypad key 5!"
+}
 LWin & F6::
-	Msgbox, I pressed duckypad key 6!
-	return
+{
+    MsgBox "I pressed duckypad key 6!"
+}
 LWin & F7::
-	Msgbox, I pressed duckypad key 7!
-	return
+{
+    MsgBox "I pressed duckypad key 7!"
+}
 LWin & F8::
-	Msgbox, I pressed duckypad key 8!
-	return
+{
+    MsgBox "I pressed duckypad key 8!"
+}
 LWin & F9::
-	Msgbox, I pressed duckypad key 9!
-	return
+{
+    MsgBox "I pressed duckypad key 9!"
+}
 LWin & F10::
-	Msgbox, I pressed duckypad key 10!
-	return
+{
+    MsgBox "I pressed duckypad key 10!"
+}
 LWin & F11::
-	Msgbox, I pressed duckypad key 11!
-	return
+{
+    MsgBox "I pressed duckypad key 11!"
+}
 LWin & F12::
-	Msgbox, I pressed duckypad key 12!
-	return
+{
+    MsgBox "I pressed duckypad key 12!"
+}
+
 LControl & F10::
-	Msgbox, I pressed duckypad key 13!
-	return
+{
+    MsgBox "I pressed duckypad key 13!"
+}
 LControl & F11::
-	Msgbox, I pressed duckypad key 14!
-	return
+{
+    MsgBox "I pressed duckypad key 14!"
+}
 LControl & F12::
-	Msgbox, I pressed duckypad key 15!
-	return
+{
+    MsgBox "I pressed duckypad key 15!"
+}
