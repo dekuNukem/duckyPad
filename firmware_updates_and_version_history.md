@@ -6,21 +6,13 @@
 
 ## Latest Firmware
 
-### 2.0.0 (Apr 7 2025)
+### 2.1.0 (May 24 2025)
 
-🆕 Backported **all new firmware features/improvements** from [duckyPad Pro](https://dekunukem.github.io/duckyPad-Pro/) to OG duckyPad (2020)!
+🆕 Reduced latency by caching recent keypresses
 
-🆕 Unified Configurator that works with BOTH models
+⚠️ Make sure to use the [Latest Configurator](https://github.com/duckyPad/duckyPad-Configurator/releases/latest)
 
-🆕 Improved data transfer protocol that reduces read/write time
-
-⚠️ Make sure to **load & save** with the [Latest Configurator](https://github.com/duckyPad/duckyPad-Configurator/releases/latest)
-
-⚠️ `EMUK` command has been deprecated, use `KEYDOWN` and `KEYUP` in `on_press` and `on_release` panels.
-
-⚠️ Likely a bit buggy, [let me know](#questions-or-comments) if you run into any!
-
-👉👉👉👉👉 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v2.0.0.dfu) 👈👈👈👈👈
+👉👉👉👉👉 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v2.1.0.dfu) 👈👈👈👈👈
 
 ## USB Firmware Update
 
@@ -87,6 +79,24 @@ After completion, press **`RESET`** button (or power-cycle) to start using the n
 ---------------------
 
 ## Firmware Version History
+
+
+### 2.0.0 (Apr 7 2025)
+
+🆕 Backported **all new firmware features/improvements** from [duckyPad Pro](https://dekunukem.github.io/duckyPad-Pro/) to OG duckyPad (2020)!
+
+🆕 Unified Configurator that works with BOTH models
+
+🆕 Improved data transfer protocol that reduces read/write time
+
+⚠️ Make sure to **load & save** with the [Latest Configurator](https://github.com/duckyPad/duckyPad-Configurator/releases/latest)
+
+⚠️ `EMUK` command has been deprecated, use `KEYDOWN` and `KEYUP` in `on_press` and `on_release` panels.
+
+⚠️ Likely a bit buggy, [let me know](#questions-or-comments) if you run into any!
+
+👉👉👉👉👉 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v2.0.0.dfu) 👈👈👈👈👈
+
 
 ### 1.3.3 (Dec 2 2024)
 
