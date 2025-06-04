@@ -28,13 +28,13 @@ Locate the **`DFU`** button:
 
 * Once plugged in, you can release the button.
 
-If all went well, `the backlight and display should stay off`.
+If it went well, **the backlight and display should stay off**.
 
 ### Windows
 
 Download and install the [STM32 DfuSe tool](resources/en.stsw-stm32080_stm32_DfuSe.zip) from this repo.
 
-(You can also get it from [official website](https://www.st.com/en/development-tools/stsw-stm32080.html), but requires creating an account.)
+(Also available from [official website](https://www.st.com/en/development-tools/stsw-stm32080.html), but requires creating an account.)
 
 Launch `DfuSeDemo`:
 

@@ -56,8 +56,15 @@ This guide is for the **original duckyPad**
 * Do another format, copy the backups back.
 * Eject, put card back in duckyPad.
 * **Load then save again** using the latest configurator.
-	* This updates the file format on the card
+	* This updates the files on the card
 * Try it out!
+
+## Deprecated Commands
+
+If syntax errors pops up, it's likely due to the following changes:
+
+* `HOLD` and `EMUK` command are deprecated
+	* Use `KEYDOWN` and `KEYUP` in `on_press` and `on_release` instead.
 
 ## How'd It Go?
 
