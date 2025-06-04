@@ -6,18 +6,18 @@
 
 Since its launch in 2020, the original duckyPad has seen several major software and firmware updates.
 
-This guide shows how to upgrade your duckyPad to the latest release.
+This guide shows how to do a **clean upgrade** to the latest version.
 
-Especially if you haven’t used it in a while and want to catch up on new features.
+Ideal if you haven’t used it in a while and want to catch up on new features.
 
 ## Check Your Duck
 
-This guide is for the **original duckyPad**!
+This guide is for the **original duckyPad**
 
 * Released in 2020
-* 15 Keys
+* Has 15 Keys
 
-## Backup SD Card
+## Back up SD Card
 
 * Pop out the SD Card
 * Mount on your computer with a card reader
@@ -49,13 +49,25 @@ This guide is for the **original duckyPad**!
 
 * Follow [the latest user guide](https://dekunukem.github.io/duckyPad/getting_started.html) to start using duckyPad again!
 
+## Restore Backup
+
+* If it works with the default sample profiles, you can try to restore the backup.
+* Pop out SD card, mount on PC.
+* Do another format, copy the backups back.
+* Eject, put card back in duckyPad.
+* **Load then save again** using the latest configurator.
+	* This updates the file format on the card
+* Try it out!
+
 ## How'd It Go?
 
 * If it works, congrats!
 
-* Still wonky? Check out the [Troubleshooting Guide](troubleshooting.md).
+* Still wonky? Feel free to ...
 
-* Also feel free to [open an issue](https://github.com/dekuNukem/duckypad/issues), ask in the [official duckyPad discord](https://discord.gg/4sJCBx5), or email `dekuNukem`@`gmail`.`com` .
+	* [Open an issue](https://github.com/dekuNukem/duckypad/issues)
+	* Ask in the [official duckyPad discord](https://discord.gg/4sJCBx5)
+	* Email `dekuNukem`@`gmail`.`com` .
 
 ----
 
