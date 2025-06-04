@@ -37,6 +37,8 @@ This guide is for the **original duckyPad**
 
 ## FW / SW Updates
 
+* Don't touch the SD card for now
+
 * [Follow this guide](firmware_updates_and_version_history) to update your duckyPad to latest firmware.
 
 * [Also download the latest configurator](https://github.com/duckyPad/duckyPad-Configurator/releases/latest)
@@ -65,6 +67,8 @@ If syntax errors pops up, it's likely due to the following changes:
 
 * `HOLD` and `EMUK` command are deprecated
 	* Use `KEYDOWN` and `KEYUP` in `on_press` and `on_release` instead.
+
+* [Read more about duckyScript here](https://dekunukem.github.io/duckyPad-Pro/doc/duckyscript_info.html)
 
 ## How'd It Go?
 
