@@ -8,32 +8,17 @@ A couple of commonly encountered issues are explained here.
 
 Click a question below to jump to the answer!
 
-* [I press a key and nothing happens!](#I-press-a-key-and-nothing-happens)
-
-* [The letters and symbols come out wrong!](#The-letters-and-symbols-come-out-wrong)
-
+* [I press a key and nothing happens!](#i-press-a-key-and-nothing-happens)
+* [Letters and symbols come out wrong!](#letters-and-symbols-come-out-wrong)
 * [F13 - F24 keys doesn't work!](#f13---f24-keys-doesnt-work)
-
 * [My duckyPad stopped working on latest firmware!](#my-duckypad-stopped-working-on-latest-firmware)
-
-* [My script behaves inconsistently!](#My-script-behaves-inconsistently)
-
-* [My duckyPad seems to be getting sluggish!](#My-duckyPad-seems-to-be-getting-sluggish)
-
+* [My script behaves inconsistently!](#my-script-behaves-inconsistently)
 * [I want to use my own SD card!](#i-want-to-use-my-own-sd-card)
-
-* [The RGB backlight is flickering slightly!](#The-RGB-backlight-is-flickering-slightly)
-
-* [The RGB backlight is too bright!](#The-RGB-backlight-is-too-bright)
-
+* [RGB backlight is flickering slightly](#rgb-backlight-is-flickering-slightly)
+* [RGB backlight is too bright](#rgb-backlight-is-too-bright)
 * [The OLED screen isn't working properly!](#the-oled-screen-isnt-working-properly)
-
-* [Will the OLED suffer burn-in?](#Will-the-OLED-suffer-burn-in)
-
-* [Numpad keys doesn't work!](#Numpad-keys-doesnt-work)
-
-* [SD Card doesn't work on mac!](#SD-Card-doesnt-work-on-mac)
-
+* [Numpad keys doesn't work!](#numpad-keys-doesnt-work)
+* [SD Card doesn't work on mac!](#sd-card-doesnt-work-on-mac)
 * [USB configuration / Autoswitcher isn't working on macOS!](#usb-configuration--autoswitcher-isnt-working-on-macos)
 
 ## Join Our Discord!
@@ -104,18 +89,6 @@ You can slow it down by using `DELAY` commands.
 
 * [More info here](duckyscript_info.md#defaultdelay)
 
-## My duckyPad seems to be getting sluggish!
-
-If your duckyPad is getting slower at starting up and switching profiles, it's usually because of the SD card fragmentation.
-
-* Make a backup of the files on SD card.
-
-* Format it in [FAT32 or FAT](resources/pics/format.PNG).
-
-* Copy the files back, it should be much faster now.
-
-You can also use your [own faster SD card](#i-want-to-use-my-own-sd-card).
-
 ## I want to use my own SD card!
 
 * (Optional) Make a backup of the contents of the original SD card.
@@ -132,7 +105,7 @@ You can also use your [own faster SD card](#i-want-to-use-my-own-sd-card).
 
 ![Alt text](resources/pics/sample_pf.png)
 
-## The RGB backlight is flickering slightly!
+## RGB backlight is flickering slightly
 
 * Make sure the USB port can provide enough power.
 
@@ -140,17 +113,9 @@ You can also use your [own faster SD card](#i-want-to-use-my-own-sd-card).
 
 * Also try a different cable if possible.
 
-## The RGB backlight is too bright!
+## RGB backlight is too bright
 
 * You can adjust the brightness by **holding down `-` button**.
-
-## Will the OLED suffer burn-in?
-
-Measures have been taken to prevent OLED burn-in.
-
-* The screen dims after 5 minutes.
-
-* duckyPad goes to sleep after 30 minutes ([adjustable](getting_started.md#settings--updates)).
 
 ## The OLED screen isn't working properly!
 
@@ -198,53 +163,7 @@ If you want, you can copy the [sample profiles](https://github.com/dekuNukem/duc
 
 ## USB configuration / Autoswitcher isn't working on macOS!
 
-Due to the security restrictions of macOS, to use USB configuration and autoswitcher, you need to:
-
-* Enable "Input Monitoring" permission (for loading from USB)
-
-* Enable "Screen Recording" permission (for reading window titles)
-
-* Run the app as root
-
-### Enable permission
-
-* Open `System Preferences` -> `Security & Privacy`
-
-* Select `Input Monitoring`
-
-* Click the lock to make changes
-
-* Press the `+` button
-
-![Alt text](resources/pics/input_mon.png)
-
-* Go to `Applications` -> `Utilities`, and add `Terminal` to the list.
-
-![Alt text](resources/pics/select_term.png)
-
-* Select `Screen Recording`, and repeat the same process
-
-![Alt text](resources/pics/screen_rec.png)
-
-### Launch app as administrator
-
-* Open `System Preferences` -> `Keyboard` -> `Shortcuts` -> `Services`
-
-* Tick `New Terminal at Folder`
-
-![Alt text](resources/pics/terminal.png)
-
-* Download the latest macOS software, unzip into a folder.
-
-* `Right click` on the unzipped folder and select `New Terminal at Folder`
-
-![Alt text](resources/pics/right.png)
-
-* Type in `sh run.sh` and press enter, then enter your password.
-
-* The app should launch as administrator, and should be fully functional now.
-
-* If it still doesn't work, [let me know](#questions-or-comments)!
+[See instruction here!](https://dekunukem.github.io/duckyPad-Pro/doc/linux_macos_notes.html)
 
 ## Table of Contents
 
