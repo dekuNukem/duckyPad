@@ -87,7 +87,6 @@ Everything should load up in a few seconds.
 
 It may seem complex at first, let's break it down!
 
-
 ### Profiles
 
 * The leftmost column is for *profiles*.
@@ -106,7 +105,11 @@ Click `New` button, give it a name.
 
 * Use the `up/down/x` buttons to reorder/delete profiles.
 
-* `Activation color` is the color that a key changes into when you press it.
+----
+
+* `Keydown color` is the color that a key changes into when you press it.
+	* Default is the inverse of background color
+	* You can also set your own
 
 ### Keys
 
@@ -125,7 +128,6 @@ The middle columns are for *keys*:
 	* Do not select if you're writing your own button-checking code
 * **`Disable Auto-Repeat`**: Macro won't repeat when key is held down.
 * Click **`Rotate`** for landscape mode.
-
 
 ### Scripts
 
@@ -187,7 +189,6 @@ It might be tempting to have duckyPad type out passwords, but beware that all sc
 * A local backup is created every time you save.
 * Press `Backup...` button to access the backups.
 * To restore, [format the SD card in FAT or FAT32](resources/pics/app/format.png), then copy everything back.
-
 
 ## Tips and Tricks
 
