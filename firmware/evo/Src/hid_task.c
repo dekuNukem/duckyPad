@@ -119,7 +119,6 @@ void parse_hid_msg(uint8_t* this_msg)
   hid_tx_buf[0] = HID_DP_TO_PC_USAGE_ID; // HID usage ID
   hid_tx_buf[2] = HID_RESPONSE_OK;
 
-
 /*
   DUMP GV
   -----------
@@ -147,6 +146,41 @@ void parse_hid_msg(uint8_t* this_msg)
       uint8_t* upper_byte = &hid_tx_buf[i];
       uint8_t* lower_byte = &hid_tx_buf[i+1];
       split_uint16(gv_buf[this_gv], upper_byte, lower_byte);
+    }
+    send_hid_cmd_response(hid_tx_buf);
+    return;
+  }
+  /*
+    Write GV
+    -----------
+    PC to duckyPad:
+    [0]   Usage ID, always 5
+    [1]   Unused
+    [2]   Command
+
+    [3] 127 + GV index (0 indexed)
+    [4] Upper Byte
+    [5] Lower Byte
+
+    [6-8] next chunk (if needed)
+    etc
+    -----------
+    duckyPad to PC
+    [0]   Usage ID, always 4
+    [1]   Unused
+    [2]   Status, 0 = OK
+  */
+  else if(command_type == HID_COMMAND_WRITE_GV)
+  {
+    for (size_t i = 3; i < HID_TX_BUF_SIZE; i+=3)
+    {
+      if((this_msg[i] & 0x80) == 0)
+        continue;
+      uint8_t this_gv_index = this_msg[i] & 0x7f;
+      if(this_gv_index >= GLOBAL_VARIABLE_COUNT)
+        continue;
+      gv_buf[this_gv_index] = combine_uint16(this_msg[i+1], this_msg[i+2]);
+      needs_gv_save = 1;
     }
     send_hid_cmd_response(hid_tx_buf);
     return;

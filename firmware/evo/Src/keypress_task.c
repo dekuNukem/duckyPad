@@ -375,6 +375,12 @@ void keypress_task(void)
       last_settings_save = millis();
     }
 
+    if(needs_gv_save)
+    {
+      save_gv();
+      needs_gv_save = 0;
+    }
+
     uint32_t ms_since_last_keypress = millis() - last_keypress;
     if(ms_since_last_keypress > sleep_after_ms_index_to_time_lookup[dp_settings.sleep_index])
       start_sleeping();
