@@ -115,6 +115,12 @@ UART_HandleTypeDef huart3;
   May 23 2025
   2.1.0
   Added key caching
+
+  June 29 2025
+  2.2.0
+  Expanded Persistent Global Variables to 32
+  Fixed a bug that caused PGV to not work
+  Added HID read and write of PGVs
 */
 
 /*
@@ -126,7 +132,7 @@ UART_HandleTypeDef huart3;
 uint32_t current_tick;
 
 uint8_t fw_version_major = 2;
-uint8_t fw_version_minor = 1;
+uint8_t fw_version_minor = 2;
 uint8_t fw_version_patch = 0;
 uint8_t dsvm_version = 1;
 
@@ -164,6 +170,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     led_animation_handler();
 }
 
+// SD card eject interrupt
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   NVIC_SystemReset();
