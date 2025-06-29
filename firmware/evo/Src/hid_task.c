@@ -21,6 +21,7 @@
 #define HID_TX_BUF_SIZE (CUSTOM_HID_EPIN_SIZE+1)
 uint8_t hid_tx_buf[HID_TX_BUF_SIZE];
 
+volatile uint8_t needs_gv_save;
 volatile uint8_t is_in_file_access_mode;
 
 void enter_file_access_mode(void)
@@ -93,6 +94,19 @@ uint8_t parse_hid_goto_profile_by_name(const uint8_t* this_buf)
   return 255;
 }
 
+void split_uint16(uint16_t input, uint8_t* high_byte, uint8_t* low_byte)
+{
+  if (high_byte == NULL || low_byte == NULL)
+    return;
+  *high_byte = (input >> 8) & 0xFF;
+  *low_byte = input & 0xFF;
+}
+
+uint16_t combine_uint16(uint8_t high_byte, uint8_t low_byte)
+{
+  return ((uint16_t)high_byte << 8) | low_byte;
+}
+
 void parse_hid_msg(uint8_t* this_msg)
 {
   // printf("%ld HID MSG:\n", millis());
@@ -105,13 +119,45 @@ void parse_hid_msg(uint8_t* this_msg)
   hid_tx_buf[0] = HID_DP_TO_PC_USAGE_ID; // HID usage ID
   hid_tx_buf[2] = HID_RESPONSE_OK;
 
+
+/*
+  DUMP GV
+  -----------
+  PC to duckyPad:
+  [0]   Usage ID, always 5
+  [1]   Unused
+  [2]   Command
+  -----------
+  duckyPad to PC
+  [0]   Usage ID, always 4
+  [1]   Unused
+  [2]   Status, 0 = OK
+  [3-4] GV0
+  [5-6] GV1
+  .....
+  [61-62] GV29
+  */
+  if(command_type == HID_COMMAND_DUMP_GV)
+  {
+    for (size_t i=3; i < HID_TX_BUF_SIZE; i+=2)
+    {
+      uint8_t this_gv = (i-3)/2;
+      if(this_gv >= GLOBAL_VARIABLE_COUNT)
+        continue;
+      uint8_t* upper_byte = &hid_tx_buf[i];
+      uint8_t* lower_byte = &hid_tx_buf[i+1];
+      split_uint16(gv_buf[this_gv], upper_byte, lower_byte);
+    }
+    send_hid_cmd_response(hid_tx_buf);
+    return;
+  }
   /*
     duckyPad to PC
     [0]   Usage ID, always 4
     [1]   Unused
     [2]   Status
   */
-  if(is_busy)
+  else if(is_busy)
   {
     hid_tx_buf[2] = HID_RESPONSE_BUSY;
     send_hid_cmd_response(hid_tx_buf);
