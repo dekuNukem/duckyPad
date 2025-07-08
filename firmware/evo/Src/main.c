@@ -121,6 +121,10 @@ UART_HandleTypeDef huart3;
   Expanded Persistent Global Variables to 32
   Fixed a bug that caused PGV to not work
   Added HID read and write of PGVs
+
+  July 8 2025
+  2.3.2
+  Fixed a bug where HID buffer was not properly cleared
 */
 
 /*
@@ -132,8 +136,8 @@ UART_HandleTypeDef huart3;
 uint32_t current_tick;
 
 uint8_t fw_version_major = 2;
-uint8_t fw_version_minor = 2;
-uint8_t fw_version_patch = 0;
+uint8_t fw_version_minor = 3;
+uint8_t fw_version_patch = 2;
 uint8_t dsvm_version = 1;
 
 uint8_t uart_byte_buf[1];

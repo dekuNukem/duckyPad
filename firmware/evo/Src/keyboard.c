@@ -299,6 +299,7 @@ void keyboard_release_all(void)
   memset(kb_buf, 0, DP_HID_MSG_SIZE);
   kb_buf[0] = HID_USAGE_ID_KEYBOARD;
   USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, kb_buf, DP_HID_MSG_SIZE);
+  memset(kb_buf, 0, DP_HID_MSG_SIZE);
 }
 
 uint8_t is_mouse_type(my_key* this_key)
@@ -311,6 +312,7 @@ void media_key_release(void)
   memset(kb_buf, 0, DP_HID_MSG_SIZE);
   kb_buf[0] = HID_USAGE_ID_MEDIA_KEY;
   USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, kb_buf, DP_HID_MSG_SIZE);
+  memset(kb_buf, 0, DP_HID_MSG_SIZE);
 }
 
 void media_key_press(my_key* this_key)
@@ -319,6 +321,7 @@ void media_key_press(my_key* this_key)
   kb_buf[0] = HID_USAGE_ID_MEDIA_KEY;
   kb_buf[1] = this_key->code;
   USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, kb_buf, DP_HID_MSG_SIZE);
+  memset(kb_buf, 0, DP_HID_MSG_SIZE);
 }
 
 uint8_t should_use_mod(uint8_t ttt)
@@ -355,10 +358,12 @@ void mouse_press(my_key* this_key)
     kb_buf[4] = this_key->code;
   }
   USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, kb_buf, DP_HID_MSG_SIZE);
+  memset(kb_buf, 0, DP_HID_MSG_SIZE);
 }
 
 void mouse_release(my_key* this_key)
 {
+  memset(kb_buf, 0, DP_HID_MSG_SIZE);
   kb_buf[0] = HID_USAGE_ID_MOUSE;
   if(this_key->type == KEY_TYPE_MOUSE_BUTTON)
   {
@@ -374,6 +379,7 @@ void mouse_release(my_key* this_key)
     kb_buf[4] = 0;
   }
   USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, kb_buf, DP_HID_MSG_SIZE);
+  memset(kb_buf, 0, DP_HID_MSG_SIZE);
 }
 
 void mouse_release_all(void)
@@ -381,6 +387,7 @@ void mouse_release_all(void)
   memset(kb_buf, 0, DP_HID_MSG_SIZE);
   kb_buf[0] = HID_USAGE_ID_MOUSE;
   USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, kb_buf, DP_HID_MSG_SIZE);
+  memset(kb_buf, 0, DP_HID_MSG_SIZE);
 }
 
 void action_press(my_key* this_key, uint8_t use_mod)
