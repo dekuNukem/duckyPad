@@ -590,7 +590,7 @@ void handle_hid_command(uint8_t* hid_rx_buf)
     kb_led_status = hid_rx_buf[1];
   else if(hid_rx_buf[0] == 5) // PC data
     parse_hid_msg(hid_rx_buf);
-  printf("HID %ldms\n", millis() - ke_start);
+  // printf("HID %ldms\n", millis() - ke_start);
 }
 
 #define PROFILE_OVERFLOW 255

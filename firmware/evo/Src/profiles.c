@@ -76,14 +76,14 @@ uint8_t load_settings(dp_global_settings* dps)
   return 0;
 }
 
+char new_buf[TEMP_BUFSIZE];
 uint8_t save_settings(dp_global_settings* dps)
 {
   if(dps == NULL)
     return 1;
-  if(f_open(&sd_file, settings_file_path, FA_WRITE | FA_CREATE_ALWAYS))
-    return 2;
-  f_printf(
-    &sd_file,
+
+  int newstr_len = snprintf(
+    new_buf, TEMP_BUFSIZE,
     "%s%d\n"
     "%s%d\n"
     "%s%d\n"
@@ -95,7 +95,30 @@ uint8_t save_settings(dp_global_settings* dps)
     fw_version_major, fw_version_minor, fw_version_patch,
     config_keyboard_layout, dps->current_kb_layout
   );
+
+  printf("new buf: %d bytes\n", newstr_len);
+  if(newstr_len <= 0 || newstr_len >= TEMP_BUFSIZE)
+    return 3; // Formatting error or buffer overflow
+
+  CLEAR_TEMP_BUF();
+  if(f_open(&sd_file, settings_file_path, FA_READ) == FR_OK)
+  {
+    f_read(&sd_file, temp_buf, TEMP_BUFSIZE, &bytes_read);
+    printf("old settings: %d bytes\n", bytes_read);
+  }
   f_close(&sd_file);
+
+  if(strncmp(temp_buf, new_buf, TEMP_BUFSIZE) == 0)
+  {
+    printf("contents are the same\n");
+    return 0;
+  }
+
+  printf("wtf\n");
+  f_open(&sd_file, settings_file_path, FA_WRITE | FA_CREATE_ALWAYS);
+  f_write(&sd_file, new_buf, newstr_len, &bytes_written);
+  f_close(&sd_file);
+  printf("settings written\n");
   return 0;
 }
 
