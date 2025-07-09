@@ -6,13 +6,21 @@
 
 ## Latest Firmware
 
-### 2.1.0 (May 24 2025)
+### 2.3.2 (July 9 2025)
 
-🆕 Reduced latency by caching recent keypresses
+🆕 Increased Persistent Global Variable count to 32
+
+🆕 Added support for **reading and writing PGVs from a computer**. [Details](https://github.com/duckyPad/duckyPad-Profile-Autoswitcher/blob/master/HID_details.md)
+
+🐞 Fixed a bug that caused PGVs to not work
+
+🐞 Fixed a bug where HID buffer was not properly cleared causing ghost inputs
+
+🐞 Fixed a bug that increased chance of SD card corruption
 
 ⚠️ Make sure to use the [Latest Configurator](https://github.com/duckyPad/duckyPad-Configurator/releases/latest)
 
-👉👉👉👉👉 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v2.1.0.dfu) 👈👈👈👈👈
+👉👉👉👉👉 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v2.3.2.dfu) 👈👈👈👈👈
 
 ## USB Firmware Update
 
@@ -80,6 +88,11 @@ After completion, press **`RESET`** button (or power-cycle) to start using the n
 
 ## Firmware Version History
 
+### 2.1.0 (May 24 2025)
+
+🆕 Reduced latency by caching recent keypresses
+
+⚠️ Make sure to use the [Latest Configurator](https://github.com/duckyPad/duckyPad-Configurator/releases/latest)
 
 ### 2.0.0 (Apr 7 2025)
 
