@@ -125,6 +125,7 @@ UART_HandleTypeDef huart3;
   July 8 2025
   2.3.2
   Fixed a bug where HID buffer was not properly cleared
+  reverted to old settings save function to reduce SD card corruption
 */
 
 /*

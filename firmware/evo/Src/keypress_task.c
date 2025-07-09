@@ -358,7 +358,6 @@ void file_access_mode_task(void)
   }
 }
 
-uint32_t last_settings_save;
 
 void keypress_task(void)
 {
@@ -368,12 +367,6 @@ void keypress_task(void)
 
     if(is_in_file_access_mode)
       file_access_mode_task();
-    
-    if(millis() - last_settings_save > 5000)
-    {
-      save_settings(&dp_settings);
-      last_settings_save = millis();
-    }
 
     if(needs_gv_save)
     {
