@@ -54,11 +54,9 @@ In `Available DFU Devices`, you should see a `STM Device in DFU Mode`.
 
 * **If nothing shows up**, you might need to install a driver. [Click me for details](https://github.com/dekuNukem/daytripper/blob/master/dfu_driver_install.md)
 
-Press `Choose...` button and select a firmware file in `.dfu` format.
+* Press `Choose...` button
 
-* [Click me](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v2.0.0.dfu) to download the latest firmware (v2.0.0)
-
-* ...or [scroll down](#firmware-version-history) for older firmware versions.
+* Select the firmware file you just downloaded. Shoud be in `.dfu` format .
 
 ![Alt text](resources/pics/dfu_choose.png)
 
