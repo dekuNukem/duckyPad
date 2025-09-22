@@ -153,7 +153,7 @@ In `AZERTY Belgium` layout, when we press this key, it will print out `²` chara
 
 Now we need to find it in the keymap file, and map it to the corresponding HID code.
 
-Search `²` in the file, we find it at [line 185](sample_profiles/keymaps/keymap_template_eng_us.txt#L185). Its ASCII code is `0xb2`, and right now it looks like this:
+Search `²` in the file, we find it at [line 194](sample_profiles/keymaps/keymap_template_eng_us.txt#L185). Its ASCII code is `0xb2`, and right now it looks like this:
 
 `0xb2 0x0000 // ²`
 
@@ -169,7 +169,7 @@ That's it for this character!
 
 However, we're not done yet! When you press this key with `SHIFT`, `³` is printed out.
 
-As before, find `³` in the file, which is at [line 186](sample_profiles/keymaps/keymap_template_eng_us.txt#L186):
+As before, find `³` in the file, which is at [line 186](sample_profiles/keymaps/keymap_template_eng_us.txt#L195):
 
 `0xb3 0x0000 // ³`
 
