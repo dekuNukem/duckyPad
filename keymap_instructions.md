@@ -8,7 +8,7 @@ Note that I'm no expert on keyboard technicalities, I barely got this thing to w
 
 ## (Short Story of) HID Usage ID
 
-When you press a key, you keyboard sends a **`USB HID Usage ID`** to the computer, so it knows which key is pressed.
+When you press a key, the keyboard sends a **`USB HID Usage ID`** to the computer, to let it know which key was pressed.
 
 Each key has a unique HID Usage ID, you can [find a list here](https://gist.github.com/MightyPork/6da26e382a7ad91b5496ee55fdc73db2).
 
@@ -18,7 +18,7 @@ duckyPad works by acting as a regular USB keyboard, and sending HID Usage IDs to
 
 The kicker is, HID Usage ID corresponds to the `PHYSICAL LOCATION` of a key on the keyboard, NOT what it says on the key itself!
 
-For example, here is a `ANSI QWERTY keyboard (US)`, very popular in US and other parts of the world.
+For example, here is a `ANSI QWERTY keyboard (US)`, popular in US and other parts of the world.
 
 * The red number is the HID Usage ID (in hexadecimal) that will be sent when pressed.
 
@@ -30,7 +30,9 @@ Now let's see what happens on a `Dvorak (US layout)` keyboard:
 
 Notice how the **HID Usage ID stays the same** while **labels on the key change!**
 
-Therefore, it is important to understand that the keyboard only tells `WHERE` a key is pressed, and it's **`up to the operating system`** to determine `WHAT` character the key should produce. In modern OSs, you can set multiple keyboard layouts:
+Therefore, it is important to understand that the keyboard only tells `WHERE` a key is pressed, and it's **`up to the operating system`** to determine **`what character`** the key should produce.
+
+In modern OSs, you can set multiple keyboard layouts:
 
 ![Alt text](resources/pics/keymaps/inputs.png)
 
@@ -40,7 +42,7 @@ This creates an issue when it comes to input automation on duckyPad. Consider th
 
 `STRING fox`
 
-duckyPad will simply types out `fox`, but what code should it send? 
+duckyPad will simply types out `fox`, but *what code should it send?*
 
 Remember that HID Usage ID (red numbers) corresponds to the `PHYSICAL LOCATION` of a key. So if we assume `English (US)` layout, it should send out `0x09, 0x12, 0x1b`:
 
@@ -84,11 +86,11 @@ Here is a snippet from [`Dvorak (US)`](sample_profiles/keymaps/dpkm_Dvorak%20(US
 
 * The file name must start with `dpkm_` and end with the extension of `.txt`.
 
-* Inside, it should contain lines of **two hexadecimal numbers** (plus optional comment) like above.
+* Inside, it should contain lines of **two hexadecimal numbers** (plus optional comments) like above.
 
 * The first **2-digit hexadecimal number** is the [ASCII code of a character](https://www.ascii-code.com/).
 
-* The second **4-digit hexadecimal number** is called a `duckcode`, which will be explained below.
+* The second **4-digit hexadecimal number** is called a `duckcode`, explained below.
 
 ### duckcode
 
@@ -96,17 +98,16 @@ duckcode is an `unsigned 16-bit number` containing the HID Usage Code and some o
 
 ![Alt text](resources/pics/keymaps/duckcode.png)
 
-* The `lower 8 bits` is the HID Usage Code, refer to the [keyboard diagrams above](#keyboard-layouts).
+* The `lower 8 bits` is the `HID Usage ID` of the key that you want to press.
+	* Shown on the [keyboard diagrams above](#keyboard-layouts)
+* `Bit 8` is `SHIFT`, set to 1 to press it alongside the key.
+	* For upper-case and symbols.
+* `Bit 9` is `Alt Gr`, produces additional characters on European keyboards.
+	* Works the same way.
+* `Top 4 bits` are for `Dead Keys`.
+	* They do nothing on their own, but adds accents on the base keys.
 
-* `Bit 8` is `SHIFT`, set it to 1 to press it along with HID Usage Code. This is used for upper-case and symbols.
-
-* `Bit 9` is `Alt Gr`, which produces additional characters on European keyboards, works the same way.
-
-* `Top 4 bits` are for `Dead Keys`. They don't produce a character on their own, but modify the appearance of the next character.
-
-* In this case, setting the appropriate bit adds accents on the base keys. It works like this:
-
-![Alt text](resources/pics/keymaps/dead.png)
+![Alt text](resources/pics/keymaps/xxxx.png)
 
 ## Making Your Own Keymap: Step-by-Step
 
@@ -140,7 +141,7 @@ Let's say you want to make a keymap for `AZERTY Belgium` layout:
 
 ### Modify keymap entries
 
-You can start from an [empty keymap](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_empty.txt), or from the [default `English (US)` keymap](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_eng_us.txt), or from a [similar existing layout](sample_profiles/keymaps). Either way, download and open it in a text editor.
+You can start from an [empty keymap](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_empty.txt), or from the [default `English (US)` keymap](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_eng_us.txt), or from a [similar existing layout](sample_profiles/keymaps). Either way, download and open in a text editor.
 
 For this example, we'll be starting from [`English (US)` keymap](https://raw.githubusercontent.com/dekuNukem/duckyPad/master/sample_profiles/keymaps/keymap_template_eng_us.txt).
 
@@ -152,7 +153,7 @@ In `AZERTY Belgium` layout, when we press this key, it will print out `²` chara
 
 Now we need to find it in the keymap file, and map it to the corresponding HID code.
 
-Simply search `²` in the file, we find it at [line 185](sample_profiles/keymaps/keymap_template_eng_us.txt#L185). Its ASCII code is `0xb2`, and right now it looks like this:
+Search `²` in the file, we find it at [line 185](sample_profiles/keymaps/keymap_template_eng_us.txt#L185). Its ASCII code is `0xb2`, and right now it looks like this:
 
 `0xb2 0x0000 // ²`
 
@@ -172,7 +173,7 @@ As before, find `³` in the file, which is at [line 186](sample_profiles/keymaps
 
 `0xb3 0x0000 // ³`
 
-It is also currently unmapped. Since we need to press `SHIFT` to get this character, the `SHIFT` bit needs to be set in the duckcode, and it would be `0x0135`. Note how the HID Usage ID part stays the same.
+It is also unmapped. Since we need to press `SHIFT` to get this character, the second digit should be `1`, so the duckcode would be `0x0135`. Note how the HID Usage ID part stays the same.
 
 So we change the line into:
 
@@ -186,19 +187,19 @@ As another example, let's move on to the next key:
 
 ![Alt text](resources/pics/keymaps/be2.png)
 
-When you press this key, `&` will be printed out. Yes you heard that right, it is inverted in this layout!
+When you press this key, `&` will be printed out. Yes that's right, it is inverted in this layout!
 
-It should be clear that duckcode for this character is `0x001e`.
+It should be clear that duckcode for `&` is `0x001e`.
 
 As usual, go find `&` in the file, and set the duckcode:
 
 `0x26 0x001e // &`
 
-When you press this key with `SHIFT`, `1` is printed out. Therefore its duckcode should have the `SHIFT` bit set, which is `0x011e`. The line therefore should be:
+When you press this key with `SHIFT`, `1` is printed out. Therefore its duckcode should have the `SHIFT` set, which is `0x011e`. The line therefore should be:
 
 `0x31 0x011e // 1`
 
-However, we have a *third* character on this key! `|` is printed by pressing the `AltGr` key. So we need to set the `AltGr` bit in duckcode for this character, which would be `0x021e`.
+However, we have a *third* character on this key! `|` is printed by pressing the `AltGr` key. So we need to set the `AltGr` in duckcode for this character, which would be `0x021e`.
 
 Again, find the line and update the duckcode:
 
@@ -235,7 +236,7 @@ The hexadecimal number is the duckcode for the dead key, and some of them will n
 
 If a dead key doesn't exist, set it to 0x0000.
 
-Afterwards, [set the dead key bits in duckcode](#duckcode) with HID code of regular letters to get those letters with accents: 
+Afterwards, [set the dead key in duckcode](#duckcode) with HID code of regular letters to get those letters with accents: 
 
 ```
 0xd2 0x1112 // Ò
@@ -251,7 +252,7 @@ Afterwards, [set the dead key bits in duckcode](#duckcode) with HID code of regu
 0xf6 0x5012 // ö
 ```
 
-To type symbols on the dead keys themselves, set the appropriate dead key bits along with HID code `0x2c`:
+To type symbols on the dead keys themselves, set the appropriate dead key along with HID code `0x2c` (space):
 
 ```
 0x60 0x102c // `
