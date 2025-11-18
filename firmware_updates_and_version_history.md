@@ -78,7 +78,7 @@ Using terminal, install [dfu-util](http://dfu-util.sourceforge.net/) with a pack
 
 Hold DFU button and connect duckyPad, then run:
 
-`dfu-util --device ,0483:df11 -a 0 -D /path/to/duckypad_firmware.dfu`
+`sudo dfu-util --device ,0483:df11 -a 0 -D /path/to/duckypad_firmware.dfu`
 
 After completion, press **`RESET`** button (or power-cycle) to start using the new firmware. 
 
