@@ -329,7 +329,7 @@ void handle_sw_event(switch_event_t* this_sw_event)
   uint32_t ke_start = millis();
   process_keyevent(this_sw_event->id, this_sw_event->type);
   uint32_t execution_duration = millis() - ke_start;
-  printf("took %ldms\n", execution_duration);
+  // printf("took %ldms\n", execution_duration);
   if(execution_duration > 750)
     clear_sw_queue();
 }
