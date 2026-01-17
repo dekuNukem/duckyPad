@@ -435,9 +435,9 @@ void action_press(my_key* this_key, uint8_t use_mod)
       kb_buf[1] |= KEY_RIGHT_ALT;
   }
   duckcode = duckcode & 0xff;
-  if(kb_buf[2] != duckcode && kb_buf[3] != duckcode && kb_buf[4] != duckcode && kb_buf[5] != duckcode && kb_buf[6] != duckcode && kb_buf[7] != duckcode)
+  if(kb_buf[3] != duckcode && kb_buf[4] != duckcode && kb_buf[5] != duckcode && kb_buf[6] != duckcode && kb_buf[7] != duckcode && kb_buf[8] != duckcode)
   {
-    for (int i = 2; i < DP_HID_MSG_SIZE; ++i)
+    for (int i = 3; i < DP_HID_MSG_SIZE; ++i)
       if(kb_buf[i] == 0)
       {
         kb_buf[i] = (uint8_t)duckcode;
@@ -445,6 +445,7 @@ void action_press(my_key* this_key, uint8_t use_mod)
       }
   }
   kb_buf[0] = HID_USAGE_ID_KEYBOARD;
+  kb_buf[2] = 0;
   USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, kb_buf, DP_HID_MSG_SIZE);
 }
 
@@ -493,7 +494,7 @@ void action_release(my_key* this_key)
       kb_buf[1] &= ~(KEY_RIGHT_ALT);
   }
   duckcode = duckcode & 0xff;
-  for (int i = 2; i < DP_HID_MSG_SIZE; ++i)
+  for (int i = 3; i < DP_HID_MSG_SIZE; ++i)
     if(kb_buf[i] == (uint8_t)duckcode)
       kb_buf[i] = 0;
   kb_buf[0] = HID_USAGE_ID_KEYBOARD;
