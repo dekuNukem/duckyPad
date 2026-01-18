@@ -551,7 +551,7 @@ void my_snprintf(const char* format, uint32_t value, char* buf, uint32_t buf_siz
   if (buf == NULL || buf_size == 0)
     return;
   if (format == NULL || strlen(format) == 0)
-    snprintf(buf, buf_size, "%ld", (int32_t)value);
+    snprintf(buf, buf_size, "%d", (int32_t)value);
   else 
     snprintf(buf, buf_size, format, value);
 }

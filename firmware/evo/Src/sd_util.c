@@ -22,10 +22,8 @@
 
 #define CAP_VER2_00 (1<<0)
 #define CAP_SDHC  (1<<1)
-#define SD_UTIL_BUF_SIZE 512
 
 enum sd_speed { SD_SPEED_INVALID, SD_SPEED_400KHZ, SD_SPEED_25MHZ };
-char sd_util_buf[SD_UTIL_BUF_SIZE];
 
 /*** spi functions ***/
 

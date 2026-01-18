@@ -11,7 +11,7 @@
 #include "neopixel.h"
 #include "fatfs.h"
 
-#define FILENAME_BUFSIZE 64
+#define FILENAME_BUFSIZE 48
 #define MAX_PROFILES 32
 #define KEYNAME_SIZE 8
 #define PROFILE_NAME_MAX_LEN 16

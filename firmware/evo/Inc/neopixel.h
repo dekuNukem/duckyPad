@@ -58,7 +58,7 @@ void draw_settings_led(void);
 void get_current_color(uint8_t which, uint8_t* red, uint8_t* green, uint8_t* blue);
 void halt_all_animations(void);
 
-extern uint8_t brightness_index_to_percent_lookup[BRIGHTNESS_LEVEL_SIZE];
+extern const uint8_t brightness_index_to_percent_lookup[BRIGHTNESS_LEVEL_SIZE];
 extern volatile uint32_t frame_counter;
 
 #ifdef __cplusplus

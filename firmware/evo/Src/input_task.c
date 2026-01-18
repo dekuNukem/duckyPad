@@ -11,7 +11,7 @@ Queue_t switch_event_queue;
 
 uint8_t this_sw_state[MAX_TOTAL_SW_COUNT];
 uint8_t last_sw_state[MAX_TOTAL_SW_COUNT];
-uint32_t last_press_ts[MAX_TOTAL_SW_COUNT];
+uint32_t last_press_ts[TOTAL_OBSW_COUNT];
 
 void switch_init(void)
 {

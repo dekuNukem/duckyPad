@@ -71,14 +71,14 @@ void neopixel_show(uint8_t* red, uint8_t* green, uint8_t* blue, uint8_t brightne
 //---------------- animation code below ----------------
 
 volatile uint32_t frame_counter;
-uint8_t pixel_map[NEOPIXEL_COUNT] = {2, 1, 0, 3, 4, 5, 8, 7, 6, 9, 10, 11, 14, 13, 12};
+const uint8_t pixel_map[NEOPIXEL_COUNT] = {2, 1, 0, 3, 4, 5, 8, 7, 6, 9, 10, 11, 14, 13, 12};
 uint8_t red_buf[NEOPIXEL_COUNT];
 uint8_t green_buf[NEOPIXEL_COUNT];
 uint8_t blue_buf[NEOPIXEL_COUNT];
 
 led_animation neo_anime[NEOPIXEL_COUNT];
-uint8_t color_red[THREE] = {64 , 0, 0};
-uint8_t brightness_index_to_percent_lookup[BRIGHTNESS_LEVEL_SIZE] = {100, 70, 50, 20, 0};
+const uint8_t color_red[THREE] = {64 , 0, 0};
+const uint8_t brightness_index_to_percent_lookup[BRIGHTNESS_LEVEL_SIZE] = {100, 70, 50, 20, 0};
 
 void set_pixel_3color(uint8_t which, uint8_t r, uint8_t g, uint8_t b)
 {

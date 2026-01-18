@@ -335,7 +335,7 @@ void handle_sw_event(switch_event_t* this_sw_event)
     clear_sw_queue();
 }
 
-uint32_t sleep_after_ms_index_to_time_lookup[SLEEP_OPTION_SIZE] = {
+const uint32_t sleep_after_ms_index_to_time_lookup[SLEEP_OPTION_SIZE] = {
   2*ONE_MINUTE_IN_MS,
   5*ONE_MINUTE_IN_MS,
   15*ONE_MINUTE_IN_MS,
