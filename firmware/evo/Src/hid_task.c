@@ -138,15 +138,6 @@ void parse_hid_msg(uint8_t* this_msg)
   */
   if(command_type == HID_COMMAND_DUMP_GV)
   {
-    for (size_t i=3; i < HID_TX_BUF_SIZE; i+=2)
-    {
-      uint8_t this_gv = (i-3)/2;
-      if(this_gv >= GLOBAL_VARIABLE_COUNT)
-        continue;
-      uint8_t* upper_byte = &hid_tx_buf[i];
-      uint8_t* lower_byte = &hid_tx_buf[i+1];
-      split_uint16(gv_buf[this_gv], upper_byte, lower_byte);
-    }
     send_hid_cmd_response(hid_tx_buf);
     return;
   }
@@ -172,16 +163,6 @@ void parse_hid_msg(uint8_t* this_msg)
   */
   else if(command_type == HID_COMMAND_WRITE_GV)
   {
-    for (size_t i = 3; i < HID_TX_BUF_SIZE; i+=3)
-    {
-      if((this_msg[i] & 0x80) == 0)
-        continue;
-      uint8_t this_gv_index = this_msg[i] & 0x7f;
-      if(this_gv_index >= GLOBAL_VARIABLE_COUNT)
-        continue;
-      gv_buf[this_gv_index] = combine_uint16(this_msg[i+1], this_msg[i+2]);
-      needs_gv_save = 1;
-    }
     send_hid_cmd_response(hid_tx_buf);
     return;
   }
@@ -647,7 +628,7 @@ void sd_walk(uint8_t* res_buf)
       return;
     }
     CLEAR_TEMP_BUF();
-    sprintf(temp_buf, "/profile_%s", profile_name_list[sd_walk_current_profile_number]);
+    snprintf(temp_buf, TEMP_BUFSIZE, "/profile_%s", profile_name_list[sd_walk_current_profile_number]);
     printf("In dir: %s\n", temp_buf);
     if(f_opendir(&dir, temp_buf))
       draw_fatal_error(20);
@@ -693,7 +674,7 @@ void sd_walk(uint8_t* res_buf)
 uint8_t make_file_walk_hid_packet(char* file_name, char* profile_name, uint8_t* tx_buf)
 {
   CLEAR_TEMP_BUF();
-  sprintf(temp_buf, "/profile_%s/%s", profile_name, this_file_name);
+  snprintf(temp_buf, TEMP_BUFSIZE, "/profile_%s/%s", profile_name, this_file_name);
   if(f_open(&sd_file, temp_buf, FA_READ))
     draw_fatal_error(30);
   uint32_t this_file_size = f_size(&sd_file);

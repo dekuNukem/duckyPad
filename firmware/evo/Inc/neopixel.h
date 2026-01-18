@@ -19,6 +19,9 @@
 #define ANIMATION_CROSS_FADE 1
 
 #define THREE 3
+#define RED 0
+#define GREEN 1
+#define BLUE 2
 #define DEFAULT_BG_RED 64
 #define DEFAULT_BG_GREEN 16
 #define DEFAULT_BG_BLUE 255

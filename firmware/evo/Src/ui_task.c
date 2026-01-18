@@ -7,7 +7,7 @@
 #include "profiles.h"
 #include "ds_vm.h"
 
-#define OLED_LINE_BUF_SIZE 64
+#define OLED_LINE_BUF_SIZE 32
 char oled_line_buf[OLED_LINE_BUF_SIZE];
 
 #define OLED_CHAR_WIDTH_PIXELS 6
@@ -36,27 +36,27 @@ void draw_nosd(void)
   ssd1306_Fill(Black);
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  sprintf(oled_line_buf, "duckyPad V%d.%d.%d", fw_version_major, fw_version_minor, fw_version_patch);
+  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "duckyPad V%d.%d.%d", fw_version_major, fw_version_minor, fw_version_patch);
   ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 0);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  sprintf(oled_line_buf, "Please Insert");
+  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "Please Insert");
   ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 15);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  sprintf(oled_line_buf, "SD card");
+  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "SD card");
   ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 27);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  sprintf(oled_line_buf, "Instructions:");
+  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "Instructions:");
   ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 41);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  sprintf(oled_line_buf, "duckyPad.com");
+  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "duckyPad.com");
   ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 53);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
@@ -68,18 +68,18 @@ void draw_noprofile(void)
   ssd1306_Fill(Black);
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  sprintf(oled_line_buf, "No Valid Profiles");
+  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "No Valid Profiles");
   ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 10);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  sprintf(oled_line_buf, "Use Latest");
+  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "Use Latest");
   ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 30);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  sprintf(oled_line_buf, "Configurator");
+  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "Configurator");
   ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 43);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
@@ -139,7 +139,7 @@ void draw_current_profile(void)
   ssd1306_Fill(Black);
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  sprintf(oled_line_buf, "%s", profile_name_list[current_profile_number]);
+  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "%s", profile_name_list[current_profile_number]);
 	ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 0);
 	ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
@@ -167,7 +167,7 @@ void draw_settings(dp_global_settings *dps)
   ssd1306_Fill(Black);
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  sprintf(oled_line_buf, "Settings V%d.%d.%d", fw_version_major, fw_version_minor, fw_version_patch);
+  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "Settings V%d.%d.%d", fw_version_major, fw_version_minor, fw_version_patch);
   ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 0);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
@@ -176,21 +176,21 @@ void draw_settings(dp_global_settings *dps)
 //------------------------------
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  sprintf(oled_line_buf, "1-Brightness %d%%", brightness_index_to_percent_lookup[dps->brightness_index]);
+  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "1-Brightness %d%%", brightness_index_to_percent_lookup[dps->brightness_index]);
   ssd1306_SetCursor(0, 13);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
 //------------------------------
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  sprintf(oled_line_buf, "2-Sleep: %s", sleep_index_to_string_lookup[dps->sleep_index]);
+  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "2-Sleep: %s", sleep_index_to_string_lookup[dps->sleep_index]);
   ssd1306_SetCursor(0, 25);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
 //------------------------------
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  sprintf(oled_line_buf, "3-Keyboard Region");
+  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "3-Keyboard Region");
   ssd1306_SetCursor(0, 37);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
@@ -223,29 +223,29 @@ void draw_exe_error(uint8_t err_code)
   ssd1306_Fill(Black);
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  sprintf(oled_line_buf, "Execution Error");
+  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "Execution Error");
   ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 0);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
   ssd1306_Line(0,10,128,10,White);
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  sprintf(oled_line_buf, "Error Code: %d", err_code);
+  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "Error Code: %d", err_code);
   ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 15);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  sprintf(oled_line_buf, "Open & Save");
+  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "Open & Save");
   ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 27);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  sprintf(oled_line_buf, "on PC app");
+  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "on PC app");
   ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 39);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  sprintf(oled_line_buf, "Press Any Key");
+  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "Press Any Key");
   ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 53);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
@@ -255,7 +255,7 @@ void draw_exe_error(uint8_t err_code)
 void draw_fatal_error(uint8_t err_code)
 {
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  sprintf(oled_line_buf, "Fatal Error:%d", err_code);
+  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "Fatal Error:%d", err_code);
   oled_say(oled_line_buf);
   while(1)
   {

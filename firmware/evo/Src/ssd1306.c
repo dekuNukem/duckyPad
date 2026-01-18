@@ -325,3 +325,12 @@ void ssd1306_FillRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, SSD13
     }
     return;
 }
+
+
+void ssd1306_GetCursor(uint8_t *x, uint8_t *y)
+{
+    if(x)
+        *x = SSD1306.CurrentX;
+    if(y)
+        *y = SSD1306.CurrentY;
+}

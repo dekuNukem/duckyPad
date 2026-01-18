@@ -49,14 +49,15 @@ static inline uint8_t is_plus_minus_button(uint8_t swid)
   return swid == SW_MINUS || swid == SW_PLUS;
 }
 
-ds3_exe_result this_exe;
+exe_context this_exe;
 
-void der_init(ds3_exe_result* der)
+void exe_ctx_init(exe_context* ctx)
 {
-  der->result = EXE_OK;
-  der->next_pc = 0;
-  der->data = 0;
-  der->epilogue_actions = 0;
+  ctx->result = EXE_OK;
+  ctx->this_pc = 0;
+  ctx->next_pc = 0;
+  ctx->data = 0;
+  ctx->epilogue_actions = 0;
 }
 
 #define DSB_ALLOW_AUTOREPEAT 0
@@ -64,7 +65,7 @@ void der_init(ds3_exe_result* der)
 #define DSB_DONT_REPEAT_RETURN_IMMEDIATELY 2
 uint8_t run_once(uint8_t swid, char* dsb_path, uint8_t* to_increment)
 {
-  der_init(&this_exe);
+  exe_ctx_init(&this_exe);
 
   uint8_t is_press = strstr(dsb_path, key_release_file_string) == NULL;
   uint8_t is_cached = dsbc_search(current_profile_number, swid, is_press, dsvm_cached_data);
@@ -92,7 +93,7 @@ uint8_t run_once(uint8_t swid, char* dsb_path, uint8_t* to_increment)
     return DSB_DONT_PLAY_KEYUP_ANIMATION_RETURN_IMMEDIATELY;
   }
 
-  if(this_exe.epilogue_actions & EPILOGUE_SAVE_GV)
+  if(this_exe.epilogue_actions & EPILOGUE_SAVE_PGV)
   {
     save_gv();
   }
@@ -272,10 +273,10 @@ void process_keyevent(uint8_t swid, uint8_t event_type)
     return; // just in case lol
 
   memset(dsb_on_press_path_buf, 0, FILENAME_BUFSIZE);
-  sprintf(dsb_on_press_path_buf, "/profile_%s/key%d.dsb", profile_name_list[current_profile_number], swid+1);
+  snprintf(dsb_on_press_path_buf, FILENAME_BUFSIZE, "/profile_%s/key%d.dsb", profile_name_list[current_profile_number], swid+1);
 
   memset(dsb_on_release_path_buf, 0, FILENAME_BUFSIZE);
-  sprintf(dsb_on_release_path_buf, "/profile_%s/key%d-release.dsb", profile_name_list[current_profile_number], swid+1);
+  snprintf(dsb_on_release_path_buf, FILENAME_BUFSIZE, "/profile_%s/key%d-release.dsb", profile_name_list[current_profile_number], swid+1);
 
   if(event_type == SW_EVENT_SHORT_PRESS)
     onboard_offboard_switch_press(swid, dsb_on_press_path_buf);

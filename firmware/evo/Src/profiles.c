@@ -133,7 +133,7 @@ uint8_t scan_profiles(void)
     this_profile_name = goto_next_arg(read_buffer, read_buffer + strlen(read_buffer));
     strip_newline(this_profile_name, PROFILE_NAME_MAX_LEN);
     CLEAR_TEMP_BUF();
-    sprintf(temp_buf, "/profile_%s/config.txt", this_profile_name);
+    snprintf(temp_buf, TEMP_BUFSIZE, "/profile_%s/config.txt", this_profile_name);
     if(f_stat(temp_buf, &fno)) // profile does not exist
       continue;
     memset(profile_name_list[this_profile_number], 0, PROFILE_NAME_MAX_LEN);
@@ -276,11 +276,11 @@ uint8_t load_profile(uint8_t profile_number)
   memset(&curr_pf_info, 0, sizeof(curr_pf_info));
 
   CLEAR_TEMP_BUF();
-  sprintf(temp_buf, "/profile_%s", profile_name_list[profile_number]);
+  snprintf(temp_buf, TEMP_BUFSIZE, "/profile_%s", profile_name_list[profile_number]);
   load_dsb_exists_cache(temp_buf);
   
   CLEAR_TEMP_BUF();
-  sprintf(temp_buf, "/profile_%s/config.txt", profile_name_list[profile_number]);
+  snprintf(temp_buf, TEMP_BUFSIZE, "/profile_%s/config.txt", profile_name_list[profile_number]);
   if(f_open(&sd_file, temp_buf, FA_READ))
     return 2;
 
@@ -387,7 +387,7 @@ void save_persistent_state(uint8_t epilogue_value, uint8_t swid)
   }
   
   CLEAR_TEMP_BUF();
-  sprintf(temp_buf, "/profile_%s/state_dpp.sps", profile_name_list[current_profile_number]);
+  snprintf(temp_buf, TEMP_BUFSIZE, "/profile_%s/state_dpp.sps", profile_name_list[current_profile_number]);
 
   f_open(&sd_file, temp_buf, FA_WRITE | FA_CREATE_ALWAYS);
   f_write(&sd_file, sps_bin_buf, SPS_BIN_SIZE, &bytes_written);
@@ -397,7 +397,7 @@ void save_persistent_state(uint8_t epilogue_value, uint8_t swid)
 uint8_t load_persistent_state(void)
 {
   CLEAR_TEMP_BUF();
-  sprintf(temp_buf, "/profile_%s/state_dpp.sps", profile_name_list[current_profile_number]);
+  snprintf(temp_buf, TEMP_BUFSIZE, "/profile_%s/state_dpp.sps", profile_name_list[current_profile_number]);
 
   if(f_open(&sd_file, temp_buf, FA_READ))
     return 1;
@@ -421,9 +421,9 @@ uint8_t load_persistent_state(void)
 void save_gv(void)
 {
   memset(sps_bin_buf, 0, SPS_BIN_SIZE);
-  memcpy(sps_bin_buf, gv_buf, GLOBAL_VARIABLE_COUNT*sizeof(uint16_t));
+  memcpy(sps_bin_buf, pgv_buf, PGV_BUF_SIZE);
   CLEAR_TEMP_BUF();
-  sprintf(temp_buf, "/gv.sps");
+  snprintf(temp_buf, TEMP_BUFSIZE, "/gv.sps");
   f_open(&sd_file, temp_buf, FA_WRITE | FA_CREATE_ALWAYS);
   f_write(&sd_file, sps_bin_buf, SPS_BIN_SIZE, &bytes_written);
   f_close(&sd_file);
@@ -432,12 +432,12 @@ void save_gv(void)
 void load_gv(void)
 {
   CLEAR_TEMP_BUF();
-  sprintf(temp_buf, "/gv.sps");
+  snprintf(temp_buf, TEMP_BUFSIZE, "/gv.sps");
   f_open(&sd_file, temp_buf, FA_READ);
   memset(sps_bin_buf, 0, SPS_BIN_SIZE);
   f_read(&sd_file, sps_bin_buf, SPS_BIN_SIZE, &bytes_read);
   f_close(&sd_file);
-  memcpy(gv_buf, sps_bin_buf, GLOBAL_VARIABLE_COUNT * sizeof(uint16_t));
+  memcpy(pgv_buf, sps_bin_buf, PGV_BUF_SIZE);
 }
 
 const char* dk_circumflex = "dk_circumflex";
@@ -453,7 +453,7 @@ uint8_t load_keymap_by_name(char* km_name)
   if(km_name == NULL)
     return 1;
   CLEAR_TEMP_BUF();
-  sprintf(temp_buf, "/keymaps/%s", km_name);
+  snprintf(temp_buf, TEMP_BUFSIZE, "/keymaps/%s", km_name);
 
   if(f_open(&sd_file, temp_buf, FA_READ))
     return ERROR_KEYMAP_NOT_FOUND;
@@ -602,8 +602,8 @@ uint8_t ensure_new_profile_format(void)
       continue;
     CLEAR_TEMP_BUF();
     memset(lfn_buf, 0, FILENAME_BUFSIZE);
-    sprintf(temp_buf, "/profile%d_%s\n", i, profile_name_list[i]);
-    sprintf(lfn_buf, "/profile_%s\n", profile_name_list[i]);
+    snprintf(temp_buf, TEMP_BUFSIZE, "/profile%d_%s\n", i, profile_name_list[i]);
+    snprintf(lfn_buf, FILENAME_BUFSIZE, "/profile_%s\n", profile_name_list[i]);
     f_rename(temp_buf, lfn_buf);
   }
   oled_say("Done!");
