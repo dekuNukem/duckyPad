@@ -54,27 +54,6 @@ check box, press save
 add code below
 */
 
-#pragma import(__use_no_semihosting_swi)
-#pragma import(__use_no_semihosting) 
-void _sys_exit(int x) { 
-    x = x; 
-} 
-struct __FILE  { 
-    int handle; 
-};
-int stdin_getchar (void)
-{
-  return 0;
-}
-int stdout_putchar (int ch) {
-  return 0;
-}
-int stderr_putchar (int ch) {
-  return 0;
-}
-void ttywrch (int ch) {
-  return;
-}
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
