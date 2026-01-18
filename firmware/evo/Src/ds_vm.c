@@ -258,6 +258,10 @@ void stack_init(my_stack* ms, uint8_t* stack_buf, uint32_t vm_addr_stack_base, u
     // Align size down to nearest 4 bytes to ensure safety
     uint32_t valid_size = stack_buf_size_bytes & ~3;
 
+    // 2. SAFETY: Align the Virtual Base Address down to 4 bytes.
+    // Without this, an odd VM address can cause Hard Fault on STM32.
+    vm_addr_stack_base &= ~3;
+
     ms->ram_base = stack_buf;
     
     // Virtual Address Mapping
@@ -302,6 +306,8 @@ void stack_pop(my_stack* ms, uint32_t *out_value)
     // 2. Increment SP (Shrink upwards) to point to the data
     ms->sp += 4;
 
+    if(out_value == NULL)
+      return;
     // 3. Read value
     uint32_t* host_ptr = get_host_ptr(ms, ms->sp);
     *out_value = *host_ptr;
@@ -632,7 +638,7 @@ char format_spec_buf[FORMAT_SPEC_BUF_SIZE];
 
 char* make_str(uint16_t str_start_addr)
 {
-  snprintf(read_buffer, READ_BUF_SIZE, "hello world");
+  snprintf(read_buffer, READ_BUF_SIZE, "dummy message!");
   return read_buffer;
 }
 
@@ -889,6 +895,7 @@ void execute_instruction(exe_context* exe)
   uint8_t instruction_size_bytes = inst_size_lookup(opcode);
   uint32_t payload = 0;
   exe->next_pc += instruction_size_bytes;
+  printf("cPC: %d, nPC: %d\n", curr_pc, exe->next_pc);
   
   if(instruction_size_bytes == 2)
     read_bytes_safe(curr_pc + 1, &payload, sizeof(uint8_t));
