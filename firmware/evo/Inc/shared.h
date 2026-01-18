@@ -6,6 +6,8 @@
 #endif
 
 #include <stdint.h>
+#include "stm32f0xx_hal.h"
+
 
 #define TEMP_BUFSIZE 256
 
@@ -19,6 +21,7 @@ void strip_newline(char* line, uint32_t size);
 void idle_loop(void);
 uint32_t get_uuid(void);
 uint32_t millis(void);
+HAL_StatusTypeDef RTC_SetFromUnixTimestamp(RTC_HandleTypeDef *hrtc, uint32_t unix_timestamp, int16_t utc_offset_minutes);
 
 extern char temp_buf[TEMP_BUFSIZE];
 

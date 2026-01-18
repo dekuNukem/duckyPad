@@ -27,9 +27,11 @@ typedef struct
 typedef struct
 {
   char sw_name[MECH_OBSW_COUNT][KEYNAME_SIZE];
-  uint8_t sw_color[MECH_OBSW_COUNT][THREE]; // only mechanical keys have RGB LEDs
-  uint8_t sw_activation_color[MECH_OBSW_COUNT][THREE];
+  uint8_t sw_color_default[MECH_OBSW_COUNT][THREE]; // only mechanical keys have RGB LEDs
+  uint8_t sw_color_user_assigned[MECH_OBSW_COUNT][THREE];
+  uint8_t sw_color_keydown[MECH_OBSW_COUNT][THREE];
   uint8_t keypress_count[MAX_TOTAL_SW_COUNT];
+  uint8_t has_user_assigned_keycolor[MECH_OBSW_COUNT];
   // f_stat() is super slow (30ms)
   // Bit 0 (LSB): on_press exist, bit 1: on_release exist
   uint8_t dsb_exists[MAX_TOTAL_SW_COUNT];
