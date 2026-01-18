@@ -191,7 +191,7 @@ ARM Macro Assembler    Page 3
 WEAK]
   121 00000000                 IMPORT           __main
   122 00000000                 IMPORT           SystemInit
-  123 00000000 4807            LDR              R0, =SystemInit
+  123 00000000 4804            LDR              R0, =SystemInit
   124 00000002 4780            BLX              R0
 
 
@@ -199,7 +199,7 @@ WEAK]
 ARM Macro Assembler    Page 4 
 
 
-  125 00000004 4807            LDR              R0, =__main
+  125 00000004 4804            LDR              R0, =__main
   126 00000006 4700            BX               R0
   127 00000008                 ENDP
   128 00000008         
@@ -363,42 +363,24 @@ ARM Macro Assembler    Page 6
   230 00000014         ;*******************************************************
                        ************************
   231 00000014                 IF               :DEF:__MICROLIB
-  238 00000014         
-  239 00000014                 IMPORT           __use_two_region_memory
-  240 00000014                 EXPORT           __user_initial_stackheap
-  241 00000014         
-  242 00000014         __user_initial_stackheap
-  243 00000014         
-  244 00000014 4804            LDR              R0, =  Heap_Mem
-  245 00000016 4905            LDR              R1, =(Stack_Mem + Stack_Size)
-  246 00000018 4A05            LDR              R2, = (Heap_Mem +  Heap_Size)
-  247 0000001A 4B06            LDR              R3, = Stack_Mem
-  248 0000001C 4770            BX               LR
-  249 0000001E         
-  250 0000001E 00 00           ALIGN
-  251 00000020         
-  252 00000020                 ENDIF
-  253 00000020         
-  254 00000020                 END
+  232 00000014         
+  233 00000014                 EXPORT           __initial_sp
+  234 00000014                 EXPORT           __heap_base
+  235 00000014                 EXPORT           __heap_limit
+  236 00000014         
+  237 00000014                 ELSE
+  252                          ENDIF
+  253 00000014         
+  254 00000014                 END
               00000000 
-              00000000 
-              00000000 
-              00000600 
-              00000400 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M0 --apcs=interw
 ork --depend=lul\startup_stm32f072xb.d -olul\startup_stm32f072xb.o -I.\RTE\_lul
-
-
-
-ARM Macro Assembler    Page 7 
-
-
  -IC:\Users\allen\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include -I
 C:\Users\allen\AppData\Local\Arm\Packs\Keil\STM32F0xx_DFP\2.1.1\Drivers\CMSIS\D
-evice\ST\STM32F0xx\Include --predefine="__UVISION_VERSION SETA 529" --predefine
-="_RTE_ SETA 1" --predefine="STM32F072xB SETA 1" --list=startup_stm32f072xb.lst
- startup_stm32f072xb.s
+evice\ST\STM32F0xx\Include --predefine="__MICROLIB SETA 1" --predefine="__UVISI
+ON_VERSION SETA 529" --predefine="_RTE_ SETA 1" --predefine="STM32F072xB SETA 1
+" --list=startup_stm32f072xb.lst startup_stm32f072xb.s
 
 
 
@@ -419,9 +401,8 @@ Symbol: Stack_Mem
    Definitions
       At line 36 in file startup_stm32f072xb.s
    Uses
-      At line 245 in file startup_stm32f072xb.s
-      At line 247 in file startup_stm32f072xb.s
-
+      None
+Comment: Stack_Mem unused
 __initial_sp 00000600
 
 Symbol: __initial_sp
@@ -429,7 +410,8 @@ Symbol: __initial_sp
       At line 37 in file startup_stm32f072xb.s
    Uses
       At line 61 in file startup_stm32f072xb.s
-Comment: __initial_sp used once
+      At line 233 in file startup_stm32f072xb.s
+
 3 symbols
 
 
@@ -451,25 +433,24 @@ Symbol: Heap_Mem
    Definitions
       At line 48 in file startup_stm32f072xb.s
    Uses
-      At line 244 in file startup_stm32f072xb.s
-      At line 246 in file startup_stm32f072xb.s
-
+      None
+Comment: Heap_Mem unused
 __heap_base 00000000
 
 Symbol: __heap_base
    Definitions
       At line 47 in file startup_stm32f072xb.s
    Uses
-      None
-Comment: __heap_base unused
+      At line 234 in file startup_stm32f072xb.s
+Comment: __heap_base used once
 __heap_limit 00000400
 
 Symbol: __heap_limit
    Definitions
       At line 49 in file startup_stm32f072xb.s
    Uses
-      None
-Comment: __heap_limit unused
+      At line 235 in file startup_stm32f072xb.s
+Comment: __heap_limit used once
 4 symbols
 
 
@@ -904,15 +885,7 @@ Relocatable symbols
       At line 79 in file startup_stm32f072xb.s
       At line 155 in file startup_stm32f072xb.s
 
-__user_initial_stackheap 00000014
-
-Symbol: __user_initial_stackheap
-   Definitions
-      At line 242 in file startup_stm32f072xb.s
-   Uses
-      At line 240 in file startup_stm32f072xb.s
-Comment: __user_initial_stackheap used once
-41 symbols
+40 symbols
 
 
 
@@ -926,8 +899,7 @@ Symbol: Heap_Size
       At line 44 in file startup_stm32f072xb.s
    Uses
       At line 48 in file startup_stm32f072xb.s
-      At line 246 in file startup_stm32f072xb.s
-
+Comment: Heap_Size used once
 Stack_Size 00000600
 
 Symbol: Stack_Size
@@ -935,8 +907,7 @@ Symbol: Stack_Size
       At line 33 in file startup_stm32f072xb.s
    Uses
       At line 36 in file startup_stm32f072xb.s
-      At line 245 in file startup_stm32f072xb.s
-
+Comment: Stack_Size used once
 __Vectors_Size 000000C0
 
 Symbol: __Vectors_Size
@@ -968,13 +939,5 @@ Symbol: __main
    Uses
       At line 125 in file startup_stm32f072xb.s
 Comment: __main used once
-__use_two_region_memory 00000000
-
-Symbol: __use_two_region_memory
-   Definitions
-      At line 239 in file startup_stm32f072xb.s
-   Uses
-      None
-Comment: __use_two_region_memory unused
-3 symbols
-394 symbols in table
+2 symbols
+391 symbols in table
