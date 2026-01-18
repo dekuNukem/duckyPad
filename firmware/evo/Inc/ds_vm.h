@@ -10,6 +10,7 @@
 
 #define BUF_PADDING 8
 #define EXE_BIN_START_ADDRESS 0x0
+#define EXE_BIN_END_ADDRESS_INCLUSIVE 0xDFFF
 #define STACK_BASE_ADDR 0xEFFF
 #define STACK_BUF_SIZE 512
 #define BIN_BUF_SIZE 512
@@ -145,6 +146,7 @@ typedef uint32_t (*FUNC_PTR_UNARY)(uint32_t);
 void run_dsb(exe_context* ctx, uint8_t this_key_id, char* dsb_path, uint8_t is_cached);
 uint32_t random_uint32_between(uint32_t lower, uint32_t upper);
 int32_t random_int32_between(int32_t lower, int32_t upper);
+void switch_bank(uint16_t addr);
 
 #define READ_BUF_SIZE (256 * 2)
 extern char read_buffer[READ_BUF_SIZE];

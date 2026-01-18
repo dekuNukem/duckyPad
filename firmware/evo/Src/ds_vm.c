@@ -35,6 +35,7 @@ uint8_t kb_led_status;
 uint8_t disable_autorepeat;
 static jmp_buf jmpbuf;
 uint8_t current_key_id = 127;
+uint8_t current_bank;
 
 //-------placeholders---------
 uint8_t is_rtc_valid;
@@ -408,7 +409,23 @@ void write_bytes_safe(uint32_t vm_addr, const void* src, size_t size)
 
 void read_bytes_safe(uint32_t vm_addr, void* dest, size_t size)
 {
-  ;
+  if (vm_addr <= EXE_BIN_END_ADDRESS_INCLUSIVE)
+  {
+    if (vm_addr + size > BIN_BUF_SIZE)
+      longjmp(jmpbuf, EXE_ILLEGAL_ADDR);
+    memcpy(dest, &bin_buf[vm_addr], size);
+    return;
+  }
+
+  if (vm_addr >= PGV_START_ADDRESS && vm_addr <= PGV_END_ADDRESS_INCLUSIVE)
+  {
+    uint32_t offset = vm_addr - PGV_START_ADDRESS;
+    if (offset + size > PGV_BUF_SIZE)
+      longjmp(jmpbuf, EXE_ILLEGAL_ADDR);
+    memcpy(dest, &pgv_buf[offset], size);
+    return;
+  }
+  longjmp(jmpbuf, EXE_ILLEGAL_ADDR);
 }
 
 uint8_t readkey_nonblocking_1_indexed(void)
@@ -1370,11 +1387,68 @@ void execute_instruction(exe_context* exe)
   }
 }
 
+void switch_bank(uint16_t addr)
+{
+  uint8_t target_bank = addr / BIN_BUF_SIZE;
+  
+  if (target_bank == current_bank)
+    return;
+
+  if (addr >= f_size(&sd_file))
+    longjmp(jmpbuf, EXE_DSB_FREAD_ERROR);
+
+  if (f_lseek(&sd_file, target_bank * BIN_BUF_SIZE) != 0)
+    longjmp(jmpbuf, EXE_DSB_FREAD_ERROR);
+
+  memset(bin_buf, 0, BIN_BUF_SIZE);
+
+  UINT bytes_read = 0;
+  f_read(&sd_file, bin_buf, BIN_BUF_SIZE, &bytes_read);
+
+  current_bank = target_bank;
+}
+
+void read_binexe_bytes_safe(uint32_t vm_addr, void* dest, size_t size)
+{
+  // 1. Basic Bounds Check
+  if ((vm_addr + size) > EXE_BIN_END_ADDRESS_INCLUSIVE)
+    longjmp(jmpbuf, EXE_DSB_FREAD_ERROR);
+
+  uint8_t* dest_ptr = (uint8_t*)dest;
+  uint32_t current_offset = vm_addr % BIN_BUF_SIZE;
+  
+  // Calculate how many bytes are available in the current bank
+  // starting from the requested address.
+  uint32_t bytes_avail_in_bank = BIN_BUF_SIZE - current_offset;
+
+  // Scenario A: The read is entirely within one bank
+  if (size <= bytes_avail_in_bank) 
+  {
+    switch_bank(vm_addr);
+    memcpy(dest_ptr, &bin_buf[current_offset], size);
+  } 
+  // Scenario B: The read crosses the boundary (Split Read)
+  else 
+  {
+    // Step 1: Read the tail end of the current bank
+    switch_bank(vm_addr);
+    memcpy(dest_ptr, &bin_buf[current_offset], bytes_avail_in_bank);
+
+    // Step 2: Switch to the next bank
+    switch_bank(vm_addr + bytes_avail_in_bank);
+    
+    // Step 3: Read the remainder from the start of the new bank
+    uint32_t bytes_remaining = size - bytes_avail_in_bank;
+    memcpy(dest_ptr + bytes_avail_in_bank, &bin_buf[0], bytes_remaining);
+  }
+}
+
 void run_dsb(exe_context* ctx, uint8_t this_key_id, char* dsb_path, uint8_t is_cached)
 {
   memset(user_var_buf, 0, USER_VAR_BUF_SIZE);
   memset(scratch_mem_buf, 0, SCRATCH_MEM_BUF_SIZE);
   stack_init(&data_stack, stack_buf, STACK_BASE_ADDR, STACK_BUF_SIZE);
+  current_bank = 255;
   defaultdelay = DEFAULT_NONCHAR_DELAY_MS;
   defaultchardelay = DEFAULT_CHAR_DELAY_MS;
   charjitter = 0;
@@ -1385,4 +1459,27 @@ void run_dsb(exe_context* ctx, uint8_t this_key_id, char* dsb_path, uint8_t is_c
   allow_abort = 0;
   disable_autorepeat = 0;
   srand(millis());
+
+  int panic_code = setjmp(jmpbuf);
+  if(panic_code != 0)
+  {
+    ctx->result = panic_code;
+    return;
+  }
+
+  f_open(&sd_file, dsb_path, FA_READ);
+  uint32_t result = 0;
+  read_binexe_bytes_safe(0x0, &result, sizeof(result));
+  printf("read: 0x%08X\n", result);
+  f_close(&sd_file);
+
+  // while(1)
+  // {
+  //   execute_instruction(ctx);
+  //   ctx->this_pc = ctx->next_pc;
+  //   if(ctx->result != EXE_OK)
+  //     break;
+  // }
+  // disable_autorepeat ? DS_SET_BITS(*epilogue_ptr, EPILOGUE_DONT_AUTO_REPEAT) : DS_CLEAR_BITS(*epilogue_ptr, EPILOGUE_DONT_AUTO_REPEAT);
+  
 }
