@@ -242,32 +242,27 @@ uint8_t opcode_len_lookup[OP_LEN_LOOKUP_SIZE] = {
 #define OP_VMVER 255
 // ---------------------------
 
-
-
 my_stack data_stack;
 
 // vm_stack_base: The virtual address where stack starts (e.g., 0xF7FF)
 void stack_init(my_stack* ms, uint8_t* ram_base, uint16_t vm_stack_base, uint16_t size_bytes)
 {
-    // 1. Store the host memory base
-    ms->ram_base = ram_base;
+  // 1. Store the host memory base
+  ms->ram_base = ram_base;
 
-    // 2. Align the virtual base address (rounding down to nearest 4-byte boundary)
-    //    If vm_stack_base is 0xF7FF, this becomes 0xF7FC
-    uint16_t aligned_base = vm_stack_base & ~0x03;
+  // 2. Align the virtual base address
+  uint16_t aligned_base = vm_stack_base & ~0x03;
 
-    // 3. Set bounds
-    ms->upper_bound = aligned_base; 
-    ms->lower_bound = aligned_base - size_bytes;
+  // 3. Set bounds
+  ms->upper_bound = aligned_base; 
+  ms->lower_bound = aligned_base - size_bytes;
 
-    // 4. Initialize registers
-    //    Matches your original logic: SP points to the current empty slot.
-    //    We start "one slot down" so the first write occupies the top-most aligned bytes.
-    ms->sp = ms->upper_bound - sizeof(uint32_t); 
-    ms->fp = ms->upper_bound;
+  // 4. Initialize registers
+  ms->sp = ms->upper_bound - sizeof(uint32_t); 
+  ms->fp = ms->upper_bound;
 
-    // 5. Clear memory (Translation: Host Addr = ram_base + virtual_offset)
-    memset(ms->ram_base + ms->lower_bound, 0, size_bytes);
+  // 5. Clear memory
+  memset(ms->ram_base, 0, size_bytes);
 }
 
 void stack_push(my_stack* ms, uint32_t in_value)
@@ -1377,5 +1372,17 @@ void execute_instruction(exe_context* exe)
 
 void run_dsb(exe_context* ctx, uint8_t this_key_id, char* dsb_path, uint8_t is_cached)
 {
-  ;
+  memset(user_var_buf, 0, USER_VAR_BUF_SIZE);
+  memset(scratch_mem_buf, 0, SCRATCH_MEM_BUF_SIZE);
+  stack_init(&data_stack, stack_buf, STACK_BASE_ADDR, STACK_BUF_SIZE);
+  defaultdelay = DEFAULT_NONCHAR_DELAY_MS;
+  defaultchardelay = DEFAULT_CHAR_DELAY_MS;
+  charjitter = 0;
+  rand_max = 65535;
+  rand_min = 0;
+  loop_size = 0;
+  epilogue_ptr = &ctx->epilogue_actions;
+  allow_abort = 0;
+  disable_autorepeat = 0;
+  srand(millis());
 }

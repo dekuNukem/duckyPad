@@ -111,7 +111,7 @@ void parse_hid_msg(uint8_t* this_msg)
 {
   // printf("%ld HID MSG:\n", millis());
   // for (size_t i = 0; i < USBD_CUSTOMHID_OUTREPORT_BUF_SIZE; i++)
-  //   printf("%02x ", this_msg[i]);
+    // printf("%02x ", this_msg[i]);
   // printf("\n--------\n");
 
   uint8_t command_type = this_msg[2];
@@ -621,7 +621,7 @@ void sd_walk(uint8_t* res_buf)
   {
     if(sd_walk_current_profile_number == PROFILE_OVERFLOW)
     {
-      printf("all done!");
+      // printf("all done!");
       sd_walk_state = SD_WALK_STATE_IDLE;
       // HID response: End of Transmission
       res_buf[1] = 4;
@@ -629,7 +629,7 @@ void sd_walk(uint8_t* res_buf)
     }
     CLEAR_TEMP_BUF();
     snprintf(temp_buf, TEMP_BUFSIZE, "/profile_%s", profile_name_list[sd_walk_current_profile_number]);
-    printf("In dir: %s\n", temp_buf);
+    // printf("In dir: %s\n", temp_buf);
     if(f_opendir(&dir, temp_buf))
       draw_fatal_error(20);
     fno.lfname = lfn_buf; 
@@ -656,7 +656,7 @@ void sd_walk(uint8_t* res_buf)
         sd_walk_state = SD_WALK_STATE_NEW_PROFILE_DIR;
         sd_walk_current_profile_number = find_next_profile(sd_walk_current_profile_number);
         f_closedir(&dir);
-        printf("this profile done\n");
+        // printf("this profile done\n");
         // HID Response: Ack
         res_buf[1] = 0;
         return;
@@ -701,7 +701,7 @@ uint8_t make_file_walk_hid_packet(char* file_name, char* profile_name, uint8_t* 
     md5File(&sd_file, md5_buf);
     memcpy(tx_buf+2, md5_buf, MD5_BUF_SIZE);
     strncpy(tx_buf+HID_MD5_PAYLOAD_FILENAME_START, file_name, MAX_FILENAME_LEN_IN_HID_PAYLOAD);
-    print_hash(md5_buf);
+    // print_hash(md5_buf);
   }
   f_close(&sd_file);
   return 0;

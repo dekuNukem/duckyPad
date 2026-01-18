@@ -72,7 +72,7 @@ uint8_t run_once(uint8_t swid, char* dsb_path, uint8_t* to_increment)
   // printf("is_cached: %d\n", is_cached);
 
   run_dsb(&this_exe, swid, dsb_path, is_cached);
-  // printf("---\nexecution finished:\nresult: %d\ndata: %d\nepilogue: 0x%x\n---\n", this_exe.result, this_exe.data, this_exe.epilogue_actions);
+  printf("---\nexecution finished:\nresult: %d\ndata: %d\nepilogue: 0x%x\n---\n", this_exe.result, this_exe.data, this_exe.epilogue_actions);
   if(to_increment != NULL)
     *to_increment = *to_increment + 1;
   

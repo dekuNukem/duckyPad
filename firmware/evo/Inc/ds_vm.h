@@ -11,8 +11,8 @@
 #define BUF_PADDING 8
 #define EXE_BIN_START_ADDRESS 0x0
 #define STACK_BASE_ADDR 0xEFFF
-#define STACK_BUF_SIZE 512
-#define BIN_BUF_SIZE 512
+#define STACK_BUF_SIZE 256
+#define BIN_BUF_SIZE 256
 
 #define USER_VAR_START_ADDRESS 0xF000
 #define USER_VAR_END_ADDRESS_INCLUSIVE 0xF0FF
@@ -129,11 +129,11 @@ extern uint8_t pgv_buf[PGV_BUF_SIZE] __attribute__((aligned(4)));
 */
 typedef struct
 {
-  uint16_t sp;         // Virtual Stack Pointer (offset, e.g., 0xF7FC)
+  uint16_t sp;         // Virtual Stack Pointer (offset, e.g., 0xEFFC)
   uint16_t fp;         // Virtual Frame Pointer
   uint16_t lower_bound;// Lowest allowed virtual address (Stack Limit)
   uint16_t upper_bound;// Highest allowed virtual address (Stack Base)
-  uint8_t* ram_base;   // Host pointer to bin_buf[0]
+  uint8_t* ram_base;   // Host pointer to buf[0]
 } my_stack;
 
 typedef uint32_t (*FUNC_PTR_BINOP)(uint32_t, uint32_t);
