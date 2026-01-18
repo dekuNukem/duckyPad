@@ -130,11 +130,11 @@ extern uint8_t pgv_buf[PGV_BUF_SIZE] __attribute__((aligned(4)));
 */
 typedef struct
 {
-  uint16_t sp;         // Virtual Stack Pointer (offset, e.g., 0xEFFC)
+  uint16_t sp;         // Virtual Stack Pointer
   uint16_t fp;         // Virtual Frame Pointer
   uint16_t lower_bound;// Lowest allowed virtual address (Stack Limit)
   uint16_t upper_bound;// Highest allowed virtual address (Stack Base)
-  uint8_t* ram_base;   // Host pointer to buf[0]
+  uint8_t* ram_base;   // Host buffer backing the VM stack
 } my_stack;
 
 typedef uint32_t (*FUNC_PTR_BINOP)(uint32_t, uint32_t);
@@ -147,6 +147,7 @@ void run_dsb(exe_context* ctx, uint8_t this_key_id, char* dsb_path, uint8_t is_c
 uint32_t random_uint32_between(uint32_t lower, uint32_t upper);
 int32_t random_int32_between(int32_t lower, int32_t upper);
 void switch_bank(uint16_t addr);
+void read_binexe_bytes_safe(uint32_t vm_addr, void* dest, size_t size);
 
 #define READ_BUF_SIZE (256 * 2)
 extern char read_buffer[READ_BUF_SIZE];

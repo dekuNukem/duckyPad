@@ -55,7 +55,7 @@ uint32_t get_sw_state_bitfield(void)
 */
 
 #define OP_LEN_LOOKUP_SIZE 100
-uint8_t opcode_len_lookup[OP_LEN_LOOKUP_SIZE] = {
+const uint8_t opcode_len_lookup[OP_LEN_LOOKUP_SIZE] = {
 1, // [0] NOP
 3, // [1] PUSHC16
 3, // [2] PUSHI
@@ -245,62 +245,79 @@ uint8_t opcode_len_lookup[OP_LEN_LOOKUP_SIZE] = {
 
 my_stack data_stack;
 
-// vm_stack_base: The virtual address where stack starts (e.g., 0xF7FF)
-void stack_init(my_stack* ms, uint8_t* ram_base, uint16_t vm_stack_base, uint16_t size_bytes)
+// Helper: Convert Virtual SP to Host Pointer
+// Note: We assume the VM ensures sp is always 4-byte aligned
+static inline uint32_t* get_host_ptr(my_stack* ms, uint16_t virtual_addr) {
+    // Calculate offset from the bottom of the stack memory
+    uint16_t offset = virtual_addr - ms->lower_bound;
+    return (uint32_t*)(ms->ram_base + offset);
+}
+
+void stack_init(my_stack* ms, uint8_t* stack_buf, uint32_t vm_addr_stack_base, uint32_t stack_buf_size_bytes)
 {
-  // 1. Store the host memory base
-  ms->ram_base = ram_base;
+    // Align size down to nearest 4 bytes to ensure safety
+    uint32_t valid_size = stack_buf_size_bytes & ~3;
 
-  // 2. Align the virtual base address
-  uint16_t aligned_base = vm_stack_base & ~0x03;
+    ms->ram_base = stack_buf;
+    
+    // Virtual Address Mapping
+    ms->upper_bound = (uint16_t)vm_addr_stack_base;
+    ms->lower_bound = (uint16_t)(vm_addr_stack_base - valid_size);
 
-  // 3. Set bounds
-  ms->upper_bound = aligned_base; 
-  ms->lower_bound = aligned_base - size_bytes;
-
-  // 4. Initialize registers
-  ms->sp = ms->upper_bound - sizeof(uint32_t); 
-  ms->fp = ms->upper_bound;
-
-  // 5. Clear memory
-  memset(ms->ram_base, 0, size_bytes);
+    /* Initialize SP for "Empty Descending".
+       If Base is 0x1000, the first valid 4-byte slot is 0x0FFC.
+       Since SP points to the *next free* slot, we start at 0x0FFC.
+    */
+    ms->sp = ms->upper_bound - 4;
+    ms->fp = ms->sp; 
 }
 
 void stack_push(my_stack* ms, uint32_t in_value)
 {
-  if (ms->sp < ms->lower_bound) 
-    longjmp(jmpbuf, EXE_STACK_OVERFLOW);
-  uint8_t* host_addr = ms->ram_base + ms->sp;
-  memcpy(host_addr, &in_value, sizeof(uint32_t));
-  ms->sp -= sizeof(uint32_t);
+    // 1. Check for Overflow
+    // If SP goes below lower_bound, we are out of memory.
+    if (ms->sp < ms->lower_bound) {
+        longjmp(jmpbuf, EXE_STACK_OVERFLOW);
+    }
+
+    // 2. Write value to current free slot
+    uint32_t* host_ptr = get_host_ptr(ms, ms->sp);
+    *host_ptr = in_value;
+
+    // 3. Decrement SP (Grow downwards)
+    // Note: We verify overflow *before* writing, but technically 
+    // SP could wrap or underflow here if we didn't check bounds strictly.
+    ms->sp -= 4;
 }
 
 void stack_pop(my_stack* ms, uint32_t *out_value)
 {
-  uint16_t next_sp = ms->sp + sizeof(uint32_t);
-  if (next_sp >= ms->upper_bound)
-    longjmp(jmpbuf, EXE_STACK_UNDERFLOW);
-  ms->sp = next_sp;
-  uint8_t* host_addr = ms->ram_base + ms->sp;
-  if(out_value != NULL)
-    memcpy(out_value, host_addr, sizeof(uint32_t));
+    // 1. Check for Underflow
+    // If incrementing SP would exceed the initial start point, stack is empty.
+    // Initial SP was (upper_bound - 4).
+    if (ms->sp >= (ms->upper_bound - 4)) {
+        longjmp(jmpbuf, EXE_STACK_UNDERFLOW);
+    }
+
+    // 2. Increment SP (Shrink upwards) to point to the data
+    ms->sp += 4;
+
+    // 3. Read value
+    uint32_t* host_ptr = get_host_ptr(ms, ms->sp);
+    *out_value = *host_ptr;
 }
 
 uint32_t stack_peek(my_stack* ms)
 {
-  // The 'top' of the stack is 4 bytes above the current SP
-  uint16_t top_address = ms->sp + sizeof(uint32_t);
+    // 1. Check for Underflow (Empty stack has nothing to peek)
+    if (ms->sp >= (ms->upper_bound - 4)) {
+        longjmp(jmpbuf, EXE_STACK_UNDERFLOW);
+    }
 
-  // Check if the stack is empty (Underflow)
-  if (top_address >= ms->upper_bound)
-    longjmp(jmpbuf, EXE_STACK_UNDERFLOW);
-
-  // Calculate host address and return the value
-  uint32_t value;
-  uint8_t* host_addr = ms->ram_base + top_address;
-  memcpy(&value, host_addr, sizeof(uint32_t));
-  
-  return value;
+    // 2. Read value immediately above the current free slot
+    // Since SP points to free slot, data is at SP + 4
+    uint32_t* host_ptr = get_host_ptr(ms, ms->sp + 4);
+    return *host_ptr;
 }
 
 void stack_write_fp_rel(my_stack* ms, int16_t offset, uint32_t value)
@@ -411,20 +428,37 @@ void read_bytes_safe(uint32_t vm_addr, void* dest, size_t size)
 {
   if (vm_addr <= EXE_BIN_END_ADDRESS_INCLUSIVE)
   {
-    if (vm_addr + size > BIN_BUF_SIZE)
+    read_binexe_bytes_safe(vm_addr, dest, size);
+    return;
+  }
+
+  if (vm_addr >= USER_VAR_START_ADDRESS && vm_addr <= USER_VAR_END_ADDRESS_INCLUSIVE)
+  {
+    uint32_t offset = vm_addr - USER_VAR_START_ADDRESS;
+    if (offset + size >= USER_VAR_BUF_SIZE)
       longjmp(jmpbuf, EXE_ILLEGAL_ADDR);
-    memcpy(dest, &bin_buf[vm_addr], size);
+    memcpy(dest, &user_var_buf[offset], size);
+    return;
+  }
+
+  if (vm_addr >= SCRATCH_MEM_START_ADDRESS && vm_addr <= SCRATCH_MEM_END_ADDRESS_INCLUSIVE)
+  {
+    uint32_t offset = vm_addr - SCRATCH_MEM_START_ADDRESS;
+    if (offset + size >= SCRATCH_MEM_BUF_SIZE)
+      longjmp(jmpbuf, EXE_ILLEGAL_ADDR);
+    memcpy(dest, &scratch_mem_buf[offset], size);
     return;
   }
 
   if (vm_addr >= PGV_START_ADDRESS && vm_addr <= PGV_END_ADDRESS_INCLUSIVE)
   {
     uint32_t offset = vm_addr - PGV_START_ADDRESS;
-    if (offset + size > PGV_BUF_SIZE)
+    if (offset + size >= PGV_BUF_SIZE)
       longjmp(jmpbuf, EXE_ILLEGAL_ADDR);
     memcpy(dest, &pgv_buf[offset], size);
     return;
   }
+
   longjmp(jmpbuf, EXE_ILLEGAL_ADDR);
 }
 
@@ -598,63 +632,69 @@ char format_spec_buf[FORMAT_SPEC_BUF_SIZE];
 
 char* make_str(uint16_t str_start_addr)
 {
-  char* curr_char = (char*)(bin_buf + str_start_addr);
-  memset(read_buffer, 0, READ_BUF_SIZE);
-  char* write_ptr = read_buffer;
-  const char* buffer_end = read_buffer + READ_BUF_SIZE - 1; // Leave room for null terminator
-
-  while (*curr_char != 0)
-  {
-    if (*curr_char == MAKESTR_VAR_BOUNDARY_IMM || *curr_char == MAKESTR_VAR_BOUNDARY_REL)
-    {
-      uint8_t boundary_type = *curr_char;
-      curr_char++; // At LSB
-      uint8_t* lsb = (uint8_t*)curr_char;
-      curr_char++; // At MSB
-      curr_char++; // At format specifier or closing boundary
-      
-      // Handle Format Specifier
-      memset(format_spec_buf, 0, FORMAT_SPEC_BUF_SIZE);
-      if (*curr_char != boundary_type)
-      {
-        curr_char = copy_format_specifier(curr_char, format_spec_buf, FORMAT_SPEC_BUF_SIZE, boundary_type);
-        if (curr_char == NULL)
-          longjmp(jmpbuf, EXE_STR_ERROR);
-      }
-      curr_char++; // closing boundary
-
-      uint16_t addr_val;
-      memcpy(&addr_val, lsb, sizeof(addr_val)); 
-      uint32_t var_value = 0;
-
-      // Fetch the value based on the boundary type
-      if (boundary_type == MAKESTR_VAR_BOUNDARY_IMM)
-        var_value = memread_u32(addr_val);
-      else
-        stack_read_fp_rel(&data_stack, (int16_t)addr_val, &var_value);
-
-      memset(make_str_buf, 0, MKSTR_BUF_SIZE);
-      my_snprintf(format_spec_buf, var_value, make_str_buf, MKSTR_BUF_SIZE);
-      
-      size_t added_len = strlen(make_str_buf);
-      if (write_ptr + added_len >= buffer_end)
-          longjmp(jmpbuf, EXE_STR_ERROR);
-        
-      memcpy(write_ptr, make_str_buf, added_len);
-      write_ptr += added_len;
-      continue;
-    }
-
-    if (write_ptr >= buffer_end)
-      longjmp(jmpbuf, EXE_STR_ERROR);
-
-    *write_ptr++ = *curr_char;
-    curr_char++;
-  }
-
-  *write_ptr = '\0';
+  snprintf(read_buffer, READ_BUF_SIZE, "hello world");
   return read_buffer;
 }
+
+// char* make_str(uint16_t str_start_addr)
+// {
+//   char* curr_char = (char*)(bin_buf + str_start_addr);
+//   memset(read_buffer, 0, READ_BUF_SIZE);
+//   char* write_ptr = read_buffer;
+//   const char* buffer_end = read_buffer + READ_BUF_SIZE - 1; // Leave room for null terminator
+
+//   while (*curr_char != 0)
+//   {
+//     if (*curr_char == MAKESTR_VAR_BOUNDARY_IMM || *curr_char == MAKESTR_VAR_BOUNDARY_REL)
+//     {
+//       uint8_t boundary_type = *curr_char;
+//       curr_char++; // At LSB
+//       uint8_t* lsb = (uint8_t*)curr_char;
+//       curr_char++; // At MSB
+//       curr_char++; // At format specifier or closing boundary
+      
+//       // Handle Format Specifier
+//       memset(format_spec_buf, 0, FORMAT_SPEC_BUF_SIZE);
+//       if (*curr_char != boundary_type)
+//       {
+//         curr_char = copy_format_specifier(curr_char, format_spec_buf, FORMAT_SPEC_BUF_SIZE, boundary_type);
+//         if (curr_char == NULL)
+//           longjmp(jmpbuf, EXE_STR_ERROR);
+//       }
+//       curr_char++; // closing boundary
+
+//       uint16_t addr_val;
+//       memcpy(&addr_val, lsb, sizeof(addr_val)); 
+//       uint32_t var_value = 0;
+
+//       // Fetch the value based on the boundary type
+//       if (boundary_type == MAKESTR_VAR_BOUNDARY_IMM)
+//         var_value = memread_u32(addr_val);
+//       else
+//         stack_read_fp_rel(&data_stack, (int16_t)addr_val, &var_value);
+
+//       memset(make_str_buf, 0, MKSTR_BUF_SIZE);
+//       my_snprintf(format_spec_buf, var_value, make_str_buf, MKSTR_BUF_SIZE);
+      
+//       size_t added_len = strlen(make_str_buf);
+//       if (write_ptr + added_len >= buffer_end)
+//           longjmp(jmpbuf, EXE_STR_ERROR);
+        
+//       memcpy(write_ptr, make_str_buf, added_len);
+//       write_ptr += added_len;
+//       continue;
+//     }
+
+//     if (write_ptr >= buffer_end)
+//       longjmp(jmpbuf, EXE_STR_ERROR);
+
+//     *write_ptr++ = *curr_char;
+//     curr_char++;
+//   }
+
+//   *write_ptr = '\0';
+//   return read_buffer;
+// }
 
 #define RANDCHR_LOWER (1 << 0) // 1
 #define RANDCHR_UPPER (1 << 1) // 2
@@ -851,13 +891,17 @@ void execute_instruction(exe_context* exe)
   exe->next_pc += instruction_size_bytes;
   
   if(instruction_size_bytes == 2)
-    payload = bin_buf[curr_pc + 1];
+    read_bytes_safe(curr_pc + 1, &payload, sizeof(uint8_t));
   else if(instruction_size_bytes == 3)
     read_bytes_safe(curr_pc + 1, &payload, sizeof(uint16_t));
   else if(instruction_size_bytes == 5)
     read_bytes_safe(curr_pc + 1, &payload, sizeof(uint32_t));
 
-  if(opcode == OP_NOP || opcode == OP_VMVER)
+  if(opcode == OP_VMVER && payload != dsvm_version)
+  {
+    longjmp(jmpbuf, EXE_DSB_INCOMPATIBLE_VERSION);
+  }
+  else if(opcode == OP_NOP || opcode == OP_VMVER)
   {
     return;
   }
@@ -1390,10 +1434,11 @@ void execute_instruction(exe_context* exe)
 void switch_bank(uint16_t addr)
 {
   uint8_t target_bank = addr / BIN_BUF_SIZE;
-  
+
   if (target_bank == current_bank)
     return;
 
+  // printf("\n---cb:%d, tb:%d---\n", current_bank, target_bank);
   if (addr >= f_size(&sd_file))
     longjmp(jmpbuf, EXE_DSB_FREAD_ERROR);
 
@@ -1410,7 +1455,6 @@ void switch_bank(uint16_t addr)
 
 void read_binexe_bytes_safe(uint32_t vm_addr, void* dest, size_t size)
 {
-  // 1. Basic Bounds Check
   if ((vm_addr + size) > EXE_BIN_END_ADDRESS_INCLUSIVE)
     longjmp(jmpbuf, EXE_DSB_FREAD_ERROR);
 
@@ -1464,22 +1508,26 @@ void run_dsb(exe_context* ctx, uint8_t this_key_id, char* dsb_path, uint8_t is_c
   if(panic_code != 0)
   {
     ctx->result = panic_code;
+    f_close(&sd_file);
     return;
   }
 
   f_open(&sd_file, dsb_path, FA_READ);
-  uint32_t result = 0;
-  read_binexe_bytes_safe(0x0, &result, sizeof(result));
-  printf("read: 0x%08X\n", result);
-  f_close(&sd_file);
 
-  // while(1)
+  // for (size_t i = 1; i < 32; i+=4)
   // {
-  //   execute_instruction(ctx);
-  //   ctx->this_pc = ctx->next_pc;
-  //   if(ctx->result != EXE_OK)
-  //     break;
+  //   uint32_t result = 0;
+  //   read_bytes_safe(i, &result, sizeof(result));
+  //   printf("read %d: 0x%08X\n", i, result);
   // }
+
+  while(1)
+  {
+    execute_instruction(ctx);
+    ctx->this_pc = ctx->next_pc;
+    if(ctx->result != EXE_OK)
+      break;
+  }
   // disable_autorepeat ? DS_SET_BITS(*epilogue_ptr, EPILOGUE_DONT_AUTO_REPEAT) : DS_CLEAR_BITS(*epilogue_ptr, EPILOGUE_DONT_AUTO_REPEAT);
-  
+  f_close(&sd_file);
 }

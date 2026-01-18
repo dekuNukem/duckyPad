@@ -1,4 +1,12 @@
-
+ f_open(&sd_file, dsb_path, FA_READ);
+  for (size_t i = 1; i < 32; i+=4)
+  {
+    uint32_t result = 0;
+    read_binexe_bytes_safe(i, &result, sizeof(result));
+    printf("read %d: 0x%08X\n", i, result);
+  }
+  f_close(&sd_file);
+  
 ///////////////////WORKING
 char new_buf[TEMP_BUFSIZE];
 uint8_t save_settings(dp_global_settings* dps)
