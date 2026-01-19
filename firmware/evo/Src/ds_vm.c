@@ -281,7 +281,7 @@ void stack_push(my_stack* ms, uint32_t in_value)
 {
   // 1. Check for Overflow
   // If SP goes below lower_bound, we are out of memory.
-  if (ms->sp < ms->lower_bound)
+  if (ms->sp <= ms->lower_bound)
     longjmp(jmpbuf, EXE_STACK_OVERFLOW);
 
   // 2. Write value to current free slot
@@ -954,7 +954,6 @@ void clamp_uint(uint32_t* value, uint32_t upper_limit)
     *value = upper_limit;
 }
 
-
 void execute_instruction(exe_context* exe)
 {
   uint16_t curr_pc = exe->this_pc;
@@ -964,7 +963,7 @@ void execute_instruction(exe_context* exe)
   uint8_t instruction_size_bytes = inst_size_lookup(opcode);
   uint32_t payload = 0;
   exe->next_pc += instruction_size_bytes;
-  printf("cPC: %d, nPC: %d\n", curr_pc, exe->next_pc);
+  // printf("cPC: %d, nPC: %d\n", curr_pc, exe->next_pc);
   
   if(instruction_size_bytes == 2)
     read_bytes_safe(curr_pc + 1, &payload, sizeof(uint8_t));
