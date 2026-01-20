@@ -84,75 +84,117 @@ duckyPad Pro is an updated model released in 2024 with:
 
 Feel free to join our [Official Discord](https://discord.gg/4sJCBx5) for discussions, questions, sharing scripts, and latest updates!
 
-## Showcase
 
-By **`automating frequently-used actions`**, you can streamline and speed up your daily routine.
+## How It Works / Showcase
 
-A few examples:
+* Create up to **32 profiles**, one for each application.
 
-### Launching Applications  
+* Assign up to **15 keys** per profile
 
-Open your favorite app with the press of a button: 
+* Names are shown on OLED screen
 
-![Alt text](resources/pics/winapps.gif)
+* Write a **duckyScript** for each key
 
-### Managing Livestreams
+### Easy Start
 
-Switch scenes, start/stop stream, start/stop recording, play ads, and a lot more!
+* **duckyScript** is a language for automating inputs
 
-![Alt text](resources/pics/obs.gif)
+	* At simplest, you just tell it **what key to press!**
 
-### Security Research
+* Such as **key combos** of your favorite app
 
-By automating keystrokes, you can take over an entire computer with the push of a button.
-
-This is known as [BadUSB attack](https://arstechnica.com/information-technology/2014/07/this-thumbdrive-hacks-computers-badusb-exploit-makes-devices-turn-evil/), and was the original purpose of [USB Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky-deluxe).
-
-But of course, it's up to you to decide what to do!
-
-![Alt text](resources/pics/badusb.gif)
-
-### Photoshop / CAD 
-
-Put all your shortcuts in one place, makes things faster: 
+`CTRL a` , `CTRL +`, etc.
 
 ![Alt text](resources/pics/cad.gif)
 
-### One-finger Twitch Chat
+### Up a Notch
 
-no need to explain this one
+* Once familiar, you can write **longer multi-line macros** to further speed up everyday task.
 
-![Alt text](resources/pics/twitch.gif)
+* Such as **filling forms** and typing **boilerplate text** with one keypress.
 
-### Switching Profiles
+```
+STRING Michael Scott
+TAB
+STRING United States
+ENTER
+STRING 5705550100
+TAB
+STRING michael.scott@dundermifflin.com
+TAB
+```
+![Alt text](resources/pics/addr.gif)
 
-With all the potential usages, duckyPad supports up to 32 profiles.
+Or a simple mouse jiggler:
 
-Simply press the +/- button to switch between them, or use the [profile autoswitcher](https://github.com/dekuNukem/duckyPad-profile-autoswitcher) to **switch automatically** based on **current active window**.
+```
+WHILE TRUE
+	MOUSE_MOVE $_RANDOM_INT $_RANDOM_INT
+	DELAY 100
+END_WHILE
+```
 
-![Alt text](resources/pics/profiles.gif)
+![alt_text](resources/pics/jig.gif)
 
-### ... and more!
+### Full Potential
 
-Those are just some examples! You can use duckyPad to do whatever **`you`** want!
+* Going all-out, duckyScript is a **Turing-Complete** **general-purpose** language.
+* You can use it to:
+	* Read Buttons
+	* Write to OLED screen
+	* Change RGB colors
+	* Perform operations with **32-bit variables**, **conditions**, **loops**, **function call**s, and more!
+* Write ultra-specific macros for your exact needs
+
+```
+RGB_SET 1 128 0 255
+
+OLED_PRINT You are in a maze
+OLED_PRINT of twisty little passages
+
+VAR choice = _READKEY
+
+IF choice == 1
+    OLED_CURSOR 0 10
+    OLED_PRINT It is a dead end.
+    OLED_PRINT Something moves
+    OLED_PRINT behind you.
+END_IF
+```
+
+![alt_text](resources/pics/maze.jpeg)
+
+### Hackerman
+
+* Of course, by automating HID inputs, you can take over an entire computer with the push of a button!
+
+![alt_text](resources/photos/badusb.gif)
+
+* This is known as [BadUSB attack](https://arstechnica.com/information-technology/2014/07/this-thumbdrive-hacks-computers-badusb-exploit-makes-devices-turn-evil/), and was the original purpose of [USB Rubber Ducky](https://shop.hak5.org/products/usb-rubber-ducky-deluxe).
+
+---------
+
+### Nothing Like It
+
+* From **simple shortcuts** to **full-blown programs**, duckyScript can easily achieve what was impossible on QMK/VIA.
+
+* Each macro can contain over **50,000 characters**
+
+* Store **480 macros** in total
+
+* Executed on custom [virtual stack machine](https://duckypad.github.io/DuckStack/)
 
 ## Features
 
-### Mechanical Switches
+### Switches & Keycaps
 
 duckyPad is compatible with Cherry MX-style mechanical switches (3 or 5-pin).
-
-duckyPad comes with **`Gateron Green`** or **`Kalih BOX Navy`** switches, both of which are firm and clicky.
-
-Of course, you can also install your own!
-
-### Keycaps
 
 By default, duckyPad comes with blank translucent ABS R4 keycaps:
 
 ![Alt text](resources/pics/caps.jpg)
 
-Again, you can use your own as well.
+You can use your own as well.
 
 ### Hot-swap Sockets
 
@@ -160,75 +202,35 @@ duckyPad supports hot-swapping with Kailh sockets.
 
 You can install/remove the switches by hand, **`no soldering needed`**.
 
-![Alt text](resources/pics/hotswap.gif)
-
 ### Per-key RGB backlight
 
-Each key on duckyPad has its own RGB backlight. You can assign unique colours to suit your needs.
+Each key on duckyPad has its own RGB backlight. User-configurable colour & brightness.
 
 ### OLED screen
 
 duckyPad has an OLED screen. It displays current **`profile and key names`**, so you know what each key does at a glance.
 
-* 1.3-inch blue OLED display
-* High contrast with true OLED black
-* 128 x 64 resolution
-* Burn-in prevention
+* 128x128
+* 1.3 inch
+* High contrast with true black
+* Burn-in Prevention
 
 ![Alt text](resources/pics/oled_closeup.jpg)
 
-### duckyScript
-
-duckyPad uses **duckyScript** for keyboard automation. 
-
-It is powerful, but also easy and straightforward to write.
-
-A simple example look like this:
-
-`CONTROL SHIFT ESC`
-
-When you press a key, it will bring up the Task Manager, no need for memorising the 3-key combo.
-
-![Alt text](resources/pics/task.gif)
-
-Of course, it can do much more!
-
-A multi-line example that open up notepad, types "Hello world", and increases text size:
-
-```
-WINDOWS R
-DELAY 400
-STRING notepad
-ENTER
-DELAY 400
-
-STRING Hello World!
-CONTROL +
-REPEAT 10
-```
-
-![Alt text](resources/pics/hello.gif)
-
-See the [full guide here](duckyscript_info.md).
-
 ### Companion App
 
-duckyPad comes with a companion app for Windows 10, macOS, and Linux. You can use it to:
+[Use the open-source configurator](https://github.com/duckyPad/duckyPad-Configurator) to set up your duckyPad Pro.
 
-* Manage profiles
-* Manage key name, color, and arrangements.
-* Write and debug duckyScript.
-* Change, save, and backup configurations.
+* Windows | Mac | Linux
+* No account / subscription needed
+* No data collection / telemetry
 
 ![Alt text](resources/pics/pcapp.png)
 
-But more importantly, duckyPad app **`respects your privacy`**:
+## Profile Auto-switching
 
-* Fully open-source
-* No need to create an account
-* No data collection whatsoever
-* No internet connection required
-* You don't even have to use it! You can [set up your duckyPad manually](./manual_setup.md).
+* [Automatically jump to the appropriate profile](https://github.com/dekuNukem/duckyPad-profile-autoswitcher)
+* Based on **current active window**
 
 ### USB-C and Device Compatibility
 
