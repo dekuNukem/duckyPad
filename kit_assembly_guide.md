@@ -136,7 +136,7 @@ Head on down to the [Quick Start Guide](/getting_started.md) to see how to use i
 
 [Kit Assembly Guide](kit_assembly_guide.md)
 
-[Using duckyScript](duckyscript_info.md)
+[Using duckyScript](https://dekunukem.github.io/duckyPad-Pro/doc/duckyscript_info.html)
 
 [Common issues / Troubleshooting](troubleshooting.md)
 

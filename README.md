@@ -8,26 +8,33 @@ duckyPad is a 15-key **mechanical macropad** for power users who demand **advanc
 
 ![Alt text](resources/pics/title_jpg.jpg)
 
+Using a [turing-complete scripting language](https://dekunukem.github.io/duckyPad-Pro/doc/duckyscript_info.html), you can automate **any keyboard/mouse input** you want, from **simple combos** to **full-blown programs**.
+
+## Get One
+
+duckyPad was successfully [funded on Kickstarter](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) thanks to the [amazing backers!](kickstarter_backers.md)
+
+* Now Available [on my Tindie Store](https://www.tindie.com/products/dekunukem/duckypad-do-it-all-mechanical-macropad/)
+
+## Highlights
+
 duckyPad has all the basics:
 
 * **Hot-swap**
 * Per-key RGB
-* USB-C
 * Fully **open-source**
 
 But also unique features **not seen anywhere else**:
 
 * Custom **[duckyScript](https://dekunukem.github.io/duckyPad-Pro/doc/duckyscript_info.html)** engine, **NOT QMK/VIA**.
 * **Longer and more complex** macros
-* 1.3" **OLED** screen
+* **OLED** screen
 * **32 profiles** of 15 keys, 480 macros total.
 * [Automatic profile switching](https://github.com/dekuNukem/duckyPad-profile-autoswitcher) based on active window.
 * microSD storage, move between devices with ease.
 * No proprietary drivers, works out-of-box.
 
 ![Alt text](resources/pics/teaser.gif)
-
-The macros can be as simple as `Ctrl + C`, or as complex as filling forms, launching applications, or even [creating root backdoors](https://shop.hak5.org/blogs/usb-rubber-ducky/the-3-second-reverse-shell-with-a-usb-rubber-ducky) or [grabbing passwords](https://shop.hak5.org/blogs/usb-rubber-ducky/15-second-password-hack-mr-robot-style). It's all up to you!
 
 ## duckyScript vs QMK/VIA
 
@@ -37,29 +44,26 @@ Compared to QMK/VIA, you get:
 
 * **Much Longer Macros**
 	* [Entire Bee Movie](resources/beemovie.txt) in one macro? Yes please!
-	* Up to 480 in total!
+	* Up to 480 macros
 
-* **Sophisticated Interactive Scripting**
-	* Variables, conditions, loops, functions, etc.
+* **Turing-Complete Scripting**
+	* Variables, conditions, loops, functions, and more.
+	* Executed on [32-bit Bytecode VM](https://duckypad.github.io/DuckStack/)
+	* With **Scratch** and **Non-volatile Memory**
+
+* **Advanced Interactions**
 	* Reading Buttons
 	* Print to OLED screen
 	* Change RGB Color
-	* Fine timing control & Randomization
 
 * **SD Card Storage**
 	* Fast Configuration / Backup / Deployment
 	* No sketchy drivers or apps
 	* No recompiling
 
-While QMK/VIA are great for regular keyboards, they are rather hopeless at even the basics of input automations.
+While QMK/VIA are great for regular keyboards, they are rather limited at input automations.
 
-duckyScript is a no-brainer for power users with more demanding scripting needs.
-
-## Get duckyPad
-
-duckyPad is [now available on Tindie](https://www.tindie.com/products/21984)!
-
-duckyPad was successfully [funded on Kickstarter](https://www.kickstarter.com/projects/dekunukem/duckypad-do-it-all-mechanical-macropad) in 2020 thanks to the [amazing backers!](kickstarter_backers.md)
+duckyScript is a no-brainer for **power users** with more demanding scripting needs.
 
 ## 🆕 duckyPad Pro
 
@@ -297,7 +301,7 @@ A number of projects are based on duckyPad, they are listed here!
 
 [Kit Assembly Guide](kit_assembly_guide.md)
 
-[Using duckyScript](duckyscript_info.md)
+[Using duckyScript](https://dekunukem.github.io/duckyPad-Pro/doc/duckyscript_info.html)
 
 [Common issues / Troubleshooting](troubleshooting.md)
 

@@ -154,7 +154,6 @@ Finally, the rightmost column is for *scripts*:
 * Press `Save` button to write the changes back to duckyPad.
 * Check debug window for progress
 
-
 ### Try It Out!
 
 duckyPad should reboot after saving.
@@ -172,7 +171,6 @@ That's it! Now you know how to customise your duckyPad!
 ⚠️⚠️ **Please keep reading** for more useful information!
 
 ------------
-
 
 ### Profile Auto-Switching
 
@@ -294,7 +292,7 @@ You can update duckyPad's firmware for new features and bug fixes.
 
 [Kit Assembly Guide](kit_assembly_guide.md)
 
-[Using duckyScript](duckyscript_info.md)
+[Using duckyScript](https://dekunukem.github.io/duckyPad-Pro/doc/duckyscript_info.html)
 
 [Common issues / Troubleshooting](troubleshooting.md)
 

@@ -94,7 +94,6 @@ For reset and DFU button, try searching `SMD Side Tact Tactile Push Button`:
 
 ![Alt text](resources/pics/sidepush.jpg)
 
-
 ## Technical notes
 
 The microcontroller used here is a STM32F072C8T6. It is cheaper, has more peripherals, pins, and is faster than any old Aduinos. ST provides a free Keil MDK license for all F0 parts, and there are also completely open source toolchains like arm-gcc.
@@ -109,7 +108,7 @@ One interesting design detail is the RGB LED. The WS2812(and its clones) require
 
 [Kit Assembly Guide](kit_assembly_guide.md)
 
-[Using duckyScript](duckyscript_info.md)
+[Using duckyScript](https://dekunukem.github.io/duckyPad-Pro/doc/duckyscript_info.html)
 
 [Common issues / Troubleshooting](troubleshooting.md)
 
