@@ -133,12 +133,16 @@ void neopixel_off(void)
   neopixel_draw_current_buffer();
 }
 
+// stop all animation, shows user keycolor, if none, show default key color.
 void redraw_bg(void)
 {
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
   {
     neo_anime[i].animation_type = ANIMATION_NONE;
-    set_pixel_color(i, curr_pf_info.sw_color_default[i]);
+    if(curr_pf_info.has_user_assigned_keycolor[i])
+      set_pixel_color(i, curr_pf_info.sw_color_user_assigned[i]);
+    else
+      set_pixel_color(i, curr_pf_info.sw_color_default[i]);
   }
   neopixel_draw_current_buffer();
 }

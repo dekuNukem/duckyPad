@@ -324,10 +324,8 @@ void goto_profile(uint8_t profile_number)
 {
   if(goto_profile_without_updating_rgb_LED(profile_number))
     return;
-  if(load_persistent_state())
-    redraw_bg();
-  else
-    neopixel_draw_current_buffer();
+  load_persistent_state();
+  redraw_bg();
 }
 
 void goto_next_profile(void)
@@ -359,36 +357,54 @@ void goto_prev_profile(void)
   goto_profile(new_profile_number);
 }
 
-#define COLOR_START_ADDR MAX_TOTAL_SW_COUNT
+#define SPS_PROTOCOL_VERSION 1
+#define SPS_HEADER_SIZE 4
+#define SPS_COLOR_START_ADDR (SPS_HEADER_SIZE + MAX_TOTAL_SW_COUNT)
 #define SPS_BIN_SIZE 256
 uint8_t sps_bin_buf[SPS_BIN_SIZE];
 
-void save_persistent_state(uint8_t epilogue_value, uint8_t swid)
+/*
+  Persistent state file:
+  Byte 0: D
+  Byte 1: P
+  Byte 2: SPS Version
+  Byte 3: LED state start address
+  Byte 4+: Keypress count for LOOP command
+  LED state: starts at addr indicated on byte 3 
+
+  LED state: 4 bytes per chunk
+  Byte 0: has_user_assigned_color
+  Byte 1: Red
+  Byte 2: Green
+  Byte 3: Blue
+*/
+
+void save_persistent_state(void)
 {
   memset(sps_bin_buf, 0, SPS_BIN_SIZE);
-  memcpy(sps_bin_buf, curr_pf_info.keypress_count, MAX_TOTAL_SW_COUNT);
-  for (uint8_t i = 0; i < NEOPIXEL_COUNT; i++)
+  sps_bin_buf[0] = 'D';
+  sps_bin_buf[1] = 'P';
+  sps_bin_buf[2] = SPS_PROTOCOL_VERSION;
+  sps_bin_buf[3] = SPS_COLOR_START_ADDR;
+  memcpy(sps_bin_buf+SPS_HEADER_SIZE, curr_pf_info.keypress_count, MAX_TOTAL_SW_COUNT);
+  for (uint16_t i = 0; i < NEOPIXEL_COUNT; i++)
   {
-    uint8_t r_addr = i*3 + COLOR_START_ADDR;
-    uint8_t g_addr = r_addr + 1;
-    uint8_t b_addr = g_addr + 1;
-    uint8_t red, green, blue;
-    get_current_color(i, &red, &green, &blue);
-    // if not asking to save color state, save the current key color with assigned switch color, instead of keydown color
-    if((epilogue_value & EPILOGUE_SAVE_COLOR_STATE) == 0 && i == swid)
-    {
-      red = curr_pf_info.sw_color_default[i][0];
-      green = curr_pf_info.sw_color_default[i][1];
-      blue = curr_pf_info.sw_color_default[i][2];
-    }
-    sps_bin_buf[r_addr] = red;
-    sps_bin_buf[g_addr] = green;
-    sps_bin_buf[b_addr] = blue;
+    uint16_t has_user_assigned_color_addr = i*4 + SPS_COLOR_START_ADDR;
+    uint16_t r_addr = has_user_assigned_color_addr + 1;
+    uint16_t g_addr = r_addr + 1;
+    uint16_t b_addr = g_addr + 1;
+    uint8_t has_user_assigned_color = curr_pf_info.has_user_assigned_keycolor[i];
+    if(has_user_assigned_color == 0)
+      continue;
+    if(b_addr >= SPS_BIN_SIZE)
+      break;
+    sps_bin_buf[has_user_assigned_color_addr] = has_user_assigned_color;
+    sps_bin_buf[r_addr] = curr_pf_info.sw_color_user_assigned[i][RED];
+    sps_bin_buf[g_addr] = curr_pf_info.sw_color_user_assigned[i][GREEN];
+    sps_bin_buf[b_addr] = curr_pf_info.sw_color_user_assigned[i][BLUE];
   }
-  
   CLEAR_TEMP_BUF();
   snprintf(temp_buf, TEMP_BUFSIZE, "/profile_%s/state_dpp.sps", profile_name_list[current_profile_number]);
-
   f_open(&sd_file, temp_buf, FA_WRITE | FA_CREATE_ALWAYS);
   f_write(&sd_file, sps_bin_buf, SPS_BIN_SIZE, &bytes_written);
   f_close(&sd_file);
@@ -401,19 +417,35 @@ uint8_t load_persistent_state(void)
 
   if(f_open(&sd_file, temp_buf, FA_READ))
     return 1;
+  
   memset(sps_bin_buf, 0, SPS_BIN_SIZE);
   if(f_read(&sd_file, sps_bin_buf, SPS_BIN_SIZE, &bytes_read))
     return 2;
   f_close(&sd_file);
-  memcpy(curr_pf_info.keypress_count, sps_bin_buf, MAX_TOTAL_SW_COUNT);
 
-  for (uint8_t i = 0; i < NEOPIXEL_COUNT; ++i)
+  if (bytes_read < SPS_HEADER_SIZE)
+    return 2;
+  if (sps_bin_buf[0] != 'D' || sps_bin_buf[1] != 'P')
+    return 3;
+  if(sps_bin_buf[2] != SPS_PROTOCOL_VERSION)
+    return 4;
+
+  uint8_t color_start_addr = sps_bin_buf[3];
+  memcpy(curr_pf_info.keypress_count, sps_bin_buf + SPS_HEADER_SIZE, MAX_TOTAL_SW_COUNT);
+  memset(curr_pf_info.has_user_assigned_keycolor, 0, MECH_OBSW_COUNT);
+
+  for (uint8_t i = 0; i < NEOPIXEL_COUNT; i++)
   {
-    uint8_t r_addr = i*3 + COLOR_START_ADDR;
-    uint8_t red = sps_bin_buf[r_addr];
-    uint8_t green = sps_bin_buf[r_addr+1];
-    uint8_t blue = sps_bin_buf[r_addr+2];
-    set_pixel_3color_update_buffer(i, red, green, blue);
+    uint16_t has_user_assigned_color_addr = i * 4 + color_start_addr;
+    if (has_user_assigned_color_addr + 3 >= SPS_BIN_SIZE)
+      break;
+    uint8_t has_user_color = sps_bin_buf[has_user_assigned_color_addr];
+    if(has_user_color == 0)
+      continue;
+    curr_pf_info.has_user_assigned_keycolor[i] = has_user_color;
+    curr_pf_info.sw_color_user_assigned[i][RED]   = sps_bin_buf[has_user_assigned_color_addr + 1];
+    curr_pf_info.sw_color_user_assigned[i][GREEN] = sps_bin_buf[has_user_assigned_color_addr + 2];
+    curr_pf_info.sw_color_user_assigned[i][BLUE]  = sps_bin_buf[has_user_assigned_color_addr + 3];
   }
   return 0;
 }

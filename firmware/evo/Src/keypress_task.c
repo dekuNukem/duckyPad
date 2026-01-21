@@ -69,12 +69,11 @@ uint8_t run_once(uint8_t swid, char* dsb_path, uint8_t* to_increment)
 
   uint8_t is_press = strstr(dsb_path, key_release_file_string) == NULL;
   uint8_t is_cached = dsbc_search(current_profile_number, swid, is_press, dsvm_cached_data);
-  // printf("is_cached: %d\n", is_cached);
 
   run_dsb(&this_exe, swid, dsb_path, is_cached);
   printf("---\nexecution finished:\nresult: %d\ndata: %d\nepilogue: 0x%x\n---\n", this_exe.result, this_exe.data, this_exe.epilogue_actions);
   if(to_increment != NULL)
-    *to_increment = *to_increment + 1;
+    *to_increment += 1;
   
   uint8_t what_to_do = DSB_ALLOW_AUTOREPEAT;
 
@@ -93,11 +92,11 @@ uint8_t run_once(uint8_t swid, char* dsb_path, uint8_t* to_increment)
   }
   if(this_exe.epilogue_actions & EPILOGUE_SAVE_LOOP_STATE)
   {
-    save_persistent_state(this_exe.epilogue_actions, swid);
+    save_persistent_state();
   }
   if(this_exe.epilogue_actions & EPILOGUE_SAVE_COLOR_STATE)
   {
-    save_persistent_state(this_exe.epilogue_actions, swid);
+    save_persistent_state();
     what_to_do = DSB_DONT_PLAY_KEYUP_ANIMATION_RETURN_IMMEDIATELY;
   }
   if(this_exe.epilogue_actions & EPILOGUE_NEED_OLED_RESTORE)

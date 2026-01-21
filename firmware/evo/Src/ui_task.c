@@ -229,7 +229,7 @@ static const char* exe_error_string(uint8_t err_code)
     case EXE_DSB_FREAD_ERROR:          return "File Read Fail";
     case EXE_STACK_OVERFLOW:           return "Stack Overflow";
     case EXE_STACK_UNDERFLOW:          return "Stack Underflow";
-    case EXE_DIVISION_BY_ZERO:         return "Div by Zero";
+    case EXE_DIVISION_BY_ZERO:         return "Division by Zero";
     case EXE_ILLEGAL_ADDR:             return "Illegal Address";
     case EXE_DSB_FILE_TOO_LARGE:       return "File Too Large";
     case EXE_UNIMPLEMENTED:            return "Unimplemented";
@@ -245,7 +245,7 @@ void draw_wrong_vmver()
   ssd1306_Fill(Black);
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "Incompatible File!");
+  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "Incompatible Script!");
   ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 0);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
@@ -253,18 +253,20 @@ void draw_wrong_vmver()
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
   snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "Use latest FW & App");
-  ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 13);
+  ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 14);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
   snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "Load & Save to");
-  ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 25);
+  ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 26);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
   snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "Refresh Files");
-  ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 40);
+  ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 38);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
+
+  ssd1306_Line(0,51,128,51,White);
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
   snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "Press Any Key");

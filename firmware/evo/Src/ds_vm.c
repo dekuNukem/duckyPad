@@ -1567,6 +1567,7 @@ void run_dsb(exe_context* ctx, uint8_t this_key_id, char* dsb_path, uint8_t is_c
   memset(user_var_buf, 0, USER_VAR_BUF_SIZE);
   memset(scratch_mem_buf, 0, SCRATCH_MEM_BUF_SIZE);
   stack_init(&data_stack, stack_buf, STACK_BASE_ADDR, STACK_BUF_SIZE);
+  current_key_id = this_key_id;
   current_bank = 255;
   defaultdelay = DEFAULT_NONCHAR_DELAY_MS;
   defaultchardelay = DEFAULT_CHAR_DELAY_MS;
@@ -1589,13 +1590,6 @@ void run_dsb(exe_context* ctx, uint8_t this_key_id, char* dsb_path, uint8_t is_c
 
   f_open(&sd_file, dsb_path, FA_READ);
 
-  // for (size_t i = 1; i < 32; i+=4)
-  // {
-  //   uint32_t result = 0;
-  //   read_bytes_safe(i, &result, sizeof(result));
-  //   printf("read %d: 0x%08X\n", i, result);
-  // }
-
   while(1)
   {
     execute_instruction(ctx);
@@ -1603,6 +1597,7 @@ void run_dsb(exe_context* ctx, uint8_t this_key_id, char* dsb_path, uint8_t is_c
     if(ctx->result != EXE_OK)
       break;
   }
-  // disable_autorepeat ? DS_SET_BITS(*epilogue_ptr, EPILOGUE_DONT_AUTO_REPEAT) : DS_CLEAR_BITS(*epilogue_ptr, EPILOGUE_DONT_AUTO_REPEAT);
+  
+  disable_autorepeat ? DS_SET_BITS(*epilogue_ptr, EPILOGUE_DONT_AUTO_REPEAT) : DS_CLEAR_BITS(*epilogue_ptr, EPILOGUE_DONT_AUTO_REPEAT);
   f_close(&sd_file);
 }

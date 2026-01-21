@@ -56,7 +56,7 @@ void goto_next_profile(void);
 
 uint8_t load_settings(dp_global_settings* dps);
 uint8_t save_settings(dp_global_settings* dps);
-void save_persistent_state(uint8_t epilogue_value, uint8_t swid);
+void save_persistent_state(void);
 uint8_t load_persistent_state(void);
 void save_gv(void);
 void load_gv(void);
