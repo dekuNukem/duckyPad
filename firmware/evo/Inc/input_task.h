@@ -48,6 +48,7 @@ void kb_scan_task(void);
 void clear_sw_queue(void);
 uint8_t sw_queue_has_keydown_event(void);
 uint8_t poll_sw_state(uint8_t swid_zero_indexed, uint8_t perform_new_scan);
+uint32_t get_sw_state_bitfield(void);
 
 extern Queue_t switch_event_queue;
 

@@ -101,3 +101,12 @@ uint8_t poll_sw_state(uint8_t swid_zero_indexed, uint8_t perform_new_scan)
 	return this_sw_state[swid_zero_indexed];
 }
 
+uint32_t get_sw_state_bitfield(void)
+{
+  uint32_t bitfield = 0;
+  uint8_t limit = (MAX_TOTAL_SW_COUNT < 32) ? MAX_TOTAL_SW_COUNT : 32;
+  for(uint8_t i = 0; i < limit; i++)
+    if(this_sw_state[i])
+      bitfield |= (1UL << i);
+  return bitfield;
+}
