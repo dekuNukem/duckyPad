@@ -23,8 +23,8 @@ void strip_newline(char* line, uint32_t size);
 void idle_loop(void);
 uint32_t get_uuid(void);
 uint32_t millis(void);
-HAL_StatusTypeDef RTC_SetFromUnixTimestamp(RTC_HandleTypeDef *hrtc, uint32_t unix_timestamp, int16_t utc_offset_minutes);
 uint8_t is_rtc_valid(void);
+void mark_rtc_as_valid(void);
 
 extern char temp_buf[TEMP_BUFSIZE];
 

@@ -234,8 +234,7 @@ int main(void)
 
   ensure_new_profile_format();
 
-  uint8_t ttt = RTC_SetFromUnixTimestamp(&hrtc, 1769031780, 0);
-  printf("rtc init: %d\n", ttt);
+  // mark_rtc_as_valid();
 
   if(scan_profiles())
   {
@@ -397,7 +396,6 @@ static void MX_RTC_Init(void)
 
   /* USER CODE BEGIN Check_RTC_BKUP */
 
-  return;
   /* USER CODE END Check_RTC_BKUP */
 
   /** Initialize RTC and set the Time and Date
