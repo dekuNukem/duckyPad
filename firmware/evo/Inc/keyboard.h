@@ -123,6 +123,8 @@ extern uint16_t duckcode_cedilla;
 
 extern uint16_t ascii_map[ASCII_MAP_SIZE];
 
+void release_everything(void);
+
 #ifdef __cplusplus
 }
 #endif

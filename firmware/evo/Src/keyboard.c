@@ -356,6 +356,7 @@ void mouse_press(my_key* this_key)
   else if(this_key->type == KEY_TYPE_MOUSE_WHEEL)
   {
     kb_buf[4] = this_key->code;
+    kb_buf[5] = this_key->code2;
   }
   USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, kb_buf, DP_HID_MSG_SIZE);
   memset(kb_buf, 0, DP_HID_MSG_SIZE);
@@ -625,3 +626,13 @@ void release_key(uint8_t code, uint8_t type)
   action_release(&kk);
 }
 
+void release_everything(void)
+{
+  delay_ms(100);
+  media_key_release();
+  delay_ms(100);
+  keyboard_release_all();
+  delay_ms(100);
+  mouse_release_all();
+  delay_ms(100);
+}

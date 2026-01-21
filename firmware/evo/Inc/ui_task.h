@@ -7,13 +7,14 @@
 
 #include <stdint.h>
 #include "profiles.h"
+#include "ds_vm.h"
 
 void draw_nosd(void);
 void draw_noprofile(void);
 void draw_current_profile(void);
 void draw_settings(dp_global_settings *dps);
 void oled_say(char* what);
-void draw_exe_error(uint8_t err_code);
+void draw_exe_error(exe_context* ctx);
 void update_kbled_icon(uint8_t this_led_state);
 void draw_fatal_error(uint8_t err_code);
 uint8_t center_line(uint8_t line_len);
