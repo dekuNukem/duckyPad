@@ -233,7 +233,8 @@ int main(void)
   }
 
   ensure_new_profile_format();
-
+  uint8_t wwwwww = RTC_SetFromUnixTimestamp(&hrtc, 1769032977);
+  printf("wwwww %d\n", wwwwww);
   // mark_rtc_as_valid();
 
   if(scan_profiles())

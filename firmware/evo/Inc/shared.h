@@ -7,6 +7,7 @@
 
 #include <stdint.h>
 #include "stm32f0xx_hal.h"
+#include <time.h>
 
 #define TEMP_BUFSIZE 256
 
@@ -25,6 +26,7 @@ uint32_t get_uuid(void);
 uint32_t millis(void);
 uint8_t is_rtc_valid(void);
 void mark_rtc_as_valid(void);
+uint8_t RTC_SetFromUnixTimestamp(RTC_HandleTypeDef *rtc_ptr, uint32_t unix_timestamp);
 
 extern char temp_buf[TEMP_BUFSIZE];
 
