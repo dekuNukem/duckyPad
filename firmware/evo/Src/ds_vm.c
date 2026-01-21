@@ -1540,14 +1540,13 @@ void read_binexe_bytes_safe(uint32_t vm_addr, void* dest, size_t size)
     longjmp(jmpbuf, EXE_DSB_FREAD_ERROR);
 
   uint8_t* dest_ptr = (uint8_t*)dest;
-  uint32_t current_offset = vm_addr % BIN_BUF_SIZE;
-
-  if(this_dsb_cache != NULL)
+  if(this_dsb_cache != NULL && vm_addr < DSB_CACHE_BYTE_SIZE)
   {
-    memcpy(dest_ptr, &this_dsb_cache[current_offset], size);
+    memcpy(dest_ptr, &this_dsb_cache[vm_addr], size);
     return;
   }
-  
+
+  uint32_t current_offset = vm_addr % BIN_BUF_SIZE;
   // Calculate how many bytes are available in the current bank
   // starting from the requested address.
   uint32_t bytes_avail_in_bank = BIN_BUF_SIZE - current_offset;
