@@ -798,15 +798,19 @@ char get_random_char(uint8_t bitmask)
   return randchar_pool[rand() % pool_size];
 }
 
-
 uint32_t my_randu32(void)
 {
-  return DUMMY_DATA_REPLACE_ME;
+  uint32_t r = 0;
+  r |= (uint32_t)rand() & 0xFF;
+  r |= ((uint32_t)rand() & 0xFF) << 8;
+  r |= ((uint32_t)rand() & 0xFF) << 16;
+  r |= ((uint32_t)rand() & 0xFF) << 24;
+  return r;
 }
 
 uint32_t myrandu32_uniform(uint32_t range)
 {
-  return DUMMY_DATA_REPLACE_ME;
+  return range ? my_randu32() % range : 0;
 }
 
 uint32_t random_uint32_between(uint32_t lower, uint32_t upper)
@@ -1425,7 +1429,7 @@ void execute_instruction(exe_context* exe)
     stack_pop(&data_stack, &options);
     clamp_uint(&x, SSD1306_WIDTH);
     clamp_uint(&y, SSD1306_HEIGHT);
-    clamp_uint(&radius, SSD1306_HEIGHT/2);
+    clamp_uint(&radius, SSD1306_WIDTH);
     SSD1306_COLOR draw_color = White;
     if(options & 0x2)
       draw_color = Black;
@@ -1589,7 +1593,7 @@ void run_dsb(exe_context* ctx, uint8_t this_key_id, char* dsb_path, uint8_t is_c
   }
 
   f_open(&sd_file, dsb_path, FA_READ);
-
+  uint32_t this_dsb_file_size = f_size(&sd_file);
   while(1)
   {
     execute_instruction(ctx);
@@ -1597,7 +1601,14 @@ void run_dsb(exe_context* ctx, uint8_t this_key_id, char* dsb_path, uint8_t is_c
     if(ctx->result != EXE_OK)
       break;
   }
-  
-  disable_autorepeat ? DS_SET_BITS(*epilogue_ptr, EPILOGUE_DONT_AUTO_REPEAT) : DS_CLEAR_BITS(*epilogue_ptr, EPILOGUE_DONT_AUTO_REPEAT);
   f_close(&sd_file);
+
+  disable_autorepeat ? DS_SET_BITS(*epilogue_ptr, EPILOGUE_DONT_AUTO_REPEAT) : DS_CLEAR_BITS(*epilogue_ptr, EPILOGUE_DONT_AUTO_REPEAT);
+
+  if(is_cached == 0 && this_dsb_file_size <= DSB_CACHE_BYTE_SIZE)
+  {
+    uint8_t is_press = strstr(dsb_path, key_release_file_string) == NULL;
+    dsbc_add(current_profile_number, this_key_id, is_press, millis(), bin_buf, this_dsb_file_size);
+    printf("added %02d %02d %02d to cache!\n", current_profile_number, this_key_id, is_press);
+  }
 }

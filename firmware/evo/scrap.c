@@ -1,4 +1,7 @@
-   // for (size_t i = 1; i < 32; i+=4)
+// find printf: ^(?:(?!\/\/).)*\bprintf\b
+
+
+// for (size_t i = 1; i < 32; i+=4)
   // {
   //   uint32_t result = 0;
   //   read_bytes_safe(i, &result, sizeof(result));

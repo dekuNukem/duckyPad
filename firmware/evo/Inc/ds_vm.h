@@ -144,6 +144,7 @@ typedef uint32_t (*FUNC_PTR_UNARY)(uint32_t);
 #define DS_CLEAR_BITS(variable, mask) ((variable) &= ~(mask))
 
 void run_dsb(exe_context* ctx, uint8_t this_key_id, char* dsb_path, uint8_t is_cached);
+uint32_t my_randu32(void);
 uint32_t random_uint32_between(uint32_t lower, uint32_t upper);
 int32_t random_int32_between(int32_t lower, int32_t upper);
 void switch_bank(uint16_t addr);
