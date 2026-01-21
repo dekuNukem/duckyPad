@@ -1,4 +1,4 @@
-#include <stdio.h>    /* printf */
+#include <stdio.h>
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
@@ -36,6 +36,8 @@ uint8_t disable_autorepeat;
 static jmp_buf jmpbuf;
 uint8_t current_key_id = 127;
 uint8_t current_bank;
+
+uint8_t* this_dsb_cache;
 
 //-------placeholders---------
 uint8_t is_rtc_valid;
@@ -1539,6 +1541,12 @@ void read_binexe_bytes_safe(uint32_t vm_addr, void* dest, size_t size)
 
   uint8_t* dest_ptr = (uint8_t*)dest;
   uint32_t current_offset = vm_addr % BIN_BUF_SIZE;
+
+  if(this_dsb_cache != NULL)
+  {
+    memcpy(dest_ptr, &this_dsb_cache[current_offset], size);
+    return;
+  }
   
   // Calculate how many bytes are available in the current bank
   // starting from the requested address.
@@ -1566,7 +1574,7 @@ void read_binexe_bytes_safe(uint32_t vm_addr, void* dest, size_t size)
   }
 }
 
-void run_dsb(exe_context* ctx, uint8_t this_key_id, char* dsb_path, uint8_t is_cached)
+void run_dsb(exe_context* ctx, uint8_t this_key_id, char* dsb_path, uint8_t* dsb_cache_buf)
 {
   memset(user_var_buf, 0, USER_VAR_BUF_SIZE);
   memset(scratch_mem_buf, 0, SCRATCH_MEM_BUF_SIZE);
@@ -1583,7 +1591,9 @@ void run_dsb(exe_context* ctx, uint8_t this_key_id, char* dsb_path, uint8_t is_c
   allow_abort = 0;
   disable_autorepeat = 0;
   srand(millis());
-
+  this_dsb_cache = dsb_cache_buf;
+  uint32_t this_dsb_file_size = 0;
+  
   int panic_code = setjmp(jmpbuf);
   if(panic_code != 0)
   {
@@ -1592,8 +1602,12 @@ void run_dsb(exe_context* ctx, uint8_t this_key_id, char* dsb_path, uint8_t is_c
     return;
   }
 
-  f_open(&sd_file, dsb_path, FA_READ);
-  uint32_t this_dsb_file_size = f_size(&sd_file);
+  if(dsb_cache_buf == NULL)
+  {
+    f_open(&sd_file, dsb_path, FA_READ);
+    this_dsb_file_size = f_size(&sd_file);
+  }
+
   while(1)
   {
     execute_instruction(ctx);
@@ -1605,10 +1619,10 @@ void run_dsb(exe_context* ctx, uint8_t this_key_id, char* dsb_path, uint8_t is_c
 
   disable_autorepeat ? DS_SET_BITS(*epilogue_ptr, EPILOGUE_DONT_AUTO_REPEAT) : DS_CLEAR_BITS(*epilogue_ptr, EPILOGUE_DONT_AUTO_REPEAT);
 
-  if(is_cached == 0 && this_dsb_file_size <= DSB_CACHE_BYTE_SIZE)
+  if(dsb_cache_buf == NULL && this_dsb_file_size <= DSB_CACHE_BYTE_SIZE)
   {
     uint8_t is_press = strstr(dsb_path, key_release_file_string) == NULL;
     dsbc_add(current_profile_number, this_key_id, is_press, millis(), bin_buf, this_dsb_file_size);
-    printf("added %02d %02d %02d to cache!\n", current_profile_number, this_key_id, is_press);
+    // printf("added %02d %02d %02d to cache!\n", current_profile_number, this_key_id, is_press);
   }
 }

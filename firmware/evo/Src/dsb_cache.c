@@ -4,7 +4,6 @@
 #include "dsb_cache.h"
 
 const char* key_release_file_string = "release";
-uint8_t dsvm_cached_data[DSB_CACHE_BYTE_SIZE];
 
 dsbc_item dsb_cache[DSB_CACHE_ENTRIES_SIZE];
 
@@ -56,28 +55,13 @@ void dsbc_add(uint8_t pf_idx, uint8_t k_idx, uint8_t is_kdown, uint32_t ts, uint
 //   printf("  timestamp:   %lu\n", item->timestamp);
 // }
 
-uint8_t dsbc_search(uint8_t pf_idx, uint8_t k_idx, uint8_t is_kdown, uint8_t* data)
+uint8_t* dsbc_search(uint8_t pf_idx, uint8_t k_idx, uint8_t is_kdown)
 {
-  if (data == NULL)
-    return 0;
-
   for (int i = 0; i < DSB_CACHE_ENTRIES_SIZE; ++i)
   {
     dsbc_item* item = &dsb_cache[i];
-
-    if (item->profile_idx == pf_idx &&
-        item->key_idx == k_idx &&
-        item->is_press == is_kdown)
-    {
-      // Zero out the destination buffer
-      memset(data, 0, DSB_CACHE_BYTE_SIZE);
-
-      // Copy the cached data
-      memcpy(data, item->data, DSB_CACHE_BYTE_SIZE);
-
-      return 1; // Found
-    }
+    if (item->profile_idx == pf_idx && item->key_idx == k_idx && item->is_press == is_kdown)
+      return item->data;
   }
-
-  return 0; // Not found
+  return NULL;
 }
