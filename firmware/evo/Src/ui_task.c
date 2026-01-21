@@ -234,7 +234,7 @@ static const char* exe_error_string(uint8_t err_code)
     case EXE_DSB_FILE_TOO_LARGE:       return "File Too Large";
     case EXE_UNIMPLEMENTED:            return "Unimplemented";
     case EXE_UNALIGNED_ACCESS:         return "Unaligned Read";
-    case EXE_PROFILE_NOT_FOUND:        return "ProfileNotFound";
+    case EXE_PROFILE_NOT_FOUND:        return "Profile Not Found";
     case EXE_STR_ERROR:                return "String Overflow";
     default:                           return "Unknown Error";
   }
@@ -245,22 +245,20 @@ void draw_wrong_vmver()
   ssd1306_Fill(Black);
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "Incompatible EXE");
+  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "Incompatible File!");
   ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 0);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
+  ssd1306_Line(0,10,128,10,White);
+
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "Use latest");
-  ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 10);
-  ssd1306_WriteString(oled_line_buf, Font_6x10, White);
-  memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
-  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "FW & PC App");
-  ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 20);
+  snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "Use latest FW & App");
+  ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 13);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
   snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "Load & Save to");
-  ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 30);
+  ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 25);
   ssd1306_WriteString(oled_line_buf, Font_6x10, White);
 
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
