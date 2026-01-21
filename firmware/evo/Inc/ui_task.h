@@ -18,6 +18,7 @@ void draw_exe_error(exe_context* ctx);
 void update_kbled_icon(uint8_t this_led_state);
 void draw_fatal_error(uint8_t err_code);
 uint8_t center_line(uint8_t line_len);
+void draw_rtc_icon(uint8_t update_screen);
 
 #define ONE_MINUTE_IN_MS (60*1000)
 #define ONE_HOUR_IN_MS (60*ONE_MINUTE_IN_MS)

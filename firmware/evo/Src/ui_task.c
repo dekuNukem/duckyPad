@@ -142,7 +142,7 @@ void draw_current_profile(void)
   snprintf(oled_line_buf, OLED_LINE_BUF_SIZE, "%s", profile_name_list[current_profile_number]);
 	ssd1306_SetCursor(center_line(strlen(oled_line_buf)), 0);
 	ssd1306_WriteString(oled_line_buf, Font_6x10, White);
-
+  draw_rtc_icon(0);
   ssd1306_Line(0,10,127,10,White); // title solid line
 
   for (int i = 0; i < MECH_OBSW_COUNT; ++i)
@@ -315,7 +315,6 @@ void draw_exe_error(exe_context* ctx)
   ssd1306_UpdateScreen();
 }
 
-
 void draw_fatal_error(uint8_t err_code)
 {
   memset(oled_line_buf, 0, OLED_LINE_BUF_SIZE);
@@ -326,3 +325,20 @@ void draw_fatal_error(uint8_t err_code)
     delay_ms(500);
   }
 }
+
+#define RTC_ICON_HEIGHT (9)
+#define RTC_ICON_WIDTH (9)
+const unsigned char rtc_icon[] = {
+    0x1C, 0x00, 0x6B, 0x00, 0x49, 0x00, 0x88, 0x80, 0x8E, 0x80, 0x80, 0x80,
+    0x41, 0x00, 0x63, 0x00, 0x1C, 0x00,
+};
+
+void draw_rtc_icon(uint8_t update_screen)
+{
+  if(is_rtc_valid() == 0)
+    return;
+  ssd1306_DrawBitmap(0, 0, rtc_icon, RTC_ICON_WIDTH, RTC_ICON_HEIGHT, White);
+  if(update_screen)
+    ssd1306_UpdateScreen();
+}
+

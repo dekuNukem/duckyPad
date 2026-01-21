@@ -325,7 +325,7 @@ void goto_profile(uint8_t profile_number)
   if(goto_profile_without_updating_rgb_LED(profile_number))
     return;
   load_persistent_state();
-  redraw_bg();
+  neopixel_redraw_bg();
 }
 
 void goto_next_profile(void)

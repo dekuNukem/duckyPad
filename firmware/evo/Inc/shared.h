@@ -8,12 +8,14 @@
 #include <stdint.h>
 #include "stm32f0xx_hal.h"
 
-
 #define TEMP_BUFSIZE 256
 
 #define STM32F0_UUID0 ((uint32_t *)0x1FFFF7AC)
 #define STM32F0_UUID1 ((uint32_t *)0x1FFFF7B0)
 #define STM32F0_UUID2 ((uint32_t *)0x1FFFF7B4)
+
+#define RTC_BACKUP_REG RTC_BKP_DR0
+#define RTC_MAGIC_NUMBER 0xd11c
 
 void delay_ms(uint32_t amount);
 char* goto_next_arg(char* buf, char* buf_end);
@@ -22,6 +24,7 @@ void idle_loop(void);
 uint32_t get_uuid(void);
 uint32_t millis(void);
 HAL_StatusTypeDef RTC_SetFromUnixTimestamp(RTC_HandleTypeDef *hrtc, uint32_t unix_timestamp, int16_t utc_offset_minutes);
+uint8_t is_rtc_valid(void);
 
 extern char temp_buf[TEMP_BUFSIZE];
 

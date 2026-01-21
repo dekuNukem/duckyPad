@@ -54,13 +54,21 @@ uint32_t get_uuid(void)
   return (*STM32F0_UUID0) ^ (*STM32F0_UUID1) ^ (*STM32F0_UUID2);
 }
 
-HAL_StatusTypeDef RTC_SetFromUnixTimestamp(RTC_HandleTypeDef *hrtc, uint32_t unix_timestamp, int16_t utc_offset_minutes)
+uint8_t is_rtc_valid(void)
+{
+  uint32_t rtcbkup = HAL_RTCEx_BKUPRead(&hrtc, RTC_BACKUP_REG);
+  printf("rtc bkup: %d\n", rtcbkup);
+  return rtcbkup == RTC_MAGIC_NUMBER;
+}
+
+HAL_StatusTypeDef RTC_SetFromUnixTimestamp(RTC_HandleTypeDef *rtc_ptr, uint32_t unix_timestamp, int16_t utc_offset_minutes)
 {
   HAL_StatusTypeDef status;
   struct tm *time_info;
   time_t local_time;
   RTC_TimeTypeDef sTime = {0};
   RTC_DateTypeDef sDate = {0};
+  HAL_PWR_EnableBkUpAccess();
 
   // 1. Adjust timestamp by the UTC offset (converted to seconds)
   local_time = (time_t)(unix_timestamp + (utc_offset_minutes * 60));
@@ -75,7 +83,6 @@ HAL_StatusTypeDef RTC_SetFromUnixTimestamp(RTC_HandleTypeDef *hrtc, uint32_t uni
   sTime.Hours   = (uint8_t)time_info->tm_hour;
   sTime.Minutes = (uint8_t)time_info->tm_min;
   sTime.Seconds = (uint8_t)time_info->tm_sec;
-  sTime.TimeFormat = RTC_HOURFORMAT12_AM; // Not used if RTC_HOURFORMAT_24 is selected in Init
   sTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
   sTime.StoreOperation = RTC_STOREOPERATION_RESET;
 
@@ -90,10 +97,9 @@ HAL_StatusTypeDef RTC_SetFromUnixTimestamp(RTC_HandleTypeDef *hrtc, uint32_t uni
 
   // 5. Update the Hardware registers
   // We use RTC_FORMAT_BIN because we are passing standard integers
-  status = HAL_RTC_SetDate(hrtc, &sDate, RTC_FORMAT_BIN);
-  if (status != HAL_OK)
-    return status;
-
-  status = HAL_RTC_SetTime(hrtc, &sTime, RTC_FORMAT_BIN);
+  status = HAL_RTC_SetDate(rtc_ptr, &sDate, RTC_FORMAT_BIN);
+  status = HAL_RTC_SetTime(rtc_ptr, &sTime, RTC_FORMAT_BIN);
+  HAL_RTCEx_BKUPWrite(&hrtc, RTC_BACKUP_REG, RTC_MAGIC_NUMBER);
+  HAL_PWR_DisableBkUpAccess();
   return status;
 }

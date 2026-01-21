@@ -40,7 +40,6 @@ uint8_t current_bank;
 uint8_t* this_dsb_cache;
 
 //-------placeholders---------
-uint8_t is_rtc_valid;
 int16_t utc_offset_minutes;
 
 // ---------------------------
@@ -555,7 +554,7 @@ uint32_t memread_u32(uint16_t vm_addr)
   if (vm_addr == _DP_MODEL)
     return 2;
   if (vm_addr == _RTC_IS_VALID)
-    return is_rtc_valid;
+    return is_rtc_valid();
   if (vm_addr == _RTC_UTC_OFFSET)
     return utc_offset_minutes;
   if (vm_addr >= _RTC_YEAR && vm_addr <= _RTC_YDAY)
@@ -861,7 +860,7 @@ void parse_swcf(void)
     curr_pf_info.sw_color_user_assigned[i][GREEN] = (uint8_t)green;
     curr_pf_info.sw_color_user_assigned[i][BLUE] = (uint8_t)blue;
   }
-  redraw_bg();
+  neopixel_redraw_bg();
   DS_SET_BITS(*epilogue_ptr, EPILOGUE_SAVE_COLOR_STATE);
 }
 
@@ -882,7 +881,7 @@ void parse_swcc(void)
   curr_pf_info.sw_color_user_assigned[this_index][RED] = (uint8_t)red;
   curr_pf_info.sw_color_user_assigned[this_index][GREEN] = (uint8_t)green;
   curr_pf_info.sw_color_user_assigned[this_index][BLUE] = (uint8_t)blue;
-  redraw_bg();
+  neopixel_redraw_bg();
   DS_SET_BITS(*epilogue_ptr, EPILOGUE_SAVE_COLOR_STATE);
 }
 
@@ -905,7 +904,7 @@ void parse_swcr(void)
   {
     curr_pf_info.has_user_assigned_keycolor[this_value] = 0;
   }
-  redraw_bg();
+  neopixel_redraw_bg();
   DS_SET_BITS(*epilogue_ptr, EPILOGUE_SAVE_COLOR_STATE);
 }
 

@@ -134,7 +134,7 @@ void neopixel_off(void)
 }
 
 // stop all animation, shows user keycolor, if none, show default key color.
-void redraw_bg(void)
+void neopixel_redraw_bg(void)
 {
   for (int i = 0; i < NEOPIXEL_COUNT; ++i)
   {

@@ -47,7 +47,7 @@ void set_pixel_color(uint8_t which, uint8_t dest_color[THREE]);
 void neopixel_draw_current_buffer(void);
 void neopixel_fill(uint8_t rr, uint8_t gg, uint8_t bb);
 void neopixel_off(void);
-void redraw_bg(void);
+void neopixel_redraw_bg(void);
 void reset_key_color(uint8_t which);
 void led_start_animation(led_animation* anime_struct, uint8_t dest_color[THREE], uint8_t anime_type, uint8_t durations_frames);
 void play_keydown_animation(uint8_t sw_number);
