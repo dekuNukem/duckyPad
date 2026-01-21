@@ -173,7 +173,7 @@ If you want, you can copy the [sample profiles](https://github.com/dekuNukem/duc
 
 [Kit Assembly Guide](kit_assembly_guide.md)
 
-[Using duckyScript](duckyscript_info.md)
+[Using duckyScript](https://dekunukem.github.io/duckyPad-Pro/doc/duckyscript_info.html)
 
 [Common issues / Troubleshooting](troubleshooting.md)
 

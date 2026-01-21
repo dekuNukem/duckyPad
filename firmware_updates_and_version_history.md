@@ -86,6 +86,18 @@ After completion, press **`RESET`** button (or power-cycle) to start using the n
 
 ## Firmware Version History
 
+### 2.3.2 (July 9 2025)
+
+🆕 Increased Persistent Global Variable count to 32
+
+🆕 Added support for **reading and writing PGVs from a computer**. [Details](https://github.com/duckyPad/duckyPad-Profile-Autoswitcher/blob/master/HID_details.md)
+
+🐞 Fixed a bug that caused PGVs to not work
+
+🐞 Fixed a bug where HID buffer was not properly cleared causing ghost inputs
+
+🐞 Fixed a bug that increased chance of SD card corruption
+
 ### 2.1.0 (May 24 2025)
 
 🆕 Reduced latency by caching recent keypresses
@@ -350,7 +362,7 @@ Initial Release
 
 [Kit Assembly Guide](kit_assembly_guide.md)
 
-[Using duckyScript](duckyscript_info.md)
+[Using duckyScript](https://dekunukem.github.io/duckyPad-Pro/doc/duckyscript_info.html)
 
 [Common issues / Troubleshooting](troubleshooting.md)
 
