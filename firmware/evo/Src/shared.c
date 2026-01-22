@@ -56,9 +56,7 @@ uint32_t get_uuid(void)
 
 uint8_t is_rtc_valid(void)
 {
-  uint32_t rtcbkup = HAL_RTCEx_BKUPRead(&hrtc, RTC_BACKUP_REG);
-  printf("rtc bkup: %d\n", rtcbkup);
-  return rtcbkup == RTC_MAGIC_NUMBER;
+  return HAL_RTCEx_BKUPRead(&hrtc, RTC_BACKUP_REG) == RTC_MAGIC_NUMBER;
 }
 
 void mark_rtc_as_valid(void)
@@ -101,4 +99,27 @@ uint8_t RTC_SetFromUnixTimestamp(RTC_HandleTypeDef *rtc_ptr, uint32_t unix_times
   sDate.Year = (uint8_t)(time_info->tm_year - 100);
   status = HAL_RTC_SetDate(rtc_ptr, &sDate, RTC_FORMAT_BIN);
   return 0;
+}
+
+struct tm* get_local_time(RTC_HandleTypeDef *rtc_ptr, int16_t offset_minutes)
+{
+  RTC_TimeTypeDef sTime = {0};
+  RTC_DateTypeDef sDate = {0};
+  struct tm temp_tm = {0};
+  
+  HAL_RTC_GetTime(rtc_ptr, &sTime, RTC_FORMAT_BIN);
+  HAL_RTC_GetDate(rtc_ptr, &sDate, RTC_FORMAT_BIN);
+
+  temp_tm.tm_year = sDate.Year + 100; 
+  temp_tm.tm_mon  = sDate.Month - 1;
+  temp_tm.tm_mday = sDate.Date;
+  temp_tm.tm_hour = sTime.Hours;
+  temp_tm.tm_min  = sTime.Minutes;
+  temp_tm.tm_sec  = sTime.Seconds;
+  temp_tm.tm_isdst = 0; // Explicitly set DST to 0 (we are handling offsets manually)
+
+  time_t utc_epoch = mktime(&temp_tm);
+  time_t local_epoch = utc_epoch + (offset_minutes * 60);
+
+  return localtime(&local_epoch);
 }

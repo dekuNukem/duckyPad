@@ -173,29 +173,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
   // HAL_UART_Receive_IT(&huart3, uart_byte_buf, 1);
 }
 
-struct tm* get_local_time(RTC_HandleTypeDef *rtc_ptr, int16_t offset_minutes)
-{
-  RTC_TimeTypeDef sTime = {0};
-  RTC_DateTypeDef sDate = {0};
-  struct tm temp_tm = {0};
-  
-  HAL_RTC_GetTime(rtc_ptr, &sTime, RTC_FORMAT_BIN);
-  HAL_RTC_GetDate(rtc_ptr, &sDate, RTC_FORMAT_BIN);
-
-  temp_tm.tm_year = sDate.Year + 100; 
-  temp_tm.tm_mon  = sDate.Month - 1;
-  temp_tm.tm_mday = sDate.Date;
-  temp_tm.tm_hour = sTime.Hours;
-  temp_tm.tm_min  = sTime.Minutes;
-  temp_tm.tm_sec  = sTime.Seconds;
-  temp_tm.tm_isdst = 0; // Explicitly set DST to 0 (we are handling offsets manually)
-
-  time_t utc_epoch = mktime(&temp_tm);
-  time_t local_epoch = utc_epoch + (offset_minutes * 60);
-
-  return localtime(&local_epoch);
-}
-
 /* USER CODE END 0 */
 
 /**
@@ -264,10 +241,6 @@ int main(void)
     printf("rtc_set: %d\n", rtc_set_result);
   }
 
-  struct tm *my_local_time = get_local_time(&hrtc, 5*60);
-  printf("Local Date: %02d:%02d:%02d\n", my_local_time->tm_year, my_local_time->tm_mon, my_local_time->tm_mday);
-  printf("Local Time: %02d:%02d:%02d\n", my_local_time->tm_hour, my_local_time->tm_min, my_local_time->tm_sec);
-  
   if(scan_profiles())
   {
     draw_noprofile();

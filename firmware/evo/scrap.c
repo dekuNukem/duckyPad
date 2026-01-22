@@ -1,5 +1,9 @@
 // find printf: ^(?:(?!\/\/).)*\bprintf\b
 
+  struct tm *my_local_time = get_local_time(&hrtc, 5*60);
+  printf("Local Date: %02d:%02d:%02d\n", my_local_time->tm_year, my_local_time->tm_mon, my_local_time->tm_mday);
+  printf("Local Time: %02d:%02d:%02d\n", my_local_time->tm_hour, my_local_time->tm_min, my_local_time->tm_sec);
+  
 
 // for (size_t i = 1; i < 32; i+=4)
   // {

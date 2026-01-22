@@ -27,6 +27,7 @@ uint32_t millis(void);
 uint8_t is_rtc_valid(void);
 void mark_rtc_as_valid(void);
 uint8_t RTC_SetFromUnixTimestamp(RTC_HandleTypeDef *rtc_ptr, uint32_t unix_timestamp);
+struct tm* get_local_time(RTC_HandleTypeDef *rtc_ptr, int16_t offset_minutes);
 
 extern char temp_buf[TEMP_BUFSIZE];
 
