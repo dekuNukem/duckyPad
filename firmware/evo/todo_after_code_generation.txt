@@ -5,6 +5,10 @@ CUSTOM_HID_EPOUT_SIZE set to 64
 1000hz polling:
 CUSTOM_HID_HS_BINTERVAL to 0x04
 CUSTOM_HID_FS_BINTERVAL to 0x01
+
+32.768KHz instead of 40KHz
+hrtc.Init.AsynchPrediv = 99;
+hrtc.Init.SynchPrediv = 399;
 ---------
 
 go into Middlewares\ST\STM32_USB_Device_Library\Class
