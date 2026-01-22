@@ -354,7 +354,6 @@ void file_access_mode_task(void)
   }
 }
 
-
 void keypress_task(void)
 {
   while(1)

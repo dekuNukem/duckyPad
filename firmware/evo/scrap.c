@@ -1,5 +1,14 @@
 // find printf: ^(?:(?!\/\/).)*\bprintf\b
 
+
+  if(is_rtc_valid() == 0)
+  {
+    uint8_t rtc_set_result = RTC_SetFromUnixTimestamp(&hrtc, 1769102406);
+    mark_rtc_as_valid();
+    set_utc_offset(5*60);
+    printf("rtc_set: %d\n", rtc_set_result);
+  }
+
   struct tm *my_local_time = get_local_time(&hrtc, 5*60);
   printf("Local Date: %02d:%02d:%02d\n", my_local_time->tm_year, my_local_time->tm_mon, my_local_time->tm_mday);
   printf("Local Time: %02d:%02d:%02d\n", my_local_time->tm_hour, my_local_time->tm_min, my_local_time->tm_sec);

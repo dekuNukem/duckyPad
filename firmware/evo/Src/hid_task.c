@@ -398,13 +398,15 @@ void parse_hid_msg(uint8_t* this_msg)
   {
     uint32_t unix_ts;
     memcpy(&unix_ts, &this_msg[3], sizeof(unix_ts));
-    printf("unix_ts: 0x%08lx, %ld\n", unix_ts, unix_ts);
+    // printf("unix_ts: 0x%08lx, %ld\n", unix_ts, unix_ts);
     RTC_SetFromUnixTimestamp(&hrtc, unix_ts);
     mark_rtc_as_valid();
     int16_t utc_offset_minutes;
     memcpy(&utc_offset_minutes, &this_msg[7], sizeof(utc_offset_minutes));
     set_utc_offset(utc_offset_minutes);
     send_hid_cmd_response(hid_tx_buf);
+    draw_rtc_icon(1);
+    // printf("RTC has been set!\n");
   }
   /*
     DUMP SD
