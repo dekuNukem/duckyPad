@@ -17,6 +17,9 @@
 #include "fatfs.h"
 #include "dsb_cache.h"
 #include <setjmp.h>
+#include "usb_device.h"
+#include "usbd_customhid.h"
+#include "usbd_custom_hid_if.h"
 
 uint8_t bin_buf[BIN_BUF_SIZE] __attribute__((aligned(4)));
 uint8_t stack_buf[STACK_BUF_SIZE]  __attribute__((aligned(4)));
@@ -1509,9 +1512,12 @@ void execute_instruction(exe_context* exe)
   else if(opcode == OP_HIDTX)
   {
     uint32_t addr;
+    uint8_t hid_tempbuf[HIDTX_PACKET_SIZE];
     stack_pop(&data_stack, &addr);
     if(addr + HIDTX_PACKET_SIZE >= SCRATCH_MEM_END_ADDRESS_INCLUSIVE)
       longjmp(jmpbuf, EXE_ILLEGAL_ADDR);
+    read_bytes_safe(addr, hid_tempbuf, HIDTX_PACKET_SIZE);
+    USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, hid_tempbuf, HIDTX_PACKET_SIZE);
   }
   else
   {
