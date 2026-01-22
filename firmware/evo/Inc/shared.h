@@ -15,7 +15,8 @@
 #define STM32F0_UUID1 ((uint32_t *)0x1FFFF7B0)
 #define STM32F0_UUID2 ((uint32_t *)0x1FFFF7B4)
 
-#define RTC_BACKUP_REG RTC_BKP_DR0
+#define RTC_MAGICNUM_REG RTC_BKP_DR0
+#define RTC_UTC_OFFSET_REG RTC_BKP_DR1
 #define RTC_MAGIC_NUMBER 0xd11c
 
 void delay_ms(uint32_t amount);
@@ -28,6 +29,8 @@ uint8_t is_rtc_valid(void);
 void mark_rtc_as_valid(void);
 uint8_t RTC_SetFromUnixTimestamp(RTC_HandleTypeDef *rtc_ptr, uint32_t unix_timestamp);
 struct tm* get_local_time(RTC_HandleTypeDef *rtc_ptr, int16_t offset_minutes);
+void set_utc_offset(int16_t minutes);
+int16_t get_utc_offset(void);
 
 extern char temp_buf[TEMP_BUFSIZE];
 

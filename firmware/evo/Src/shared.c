@@ -56,14 +56,26 @@ uint32_t get_uuid(void)
 
 uint8_t is_rtc_valid(void)
 {
-  return HAL_RTCEx_BKUPRead(&hrtc, RTC_BACKUP_REG) == RTC_MAGIC_NUMBER;
+  return HAL_RTCEx_BKUPRead(&hrtc, RTC_MAGICNUM_REG) == RTC_MAGIC_NUMBER;
 }
 
 void mark_rtc_as_valid(void)
 {
   HAL_PWR_EnableBkUpAccess();
-  HAL_RTCEx_BKUPWrite(&hrtc, RTC_BACKUP_REG, RTC_MAGIC_NUMBER);
+  HAL_RTCEx_BKUPWrite(&hrtc, RTC_MAGICNUM_REG, RTC_MAGIC_NUMBER);
   HAL_PWR_DisableBkUpAccess();
+}
+
+void set_utc_offset(int16_t minutes)
+{
+  HAL_PWR_EnableBkUpAccess();
+  HAL_RTCEx_BKUPWrite(&hrtc, RTC_UTC_OFFSET_REG, (uint32_t)minutes);
+  HAL_PWR_DisableBkUpAccess();
+}
+
+int16_t get_utc_offset(void)
+{
+  return (int16_t)HAL_RTCEx_BKUPRead(&hrtc, RTC_UTC_OFFSET_REG);
 }
 
 uint8_t RTC_SetFromUnixTimestamp(RTC_HandleTypeDef *rtc_ptr, uint32_t unix_timestamp)
@@ -75,18 +87,14 @@ uint8_t RTC_SetFromUnixTimestamp(RTC_HandleTypeDef *rtc_ptr, uint32_t unix_times
   struct tm *time_info = localtime(&raw_time);
   if (time_info == NULL)
     return 11;
-  // 3. Populate Time Structure
   sTime.Hours = time_info->tm_hour;
   sTime.Minutes = time_info->tm_min;
   sTime.Seconds = time_info->tm_sec;
   sTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
   sTime.StoreOperation = RTC_STOREOPERATION_RESET;
-  // Set Time (Use RTC_FORMAT_BIN to let HAL handle BCD conversion)
   status = HAL_RTC_SetTime(rtc_ptr, &sTime, RTC_FORMAT_BIN);
   if (status != HAL_OK)
     return 22;
-  // 4. Populate Date Structure
-  // Map standard WeekDay (0=Sun, 1=Mon...) to HAL (1=Mon... 7=Sun)
   if (time_info->tm_wday == 0)
     sDate.WeekDay = RTC_WEEKDAY_SUNDAY;
   else

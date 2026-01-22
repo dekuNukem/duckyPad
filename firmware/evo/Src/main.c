@@ -238,6 +238,7 @@ int main(void)
   {
     uint8_t rtc_set_result = RTC_SetFromUnixTimestamp(&hrtc, 1769102406);
     mark_rtc_as_valid();
+    set_utc_offset(5*60);
     printf("rtc_set: %d\n", rtc_set_result);
   }
 
