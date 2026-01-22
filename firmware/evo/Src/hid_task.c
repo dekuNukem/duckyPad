@@ -94,18 +94,7 @@ uint8_t parse_hid_goto_profile_by_name(const uint8_t* this_buf)
   return 255;
 }
 
-void split_uint16(uint16_t input, uint8_t* high_byte, uint8_t* low_byte)
-{
-  if (high_byte == NULL || low_byte == NULL)
-    return;
-  *high_byte = (input >> 8) & 0xFF;
-  *low_byte = input & 0xFF;
-}
-
-uint16_t combine_uint16(uint8_t high_byte, uint8_t low_byte)
-{
-  return ((uint16_t)high_byte << 8) | low_byte;
-}
+#define DUMP_PGV_MAX_COPY_SIZE 60
 
 void parse_hid_msg(uint8_t* this_msg)
 {
@@ -124,20 +113,25 @@ void parse_hid_msg(uint8_t* this_msg)
   -----------
   PC to duckyPad:
   [0]   Usage ID, always 5
-  [1]   Unused
-  [2]   Command
+  [1]   reserved
+  [2]   Command: Dump PGV
+  [3]   PGV Index
   -----------
   duckyPad to PC
   [0]   Usage ID, always 4
-  [1]   Unused
-  [2]   Status, 0 = OK
-  [3-4] GV0
-  [5-6] GV1
-  .....
-  [61-62] GV29
+  [1]   reserved
+  [2]   0 = OK
+  [3-63] Memory Content
   */
   if(command_type == HID_COMMAND_DUMP_GV)
   {
+    uint16_t pgv_byte_idx_start = this_msg[3] * sizeof(uint32_t);
+    // printf("pgv_byte_idx_start: 0x%04X\n", pgv_byte_idx_start);
+    uint16_t bytes_to_copy = DUMP_PGV_MAX_COPY_SIZE;
+    while(pgv_byte_idx_start + bytes_to_copy >= PGV_BUF_SIZE && bytes_to_copy != 0)
+      bytes_to_copy--;
+    // printf("bytes_to_copy: 0x%04X\n", bytes_to_copy);
+    memcpy(hid_tx_buf+3, pgv_buf+pgv_byte_idx_start, bytes_to_copy);
     send_hid_cmd_response(hid_tx_buf);
     return;
   }
@@ -146,23 +140,35 @@ void parse_hid_msg(uint8_t* this_msg)
     -----------
     PC to duckyPad:
     [0]   Usage ID, always 5
-    [1]   Unused
-    [2]   Command
+    [1]   reserved
+    [2]   Command: Write GV
 
     [3] 127 + GV index (0 indexed)
-    [4] Upper Byte
-    [5] Lower Byte
+    [4] LSB
+    [5] B1
+    [6] B2
+    [7] MSB
 
-    [6-8] next chunk (if needed)
+    [8-12] next chunk (if needed)
     etc
     -----------
     duckyPad to PC
     [0]   Usage ID, always 4
-    [1]   Unused
-    [2]   Status, 0 = OK
+    [1]   reserved
+    [2]   0 = OK
   */
-  else if(command_type == HID_COMMAND_WRITE_GV)
+  if(command_type == HID_COMMAND_WRITE_GV)
   {
+    for (size_t i = 3; i < HID_TX_BUF_SIZE; i+=5)
+    {
+      if((this_msg[i] & 0x80) == 0)
+        continue;
+      uint8_t this_gv_index = this_msg[i] & 0x7f;
+      if(this_gv_index >= PGV_COUNT)
+        continue;
+      memcpy(&pgv_buf[this_gv_index*PGV_BYTE_WIDTH], &this_msg[i+1], PGV_BYTE_WIDTH);
+      needs_gv_save = 1;
+    }
     send_hid_cmd_response(hid_tx_buf);
     return;
   }
@@ -172,7 +178,7 @@ void parse_hid_msg(uint8_t* this_msg)
     [1]   Unused
     [2]   Status
   */
-  else if(is_busy)
+  if(is_busy)
   {
     hid_tx_buf[2] = HID_RESPONSE_BUSY;
     send_hid_cmd_response(hid_tx_buf);
@@ -196,8 +202,11 @@ void parse_hid_msg(uint8_t* this_msg)
     [5]   firmware version patch
     [6]   hardware revision
     [7 - 10]   UUID (uint32_t)
-    [12]   current profile
-    [13] is_sleeping
+    [11] current profile
+    [12] is_sleeping
+    [13] is_rtc_valid
+    [14-15]: UTC offset
+    [16-17]: UNIX timestamp (uint32_t)
   */
   if(command_type == HID_COMMAND_GET_INFO)
   {
@@ -211,6 +220,11 @@ void parse_hid_msg(uint8_t* this_msg)
     hid_tx_buf[10] = (uint8_t)(get_uuid() >> 24);
     hid_tx_buf[11] = current_profile_number;
     hid_tx_buf[12] = is_sleeping;
+    hid_tx_buf[13] = is_rtc_valid;
+    int16_t utc_offset_minutes = get_utc_offset();
+    memcpy(hid_tx_buf+14, &utc_offset_minutes, sizeof(utc_offset_minutes));
+    uint32_t current_time = get_unix_ts(&hrtc);
+    memcpy(hid_tx_buf+16, &current_time, sizeof(current_time));
     send_hid_cmd_response(hid_tx_buf);
   }
   /*
@@ -364,6 +378,34 @@ void parse_hid_msg(uint8_t* this_msg)
     wakeup_from_sleep_and_load_profile(current_profile_number);
     send_hid_cmd_response(hid_tx_buf);
   }
+
+  /*
+    Set RTC
+    -----------
+    PC to duckyPad:
+    [0]   Usage ID, always 5
+    [1]   reserved
+    [2]   command
+    [3-6] UNIX Timestamp
+    [7-8] UTC Offset
+    -----------
+    duckyPad to PC
+    [0]   Usage ID, always 4
+    [1]   reserved
+    [2]   0 = OK
+  */
+  else if(command_type == HID_COMMAND_SET_RTC)
+  {
+    uint32_t unix_ts;
+    memcpy(&unix_ts, &this_msg[3], sizeof(unix_ts));
+    printf("unix_ts: 0x%08lx, %ld\n", unix_ts, unix_ts);
+    RTC_SetFromUnixTimestamp(&hrtc, unix_ts);
+    mark_rtc_as_valid();
+    int16_t utc_offset_minutes;
+    memcpy(&utc_offset_minutes, &this_msg[7], sizeof(utc_offset_minutes));
+    set_utc_offset(utc_offset_minutes);
+    send_hid_cmd_response(hid_tx_buf);
+  }
   /*
     DUMP SD
     -----------
@@ -374,7 +416,6 @@ void parse_hid_msg(uint8_t* this_msg)
     -----------
     duckyPad to PC
     See excel file
-
   */
   else if(command_type == HID_COMMAND_DUMP_SD)
   {
@@ -564,13 +605,13 @@ void parse_hid_msg(uint8_t* this_msg)
   }
 }
 
-void handle_hid_command(uint8_t* hid_rx_buf)
+void handle_hid_command(uint8_t* hid_msg)
 {
   uint32_t ke_start = millis();
-  if(hid_rx_buf[0] == 1) // LED
-    kb_led_status = hid_rx_buf[1];
-  else if(hid_rx_buf[0] == 5) // PC data
-    parse_hid_msg(hid_rx_buf);
+  if(hid_msg[0] == 1) // LED
+    kb_led_status = hid_msg[1];
+  else if(hid_msg[0] == 5) // PC data
+    parse_hid_msg(hid_msg);
   // printf("HID %ldms\n", millis() - ke_start);
 }
 

@@ -109,7 +109,7 @@ uint8_t RTC_SetFromUnixTimestamp(RTC_HandleTypeDef *rtc_ptr, uint32_t unix_times
   return 0;
 }
 
-struct tm* get_local_time(RTC_HandleTypeDef *rtc_ptr, int16_t offset_minutes)
+uint32_t get_unix_ts(RTC_HandleTypeDef *rtc_ptr)
 {
   RTC_TimeTypeDef sTime = {0};
   RTC_DateTypeDef sDate = {0};
@@ -126,8 +126,12 @@ struct tm* get_local_time(RTC_HandleTypeDef *rtc_ptr, int16_t offset_minutes)
   temp_tm.tm_sec  = sTime.Seconds;
   temp_tm.tm_isdst = 0; // Explicitly set DST to 0 (we are handling offsets manually)
 
-  time_t utc_epoch = mktime(&temp_tm);
-  time_t local_epoch = utc_epoch + (offset_minutes * 60);
+  return mktime(&temp_tm);
+}
 
+struct tm* get_local_time(RTC_HandleTypeDef *rtc_ptr, int16_t offset_minutes)
+{
+  time_t utc_epoch = get_unix_ts(rtc_ptr);
+  time_t local_epoch = utc_epoch + (offset_minutes * 60);
   return localtime(&local_epoch);
 }

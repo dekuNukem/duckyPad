@@ -31,6 +31,7 @@ uint8_t RTC_SetFromUnixTimestamp(RTC_HandleTypeDef *rtc_ptr, uint32_t unix_times
 struct tm* get_local_time(RTC_HandleTypeDef *rtc_ptr, int16_t offset_minutes);
 void set_utc_offset(int16_t minutes);
 int16_t get_utc_offset(void);
+uint32_t get_unix_ts(RTC_HandleTypeDef *rtc_ptr);
 
 extern char temp_buf[TEMP_BUFSIZE];
 
