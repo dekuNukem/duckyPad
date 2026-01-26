@@ -111,7 +111,11 @@ UART_HandleTypeDef huart3;
   Jan 18 2026
   3.0.0
   Porting DSVM2
-  Done!
+
+  Jan 26 2026
+  3.0.1
+  Fixed Linux empty HID packet bug
+
 */
 
 /*
@@ -124,7 +128,7 @@ uint32_t current_tick;
 
 uint8_t fw_version_major = 3;
 uint8_t fw_version_minor = 0;
-uint8_t fw_version_patch = 0;
+uint8_t fw_version_patch = 1;
 uint8_t dsvm_version = 2;
 
 uint8_t uart_byte_buf[1];
