@@ -567,7 +567,7 @@ uint32_t memread_u32(uint16_t vm_addr)
   if (vm_addr == _DONT_REPEAT)
     return disable_autorepeat;
   if (vm_addr == _THIS_KEYID)
-    return current_key_id;
+    return current_key_id + 1;
   if (vm_addr == _DP_MODEL)
     return 2;
   if (vm_addr == _RTC_IS_VALID)
