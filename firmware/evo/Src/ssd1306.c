@@ -3,6 +3,7 @@
 #include "main.h"
 #include "stdint.h"
 #include "shared.h"
+#include <string.h>
 
 #define SSD1306_LCDWIDTH 128
 #define SSD1306_LCDHEIGHT 64
@@ -95,12 +96,9 @@ uint8_t ssd1306_Init(void)
 	return 1;
 }
 
-void ssd1306_Fill(SSD1306_COLOR color) 
+void ssd1306_Fill(SSD1306_COLOR color)
 {
-	for(uint32_t i = 0; i < sizeof(SSD1306_Buffer); i++)
-	{
-		SSD1306_Buffer[i] = (color == Black) ? 0x00 : 0xFF;
-	}
+    memset(SSD1306_Buffer, (color == Black) ? 0x00 : 0xFF, sizeof(SSD1306_Buffer));
 }
 
 void ssd1306_UpdateScreen(void) 
@@ -264,6 +262,7 @@ void ssd1306_DrawCircle(uint8_t par_x,uint8_t par_y,uint8_t par_r,SSD1306_COLOR 
 
     return;
 }
+
 void ssd1306_FillCircle(uint8_t par_x, uint8_t par_y, uint8_t par_r, SSD1306_COLOR par_color) {
     int32_t x = -par_r;
     int32_t y = 0;
@@ -271,14 +270,6 @@ void ssd1306_FillCircle(uint8_t par_x, uint8_t par_y, uint8_t par_r, SSD1306_COL
     int32_t e2;
 
     do {
-        // Instead of drawing a rectangle, we draw horizontal lines connecting the edges
-        // This is much faster as it draws each pixel only once.
-
-        // Determine the horizontal lines to draw
-        // We have 4 points: (x,y), (x,-y), (-x,y), (-x,-y) relative to center.
-        // We connect (-x, y) to (x, y) and (-x, -y) to (x, -y).
-        // Since x is negative, the left point is (par_x + x) and right is (par_x - x).
-        
         int x_left = par_x + x;
         int x_right = par_x - x;
         
@@ -326,19 +317,39 @@ void ssd1306_DrawRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, SSD13
     return;
 }
 
-/* Draw a filled rectangle */
 void ssd1306_FillRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, SSD1306_COLOR color) {
-    uint8_t x_start = ((x1<=x2) ? x1 : x2);
-    uint8_t x_end   = ((x1<=x2) ? x2 : x1);
-    uint8_t y_start = ((y1<=y2) ? y1 : y2);
-    uint8_t y_end   = ((y1<=y2) ? y2 : y1);
+    // 1. Sort coordinates
+    if (x1 > x2) { uint8_t t = x1; x1 = x2; x2 = t; }
+    if (y1 > y2) { uint8_t t = y1; y1 = y2; y2 = t; }
 
-    for (uint8_t y= y_start; (y<= y_end)&&(y<SSD1306_HEIGHT); y++) {
-        for (uint8_t x= x_start; (x<= x_end)&&(x<SSD1306_WIDTH); x++) {
-            ssd1306_DrawPixel(x, y, color);
+    // 2. Clip to screen bounds
+    if (x2 >= SSD1306_WIDTH) x2 = SSD1306_WIDTH - 1;
+    if (y2 >= SSD1306_HEIGHT) y2 = SSD1306_HEIGHT - 1;
+
+    // 3. Iterate over the pages (vertical byte blocks) involved
+    for (uint8_t page = 0; page < (SSD1306_HEIGHT / 8); page++) {
+        uint8_t page_y_start = page * 8;
+        uint8_t page_y_end = page_y_start + 7;
+
+        // Skip pages that don't intersect the rectangle
+        if (y1 > page_y_end || y2 < page_y_start) continue;
+
+        // Calculate the bitmask for this page (0xFF means full vertical coverage)
+        uint8_t start_bit = (y1 > page_y_start) ? (y1 % 8) : 0;
+        uint8_t end_bit   = (y2 < page_y_end)   ? (y2 % 8) : 7;
+        
+        uint8_t mask = 0;
+        for (uint8_t i = start_bit; i <= end_bit; i++) mask |= (1 << i);
+
+        // Apply the mask to the column range
+        uint32_t buffer_offset = page * SSD1306_WIDTH;
+        for (int x = x1; x <= x2; x++) {
+            if (color == White)
+                SSD1306_Buffer[buffer_offset + x] |= mask;
+            else
+                SSD1306_Buffer[buffer_offset + x] &= ~mask;
         }
     }
-    return;
 }
 
 void ssd1306_GetCursor(uint8_t *x, uint8_t *y)
