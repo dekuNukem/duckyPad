@@ -124,7 +124,6 @@ void ssd1306_DrawPixel(uint8_t x, uint8_t y, SSD1306_COLOR color)
 	if (SSD1306.Inverted) 
 		color = (SSD1306_COLOR)!color;
 
-	
 	if (color == White)
 		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] |= 1 << (y % 8);
 	else 
@@ -265,22 +264,43 @@ void ssd1306_DrawCircle(uint8_t par_x,uint8_t par_y,uint8_t par_r,SSD1306_COLOR 
 
     return;
 }
-
-/* Draw filled circle. Pixel positions calculated using Bresenham's algorithm */
-void ssd1306_FillCircle(uint8_t par_x,uint8_t par_y,uint8_t par_r,SSD1306_COLOR par_color) {
+void ssd1306_FillCircle(uint8_t par_x, uint8_t par_y, uint8_t par_r, SSD1306_COLOR par_color) {
     int32_t x = -par_r;
     int32_t y = 0;
     int32_t err = 2 - 2 * par_r;
     int32_t e2;
 
-    if (par_x >= SSD1306_WIDTH || par_y >= SSD1306_HEIGHT) {
-        return;
-    }
-
     do {
-        for (uint8_t _y = (par_y + y); _y >= (par_y - y); _y--) {
-            for (uint8_t _x = (par_x - x); _x >= (par_x + x); _x--) {
-                ssd1306_DrawPixel(_x, _y, par_color);
+        // Instead of drawing a rectangle, we draw horizontal lines connecting the edges
+        // This is much faster as it draws each pixel only once.
+
+        // Determine the horizontal lines to draw
+        // We have 4 points: (x,y), (x,-y), (-x,y), (-x,-y) relative to center.
+        // We connect (-x, y) to (x, y) and (-x, -y) to (x, -y).
+        // Since x is negative, the left point is (par_x + x) and right is (par_x - x).
+        
+        int x_left = par_x + x;
+        int x_right = par_x - x;
+        
+        // Clip X bounds
+        if (x_left < 0) x_left = 0;
+        if (x_right >= SSD1306_WIDTH) x_right = SSD1306_WIDTH - 1;
+
+        // We need to draw two lines: one at upper Y, one at lower Y
+        int y_upper = par_y - y;
+        int y_lower = par_y + y;
+
+        // Draw Upper Line
+        if (y_upper >= 0 && y_upper < SSD1306_HEIGHT) {
+            for (int i = x_left; i <= x_right; i++) {
+                ssd1306_DrawPixel(i, y_upper, par_color);
+            }
+        }
+        
+        // Draw Lower Line (only if distinct from upper)
+        if (y_lower >= 0 && y_lower < SSD1306_HEIGHT && y_lower != y_upper) {
+            for (int i = x_left; i <= x_right; i++) {
+                ssd1306_DrawPixel(i, y_lower, par_color);
             }
         }
 
@@ -288,18 +308,13 @@ void ssd1306_FillCircle(uint8_t par_x,uint8_t par_y,uint8_t par_r,SSD1306_COLOR 
         if (e2 <= y) {
             y++;
             err = err + (y * 2 + 1);
-            if (-x == y && e2 <= x) {
-                e2 = 0;
-            }
+            if (-x == y && e2 <= x) e2 = 0;
         }
-
         if (e2 > x) {
             x++;
             err = err + (x * 2 + 1);
         }
     } while (x <= 0);
-
-    return;
 }
 
 /* Draw a rectangle */

@@ -2,7 +2,7 @@ DEFINE OLED_WIDTH 128
 DEFINE OLED_HEIGHT 64
 DEFINE SCALE_FACTOR 10
 DEFINE GRAVITY 2
-DEFINE JUMP_STRENGTH -18
+DEFINE JUMP_STRENGTH -20
 
 // ------ bird ------
 DEFINE BIRD_START_X 20
@@ -12,7 +12,7 @@ VAR bird_velocity_y = 0
 VAR bird_y_scaled = BIRD_START_Y * SCALE_FACTOR
 
 // ------- walls -------
-DEFINE WALL_THICKNESS_PIXELS 6
+DEFINE WALL_THICKNESS_PIXELS 4
 DEFINE WALL_START_POS_X 150
 DEFINE DEFAULT_WALL_SPACING 40
 DEFINE WALL_RESET_THRESHOLD_SCALED (-1 * WALL_THICKNESS_PIXELS * SCALE_FACTOR)
@@ -158,7 +158,7 @@ FUN bird_update()
     OLED_CIRCLE BIRD_START_X bird_draw_y BIRD_RADIUS 1
 
     // collision detection, floor and ceiling
-    IF (bird_draw_y <= (BIRD_RADIUS*2)) || (bird_draw_y >= OLED_HEIGHT)
+    IF (bird_draw_y <= 0) || (bird_draw_y >= OLED_HEIGHT)
         game_over()
     END_IF
 
