@@ -376,7 +376,7 @@ void keypress_task(void)
       ssd1306_SetContrast(OLED_CONTRAST_DIM);
     
     if(is_sleeping == 0)
-      update_kbled_icon(kb_led_status);
+      draw_kbled_icon(0, 1);
 
     switch_event_t sw_event = {0};
     if(q_pop(&switch_event_queue, &sw_event) == 0)
@@ -387,7 +387,7 @@ void keypress_task(void)
 
     is_busy = 1;
     handle_sw_event(&sw_event);
-    update_last_keypress();    
+    update_last_keypress();
     is_busy = 0;
   }
 }
