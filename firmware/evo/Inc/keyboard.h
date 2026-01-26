@@ -63,7 +63,6 @@
 #define KEY_MK_PREV 0x2
 #define KEY_MK_NEXT 0x1
 
-#define HID_TX_BUF_SIZE (CUSTOM_HID_EPIN_SIZE+1)
 #define DP_HID_MSG_SIZE 9
 
 #define KEY_TYPE_UNKNOWN 0

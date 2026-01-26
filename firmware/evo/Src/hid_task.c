@@ -18,7 +18,7 @@
 #include "md5.h"
 
 #define HID_DP_TO_PC_USAGE_ID 4
-#define HID_TX_BUF_SIZE (CUSTOM_HID_EPIN_SIZE+1)
+#define HID_TX_BUF_SIZE CUSTOM_HID_EPIN_SIZE
 uint8_t hid_tx_buf[HID_TX_BUF_SIZE];
 
 volatile uint8_t needs_gv_save;

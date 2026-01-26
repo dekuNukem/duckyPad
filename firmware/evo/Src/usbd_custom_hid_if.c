@@ -212,7 +212,7 @@ __ALIGN_BEGIN static uint8_t CUSTOM_HID_ReportDesc_FS[USBD_CUSTOM_HID_REPORT_DES
   // IN Report (Device to Host)
   0x85, 0x04,                    //   Report ID (4)
   0x75, 0x08,                    //   Report Size (8)
-  0x95, CUSTOM_HID_EPIN_SIZE,    //   Report Count (Byte length)
+  0x95, (CUSTOM_HID_EPIN_SIZE-1),    //   Report Count (Byte length)
   0x09, 0x3A,                    //   Usage (Counted Buffer)
   0x81, 0x82,                    //   Input (Data, Var, Abs, Volatile)
 
