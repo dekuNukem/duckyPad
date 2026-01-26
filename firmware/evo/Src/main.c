@@ -82,7 +82,6 @@ TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim17;
 
 UART_HandleTypeDef huart1;
-UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
 
@@ -115,13 +114,7 @@ UART_HandleTypeDef huart3;
   Jan 26 2026
   3.0.1
   Fixed Linux empty HID packet bug
-
-*/
-
-/*
-  TODO:
-  Expansion module code
-  Are all HID commands implemented?
+  Removed unused USART3 code
 */
 
 uint32_t current_tick;
@@ -131,7 +124,6 @@ uint8_t fw_version_minor = 0;
 uint8_t fw_version_patch = 1;
 uint8_t dsvm_version = 2;
 
-uint8_t uart_byte_buf[1];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -141,7 +133,6 @@ static void MX_USART1_UART_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_TIM17_Init(void);
-static void MX_USART3_UART_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_RTC_Init(void);
 /* USER CODE BEGIN PFP */
@@ -170,12 +161,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   NVIC_SystemReset();
-}
-
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
-{
-  // printf("EXP %02x ", uart_byte_buf[0]);
-  // HAL_UART_Receive_IT(&huart3, uart_byte_buf, 1);
 }
 
 /* USER CODE END 0 */
@@ -214,7 +199,6 @@ int main(void)
   MX_I2C1_Init();
   MX_USB_DEVICE_Init();
   MX_TIM17_Init();
-  MX_USART3_UART_Init();
   MX_TIM2_Init();
   MX_RTC_Init();
   /* USER CODE BEGIN 2 */
@@ -249,7 +233,6 @@ int main(void)
   load_keymap_by_name(dp_settings.current_kb_layout);
   load_gv();
   profile_init();
-  HAL_UART_Receive_IT(&huart3, uart_byte_buf, 1);
   keypress_task();
   
   // we should never get here
@@ -577,43 +560,6 @@ static void MX_USART1_UART_Init(void)
   /* USER CODE BEGIN USART1_Init 2 */
 
   /* USER CODE END USART1_Init 2 */
-
-}
-
-/**
-  * @brief USART3 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_USART3_UART_Init(void)
-{
-
-  /* USER CODE BEGIN USART3_Init 0 */
-
-  /* USER CODE END USART3_Init 0 */
-
-  /* USER CODE BEGIN USART3_Init 1 */
-
-  /* USER CODE END USART3_Init 1 */
-  huart3.Instance = USART3;
-  huart3.Init.BaudRate = 115200;
-  huart3.Init.WordLength = UART_WORDLENGTH_8B;
-  huart3.Init.StopBits = UART_STOPBITS_1;
-  huart3.Init.Parity = UART_PARITY_NONE;
-  huart3.Init.Mode = UART_MODE_TX_RX;
-  huart3.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart3.Init.OverSampling = UART_OVERSAMPLING_16;
-  huart3.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
-  huart3.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_RXOVERRUNDISABLE_INIT|UART_ADVFEATURE_DMADISABLEONERROR_INIT;
-  huart3.AdvancedInit.OverrunDisable = UART_ADVFEATURE_OVERRUN_DISABLE;
-  huart3.AdvancedInit.DMADisableonRxError = UART_ADVFEATURE_DMA_DISABLEONRXERROR;
-  if (HAL_UART_Init(&huart3) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USART3_Init 2 */
-
-  /* USER CODE END USART3_Init 2 */
 
 }
 
