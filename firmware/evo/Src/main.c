@@ -115,13 +115,20 @@ UART_HandleTypeDef huart1;
   3.0.1
   Fixed Linux empty HID packet bug
   Removed unused USART3 code
+
+  Jan 28 2026
+  3.0.2
+  fixed RTC update hang
+  faster OLED drawing
+  only draw rtc icon when not sleeping
+  only draws keyboard LED indicator when USB is connected
 */
 
 uint32_t current_tick;
 
 uint8_t fw_version_major = 3;
 uint8_t fw_version_minor = 0;
-uint8_t fw_version_patch = 1;
+uint8_t fw_version_patch = 2;
 uint8_t dsvm_version = 2;
 
 /* USER CODE END PV */
