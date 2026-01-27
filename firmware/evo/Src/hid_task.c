@@ -405,7 +405,8 @@ void parse_hid_msg(uint8_t* this_msg)
     memcpy(&utc_offset_minutes, &this_msg[7], sizeof(utc_offset_minutes));
     set_utc_offset(utc_offset_minutes);
     send_hid_cmd_response(hid_tx_buf);
-    draw_rtc_icon(1);
+    if(!is_sleeping)
+      draw_rtc_icon(1);
     // printf("RTC has been set!\n");
   }
   /*
