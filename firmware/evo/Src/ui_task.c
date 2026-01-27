@@ -137,7 +137,7 @@ void draw_kbled_icon(uint8_t force_redraw, uint8_t refresh_screen)
   // scroll lock
   color = (kb_led_status & 0x4) ? White : Black;
   ssd1306_FillCircle(126, 4, 1, color);
-  if(hUsbDeviceFS.dev_state == USBD_STATE_CONFIGURED)
+  if(this_state & 0x80)
   {
     ssd1306_Line(117, 0, 119, 0, White);
     ssd1306_Line(121, 0, 123, 0, White);

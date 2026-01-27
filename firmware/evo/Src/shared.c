@@ -87,14 +87,13 @@ uint8_t RTC_SetFromUnixTimestamp(RTC_HandleTypeDef *rtc_ptr, uint32_t unix_times
   struct tm *time_info = localtime(&raw_time);
   if (time_info == NULL)
     return 11;
+  HAL_PWR_EnableBkUpAccess();
   sTime.Hours = time_info->tm_hour;
   sTime.Minutes = time_info->tm_min;
   sTime.Seconds = time_info->tm_sec;
   sTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
   sTime.StoreOperation = RTC_STOREOPERATION_RESET;
   status = HAL_RTC_SetTime(rtc_ptr, &sTime, RTC_FORMAT_BIN);
-  if (status != HAL_OK)
-    return 22;
   if (time_info->tm_wday == 0)
     sDate.WeekDay = RTC_WEEKDAY_SUNDAY;
   else
@@ -106,6 +105,7 @@ uint8_t RTC_SetFromUnixTimestamp(RTC_HandleTypeDef *rtc_ptr, uint32_t unix_times
   // STM32 HAL usually expects 2-digits for years 2000-2099
   sDate.Year = (uint8_t)(time_info->tm_year - 100);
   status = HAL_RTC_SetDate(rtc_ptr, &sDate, RTC_FORMAT_BIN);
+  HAL_PWR_DisableBkUpAccess();
   return 0;
 }
 
