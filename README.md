@@ -67,7 +67,7 @@ duckyScript is a no-brainer for **power users** with more demanding scripting ne
 
 ## 🆕 duckyPad Pro
 
-duckyPad Pro is an updated model released in 2024 with:
+duckyPad Pro is an updated model with:
 
 * Rotary Encoders
 * More Keys
@@ -76,14 +76,13 @@ duckyPad Pro is an updated model released in 2024 with:
 * More Script Storage
 * Expansion Module
 
-👉👉👉👉👉 [Purchase Link](https://www.tindie.com/products/37399/) | [More Info](https://dekunukem.github.io/duckyPad-Pro/)
+👉👉👉 [Purchase Link](https://www.tindie.com/products/37399/) | [More Info](https://dekunukem.github.io/duckyPad-Pro/)
 
 ![Alt text](https://github.com/dekuNukem/duckyPad-Pro/blob/master/resources/photos/title.jpeg?raw=true)
 
 ## Discord Community
 
 Feel free to join our [Official Discord](https://discord.gg/4sJCBx5) for discussions, questions, sharing scripts, and latest updates!
-
 
 ## How It Works / Showcase
 
@@ -269,31 +268,15 @@ duckyPad supports multiple keyboard layouts:
 
 [Click me](resources/pics/dimensions.png) for dimensions drawings.
 
-## I want one!
+## Getting Started
+
+Please see [the instruction manual](./getting_started.md) on how to use your duckyPad.
+
+## I Want One!
 
 duckyPad is [now available on Tindie.](https://www.tindie.com/products/21984)
 
 Also consider [joining our discord](https://discord.gg/4sJCBx5) for latest updates and discussions.
-
-## Press Kit / More Photos
-
-[Click me](https://drive.google.com/drive/folders/1unbhvTEYcIKlmMEPPsL88o1tNOvzpQyo?usp=sharing) to download some high-resolution photos of duckyPad, feel free to share them.
-
-## Getting started
-
-Please see [the instruction manual](./getting_started.md) on how to use your duckyPad.
-
-## Making one yourself
-
-Please see [this guide](./build_it_yourself.md).
-
-## Derivatives
-
-A number of projects are based on duckyPad, they are listed here!
-
-* simonCor ported this project to a [STM32F4 black pill](https://github.com/simonCor/poor-mans-ducky-pad), with hand-soldered connections and 3D-printed case, very neat!
-
-* headslash is working on [Frankenduck](https://github.com/headslash/Frankenduck), with redesigned PCB, 3D-printed case, and extra switches.
 
 ## Table of Contents
 
