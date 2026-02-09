@@ -6,21 +6,27 @@
 
 ## Latest Firmware
 
-### 2.3.2 (July 9 2025)
+### v3.0.2
 
-🆕 Increased Persistent Global Variable count to 32
+9 Feb 2026
 
-🆕 Added support for **reading and writing PGVs from a computer**. [Details](https://github.com/duckyPad/duckyPad-Profile-Autoswitcher/blob/master/HID_details.md)
+* 🆕 **"Turing Complete" Mega-update**
+	* **32-bit** Overhaul
+	* Proper **Function Calls**
+	* **Print Format** Specifiers
+	* **Horizontal** Mouse Scrolling
+	* **New Commands**, Bug Fixes, and much more!
+* 👉 [**Full Details & Changelog**](https://dekunukem.github.io/duckyPad-Pro/doc/beta_test.html)
 
-🐞 Fixed a bug that caused PGVs to not work
+----------
 
-🐞 Fixed a bug where HID buffer was not properly cleared causing ghost inputs
+👇👇👇👇👇👇👇👇👇👇
 
-🐞 Fixed a bug that increased chance of SD card corruption
+* [Download Firmware](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v3.0.2.dfu)
 
-⚠️ Make sure to use the [Latest Configurator](https://github.com/duckyPad/duckyPad-Configurator/releases/latest)
+* Also the [Latest Configurator](https://github.com/duckyPad/duckyPad-Configurator/releases/latest) and [Autoswitcher](https://github.com/duckyPad/duckyPad-Profile-Autoswitcher/releases/latest)
 
-👉👉👉👉👉 [Download Here](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v2.3.2.dfu) 👈👈👈👈👈
+☝️☝️☝️☝️☝️☝️☝️☝️☝️☝️☝️
 
 ## USB Firmware Update
 
