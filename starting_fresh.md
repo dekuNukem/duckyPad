@@ -4,11 +4,9 @@
 
 ----
 
-Since its launch in 2020, the original duckyPad has seen several major software and firmware updates.
+Since its launch in 2020, the original duckyPad has seen several major updates with new features and bug fixes.
 
 This guide shows how to do a **clean upgrade** to the latest version.
-
-Ideal if you haven’t used it in a while and want to catch up on new features.
 
 ## Check Your Duck
 
@@ -45,7 +43,7 @@ This guide is for the **original duckyPad**
 
 ## Try It Out!
 
-* Unmount the SD Card from PC
+* Unmount the SD Card
 
 * Pop it back in duckyPad
 
@@ -68,7 +66,7 @@ If syntax errors pops up, it's likely due to the following changes:
 * `HOLD` and `EMUK` command are deprecated
 	* Use `KEYDOWN` and `KEYUP` in `on_press` and `on_release` instead.
 
-* [Read more about duckyScript here](https://dekunukem.github.io/duckyPad-Pro/doc/duckyscript_info.html)
+* [Read more about duckyScript](https://dekunukem.github.io/duckyPad-Pro/doc/duckyscript_info.html)
 
 ## How'd It Go?
 
