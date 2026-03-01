@@ -122,13 +122,17 @@ UART_HandleTypeDef huart1;
   faster OLED drawing
   only draw rtc icon when not sleeping
   only draws keyboard LED indicator when USB is connected
+	
+	Mar 1 2026
+	3.0.3
+	Fixed `GOTO_PROFILE` not working
 */
 
 uint32_t current_tick;
 
 uint8_t fw_version_major = 3;
 uint8_t fw_version_minor = 0;
-uint8_t fw_version_patch = 2;
+uint8_t fw_version_patch = 3;
 uint8_t dsvm_version = 2;
 
 /* USER CODE END PV */

@@ -613,10 +613,10 @@ void memwrite_u32(uint16_t vm_addr, uint32_t value)
     write_bytes_safe(vm_addr, &value, sizeof(value));
 }
 
-uint8_t str_is_integer(const char *str, long *out_value)
+uint8_t str_is_integer(const char *str, int32_t *out_value)
 {
   char *endptr;
-  long val = strtol(str, &endptr, 0);
+  int32_t val = strtol(str, &endptr, 0);
   if (str == endptr)
     return 0;
   if (*endptr != '\0')
@@ -628,6 +628,13 @@ uint8_t str_is_integer(const char *str, long *out_value)
 
 int8_t lookup_profile_index(const char* identifier)
 {
+  int32_t pf_int = -1;
+  if (str_is_integer(identifier, &pf_int))
+    if (pf_int >= 0 && pf_int < MAX_PROFILES && strlen(profile_name_list[pf_int]) > 0)
+      return (int8_t)pf_int;
+  for (uint8_t i = 0; i < MAX_PROFILES; i++)
+    if (strlen(profile_name_list[i]) > 0 && strcmp(identifier, profile_name_list[i]) == 0)
+      return (int8_t)i;
   return -1;
 }
 
