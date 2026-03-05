@@ -8,7 +8,7 @@
 
 ### v3.0.3
 
-5 Feb 2026
+5 Mar 2026
 
 * 🐞 Fixed `GOTO_PROFILE` not working
 * 🆕 **"Turing Complete" Mega-update**
