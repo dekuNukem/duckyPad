@@ -6,10 +6,11 @@
 
 ## Latest Firmware
 
-### v3.0.2
+### v3.0.3
 
-9 Feb 2026
+5 Feb 2026
 
+* 🐞 Fixed `GOTO_PROFILE` not working
 * 🆕 **"Turing Complete" Mega-update**
 	* **32-bit** Overhaul
 	* Proper **Function Calls**
@@ -22,7 +23,7 @@
 
 👇👇👇👇👇👇👇👇👇👇
 
-* [Download Firmware](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v3.0.2.dfu)
+* [Download Firmware](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v3.0.3.dfu)
 
 * Also the [Latest Configurator](https://github.com/duckyPad/duckyPad-Configurator/releases/latest) and [Autoswitcher](https://github.com/duckyPad/duckyPad-Profile-Autoswitcher/releases/latest)
 
@@ -48,7 +49,7 @@ If it went well, **the backlight and display should stay off**.
 
 Download and install the [STM32 DfuSe tool](resources/en.stsw-stm32080_stm32_DfuSe.zip) from this repo.
 
-(Also available from [official website](https://www.st.com/en/development-tools/stsw-stm32080.html), but requires creating an account.)
+(Also available from [official website](https://www.st.com/en/development-tools/stsw-stm32080.html), but requires account sign-up.)
 
 Launch `DfuSeDemo`:
 
@@ -58,7 +59,9 @@ In `Available DFU Devices`, you should see a `STM Device in DFU Mode`.
 
 ![Alt text](resources/pics/dfu_available.png)
 
-* **If nothing shows up**, you might need to install a driver. [Click me for details](https://github.com/dekuNukem/daytripper/blob/master/dfu_driver_install.md)
+* **⚠️ If nothing shows up**, you might need to install a driver.
+
+	* [Click me for details](https://github.com/dekuNukem/daytripper/blob/master/dfu_driver_install.md)
 
 * Press `Choose...` button
 
@@ -91,6 +94,16 @@ After completion, press **`RESET`** button (or power-cycle) to start using the n
 ---------------------
 
 ## Firmware Version History
+
+### v3.0.2 (Feb 9 2026)
+
+* 🆕 **"Turing Complete" Mega-update**
+	* **32-bit** Overhaul
+	* Proper **Function Calls**
+	* **Print Format** Specifiers
+	* **Horizontal** Mouse Scrolling
+	* **New Commands**, Bug Fixes, and much more!
+* 👉 [**Full Details & Changelog**](https://dekunukem.github.io/duckyPad-Pro/doc/beta_test.html)
 
 ### 2.3.2 (July 9 2025)
 
