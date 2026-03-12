@@ -244,12 +244,6 @@ Unfortunately with macOS, it's currently not possible to create keyboard shortcu
 
 ![Alt text](resources/pics/app/mac_spotlight.png)
 
-Within a given open app, you can create specific menu item shortcuts by going to `System Preferences` -> `Keyboard` -> `Shortcuts` -> `App Shortcuts`:
-
-Press `+` button, select app, assign a hotkey, and set up duckyPad accordingly:
-
-![Alt text](resources/pics/app/mac_sc.png)
-
 ### Advanced Scripting with Autohotkey
 
 You can use the free and open-source [Autohotkey](https://www.autohotkey.com) for even more advanced scripting needs.
