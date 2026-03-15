@@ -6,9 +6,9 @@
 
 ## Latest Firmware
 
-### v3.0.3
+### v3.0.4
 
-5 Mar 2026
+15 Mar 2026
 
 * 🐞 Increased Anykey-to-Abort Check Frequency
 * 🆕 **"Turing Complete" Mega-update**
