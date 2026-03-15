@@ -10,22 +10,15 @@
 
 5 Mar 2026
 
-* 🐞 Fixed `GOTO_PROFILE` not working
+* 🐞 Increased Anykey-to-Abort Check Frequency
 * 🆕 **"Turing Complete" Mega-update**
-	* **32-bit** Overhaul
-	* Proper **Function Calls**
-	* **Print Format** Specifiers
-	* **Horizontal** Mouse Scrolling
-	* **New Commands**, Bug Fixes, and much more!
-* 👉 [**Full Details & Changelog**](https://dekunukem.github.io/duckyPad-Pro/doc/beta_test.html)
+	* 👉 [**Full Details**](https://dekunukem.github.io/duckyPad-Pro/doc/beta_test.html)
 
 ----------
 
 👇👇👇👇👇👇👇👇👇👇
 
-* [Download Firmware](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v3.0.3.dfu)
-
-* Also the [Latest Configurator](https://github.com/duckyPad/duckyPad-Configurator/releases/latest) and [Autoswitcher](https://github.com/duckyPad/duckyPad-Profile-Autoswitcher/releases/latest)
+* [Download Firmware](https://github.com/dekuNukem/duckyPad/raw/master/firmware/duckypad_v3.0.4.dfu)
 
 ☝️☝️☝️☝️☝️☝️☝️☝️☝️☝️☝️
 
@@ -94,6 +87,10 @@ After completion, press **`RESET`** button (or power-cycle) to start using the n
 ---------------------
 
 ## Firmware Version History
+
+### v3.0.3 (5 Mar 2026)
+
+* 🐞 Fixed `GOTO_PROFILE` not working
 
 ### v3.0.2 (Feb 9 2026)
 
