@@ -240,9 +240,16 @@ In this case, the duckyScript would be `CONTROL ALT D`.
 
 ### Launching Apps on macOS
 
-Unfortunately with macOS, it's currently not possible to create keyboard shortcuts for general purpose tasks such as opening an app. You will need to invoke Spotlight via the Command-Space shortcut and then type the application name.
+Easiest way: Invoke Spotlight and type the application name.
 
-![Alt text](resources/pics/app/mac_spotlight.png)
+```
+COMMAND SPACE
+DELAY 500
+STRING firefox
+ENTER
+```
+
+You can also use third-party softwares such as [BetterTouchTool](https://folivora.ai).
 
 ### Advanced Scripting with Autohotkey
 
@@ -267,8 +274,6 @@ duckyPad can press a simple combo like `WIN + F1`, which triggers autohotkey to 
 * Write your own AHK script!
 
 Check out the [official tutorials](https://www.autohotkey.com/docs_1.0/Tutorial.htm), and how to [launch AHK on startup](https://www.autohotkey.com/docs/FAQ.htm#Startup).
-
-For macOS, you can try [bettertouchtool](https://folivora.ai).
 
 ## I'm Having Issues!
 
