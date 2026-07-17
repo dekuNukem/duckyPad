@@ -601,6 +601,37 @@ void parse_hid_msg(uint8_t* this_msg)
       hid_tx_buf[2] = HID_RESPONSE_GENERIC_ERROR;
     send_hid_cmd_response(hid_tx_buf);
   }
+  /*
+    SET LED SINGLE
+    -----------
+    PC to duckyPad:
+    [0]   Usage ID, always 5
+    [1]   Unused
+    [2]   Command
+    [3]   LED index (0 to NEOPIXEL_COUNT-1)
+    [4]   Red
+    [5]   Green
+    [6]   Blue
+    -----------
+    duckyPad to PC
+    [0]   Usage ID, always 4
+    [1]   Unused
+    [2]   Status, 0 = OK
+  */
+  else if(command_type == HID_COMMAND_SET_LED_SINGLE)
+  {
+    uint8_t led_index = this_msg[3];
+    if(led_index >= NEOPIXEL_COUNT)
+    {
+      hid_tx_buf[2] = HID_RESPONSE_INVALID_ARG;
+    }
+    else
+    {
+      set_pixel_3color_update_buffer(led_index, this_msg[4], this_msg[5], this_msg[6]);
+      neopixel_draw_current_buffer();
+    }
+    send_hid_cmd_response(hid_tx_buf);
+  }
   else // not a valid HID command
   {
     hid_tx_buf[2] = HID_RESPONSE_UNKNOWN_CMD;
